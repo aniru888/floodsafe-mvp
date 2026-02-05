@@ -4,6 +4,8 @@ build/
 __pycache__/
 *.pyc
 .env
+.env.*
+!.env.example
 .DS_Store
 coverage/
 .vscode/
@@ -22,8 +24,12 @@ direct-*.png
 mappicker-*.png
 mobile-*.png
 
-# Local Claude settings
+# Local Claude/MCP settings (machine-specific paths)
 .claude/settings.local.json
+.mcp.json
+.lsp.json
+.serena/cache/
+.serena/memories/
 
 # Test data files
 all_hotspots.json
@@ -33,3 +39,66 @@ route_test.json
 # Temporary files
 nul
 *.log
+
+# ============================================================
+# ML Service — Large data & binaries (NEVER COMMIT)
+# ============================================================
+
+# Training data directories (26GB+)
+apps/ml-service/data/_archive/
+apps/ml-service/data/aifloodsense/
+apps/ml-service/data/clip_filtered/
+apps/ml-service/data/flood_images/
+apps/ml-service/data/india_bing/
+apps/ml-service/data/india_bing_v2/
+apps/ml-service/data/india_ddg/
+apps/ml-service/data/india_urban_floods/
+apps/ml-service/data/indian_test/
+apps/ml-service/data/kaggle_downloads/
+apps/ml-service/data/kerala_floods/
+apps/ml-service/data/pilot_test/
+apps/ml-service/data/roadway_flooding/
+apps/ml-service/data/sohail_training/
+apps/ml-service/data/youtube_pilot/
+
+# Model binaries (202MB+)
+apps/ml-service/models/flood_classifier_savedmodel/
+apps/ml-service/models/sohail_flood_model.h5
+apps/ml-service/models/yolov8_flood/
+*.pt
+*.h5
+*.onnx
+*.tflite
+!apps/ml-service/models/.gitkeep
+
+# Virtual environments
+apps/ml-service/venv_tf214/
+venv/
+.venv/
+
+# ============================================================
+# Binary tools & archives (not source code)
+# ============================================================
+koyeb-cli-extracted/
+koyeb-cli.zip
+*.zip
+
+# ============================================================
+# Research PDFs & papers (not source code)
+# ============================================================
+*.pdf
+
+# ============================================================
+# Pip/npm artifacts
+# ============================================================
+=5.28.0
+
+# ============================================================
+# Root-level one-off scripts (belong in ml-service/scripts/)
+# ============================================================
+/preprocess_aggressive.py
+/preprocess_training_data.py
+/verify_hotspot_data.py
+/verify_training_data.py
+/zero_variance_analysis.py
+/sketch_dec7a.ino
