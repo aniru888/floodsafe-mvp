@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Bell, RefreshCw, Loader2, AlertCircle, Cloud, Newspaper, MessageCircle, Users } from 'lucide-react';
+import { Bell, RefreshCw, Loader2, AlertCircle, Cloud, Newspaper, MessageCircle, Users, Waves, Phone } from 'lucide-react';
 import { AlertCard } from '../AlertCard';
 import { ReportCard } from '../ReportCard';
 import { ReportDetailModal } from '../ReportDetailModal';
+import { EmergencyContactsModal } from '../EmergencyContactsModal';
+import { FloodHubTab } from '../floodhub';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { useUnifiedAlerts, useRefreshExternalAlerts, useReports, Report } from '../../lib/api/hooks';
@@ -25,6 +27,8 @@ function getFilterLabel(filter: AlertSourceFilter): string {
             return 'Social';
         case 'community':
             return 'Community';
+        case 'floodhub':
+            return 'FloodHub';
         default:
             return filter;
     }
@@ -43,6 +47,8 @@ function getFilterIcon(filter: AlertSourceFilter) {
             return <MessageCircle className="w-3 h-3" />;
         case 'community':
             return <Users className="w-3 h-3" />;
+        case 'floodhub':
+            return <Waves className="w-3 h-3" />;
         default:
             return null;
     }
@@ -52,6 +58,7 @@ export function AlertsScreen() {
     const city = useCurrentCity();
     const [sourceFilter, setSourceFilter] = useState<AlertSourceFilter>('all');
     const [selectedReport, setSelectedReport] = useState<Report | null>(null);
+    const [emergencyModalOpen, setEmergencyModalOpen] = useState(false);
 
     // Fetch alerts
     const { data, isLoading, error, refetch } = useUnifiedAlerts(city, sourceFilter);
@@ -72,12 +79,16 @@ export function AlertsScreen() {
     };
 
     // Filter tabs with counts
-    const filters: AlertSourceFilter[] = ['all', 'official', 'news', 'social', 'community'];
+    const filters: AlertSourceFilter[] = ['all', 'official', 'news', 'social', 'community', 'floodhub'];
 
     // Get count for each filter
     const getFilterCount = (filter: AlertSourceFilter): number => {
         if (filter === 'community') {
             return communityReports?.length || 0;
+        }
+        // FloodHub has its own status display - don't show count badge
+        if (filter === 'floodhub') {
+            return -1; // -1 signals "no count badge"
         }
         if (!data) return 0;
         if (filter === 'all') return data.total + (communityReports?.length || 0);
@@ -89,6 +100,7 @@ export function AlertsScreen() {
             news: ['rss', 'gdelt'],              // GDELT is news intelligence
             social: ['twitter', 'telegram'],
             community: ['floodsafe'],
+            floodhub: [], // FloodHub handled separately
         };
 
         const sources = sourceMapping[filter] || [];
@@ -145,14 +157,25 @@ export function AlertsScreen() {
                             {city === 'delhi' ? 'Delhi' : 'Bangalore'}
                         </Badge>
                     </div>
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={handleRefresh}
-                        disabled={refreshMutation.isPending}
-                    >
-                        <RefreshCw className={`w-4 h-4 ${refreshMutation.isPending ? 'animate-spin' : ''}`} />
-                    </Button>
+                    <div className="flex items-center gap-1">
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setEmergencyModalOpen(true)}
+                            className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                            title="Emergency Contacts"
+                        >
+                            <Phone className="w-4 h-4" />
+                        </Button>
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={handleRefresh}
+                            disabled={refreshMutation.isPending}
+                        >
+                            <RefreshCw className={`w-4 h-4 ${refreshMutation.isPending ? 'animate-spin' : ''}`} />
+                        </Button>
+                    </div>
                 </div>
 
                 {/* Filter Tabs */}
@@ -190,8 +213,11 @@ export function AlertsScreen() {
             </div>
 
             {/* Content based on filter */}
-            <div className="p-4 space-y-3">
-                {sourceFilter === 'community' ? (
+            <div className={sourceFilter === 'floodhub' ? '' : 'p-4 space-y-3'}>
+                {sourceFilter === 'floodhub' ? (
+                    // FloodHub Tab - Google Flood Forecasting
+                    <FloodHubTab />
+                ) : sourceFilter === 'community' ? (
                     // Community Reports Section
                     reportsLoading ? (
                         <div className="flex items-center justify-center py-16">
@@ -260,6 +286,12 @@ export function AlertsScreen() {
                 report={selectedReport}
                 isOpen={selectedReport !== null}
                 onClose={() => setSelectedReport(null)}
+            />
+
+            {/* Emergency Contacts Modal */}
+            <EmergencyContactsModal
+                isOpen={emergencyModalOpen}
+                onClose={() => setEmergencyModalOpen(false)}
             />
         </div>
     );

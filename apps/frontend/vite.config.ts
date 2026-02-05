@@ -39,6 +39,8 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // Allow larger bundles for precaching (default is 2MB, our bundle is ~2.2MB)
+        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024, // 3 MB
         // Cache static assets (JS, CSS, fonts) - CacheFirst
         runtimeCaching: [
           {

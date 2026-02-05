@@ -112,6 +112,9 @@ class Settings(BaseSettings):
     SUPABASE_SERVICE_KEY: str = ""                # Service role key from Supabase Dashboard -> API
     SUPABASE_STORAGE_BUCKET: str = "report-photos"  # Bucket name for report photos
 
+    # Google FloodHub Integration
+    GOOGLE_FLOODHUB_API_KEY: str = ""             # Google Flood Forecasting API key (waitlist required)
+
     class Config:
         case_sensitive = True
         env_file = ".env"

@@ -11,6 +11,7 @@ import MapComponent from '../MapComponent';
 import { useSensors, useReports, useUsers, useActiveReporters, useNearbyReporters, useLocationDetails, useWatchAreas, useDailyRoutes, Report } from '../../lib/api/hooks';
 import { toast } from 'sonner';
 import { ReportDetailModal } from '../ReportDetailModal';
+import { EmergencyContactsModal } from '../EmergencyContactsModal';
 import { cn } from '../../lib/utils';
 import { getNestedArray, hasLocationData } from '../../lib/safe-access';
 import { detectCityFromCoordinates, getCityKeyFromCoordinates, type CityKey } from '../../lib/map/cityConfigs';
@@ -71,6 +72,7 @@ export function HomeScreen({
     const [selectedLocation, setSelectedLocation] = useState<{ lat: number; lng: number } | null>(null);
     const [mapTargetLocation, setMapTargetLocation] = useState<{ lat: number; lng: number } | null>(null);
     const [selectedReport, setSelectedReport] = useState<Report | null>(null);
+    const [emergencyModalOpen, setEmergencyModalOpen] = useState(false);
 
     // Update city filter when user's city preference changes
     useEffect(() => {
@@ -291,9 +293,7 @@ export function HomeScreen({
     };
 
     const handleSOS = () => {
-        toast.error('Emergency SOS activated! Contacting authorities...', {
-            duration: 5000,
-        });
+        setEmergencyModalOpen(true);
     };
 
     const handleViewDetails = () => {
@@ -985,6 +985,12 @@ export function HomeScreen({
                 isOpen={selectedReport !== null}
                 onClose={() => setSelectedReport(null)}
                 onLocate={(lat, lng) => handleLocateAlert(lat, lng, 'Report Location')}
+            />
+
+            {/* Emergency Contacts Modal */}
+            <EmergencyContactsModal
+                isOpen={emergencyModalOpen}
+                onClose={() => setEmergencyModalOpen(false)}
             />
 
         </div>

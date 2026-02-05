@@ -8,8 +8,9 @@ from .infrastructure import models  # noqa: F401 - ensures models are loaded
 # Run `alembic upgrade head` to apply migrations.
 # See apps/backend/alembic/ for migration files.
 
-from .api import webhook, reports, users, sensors, otp, watch_areas, daily_routes, reputation, leaderboards, badges, routes_api, auth, alerts, search, predictions, saved_routes, historical_floods, hotspots, external_alerts, rainfall, gamification, comments, ml
+from .api import webhook, reports, users, sensors, otp, watch_areas, daily_routes, reputation, leaderboards, badges, routes_api, auth, alerts, search, predictions, saved_routes, historical_floods, hotspots, external_alerts, rainfall, gamification, comments, ml, floodhub
 from .domain.services.external_alerts import start_scheduler, stop_scheduler
+from .domain.services.floodhub_service import init_floodhub_service
 
 from fastapi.middleware.cors import CORSMiddleware
 from .core.config import settings
@@ -57,6 +58,13 @@ async def lifespan(app: FastAPI):
     # Validate configuration
     validate_config()
 
+    # Initialize FloodHub service (optional - gracefully disabled if no API key)
+    floodhub_svc = init_floodhub_service(api_key=settings.GOOGLE_FLOODHUB_API_KEY or None)
+    if floodhub_svc.enabled:
+        logger.info("FloodHub service initialized with API key")
+    else:
+        logger.info("FloodHub service disabled (no API key configured)")
+
     start_scheduler()
     logger.info("External alerts scheduler started")
 
@@ -103,6 +111,7 @@ app.include_router(rainfall.router, prefix="/api/rainfall", tags=["rainfall"])
 app.include_router(gamification.router, prefix="/api/gamification", tags=["gamification"])
 app.include_router(comments.router, prefix="/api", tags=["comments"])
 app.include_router(ml.router, prefix="/api/ml", tags=["ml"])
+app.include_router(floodhub.router, prefix="/api", tags=["floodhub"])
 
 @app.get("/health")
 def health_check():

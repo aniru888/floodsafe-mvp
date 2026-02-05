@@ -15,6 +15,8 @@ import { EmailVerifiedScreen } from './components/screens/EmailVerifiedScreen';
 import { OfflineIndicator } from './components/OfflineIndicator';
 import { PWAUpdateBanner } from './components/PWAUpdateBanner';
 import { IOSInstallBanner } from './components/IOSInstallBanner';
+import { InstallBanner } from './components/InstallBanner';
+import { InstallPromptProvider } from './contexts/InstallPromptContext';
 import { FloodAlert } from './types';
 import { Toaster } from './components/ui/sonner';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -182,6 +184,7 @@ function FloodSafeApp() {
             {/* PWA Components (PWAUpdateBanner is at root level for immediate SW registration) */}
             <OfflineIndicator />
             <IOSInstallBanner />
+            <InstallBanner />
 
             <Toaster position="top-center" />
         </ResponsiveLayout>
@@ -194,20 +197,22 @@ export default function App() {
             <AuthProvider>
                 <UserProvider>
                     <CityProvider>
-                        {/* PWA Update Banner - renders at root level so SW registers immediately */}
-                        <PWAUpdateBanner />
+                        <InstallPromptProvider>
+                            {/* PWA Update Banner - renders at root level so SW registers immediately */}
+                            <PWAUpdateBanner />
 
-                        <Routes>
-                            {/* Email verification callback - accessible without auth */}
-                            <Route path="/email-verified" element={
-                                <>
-                                    <EmailVerifiedScreen />
-                                    <Toaster position="top-center" />
-                                </>
-                            } />
-                            {/* All other routes go to the main app */}
-                            <Route path="*" element={<FloodSafeApp />} />
-                        </Routes>
+                            <Routes>
+                                {/* Email verification callback - accessible without auth */}
+                                <Route path="/email-verified" element={
+                                    <>
+                                        <EmailVerifiedScreen />
+                                        <Toaster position="top-center" />
+                                    </>
+                                } />
+                                {/* All other routes go to the main app */}
+                                <Route path="*" element={<FloodSafeApp />} />
+                            </Routes>
+                        </InstallPromptProvider>
                     </CityProvider>
                 </UserProvider>
             </AuthProvider>

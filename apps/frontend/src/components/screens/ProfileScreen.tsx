@@ -7,7 +7,8 @@ import { Switch } from '../ui/switch';
 import { Label } from '../ui/label';
 import { Separator } from '../ui/separator';
 import { Avatar, AvatarFallback } from '../ui/avatar';
-import { MapPin, Bell, Globe, Settings, LogOut, Edit, Trash2, FileText, Route, ShieldCheck, Shield, UserCheck, Eye, Plus } from 'lucide-react';
+import { MapPin, Bell, Globe, Settings, LogOut, Edit, Trash2, FileText, Route, ShieldCheck, Shield, UserCheck, Eye, Plus, Download, Phone } from 'lucide-react';
+import { useInstallPrompt } from '../../contexts/InstallPromptContext';
 import { useUserReports, Report, useDailyRoutes, useDeleteDailyRoute } from '../../lib/api/hooks';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { Input } from '../ui/input';
@@ -21,6 +22,7 @@ import { cn } from '../../lib/utils';
 import { parseReportDescription } from '../../lib/tagParser';
 import { ReportTagList } from '../ReportTagBadge';
 import { ReportDetailModal } from '../ReportDetailModal';
+import { EmergencyContactsModal } from '../EmergencyContactsModal';
 import {
   StreakWidget,
   ReputationDashboard,
@@ -73,6 +75,10 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
   const [leaderboardModalOpen, setLeaderboardModalOpen] = useState(false);
   const [addRouteDialogOpen, setAddRouteDialogOpen] = useState(false);
   const [addWatchAreaDialogOpen, setAddWatchAreaDialogOpen] = useState(false);
+  const [emergencyModalOpen, setEmergencyModalOpen] = useState(false);
+
+  // PWA install prompt
+  const { canInstall, promptInstall, isPrompting, isInstalled } = useInstallPrompt();
 
   // Fetch user profile using secure endpoint
   const { data: rawUser, isLoading } = useQuery<User>({
@@ -717,6 +723,47 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
             >
               Contact Support
             </Button>
+            <Separator />
+            <Button
+              variant="ghost"
+              className="w-full justify-start p-0 h-auto text-red-600 font-normal"
+              onClick={() => setEmergencyModalOpen(true)}
+            >
+              <Phone className="w-4 h-4 mr-2" />
+              Emergency Contacts
+            </Button>
+
+            {/* Install App button - only shown when PWA is installable */}
+            {canInstall && !isInstalled && (
+              <>
+                <Separator />
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start p-0 h-auto text-blue-600 font-normal"
+                  onClick={async () => {
+                    const accepted = await promptInstall();
+                    if (accepted) {
+                      toast.success('FloodSafe installed! Check your apps.');
+                    }
+                  }}
+                  disabled={isPrompting}
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  {isPrompting ? 'Installing...' : 'Install App'}
+                </Button>
+              </>
+            )}
+
+            {/* Show "App Installed" indicator if already installed */}
+            {isInstalled && (
+              <>
+                <Separator />
+                <p className="text-gray-500 flex items-center gap-2">
+                  <Download className="w-4 h-4" />
+                  App Installed
+                </p>
+              </>
+            )}
           </div>
         </Card>
 
@@ -770,6 +817,12 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
       <AddDailyRouteDialog
         open={addRouteDialogOpen}
         onOpenChange={setAddRouteDialogOpen}
+      />
+
+      {/* Emergency Contacts Modal */}
+      <EmergencyContactsModal
+        isOpen={emergencyModalOpen}
+        onClose={() => setEmergencyModalOpen(false)}
       />
     </div>
   );

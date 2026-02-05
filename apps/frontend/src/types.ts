@@ -575,7 +575,7 @@ export interface RouteComparisonResponse {
 export type AlertSource = 'imd' | 'cwc' | 'twitter' | 'rss' | 'telegram' | 'floodsafe' | 'gdelt' | 'gdacs';
 export type AlertType = 'external' | 'community';
 export type AlertSeverity = 'low' | 'moderate' | 'high' | 'severe';
-export type AlertSourceFilter = 'all' | 'official' | 'news' | 'social' | 'community';
+export type AlertSourceFilter = 'all' | 'official' | 'news' | 'social' | 'community' | 'floodhub';
 
 export interface UnifiedAlert {
     id: string;
@@ -718,4 +718,44 @@ export interface WatchAreaRiskAssessment {
     nearby_hotspots_count: number;
     critical_hotspots_count: number;
     last_calculated: string;
+}
+
+// ============================================================================
+// GOOGLE FLOODHUB TYPES (Flood Forecasting for Delhi Yamuna River)
+// ============================================================================
+
+export type FloodHubSeverity = 'EXTREME' | 'SEVERE' | 'ABOVE_NORMAL' | 'NO_FLOODING' | 'UNKNOWN';
+
+export interface FloodHubGauge {
+    gauge_id: string;
+    site_name: string;
+    river: string;
+    latitude: number;
+    longitude: number;
+    severity: FloodHubSeverity;
+    issued_time: string;
+    source: string;
+}
+
+export interface FloodHubForecastPoint {
+    timestamp: string;
+    water_level: number;
+    is_forecast: boolean;
+}
+
+export interface FloodHubForecast {
+    gauge_id: string;
+    site_name: string;
+    forecasts: FloodHubForecastPoint[];
+    danger_level: number;
+    warning_level: number;
+}
+
+export interface FloodHubStatus {
+    enabled: boolean;
+    message?: string;
+    overall_severity?: FloodHubSeverity;
+    gauge_count?: number;
+    alerts_by_severity?: Record<string, number>;
+    last_updated?: string;
 }
