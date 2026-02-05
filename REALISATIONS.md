@@ -2293,4 +2293,41 @@ Three-layer fix:
 
 ---
 
-*Last updated: 2026-01-06*
+## Photon Geocoder Requires Geo-Bias from Cloud Servers
+
+**Date**: 2026-01-31
+**Context**: Deploying Photon dual-source search to Koyeb (Frankfurt)
+**Result**: Photon returned 0 Indian results from Frankfurt without lat/lng bias
+
+### The Problem
+
+Photon API uses geo-proximity ranking. When called from a Koyeb server in Frankfurt **without** `lat` / `lng` parameters, "conuaght plce" matched European locations (or nothing), not Connaught Place in Delhi.
+
+### Root Cause
+
+Photon's fuzzy matching ranks by distance to the requester. A server in Europe with no location bias → European results. Indian place names never surface.
+
+### The Fix
+
+Default `lat`/`lng` to city center (Delhi: 28.6315, 77.2167) when no user location is provided. Uses `city_bounds` center if available, else falls back to Delhi.
+
+### Debugging Journey
+
+1. First assumed Photon was blocked/throttled from Koyeb → **wrong**
+2. Added logging — discovered Photon returned HTTP 200 with results, but 0 matched after city filter
+3. Without `city=delhi` filter, results were from Bulgaria/Europe
+4. Root cause: no geo-bias → Photon ranked European results highest
+5. Also: `logger.info()` doesn't show in Koyeb logs (uvicorn defaults to WARNING level)
+
+### Key Insight
+
+> **Geocoding APIs are location-aware by design**. Always provide a geographic anchor (default city center) when calling geocoding APIs from cloud servers far from the target geography. Don't assume the API will magically know which continent you care about.
+
+**Also**: Koyeb deploys pull from GitHub remote — `redeploy` without `git push` deploys old code.
+
+**Files**:
+- `apps/backend/src/domain/services/search_service.py` - geo-bias default + User-Agent header
+
+---
+
+*Last updated: 2026-01-31*

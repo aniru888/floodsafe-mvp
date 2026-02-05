@@ -1,0 +1,86 @@
+================================================================================
+TRAINING DATA VERIFICATION REPORT
+================================================================================
+
+1. SHAPE VERIFICATION
+   Features shape: (486, 18) (expected: (486, 18))
+   Labels shape: (486,) (expected: (486,))
+   ✓ PASS
+
+2. CLASS DISTRIBUTION
+   Negative samples (0): 300 (expected: ~300)
+   Positive samples (1): 186 (expected: ~186)
+   Class ratio: 62.00% positive
+   ✓ PASS
+
+3. DATA QUALITY CHECK
+   NaN values: 0
+   Inf values: 0
+   ✓ PASS
+
+4. FEATURE STATISTICS
+   Idx Feature Name                     Min        Max       Mean        Std
+   -------------------------------------------------------------------------
+   0   elevation                     203.30     278.85     220.63      12.57
+   1   slope                           0.02       1.22       0.28       0.22
+   2   tpi                            -0.11       0.07       0.00       0.03
+   3   tri                             0.95       2.39       1.46       0.27
+   4   twi                             3.40       4.47       3.84       0.17
+   5   spi                             0.08       0.29       0.14       0.04
+   6   rainfall_24h                    0.00      12.54       2.37       3.45
+   7   rainfall_3d                     0.00      19.85       6.69       5.24
+   8   rainfall_7d                    17.50     122.36      50.51      28.37
+   9   max_daily_7d                    7.87      59.56      21.39      10.79
+   10  wet_days_7d                     2.00       6.00       3.81       1.00
+   11  impervious_pct                  0.00      99.90      54.87      31.90
+   12  built_up_pct                    0.00      99.77      53.88      32.02
+   13  sar_vv_mean                   -17.74       1.34      -4.87       2.48
+   14  sar_vh_mean                   -22.30      -6.55     -12.87       2.10
+   15  sar_vv_vh_ratio                 4.56      14.73       8.00       1.43
+   16  sar_change_mag                 -6.19       5.76       1.72       0.99
+   17  is_monsoon                      1.00       1.00       1.00       0.00
+
+5. SAR FEATURES VALIDATION (Columns 13-16)
+   ✓ sar_vv_mean         : min= -17.74, max=   1.34, mean=  -4.87 (VV: -5 to -15 dB)
+   ✓ sar_vv_std          : min= -22.30, max=  -6.55, mean= -12.87 (VV: -5 to -15 dB)
+   ✗ sar_vh_mean         : min=   4.56, max=  14.73, mean=   8.00 (VH: -12 to -22 dB)
+   ✗ sar_vh_std          : min=  -6.19, max=   5.76, mean=   1.72 (VH: -12 to -22 dB)
+
+6. TERRAIN FEATURES VALIDATION (Columns 0-5)
+   ✓ elevation                : min=  203.30, max=  278.85, mean=  220.63 (150-350m for Delhi)
+   ✓ slope                    : min=    0.02, max=    1.22, mean=    0.28 (0-10 degrees)
+   ✓ tpi                      : min=   -0.11, max=    0.07, mean=    0.00 (N/A)
+   ✓ tri                      : min=    0.95, max=    2.39, mean=    1.46 (N/A)
+   ✓ twi                      : min=    3.40, max=    4.47, mean=    3.84 (N/A)
+   ✓ spi                      : min=    0.08, max=    0.29, mean=    0.14 (N/A)
+
+7. METADATA VERIFICATION
+   Total samples in metadata: 486 (expected: 486)
+   Metadata n_samples: 486
+   Metadata n_positive: 186
+   Metadata n_negative: 300
+   Created: 2025-12-12T18:15:47.879913
+   Samples with valid Delhi coordinates: 486/486
+   Samples with extraction errors: 0
+   ✓ PASS
+
+8. SPOT CHECK - First 5 Samples
+   Idx          Lat        Lng   Label Date         Error
+   -----------------------------------------------------------------
+   0      28.575800  77.220600       1 2023-07-15   None
+   1      28.575800  77.220600       1 2023-08-10   None
+   2      28.575800  77.220600       1 2022-07-20   None
+   3      28.636500  77.222400       1 2023-07-15   None
+   4      28.636500  77.222400       1 2023-08-10   None
+
+================================================================================
+SUMMARY
+================================================================================
+✓ Shape verification: PASS
+✓ Class distribution: PASS
+✓ Data quality (no NaN/Inf): PASS
+✓ Coordinate bounds: PASS
+✓ No extraction errors: PASS
+
+Overall: 5/5 critical checks passed
+================================================================================

@@ -332,13 +332,18 @@ geocoding: |
   - Results merged, deduplicated by coordinates (0.0005° ~55m tolerance)
   - Sorted by haversine distance to user (proximity-first) when location available
   - Soft city bounds: retries without bounded if bounded returns < 5 results
+  - Geo-bias default: when no user lat/lng provided, defaults to city center (Delhi: 28.6315, 77.2167)
+    so cloud servers (e.g. Koyeb Frankfurt) return Indian results instead of European ones
   - 30-minute in-memory cache for both sources
+  - User-Agent header: "FloodSafe-MVP/1.0" sent with Photon requests (good API citizenship)
 
 typo_tolerance: |
   Photon uses OpenSearch fuzzy matching — handles misspellings automatically:
   - "conuaght plce" → Connaught Place
   - "banglaore" → Bangalore locations
   - "nehru palce" → Nehru Place
+  - Limitation: extreme abbreviations (e.g. "karol bgh" for "Karol Bagh") may not match —
+    Photon needs enough character overlap for fuzzy matching to work
 
 intent_detection:
   - Location keywords (road, sector, colony) → prioritize locations
