@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import { Protocol, PMTiles } from 'pmtiles';
+import { toast } from 'sonner';
 import { MAP_CONSTANTS, getMapConfig } from './config';
 import { getCityConfig, type CityKey } from './cityConfigs';
 import mapStyle from './styles.json';
@@ -310,9 +311,8 @@ export function useMap(
                 return;
             }
             console.error('❌ Map error:', e.error?.message || e.message || JSON.stringify(e));
-            // Gracefully handle missing files
             if (e.error?.message?.includes('404') || e.error?.message?.includes('Failed to fetch')) {
-                console.warn(`⚠️ Some map resources for ${cityConfig.displayName} are not available. Using fallback.`);
+                toast.error(`Map resources for ${cityConfig.displayName} failed to load. Try refreshing.`, { id: 'map-resource-error' });
             }
         });
 

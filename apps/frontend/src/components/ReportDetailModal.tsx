@@ -117,8 +117,6 @@ function getPassabilityInfo(passability: string | undefined): { label: string; i
 }
 
 export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportDetailModalProps) {
-    console.log('ReportDetailModal render:', { isOpen, reportId: report?.id, hasReport: !!report });
-
     const { user } = useAuth();
     const [newComment, setNewComment] = useState('');
     const [imageError, setImageError] = useState(false);
@@ -209,7 +207,6 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
 
     return (
         <Dialog open={isOpen} onOpenChange={(open) => {
-            console.log('Dialog onOpenChange:', open);
             if (!open) onClose();
         }}>
             <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto p-4 sm:p-6">
