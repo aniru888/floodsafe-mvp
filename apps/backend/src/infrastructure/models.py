@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Float, DateTime, Boolean, ForeignKey, Integer, Text, Index
+from sqlalchemy import Column, String, Float, DateTime, Boolean, ForeignKey, Integer, Text, Index, text
 from sqlalchemy.dialects.postgresql import UUID, JSON
 from sqlalchemy.orm import relationship, object_session
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -438,3 +438,109 @@ class WhatsAppSession(Base):
     # - awaiting_choice: User asked "1. Create account" or "2. Submit anonymously"
     # - awaiting_email: User chose to create account, waiting for email
     # - sos_active: User in active SOS flow (location pending)
+
+
+# ============================================================================
+# SAFETY CIRCLES — Family/community group notification system
+# ============================================================================
+
+class SafetyCircle(Base):
+    """
+    A Safety Circle is a group (family, school, apartment, etc.) where members
+    get notified when any member creates a flood report.
+
+    Circle types and their default max_members:
+    - family: 20, school: 500, apartment: 200, neighborhood: 1000, custom: 50
+    """
+    __tablename__ = "safety_circles"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = Column(String(100), nullable=False)
+    description = Column(String(500), nullable=True)
+    circle_type = Column(String(30), nullable=False, default="custom")  # family, school, apartment, neighborhood, custom
+    created_by = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    invite_code = Column(String(12), unique=True, nullable=False)  # 8-char alphanumeric for easy sharing
+    max_members = Column(Integer, nullable=False, default=50)
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    members = relationship("CircleMember", back_populates="circle", cascade="all, delete-orphan")
+    creator = relationship("User", foreign_keys=[created_by])
+
+    __table_args__ = (
+        Index('ix_safety_circles_created_by', 'created_by'),
+        Index('ix_safety_circles_is_active', 'is_active', postgresql_where=text('is_active = TRUE')),
+    )
+
+
+class CircleMember(Base):
+    """
+    A member of a Safety Circle. Can be a registered FloodSafe user (user_id set)
+    or a non-registered contact (only phone/email set, user_id is NULL).
+
+    When a non-registered contact later registers and joins via invite code,
+    their existing row is upgraded by setting user_id.
+
+    Roles: creator (full admin), admin (can manage members), member (receives notifications)
+    """
+    __tablename__ = "circle_members"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    circle_id = Column(UUID(as_uuid=True), ForeignKey("safety_circles.id", ondelete="CASCADE"), nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=True)  # NULL for non-registered
+    phone = Column(String(20), nullable=True)  # E.164 format: +919876543210
+    email = Column(String(255), nullable=True)
+    display_name = Column(String(100), nullable=True)  # Provided by adder, or falls back to user.display_name
+    role = Column(String(10), nullable=False, default="member")  # creator, admin, member
+    is_muted = Column(Boolean, default=False)  # Per-member mute toggle for this circle
+    notify_whatsapp = Column(Boolean, default=True)
+    notify_sms = Column(Boolean, default=True)
+    notify_email = Column(Boolean, default=False)
+    joined_at = Column(DateTime, default=datetime.utcnow)
+    invited_by = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+
+    # Relationships
+    circle = relationship("SafetyCircle", back_populates="members")
+    user = relationship("User", foreign_keys=[user_id])
+
+    __table_args__ = (
+        # Registered users can only be in a circle once (partial unique index)
+        Index('uq_circle_registered_user', 'circle_id', 'user_id', unique=True, postgresql_where=text('user_id IS NOT NULL')),
+        Index('ix_circle_members_circle_id', 'circle_id'),
+        Index('ix_circle_members_user_id', 'user_id'),
+        Index('ix_circle_members_phone', 'phone'),
+        # CHECK constraint: at least one identifier must be present
+        # (enforced at DB level via migration, SQLAlchemy doesn't support CHECK directly here)
+    )
+
+
+class CircleAlert(Base):
+    """
+    A notification record created when a circle member files a flood report.
+    One CircleAlert per member per report per circle.
+
+    Tracks whether the external notification (WhatsApp/SMS) was actually sent,
+    to support Rule #14 (no silent fallbacks) — failed notifications are visible.
+    """
+    __tablename__ = "circle_alerts"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    circle_id = Column(UUID(as_uuid=True), ForeignKey("safety_circles.id", ondelete="CASCADE"), nullable=False)
+    report_id = Column(UUID(as_uuid=True), ForeignKey("reports.id", ondelete="CASCADE"), nullable=False)
+    reporter_user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    member_id = Column(UUID(as_uuid=True), ForeignKey("circle_members.id", ondelete="CASCADE"), nullable=False)
+    message = Column(String(500), nullable=False)
+    is_read = Column(Boolean, default=False)
+    notification_sent = Column(Boolean, default=False)  # Whether WhatsApp/SMS was actually dispatched
+    notification_channel = Column(String(20), nullable=True)  # 'whatsapp', 'sms', 'email', or NULL if not sent
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index('ix_circle_alerts_member_id', 'member_id'),
+        Index('ix_circle_alerts_circle_id', 'circle_id'),
+        Index('ix_circle_alerts_report_id', 'report_id'),
+        Index('ix_circle_alerts_unread', 'is_read', postgresql_where=text('is_read = FALSE')),
+        Index('ix_circle_alerts_created_at', 'created_at'),
+    )
