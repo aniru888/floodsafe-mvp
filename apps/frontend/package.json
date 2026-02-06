@@ -12,7 +12,8 @@
         "test:ui": "vitest --ui",
         "test:coverage": "vitest run --coverage",
         "test:run": "vitest run",
-        "screenshot": "npx tsx scripts/screenshot.ts"
+        "screenshot": "npx tsx scripts/screenshot.ts",
+        "screenshot:baseline": "npx tsx scripts/ui-overhaul-visual-test.ts"
     },
     "dependencies": {
         "@radix-ui/react-accordion": "^1.2.12",
