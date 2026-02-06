@@ -575,7 +575,7 @@ export interface RouteComparisonResponse {
 export type AlertSource = 'imd' | 'cwc' | 'twitter' | 'rss' | 'telegram' | 'floodsafe' | 'gdelt' | 'gdacs';
 export type AlertType = 'external' | 'community';
 export type AlertSeverity = 'low' | 'moderate' | 'high' | 'severe';
-export type AlertSourceFilter = 'all' | 'official' | 'news' | 'social' | 'community' | 'floodhub';
+export type AlertSourceFilter = 'all' | 'official' | 'news' | 'social' | 'community' | 'floodhub' | 'circles';
 
 export interface UnifiedAlert {
     id: string;
@@ -758,4 +758,106 @@ export interface FloodHubStatus {
     gauge_count?: number;
     alerts_by_severity?: Record<string, number>;
     last_updated?: string;
+}
+
+// ============================================================================
+// SAFETY CIRCLES TYPES (Family & Community Group Notifications)
+// ============================================================================
+
+export type CircleType = 'family' | 'school' | 'apartment' | 'neighborhood' | 'custom';
+export type CircleRole = 'creator' | 'admin' | 'member';
+
+export interface SafetyCircle {
+    id: string;
+    name: string;
+    description: string | null;
+    circle_type: CircleType;
+    created_by: string;
+    invite_code: string;
+    max_members: number;
+    member_count: number;
+    is_active: boolean;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface CircleMember {
+    id: string;
+    circle_id: string;
+    user_id: string | null;
+    phone: string | null;
+    email: string | null;
+    display_name: string | null;
+    role: CircleRole;
+    is_muted: boolean;
+    notify_whatsapp: boolean;
+    notify_sms: boolean;
+    notify_email: boolean;
+    joined_at: string;
+    invited_by: string | null;
+}
+
+export interface SafetyCircleDetail extends SafetyCircle {
+    members: CircleMember[];
+    user_role: CircleRole;
+}
+
+export interface CircleAlert {
+    id: string;
+    circle_id: string;
+    report_id: string;
+    reporter_user_id: string;
+    member_id: string;
+    message: string;
+    is_read: boolean;
+    notification_sent: boolean;
+    notification_channel: string;
+    created_at: string;
+    circle_name: string;
+    reporter_name: string;
+}
+
+export interface SafetyCircleCreate {
+    name: string;
+    description?: string;
+    circle_type: CircleType;
+}
+
+export interface SafetyCircleUpdate {
+    name?: string;
+    description?: string;
+}
+
+export interface CircleMemberAdd {
+    user_id?: string;
+    phone?: string;
+    email?: string;
+    display_name?: string;
+}
+
+export interface CircleMemberUpdate {
+    role?: CircleRole;
+    is_muted?: boolean;
+    notify_whatsapp?: boolean;
+    notify_sms?: boolean;
+    notify_email?: boolean;
+}
+
+export interface JoinCircleRequest {
+    invite_code: string;
+}
+
+export interface CircleAlertsResponse {
+    alerts: CircleAlert[];
+    total: number;
+}
+
+export interface CircleUnreadCount {
+    count: number;
+}
+
+export interface BulkAddResult {
+    added: number;
+    skipped: number;
+    errors: string[];
 }

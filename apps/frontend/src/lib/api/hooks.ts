@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchJson, uploadFile } from './client';
 import { API_BASE_URL } from './config';
-import { User, GeocodingResult, DailyRoute, DailyRouteCreate, WatchArea, WatchAreaCreate, RouteCalculationRequest, RouteCalculationResponse, MetroStation, RouteOption, RouteComparisonRequest, RouteComparisonResponse, EnhancedRouteComparisonResponse, FastestRouteOption, SafestRouteOption, WatchAreaRiskAssessment, FloodHubStatus, FloodHubGauge, FloodHubForecast } from '../../types';
+import { User, GeocodingResult, DailyRoute, DailyRouteCreate, WatchArea, WatchAreaCreate, RouteCalculationRequest, RouteCalculationResponse, MetroStation, RouteOption, RouteComparisonRequest, RouteComparisonResponse, EnhancedRouteComparisonResponse, FastestRouteOption, SafestRouteOption, WatchAreaRiskAssessment, FloodHubStatus, FloodHubGauge, FloodHubForecast, SafetyCircle, SafetyCircleDetail, SafetyCircleCreate, SafetyCircleUpdate, CircleMemberAdd, CircleMemberUpdate, CircleAlert, CircleAlertsResponse, CircleUnreadCount, JoinCircleRequest, BulkAddResult } from '../../types';
 import { validateUsers, validateSensors, validateReports } from './validators';
 
 // Types
@@ -1620,5 +1620,214 @@ export function useFloodHubForecast(gaugeId: string | null) {
         gcTime: 30 * 60 * 1000, // 30 minutes
         refetchOnWindowFocus: false,
         retry: 1,
+    });
+}
+
+// ============================================================================
+// SAFETY CIRCLES HOOKS (Family & Community Group Notifications)
+// ============================================================================
+
+/** Fetch all circles the current user belongs to. */
+export function useMyCircles() {
+    return useQuery({
+        queryKey: ['circles'],
+        queryFn: () => fetchJson<SafetyCircle[]>('/circles/'),
+        staleTime: 60 * 1000,
+        gcTime: 5 * 60 * 1000,
+    });
+}
+
+/** Fetch circle detail with members list. */
+export function useCircleDetail(circleId: string | null) {
+    return useQuery({
+        queryKey: ['circles', circleId],
+        queryFn: () => fetchJson<SafetyCircleDetail>(`/circles/${circleId}`),
+        enabled: !!circleId,
+        staleTime: 30 * 1000,
+        gcTime: 5 * 60 * 1000,
+    });
+}
+
+/** Fetch circle alerts across all user's circles. */
+export function useCircleAlerts(limit: number = 50, offset: number = 0) {
+    return useQuery({
+        queryKey: ['circle-alerts', limit, offset],
+        queryFn: () => fetchJson<CircleAlertsResponse>(
+            `/circles/alerts?limit=${limit}&offset=${offset}`
+        ),
+        staleTime: 30 * 1000,
+        gcTime: 5 * 60 * 1000,
+        refetchInterval: 60 * 1000,
+    });
+}
+
+/** Fetch unread circle alert count (for badge display). */
+export function useUnreadCircleAlertCount() {
+    return useQuery({
+        queryKey: ['circle-alerts-unread'],
+        queryFn: () => fetchJson<CircleUnreadCount>('/circles/alerts/unread-count'),
+        staleTime: 30 * 1000,
+        refetchInterval: 60 * 1000,
+    });
+}
+
+/** Create a new safety circle. */
+export function useCreateCircle() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data: SafetyCircleCreate) =>
+            fetchJson<SafetyCircle>('/circles/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['circles'] });
+        },
+    });
+}
+
+/** Join a circle via invite code. */
+export function useJoinCircle() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data: JoinCircleRequest) =>
+            fetchJson<SafetyCircle>('/circles/join', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['circles'] });
+        },
+    });
+}
+
+/** Add a member to a circle. */
+export function useAddCircleMember(circleId: string) {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data: CircleMemberAdd) =>
+            fetchJson(`/circles/${circleId}/members`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['circles', circleId] });
+        },
+    });
+}
+
+/** Bulk add members to a circle. */
+export function useBulkAddCircleMembers(circleId: string) {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (members: CircleMemberAdd[]) =>
+            fetchJson<BulkAddResult>(`/circles/${circleId}/members/bulk`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(members),
+            }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['circles', circleId] });
+        },
+    });
+}
+
+/** Remove a member from a circle. */
+export function useRemoveCircleMember(circleId: string) {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (memberId: string) =>
+            fetchJson(`/circles/${circleId}/members/${memberId}`, {
+                method: 'DELETE',
+            }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['circles', circleId] });
+        },
+    });
+}
+
+/** Update a member's settings (role, mute, notification prefs). */
+export function useUpdateCircleMember(circleId: string) {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: ({ memberId, data }: { memberId: string; data: CircleMemberUpdate }) =>
+            fetchJson(`/circles/${circleId}/members/${memberId}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['circles', circleId] });
+        },
+    });
+}
+
+/** Leave a circle. */
+export function useLeaveCircle() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (circleId: string) =>
+            fetchJson(`/circles/${circleId}/leave`, { method: 'POST' }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['circles'] });
+        },
+    });
+}
+
+/** Delete a circle (creator only). */
+export function useDeleteCircle() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (circleId: string) =>
+            fetchJson(`/circles/${circleId}`, { method: 'DELETE' }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['circles'] });
+        },
+    });
+}
+
+/** Mark a single circle alert as read. */
+export function useMarkCircleAlertRead() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (alertId: string) =>
+            fetchJson(`/circles/alerts/${alertId}/read`, { method: 'PATCH' }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['circle-alerts'] });
+            queryClient.invalidateQueries({ queryKey: ['circle-alerts-unread'] });
+        },
+    });
+}
+
+/** Mark all circle alerts as read. */
+export function useMarkAllCircleAlertsRead() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: () =>
+            fetchJson('/circles/alerts/read-all', { method: 'PATCH' }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['circle-alerts'] });
+            queryClient.invalidateQueries({ queryKey: ['circle-alerts-unread'] });
+        },
+    });
+}
+
+/** Update circle name/description (admin+). */
+export function useUpdateCircle(circleId: string) {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data: SafetyCircleUpdate) =>
+            fetchJson(`/circles/${circleId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['circles'] });
+            queryClient.invalidateQueries({ queryKey: ['circles', circleId] });
+        },
     });
 }
