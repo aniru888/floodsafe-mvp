@@ -1,0 +1,56 @@
+# FloodSafe ML Service - Production Requirements
+# Optimized for Hugging Face Spaces deployment (~1GB vs ~3.5GB full)
+#
+# REMOVED (not used in production inference):
+# - torch, torch-geometric (GNN/LSTM not trained)
+# - prophet, lightgbm (ensemble not trained)
+# - ultralytics (YOLOv8 backup only)
+# - sqlalchemy, asyncpg, psycopg2-binary (no DB on HF Spaces)
+# - pytest, icrawler, imagehash (dev/training only)
+
+# =============================================================================
+# CORE ML (Actually Used)
+# =============================================================================
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+scipy>=1.11.0
+
+# MobileNet Flood Classifier (TRAINED - sohail_flood_model.h5)
+tensorflow>=2.15.0
+h5py>=3.8.0
+Pillow>=10.0.0
+
+# XGBoost Hotspot Model (TRAINED - xgboost_hotspot/)
+xgboost>=2.0.0
+
+# =============================================================================
+# GOOGLE EARTH ENGINE (Feature Extraction)
+# =============================================================================
+earthengine-api>=0.1.380
+google-cloud-storage>=2.10.0
+google-auth>=2.23.0
+
+# =============================================================================
+# GEOSPATIAL (FHI Calculation)
+# =============================================================================
+rasterio>=1.3.8
+geopandas>=0.14.0
+shapely>=2.0.0
+
+# =============================================================================
+# API FRAMEWORK
+# =============================================================================
+fastapi>=0.100.0
+uvicorn>=0.23.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+httpx>=0.24.0
+python-multipart>=0.0.6
+
+# =============================================================================
+# UTILITIES
+# =============================================================================
+python-dotenv>=1.0.0
+tqdm>=4.66.0
+joblib>=1.3.0

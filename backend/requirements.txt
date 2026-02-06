@@ -1,0 +1,21 @@
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.6.0
+pydantic[email]>=2.6.0
+pydantic-settings>=2.1.0
+sqlalchemy>=2.0.25
+geoalchemy2[shapely]>=0.14.3
+psycopg2-binary>=2.9.9
+asyncpg>=0.29.0
+alembic>=1.13.1
+python-multipart>=0.0.9
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+bcrypt==4.0.1
+httpx>=0.26.0
+geopy>=2.4.1
+numpy>=1.26.0
+xgboost>=2.0.3
+pillow>=10.2.0
+# ML/Data specific
+pandas>=2.2.0

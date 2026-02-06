@@ -1,0 +1,29 @@
+# Dockerfile for TensorFlow 2.14 Model Conversion
+#
+# This creates a controlled environment for converting models to TFLite
+# with exact version compatibility for tflite-runtime 2.14.0
+#
+# CRITICAL: The conversion TensorFlow version MUST match the runtime version
+# - TF 2.14.0 produces opcodes compatible with tflite-runtime 2.14.0
+# - TF 2.17+ produces FULLY_CONNECTED opcode v12 which is NOT supported
+#
+# Usage:
+#   docker build -f scripts/Dockerfile.convert -t tf214-convert .
+#   docker run -v ${PWD}/models:/app/models -v ${PWD}/scripts:/app/scripts tf214-convert
+
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Install TensorFlow 2.14.0 specifically
+# This version produces opcodes compatible with tflite-runtime 2.14.0
+RUN pip install --no-cache-dir \
+    tensorflow==2.14.0 \
+    h5py>=3.0.0 \
+    numpy>=1.23.0,<2.0.0
+
+# Create directories
+RUN mkdir -p /app/models /app/scripts
+
+# Default command - run the conversion script
+CMD ["python", "scripts/convert_tf214.py"]

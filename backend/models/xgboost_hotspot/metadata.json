@@ -1,0 +1,82 @@
+{
+  "model_name": "xgboost_hotspot_v1",
+  "feature_names": [
+    "elevation",
+    "slope",
+    "tpi",
+    "tri",
+    "twi",
+    "spi",
+    "rainfall_24h",
+    "rainfall_3d",
+    "rainfall_7d",
+    "max_daily_7d",
+    "wet_days_7d",
+    "impervious_pct",
+    "built_up_pct",
+    "sar_vv_mean",
+    "sar_vh_mean",
+    "sar_vv_vh_ratio",
+    "sar_change_mag",
+    "is_monsoon"
+  ],
+  "params": {
+    "objective": "binary:logistic",
+    "eval_metric": "auc",
+    "max_depth": 5,
+    "learning_rate": 0.1,
+    "n_estimators": 100,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "scale_pos_weight": 1.1111111111111112,
+    "random_state": 42,
+    "use_label_encoder": false,
+    "verbosity": 0
+  },
+  "cv_results": {
+    "auc_mean": 0.9869135802469134,
+    "auc_std": 0.016670781385076907,
+    "precision_mean": 0.9171258928097036,
+    "precision_std": 0.03158523742713863,
+    "recall_mean": 0.9740740740740741,
+    "recall_std": 0.018885257457751076,
+    "f1_mean": 0.9445516965781641,
+    "f1_std": 0.022991068232639515,
+    "n_folds": 5,
+    "fold_aucs": [
+      0.9996913580246913,
+      0.9929012345679012,
+      0.9540123456790123,
+      0.9959876543209876,
+      0.9919753086419754
+    ]
+  },
+  "feature_importance": {
+    "built_up_pct": 0.1565219908952713,
+    "sar_vv_mean": 0.10311494022607803,
+    "sar_vh_mean": 0.08781082183122635,
+    "impervious_pct": 0.06729168444871902,
+    "elevation": 0.05895012244582176,
+    "tpi": 0.05510047823190689,
+    "slope": 0.05425920709967613,
+    "rainfall_7d": 0.05035421624779701,
+    "rainfall_24h": 0.04838221147656441,
+    "spi": 0.047686267644166946,
+    "twi": 0.046564292162656784,
+    "tri": 0.04642030969262123,
+    "wet_days_7d": 0.04353511705994606,
+    "rainfall_3d": 0.038737792521715164,
+    "sar_change_mag": 0.03620820865035057,
+    "sar_vv_vh_ratio": 0.029933208599686623,
+    "max_daily_7d": 0.029129069298505783,
+    "is_monsoon": 0.0
+  },
+  "training_history": {
+    "val_auc": 0.9953703703703703,
+    "val_precision": 0.9152542372881356,
+    "val_recall": 1.0,
+    "val_f1": 0.9557522123893806,
+    "val_accuracy": 0.956140350877193
+  },
+  "trained": true
+}

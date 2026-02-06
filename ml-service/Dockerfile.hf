@@ -1,0 +1,49 @@
+# FloodSafe ML Service - Hugging Face Spaces Dockerfile
+# Optimized for 16GB RAM free tier with fast cold starts
+
+FROM python:3.10-slim
+
+# Install system dependencies for geospatial libraries
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    g++ \
+    libgdal-dev \
+    libgeos-dev \
+    libproj-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Install Python dependencies (production only - ~1GB vs ~3.5GB)
+COPY requirements-prod.txt .
+RUN pip install --no-cache-dir -r requirements-prod.txt
+
+# Copy source code
+COPY src/ ./src/
+
+# Copy trained models (required for inference)
+COPY models/sohail_flood_model.h5 ./models/
+COPY models/xgboost_hotspot/ ./models/xgboost_hotspot/
+
+# Copy data files (hotspots, historical floods)
+COPY data/delhi_waterlogging_hotspots.json ./data/
+COPY data/delhi_historical_floods.json ./data/
+
+# Create non-root user (HF Spaces requirement)
+RUN useradd -m -u 1000 user
+USER user
+
+# Environment variables for HF Spaces
+ENV PYTHONUNBUFFERED=1
+ENV FASTAPI_PORT=7860
+ENV GEE_ENABLED=false
+ENV DATA_CACHE_DIR=/tmp/ml-cache
+ENV TRANSFORMERS_CACHE=/tmp/cache
+ENV HF_HOME=/tmp/hf_home
+ENV MPLCONFIGDIR=/tmp/matplotlib
+
+# Expose HF Spaces port
+EXPOSE 7860
+
+# Start the service
+CMD ["python", "-m", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "7860"]

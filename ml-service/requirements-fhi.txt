@@ -1,0 +1,24 @@
+# FloodSafe ML Service - FHI-Only Deployment (Lightweight)
+# This minimal requirements file enables FHI calculation without heavy ML dependencies
+# Total size: ~50MB (vs 1.4GB+ for full requirements.txt)
+#
+# FHI uses Open-Meteo API (free, no auth) for weather data
+
+# Web Framework
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+python-multipart>=0.0.6  # Required for file uploads
+
+# Data Validation
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+
+# HTTP Client (for Open-Meteo API)
+httpx>=0.24.0
+
+# Utilities
+python-dotenv>=1.0.0
+
+# NumPy MUST be <2.0 for tflite-runtime 2.14.0 compatibility!
+# tflite-runtime 2.14.0 was compiled with NumPy 1.x ABI
+numpy>=1.24.0,<2.0.0
