@@ -35,6 +35,7 @@ class TemplateKey:
     STATUS = "STATUS"
     ML_UNAVAILABLE = "ML_UNAVAILABLE"
     ERROR = "ERROR"
+    CIRCLE_FLOOD_ALERT = "CIRCLE_FLOOD_ALERT"
 
 
 TEMPLATES = {
@@ -481,6 +482,20 @@ If the problem persists, visit floodsafe.app for help.""",
         "hi": """कुछ गलत हो गया। कृपया पुनः प्रयास करें।
 
 यदि समस्या बनी रहती है, तो मदद के लिए floodsafe.app पर जाएं।"""
+    },
+
+    TemplateKey.CIRCLE_FLOOD_ALERT: {
+        "en": """\U0001f6a8 {reporter_name} reported flooding near your area.
+Circle: {circle_name}
+{description}
+
+Open FloodSafe for details.""",
+
+        "hi": """\U0001f6a8 {reporter_name} ने आपके क्षेत्र में बाढ़ की रिपोर्ट की।
+सर्कल: {circle_name}
+{description}
+
+विवरण के लिए FloodSafe खोलें।"""
     },
 }
 

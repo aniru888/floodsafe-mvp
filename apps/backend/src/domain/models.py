@@ -1,8 +1,9 @@
-from pydantic import BaseModel, Field, ConfigDict, field_validator
+from pydantic import BaseModel, Field, ConfigDict, field_validator, model_validator
 from typing import Optional, List, Tuple
 from datetime import datetime
 from uuid import UUID, uuid4
 from enum import Enum
+from dataclasses import dataclass, field
 
 # ============================================================================
 # BASE MODELS (Full entity representations matching infrastructure layer)
@@ -756,3 +757,169 @@ class EnhancedRouteComparisonResponse(BaseModel):
     flood_zones: dict = {}
 
     model_config = ConfigDict(from_attributes=True)
+
+
+# ============================================================================
+# SAFETY CIRCLES — Family/community group notification system
+# ============================================================================
+
+class CircleType(str, Enum):
+    FAMILY = "family"
+    SCHOOL = "school"
+    APARTMENT = "apartment"
+    NEIGHBORHOOD = "neighborhood"
+    CUSTOM = "custom"
+
+
+class CircleRole(str, Enum):
+    CREATOR = "creator"
+    ADMIN = "admin"
+    MEMBER = "member"
+
+
+# --- Request DTOs ---
+
+class SafetyCircleCreate(BaseModel):
+    """Create a new Safety Circle."""
+    name: str = Field(..., min_length=2, max_length=100)
+    description: Optional[str] = Field(None, max_length=500)
+    circle_type: CircleType = CircleType.CUSTOM
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class SafetyCircleUpdate(BaseModel):
+    """Update an existing Safety Circle."""
+    name: Optional[str] = Field(None, min_length=2, max_length=100)
+    description: Optional[str] = Field(None, max_length=500)
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class CircleMemberAdd(BaseModel):
+    """Add a member to a circle. At least one of user_id, phone, or email required."""
+    user_id: Optional[UUID] = None
+    phone: Optional[str] = Field(None, max_length=20)
+    email: Optional[str] = Field(None, max_length=255)
+    display_name: Optional[str] = Field(None, max_length=100)
+    role: CircleRole = CircleRole.MEMBER
+
+    @model_validator(mode="after")
+    def check_at_least_one_identifier(self):
+        if not self.user_id and not self.phone and not self.email:
+            raise ValueError("At least one of user_id, phone, or email must be provided")
+        return self
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class CircleMemberUpdate(BaseModel):
+    """Update member settings. Admins can change role; members can change own prefs."""
+    role: Optional[CircleRole] = None
+    is_muted: Optional[bool] = None
+    notify_whatsapp: Optional[bool] = None
+    notify_sms: Optional[bool] = None
+    notify_email: Optional[bool] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class JoinCircleRequest(BaseModel):
+    """Join a circle via invite code."""
+    invite_code: str = Field(..., min_length=6, max_length=12)
+
+
+# --- Response DTOs ---
+
+class SafetyCircleResponse(BaseModel):
+    """Safety Circle summary (without member details)."""
+    id: UUID
+    name: str
+    description: Optional[str] = None
+    circle_type: str
+    created_by: UUID
+    invite_code: str
+    max_members: int
+    is_active: bool
+    member_count: int = 0
+    created_at: datetime
+    updated_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class CircleMemberResponse(BaseModel):
+    """A member of a Safety Circle."""
+    id: UUID
+    circle_id: UUID
+    user_id: Optional[UUID] = None
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    display_name: Optional[str] = None
+    role: str
+    is_muted: bool
+    notify_whatsapp: bool
+    notify_sms: bool
+    notify_email: bool
+    joined_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class SafetyCircleDetailResponse(SafetyCircleResponse):
+    """Safety Circle with full member list."""
+    members: List[CircleMemberResponse] = []
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class CircleAlertResponse(BaseModel):
+    """A notification for a circle member about a flood report."""
+    id: UUID
+    circle_id: UUID
+    circle_name: str = ""
+    report_id: UUID
+    reporter_name: Optional[str] = None
+    message: str
+    is_read: bool
+    notification_sent: bool = False
+    notification_channel: Optional[str] = None
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+# --- Notification Result (Rule #14: no silent fallbacks) ---
+
+@dataclass
+class NotificationResult:
+    """
+    Tracks every success and failure during circle notification dispatch.
+    Returned from notify_circles_for_report() — never swallowed.
+    The API response includes this summary so the user sees what happened.
+    """
+    circles_count: int = 0
+    alerts_created: int = 0
+    whatsapp_sent: int = 0
+    whatsapp_failed: int = 0
+    sms_sent: int = 0
+    sms_failed: int = 0
+    skipped_muted: int = 0
+    skipped_dedup: int = 0
+    skipped_throttle: int = 0
+    errors: List[str] = field(default_factory=list)
+
+    def to_dict(self) -> dict:
+        """Convert to dict for API response."""
+        return {
+            "circles_notified": self.circles_count,
+            "members_alerted": self.alerts_created,
+            "whatsapp_sent": self.whatsapp_sent,
+            "whatsapp_failed": self.whatsapp_failed,
+            "sms_sent": self.sms_sent,
+            "sms_failed": self.sms_failed,
+            "skipped_muted": self.skipped_muted,
+            "skipped_dedup": self.skipped_dedup,
+            "skipped_throttle": self.skipped_throttle,
+            "has_errors": len(self.errors) > 0,
+        }
