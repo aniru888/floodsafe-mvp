@@ -536,6 +536,26 @@ async def create_report(
             logger.warning(f"Failed to create alerts for report {new_report.id}: {e}")
             # Don't fail the report creation if alerts fail
 
+        # Trigger Safety Circle notifications (synchronous, D1)
+        circle_notification_summary = None
+        try:
+            from ..domain.services.circle_notification_service import CircleNotificationService
+            circle_notif = CircleNotificationService(db)
+            circle_result = circle_notif.notify_circles_for_report(
+                new_report.id, user_id, latitude, longitude, description
+            )
+            if circle_result.alerts_created > 0:
+                logger.info(
+                    f"Circle alerts: {circle_result.alerts_created} created, "
+                    f"WhatsApp: {circle_result.whatsapp_sent} sent / {circle_result.whatsapp_failed} failed, "
+                    f"SMS: {circle_result.sms_sent} sent / {circle_result.sms_failed} failed"
+                )
+            circle_notification_summary = circle_result.to_dict()
+        except Exception as e:
+            # Log as ERROR not warning — this is a real failure (CLAUDE.md rule #14)
+            logger.error(f"Circle notification FAILED for report {new_report.id}: {e}", exc_info=True)
+            circle_notification_summary = {"error": str(e)}
+
         # Return response with combined fields from both features
         return ReportResponse(
             id=new_report.id,
