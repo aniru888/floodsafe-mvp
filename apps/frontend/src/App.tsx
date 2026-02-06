@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ResponsiveLayout } from './components/ResponsiveLayout';
 import { HomeScreen } from './components/screens/HomeScreen';
@@ -18,6 +18,7 @@ import { IOSInstallBanner } from './components/IOSInstallBanner';
 import { InstallBanner } from './components/InstallBanner';
 import { InstallPromptProvider } from './contexts/InstallPromptContext';
 import { FloodAlert } from './types';
+import { JoinCircleModal } from './components/circles';
 import { Toaster } from './components/ui/sonner';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CityProvider } from './contexts/CityContext';
@@ -35,6 +36,38 @@ function FloodSafeApp() {
     const [selectedAlert, setSelectedAlert] = useState<FloodAlert | null>(null);
     const [initialRouteDestination, setInitialRouteDestination] = useState<[number, number] | null>(null);
     const [shouldOpenNavigationPanel, setShouldOpenNavigationPanel] = useState(false);
+    const [pendingInviteCode, setPendingInviteCode] = useState<string | null>(null);
+
+    // Deep link: check URL for ?join=CODE on mount
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const inviteCode = params.get('join');
+        if (inviteCode) {
+            if (isAuthenticated) {
+                setPendingInviteCode(inviteCode);
+                setActiveTab('alerts');
+            } else {
+                // Store for after login
+                sessionStorage.setItem('pendingInviteCode', inviteCode);
+            }
+            // Clean URL
+            const url = new URL(window.location.href);
+            url.searchParams.delete('join');
+            window.history.replaceState({}, '', url.toString());
+        }
+    }, []);
+
+    // Process stored invite code after login
+    useEffect(() => {
+        if (isAuthenticated && !pendingInviteCode) {
+            const stored = sessionStorage.getItem('pendingInviteCode');
+            if (stored) {
+                sessionStorage.removeItem('pendingInviteCode');
+                setPendingInviteCode(stored);
+                setActiveTab('alerts');
+            }
+        }
+    }, [isAuthenticated]);
 
     const handleAlertClick = (alert: FloodAlert) => {
         setSelectedAlert(alert);
@@ -185,6 +218,13 @@ function FloodSafeApp() {
             <OfflineIndicator />
             <IOSInstallBanner />
             <InstallBanner />
+
+            {/* Deep link: Join circle via ?join=CODE */}
+            <JoinCircleModal
+                isOpen={pendingInviteCode !== null}
+                onClose={() => setPendingInviteCode(null)}
+                initialCode={pendingInviteCode || ''}
+            />
 
             <Toaster position="top-center" />
         </ResponsiveLayout>

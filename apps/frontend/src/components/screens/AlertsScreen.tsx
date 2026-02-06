@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { Bell, RefreshCw, Loader2, AlertCircle, Cloud, Newspaper, MessageCircle, Users, Waves, Phone } from 'lucide-react';
+import { Bell, RefreshCw, Loader2, AlertCircle, Cloud, Newspaper, MessageCircle, Users, Waves, Phone, Shield } from 'lucide-react';
 import { AlertCard } from '../AlertCard';
 import { ReportCard } from '../ReportCard';
 import { ReportDetailModal } from '../ReportDetailModal';
 import { EmergencyContactsModal } from '../EmergencyContactsModal';
 import { FloodHubTab } from '../floodhub';
+import { SafetyCirclesTab } from '../circles';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
-import { useUnifiedAlerts, useRefreshExternalAlerts, useReports, Report } from '../../lib/api/hooks';
+import { useUnifiedAlerts, useRefreshExternalAlerts, useReports, Report, useUnreadCircleAlertCount } from '../../lib/api/hooks';
 import { useCurrentCity } from '../../contexts/CityContext';
 import type { AlertSourceFilter } from '../../types';
 import { toast } from 'sonner';
@@ -29,6 +30,8 @@ function getFilterLabel(filter: AlertSourceFilter): string {
             return 'Community';
         case 'floodhub':
             return 'FloodHub';
+        case 'circles':
+            return 'Circles';
         default:
             return filter;
     }
@@ -49,6 +52,8 @@ function getFilterIcon(filter: AlertSourceFilter) {
             return <Users className="w-3 h-3" />;
         case 'floodhub':
             return <Waves className="w-3 h-3" />;
+        case 'circles':
+            return <Shield className="w-3 h-3" />;
         default:
             return null;
     }
@@ -67,6 +72,9 @@ export function AlertsScreen() {
     // Fetch community reports when community filter is active
     const { data: communityReports, isLoading: reportsLoading } = useReports();
 
+    // Fetch circle alert unread count for badge
+    const { data: circleUnreadCount } = useUnreadCircleAlertCount();
+
     // Handle manual refresh
     const handleRefresh = async () => {
         try {
@@ -79,7 +87,7 @@ export function AlertsScreen() {
     };
 
     // Filter tabs with counts
-    const filters: AlertSourceFilter[] = ['all', 'official', 'news', 'social', 'community', 'floodhub'];
+    const filters: AlertSourceFilter[] = ['all', 'official', 'news', 'social', 'community', 'floodhub', 'circles'];
 
     // Get count for each filter
     const getFilterCount = (filter: AlertSourceFilter): number => {
@@ -89,6 +97,10 @@ export function AlertsScreen() {
         // FloodHub has its own status display - don't show count badge
         if (filter === 'floodhub') {
             return -1; // -1 signals "no count badge"
+        }
+        // Circles uses its own unread count from circle alerts
+        if (filter === 'circles') {
+            return circleUnreadCount?.count || 0;
         }
         if (!data) return 0;
         if (filter === 'all') return data.total + (communityReports?.length || 0);
@@ -101,6 +113,7 @@ export function AlertsScreen() {
             social: ['twitter', 'telegram'],
             community: ['floodsafe'],
             floodhub: [], // FloodHub handled separately
+            circles: [], // Circles have their own data flow
         };
 
         const sources = sourceMapping[filter] || [];
@@ -213,8 +226,11 @@ export function AlertsScreen() {
             </div>
 
             {/* Content based on filter */}
-            <div className={sourceFilter === 'floodhub' ? '' : 'p-4 space-y-3'}>
-                {sourceFilter === 'floodhub' ? (
+            <div className={sourceFilter === 'floodhub' || sourceFilter === 'circles' ? '' : 'p-4 space-y-3'}>
+                {sourceFilter === 'circles' ? (
+                    // Safety Circles Tab - Family & Community Notifications
+                    <SafetyCirclesTab />
+                ) : sourceFilter === 'floodhub' ? (
                     // FloodHub Tab - Google Flood Forecasting
                     <FloodHubTab />
                 ) : sourceFilter === 'community' ? (
