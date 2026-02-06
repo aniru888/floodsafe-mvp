@@ -41,6 +41,8 @@ export default defineConfig({
       workbox: {
         // Allow larger bundles for precaching (default is 2MB, our bundle is ~2.2MB)
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024, // 3 MB
+        // Import custom SW code for SOS Background Sync handler
+        importScripts: ['/sw-sos-sync.js'],
         // Cache static assets (JS, CSS, fonts) - CacheFirst
         runtimeCaching: [
           {

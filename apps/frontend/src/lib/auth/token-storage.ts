@@ -8,7 +8,10 @@
  * - Access tokens are short-lived (15 min)
  * - Refresh tokens enable silent re-authentication
  * - Memory storage prevents XSS access to tokens
+ * - Token is also cached in IndexedDB for service worker Background Sync access
  */
+
+import { syncTokenToSW, clearSWTokenCache } from './sw-token-cache';
 
 // In-memory storage (most secure, but lost on page refresh)
 let accessToken: string | null = null;
@@ -63,6 +66,8 @@ export const TokenStorage = {
     setAccessToken(token: string): void {
         accessToken = token;
         localStorage.setItem(ACCESS_TOKEN_KEY, token);
+        // Cache in IndexedDB for service worker Background Sync (SOS queue)
+        syncTokenToSW(token).catch(() => {});
     },
 
     /**
@@ -100,6 +105,8 @@ export const TokenStorage = {
         refreshToken = null;
         localStorage.removeItem(ACCESS_TOKEN_KEY);
         localStorage.removeItem(REFRESH_TOKEN_KEY);
+        // Clear IndexedDB token cache for service worker
+        clearSWTokenCache().catch(() => {});
     },
 
     /**

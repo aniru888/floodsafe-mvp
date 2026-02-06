@@ -544,3 +544,34 @@ class CircleAlert(Base):
         Index('ix_circle_alerts_unread', 'is_read', postgresql_where=text('is_read = FALSE')),
         Index('ix_circle_alerts_created_at', 'created_at'),
     )
+
+
+class SOSMessage(Base):
+    """
+    An SOS emergency message sent by a user to their safety contacts.
+    Queued on the frontend when offline, sent via Twilio when online.
+    Tracks per-recipient delivery status in recipients_json.
+
+    Design: Accepts raw phone numbers (not user IDs) because recipients include
+    non-registered contacts (Safety Circle phone-only members, emergency contacts).
+    """
+    __tablename__ = "sos_messages"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    message = Column(String(500), nullable=False)
+    location = Column(Geometry("POINT", srid=4326), nullable=True)
+    recipients_json = Column(JSON, nullable=False)  # [{phone, name, status, channel, error?}]
+    channel = Column(String(20), nullable=False, default="sms")  # 'sms' or 'whatsapp'
+    status = Column(String(20), nullable=False, default="queued")  # queued/sending/sent/partial/failed
+    sent_count = Column(Integer, default=0)
+    failed_count = Column(Integer, default=0)
+    error_log = Column(Text, nullable=True)  # Newline-separated error messages
+    created_at = Column(DateTime, default=datetime.utcnow)
+    sent_at = Column(DateTime, nullable=True)
+
+    __table_args__ = (
+        Index('ix_sos_messages_user_id', 'user_id'),
+        Index('ix_sos_messages_created_at', 'created_at'),
+        Index('ix_sos_messages_status', 'status'),
+    )

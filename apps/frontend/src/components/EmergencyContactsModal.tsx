@@ -22,6 +22,7 @@ import {
     EmergencyContact,
 } from '../lib/constants/emergencyContacts';
 import { cn } from '../lib/utils';
+import { SOSButton } from './SOSButton';
 
 interface EmergencyContactsModalProps {
     isOpen: boolean;
@@ -221,6 +222,11 @@ export function EmergencyContactsModal({ isOpen, onClose }: EmergencyContactsMod
 
                 {/* Content */}
                 <div className="p-4 space-y-4">
+                    {/* SOS Alert Button — Send SMS to Safety Circle contacts */}
+                    <SOSButton />
+
+                    <SectionHeader title="Call Emergency Services" />
+
                     {/* Critical Section - Always visible, no scrolling needed */}
                     <div className="space-y-3">
                         {contacts.critical.map(contact => (
