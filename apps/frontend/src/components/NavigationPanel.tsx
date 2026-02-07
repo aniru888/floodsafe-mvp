@@ -421,7 +421,7 @@ export function NavigationPanel({
             >
                 {/* Header */}
                 <div
-                    className="px-4 py-3 border-b border-gray-200 bg-white"
+                    className="px-4 py-3 border-b border-border bg-card"
                     style={{ flexShrink: 0 }}
                 >
                     <h2 className="flex items-center gap-2 font-semibold">
@@ -444,7 +444,7 @@ export function NavigationPanel({
                                     variant="ghost"
                                     size="sm"
                                     onClick={handleUseCurrentLocation}
-                                    className={`text-xs h-7 ${useCurrentLocation ? 'text-green-600' : 'text-gray-500'}`}
+                                    className={`text-xs h-7 ${useCurrentLocation ? 'text-green-600' : 'text-muted-foreground'}`}
                                 >
                                     <LocateFixed className="h-3 w-3 mr-1" />
                                     GPS
@@ -543,7 +543,7 @@ export function NavigationPanel({
                     </div>
 
                     {/* ML Risk Toggle (Placeholder) */}
-                    <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg opacity-50">
+                    <div className="flex items-center gap-2 p-3 bg-secondary rounded-lg opacity-50">
                         <input
                             type="checkbox"
                             disabled
@@ -551,7 +551,7 @@ export function NavigationPanel({
                             onChange={(e) => setAvoidMLRisk(e.target.checked)}
                             className="rounded"
                         />
-                        <span className="text-sm text-gray-600">
+                        <span className="text-sm text-muted-foreground">
                             Avoid AI-predicted flood zones (coming soon)
                         </span>
                     </div>
@@ -594,7 +594,7 @@ export function NavigationPanel({
                             {selectedRouteType && selectedRouteType !== 'metro' && (
                                 <Button
                                     onClick={handleStartNavigation}
-                                    className="w-full bg-blue-600 hover:bg-blue-700"
+                                    className="w-full bg-primary hover:bg-primary/90"
                                     size="lg"
                                 >
                                     <Play className="h-4 w-4 mr-2" />
@@ -613,7 +613,7 @@ export function NavigationPanel({
                                     <button
                                         key={station.id}
                                         onClick={() => handleMetroSelect(station)}
-                                        className="w-full p-3 rounded-lg border border-gray-200 hover:border-gray-300 text-left transition-all"
+                                        className="w-full p-3 rounded-lg border border-border hover:border-border text-left transition-all"
                                     >
                                         <div className="flex items-start justify-between">
                                             <div className="flex items-start gap-2">
@@ -623,12 +623,12 @@ export function NavigationPanel({
                                                 />
                                                 <div>
                                                     <div className="font-medium">{station.name}</div>
-                                                    <div className="text-xs text-gray-600">{station.line}</div>
+                                                    <div className="text-xs text-muted-foreground">{station.line}</div>
                                                 </div>
                                             </div>
                                             <div className="text-right text-sm">
                                                 <div className="font-medium">{formatDistance(station.distance_meters)}</div>
-                                                <div className="text-xs text-gray-600">
+                                                <div className="text-xs text-muted-foreground">
                                                     {station.walking_minutes} min walk
                                                 </div>
                                             </div>
@@ -650,7 +650,7 @@ export function NavigationPanel({
                                 {savedRoutes.slice(0, 5).map((saved) => (
                                     <div
                                         key={saved.id}
-                                        className="w-full p-3 rounded-lg border border-gray-200 hover:border-blue-300 transition-all"
+                                        className="w-full p-3 rounded-lg border border-border hover:border-primary/50 transition-all"
                                     >
                                         <div className="flex items-center justify-between">
                                             <button
@@ -660,7 +660,7 @@ export function NavigationPanel({
                                                 <Bookmark className="h-4 w-4 text-blue-500 flex-shrink-0" />
                                                 <div className="flex-1 min-w-0">
                                                     <div className="font-medium text-sm truncate">{saved.name}</div>
-                                                    <div className="text-xs text-gray-500">
+                                                    <div className="text-xs text-muted-foreground">
                                                         Used {saved.use_count}x · {saved.transport_mode}
                                                     </div>
                                                 </div>
@@ -670,7 +670,7 @@ export function NavigationPanel({
                                                     e.stopPropagation();
                                                     handleDeleteSavedRoute(saved.id, saved.name);
                                                 }}
-                                                className="p-2 text-gray-400 hover:text-red-500 transition-colors"
+                                                className="p-2 text-muted-foreground/60 hover:text-red-500 transition-colors"
                                                 title="Delete saved route"
                                             >
                                                 <Trash2 className="h-4 w-4" />

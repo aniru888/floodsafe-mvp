@@ -14,7 +14,7 @@ export function LiveNavigationPanel() {
 
     return (
         <div
-            className="fixed left-0 right-0 z-40 bg-white border-t border-gray-200"
+            className="fixed left-0 right-0 z-40 bg-card border-t border-border"
             style={{
                 bottom: 'calc(64px + env(safe-area-inset-bottom, 0px))',
                 boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -2px rgba(0, 0, 0, 0.1)'
@@ -68,11 +68,11 @@ export function LiveNavigationPanel() {
                     <div className="flex-1 min-w-0">
                         {state.currentInstruction ? (
                             <>
-                                <p className="text-lg font-bold text-gray-900 truncate">
+                                <p className="text-lg font-bold text-foreground truncate">
                                     {state.currentInstruction.instruction}
                                 </p>
                                 {state.distanceToNextTurn > 0 && (
-                                    <div className="flex items-center gap-2 mt-1 text-sm text-gray-600">
+                                    <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">
                                         <ArrowRight className="h-4 w-4" />
                                         <span>
                                             In {formatDistance(state.distanceToNextTurn)}
@@ -80,7 +80,7 @@ export function LiveNavigationPanel() {
                                     </div>
                                 )}
                                 {state.currentInstruction.street_name && (
-                                    <div className="flex items-center gap-2 mt-0.5 text-xs text-gray-500">
+                                    <div className="flex items-center gap-2 mt-0.5 text-xs text-muted-foreground">
                                         <MapPin className="h-3 w-3" />
                                         <span className="truncate">
                                             {state.currentInstruction.street_name}
@@ -89,13 +89,13 @@ export function LiveNavigationPanel() {
                                 )}
                             </>
                         ) : (
-                            <p className="text-lg font-bold text-gray-900">
+                            <p className="text-lg font-bold text-foreground">
                                 Continue on route
                             </p>
                         )}
 
                         {/* ETA and Distance Remaining */}
-                        <div className="flex items-center gap-4 mt-2 text-xs text-gray-600">
+                        <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
                             <div className="flex items-center gap-1">
                                 <Clock className="h-3 w-3" />
                                 <span>ETA: {formatDuration(state.etaSeconds)}</span>

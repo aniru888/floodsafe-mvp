@@ -10,10 +10,10 @@ export default function MapLegend({ className }: MapLegendProps) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
-        <div className={`bg-white rounded-lg shadow-xl border border-gray-200 ${className}`}>
+        <div className={`bg-card rounded-lg shadow-xl border border-border ${className}`}>
             {/* Header */}
-            <div className="flex items-center justify-between p-3 border-b">
-                <h3 className="text-sm font-semibold text-gray-900">Map Legend</h3>
+            <div className="flex items-center justify-between p-3 border-b border-border">
+                <h3 className="text-sm font-semibold text-foreground">Map Legend</h3>
                 <Button
                     size="icon"
                     variant="ghost"
@@ -33,45 +33,45 @@ export default function MapLegend({ className }: MapLegendProps) {
                 <div className="p-3 space-y-3 max-h-[50vh] overflow-y-auto">
                     {/* Waterlogging Hotspots (FHI) - Main feature, shown first */}
                     <div>
-                        <h4 className="text-xs font-semibold text-gray-700 mb-2 flex items-center gap-1">
+                        <h4 className="text-xs font-semibold text-foreground/80 mb-2 flex items-center gap-1">
                             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                             Waterlogging Hotspots (Live)
                         </h4>
                         <div className="space-y-1.5">
                             <div className="flex items-center gap-2">
                                 <div className="w-3 h-3 rounded-full ring-2 ring-green-300" style={{ backgroundColor: '#22c55e' }}></div>
-                                <span className="text-xs text-gray-600">Low Risk (0-20%)</span>
+                                <span className="text-xs text-muted-foreground">Low Risk (0-20%)</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <div className="w-3 h-3 rounded-full ring-2 ring-yellow-300" style={{ backgroundColor: '#eab308' }}></div>
-                                <span className="text-xs text-gray-600">Moderate (20-40%)</span>
+                                <span className="text-xs text-muted-foreground">Moderate (20-40%)</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <div className="w-3 h-3 rounded-full ring-2 ring-orange-300" style={{ backgroundColor: '#f97316' }}></div>
-                                <span className="text-xs text-gray-600">High (40-70%)</span>
+                                <span className="text-xs text-muted-foreground">High (40-70%)</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <div className="w-3 h-3 rounded-full ring-2 ring-red-300" style={{ backgroundColor: '#ef4444' }}></div>
-                                <span className="text-xs text-gray-600">Extreme (70-100%)</span>
+                                <span className="text-xs text-muted-foreground">Extreme (70-100%)</span>
                             </div>
                         </div>
-                        <p className="text-xs text-gray-400 mt-1.5 italic">
+                        <p className="text-xs text-muted-foreground/70 mt-1.5 italic">
                             Real-time weather conditions
                         </p>
                     </div>
 
                     {/* User Location */}
                     <div>
-                        <h4 className="text-xs font-medium text-gray-700 mb-2">Your Location</h4>
+                        <h4 className="text-xs font-medium text-foreground/80 mb-2">Your Location</h4>
                         <div className="flex items-center gap-2">
                             <div className="w-3 h-3 rounded-full bg-blue-500 animate-pulse ring-2 ring-blue-300"></div>
-                            <span className="text-xs text-gray-600">Current position</span>
+                            <span className="text-xs text-muted-foreground">Current position</span>
                         </div>
                     </div>
 
                     {/* Sensor Status */}
                     <div>
-                        <h4 className="text-xs font-medium text-gray-700 mb-2">Sensors</h4>
+                        <h4 className="text-xs font-medium text-foreground/80 mb-2">Sensors</h4>
                         <div className="space-y-1.5">
                             <LegendItem color="#22c55e" label="Active" shape="circle" />
                             <LegendItem color="#f97316" label="Warning" shape="circle" />
@@ -81,16 +81,16 @@ export default function MapLegend({ className }: MapLegendProps) {
 
                     {/* Community Reports */}
                     <div>
-                        <h4 className="text-xs font-medium text-gray-700 mb-2">Community Reports</h4>
+                        <h4 className="text-xs font-medium text-foreground/80 mb-2">Community Reports</h4>
                         <div className="space-y-1.5">
                             <LegendItem color="#3b82f6" label="Ankle Deep" shape="circle" />
                             <LegendItem color="#f59e0b" label="Knee Deep" shape="circle" />
                             <LegendItem color="#f97316" label="Waist Deep" shape="circle" />
                             <LegendItem color="#ef4444" label="Impassable" shape="circle" />
                         </div>
-                        <div className="mt-2 pt-2 border-t border-gray-200">
-                            <div className="flex items-center gap-2 text-xs text-gray-600">
-                                <div className="w-4 h-4 rounded-full border-2 border-green-500 bg-gray-300"></div>
+                        <div className="mt-2 pt-2 border-t border-border">
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                <div className="w-4 h-4 rounded-full border-2 border-green-500 bg-muted"></div>
                                 <span>Verified</span>
                             </div>
                         </div>
@@ -98,28 +98,28 @@ export default function MapLegend({ className }: MapLegendProps) {
 
                     {/* Routes */}
                     <div>
-                        <h4 className="text-xs font-medium text-gray-700 mb-2">Navigation Routes</h4>
+                        <h4 className="text-xs font-medium text-foreground/80 mb-2">Navigation Routes</h4>
                         <div className="space-y-1.5">
                             <LegendItem color="#3b82f6" label="Fastest Route" shape="line" />
                             <LegendItem color="#22c55e" label="Safest Route" shape="line" />
                             <div className="flex items-center gap-2">
                                 <div className="w-4 h-3 rounded bg-red-500 opacity-50"></div>
-                                <span className="text-xs text-gray-600">Flood area (avoid)</span>
+                                <span className="text-xs text-muted-foreground">Flood area (avoid)</span>
                             </div>
                         </div>
                     </div>
 
                     {/* Metro Lines */}
                     <div>
-                        <h4 className="text-xs font-medium text-gray-700 mb-2">Metro</h4>
+                        <h4 className="text-xs font-medium text-foreground/80 mb-2">Metro</h4>
                         <div className="space-y-1.5">
                             <div className="flex items-center gap-2">
                                 <div className="w-6 h-1 rounded bg-indigo-500"></div>
-                                <span className="text-xs text-gray-600">Metro routes</span>
+                                <span className="text-xs text-muted-foreground">Metro routes</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <div className="w-3 h-3 rounded-full bg-indigo-600 border-2 border-white shadow-sm"></div>
-                                <span className="text-xs text-gray-600">Metro station</span>
+                                <span className="text-xs text-muted-foreground">Metro station</span>
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@ function LegendItem({ color, label, shape = 'square', thickness = 'normal' }: Le
         <div className="flex items-center gap-2">
             {shape === 'square' && (
                 <div
-                    className="w-4 h-4 rounded border border-gray-300"
+                    className="w-4 h-4 rounded border border-border"
                     style={{ backgroundColor: color, opacity: 0.6 }}
                 />
             )}
@@ -157,7 +157,7 @@ function LegendItem({ color, label, shape = 'square', thickness = 'normal' }: Le
                     style={{ backgroundColor: color }}
                 />
             )}
-            <span className="text-xs text-gray-600">{label}</span>
+            <span className="text-xs text-muted-foreground">{label}</span>
         </div>
     );
 }
