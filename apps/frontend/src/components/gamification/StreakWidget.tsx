@@ -35,7 +35,8 @@ export function StreakWidget({ className }: StreakWidgetProps) {
     );
   }
 
-  if (!reputation) {
+  // Guard: API may return [] instead of object — [] is truthy, bypasses !data check
+  if (!reputation || typeof reputation !== 'object' || Array.isArray(reputation)) {
     return null;
   }
 

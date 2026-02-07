@@ -53,12 +53,15 @@ function GaugeCard({
     onSelect: () => void;
 }) {
     const style = severityStyles[gauge.severity];
-    const issuedTime = new Date(gauge.issued_time).toLocaleString('en-IN', {
-        hour: '2-digit',
-        minute: '2-digit',
-        day: 'numeric',
-        month: 'short',
-    });
+    const issuedDate = gauge.issued_time ? new Date(gauge.issued_time) : null;
+    const issuedTime = issuedDate && !isNaN(issuedDate.getTime())
+        ? issuedDate.toLocaleString('en-IN', {
+            hour: '2-digit',
+            minute: '2-digit',
+            day: 'numeric',
+            month: 'short',
+        })
+        : 'Unknown';
 
     return (
         <button

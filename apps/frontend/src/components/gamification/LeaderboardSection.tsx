@@ -126,10 +126,10 @@ export function LeaderboardSection({ userId, onViewFull, className }: Leaderboar
             )}
 
             {/* Leaderboard Table */}
-            {!isLoading && !error && leaderboardData && (
+            {!isLoading && !error && leaderboardData && !Array.isArray(leaderboardData) && (
               <>
                 <div className="space-y-1 mb-3">
-                  {leaderboardData.entries.map((entry) => {
+                  {(leaderboardData.entries || []).map((entry) => {
                     const isCurrentUser = entry.rank === currentUserRank;
 
                     return (
@@ -213,7 +213,7 @@ export function LeaderboardSection({ userId, onViewFull, className }: Leaderboar
             )}
 
             {/* Empty State */}
-            {!isLoading && !error && leaderboardData && leaderboardData.entries.length === 0 && (
+            {!isLoading && !error && leaderboardData && !Array.isArray(leaderboardData) && (leaderboardData.entries || []).length === 0 && (
               <div className="text-center py-8">
                 <Trophy className="w-12 h-12 mx-auto text-gray-300 mb-2" />
                 <p className="text-sm text-gray-600">No leaderboard data yet</p>

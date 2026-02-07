@@ -11,8 +11,8 @@ interface LevelProgressCardProps {
 }
 
 export function LevelProgressCard({ user, className }: LevelProgressCardProps) {
-  const currentLevel = user.level;
-  const currentPoints = user.points;
+  const currentLevel = user?.level ?? 1;
+  const currentPoints = user?.points ?? 0;
 
   // 100 points per level
   const pointsPerLevel = 100;

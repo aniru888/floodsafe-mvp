@@ -94,7 +94,7 @@ export function SafetyCirclesTab() {
 
     const unreadCount = unreadData?.count || 0;
     const alerts = alertsData?.alerts || [];
-    const hasCircles = circles && circles.length > 0;
+    const hasCircles = Array.isArray(circles) && circles.length > 0;
 
     const handleMarkAllRead = () => {
         markAllRead.mutate(undefined, {

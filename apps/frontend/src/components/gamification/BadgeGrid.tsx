@@ -37,7 +37,8 @@ export function BadgeGrid({ className, limit, onViewAll }: BadgeGridProps) {
     );
   }
 
-  if (!badgesData) {
+  // Guard: API may return [] instead of object — [] is truthy, bypasses !data check
+  if (!badgesData || typeof badgesData !== 'object' || Array.isArray(badgesData)) {
     return null;
   }
 

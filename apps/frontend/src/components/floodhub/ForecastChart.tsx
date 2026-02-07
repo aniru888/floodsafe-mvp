@@ -30,6 +30,15 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function ForecastChart({ forecast }: ForecastChartProps) {
+    // Guard against missing or empty forecast data
+    if (!forecast?.forecasts?.length) {
+        return (
+            <div className="bg-white rounded-lg border border-gray-200 p-4">
+                <p className="text-sm text-gray-500 text-center py-8">No forecast data available</p>
+            </div>
+        );
+    }
+
     // Transform forecast data for Recharts
     const data = forecast.forecasts.map((point) => {
         const date = new Date(point.timestamp);

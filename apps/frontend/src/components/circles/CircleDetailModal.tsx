@@ -34,7 +34,7 @@ export function CircleDetailModal({ isOpen, onClose, circleId }: CircleDetailMod
     if (!circleId) return null;
 
     const canManage = circle && (circle.user_role === 'creator' || circle.user_role === 'admin');
-    const currentMember = circle?.members.find((m) => m.user_id === user?.id);
+    const currentMember = circle?.members?.find((m) => m.user_id === user?.id);
 
     return (
         <>
