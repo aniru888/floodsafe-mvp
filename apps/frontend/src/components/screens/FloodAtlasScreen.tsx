@@ -146,7 +146,7 @@ function FloodAtlasContent({
     };
 
     return (
-        <div className="fixed inset-0 top-14 md:top-0 bottom-0 bg-transparent">
+        <div className="fixed top-14 md:top-0 left-0 md:left-64 right-0 bottom-0 bg-transparent">
             {/* GPS Test Panel - only visible in testing mode */}
             {import.meta.env.VITE_ENABLE_GPS_TESTING === 'true' && (
                 <GPSTestPanel

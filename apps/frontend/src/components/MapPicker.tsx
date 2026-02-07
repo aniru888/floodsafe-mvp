@@ -464,17 +464,18 @@ export default function MapPicker({ isOpen, onClose, initialLocation, onLocation
 
     // Use Portal to render at document.body
     // Position BETWEEN TopNav (56px) and BottomNav (80px) to avoid z-index conflicts
+    // z-index 110/111 must be ABOVE NavigationPanel Sheet (z-[100]) so MapPicker is visible
     // Using inline styles because Tailwind JIT may not generate arbitrary values
     return createPortal(
         <>
             {/* Overlay - positioned between nav bars */}
             <div
-                style={{ position: 'fixed', top: 56, left: 0, right: 0, bottom: 'calc(64px + env(safe-area-inset-bottom, 0px))', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 60 }}
+                style={{ position: 'fixed', top: 56, left: 0, right: 0, bottom: 'calc(64px + env(safe-area-inset-bottom, 0px))', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 110 }}
                 onClick={onClose}
             />
             {/* Side Panel - fits between TopNav and BottomNav */}
             <div
-                style={{ position: 'fixed', top: 56, left: 0, bottom: 'calc(64px + env(safe-area-inset-bottom, 0px))', width: 'min(350px, 90vw)', zIndex: 61 }}
+                style={{ position: 'fixed', top: 56, left: 0, bottom: 'calc(64px + env(safe-area-inset-bottom, 0px))', width: 'min(350px, 90vw)', zIndex: 111 }}
                 className="bg-white shadow-xl flex flex-col rounded-br-lg overflow-hidden"
             >
                 <MapContent

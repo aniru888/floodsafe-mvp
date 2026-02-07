@@ -102,8 +102,8 @@ export function AlertsScreen() {
         if (filter === 'circles') {
             return circleUnreadCount?.count || 0;
         }
-        if (!data) return 0;
-        if (filter === 'all') return data.total + (communityReports?.length || 0);
+        if (!data?.alerts) return 0;
+        if (filter === 'all') return (data.total ?? 0) + (communityReports?.length || 0);
 
         // Map filters to source types
         const sourceMapping: Record<AlertSourceFilter, string[]> = {

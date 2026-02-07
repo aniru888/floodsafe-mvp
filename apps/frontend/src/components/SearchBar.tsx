@@ -149,7 +149,7 @@ export default function SearchBar({
     const showLoading = isLoading || isFetching;
     const showNoResults = !showLoading && debouncedQuery.length >= 2 && filteredResults.length === 0 && results && results.length > 0;
     const showEmptySearch = !showLoading && debouncedQuery.length >= 2 && (!results || results.length === 0);
-    const showTrendingSection = query.length === 0 && trending && trending.trending.length > 0;
+    const showTrendingSection = query.length === 0 && (trending?.trending?.length ?? 0) > 0;
 
     return (
         <div ref={containerRef} className={`relative ${className}`}>
@@ -274,7 +274,7 @@ export default function SearchBar({
                                     Trending Searches
                                 </div>
                                 <div className="px-4 py-3 flex flex-wrap gap-2">
-                                    {trending.trending.map((term, index) => (
+                                    {trending?.trending?.map((term: string, index: number) => (
                                         <button
                                             key={index}
                                             type="button"

@@ -123,10 +123,11 @@ export function AlertCard({ alert }: AlertCardProps) {
     const hasUrl = !!alert.url;
 
     // Truncate message for collapsed state (150 chars)
-    const shouldTruncate = alert.message.length > 150;
+    const message = alert.message || '';
+    const shouldTruncate = message.length > 150;
     const displayMessage = isExpanded || !shouldTruncate
-        ? alert.message
-        : alert.message.substring(0, 150) + '...';
+        ? message
+        : message.substring(0, 150) + '...';
 
     return (
         <Card className={`p-4 border-l-4 ${getSeverityBorder(alert.severity)}`}>
