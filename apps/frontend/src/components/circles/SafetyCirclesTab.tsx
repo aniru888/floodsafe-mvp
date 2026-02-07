@@ -23,16 +23,16 @@ function CircleCard({ circle, onClick }: { circle: SafetyCircle; onClick: () => 
     return (
         <button
             onClick={onClick}
-            className="w-full text-left p-3 rounded-xl border border-gray-200 bg-white hover:border-blue-300 hover:shadow-sm transition-all"
+            className="w-full text-left p-3 rounded-xl border border-border bg-card hover:border-primary/30 hover:shadow-sm transition-all"
         >
             <div className="flex items-start gap-2.5">
                 <span className="text-xl leading-none mt-0.5">
                     {TYPE_EMOJI[circle.circle_type] || '\uD83D\uDC65'}
                 </span>
                 <div className="flex-1 min-w-0">
-                    <p className="font-medium text-sm text-gray-900 truncate">{circle.name}</p>
+                    <p className="font-medium text-sm text-foreground truncate">{circle.name}</p>
                     <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-muted-foreground">
                             <Users className="w-3 h-3 inline mr-0.5" />
                             {circle.member_count}
                         </span>
@@ -61,14 +61,14 @@ export function SafetyCirclesTab() {
     if (!isAuthenticated) {
         return (
             <div className="p-4 text-center py-16">
-                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
-                    <Shield className="w-8 h-8 text-blue-600" />
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <Shield className="w-8 h-8 text-primary" />
                 </div>
-                <h2 className="text-xl font-medium mb-2">Safety Circles</h2>
-                <p className="text-gray-600 mb-4">
+                <h2 className="text-xl font-medium text-foreground mb-2">Safety Circles</h2>
+                <p className="text-muted-foreground mb-4">
                     Create family and community circles to get notified when members report flooding.
                 </p>
-                <p className="text-sm text-gray-500">Sign in to create or join a circle.</p>
+                <p className="text-sm text-muted-foreground/70">Sign in to create or join a circle.</p>
             </div>
         );
     }
@@ -77,7 +77,7 @@ export function SafetyCirclesTab() {
     if (circlesLoading) {
         return (
             <div className="flex items-center justify-center py-16">
-                <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+                <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
         );
     }
@@ -86,8 +86,8 @@ export function SafetyCirclesTab() {
     if (circlesError) {
         return (
             <div className="p-4 text-center py-16">
-                <p className="text-red-500 font-medium">Failed to load circles</p>
-                <p className="text-sm text-gray-500 mt-1">{(circlesError as Error).message}</p>
+                <p className="text-destructive font-medium">Failed to load circles</p>
+                <p className="text-sm text-muted-foreground mt-1">{(circlesError as Error).message}</p>
             </div>
         );
     }
@@ -112,8 +112,8 @@ export function SafetyCirclesTab() {
             {/* Header with actions */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <Shield className="w-5 h-5 text-blue-600" />
-                    <h2 className="font-semibold text-gray-900">My Safety Circles</h2>
+                    <Shield className="w-5 h-5 text-primary" />
+                    <h2 className="font-semibold text-foreground">My Safety Circles</h2>
                 </div>
                 <div className="flex items-center gap-2">
                     <Button
@@ -148,12 +148,12 @@ export function SafetyCirclesTab() {
                     ))}
                 </div>
             ) : (
-                <div className="text-center py-8 bg-white rounded-xl border border-dashed border-gray-300">
-                    <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-3">
-                        <Shield className="w-6 h-6 text-blue-600" />
+                <div className="text-center py-8 bg-card rounded-xl border border-dashed border-border">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                        <Shield className="w-6 h-6 text-primary" />
                     </div>
-                    <p className="text-gray-900 font-medium mb-1">No circles yet</p>
-                    <p className="text-sm text-gray-500 mb-3">
+                    <p className="text-foreground font-medium mb-1">No circles yet</p>
+                    <p className="text-sm text-muted-foreground mb-3">
                         Create a circle for your family or community
                     </p>
                     <div className="flex items-center justify-center gap-2">
@@ -176,8 +176,8 @@ export function SafetyCirclesTab() {
                 <div>
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
-                            <Bell className="w-4 h-4 text-gray-600" />
-                            <p className="text-sm font-medium text-gray-700">Recent Alerts</p>
+                            <Bell className="w-4 h-4 text-muted-foreground" />
+                            <p className="text-sm font-medium text-foreground">Recent Alerts</p>
                             {unreadCount > 0 && (
                                 <Badge variant="default" className="bg-red-500 text-xs px-1.5 py-0">
                                     {unreadCount}
@@ -188,7 +188,7 @@ export function SafetyCirclesTab() {
                             <Button
                                 variant="ghost"
                                 size="sm"
-                                className="h-7 text-xs text-gray-500"
+                                className="h-7 text-xs text-muted-foreground"
                                 onClick={handleMarkAllRead}
                                 disabled={markAllRead.isPending}
                             >
@@ -209,8 +209,8 @@ export function SafetyCirclesTab() {
                             ))}
                         </div>
                     ) : (
-                        <div className="text-center py-6 bg-white rounded-lg border">
-                            <p className="text-sm text-gray-500">
+                        <div className="text-center py-6 bg-card rounded-xl border border-border">
+                            <p className="text-sm text-muted-foreground">
                                 No alerts yet. When circle members report flooding, you'll see alerts here.
                             </p>
                         </div>

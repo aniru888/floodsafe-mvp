@@ -130,25 +130,25 @@ export function AlertCard({ alert }: AlertCardProps) {
         : message.substring(0, 150) + '...';
 
     return (
-        <Card className={`p-4 border-l-4 ${getSeverityBorder(alert.severity)}`}>
+        <Card className={`bg-card text-card-foreground rounded-xl border shadow-sm p-4 border-l-4 ${getSeverityBorder(alert.severity)}`}>
             <div className="flex flex-col gap-3">
                 {/* Header */}
                 <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2 flex-1 min-w-0">
-                        <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                             {getSourceIcon(alert.source)}
                         </div>
                         <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 flex-wrap">
-                                <span className="text-sm font-medium text-gray-700">
+                                <span className="text-sm font-medium text-muted-foreground">
                                     {getSourceDisplayName(alert.source, alert.source_name)}
                                 </span>
-                                <span className="text-xs text-gray-400">
+                                <span className="text-xs text-muted-foreground/60">
                                     {formatTimeAgo(alert.created_at)}
                                 </span>
                             </div>
                             {alert.title && (
-                                <h3 className="text-sm font-semibold mt-1 text-gray-900 line-clamp-2">
+                                <h3 className="text-sm font-semibold mt-1 text-foreground line-clamp-2">
                                     {alert.title}
                                 </h3>
                             )}
@@ -158,7 +158,7 @@ export function AlertCard({ alert }: AlertCardProps) {
                 </div>
 
                 {/* Message */}
-                <p className="text-sm text-gray-700 whitespace-pre-wrap">
+                <p className="text-sm text-muted-foreground whitespace-pre-wrap">
                     {displayMessage}
                 </p>
 

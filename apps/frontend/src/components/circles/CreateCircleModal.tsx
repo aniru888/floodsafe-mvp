@@ -62,7 +62,7 @@ export function CreateCircleModal({ isOpen, onClose }: CreateCircleModalProps) {
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="text-sm font-medium text-gray-700 block mb-1">
+                        <label className="text-sm font-medium text-foreground block mb-1">
                             Circle Name
                         </label>
                         <Input
@@ -75,7 +75,7 @@ export function CreateCircleModal({ isOpen, onClose }: CreateCircleModalProps) {
                     </div>
 
                     <div>
-                        <label className="text-sm font-medium text-gray-700 block mb-1">
+                        <label className="text-sm font-medium text-foreground block mb-1">
                             Description (optional)
                         </label>
                         <Input
@@ -87,7 +87,7 @@ export function CreateCircleModal({ isOpen, onClose }: CreateCircleModalProps) {
                     </div>
 
                     <div>
-                        <label className="text-sm font-medium text-gray-700 block mb-2">
+                        <label className="text-sm font-medium text-foreground block mb-2">
                             Circle Type
                         </label>
                         <div className="grid grid-cols-2 gap-2">
@@ -96,14 +96,14 @@ export function CreateCircleModal({ isOpen, onClose }: CreateCircleModalProps) {
                                     key={type.value}
                                     type="button"
                                     onClick={() => setCircleType(type.value)}
-                                    className={`text-left p-2.5 rounded-lg border transition-colors ${
+                                    className={`text-left p-2.5 rounded-xl border transition-colors ${
                                         circleType === type.value
-                                            ? 'border-blue-500 bg-blue-50 text-blue-700'
-                                            : 'border-gray-200 hover:border-gray-300'
+                                            ? 'border-primary bg-primary/5 text-primary'
+                                            : 'border-border hover:border-border/80'
                                     }`}
                                 >
                                     <p className="text-sm font-medium">{type.label}</p>
-                                    <p className="text-xs text-gray-500">{type.desc}</p>
+                                    <p className="text-xs text-muted-foreground">{type.desc}</p>
                                 </button>
                             ))}
                         </div>

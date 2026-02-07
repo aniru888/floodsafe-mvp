@@ -46,7 +46,7 @@ export function JoinCircleModal({ isOpen, onClose, initialCode = '' }: JoinCircl
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="text-sm font-medium text-gray-700 block mb-1">
+                        <label className="text-sm font-medium text-foreground block mb-1">
                             Invite Code
                         </label>
                         <Input
@@ -57,7 +57,7 @@ export function JoinCircleModal({ isOpen, onClose, initialCode = '' }: JoinCircl
                             className="text-center font-mono text-lg tracking-widest"
                             autoFocus
                         />
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="text-xs text-muted-foreground mt-1">
                             Ask the circle creator for the invite code
                         </p>
                     </div>
