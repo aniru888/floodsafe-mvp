@@ -696,11 +696,11 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
     return (
         <div
             ref={scrollContainerRef}
-            className="min-h-full bg-gray-50 overflow-y-auto pb-4"
+            className="min-h-full bg-muted overflow-y-auto pb-4"
             style={{ WebkitOverflowScrolling: 'touch' }}
         >
                 {/* Header */}
-            <div className="bg-white shadow-sm sticky top-0 z-40">
+            <div className="bg-card shadow-sm sticky top-0 z-40">
                 <div className="flex items-center justify-between px-4 h-14">
                     <button
                         onClick={handleBack}
@@ -719,7 +719,7 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
             </div>
 
             {/* Progress Indicator */}
-            <div className="bg-white px-4 pb-4">
+            <div className="bg-card px-4 pb-4">
                 <div className="flex items-center justify-between mb-2">
                     <span className="text-sm">Step {step} of {totalSteps}</span>
                     <Badge variant="secondary" className="text-xs">
@@ -728,11 +728,11 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                     </Badge>
                 </div>
                 <Progress value={progressValue} className="h-2" />
-                <div className="flex justify-between text-xs text-gray-500 mt-2">
-                    <span className={step >= 1 ? 'text-blue-600' : ''}>Location</span>
-                    <span className={step >= 2 ? 'text-blue-600' : ''}>Details</span>
-                    <span className={step >= 3 ? 'text-blue-600' : ''}>Photo</span>
-                    <span className={step >= 4 ? 'text-blue-600' : ''}>Confirm</span>
+                <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                    <span className={step >= 1 ? 'text-primary' : ''}>Location</span>
+                    <span className={step >= 2 ? 'text-primary' : ''}>Details</span>
+                    <span className={step >= 3 ? 'text-primary' : ''}>Photo</span>
+                    <span className={step >= 4 ? 'text-primary' : ''}>Confirm</span>
                 </div>
             </div>
 
@@ -746,9 +746,9 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
 
                             <div className="space-y-4">
                                 {locationLoading ? (
-                                    <div className="border border-gray-200 rounded-lg p-3">
+                                    <div className="border border-border rounded-lg p-3">
                                         <div className="flex items-start gap-2">
-                                            <Loader2 className="w-5 h-5 text-blue-600 mt-0.5 animate-spin" />
+                                            <Loader2 className="w-5 h-5 text-primary mt-0.5 animate-spin" />
                                             <div className="flex-1 space-y-2">
                                                 <Skeleton className="h-4 w-32" />
                                                 <Skeleton className="h-3 w-48" />
@@ -789,14 +789,14 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                                             <div className="flex-1">
                                                 <p className="text-sm font-medium">Current Location</p>
                                                 {locationName ? (
-                                                    <p className="text-xs text-gray-600 mt-1">{locationName}</p>
+                                                    <p className="text-xs text-muted-foreground mt-1">{locationName}</p>
                                                 ) : (
-                                                    <p className="text-xs text-gray-600 mt-1">
+                                                    <p className="text-xs text-muted-foreground mt-1">
                                                         {location.latitude.toFixed(6)}, {location.longitude.toFixed(6)}
                                                     </p>
                                                 )}
                                                 <div className="flex items-center gap-1 mt-1">
-                                                    <p className="text-xs text-gray-500">
+                                                    <p className="text-xs text-muted-foreground">
                                                         GPS accuracy: ±{Math.round(location.accuracy)}m
                                                     </p>
                                                     {location.accuracy <= GPS_ACCURACY_EXCELLENT && (
@@ -835,7 +835,7 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                                     </Alert>
                                 )}
 
-                                <div className="text-center text-gray-500 text-sm">OR</div>
+                                <div className="text-center text-muted-foreground text-sm">OR</div>
 
                                 <Button
                                     variant="outline"
@@ -853,7 +853,7 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                                 <div>
                                     <div className="flex items-center justify-between mb-2">
                                         <Label htmlFor="desc" className="text-base">Description</Label>
-                                        <span className={`text-xs ${characterCount > MAX_DESCRIPTION_LENGTH * 0.9 ? 'text-orange-600' : 'text-gray-500'}`}>
+                                        <span className={`text-xs ${characterCount > MAX_DESCRIPTION_LENGTH * 0.9 ? 'text-orange-600' : 'text-muted-foreground'}`}>
                                             {characterCount}/{MAX_DESCRIPTION_LENGTH}
                                         </span>
                                     </div>
@@ -876,7 +876,7 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                                                 className={`w-full flex items-center justify-center gap-3 py-3 px-4 rounded-lg font-medium transition-all active:scale-[0.98] ${
                                                     isRecording
                                                         ? 'bg-red-500 text-white hover:bg-red-600 shadow-lg shadow-red-200 ring-2 ring-red-300 ring-offset-2 animate-pulse'
-                                                        : 'bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 shadow-md hover:shadow-lg'
+                                                        : 'bg-primary text-white hover:opacity-90 shadow-md hover:shadow-lg'
                                                 }`}
                                                 aria-label={isRecording ? 'Stop voice recording' : 'Start voice recording'}
                                             >
@@ -885,8 +885,8 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                                                         <MicOff className="w-5 h-5" />
                                                         <span>Tap to Stop Recording</span>
                                                         <span className="flex h-3 w-3">
-                                                            <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-white opacity-75"></span>
-                                                            <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+                                                            <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-card opacity-75"></span>
+                                                            <span className="relative inline-flex rounded-full h-3 w-3 bg-card"></span>
                                                         </span>
                                                     </>
                                                 ) : (
@@ -911,18 +911,18 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                                         </p>
                                     )}
                                     {!validationErrors.description && description.length === 0 && (
-                                        <p className="text-xs text-gray-500 mt-1">
+                                        <p className="text-xs text-muted-foreground mt-1">
                                             💡 Include landmarks, street names, or nearby places to help others locate
                                         </p>
                                     )}
                                 </div>
 
                                 <div>
-                                    <Label className="text-sm text-gray-700 mb-2 block">Quick Tags (Optional)</Label>
+                                    <Label className="text-sm text-foreground mb-2 block">Quick Tags (Optional)</Label>
                                     <div className="space-y-3">
                                         {Object.entries(TAG_CATEGORIES).map(([category, tags]) => (
                                             <div key={category}>
-                                                <p className="text-xs font-semibold text-gray-600 mb-1.5">{category}</p>
+                                                <p className="text-xs font-semibold text-muted-foreground mb-1.5">{category}</p>
                                                 <div className="flex flex-wrap gap-1.5">
                                                     {tags.map((tag) => (
                                                         <Badge
@@ -945,7 +945,7 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                                             </div>
                                         ))}
                                     </div>
-                                    <p className="text-xs text-gray-500 mt-2">
+                                    <p className="text-xs text-muted-foreground mt-2">
                                         Tap tags to categorize your report
                                     </p>
                                 </div>
@@ -974,10 +974,10 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                                 )}
 
                                 {isRecording && (
-                                    <Alert className="border-blue-200 bg-blue-50">
-                                        <Mic className="h-4 w-4 animate-pulse text-blue-600" />
-                                        <AlertTitle className="text-blue-900">🎤 Listening...</AlertTitle>
-                                        <AlertDescription className="text-blue-800">
+                                    <Alert className="border-primary/20 bg-primary/10">
+                                        <Mic className="h-4 w-4 animate-pulse text-primary" />
+                                        <AlertTitle className="text-primary">🎤 Listening...</AlertTitle>
+                                        <AlertDescription className="text-primary">
                                             {isMobile ? (
                                                 isIOSDevice() ? (
                                                     <span>Speak clearly. On iOS, recording will pause and restart after each phrase. Tap the red microphone button to stop.</span>
@@ -1009,13 +1009,13 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                                             { value: 'waist', label: 'Waist-deep', sublabel: '0.6-1.2m', emoji: '🏊' },
                                             { value: 'impassable', label: 'Impassable', sublabel: '> 1.2m', emoji: '⚠️' }
                                         ].map((option) => (
-                                            <div key={option.value} className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50">
+                                            <div key={option.value} className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-muted">
                                                 <RadioGroupItem value={option.value} id={option.value} />
                                                 <Label htmlFor={option.value} className="flex-1 flex items-center gap-3 cursor-pointer">
                                                     <span className="text-2xl">{option.emoji}</span>
                                                     <div>
                                                         <p className="text-sm">{option.label}</p>
-                                                        <p className="text-xs text-gray-500">{option.sublabel}</p>
+                                                        <p className="text-xs text-muted-foreground">{option.sublabel}</p>
                                                     </div>
                                                 </Label>
                                             </div>
@@ -1033,13 +1033,13 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                                             { value: 'high-clearance', label: 'High-clearance only', sublabel: 'SUVs, buses', icon: '🚙' },
                                             { value: 'none', label: 'No vehicles passing', icon: '🚫' }
                                         ].map((option) => (
-                                            <div key={option.value} className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50">
+                                            <div key={option.value} className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-muted">
                                                 <RadioGroupItem value={option.value} id={`vehicle-${option.value}`} />
                                                 <Label htmlFor={`vehicle-${option.value}`} className="flex-1 flex items-center gap-3 cursor-pointer">
                                                     <span className="text-xl">{option.icon}</span>
                                                     <div>
                                                         <p className="text-sm">{option.label}</p>
-                                                        {option.sublabel && <p className="text-xs text-gray-500">{option.sublabel}</p>}
+                                                        {option.sublabel && <p className="text-xs text-muted-foreground">{option.sublabel}</p>}
                                                     </div>
                                                 </Label>
                                             </div>
@@ -1055,10 +1055,10 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                 {step === 3 && (
                     <Card className="p-4">
                         <h3 className="mb-2 flex items-center gap-2">
-                            <Camera className="w-5 h-5 text-blue-600" />
+                            <Camera className="w-5 h-5 text-primary" />
                             Add Photo (Required)
                         </h3>
-                        <p className="text-sm text-gray-600 mb-4">
+                        <p className="text-sm text-muted-foreground mb-4">
                             A geotagged photo is required to verify your report
                         </p>
 
@@ -1167,11 +1167,11 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
 
                             <div className="space-y-3 text-sm">
                                 <div>
-                                    <p className="text-gray-600">Location</p>
+                                    <p className="text-muted-foreground">Location</p>
                                     {location ? (
                                         <div>
                                             <p>{locationName || `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}`}</p>
-                                            <p className="text-xs text-gray-500 mt-1">
+                                            <p className="text-xs text-muted-foreground mt-1">
                                                 Accuracy: ±{Math.round(location.accuracy)}m
                                                 {location.accuracy <= GPS_ACCURACY_EXCELLENT && ' (Excellent)'}
                                                 {location.accuracy > GPS_ACCURACY_EXCELLENT && location.accuracy <= GPS_ACCURACY_GOOD && ' (Good)'}
@@ -1185,7 +1185,7 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                                 </div>
                                 {selectedTags.length > 0 && (
                                     <div>
-                                        <p className="text-gray-600">Tags</p>
+                                        <p className="text-muted-foreground">Tags</p>
                                         <div className="flex flex-wrap gap-1 mt-1">
                                             {selectedTags.map(tag => (
                                                 <Badge key={tag} variant="secondary" className="text-xs">
@@ -1196,19 +1196,19 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                                     </div>
                                 )}
                                 <div>
-                                    <p className="text-gray-600">Description</p>
+                                    <p className="text-muted-foreground">Description</p>
                                     <p className="whitespace-pre-wrap">{description || 'No description provided'}</p>
                                 </div>
                                 <div>
-                                    <p className="text-gray-600">Water Depth</p>
+                                    <p className="text-muted-foreground">Water Depth</p>
                                     <p className="capitalize">{waterDepth.replace('-', ' ')}</p>
                                 </div>
                                 <div>
-                                    <p className="text-gray-600">Vehicle Passability</p>
+                                    <p className="text-muted-foreground">Vehicle Passability</p>
                                     <p className="capitalize">{vehiclePassability.replace('-', ' ')}</p>
                                 </div>
                                 <div>
-                                    <p className="text-gray-600">Photo</p>
+                                    <p className="text-muted-foreground">Photo</p>
                                     {photo ? (
                                         <div className="mt-1">
                                             <div className="flex items-center gap-2">
@@ -1231,7 +1231,7 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                                                     )}
                                                     {/* ML Classification Badge */}
                                                     {photo.mlValidating && (
-                                                        <Badge className="bg-gray-500 text-white text-xs flex items-center gap-1 w-fit">
+                                                        <Badge className="bg-muted0 text-white text-xs flex items-center gap-1 w-fit">
                                                             <Loader2 className="w-3 h-3 animate-spin" />
                                                             Analyzing...
                                                         </Badge>
@@ -1260,22 +1260,22 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                                                             Analysis Unavailable
                                                         </Badge>
                                                     )}
-                                                    <p className="text-xs text-gray-500 mt-1">
+                                                    <p className="text-xs text-muted-foreground mt-1">
                                                         {photo.source === 'camera' ? 'Taken with camera' : 'From gallery'}
                                                     </p>
                                                 </div>
                                             </div>
                                             {/* Photo GPS Location Display */}
-                                            <div className="mt-2 p-2 bg-gray-50 rounded-lg">
+                                            <div className="mt-2 p-2 bg-muted rounded-lg">
                                                 <div className="flex items-start gap-2 text-sm">
-                                                    <MapPin className="h-4 w-4 text-blue-500 flex-shrink-0 mt-0.5" />
+                                                    <MapPin className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                                                     <div className="min-w-0">
-                                                        <p className="font-medium text-gray-700">Photo Location</p>
-                                                        <p className="text-xs text-gray-600">
+                                                        <p className="font-medium text-foreground">Photo Location</p>
+                                                        <p className="text-xs text-muted-foreground">
                                                             {photo.gps.lat.toFixed(6)}, {photo.gps.lng.toFixed(6)}
                                                         </p>
                                                         {photoLocationName && (
-                                                            <p className="text-xs text-gray-500 mt-0.5 break-words">{photoLocationName}</p>
+                                                            <p className="text-xs text-muted-foreground mt-0.5 break-words">{photoLocationName}</p>
                                                         )}
                                                     </div>
                                                 </div>
@@ -1303,8 +1303,8 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
                                     </Label>
                                 </div>
 
-                                <div className="p-3 bg-gray-50 rounded-lg">
-                                    <p className="text-xs text-gray-600">
+                                <div className="p-3 bg-muted rounded-lg">
+                                    <p className="text-xs text-muted-foreground">
                                         🔒 Privacy: Location anonymized to 100m radius.
                                     </p>
                                 </div>
@@ -1317,7 +1317,7 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
             {/* Action Buttons - scrollable, after form content */}
             <div
                 data-action-buttons
-                className="bg-white border-t p-4 space-y-2 mx-4 mb-4 rounded-lg shadow-sm"
+                className="bg-card border-t p-4 space-y-2 mx-4 mb-4 rounded-lg shadow-sm"
             >
                 {step < totalSteps ? (
                     <>

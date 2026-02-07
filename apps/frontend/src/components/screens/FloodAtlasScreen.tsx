@@ -146,7 +146,7 @@ function FloodAtlasContent({
     };
 
     return (
-        <div className="fixed inset-0 top-14 md:top-0 bottom-0 bg-transparent">
+        <div className="fixed top-14 md:top-0 left-0 md:left-64 right-0 bottom-0 bg-transparent">
             {/* GPS Test Panel - only visible in testing mode */}
             {import.meta.env.VITE_ENABLE_GPS_TESTING === 'true' && (
                 <GPSTestPanel
@@ -197,12 +197,12 @@ function FloodAtlasContent({
             {/* Floating Route Button - Only show when panel is closed AND not navigating */}
             {!showNavigationPanel && !navState.isNavigating && (
                 <div
-                    className="fixed right-4 pointer-events-auto"
+                    className="fixed right-4 md:right-auto md:left-1/2 md:ml-32 md:-translate-x-1/2 pointer-events-auto"
                     style={{ bottom: 'calc(80px + env(safe-area-inset-bottom, 0px))', zIndex: 9999 }}
                 >
                     <Button
                         onClick={() => setShowNavigationPanel(true)}
-                        className="shadow-xl bg-blue-600 hover:bg-blue-700 text-white"
+                        className="shadow-xl bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl"
                         size="lg"
                     >
                         <Navigation className="mr-2 h-5 w-5" />

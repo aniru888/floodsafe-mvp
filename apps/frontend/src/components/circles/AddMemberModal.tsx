@@ -55,7 +55,7 @@ export function AddMemberModal({ isOpen, onClose, circleId }: AddMemberModalProp
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="text-sm font-medium text-gray-700 block mb-1">
+                        <label className="text-sm font-medium text-foreground block mb-1">
                             Display Name
                         </label>
                         <Input
@@ -68,7 +68,7 @@ export function AddMemberModal({ isOpen, onClose, circleId }: AddMemberModalProp
                     </div>
 
                     <div>
-                        <label className="text-sm font-medium text-gray-700 block mb-1">
+                        <label className="text-sm font-medium text-foreground block mb-1">
                             Phone Number
                         </label>
                         <Input
@@ -77,13 +77,13 @@ export function AddMemberModal({ isOpen, onClose, circleId }: AddMemberModalProp
                             placeholder="+91 98765 43210"
                             type="tel"
                         />
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="text-xs text-muted-foreground mt-1">
                             WhatsApp/SMS alerts will be sent to this number
                         </p>
                     </div>
 
                     <div>
-                        <label className="text-sm font-medium text-gray-700 block mb-1">
+                        <label className="text-sm font-medium text-foreground block mb-1">
                             Email (optional)
                         </label>
                         <Input

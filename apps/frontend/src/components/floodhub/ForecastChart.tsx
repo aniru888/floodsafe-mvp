@@ -30,6 +30,15 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function ForecastChart({ forecast }: ForecastChartProps) {
+    // Guard against missing or empty forecast data
+    if (!forecast?.forecasts?.length) {
+        return (
+            <div className="bg-card rounded-lg border border-border p-4">
+                <p className="text-sm text-muted-foreground text-center py-8">No forecast data available</p>
+            </div>
+        );
+    }
+
     // Transform forecast data for Recharts
     const data = forecast.forecasts.map((point) => {
         const date = new Date(point.timestamp);
@@ -70,29 +79,29 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
     };
 
     return (
-        <div className="bg-white rounded-lg border border-gray-200 p-4">
+        <div className="bg-card rounded-xl border border-border p-4 shadow-sm">
             <div className="mb-4">
-                <h3 className="font-semibold text-gray-900">
+                <h3 className="font-semibold text-foreground">
                     {forecast.site_name}
                 </h3>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-muted-foreground">
                     7-Day Water Level Forecast
                 </p>
             </div>
 
-            {/* Legend */}
+            {/* Legend — chart hex colors kept as-is (data visualization) */}
             <div className="flex flex-wrap gap-4 mb-4 text-xs">
                 <div className="flex items-center gap-1.5">
                     <div className="w-3 h-0.5 bg-[#4285F4]" />
-                    <span className="text-gray-600">Water Level (m)</span>
+                    <span className="text-muted-foreground">Water Level (m)</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                     <div className="w-3 h-0.5 bg-[#D32F2F] opacity-70" style={{ borderStyle: 'dashed', borderWidth: '1px 0 0 0', borderColor: '#D32F2F' }} />
-                    <span className="text-gray-600">Danger Level</span>
+                    <span className="text-muted-foreground">Danger Level</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                     <div className="w-3 h-0.5 bg-[#F57C00] opacity-70" style={{ borderStyle: 'dashed', borderWidth: '1px 0 0 0', borderColor: '#F57C00' }} />
-                    <span className="text-gray-600">Warning Level</span>
+                    <span className="text-muted-foreground">Warning Level</span>
                 </div>
             </div>
 
@@ -176,7 +185,7 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
             </ChartContainer>
 
             {/* Footer note */}
-            <p className="text-xs text-gray-400 mt-3">
+            <p className="text-xs text-muted-foreground/60 mt-3">
                 Filled dots = observed, hollow dots = forecast. Data from Google FloodHub.
             </p>
         </div>

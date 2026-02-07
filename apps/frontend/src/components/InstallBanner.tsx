@@ -102,7 +102,7 @@ export function InstallBanner() {
     if (!showBanner || !canInstall) return null;
 
     return (
-        <div className="fixed bottom-20 left-4 right-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 rounded-xl shadow-lg z-50 animate-in slide-in-from-bottom-4">
+        <div className="fixed bottom-20 left-4 right-4 bg-primary text-primary-foreground p-4 rounded-xl shadow-lg z-50 animate-in slide-in-from-bottom-4">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
@@ -139,7 +139,7 @@ export function InstallBanner() {
                     size="sm"
                     onClick={handleInstall}
                     disabled={isPrompting}
-                    className="flex-1 bg-white text-blue-600 hover:bg-blue-50"
+                    className="flex-1 bg-primary-foreground text-primary hover:bg-primary-foreground/90"
                 >
                     <Download className="w-4 h-4 mr-2" />
                     {isPrompting ? 'Installing...' : 'Install App'}

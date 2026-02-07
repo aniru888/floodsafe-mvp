@@ -122,7 +122,7 @@ export default function AddWatchAreaDialog({ open, onOpenChange }: AddWatchAreaD
                 <div className="space-y-4">
                     {/* Area Name Field */}
                     <div>
-                        <label htmlFor="area-name" className="block text-sm font-medium text-gray-700 mb-1.5">
+                        <label htmlFor="area-name" className="block text-sm font-medium text-foreground mb-1.5">
                             Area Name <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -134,8 +134,8 @@ export default function AddWatchAreaDialog({ open, onOpenChange }: AddWatchAreaD
                                 setErrors((prev) => ({ ...prev, name: undefined }));
                             }}
                             placeholder="e.g., Home, Office, Parents' House"
-                            className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                                errors.name ? 'border-red-300 bg-red-50' : 'border-gray-200'
+                            className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${
+                                errors.name ? 'border-red-300 bg-red-50' : 'border-border'
                             }`}
                             maxLength={100}
                         />
@@ -146,7 +146,7 @@ export default function AddWatchAreaDialog({ open, onOpenChange }: AddWatchAreaD
 
                     {/* Location Field */}
                     <div>
-                        <label htmlFor="location-search" className="block text-sm font-medium text-gray-700 mb-1.5">
+                        <label htmlFor="location-search" className="block text-sm font-medium text-foreground mb-1.5">
                             Location <span className="text-red-500">*</span>
                         </label>
                         <SearchBar
@@ -156,12 +156,12 @@ export default function AddWatchAreaDialog({ open, onOpenChange }: AddWatchAreaD
                             className="w-full"
                         />
                         {location && (
-                            <div className="mt-2 flex items-center gap-2 p-2 bg-blue-50 border border-blue-200 rounded-md">
+                            <div className="mt-2 flex items-center gap-2 p-2 bg-primary/10 border border-primary/20 rounded-md">
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-xs font-medium text-blue-900 truncate">
+                                    <p className="text-xs font-medium text-foreground truncate">
                                         {location.name}
                                     </p>
-                                    <p className="text-xs text-blue-600 mt-0.5">
+                                    <p className="text-xs text-primary mt-0.5">
                                         {location.lat.toFixed(5)}, {location.lng.toFixed(5)}
                                     </p>
                                 </div>
@@ -170,7 +170,7 @@ export default function AddWatchAreaDialog({ open, onOpenChange }: AddWatchAreaD
                                     onClick={() => {
                                         setLocation(null);
                                     }}
-                                    className="text-blue-600 hover:text-blue-800 text-xs font-medium"
+                                    className="text-primary hover:text-primary/80 text-xs font-medium"
                                 >
                                     Change
                                 </button>
@@ -183,14 +183,14 @@ export default function AddWatchAreaDialog({ open, onOpenChange }: AddWatchAreaD
 
                     {/* Monitoring Radius Field */}
                     <div>
-                        <label htmlFor="radius-slider" className="block text-sm font-medium text-gray-700 mb-1.5">
+                        <label htmlFor="radius-slider" className="block text-sm font-medium text-foreground mb-1.5">
                             Monitoring Radius
                         </label>
                         <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                                <span className="text-xs text-gray-500">100 m</span>
-                                <span className="text-sm font-semibold text-blue-600">{formatRadius(radius)}</span>
-                                <span className="text-xs text-gray-500">10 km</span>
+                                <span className="text-xs text-muted-foreground">100 m</span>
+                                <span className="text-sm font-semibold text-primary">{formatRadius(radius)}</span>
+                                <span className="text-xs text-muted-foreground">10 km</span>
                             </div>
                             <input
                                 id="radius-slider"
@@ -200,7 +200,7 @@ export default function AddWatchAreaDialog({ open, onOpenChange }: AddWatchAreaD
                                 step="100"
                                 value={radius}
                                 onChange={(e) => setRadius(parseInt(e.target.value))}
-                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                                className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
                                 style={{
                                     background: `linear-gradient(to right, rgb(59 130 246) 0%, rgb(59 130 246) ${
                                         ((radius - 100) / (10000 - 100)) * 100

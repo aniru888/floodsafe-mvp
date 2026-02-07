@@ -36,7 +36,7 @@ export default function LocationPickerField({
     return (
         <div className="space-y-2">
             {/* Label */}
-            <label className="text-sm font-medium text-gray-700">
+            <label className="text-sm font-medium text-foreground">
                 {label}
                 {required && <span className="text-red-500 ml-1">*</span>}
             </label>

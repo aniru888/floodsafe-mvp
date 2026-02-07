@@ -73,12 +73,12 @@ export function CircleSettingsSheet({
                 <div className="space-y-5">
                     {/* Notification Preferences */}
                     <div className="space-y-3">
-                        <p className="text-sm font-medium text-gray-700">Notifications</p>
+                        <p className="text-sm font-medium text-foreground">Notifications</p>
 
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm">Mute this circle</p>
-                                <p className="text-xs text-gray-500">Stop all alerts from this circle</p>
+                                <p className="text-xs text-muted-foreground">Stop all alerts from this circle</p>
                             </div>
                             <Switch
                                 checked={member.is_muted}
@@ -89,7 +89,7 @@ export function CircleSettingsSheet({
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm">WhatsApp alerts</p>
-                                <p className="text-xs text-gray-500">Receive via WhatsApp</p>
+                                <p className="text-xs text-muted-foreground">Receive via WhatsApp</p>
                             </div>
                             <Switch
                                 checked={member.notify_whatsapp}
@@ -101,7 +101,7 @@ export function CircleSettingsSheet({
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm">SMS alerts</p>
-                                <p className="text-xs text-gray-500">Receive via SMS</p>
+                                <p className="text-xs text-muted-foreground">Receive via SMS</p>
                             </div>
                             <Switch
                                 checked={member.notify_sms}
@@ -115,7 +115,7 @@ export function CircleSettingsSheet({
                     <div className="border-t pt-4 space-y-2">
                         <Button
                             variant="outline"
-                            className="w-full text-red-600 border-red-200 hover:bg-red-50"
+                            className="w-full text-destructive border-destructive/20 hover:bg-destructive/10"
                             onClick={handleLeave}
                             disabled={userRole === 'creator' || leaveCircle.isPending}
                         >
@@ -126,7 +126,7 @@ export function CircleSettingsSheet({
                         {userRole === 'creator' && (
                             <Button
                                 variant="outline"
-                                className="w-full text-red-600 border-red-200 hover:bg-red-50"
+                                className="w-full text-destructive border-destructive/20 hover:bg-destructive/10"
                                 onClick={handleDelete}
                                 disabled={deleteCircle.isPending}
                             >

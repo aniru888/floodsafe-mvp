@@ -23,6 +23,7 @@ screenshot-*.png
 direct-*.png
 mappicker-*.png
 mobile-*.png
+screenshots/
 
 # Local Claude/MCP settings (machine-specific paths)
 .claude/settings.local.json

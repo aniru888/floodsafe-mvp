@@ -44,12 +44,12 @@ export function InviteLinkShare({ inviteCode, circleName }: InviteLinkShareProps
     };
 
     return (
-        <div className="bg-gray-50 rounded-lg p-3 space-y-2">
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+        <div className="bg-muted rounded-xl p-3 space-y-2">
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Invite Code
             </p>
             <div className="flex items-center gap-2">
-                <div className="flex-1 bg-white border rounded-md px-3 py-2 text-center font-mono text-lg tracking-widest select-all">
+                <div className="flex-1 bg-card border border-border rounded-lg px-3 py-2 text-center font-mono text-lg tracking-widest select-all">
                     {inviteCode}
                 </div>
                 <Button

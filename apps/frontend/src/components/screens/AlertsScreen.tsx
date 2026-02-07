@@ -102,8 +102,8 @@ export function AlertsScreen() {
         if (filter === 'circles') {
             return circleUnreadCount?.count || 0;
         }
-        if (!data) return 0;
-        if (filter === 'all') return data.total + (communityReports?.length || 0);
+        if (!data?.alerts) return 0;
+        if (filter === 'all') return (data.total ?? 0) + (communityReports?.length || 0);
 
         // Map filters to source types
         const sourceMapping: Record<AlertSourceFilter, string[]> = {
@@ -123,10 +123,10 @@ export function AlertsScreen() {
     // Loading state
     if (isLoading) {
         return (
-            <div className="pb-4 min-h-full bg-gray-50 flex items-center justify-center">
+            <div className="pb-4 min-h-full bg-muted flex items-center justify-center">
                 <div className="flex flex-col items-center gap-3">
-                    <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-                    <p className="text-gray-600">Loading alerts...</p>
+                    <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                    <p className="text-muted-foreground">Loading alerts...</p>
                 </div>
             </div>
         );
@@ -135,11 +135,11 @@ export function AlertsScreen() {
     // Error state
     if (error) {
         return (
-            <div className="pb-4 min-h-full bg-gray-50 p-4">
+            <div className="pb-4 min-h-full bg-muted p-4">
                 <div className="flex flex-col items-center justify-center py-16">
-                    <AlertCircle className="w-12 h-12 text-red-500 mb-4" />
-                    <h2 className="text-xl font-semibold mb-2">Failed to Load Alerts</h2>
-                    <p className="text-gray-600 mb-4">Please check your connection and try again.</p>
+                    <AlertCircle className="w-12 h-12 text-destructive mb-4" />
+                    <h2 className="text-xl font-semibold text-foreground mb-2">Failed to Load Alerts</h2>
+                    <p className="text-muted-foreground mb-4">Please check your connection and try again.</p>
                     <Button onClick={() => refetch()} variant="outline">
                         <RefreshCw className="w-4 h-4 mr-2" />
                         Retry
@@ -159,13 +159,13 @@ export function AlertsScreen() {
         .join(' • ');
 
     return (
-        <div className="pb-4 min-h-full bg-gray-50">
+        <div className="pb-4 min-h-full bg-muted">
             {/* Header */}
-            <div className="bg-white shadow-sm sticky top-14 z-40">
-                <div className="flex items-center justify-between px-4 h-14">
+            <div className="bg-card shadow-sm sticky top-14 md:top-0 z-40 border-b border-border">
+                <div className="flex items-center justify-between px-4 h-14 max-w-4xl mx-auto">
                     <div className="flex items-center gap-2">
-                        <Bell className="w-5 h-5 text-blue-600" />
-                        <h1 className="font-semibold">Alerts</h1>
+                        <Bell className="w-5 h-5 text-primary" />
+                        <h1 className="font-semibold text-foreground">Alerts</h1>
                         <Badge variant="outline" className="ml-1">
                             {city === 'delhi' ? 'Delhi' : 'Bangalore'}
                         </Badge>
@@ -175,7 +175,7 @@ export function AlertsScreen() {
                             variant="ghost"
                             size="sm"
                             onClick={() => setEmergencyModalOpen(true)}
-                            className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                            className="text-destructive hover:text-destructive hover:bg-destructive/10"
                             title="Emergency Contacts"
                         >
                             <Phone className="w-4 h-4" />
@@ -192,7 +192,7 @@ export function AlertsScreen() {
                 </div>
 
                 {/* Filter Tabs */}
-                <div className="flex gap-2 px-4 pb-3 overflow-x-auto scrollbar-hide">
+                <div className="flex gap-2 px-4 pb-3 overflow-x-auto scrollbar-hide max-w-4xl mx-auto">
                     {filters.map((filter) => {
                         const count = getFilterCount(filter);
                         const isActive = sourceFilter === filter;
@@ -201,7 +201,7 @@ export function AlertsScreen() {
                             <Badge
                                 key={filter}
                                 variant={isActive ? 'default' : 'outline'}
-                                className="cursor-pointer capitalize flex-shrink-0 px-3 py-1.5"
+                                className="cursor-pointer capitalize flex-shrink-0 px-3 py-1.5 transition-colors"
                                 onClick={() => setSourceFilter(filter)}
                             >
                                 {getFilterIcon(filter)}
@@ -218,7 +218,7 @@ export function AlertsScreen() {
 
                 {/* Source Summary */}
                 {sourceSummary && (
-                    <div className="px-4 pb-3 text-xs text-gray-500 border-t pt-2">
+                    <div className="px-4 pb-3 text-xs text-muted-foreground border-t border-border pt-2 max-w-4xl mx-auto">
                         <span className="font-medium">Sources: </span>
                         {sourceSummary}
                     </div>
@@ -226,7 +226,7 @@ export function AlertsScreen() {
             </div>
 
             {/* Content based on filter */}
-            <div className={sourceFilter === 'floodhub' || sourceFilter === 'circles' ? '' : 'p-4 space-y-3'}>
+            <div className={sourceFilter === 'floodhub' || sourceFilter === 'circles' ? '' : 'p-4 space-y-3 max-w-4xl mx-auto'}>
                 {sourceFilter === 'circles' ? (
                     // Safety Circles Tab - Family & Community Notifications
                     <SafetyCirclesTab />
@@ -237,11 +237,11 @@ export function AlertsScreen() {
                     // Community Reports Section
                     reportsLoading ? (
                         <div className="flex items-center justify-center py-16">
-                            <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+                            <Loader2 className="w-8 h-8 animate-spin text-primary" />
                         </div>
                     ) : communityReports && communityReports.length > 0 ? (
                         <>
-                            <p className="text-sm text-gray-500 mb-2">
+                            <p className="text-sm text-muted-foreground mb-2">
                                 {communityReports.length} community report{communityReports.length !== 1 ? 's' : ''}
                             </p>
                             {communityReports.map((report) => (
@@ -254,11 +254,11 @@ export function AlertsScreen() {
                         </>
                     ) : (
                         <div className="text-center py-16">
-                            <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
-                                <Users className="w-8 h-8 text-blue-600" />
+                            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                                <Users className="w-8 h-8 text-primary" />
                             </div>
-                            <h2 className="text-xl font-medium mb-2">No Community Reports</h2>
-                            <p className="text-gray-600">
+                            <h2 className="text-xl font-medium text-foreground mb-2">No Community Reports</h2>
+                            <p className="text-muted-foreground">
                                 Be the first to report flooding in your area
                             </p>
                         </div>
@@ -274,11 +274,11 @@ export function AlertsScreen() {
                         ))
                     ) : (
                         <div className="text-center py-16">
-                            <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
-                                <Bell className="w-8 h-8 text-blue-600" />
+                            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                                <Bell className="w-8 h-8 text-primary" />
                             </div>
-                            <h2 className="text-xl font-medium mb-2">No Alerts</h2>
-                            <p className="text-gray-600">
+                            <h2 className="text-xl font-medium text-foreground mb-2">No Alerts</h2>
+                            <p className="text-muted-foreground">
                                 {sourceFilter === 'all'
                                     ? 'No active alerts in your area'
                                     : `No ${getFilterLabel(sourceFilter).toLowerCase()} alerts available`}

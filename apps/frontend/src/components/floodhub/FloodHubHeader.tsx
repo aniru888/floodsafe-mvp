@@ -69,7 +69,7 @@ export function FloodHubHeader({ status }: FloodHubHeaderProps) {
         : 'Unknown';
 
     return (
-        <div className={`rounded-lg border p-4 ${config.bgColor} ${config.borderColor}`}>
+        <div className={`rounded-xl border p-4 ${config.bgColor} ${config.borderColor}`}>
             <div className="flex items-start gap-3">
                 <div className={`p-2 rounded-full ${config.bgColor}`}>
                     <Icon className={`w-5 h-5 ${config.textColor}`} />
@@ -84,7 +84,7 @@ export function FloodHubHeader({ status }: FloodHubHeaderProps) {
                     <p className={`text-lg font-bold mt-1 ${config.textColor}`}>
                         {config.label}
                     </p>
-                    <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
+                    <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
                         {status.gauge_count !== undefined && (
                             <span>{status.gauge_count} monitoring stations</span>
                         )}
@@ -95,7 +95,7 @@ export function FloodHubHeader({ status }: FloodHubHeaderProps) {
 
             {/* Severity breakdown if available */}
             {status.alerts_by_severity && Object.keys(status.alerts_by_severity).length > 0 && (
-                <div className="mt-3 pt-3 border-t border-gray-200/50">
+                <div className="mt-3 pt-3 border-t border-border/50">
                     <div className="flex flex-wrap gap-2">
                         {Object.entries(status.alerts_by_severity)
                             .filter(([, count]) => count > 0)

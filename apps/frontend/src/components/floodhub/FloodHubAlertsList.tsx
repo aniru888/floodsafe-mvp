@@ -53,20 +53,23 @@ function GaugeCard({
     onSelect: () => void;
 }) {
     const style = severityStyles[gauge.severity];
-    const issuedTime = new Date(gauge.issued_time).toLocaleString('en-IN', {
-        hour: '2-digit',
-        minute: '2-digit',
-        day: 'numeric',
-        month: 'short',
-    });
+    const issuedDate = gauge.issued_time ? new Date(gauge.issued_time) : null;
+    const issuedTime = issuedDate && !isNaN(issuedDate.getTime())
+        ? issuedDate.toLocaleString('en-IN', {
+            hour: '2-digit',
+            minute: '2-digit',
+            day: 'numeric',
+            month: 'short',
+        })
+        : 'Unknown';
 
     return (
         <button
             onClick={onSelect}
-            className={`w-full p-3 rounded-lg border text-left transition-all ${
+            className={`w-full p-3 rounded-xl border text-left transition-all ${
                 isSelected
-                    ? 'border-blue-500 bg-blue-50 ring-1 ring-blue-200'
-                    : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
+                    ? 'border-primary bg-primary/5 ring-1 ring-primary/20'
+                    : 'border-border bg-card hover:border-border/80 hover:bg-muted'
             }`}
         >
             <div className="flex items-start gap-3">
@@ -75,7 +78,7 @@ function GaugeCard({
 
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2">
-                        <h4 className="font-medium text-gray-900 truncate">
+                        <h4 className="font-medium text-foreground truncate">
                             {gauge.site_name}
                         </h4>
                         <span className={`px-2 py-0.5 text-xs font-medium rounded-full border ${style.badge}`}>
@@ -83,7 +86,7 @@ function GaugeCard({
                         </span>
                     </div>
 
-                    <div className="flex items-center gap-3 mt-1 text-xs text-gray-500">
+                    <div className="flex items-center gap-3 mt-1 text-xs text-muted-foreground">
                         <span className="flex items-center gap-1">
                             <MapPin className="w-3 h-3" />
                             {gauge.river}
@@ -95,7 +98,7 @@ function GaugeCard({
                     </div>
                 </div>
 
-                <ChevronRight className={`w-4 h-4 text-gray-400 ${isSelected ? 'text-blue-500' : ''}`} />
+                <ChevronRight className={`w-4 h-4 text-muted-foreground ${isSelected ? 'text-primary' : ''}`} />
             </div>
         </button>
     );
@@ -114,7 +117,7 @@ export function FloodHubAlertsList({ gauges, selectedGaugeId, onSelectGauge }: F
 
     if (gauges.length === 0) {
         return (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-muted-foreground">
                 <p>No gauge data available</p>
             </div>
         );
@@ -125,7 +128,7 @@ export function FloodHubAlertsList({ gauges, selectedGaugeId, onSelectGauge }: F
             {/* Active Alerts Section */}
             {activeAlerts.length > 0 && (
                 <div>
-                    <h3 className="text-sm font-medium text-gray-700 mb-2">
+                    <h3 className="text-sm font-medium text-foreground mb-2">
                         Active Alerts ({activeAlerts.length})
                     </h3>
                     <div className="space-y-2">
@@ -145,7 +148,7 @@ export function FloodHubAlertsList({ gauges, selectedGaugeId, onSelectGauge }: F
 
             {/* All Clear Message */}
             {activeAlerts.length === 0 && (
-                <div className="text-center py-4 bg-green-50 rounded-lg border border-green-200">
+                <div className="text-center py-4 bg-green-50 rounded-xl border border-green-200">
                     <p className="text-green-700 font-medium">No Active Flood Alerts</p>
                     <p className="text-sm text-green-600 mt-1">
                         All monitoring stations report normal water levels
@@ -156,7 +159,7 @@ export function FloodHubAlertsList({ gauges, selectedGaugeId, onSelectGauge }: F
             {/* Normal Gauges (collapsed by default) */}
             {normalGauges.length > 0 && (
                 <details className="group">
-                    <summary className="text-sm font-medium text-gray-500 cursor-pointer hover:text-gray-700 py-2">
+                    <summary className="text-sm font-medium text-muted-foreground cursor-pointer hover:text-foreground py-2">
                         Normal Stations ({normalGauges.length})
                     </summary>
                     <div className="space-y-2 mt-2">

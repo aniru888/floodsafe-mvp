@@ -165,12 +165,12 @@ export function OfflineIndicator({
     if (!isOffline || dismissed) return null;
 
     return (
-        <div className="fixed bottom-20 left-4 right-4 bg-gray-900 text-white p-3 rounded-lg shadow-lg z-50 flex items-center justify-between animate-in slide-in-from-bottom-4">
+        <div className="fixed bottom-20 left-4 right-4 bg-foreground text-background p-3 rounded-lg shadow-lg z-50 flex items-center justify-between animate-in slide-in-from-bottom-4">
             <div className="flex items-center gap-3">
                 <WifiOff className="w-5 h-5 text-red-400" />
                 <div>
                     <p className="text-sm font-medium">You are offline</p>
-                    <p className="text-xs text-gray-400">Last sync: {lastUpdateText}</p>
+                    <p className="text-xs text-muted-foreground/60">Last sync: {lastUpdateText}</p>
                 </div>
             </div>
             <div className="flex items-center gap-2">
@@ -188,7 +188,7 @@ export function OfflineIndicator({
                     variant="ghost"
                     size="sm"
                     onClick={() => setDismissed(true)}
-                    className="h-8 text-gray-400 hover:text-white"
+                    className="h-8 text-muted-foreground/60 hover:text-white"
                 >
                     <X className="w-4 h-4" />
                 </Button>

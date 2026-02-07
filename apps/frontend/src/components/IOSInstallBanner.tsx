@@ -92,9 +92,9 @@ export function IOSInstallBanner() {
     if (showInstructions) {
         return (
             <div className="fixed inset-0 bg-black/50 z-50 flex items-end justify-center p-4">
-                <div className="bg-white rounded-t-2xl w-full max-w-md p-6 animate-in slide-in-from-bottom-4">
+                <div className="bg-card rounded-t-2xl w-full max-w-md p-6 animate-in slide-in-from-bottom-4">
                     <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-lg font-semibold text-gray-900">
+                        <h3 className="text-lg font-semibold text-foreground">
                             Install FloodSafe
                         </h3>
                         <Button
@@ -109,42 +109,42 @@ export function IOSInstallBanner() {
 
                     <div className="space-y-4">
                         <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium">
+                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium">
                                 1
                             </div>
                             <div className="flex-1">
-                                <p className="text-gray-900 font-medium">
+                                <p className="text-foreground font-medium">
                                     Tap the Share button
                                 </p>
-                                <p className="text-sm text-gray-500 mt-1">
+                                <p className="text-sm text-muted-foreground mt-1">
                                     Look for <Share className="inline w-4 h-4 mx-1" /> at the bottom of your screen
                                 </p>
                             </div>
                         </div>
 
                         <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium">
+                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium">
                                 2
                             </div>
                             <div className="flex-1">
-                                <p className="text-gray-900 font-medium">
+                                <p className="text-foreground font-medium">
                                     Scroll down and tap "Add to Home Screen"
                                 </p>
-                                <p className="text-sm text-gray-500 mt-1">
+                                <p className="text-sm text-muted-foreground mt-1">
                                     Look for <Plus className="inline w-4 h-4 mx-1" /> Add to Home Screen
                                 </p>
                             </div>
                         </div>
 
                         <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium">
+                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium">
                                 3
                             </div>
                             <div className="flex-1">
-                                <p className="text-gray-900 font-medium">
+                                <p className="text-foreground font-medium">
                                     Tap "Add" to install
                                 </p>
-                                <p className="text-sm text-gray-500 mt-1">
+                                <p className="text-sm text-muted-foreground mt-1">
                                     FloodSafe will appear on your home screen
                                 </p>
                             </div>
@@ -160,7 +160,7 @@ export function IOSInstallBanner() {
                             Maybe later
                         </Button>
                         <Button
-                            className="flex-1 bg-blue-600 hover:bg-blue-700"
+                            className="flex-1 bg-primary hover:bg-primary/90"
                             onClick={handleDismiss}
                         >
                             Got it
@@ -172,7 +172,7 @@ export function IOSInstallBanner() {
     }
 
     return (
-        <div className="fixed bottom-20 left-4 right-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 rounded-xl shadow-lg z-50 animate-in slide-in-from-bottom-4">
+        <div className="fixed bottom-20 left-4 right-4 bg-primary text-primary-foreground p-4 rounded-xl shadow-lg z-50 animate-in slide-in-from-bottom-4">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
@@ -203,7 +203,7 @@ export function IOSInstallBanner() {
                     variant="secondary"
                     size="sm"
                     onClick={handleShowInstructions}
-                    className="flex-1 bg-white text-blue-600 hover:bg-blue-50"
+                    className="flex-1 bg-primary-foreground text-primary hover:bg-primary-foreground/90"
                 >
                     <Plus className="w-4 h-4 mr-2" />
                     Install App

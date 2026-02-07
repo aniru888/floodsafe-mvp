@@ -51,7 +51,7 @@ export function CircleMemberList({ members, circleId, userRole, currentUserId }:
 
     if (members.length === 0) {
         return (
-            <div className="text-center py-6 text-gray-500 text-sm">
+            <div className="text-center py-6 text-muted-foreground text-sm">
                 No members yet. Add members to get started.
             </div>
         );
@@ -66,11 +66,11 @@ export function CircleMemberList({ members, circleId, userRole, currentUserId }:
                 return (
                     <div
                         key={member.id}
-                        className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-gray-50 transition-colors"
+                        className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-muted transition-colors"
                     >
-                        <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                        <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                             {member.user_id ? (
-                                <User className="w-4 h-4 text-blue-600" />
+                                <User className="w-4 h-4 text-primary" />
                             ) : member.phone ? (
                                 <Phone className="w-4 h-4 text-green-600" />
                             ) : (
@@ -80,15 +80,15 @@ export function CircleMemberList({ members, circleId, userRole, currentUserId }:
 
                         <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-1.5">
-                                <span className="text-sm font-medium text-gray-900 truncate">
+                                <span className="text-sm font-medium text-foreground truncate">
                                     {displayName}
                                     {isCurrentUser && (
-                                        <span className="text-gray-400 font-normal"> (you)</span>
+                                        <span className="text-muted-foreground font-normal"> (you)</span>
                                     )}
                                 </span>
                                 {getRoleBadge(member.role)}
                             </div>
-                            <div className="flex items-center gap-2 text-xs text-gray-400 mt-0.5">
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground/60 mt-0.5">
                                 {member.user_id ? (
                                     <span>Registered user</span>
                                 ) : member.phone ? (
@@ -106,7 +106,7 @@ export function CircleMemberList({ members, circleId, userRole, currentUserId }:
                             <Button
                                 variant="ghost"
                                 size="sm"
-                                className="text-red-400 hover:text-red-600 hover:bg-red-50 flex-shrink-0 h-8 w-8 p-0"
+                                className="text-destructive/60 hover:text-destructive hover:bg-destructive/10 flex-shrink-0 h-8 w-8 p-0"
                                 onClick={() => handleRemove(member.id, member.display_name)}
                                 disabled={removeMember.isPending}
                             >

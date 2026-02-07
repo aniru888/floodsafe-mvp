@@ -18,7 +18,7 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
     return (
         <nav
             data-bottom-nav
-            className="fixed bottom-0 left-0 right-0 bg-white border-t pb-safe-area-bottom z-50"
+            className="fixed bottom-0 left-0 right-0 bg-card border-t pb-safe-area-bottom z-50"
         >
             <div className="flex items-center justify-around h-16">
                 {tabs.map((tab) => {
@@ -32,10 +32,10 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
                                 onClick={() => onTabChange(tab.id)}
                                 className={cn(
                                     "flex flex-col items-center justify-center flex-1 py-1",
-                                    isActive ? "text-blue-600" : "text-blue-500"
+                                    isActive ? "text-primary" : "text-primary"
                                 )}
                             >
-                                <div className="w-10 h-10 bg-blue-600 rounded-full shadow-md flex items-center justify-center text-white hover:bg-blue-700 transition-colors">
+                                <div className="w-10 h-10 bg-primary rounded-full shadow-md flex items-center justify-center text-primary-foreground hover:bg-primary/90 transition-colors">
                                     <Icon className="w-5 h-5" />
                                 </div>
                                 <span className="text-[10px] mt-1 font-bold">{tab.label}</span>
@@ -49,7 +49,7 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
                             onClick={() => onTabChange(tab.id)}
                             className={cn(
                                 "flex flex-col items-center w-full h-full space-y-1",
-                                isActive ? "text-blue-600" : "text-gray-500 hover:text-gray-700"
+                                isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
                             )}
                         >
                             <Icon className={cn("w-5 h-5", isActive && "fill-current")} />

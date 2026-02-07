@@ -34,7 +34,7 @@ export function CircleDetailModal({ isOpen, onClose, circleId }: CircleDetailMod
     if (!circleId) return null;
 
     const canManage = circle && (circle.user_role === 'creator' || circle.user_role === 'admin');
-    const currentMember = circle?.members.find((m) => m.user_id === user?.id);
+    const currentMember = circle?.members?.find((m) => m.user_id === user?.id);
 
     return (
         <>
@@ -42,12 +42,12 @@ export function CircleDetailModal({ isOpen, onClose, circleId }: CircleDetailMod
                 <DialogContent className="max-w-md max-h-[85vh] overflow-y-auto p-0">
                     {isLoading ? (
                         <div className="flex items-center justify-center py-16">
-                            <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+                            <Loader2 className="w-8 h-8 animate-spin text-primary" />
                         </div>
                     ) : error ? (
                         <div className="p-6 text-center">
-                            <p className="text-red-500">Failed to load circle details</p>
-                            <p className="text-sm text-gray-500 mt-1">{(error as Error).message}</p>
+                            <p className="text-destructive font-medium">Failed to load circle details</p>
+                            <p className="text-sm text-muted-foreground mt-1">{(error as Error).message}</p>
                         </div>
                     ) : circle ? (
                         <>
@@ -59,7 +59,7 @@ export function CircleDetailModal({ isOpen, onClose, circleId }: CircleDetailMod
                                             <Badge variant="outline" className="text-xs">
                                                 {TYPE_LABELS[circle.circle_type]}
                                             </Badge>
-                                            <span className="text-xs text-gray-500">
+                                            <span className="text-xs text-muted-foreground">
                                                 <Users className="w-3 h-3 inline mr-0.5" />
                                                 {circle.member_count}/{circle.max_members}
                                             </span>
@@ -76,7 +76,7 @@ export function CircleDetailModal({ isOpen, onClose, circleId }: CircleDetailMod
                                     )}
                                 </div>
                                 {circle.description && (
-                                    <p className="text-sm text-gray-600 mt-2">{circle.description}</p>
+                                    <p className="text-sm text-muted-foreground mt-2">{circle.description}</p>
                                 )}
                             </DialogHeader>
 
@@ -90,7 +90,7 @@ export function CircleDetailModal({ isOpen, onClose, circleId }: CircleDetailMod
                                 {/* Members Section */}
                                 <div>
                                     <div className="flex items-center justify-between mb-2">
-                                        <p className="text-sm font-medium text-gray-700">
+                                        <p className="text-sm font-medium text-foreground">
                                             Members ({circle.member_count})
                                         </p>
                                         {canManage && (

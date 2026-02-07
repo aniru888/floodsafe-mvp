@@ -322,7 +322,7 @@ export default function PhotoCapture({ reportedLocation, onPhotoCapture, photo }
             {photo ? (
                 <Card className="relative overflow-hidden">
                     {/* Photo preview */}
-                    <div className="relative aspect-[4/3] bg-gray-100">
+                    <div className="relative aspect-[4/3] bg-muted">
                         <img
                             src={photo.previewUrl}
                             alt="Captured flood photo"
@@ -402,9 +402,9 @@ export default function PhotoCapture({ reportedLocation, onPhotoCapture, photo }
                     </div>
 
                     {/* GPS coordinates */}
-                    <div className="p-3 bg-gray-50 border-t">
-                        <div className="flex items-center gap-2 text-sm text-gray-600">
-                            <MapPin className="h-4 w-4 text-blue-500" />
+                    <div className="p-3 bg-muted border-t">
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <MapPin className="h-4 w-4 text-primary" />
                             <span>
                                 Photo GPS: {photo.gps.lat.toFixed(6)}, {photo.gps.lng.toFixed(6)}
                             </span>
@@ -417,17 +417,17 @@ export default function PhotoCapture({ reportedLocation, onPhotoCapture, photo }
                     </div>
                 </Card>
             ) : (
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6">
+                <div className="border-2 border-dashed border-border rounded-lg p-6">
                     {isProcessing ? (
                         <div className="text-center py-4">
-                            <Loader2 className="w-12 h-12 mx-auto mb-3 text-blue-500 animate-spin" />
-                            <p className="text-sm text-gray-600">
+                            <Loader2 className="w-12 h-12 mx-auto mb-3 text-primary animate-spin" />
+                            <p className="text-sm text-muted-foreground">
                                 {isGettingGps ? 'Getting your location...' : 'Processing photo...'}
                             </p>
                         </div>
                     ) : (
                         <div className="text-center">
-                            <Camera className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+                            <Camera className="w-12 h-12 mx-auto mb-4 text-muted-foreground/40" />
                             <div className="flex flex-col sm:flex-row gap-3 justify-center">
                                 <Button
                                     variant="default"
@@ -446,7 +446,7 @@ export default function PhotoCapture({ reportedLocation, onPhotoCapture, photo }
                                     Choose from Gallery
                                 </Button>
                             </div>
-                            <p className="text-xs text-gray-500 mt-3">
+                            <p className="text-xs text-muted-foreground mt-3">
                                 Gallery photos must have location data (geotagged)
                             </p>
                         </div>

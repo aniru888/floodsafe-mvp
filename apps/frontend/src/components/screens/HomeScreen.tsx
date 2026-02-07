@@ -467,13 +467,13 @@ export function HomeScreen({
     };
 
     return (
-        <div className="h-full flex flex-col bg-slate-50 overflow-y-auto">
+        <div className="h-full flex flex-col bg-background overflow-y-auto">
             {/* Email Verification Reminder Banner (for unverified email users) */}
             <VerificationReminderBanner />
 
             {/* Dynamic Risk Header */}
             <div style={riskGradientStyles[riskLevel]} className="text-white px-4 py-4 flex-shrink-0">
-                <div className="flex items-center justify-between gap-2">
+                <div className="max-w-5xl mx-auto flex items-center justify-between gap-2">
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 text-lg font-bold">
                             <AlertTriangle className="w-5 h-5" />
@@ -486,13 +486,13 @@ export function HomeScreen({
                     <div className="flex gap-2">
                         <button
                             onClick={handleViewDetails}
-                            className="bg-white/20 backdrop-blur px-3 py-1 rounded text-sm hover:bg-white/30 transition-colors min-h-[44px]"
+                            className="bg-white/20 backdrop-blur px-3 py-1 rounded-lg text-sm hover:bg-white/30 transition-colors min-h-[44px]"
                         >
                             View Details
                         </button>
                         <button
                             onClick={handleSetAlerts}
-                            className="bg-white px-3 py-1 rounded text-sm font-medium hover:bg-gray-100 transition-colors min-h-[44px]"
+                            className="bg-card px-3 py-1 rounded-lg text-sm font-medium hover:bg-muted transition-colors min-h-[44px]"
                             style={{ color: riskLevel === 'low' ? '#059669' : riskLevel === 'moderate' ? '#d97706' : riskLevel === 'high' ? '#ea580c' : '#dc2626' }}
                         >
                             Set Alerts
@@ -501,188 +501,190 @@ export function HomeScreen({
                 </div>
             </div>
 
-            {/* Status Cards Section */}
-            <div className="px-4 py-4 space-y-3 flex-shrink-0">
-                {/* Your Area Card - Clean design matching reference */}
-                <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                    <div className="flex items-center gap-2 text-slate-500 text-xs font-medium uppercase tracking-wider mb-3">
-                        <MapPin className="w-4 h-4" />
-                        <span>Your Area</span>
+            {/* Main Content — desktop 2-col grid, mobile single column */}
+            <div className="max-w-5xl mx-auto w-full px-4 py-4 space-y-4 flex-1">
+
+                {/* Desktop grid: left = status cards + actions, right = map */}
+                <div className="md:grid md:grid-cols-2 md:gap-4 space-y-3 md:space-y-0">
+
+                    {/* LEFT COLUMN: Area + Stats + Quick Actions */}
+                    <div className="space-y-3">
+                        {/* Your Area Card */}
+                        <div className="bg-card text-card-foreground rounded-xl border shadow-sm p-4">
+                            <div className="flex items-center gap-2 text-muted-foreground text-xs font-medium uppercase tracking-wider mb-3">
+                                <MapPin className="w-4 h-4" />
+                                <span>Your Area</span>
+                            </div>
+                            <h3 className="font-semibold text-foreground text-lg leading-tight">{userAreaName}</h3>
+                            <div className="flex items-center justify-between mt-3">
+                                <span className={cn(
+                                    "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold",
+                                    userAreaRiskLevel === 'Low Risk' && 'bg-emerald-50 text-emerald-600',
+                                    userAreaRiskLevel === 'Moderate Risk' && 'bg-amber-50 text-amber-600',
+                                    userAreaRiskLevel === 'High Risk' && 'bg-orange-50 text-orange-600',
+                                    userAreaRiskLevel === 'Severe Risk' && 'bg-red-50 text-red-600'
+                                )}>
+                                    <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
+                                    {userAreaRiskLevel}
+                                </span>
+                                <button
+                                    onClick={handleAreaDetails}
+                                    className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors min-h-[44px]"
+                                >
+                                    Details <ChevronRight className="w-4 h-4" />
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Alerts & Safety - Side by Side */}
+                        <div className="flex gap-3">
+                            {/* Alerts Card */}
+                            <div className="flex-1 bg-card text-card-foreground rounded-xl border shadow-sm p-4">
+                                <div className="flex items-center gap-2 text-muted-foreground text-xs font-medium uppercase tracking-wider mb-2">
+                                    <Bell className="w-4 h-4" />
+                                    <span>Alerts</span>
+                                </div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className="text-3xl font-bold text-foreground">{filteredAlerts.length}</span>
+                                    <span className="text-muted-foreground text-sm">Active</span>
+                                </div>
+                                <p className="text-xs text-muted-foreground/70 mt-1">{nextAlertTime}</p>
+                                <button
+                                    onClick={handleViewAllAlerts}
+                                    className="flex items-center gap-1 text-sm text-primary hover:text-primary/80 mt-3 font-medium transition-colors min-h-[44px]"
+                                >
+                                    View All <ChevronRight className="w-4 h-4" />
+                                </button>
+                            </div>
+
+                            {/* Safety Card */}
+                            <div className="flex-1 bg-card text-card-foreground rounded-xl border shadow-sm p-4">
+                                <div className="flex items-center gap-2 text-muted-foreground text-xs font-medium uppercase tracking-wider mb-2">
+                                    <Shield className="w-4 h-4" />
+                                    <span>Safe Routes</span>
+                                </div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className="text-3xl font-bold text-foreground">{userRoutesCount}</span>
+                                    <span className="text-muted-foreground text-sm">Saved</span>
+                                </div>
+                                <p className="text-xs text-muted-foreground/70 mt-1">{userRoutesCount > 0 ? 'Ready to navigate' : 'Plan safe routes'}</p>
+                                <button
+                                    onClick={() => handleNavigateRoutes()}
+                                    className="flex items-center gap-1 text-sm text-primary hover:text-primary/80 mt-3 font-medium transition-colors min-h-[44px]"
+                                >
+                                    {userRoutesCount > 0 ? 'Navigate' : 'Plan Route'} <ChevronRight className="w-4 h-4" />
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Quick Actions - Single Card with Dividers */}
+                        <div className="bg-card text-card-foreground rounded-xl border shadow-sm overflow-hidden">
+                            <div className="grid grid-cols-3 divide-x divide-border">
+                                {/* SOS Button */}
+                                <button
+                                    onClick={handleSOS}
+                                    className="flex flex-col items-center gap-2 py-4 hover:bg-red-50 transition-colors min-h-[88px]"
+                                >
+                                    <div className="w-12 h-12 rounded-full bg-red-500 flex items-center justify-center shadow-lg shadow-red-500/30">
+                                        <Phone className="w-5 h-5 text-white" />
+                                    </div>
+                                    <span className="text-xs font-semibold text-red-600">SOS</span>
+                                </button>
+
+                                {/* Report Button */}
+                                <button
+                                    onClick={onNavigateToReport}
+                                    className="flex flex-col items-center gap-2 py-4 hover:bg-blue-50 transition-colors min-h-[88px]"
+                                >
+                                    <div
+                                        className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+                                        style={{ backgroundColor: '#3b82f6', boxShadow: '0 10px 15px -3px rgba(59, 130, 246, 0.3)' }}
+                                    >
+                                        <Camera className="w-5 h-5 text-white" />
+                                    </div>
+                                    <span className="text-xs font-semibold text-blue-600">Report</span>
+                                </button>
+
+                                {/* Routes Button */}
+                                <button
+                                    onClick={() => handleNavigateRoutes()}
+                                    className="flex flex-col items-center gap-2 py-4 hover:bg-emerald-50 transition-colors min-h-[88px]"
+                                >
+                                    <div
+                                        className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+                                        style={{ backgroundColor: '#10b981', boxShadow: '0 10px 15px -3px rgba(16, 185, 129, 0.3)' }}
+                                    >
+                                        <Navigation className="w-5 h-5 text-white" />
+                                    </div>
+                                    <span className="text-xs font-medium text-muted-foreground">Routes</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <h3 className="font-semibold text-slate-800 text-lg leading-tight">{userAreaName}</h3>
-                    <div className="flex items-center justify-between mt-3">
-                        <span className={cn(
-                            "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold",
-                            userAreaRiskLevel === 'Low Risk' && 'bg-emerald-50 text-emerald-600',
-                            userAreaRiskLevel === 'Moderate Risk' && 'bg-amber-50 text-amber-600',
-                            userAreaRiskLevel === 'High Risk' && 'bg-orange-50 text-orange-600',
-                            userAreaRiskLevel === 'Severe Risk' && 'bg-red-50 text-red-600'
-                        )}>
-                            <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
-                            {userAreaRiskLevel}
-                        </span>
-                        <button
-                            onClick={handleAreaDetails}
-                            className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 transition-colors min-h-[44px]"
-                        >
-                            Details <ChevronRight className="w-4 h-4" />
-                        </button>
+
+                    {/* RIGHT COLUMN: Map Preview (stacks below on mobile) */}
+                    <div className="bg-card text-card-foreground rounded-xl border shadow-sm overflow-hidden">
+                        <div className="relative h-48 sm:h-56 md:h-full md:min-h-[20rem]">
+                            <MapComponent
+                                className="w-full h-full"
+                                targetLocation={mapTargetLocation}
+                                onLocationReached={() => setMapTargetLocation(null)}
+                            />
+
+                            {/* Floating indicators */}
+                            <div className="absolute top-3 left-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs animate-pulse">
+                                Sensor Active
+                            </div>
+                            <div className="absolute top-10 right-6 bg-yellow-500 text-white p-2 rounded-full">
+                                <Droplets className="w-3 h-3" />
+                            </div>
+                            {filteredAlerts.length > 0 && (
+                                <div className="absolute bottom-12 left-8 bg-red-500 text-white p-2 rounded-full animate-pulse">
+                                    <AlertCircle className="w-3 h-3" />
+                                </div>
+                            )}
+
+                            {/* Map controls - Vertical stack on the right */}
+                            <div className="absolute bottom-3 right-3 flex flex-col gap-2">
+                                <button
+                                    onClick={handleFullscreenMap}
+                                    className="bg-card p-2 rounded-lg shadow-sm border hover:bg-secondary transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                                    aria-label="Open full Flood Atlas"
+                                    title="Zoom / Full Map"
+                                >
+                                    <Maximize2 className="w-4 h-4" />
+                                </button>
+                                <button
+                                    onClick={handleCenterMap}
+                                    className="bg-card p-2 rounded-lg shadow-sm border hover:bg-secondary transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                                    aria-label="Center on my location"
+                                    title="My Location"
+                                >
+                                    <Target className="w-4 h-4" />
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                {/* Alerts & Safety - Side by Side */}
-                <div className="flex gap-3">
-                    {/* Alerts Card */}
-                    <div className="flex-1 bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                        <div className="flex items-center gap-2 text-slate-500 text-xs font-medium uppercase tracking-wider mb-2">
-                            <Bell className="w-4 h-4" />
-                            <span>Alerts</span>
-                        </div>
-                        <div className="flex items-baseline gap-1">
-                            <span className="text-3xl font-bold text-slate-800">{filteredAlerts.length}</span>
-                            <span className="text-slate-500 text-sm">Active</span>
-                        </div>
-                        <p className="text-xs text-slate-400 mt-1">{nextAlertTime}</p>
-                        <button
-                            onClick={handleViewAllAlerts}
-                            className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 mt-3 font-medium transition-colors min-h-[44px]"
-                        >
-                            View All <ChevronRight className="w-4 h-4" />
-                        </button>
-                    </div>
-
-                    {/* Safety Card */}
-                    <div className="flex-1 bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                        <div className="flex items-center gap-2 text-slate-500 text-xs font-medium uppercase tracking-wider mb-2">
-                            <Shield className="w-4 h-4" />
-                            <span>Safe Routes</span>
-                        </div>
-                        <div className="flex items-baseline gap-1">
-                            <span className="text-3xl font-bold text-slate-800">{userRoutesCount}</span>
-                            <span className="text-slate-500 text-sm">Saved</span>
-                        </div>
-                        <p className="text-xs text-slate-400 mt-1">{userRoutesCount > 0 ? 'Ready to navigate' : 'Plan safe routes'}</p>
-                        <button
-                            onClick={() => handleNavigateRoutes()}
-                            className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 mt-3 font-medium transition-colors min-h-[44px]"
-                        >
-                            {userRoutesCount > 0 ? 'Navigate' : 'Plan Route'} <ChevronRight className="w-4 h-4" />
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            {/* Quick Actions - Single Card with Dividers */}
-            <div className="px-4 pb-4 flex-shrink-0">
-                <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-                    <div className="grid grid-cols-3 divide-x divide-slate-100">
-                        {/* SOS Button */}
-                        <button
-                            onClick={handleSOS}
-                            className="flex flex-col items-center gap-2 py-4 hover:bg-red-50 transition-colors min-h-[88px]"
-                        >
-                            <div className="w-12 h-12 rounded-full bg-red-500 flex items-center justify-center shadow-lg shadow-red-500/30">
-                                <Phone className="w-5 h-5 text-white" />
-                            </div>
-                            <span className="text-xs font-semibold text-red-600">SOS</span>
-                        </button>
-
-                        {/* Report Button */}
-                        <button
-                            onClick={onNavigateToReport}
-                            className="flex flex-col items-center gap-2 py-4 hover:bg-blue-50 transition-colors min-h-[88px]"
-                        >
-                            <div
-                                className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
-                                style={{ backgroundColor: '#3b82f6', boxShadow: '0 10px 15px -3px rgba(59, 130, 246, 0.3)' }}
-                            >
-                                <Camera className="w-5 h-5 text-white" />
-                            </div>
-                            <span className="text-xs font-semibold text-blue-600">Report</span>
-                        </button>
-
-                        {/* Routes Button */}
-                        <button
-                            onClick={() => handleNavigateRoutes()}
-                            className="flex flex-col items-center gap-2 py-4 hover:bg-green-50 transition-colors min-h-[88px]"
-                        >
-                            <div
-                                className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
-                                style={{ backgroundColor: '#10b981', boxShadow: '0 10px 15px -3px rgba(16, 185, 129, 0.3)' }}
-                            >
-                                <Navigation className="w-5 h-5 text-white" />
-                            </div>
-                            <span className="text-xs font-medium text-slate-600">Routes</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            {/* Enhanced Map View */}
-            <div className="px-4 pb-4 flex-shrink-0">
-                <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-                    <div className="relative min-h-[10rem] sm:min-h-[12rem] md:min-h-[14rem]">
-                        <MapComponent
-                            className="w-full h-full"
-                            targetLocation={mapTargetLocation}
-                            onLocationReached={() => setMapTargetLocation(null)}
-                        />
-
-                        {/* Floating indicators */}
-                        <div className="absolute top-4 left-4 bg-green-500 text-white px-2 py-1 rounded-full text-xs animate-pulse">
-                            Sensor Active
-                        </div>
-                        <div className="absolute top-12 right-8 bg-yellow-500 text-white p-2 rounded-full">
-                            <Droplets className="w-3 h-3" />
-                        </div>
-                        {filteredAlerts.length > 0 && (
-                            <div className="absolute bottom-8 left-12 bg-red-500 text-white p-2 rounded-full animate-pulse">
-                                <AlertCircle className="w-3 h-3" />
-                            </div>
-                        )}
-
-                        {/* Map controls - Vertical stack on the right */}
-                        <div className="absolute bottom-2 right-2 flex flex-col gap-2">
-                            <button
-                                onClick={handleFullscreenMap}
-                                className="bg-white p-2 rounded shadow hover:bg-gray-100 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-                                aria-label="Open full Flood Atlas"
-                                title="Zoom / Full Map"
-                            >
-                                <Maximize2 className="w-4 h-4" />
-                            </button>
-                            <button
-                                onClick={handleCenterMap}
-                                className="bg-white p-2 rounded shadow hover:bg-gray-100 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-                                aria-label="Center on my location"
-                                title="My Location"
-                            >
-                                <Target className="w-4 h-4" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Live Updates Feed with Auto-Refresh Settings */}
-            <div className="px-4 pb-4 flex-1 min-h-0 flex flex-col gap-4">
-                <div className="bg-white rounded-2xl shadow-sm border border-slate-100 flex-1 min-h-0 flex flex-col overflow-hidden">
-                    <div className="px-4 py-3 border-b border-slate-100 flex-shrink-0">
+                {/* Live Updates Feed with Auto-Refresh Settings */}
+                <div className="bg-card text-card-foreground rounded-xl border shadow-sm flex flex-col overflow-hidden">
+                    <div className="px-4 py-3 border-b flex-shrink-0">
                         <div className="flex items-center justify-between">
-                            <h3 className="font-semibold text-slate-800 flex items-center gap-2">
+                            <h3 className="font-semibold text-foreground flex items-center gap-2">
                                 Recent Updates
-                                <RefreshCw className={cn('w-4 h-4 text-blue-500', isRefreshing && 'animate-spin')} />
+                                <RefreshCw className={cn('w-4 h-4 text-primary', isRefreshing && 'animate-spin')} />
                             </h3>
                             <button
                                 onClick={handleRefresh}
-                                className="text-xs text-blue-600 hover:text-blue-700 min-h-[44px] px-2 flex items-center gap-1"
+                                className="text-xs text-primary hover:text-primary/80 min-h-[44px] px-2 flex items-center gap-1"
                             >
                                 Refresh
                             </button>
                         </div>
                         <div className="flex items-center gap-2 mt-2 flex-wrap">
                             <Select value={refreshInterval} onValueChange={(value) => setRefreshInterval(value as RefreshInterval)}>
-                                <SelectTrigger className="w-auto min-w-[5rem] h-8 text-xs bg-slate-50 border-slate-200">
+                                <SelectTrigger className="w-auto min-w-[5rem] h-8 text-xs bg-secondary border">
                                     <Settings className="w-3 h-3 mr-1" />
                                     <SelectValue />
                                 </SelectTrigger>
@@ -693,7 +695,7 @@ export function HomeScreen({
                                 </SelectContent>
                             </Select>
                             <Select value={cityFilter} onValueChange={handleCityFilterChange}>
-                                <SelectTrigger className="w-auto min-w-[5.5rem] h-8 text-xs bg-slate-50 border-slate-200">
+                                <SelectTrigger className="w-auto min-w-[5.5rem] h-8 text-xs bg-secondary border">
                                     <MapPin className="w-3 h-3 mr-1" />
                                     <SelectValue />
                                 </SelectTrigger>
@@ -706,7 +708,7 @@ export function HomeScreen({
                         </div>
                     </div>
 
-                    <div className="divide-y flex-1 overflow-y-auto">
+                    <div className="divide-y divide-border overflow-y-auto max-h-80">
                         {/* Sensor Alerts with Location and Locate Button */}
                         {filteredAlerts.length > 0 ? (
                             filteredAlerts.slice(0, 2).map((alert, _index) => (
@@ -719,15 +721,15 @@ export function HomeScreen({
                                             <AlertTriangle className="w-4 h-4" />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <div className="text-xs text-gray-500">{formatTimeAgo(alert.timestamp)}</div>
-                                            <div className="font-medium text-sm mt-1">
+                                            <div className="text-xs text-muted-foreground">{formatTimeAgo(alert.timestamp)}</div>
+                                            <div className="font-medium text-sm mt-1 text-foreground">
                                                 {alert.level === 'critical' ? 'High' : 'Moderate'} water detected - {alert.location}
                                             </div>
-                                            <div className="text-sm text-gray-600">
+                                            <div className="text-sm text-muted-foreground">
                                                 {alert.description}
                                             </div>
                                             {/* Location Display */}
-                                            <div className="flex items-center gap-1 mt-1 text-xs text-gray-500">
+                                            <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
                                                 <MapPin className="w-3 h-3" />
                                                 <span>
                                                     {detectCityFromCoordinates(alert.coordinates[0], alert.coordinates[1])}
@@ -738,27 +740,27 @@ export function HomeScreen({
                                             <div className="flex gap-2 mt-2 flex-wrap">
                                                 <button
                                                     onClick={() => onAlertClick(alert)}
-                                                    className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded hover:bg-blue-100 transition-colors min-h-[44px]"
+                                                    className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded-lg hover:bg-blue-100 transition-colors min-h-[44px]"
                                                 >
                                                     View
                                                 </button>
                                                 <button
                                                     onClick={() => handleLocateAlert(alert.coordinates[1], alert.coordinates[0], alert.location)}
-                                                    className="text-xs bg-purple-50 text-purple-600 px-2 py-1 rounded hover:bg-purple-100 transition-colors min-h-[44px] flex items-center gap-1"
+                                                    className="text-xs bg-purple-50 text-purple-600 px-2 py-1 rounded-lg hover:bg-purple-100 transition-colors min-h-[44px] flex items-center gap-1"
                                                 >
                                                     <MapPinned className="w-3 h-3" />
                                                     Locate
                                                 </button>
                                                 <button
                                                     onClick={() => handleShare(alert)}
-                                                    className="text-xs bg-gray-50 text-gray-600 px-2 py-1 rounded hover:bg-gray-100 transition-colors min-h-[44px]"
+                                                    className="text-xs bg-secondary text-muted-foreground px-2 py-1 rounded-lg hover:bg-secondary/80 transition-colors min-h-[44px]"
                                                 >
                                                     <Share2 className="w-3 h-3 inline mr-1" />
                                                     Share
                                                 </button>
                                                 <button
                                                     onClick={() => handleNavigateRoutes(alert)}
-                                                    className="text-xs bg-green-50 text-green-600 px-2 py-1 rounded hover:bg-green-100 transition-colors min-h-[44px]"
+                                                    className="text-xs bg-green-50 text-green-600 px-2 py-1 rounded-lg hover:bg-green-100 transition-colors min-h-[44px]"
                                                 >
                                                     Alt Routes
                                                 </button>
@@ -781,15 +783,15 @@ export function HomeScreen({
                                             <Users className="w-4 h-4" />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <div className="text-xs text-gray-500">{formatTimeAgo(report.timestamp)}</div>
-                                            <div className="font-medium text-sm mt-1">
+                                            <div className="text-xs text-muted-foreground">{formatTimeAgo(report.timestamp)}</div>
+                                            <div className="font-medium text-sm mt-1 text-foreground">
                                                 {report.verified ? 'Community Report Verified' : 'Community Report'}
                                             </div>
-                                            <div className="text-sm text-gray-600 line-clamp-2">
+                                            <div className="text-sm text-muted-foreground line-clamp-2">
                                                 {report.description}
                                             </div>
                                             {/* Location Display */}
-                                            <div className="flex items-center gap-1 mt-1 text-xs text-gray-500">
+                                            <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
                                                 <MapPin className="w-3 h-3" />
                                                 <span>
                                                     {detectCityFromCoordinates(report.longitude, report.latitude)}
@@ -804,13 +806,13 @@ export function HomeScreen({
                                                     console.log('View clicked, setting report:', report?.id);
                                                     setSelectedReport(report);
                                                 }}
-                                                    className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded hover:bg-blue-100 transition-colors min-h-[44px]"
+                                                    className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded-lg hover:bg-blue-100 transition-colors min-h-[44px]"
                                                 >
                                                     View
                                                 </button>
                                                 <button
                                                     onClick={() => handleLocateAlert(report.latitude, report.longitude, 'Report Location')}
-                                                    className="text-xs bg-purple-50 text-purple-600 px-2 py-1 rounded hover:bg-purple-100 transition-colors min-h-[44px] flex items-center gap-1"
+                                                    className="text-xs bg-purple-50 text-purple-600 px-2 py-1 rounded-lg hover:bg-purple-100 transition-colors min-h-[44px] flex items-center gap-1"
                                                 >
                                                     <MapPinned className="w-3 h-3" />
                                                     Locate
@@ -818,7 +820,7 @@ export function HomeScreen({
                                                 {!report.verified && (
                                                     <button
                                                         onClick={handleThankReporter}
-                                                        className="text-xs bg-amber-50 text-amber-600 px-2 py-1 rounded hover:bg-amber-100 transition-colors min-h-[44px]"
+                                                        className="text-xs bg-amber-50 text-amber-600 px-2 py-1 rounded-lg hover:bg-amber-100 transition-colors min-h-[44px]"
                                                     >
                                                         <ThumbsUp className="w-3 h-3 inline mr-1" />
                                                         Thank
@@ -833,17 +835,17 @@ export function HomeScreen({
 
                         {/* All Clear Message */}
                         {filteredAlerts.length === 0 && (!filteredReports || filteredReports.length === 0) && (
-                            <div className="p-3">
+                            <div className="p-4">
                                 <div className="flex items-start gap-3">
                                     <div className="bg-green-100 text-green-600 p-2 rounded-full">
-                                        <Users className="w-4 h-4" />
+                                        <Shield className="w-4 h-4" />
                                     </div>
                                     <div className="flex-1">
-                                        <div className="text-xs text-gray-500">Just now</div>
-                                        <div className="font-medium text-sm mt-1">
+                                        <div className="text-xs text-muted-foreground">Just now</div>
+                                        <div className="font-medium text-sm mt-1 text-foreground">
                                             All Systems Normal
                                         </div>
-                                        <div className="text-sm text-gray-600">
+                                        <div className="text-sm text-muted-foreground">
                                             No flood alerts in your area. Stay safe!
                                         </div>
                                     </div>
@@ -853,25 +855,31 @@ export function HomeScreen({
                     </div>
                 </div>
 
-                {/* Join Ambassadors Widget */}
-                <div
-                    className="text-white rounded-2xl shadow-sm p-4 flex-shrink-0"
-                    style={{ background: 'linear-gradient(to right, #3b82f6, #2563eb)' }}
-                >
-                    <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-                            <Users className="w-6 h-6" />
+                {/* Join Ambassadors Widget — with photo accent */}
+                <div className="relative rounded-xl shadow-sm overflow-hidden flex-shrink-0">
+                    {/* Photo background with overlay */}
+                    <img
+                        src="/images/community-umbrella.jpg"
+                        alt=""
+                        className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(37, 99, 235, 0.75), rgba(59, 130, 246, 0.6))' }} />
+                    <div className="relative z-10 p-4">
+                        <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <Users className="w-6 h-6 text-white" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <div className="font-semibold text-white">Join Ambassadors</div>
+                                <div className="text-sm text-white/80">Help your community stay safe</div>
+                            </div>
+                            <button
+                                onClick={handleJoinAmbassadors}
+                                className="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium text-sm hover:bg-white/90 transition-colors min-h-[44px] flex-shrink-0"
+                            >
+                                Join
+                            </button>
                         </div>
-                        <div className="flex-1 min-w-0">
-                            <div className="font-semibold">Join Ambassadors</div>
-                            <div className="text-sm text-white/80">Help your community stay safe</div>
-                        </div>
-                        <button
-                            onClick={handleJoinAmbassadors}
-                            className="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium text-sm hover:bg-white/90 transition-colors min-h-[44px] flex-shrink-0"
-                        >
-                            Join
-                        </button>
                     </div>
                 </div>
             </div>
@@ -889,7 +897,7 @@ export function HomeScreen({
                     {locationDetails && (
                         <div className="space-y-4">
                             {hasLocationData(locationDetails.location) && (
-                                <div className="text-sm text-gray-600">
+                                <div className="text-sm text-muted-foreground">
                                     <div className="flex items-center gap-2">
                                         <MapPin className="w-4 h-4" />
                                         <span>
@@ -914,14 +922,14 @@ export function HomeScreen({
                                                 <div className="flex items-start justify-between">
                                                     <div className="flex-1">
                                                         <div className="text-sm font-medium">{report.description}</div>
-                                                        <div className="text-xs text-gray-500 mt-1">
+                                                        <div className="text-xs text-muted-foreground mt-1">
                                                             {formatTimeAgo(report.timestamp)}
                                                         </div>
                                                         {report.verified && (
                                                             <Badge className="mt-1 bg-green-500 text-white text-xs">Verified</Badge>
                                                         )}
                                                     </div>
-                                                    <div className="text-xs text-gray-500">
+                                                    <div className="text-xs text-muted-foreground">
                                                         {report.upvotes} upvotes
                                                     </div>
                                                 </div>
@@ -929,7 +937,7 @@ export function HomeScreen({
                                         ))}
                                     </div>
                                 ) : (
-                                    <p className="text-sm text-gray-500">No reports at this location</p>
+                                    <p className="text-sm text-muted-foreground">No reports at this location</p>
                                 )}
                             </div>
 
@@ -945,7 +953,7 @@ export function HomeScreen({
                                                 <div className="flex items-center justify-between">
                                                     <div>
                                                         <div className="font-medium text-sm">{reporter.username}</div>
-                                                        <div className="text-xs text-gray-500">
+                                                        <div className="text-xs text-muted-foreground">
                                                             Level {reporter.level} • {reporter.reports_count} total reports • {reporter.verified_reports_count} verified
                                                         </div>
                                                     </div>
@@ -954,7 +962,7 @@ export function HomeScreen({
                                         ))}
                                     </div>
                                 ) : (
-                                    <p className="text-sm text-gray-500">No reporter information available</p>
+                                    <p className="text-sm text-muted-foreground">No reporter information available</p>
                                 )}
                             </div>
 
@@ -963,7 +971,7 @@ export function HomeScreen({
                                     onNavigateToMap?.();
                                     setSelectedLocation(null);
                                 }}
-                                className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition-colors min-h-[44px]"
+                                className="w-full bg-primary text-primary-foreground py-2 rounded-lg hover:bg-primary/90 transition-colors min-h-[44px]"
                             >
                                 View on Full Map
                             </button>
@@ -972,8 +980,8 @@ export function HomeScreen({
 
                     {!locationDetails && selectedLocation && (
                         <div className="text-center py-8">
-                            <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-2 text-gray-400" />
-                            <p className="text-sm text-gray-500">Loading location details...</p>
+                            <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-2 text-muted-foreground" />
+                            <p className="text-sm text-muted-foreground">Loading location details...</p>
                         </div>
                     )}
                 </DialogContent>

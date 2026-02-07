@@ -257,12 +257,12 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
     const stepIcons = [MapPin, User, Bell, Route, CheckCircle];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 p-4">
+        <div className="min-h-screen bg-muted p-4">
             <div className="max-w-lg mx-auto">
                 {/* Header */}
                 <div className="text-center mb-6">
-                    <h1 className="text-2xl font-bold text-gray-900">Welcome to FloodSafe</h1>
-                    <p className="text-gray-600 mt-1">Let's set up your account</p>
+                    <h1 className="text-2xl font-bold text-foreground">Welcome to FloodSafe</h1>
+                    <p className="text-muted-foreground mt-1">Let's set up your account</p>
                 </div>
 
                 {/* Progress Bar */}
@@ -275,7 +275,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                             return (
                                 <div
                                     key={i}
-                                    className={`flex flex-col items-center ${isActive ? 'text-blue-600' : isComplete ? 'text-green-600' : 'text-gray-400'
+                                    className={`flex flex-col items-center ${isActive ? 'text-primary' : isComplete ? 'text-green-600' : 'text-muted-foreground/60'
                                         }`}
                                 >
                                     <Icon className="w-5 h-5" />
@@ -285,7 +285,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                         })}
                     </div>
                     <Progress value={progress} className="h-2" />
-                    <p className="text-center text-sm text-gray-600 mt-2">
+                    <p className="text-center text-sm text-muted-foreground mt-2">
                         Step {state.currentStep} of 5: {stepTitles[state.currentStep - 1]}
                     </p>
                 </div>
@@ -394,7 +394,7 @@ function Step1City({ city, onSelect, error }: Step1CityProps) {
         <div className="space-y-4">
             <div>
                 <h2 className="text-xl font-semibold mb-2">Select Your City</h2>
-                <p className="text-gray-600 text-sm">
+                <p className="text-muted-foreground text-sm">
                     Choose the city where you want to receive flood alerts
                 </p>
             </div>
@@ -403,14 +403,14 @@ function Step1City({ city, onSelect, error }: Step1CityProps) {
                 {(['bangalore', 'delhi'] as const).map((cityKey) => (
                     <div
                         key={cityKey}
-                        className={`flex items-center space-x-3 p-4 border rounded-lg cursor-pointer transition-colors ${city === cityKey ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'
+                        className={`flex items-center space-x-3 p-4 border rounded-lg cursor-pointer transition-colors ${city === cityKey ? 'border-primary/20 bg-primary/10' : 'border-border hover:border-border'
                             }`}
                         onClick={() => onSelect(cityKey)}
                     >
                         <RadioGroupItem value={cityKey} id={cityKey} />
                         <Label htmlFor={cityKey} className="flex-1 cursor-pointer">
                             <div className="font-medium">{CITIES[cityKey].displayName}</div>
-                            <div className="text-sm text-gray-500">
+                            <div className="text-sm text-muted-foreground">
                                 {cityKey === 'bangalore' ? 'Karnataka, India' : 'National Capital Territory, India'}
                             </div>
                         </Label>
@@ -418,7 +418,7 @@ function Step1City({ city, onSelect, error }: Step1CityProps) {
                 ))}
             </RadioGroup>
 
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && <p className="text-destructive text-sm">{error}</p>}
         </div>
     );
 }
@@ -436,7 +436,7 @@ function Step2Profile({ username, phone, onUpdate, errors }: Step2ProfileProps) 
         <div className="space-y-4">
             <div>
                 <h2 className="text-xl font-semibold mb-2">Your Profile</h2>
-                <p className="text-gray-600 text-sm">
+                <p className="text-muted-foreground text-sm">
                     Set up your profile information
                 </p>
             </div>
@@ -449,9 +449,9 @@ function Step2Profile({ username, phone, onUpdate, errors }: Step2ProfileProps) 
                         value={username}
                         onChange={(e) => onUpdate({ username: e.target.value, phone })}
                         placeholder="Enter your username"
-                        className={errors.username ? 'border-red-500' : ''}
+                        className={errors.username ? 'border-destructive' : ''}
                     />
-                    {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username}</p>}
+                    {errors.username && <p className="text-destructive text-sm mt-1">{errors.username}</p>}
                 </div>
 
                 <div>
@@ -463,7 +463,7 @@ function Step2Profile({ username, phone, onUpdate, errors }: Step2ProfileProps) 
                         onChange={(e) => onUpdate({ username, phone: e.target.value })}
                         placeholder="+91 XXXXX XXXXX"
                     />
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-muted-foreground mt-1">
                         Used for SMS alerts (optional)
                     </p>
                 </div>
@@ -599,7 +599,7 @@ function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove
         <div className="space-y-4">
             <div>
                 <h2 className="text-xl font-semibold mb-2">Watch Areas</h2>
-                <p className="text-gray-600 text-sm">
+                <p className="text-muted-foreground text-sm">
                     Add locations you want to monitor for flood alerts (at least 1 required)
                 </p>
             </div>
@@ -620,7 +620,7 @@ function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove
                     />
                     {isSearching && searchQuery.length >= 3 && (
                         <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                            <Loader2 className="w-4 h-4 animate-spin text-gray-400" />
+                            <Loader2 className="w-4 h-4 animate-spin text-muted-foreground/60" />
                         </div>
                     )}
                 </div>
@@ -651,7 +651,7 @@ function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove
                         {searchResults.map((result, i) => (
                             <button
                                 key={i}
-                                className="w-full p-2 text-left hover:bg-gray-50 text-sm"
+                                className="w-full p-2 text-left hover:bg-muted text-sm"
                                 onClick={() => handleAddFromSearch(result)}
                             >
                                 {result.formatted_name || result.display_name}
@@ -664,7 +664,7 @@ function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove
             {/* Existing watch areas from backend */}
             {existingWatchAreas.length > 0 && (
                 <div className="space-y-2">
-                    <Label className="text-sm text-gray-500">Previously added:</Label>
+                    <Label className="text-sm text-muted-foreground">Previously added:</Label>
                     {existingWatchAreas.map((wa) => (
                         <div key={wa.id} className="flex items-center justify-between p-2 bg-green-50 rounded border border-green-200">
                             <div className="flex items-center gap-2">
@@ -680,15 +680,15 @@ function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove
             {/* New watch areas (pending save) */}
             {watchAreas.length > 0 && (
                 <div className="space-y-2">
-                    <Label className="text-sm text-gray-500">To be added:</Label>
+                    <Label className="text-sm text-muted-foreground">To be added:</Label>
                     {watchAreas.map((wa, i) => (
-                        <div key={i} className="flex items-center justify-between p-2 bg-blue-50 rounded border border-blue-200">
+                        <div key={i} className="flex items-center justify-between p-2 bg-primary/10 rounded border border-primary/20">
                             <div className="flex items-center gap-2">
-                                <MapPin className="w-4 h-4 text-blue-600" />
+                                <MapPin className="w-4 h-4 text-primary" />
                                 <span className="text-sm">{wa.name}</span>
                             </div>
                             <Button variant="ghost" size="sm" onClick={() => onRemove(i)}>
-                                <Trash2 className="w-4 h-4 text-red-500" />
+                                <Trash2 className="w-4 h-4 text-destructive" />
                             </Button>
                         </div>
                     ))}
@@ -696,13 +696,13 @@ function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove
             )}
 
             {totalAreas === 0 && (
-                <div className="text-center py-4 text-gray-500">
+                <div className="text-center py-4 text-muted-foreground">
                     <MapPin className="w-8 h-8 mx-auto mb-2 opacity-50" />
                     <p className="text-sm">No watch areas added yet</p>
                 </div>
             )}
 
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && <p className="text-destructive text-sm">{error}</p>}
         </div>
     );
 }
@@ -722,7 +722,7 @@ function Step4DailyRoutes({ routes, existingRoutes }: Step4DailyRoutesProps) {
         <div className="space-y-4">
             <div>
                 <h2 className="text-xl font-semibold mb-2">Daily Routes</h2>
-                <p className="text-gray-600 text-sm">
+                <p className="text-muted-foreground text-sm">
                     Add your regular commute routes to get flood alerts along your path (optional)
                 </p>
             </div>
@@ -730,13 +730,13 @@ function Step4DailyRoutes({ routes, existingRoutes }: Step4DailyRoutesProps) {
             {/* Existing routes */}
             {existingRoutes.length > 0 && (
                 <div className="space-y-2">
-                    <Label className="text-sm text-gray-500">Your routes:</Label>
+                    <Label className="text-sm text-muted-foreground">Your routes:</Label>
                     {existingRoutes.map((route) => (
                         <div key={route.id} className="flex items-center justify-between p-2 bg-green-50 rounded border border-green-200">
                             <div className="flex items-center gap-2">
                                 <Route className="w-4 h-4 text-green-600" />
                                 <span className="text-sm">{route.name}</span>
-                                <span className="text-xs text-gray-500 capitalize">({route.transport_mode})</span>
+                                <span className="text-xs text-muted-foreground capitalize">({route.transport_mode})</span>
                             </div>
                             <CheckCircle className="w-4 h-4 text-green-600" />
                         </div>
@@ -747,15 +747,15 @@ function Step4DailyRoutes({ routes, existingRoutes }: Step4DailyRoutesProps) {
             {/* New routes (pending) */}
             {routes.length > 0 && (
                 <div className="space-y-2">
-                    <Label className="text-sm text-gray-500">To be added:</Label>
+                    <Label className="text-sm text-muted-foreground">To be added:</Label>
                     {routes.map((route, i) => (
-                        <div key={i} className="flex items-center justify-between p-2 bg-blue-50 rounded border border-blue-200">
+                        <div key={i} className="flex items-center justify-between p-2 bg-primary/10 rounded border border-primary/20">
                             <div className="flex items-center gap-2">
-                                <Route className="w-4 h-4 text-blue-600" />
+                                <Route className="w-4 h-4 text-primary" />
                                 <span className="text-sm">{route.name}</span>
                             </div>
                             <Button variant="ghost" size="sm">
-                                <Trash2 className="w-4 h-4 text-red-500" />
+                                <Trash2 className="w-4 h-4 text-destructive" />
                             </Button>
                         </div>
                     ))}
@@ -763,14 +763,14 @@ function Step4DailyRoutes({ routes, existingRoutes }: Step4DailyRoutesProps) {
             )}
 
             {routes.length === 0 && existingRoutes.length === 0 && (
-                <div className="text-center py-6 text-gray-500">
+                <div className="text-center py-6 text-muted-foreground">
                     <Route className="w-8 h-8 mx-auto mb-2 opacity-50" />
                     <p className="text-sm">No daily routes added</p>
                     <p className="text-xs mt-1">You can add routes later from your profile</p>
                 </div>
             )}
 
-            <p className="text-sm text-gray-500 bg-gray-50 p-3 rounded">
+            <p className="text-sm text-muted-foreground bg-muted p-3 rounded">
                 <strong>Tip:</strong> Add routes like "Home to Office" to receive alerts about flooding
                 along your daily commute.
             </p>
@@ -795,31 +795,31 @@ function Step5Completion({ city, username, watchAreasCount, dailyRoutesCount }: 
 
             <div>
                 <h2 className="text-xl font-semibold mb-2">You're All Set!</h2>
-                <p className="text-gray-600 text-sm">
+                <p className="text-muted-foreground text-sm">
                     Here's a summary of your setup:
                 </p>
             </div>
 
-            <div className="bg-gray-50 rounded-lg p-4 text-left space-y-3">
+            <div className="bg-muted rounded-lg p-4 text-left space-y-3">
                 <div className="flex justify-between">
-                    <span className="text-gray-600">City:</span>
+                    <span className="text-muted-foreground">City:</span>
                     <span className="font-medium">{city ? CITIES[city].displayName : 'Not set'}</span>
                 </div>
                 <div className="flex justify-between">
-                    <span className="text-gray-600">Username:</span>
+                    <span className="text-muted-foreground">Username:</span>
                     <span className="font-medium">{username}</span>
                 </div>
                 <div className="flex justify-between">
-                    <span className="text-gray-600">Watch Areas:</span>
+                    <span className="text-muted-foreground">Watch Areas:</span>
                     <span className="font-medium">{watchAreasCount} area(s)</span>
                 </div>
                 <div className="flex justify-between">
-                    <span className="text-gray-600">Daily Routes:</span>
+                    <span className="text-muted-foreground">Daily Routes:</span>
                     <span className="font-medium">{dailyRoutesCount} route(s)</span>
                 </div>
             </div>
 
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-muted-foreground">
                 Click "Get Started" to begin using FloodSafe
             </p>
         </div>

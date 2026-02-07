@@ -36,15 +36,15 @@ export function AlertsListScreen({ onAlertClick: _onAlertClick }: { onAlertClick
 
     if (isLoading) {
         return (
-            <div className="pb-4 min-h-full bg-gray-50 flex items-center justify-center">
-                <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+            <div className="pb-4 min-h-full bg-muted flex items-center justify-center">
+                <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="pb-4 min-h-full bg-gray-50 p-4">
+            <div className="pb-4 min-h-full bg-muted p-4">
                 <div className="text-center py-16 text-red-600">
                     Failed to load alerts. Please try again.
                 </div>
@@ -55,9 +55,9 @@ export function AlertsListScreen({ onAlertClick: _onAlertClick }: { onAlertClick
     const unreadCount = alerts?.filter((a: Alert) => !a.is_read).length || 0;
 
     return (
-        <div className="pb-4 min-h-full bg-gray-50">
+        <div className="pb-4 min-h-full bg-muted">
             {/* Header */}
-            <div className="bg-white shadow-sm sticky top-14 z-40">
+            <div className="bg-card shadow-sm sticky top-14 z-40">
                 <div className="flex items-center justify-between px-4 h-14">
                     <div className="flex items-center gap-2">
                         <Bell className="w-5 h-5 text-blue-600" />
@@ -115,13 +115,13 @@ export function AlertsListScreen({ onAlertClick: _onAlertClick }: { onAlertClick
                                     </div>
 
                                     {alert.watch_area_name && (
-                                        <div className="flex items-center gap-1 text-xs text-gray-500 mb-2">
+                                        <div className="flex items-center gap-1 text-xs text-muted-foreground mb-2">
                                             <MapPin className="w-3 h-3" />
                                             {alert.watch_area_name}
                                         </div>
                                     )}
 
-                                    <div className="flex items-center gap-1 text-xs text-gray-400">
+                                    <div className="flex items-center gap-1 text-xs text-muted-foreground/60">
                                         <Clock className="w-3 h-3" />
                                         {new Date(alert.created_at).toLocaleString()}
                                     </div>
@@ -147,7 +147,7 @@ export function AlertsListScreen({ onAlertClick: _onAlertClick }: { onAlertClick
                             <Bell className="w-8 h-8 text-green-600" />
                         </div>
                         <h2 className="text-xl font-medium mb-2">No Alerts</h2>
-                        <p className="text-gray-600">
+                        <p className="text-muted-foreground">
                             {filter === 'unread'
                                 ? "You're all caught up!"
                                 : "Add watch areas to receive flood alerts"}

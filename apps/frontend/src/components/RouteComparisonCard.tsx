@@ -77,26 +77,26 @@ export function RouteComparisonCard({
                     disabled={!normal_route}
                     className={`p-3 rounded-lg border-2 text-left transition-all relative ${
                         selectedRoute === 'normal'
-                            ? 'border-gray-500 bg-gray-50 ring-2 ring-gray-200'
-                            : 'border-gray-200 hover:border-gray-300'
+                            ? 'border-foreground bg-muted ring-2 ring-ring'
+                            : 'border-border hover:border-muted-foreground'
                     } ${!normal_route ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                     {/* Selection checkmark indicator */}
                     {selectedRoute === 'normal' && (
-                        <div className="absolute -top-2 -right-2 bg-gray-600 rounded-full p-1 shadow-sm">
+                        <div className="absolute -top-2 -right-2 bg-foreground rounded-full p-1 shadow-sm">
                             <Check className="h-3 w-3 text-white" />
                         </div>
                     )}
                     <div className="flex items-center gap-2 mb-2">
-                        <Clock className="h-4 w-4 text-gray-600" />
+                        <Clock className="h-4 w-4 text-muted-foreground" />
                         <span className="font-medium text-sm">Normal</span>
                     </div>
                     {normal_route ? (
                         <>
-                            <div className="text-lg font-bold text-gray-900">
+                            <div className="text-lg font-bold text-foreground">
                                 {formatDuration(normal_route.duration_seconds)}
                             </div>
-                            <div className="text-xs text-gray-500">
+                            <div className="text-xs text-muted-foreground">
                                 {formatDistance(normal_route.distance_meters)}
                             </div>
                             {normal_route.flood_intersections > 0 && (
@@ -107,7 +107,7 @@ export function RouteComparisonCard({
                             )}
                         </>
                     ) : (
-                        <div className="text-sm text-gray-400">Unavailable</div>
+                        <div className="text-sm text-muted-foreground/60">Unavailable</div>
                     )}
                 </button>
 
@@ -118,7 +118,7 @@ export function RouteComparisonCard({
                     className={`p-3 rounded-lg border-2 text-left transition-all relative ${
                         selectedRoute === 'floodsafe'
                             ? 'border-green-500 bg-green-50 ring-2 ring-green-200'
-                            : 'border-gray-200 hover:border-green-300'
+                            : 'border-border hover:border-green-300'
                     } ${!floodsafe_route ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                     {/* Selection checkmark indicator */}
@@ -136,7 +136,7 @@ export function RouteComparisonCard({
                             <div className="text-lg font-bold text-green-700">
                                 {formatDuration(floodsafe_route.duration_seconds)}
                             </div>
-                            <div className="text-xs text-gray-500">
+                            <div className="text-xs text-muted-foreground">
                                 {formatDistance(floodsafe_route.distance_meters)}
                             </div>
                             <div className="mt-2 flex items-center gap-1 text-green-600 text-xs font-medium">
@@ -145,16 +145,16 @@ export function RouteComparisonCard({
                             </div>
                         </>
                     ) : (
-                        <div className="text-sm text-gray-400">Unavailable</div>
+                        <div className="text-sm text-muted-foreground/60">Unavailable</div>
                     )}
                 </button>
             </div>
 
             {/* Time Penalty Badge */}
             {flood_zones_avoided > 0 && (
-                <div className="flex items-center justify-center gap-2 p-2 bg-blue-50 rounded-lg border border-blue-200">
-                    <Clock className="h-4 w-4 text-blue-600" />
-                    <span className="text-sm text-blue-800 font-medium">
+                <div className="flex items-center justify-center gap-2 p-2 bg-primary/10 rounded-lg border border-primary/20">
+                    <Clock className="h-4 w-4 text-primary" />
+                    <span className="text-sm text-primary font-medium">
                         +{penaltyMinutes} min to avoid {flood_zones_avoided} flood zone{flood_zones_avoided > 1 ? 's' : ''}
                     </span>
                 </div>
@@ -163,39 +163,39 @@ export function RouteComparisonCard({
             {/* Expandable Details */}
             <button
                 onClick={() => setShowDetails(!showDetails)}
-                className="w-full flex items-center justify-between p-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg"
+                className="w-full flex items-center justify-between p-2 text-sm text-muted-foreground hover:bg-muted rounded-lg"
             >
                 <span>Time Analysis & Risk Details</span>
                 {showDetails ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
             </button>
 
             {showDetails && (
-                <div className="space-y-3 p-3 bg-gray-50 rounded-lg">
+                <div className="space-y-3 p-3 bg-muted rounded-lg">
                     {/* Time Analysis */}
                     {stuck_time_estimate.avg_stuck_minutes > 0 && (
                         <div className="space-y-2">
-                            <h4 className="text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider">
                                 Time Analysis
                             </h4>
                             <div className="space-y-1 text-sm">
                                 <div className="flex justify-between">
-                                    <span className="text-gray-600">FloodSafe penalty:</span>
+                                    <span className="text-muted-foreground">FloodSafe penalty:</span>
                                     <span className="font-medium">+{penaltyMinutes} min</span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span className="text-gray-600">If stuck (average):</span>
+                                    <span className="text-muted-foreground">If stuck (average):</span>
                                     <span className="font-medium text-red-600">
                                         ~{stuck_time_estimate.avg_stuck_minutes} min delay
                                     </span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span className="text-gray-600">If stuck (worst):</span>
+                                    <span className="text-muted-foreground">If stuck (worst):</span>
                                     <span className="font-medium text-red-600">
                                         ~{stuck_time_estimate.worst_case_minutes} min delay
                                     </span>
                                 </div>
-                                <div className="flex justify-between pt-1 border-t border-gray-200">
-                                    <span className="text-gray-600">Net time saved:</span>
+                                <div className="flex justify-between pt-1 border-t border-border">
+                                    <span className="text-muted-foreground">Net time saved:</span>
                                     <span className="font-medium text-green-600">
                                         {Math.round(net_time_saved.vs_average_stuck)}-{Math.round(net_time_saved.vs_worst_case)} min
                                     </span>
@@ -206,24 +206,24 @@ export function RouteComparisonCard({
 
                     {/* Risk Breakdown */}
                     <div className="space-y-2">
-                        <h4 className="text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider">
                             Risk Breakdown
                         </h4>
                         <div className="grid grid-cols-3 gap-2">
-                            <div className="flex flex-col items-center p-2 bg-white rounded border">
+                            <div className="flex flex-col items-center p-2 bg-card rounded border border-border">
                                 <Droplets className="h-4 w-4 text-blue-500 mb-1" />
                                 <span className="text-lg font-bold">{risk_breakdown.active_reports}</span>
-                                <span className="text-xs text-gray-500">Reports</span>
+                                <span className="text-xs text-muted-foreground">Reports</span>
                             </div>
-                            <div className="flex flex-col items-center p-2 bg-white rounded border">
+                            <div className="flex flex-col items-center p-2 bg-card rounded border border-border">
                                 <Radio className="h-4 w-4 text-orange-500 mb-1" />
                                 <span className="text-lg font-bold">{risk_breakdown.sensor_warnings}</span>
-                                <span className="text-xs text-gray-500">Sensors</span>
+                                <span className="text-xs text-muted-foreground">Sensors</span>
                             </div>
-                            <div className="flex flex-col items-center p-2 bg-white rounded border">
+                            <div className="flex flex-col items-center p-2 bg-card rounded border border-border">
                                 <Brain className="h-4 w-4 text-purple-500 mb-1" />
                                 <span className="text-lg font-bold">{risk_breakdown.ml_high_risk_zones}</span>
-                                <span className="text-xs text-gray-500">AI Risk</span>
+                                <span className="text-xs text-muted-foreground">AI Risk</span>
                             </div>
                         </div>
                     </div>
@@ -231,12 +231,12 @@ export function RouteComparisonCard({
                     {/* Risk Factors */}
                     {stuck_time_estimate.risk_factors.length > 0 && (
                         <div className="space-y-2">
-                            <h4 className="text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider">
                                 Risk Factors
                             </h4>
                             <ul className="space-y-1">
                                 {stuck_time_estimate.risk_factors.map((factor, idx) => (
-                                    <li key={idx} className="flex items-center gap-2 text-sm text-gray-600">
+                                    <li key={idx} className="flex items-center gap-2 text-sm text-muted-foreground">
                                         <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
                                         {factor}
                                     </li>
@@ -277,7 +277,7 @@ export function RouteComparisonCard({
                                         className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                                         style={{ backgroundColor: hotspot.fhi_color }}
                                     />
-                                    <span className="text-gray-700 truncate max-w-[160px]">
+                                    <span className="text-foreground truncate max-w-[160px]">
                                         {hotspot.name}
                                     </span>
                                 </div>

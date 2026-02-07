@@ -18,10 +18,10 @@ export function BadgeGrid({ className, limit, onViewAll }: BadgeGridProps) {
     return (
       <Card className={cn('p-4', className)}>
         <div className="animate-pulse space-y-3">
-          <div className="h-6 bg-gray-200 rounded w-32"></div>
+          <div className="h-6 bg-muted rounded w-32"></div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="h-24 bg-gray-200 rounded-lg"></div>
+              <div key={i} className="h-24 bg-muted rounded-lg"></div>
             ))}
           </div>
         </div>
@@ -31,13 +31,14 @@ export function BadgeGrid({ className, limit, onViewAll }: BadgeGridProps) {
 
   if (error) {
     return (
-      <Card className={cn('p-4 bg-red-50 border-red-200', className)}>
-        <p className="text-sm text-red-600">Failed to load badges</p>
+      <Card className={cn('p-4 bg-destructive/10 border-destructive/20', className)}>
+        <p className="text-sm text-destructive">Failed to load badges</p>
       </Card>
     );
   }
 
-  if (!badgesData) {
+  // Guard: API may return [] instead of object — [] is truthy, bypasses !data check
+  if (!badgesData || typeof badgesData !== 'object' || Array.isArray(badgesData)) {
     return null;
   }
 
@@ -56,7 +57,7 @@ export function BadgeGrid({ className, limit, onViewAll }: BadgeGridProps) {
     <Card className={cn('p-4', className)}>
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+        <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
           <Award className="w-4 h-4 text-yellow-600" />
           Badges
           <BadgeUI variant="secondary" className="text-xs bg-yellow-50 text-yellow-700">
@@ -66,7 +67,7 @@ export function BadgeGrid({ className, limit, onViewAll }: BadgeGridProps) {
         {onViewAll && (
           <button
             onClick={onViewAll}
-            className="text-xs text-purple-600 hover:text-purple-700 font-medium hover:underline"
+            className="text-xs text-purple-600 hover:text-purple-700 font-medium hover:underline transition-colors"
           >
             View All
           </button>
@@ -75,9 +76,9 @@ export function BadgeGrid({ className, limit, onViewAll }: BadgeGridProps) {
 
       {displayBadges.length === 0 ? (
         <div className="text-center py-8">
-          <Award className="w-12 h-12 mx-auto text-gray-300 mb-2" />
-          <p className="text-sm text-gray-500">No badges yet</p>
-          <p className="text-xs text-gray-400 mt-1">Keep submitting reports to earn badges!</p>
+          <Award className="w-12 h-12 mx-auto text-muted-foreground/40 mb-2" />
+          <p className="text-sm text-muted-foreground">No badges yet</p>
+          <p className="text-xs text-muted-foreground/60 mt-1">Keep submitting reports to earn badges!</p>
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -100,7 +101,7 @@ export function BadgeGrid({ className, limit, onViewAll }: BadgeGridProps) {
               special: 'border-yellow-200 bg-yellow-50',
             };
 
-            const categoryColor = categoryColors[badge.category] || 'border-gray-200 bg-gray-50';
+            const categoryColor = categoryColors[badge.category] || 'border-border bg-muted';
 
             return (
               <div
@@ -109,7 +110,7 @@ export function BadgeGrid({ className, limit, onViewAll }: BadgeGridProps) {
                   'p-3 rounded-lg border-2 transition-all relative',
                   isEarned
                     ? `${categoryColor} shadow-sm`
-                    : 'border-gray-200 bg-gray-50 opacity-60',
+                    : 'border-border bg-muted opacity-60',
                   'hover:scale-105 cursor-pointer'
                 )}
                 title={badge.description || badge.name}
@@ -117,7 +118,7 @@ export function BadgeGrid({ className, limit, onViewAll }: BadgeGridProps) {
                 {/* Lock Icon for Locked Badges */}
                 {!isEarned && (
                   <div className="absolute top-2 right-2">
-                    <Lock className="w-3 h-3 text-gray-400" />
+                    <Lock className="w-3 h-3 text-muted-foreground/60" />
                   </div>
                 )}
 
@@ -125,7 +126,7 @@ export function BadgeGrid({ className, limit, onViewAll }: BadgeGridProps) {
                 <div className="text-center mb-2">
                   <div className={cn(
                     'text-3xl mx-auto w-12 h-12 flex items-center justify-center rounded-full',
-                    isEarned ? 'bg-white shadow-sm' : 'bg-gray-200 grayscale'
+                    isEarned ? 'bg-card shadow-sm' : 'bg-muted grayscale'
                   )}>
                     {iconEmoji}
                   </div>
@@ -134,7 +135,7 @@ export function BadgeGrid({ className, limit, onViewAll }: BadgeGridProps) {
                 {/* Badge Name */}
                 <p className={cn(
                   'text-xs font-semibold text-center mb-1 line-clamp-1',
-                  isEarned ? 'text-gray-800' : 'text-gray-500'
+                  isEarned ? 'text-foreground' : 'text-muted-foreground'
                 )}>
                   {badge.name}
                 </p>
@@ -142,10 +143,10 @@ export function BadgeGrid({ className, limit, onViewAll }: BadgeGridProps) {
                 {/* Progress Bar (for in-progress badges) */}
                 {!isEarned && progressPercent < 100 && (
                   <div className="mt-2">
-                    <Progress value={progressPercent} className="h-1.5 bg-gray-200" />
+                    <Progress value={progressPercent} className="h-1.5 bg-muted" />
                     <div className="flex items-center justify-center gap-1 mt-1">
-                      <TrendingUp className="w-3 h-3 text-gray-400" />
-                      <p className="text-[10px] text-gray-500">
+                      <TrendingUp className="w-3 h-3 text-muted-foreground/60" />
+                      <p className="text-[10px] text-muted-foreground">
                         {currentValue}/{requiredValue}
                       </p>
                     </div>
@@ -177,7 +178,7 @@ export function BadgeGrid({ className, limit, onViewAll }: BadgeGridProps) {
               View all {allBadges.length} badges →
             </button>
           ) : (
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-muted-foreground">
               Showing {limit} of {allBadges.length} badges
             </p>
           )}
