@@ -172,7 +172,7 @@ export function SOSButton({ className, compact = false }: SOSButtonProps) {
                     )}>
                         {sending ? 'Sending SOS...' : sent ? 'SOS Alert Sent' : 'Send SOS Alert'}
                     </div>
-                    <div className="text-sm text-gray-600">
+                    <div className="text-sm text-muted-foreground">
                         {sent
                             ? `Alert sent to ${getCircleRecipients(circles as Array<{ members?: Array<{ phone: string | null; display_name: string | null }> }>).length} contacts`
                             : 'Alert all Safety Circle contacts via SMS'
@@ -199,7 +199,7 @@ export function SOSButton({ className, compact = false }: SOSButtonProps) {
 
             {/* Offline explanation */}
             {!isOnline && (
-                <p className="text-xs text-gray-500 text-center px-2">
+                <p className="text-xs text-muted-foreground text-center px-2">
                     You&apos;re offline. SOS will queue and send automatically when you reconnect.
                 </p>
             )}

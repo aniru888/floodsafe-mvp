@@ -145,7 +145,7 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
 
     // Net score calculation
     const netScore = report.upvotes - report.downvotes;
-    const netScoreColor = netScore > 0 ? 'text-green-600' : netScore < 0 ? 'text-red-600' : 'text-gray-500';
+    const netScoreColor = netScore > 0 ? 'text-green-600' : netScore < 0 ? 'text-red-600' : 'text-muted-foreground';
 
     // Handle vote
     const handleVote = async (type: 'upvote' | 'downvote') => {
@@ -222,16 +222,16 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
                             {report.verified ? 'Verified Report' : 'Unverified Report'}
                         </DialogTitle>
                     </div>
-                    <DialogDescription className="flex items-center gap-2 text-sm text-gray-500">
+                    <DialogDescription className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Clock className="h-4 w-4" />
                         <span>{formatTimestamp(report.timestamp)}</span>
-                        <span className="text-gray-400">({formatTimeAgo(report.timestamp)})</span>
+                        <span className="text-muted-foreground/60">({formatTimeAgo(report.timestamp)})</span>
                     </DialogDescription>
                 </DialogHeader>
 
                 {/* Photo Section */}
                 {report.media_url && !imageError && (
-                    <div className="mt-4 rounded-lg overflow-hidden bg-gray-100">
+                    <div className="mt-4 rounded-lg overflow-hidden bg-muted">
                         <img
                             src={report.media_url}
                             alt="Flood report"
@@ -250,14 +250,14 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
 
                 {/* Description */}
                 <div className="mt-4">
-                    <p className="text-gray-800 whitespace-pre-wrap">{parsedDescription}</p>
+                    <p className="text-foreground whitespace-pre-wrap">{parsedDescription}</p>
                 </div>
 
                 {/* Metadata Grid */}
                 <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
                     {/* Water Depth */}
                     {waterDepthInfo && (
-                        <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
+                        <div className="flex items-center gap-2 p-2 bg-muted rounded-lg">
                             <Droplets className={cn("h-4 w-4", waterDepthInfo.color)} />
                             <span className={waterDepthInfo.color}>{waterDepthInfo.label}</span>
                         </div>
@@ -265,39 +265,39 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
 
                     {/* Vehicle Passability */}
                     {passabilityInfo && (
-                        <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
-                            <Car className="h-4 w-4 text-gray-600" />
-                            <span className="text-gray-700">{passabilityInfo.label}</span>
+                        <div className="flex items-center gap-2 p-2 bg-muted rounded-lg">
+                            <Car className="h-4 w-4 text-muted-foreground" />
+                            <span className="text-foreground">{passabilityInfo.label}</span>
                         </div>
                     )}
 
                     {/* IoT Score */}
                     {report.iot_validation_score !== undefined && report.iot_validation_score > 0 && (
-                        <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
-                            <Shield className="h-4 w-4 text-blue-600" />
-                            <span className="text-gray-700">IoT Score: {report.iot_validation_score}%</span>
+                        <div className="flex items-center gap-2 p-2 bg-muted rounded-lg">
+                            <Shield className="h-4 w-4 text-primary" />
+                            <span className="text-foreground">IoT Score: {report.iot_validation_score}%</span>
                         </div>
                     )}
 
                     {/* ML Classification */}
                     {report.ml_is_flood !== undefined && (
-                        <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
+                        <div className="flex items-center gap-2 p-2 bg-muted rounded-lg">
                             {report.ml_is_flood ? (
                                 <>
-                                    <Droplets className="h-4 w-4 text-blue-600" />
-                                    <span className="text-gray-700">
+                                    <Droplets className="h-4 w-4 text-primary" />
+                                    <span className="text-foreground">
                                         AI Analysis: Flood Detected ({Math.round((report.ml_confidence || 0) * 100)}%)
                                     </span>
                                 </>
                             ) : report.ml_needs_review ? (
                                 <>
                                     <AlertTriangle className="h-4 w-4 text-yellow-600" />
-                                    <span className="text-gray-700">AI Analysis: Needs Review</span>
+                                    <span className="text-foreground">AI Analysis: Needs Review</span>
                                 </>
                             ) : (
                                 <>
                                     <AlertTriangle className="h-4 w-4 text-orange-600" />
-                                    <span className="text-gray-700">AI Analysis: May Not Be Flood</span>
+                                    <span className="text-foreground">AI Analysis: May Not Be Flood</span>
                                 </>
                             )}
                         </div>
@@ -307,7 +307,7 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
                     {report.latitude && report.longitude && onLocate && (
                         <button
                             onClick={handleLocate}
-                            className="flex items-center gap-2 p-2 bg-blue-50 rounded-lg text-blue-700 hover:bg-blue-100 transition-colors"
+                            className="flex items-center gap-2 p-2 bg-primary/10 rounded-lg text-primary hover:bg-primary/20 transition-colors"
                         >
                             <MapPin className="h-4 w-4" />
                             <span>View on Map</span>
@@ -316,7 +316,7 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
                 </div>
 
                 {/* Voting Section */}
-                <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                <div className="mt-4 p-3 bg-muted rounded-xl">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
                             {/* Upvote */}
@@ -327,7 +327,7 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
                                     "flex items-center gap-1 px-3 py-1.5 rounded-lg transition-colors",
                                     report.user_vote === 'upvote'
                                         ? "bg-green-100 text-green-700"
-                                        : "hover:bg-gray-200 text-gray-600",
+                                        : "hover:bg-muted text-muted-foreground",
                                     !user && "opacity-50 cursor-not-allowed"
                                 )}
                             >
@@ -343,7 +343,7 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
                                     "flex items-center gap-1 px-3 py-1.5 rounded-lg transition-colors",
                                     report.user_vote === 'downvote'
                                         ? "bg-red-100 text-red-700"
-                                        : "hover:bg-gray-200 text-gray-600",
+                                        : "hover:bg-muted text-muted-foreground",
                                     !user && "opacity-50 cursor-not-allowed"
                                 )}
                             >
@@ -358,14 +358,14 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
                         </div>
 
                         {/* Comment Count */}
-                        <div className="flex items-center gap-1 text-gray-500">
+                        <div className="flex items-center gap-1 text-muted-foreground">
                             <MessageCircle className="h-4 w-4" />
                             <span>{report.comment_count || comments.length}</span>
                         </div>
                     </div>
 
                     {!user && (
-                        <p className="mt-2 text-xs text-gray-500">
+                        <p className="mt-2 text-xs text-muted-foreground">
                             Log in to vote on this report
                         </p>
                     )}
@@ -373,7 +373,7 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
 
                 {/* Comments Section */}
                 <div className="mt-4">
-                    <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                    <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
                         <MessageCircle className="h-4 w-4" />
                         Comments
                     </h3>
@@ -387,7 +387,7 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
                                 onChange={(e) => setNewComment(e.target.value.slice(0, 500))}
                                 onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSubmitComment()}
                                 placeholder="Add a comment..."
-                                className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="flex-1 px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                                 disabled={isSubmittingComment}
                             />
                             <button
@@ -396,8 +396,8 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
                                 className={cn(
                                     "px-3 py-2 rounded-lg transition-colors",
                                     newComment.trim()
-                                        ? "bg-blue-600 text-white hover:bg-blue-700"
-                                        : "bg-gray-100 text-gray-400 cursor-not-allowed"
+                                        ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                                        : "bg-muted text-muted-foreground/60 cursor-not-allowed"
                                 )}
                             >
                                 {isSubmittingComment ? (
@@ -408,14 +408,14 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
                             </button>
                         </div>
                     ) : (
-                        <p className="text-sm text-gray-500 mb-4">
+                        <p className="text-sm text-muted-foreground mb-4">
                             Log in to add a comment
                         </p>
                     )}
 
                     {/* Character count */}
                     {user && newComment.length > 0 && (
-                        <p className="text-xs text-gray-400 -mt-3 mb-3">
+                        <p className="text-xs text-muted-foreground/60 -mt-3 mb-3">
                             {newComment.length}/500 characters
                         </p>
                     )}
@@ -424,29 +424,29 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
                     <div className="max-h-[20rem] sm:max-h-[15rem] overflow-y-auto space-y-3 scrollbar-thin scrollbar-thumb-purple-300 scrollbar-track-gray-100">
                         {commentsLoading ? (
                             <div className="flex items-center justify-center py-4">
-                                <Loader2 className="h-5 w-5 animate-spin text-gray-400" />
+                                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground/60" />
                             </div>
                         ) : comments.length === 0 ? (
-                            <p className="text-sm text-gray-500 text-center py-4">
+                            <p className="text-sm text-muted-foreground text-center py-4">
                                 No comments yet. Be the first to comment!
                             </p>
                         ) : (
                             comments.map((comment) => (
                                 <div
                                     key={comment.id}
-                                    className="p-3 bg-white border border-gray-100 rounded-lg"
+                                    className="p-3 bg-card border border-border rounded-lg"
                                 >
                                     <div className="flex items-start justify-between gap-2">
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2 mb-1">
-                                                <span className="font-medium text-sm text-gray-800 truncate">
+                                                <span className="font-medium text-sm text-foreground truncate">
                                                     {comment.username}
                                                 </span>
-                                                <span className="text-xs text-gray-400">
+                                                <span className="text-xs text-muted-foreground/60">
                                                     {formatTimeAgo(comment.created_at)}
                                                 </span>
                                             </div>
-                                            <p className="text-sm text-gray-700 break-words">
+                                            <p className="text-sm text-foreground break-words">
                                                 {comment.content}
                                             </p>
                                         </div>
@@ -454,7 +454,7 @@ export function ReportDetailModal({ report, isOpen, onClose, onLocate }: ReportD
                                             <button
                                                 onClick={() => handleDeleteComment(comment)}
                                                 disabled={deleteCommentMutation.isPending}
-                                                className="text-gray-400 hover:text-red-500 transition-colors flex-shrink-0"
+                                                className="text-muted-foreground/60 hover:text-red-500 transition-colors flex-shrink-0"
                                                 title="Delete comment"
                                             >
                                                 <Trash2 className="h-4 w-4" />
