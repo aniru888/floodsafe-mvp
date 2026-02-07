@@ -1551,57 +1551,55 @@ export default function MapComponent({
 
     return (
         <div className="relative w-full h-full">
-            {/* Title and Search Bar - Top Left */}
+            {/* Header: Title + City Selector row, then Search Bar */}
             {title && !showHistoricalPanel && (
-                <div className="absolute pointer-events-auto flex flex-col gap-2" style={{ top: '16px', left: '24px', zIndex: 100 }}>
-                    <div className="bg-white/90 backdrop-blur-md shadow-lg rounded-lg px-4 py-2">
-                        <h1 className="text-lg font-bold text-gray-900">{title}</h1>
-                        <p className="text-xs text-gray-500">Real-time flood monitoring</p>
+                <div className="absolute pointer-events-auto flex flex-col gap-2 left-3 right-3 md:left-6 md:right-auto md:max-w-sm" style={{ top: '12px', zIndex: 100 }}>
+                    <div className="flex items-center gap-2">
+                        <div className="bg-card shadow-lg rounded-xl px-3 py-1.5 flex-1 min-w-0">
+                            <h1 className="text-sm font-semibold text-foreground truncate">{title}</h1>
+                            <p className="text-[10px] text-muted-foreground">Real-time flood monitoring</p>
+                        </div>
+                        {showCitySelector && availableCities.length > 0 && (
+                            <div className="bg-card shadow-lg rounded-xl px-2.5 py-1.5 border border-border shrink-0">
+                                <div className="flex items-center gap-1.5">
+                                    <MapPin className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                                    <select
+                                        id="city-selector"
+                                        name="city"
+                                        value={city}
+                                        onChange={(e) => handleCityChange(e.target.value)}
+                                        disabled={isChangingCity}
+                                        className="bg-transparent text-foreground font-semibold text-xs border-none focus:outline-none focus:ring-0 cursor-pointer pr-4 disabled:opacity-50"
+                                    >
+                                        {availableCities.map((cityKey) => {
+                                            const config = getCityConfig(cityKey);
+                                            return (
+                                                <option key={cityKey} value={cityKey}>
+                                                    {config.displayName}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </div>
+                            </div>
+                        )}
                     </div>
-                    {/* Search Bar below title */}
+                    {/* Search Bar below header row */}
                     {showCitySelector && (
                         <SearchBar
                             onLocationSelect={handleSearchLocationSelect}
                             cityKey={city}
                             placeholder={`Search in ${currentCityConfig.displayName}...`}
-                            className="w-72 max-w-[calc(100vw-48px)]"
+                            className="w-full md:w-72"
                         />
                     )}
                 </div>
             )}
-
-            {/* City Selector - Top Right */}
-            {showCitySelector && availableCities.length > 0 && (
-                <div className="absolute top-4 right-4" style={{ zIndex: 60 }}>
-                    <div className="bg-white/90 backdrop-blur-sm shadow-xl rounded-lg px-3 py-2 border border-gray-200">
-                        <div className="flex items-center gap-2">
-                            <MapPin className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                            <select
-                                id="city-selector"
-                                name="city"
-                                value={city}
-                                onChange={(e) => handleCityChange(e.target.value)}
-                                disabled={isChangingCity}
-                                className="bg-transparent text-gray-900 font-semibold text-sm border-none focus:outline-none focus:ring-0 cursor-pointer pr-6 disabled:opacity-50"
-                            >
-                                {availableCities.map((cityKey) => {
-                                    const config = getCityConfig(cityKey);
-                                    return (
-                                        <option key={cityKey} value={cityKey}>
-                                            {config.displayName}
-                                        </option>
-                                    );
-                                })}
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            )}
             {isChangingCity && (
-                <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center" style={{ zIndex: 90 }}>
-                    <div className="bg-white shadow-xl rounded-lg p-6 flex flex-col items-center gap-3">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                        <p className="text-sm font-medium text-gray-700">
+                <div className="absolute inset-0 bg-background/90 flex items-center justify-center" style={{ zIndex: 90 }}>
+                    <div className="bg-card shadow-xl rounded-xl p-6 flex flex-col items-center gap-3 border border-border">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                        <p className="text-sm font-medium text-foreground">
                             Loading {currentCityConfig.displayName} flood atlas...
                         </p>
                     </div>
@@ -1612,76 +1610,76 @@ export default function MapComponent({
             {/* Map Controls Overlay */}
             {showControls && isLoaded && (
                 <>
-                    {/* Zoom Controls - Bottom Right */}
-                    <div className="absolute right-4 flex flex-col gap-2" style={{ bottom: 'calc(144px + env(safe-area-inset-bottom, 0px))', zIndex: 60 }}>
+                    {/* Map Controls - Right side, compact on mobile */}
+                    <div className="absolute right-2 md:right-4 flex flex-col gap-1.5 md:gap-2" style={{ bottom: 'calc(144px + env(safe-area-inset-bottom, 0px))', zIndex: 60 }}>
                         <Button
                             size="icon"
                             onClick={handleZoomIn}
-                            className="!bg-white !hover:bg-gray-100 !text-gray-800 shadow-xl rounded-full w-11 h-11 border-2 border-gray-300 !opacity-100"
+                            className="!bg-card !text-foreground shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 border border-border !opacity-100 hover:!bg-secondary"
                             title="Zoom in"
                         >
-                            <Plus className="h-5 w-5" />
+                            <Plus className="h-4 w-4" />
                         </Button>
                         <Button
                             size="icon"
                             onClick={handleZoomOut}
-                            className="!bg-white !hover:bg-gray-100 !text-gray-800 shadow-xl rounded-full w-11 h-11 border-2 border-gray-300 !opacity-100"
+                            className="!bg-card !text-foreground shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 border border-border !opacity-100 hover:!bg-secondary"
                             title="Zoom out"
                         >
-                            <Minus className="h-5 w-5" />
+                            <Minus className="h-4 w-4" />
                         </Button>
                         <Button
                             size="icon"
                             onClick={handleMyLocation}
-                            className="!bg-blue-500 !hover:bg-blue-600 !text-white shadow-xl rounded-full w-11 h-11 !opacity-100"
+                            className="!bg-blue-500 hover:!bg-blue-600 !text-white shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100"
                             title="My location"
                         >
-                            <Navigation className="h-5 w-5" />
+                            <Navigation className="h-4 w-4" />
                         </Button>
                         <Button
                             size="icon"
                             onClick={toggleLayers}
-                            className={`${layersVisible.flood ? '!bg-green-500 !hover:bg-green-600 !text-white' : '!bg-white !hover:bg-gray-100 !text-gray-800 border-2 border-gray-300'} shadow-xl rounded-full w-11 h-11 !opacity-100`}
+                            className={`${layersVisible.flood ? '!bg-green-500 hover:!bg-green-600 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
                             title="Toggle flood layer"
                         >
-                            <Layers className="h-5 w-5" />
+                            <Layers className="h-4 w-4" />
                         </Button>
                         <Button
                             size="icon"
                             onClick={() => setLayersVisible(prev => ({ ...prev, metro: !prev.metro }))}
-                            className={`${layersVisible.metro ? '!bg-indigo-500 !hover:bg-indigo-600 !text-white' : '!bg-white !hover:bg-gray-100 !text-gray-800 border-2 border-gray-300'} shadow-xl rounded-full w-11 h-11 !opacity-100`}
+                            className={`${layersVisible.metro ? '!bg-indigo-500 hover:!bg-indigo-600 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
                             title="Toggle metro routes"
                         >
-                            <Train className="h-5 w-5" />
+                            <Train className="h-4 w-4" />
                         </Button>
                         <Button
                             size="icon"
                             onClick={() => setLayersVisible(prev => ({ ...prev, reports: !prev.reports }))}
-                            className={`${layersVisible.reports ? '!bg-orange-500 !hover:bg-orange-600 !text-white' : '!bg-white !hover:bg-gray-100 !text-gray-800 border-2 border-gray-300'} shadow-xl rounded-full w-11 h-11 !opacity-100`}
+                            className={`${layersVisible.reports ? '!bg-orange-500 hover:!bg-orange-600 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
                             title="Toggle community reports"
                         >
-                            <AlertCircle className="h-5 w-5" />
+                            <AlertCircle className="h-4 w-4" />
                         </Button>
                         <Button
                             size="icon"
                             onClick={() => setShowHistoricalPanel(prev => !prev)}
-                            className={`${showHistoricalPanel ? '!bg-purple-500 !hover:bg-purple-600 !text-white' : '!bg-white !hover:bg-gray-100 !text-gray-800 border-2 border-gray-300'} shadow-xl rounded-full w-11 h-11 !opacity-100`}
+                            className={`${showHistoricalPanel ? '!bg-purple-500 hover:!bg-purple-600 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
                             title="View historical flood events (1967-2023)"
                         >
-                            <History className="h-5 w-5" />
+                            <History className="h-4 w-4" />
                         </Button>
                         <Button
                             size="icon"
                             onClick={() => setLayersVisible(prev => ({ ...prev, hotspots: !prev.hotspots }))}
-                            className={`${layersVisible.hotspots ? '!bg-green-500 !hover:bg-green-600 !text-white' : '!bg-white !hover:bg-gray-100 !text-gray-800 border-2 border-gray-300'} shadow-xl rounded-full w-11 h-11 !opacity-100`}
+                            className={`${layersVisible.hotspots ? '!bg-green-500 hover:!bg-green-600 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
                             title="Toggle waterlogging hotspots (90 Delhi locations)"
                         >
-                            <Droplets className="h-5 w-5" />
+                            <Droplets className="h-4 w-4" />
                         </Button>
                     </div>
 
-                    {/* Map Legend - Bottom Right (moved from left to avoid overlap with GPS Test/Search) */}
-                    <div className="absolute" style={{ bottom: 'calc(144px + env(safe-area-inset-bottom, 0px))', right: '80px', zIndex: 60 }}>
+                    {/* Map Legend - Bottom Right */}
+                    <div className="absolute" style={{ bottom: 'calc(144px + env(safe-area-inset-bottom, 0px))', right: '56px', zIndex: 60 }}>
                         <MapLegend className="max-w-xs" />
                     </div>
                 </>
