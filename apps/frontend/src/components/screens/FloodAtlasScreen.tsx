@@ -8,7 +8,6 @@ import { useCurrentCity } from '../../contexts/CityContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { VoiceGuidanceProvider } from '../../contexts/VoiceGuidanceContext';
 import { NavigationProvider, useNavigation } from '../../contexts/NavigationContext';
-import { LocationTrackingProvider } from '../../contexts/LocationTrackingContext';
 import type { RouteOption, MetroStation } from '../../types';
 import { toast } from 'sonner';
 
@@ -234,11 +233,9 @@ function FloodAtlasContent({
 export function FloodAtlasScreen(props: FloodAtlasScreenProps) {
     return (
         <VoiceGuidanceProvider>
-            <LocationTrackingProvider>
-                <NavigationProvider>
-                    <FloodAtlasContent {...props} />
-                </NavigationProvider>
-            </LocationTrackingProvider>
+            <NavigationProvider>
+                <FloodAtlasContent {...props} />
+            </NavigationProvider>
         </VoiceGuidanceProvider>
     );
 }

@@ -17,6 +17,7 @@ import { PWAUpdateBanner } from './components/PWAUpdateBanner';
 import { IOSInstallBanner } from './components/IOSInstallBanner';
 import { InstallBanner } from './components/InstallBanner';
 import { InstallPromptProvider } from './contexts/InstallPromptContext';
+import { LocationTrackingProvider } from './contexts/LocationTrackingContext';
 import { FloodAlert } from './types';
 import { JoinCircleModal } from './components/circles';
 import { Toaster } from './components/ui/sonner';
@@ -245,20 +246,22 @@ export default function App() {
                 <UserProvider>
                     <CityProvider>
                         <InstallPromptProvider>
-                            {/* PWA Update Banner - renders at root level so SW registers immediately */}
-                            <PWAUpdateBanner />
+                            <LocationTrackingProvider>
+                                {/* PWA Update Banner - renders at root level so SW registers immediately */}
+                                <PWAUpdateBanner />
 
-                            <Routes>
-                                {/* Email verification callback - accessible without auth */}
-                                <Route path="/email-verified" element={
-                                    <>
-                                        <EmailVerifiedScreen />
-                                        <Toaster position="top-center" />
-                                    </>
-                                } />
-                                {/* All other routes go to the main app */}
-                                <Route path="*" element={<FloodSafeApp />} />
-                            </Routes>
+                                <Routes>
+                                    {/* Email verification callback - accessible without auth */}
+                                    <Route path="/email-verified" element={
+                                        <>
+                                            <EmailVerifiedScreen />
+                                            <Toaster position="top-center" />
+                                        </>
+                                    } />
+                                    {/* All other routes go to the main app */}
+                                    <Route path="*" element={<FloodSafeApp />} />
+                                </Routes>
+                            </LocationTrackingProvider>
                         </InstallPromptProvider>
                     </CityProvider>
                 </UserProvider>
