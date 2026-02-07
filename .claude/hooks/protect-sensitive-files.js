@@ -14,10 +14,11 @@ process.stdin.on('end', () => {
     const data = JSON.parse(input);
     const filePath = (data.tool_input && data.tool_input.file_path) || '';
 
-    // Patterns to block
+    // Patterns to block (excluding FloodSafe project .env files)
     const blocked = /[/\\]\.env$|[/\\]\.env\.|credentials|secrets|\.pem$|\.key$/i;
+    const allowlisted = /FloodSafe[/\\]apps[/\\][^/\\]+[/\\]\.env$/i;
 
-    if (blocked.test(filePath)) {
+    if (blocked.test(filePath) && !allowlisted.test(filePath)) {
       console.log(JSON.stringify({
         hookSpecificOutput: {
           hookEventName: "PreToolUse",
