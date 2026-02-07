@@ -195,11 +195,15 @@ async function loadAppAuthenticated(page: Page): Promise<boolean> {
         await wait(page, 3000);
     }
 
-    // Verify: check if bottom nav is visible (means we're past login + onboarding)
+    // Verify: check if bottom nav OR sidebar is visible (means we're past login + onboarding)
+    // On mobile: BottomNav visible, Sidebar hidden
+    // On desktop: Sidebar visible, BottomNav hidden
     const bottomNav = page.locator('[data-bottom-nav]');
-    const navVisible = await bottomNav.isVisible({ timeout: 5000 }).catch(() => false);
+    const sidebar = page.locator('[data-sidebar]');
+    const bottomNavVisible = await bottomNav.isVisible({ timeout: 5000 }).catch(() => false);
+    const sidebarVisible = await sidebar.isVisible({ timeout: 2000 }).catch(() => false);
 
-    if (navVisible) {
+    if (bottomNavVisible || sidebarVisible) {
         console.log('  Authenticated and on main app!');
         return true;
     }
@@ -237,22 +241,31 @@ async function goToTab(page: Page, tabLabel: string, verifySelector?: string): P
     await scrollToTop(page);
     await wait(page, 200);
 
-    // Click the bottom nav button
-    const navBtn = page.locator(`[data-bottom-nav] button:has-text("${tabLabel}")`).first();
-    const btnVisible = await navBtn.isVisible({ timeout: 3000 }).catch(() => false);
+    // Click the bottom nav button (mobile) or sidebar button (desktop)
+    const bottomNavBtn = page.locator(`[data-bottom-nav] button:has-text("${tabLabel}")`).first();
+    const sidebarBtn = page.locator(`[data-sidebar] button:has-text("${tabLabel}")`).first();
+    const bottomBtnVisible = await bottomNavBtn.isVisible({ timeout: 3000 }).catch(() => false);
+    const sidebarBtnVisible = await sidebarBtn.isVisible({ timeout: 1000 }).catch(() => false);
 
-    if (!btnVisible) {
-        console.log(`  [WARN] BottomNav "${tabLabel}" button not visible — reloading page...`);
+    if (bottomBtnVisible) {
+        await bottomNavBtn.click();
+    } else if (sidebarBtnVisible) {
+        await sidebarBtn.click();
+    } else {
+        console.log(`  [WARN] Nav "${tabLabel}" button not visible — reloading page...`);
         await loadAppAuthenticated(page);
         await wait(page, 1000);
-        const retryBtn = page.locator(`[data-bottom-nav] button:has-text("${tabLabel}")`).first();
-        if (!await retryBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
-            console.log(`  [ERROR] BottomNav "${tabLabel}" still not visible after reload!`);
+        // Try both again after reload
+        const retryBottom = page.locator(`[data-bottom-nav] button:has-text("${tabLabel}")`).first();
+        const retrySidebar = page.locator(`[data-sidebar] button:has-text("${tabLabel}")`).first();
+        if (await retryBottom.isVisible({ timeout: 3000 }).catch(() => false)) {
+            await retryBottom.click();
+        } else if (await retrySidebar.isVisible({ timeout: 3000 }).catch(() => false)) {
+            await retrySidebar.click();
+        } else {
+            console.log(`  [ERROR] Nav "${tabLabel}" still not visible after reload!`);
             return false;
         }
-        await retryBtn.click();
-    } else {
-        await navBtn.click();
     }
 
     await wait(page, 2000);
@@ -264,9 +277,13 @@ async function goToTab(page: Page, tabLabel: string, verifySelector?: string): P
             console.log(`  [WARN] Screen verification failed for "${tabLabel}" (selector: ${verifySelector})`);
             // Try one more time with reload
             await loadAppAuthenticated(page);
-            const retryBtn2 = page.locator(`[data-bottom-nav] button:has-text("${tabLabel}")`).first();
-            if (await retryBtn2.isVisible({ timeout: 5000 }).catch(() => false)) {
-                await retryBtn2.click();
+            const retryBottom2 = page.locator(`[data-bottom-nav] button:has-text("${tabLabel}")`).first();
+            const retrySidebar2 = page.locator(`[data-sidebar] button:has-text("${tabLabel}")`).first();
+            if (await retryBottom2.isVisible({ timeout: 3000 }).catch(() => false)) {
+                await retryBottom2.click();
+                await wait(page, 3000);
+            } else if (await retrySidebar2.isVisible({ timeout: 3000 }).catch(() => false)) {
+                await retrySidebar2.click();
                 await wait(page, 3000);
             }
             return await page.locator(verifySelector).first().isVisible({ timeout: 5000 }).catch(() => false);
