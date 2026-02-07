@@ -157,9 +157,9 @@ export default function SearchBar({
             <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     {showLoading ? (
-                        <Loader2 className="h-5 w-5 text-gray-400 animate-spin" />
+                        <Loader2 className="h-5 w-5 text-muted-foreground/60 animate-spin" />
                     ) : (
-                        <Search className="h-5 w-5 text-gray-400" />
+                        <Search className="h-5 w-5 text-muted-foreground/60" />
                     )}
                 </div>
                 <input
@@ -176,7 +176,7 @@ export default function SearchBar({
                         }
                     }}
                     placeholder={placeholder}
-                    className="w-full pl-11 pr-11 py-3 text-sm font-normal bg-white border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-muted-foreground transition-all font-sans"
+                    className="w-full pl-11 pr-11 py-3 text-sm font-normal bg-card border border-border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent placeholder:text-muted-foreground transition-all font-sans"
                     autoComplete="off"
                     spellCheck="false"
                 />
@@ -186,7 +186,7 @@ export default function SearchBar({
                         onClick={handleClear}
                         className="absolute inset-y-0 right-0 pr-3 flex items-center hover:opacity-70 transition-opacity"
                     >
-                        <X className="h-5 w-5 text-gray-400" />
+                        <X className="h-5 w-5 text-muted-foreground/60" />
                     </button>
                 )}
             </div>
@@ -195,20 +195,20 @@ export default function SearchBar({
             {isOpen && (debouncedQuery.length >= 2 || showTrendingSection) && (
                 <div
                     ref={dropdownRef}
-                    className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden max-h-80 sm:max-h-96 flex flex-col font-sans"
+                    className="absolute z-50 w-full mt-1 bg-card border border-border rounded-lg shadow-lg overflow-hidden max-h-80 sm:max-h-96 flex flex-col font-sans"
                 >
                     {/* Dropdown Header with Close Button */}
-                    <div className="px-3 py-2 bg-gray-50 border-b border-gray-200 flex items-center justify-between flex-shrink-0">
-                        <span className="text-xs font-medium text-gray-600 tracking-wide">
+                    <div className="px-3 py-2 bg-muted border-b border-border flex items-center justify-between flex-shrink-0">
+                        <span className="text-xs font-medium text-muted-foreground tracking-wide">
                             {filteredResults.length > 0 ? 'Search Results' : showTrendingSection ? 'Suggestions' : 'Search'}
                         </span>
                         <button
                             type="button"
                             onClick={() => setIsOpen(false)}
-                            className="p-1 hover:bg-gray-200 rounded transition-colors"
+                            className="p-1 hover:bg-muted rounded transition-colors"
                             aria-label="Close suggestions"
                         >
-                            <X className="h-4 w-4 text-gray-500" />
+                            <X className="h-4 w-4 text-muted-foreground" />
                         </button>
                     </div>
 
@@ -222,16 +222,16 @@ export default function SearchBar({
                                         <button
                                             type="button"
                                             onClick={() => handleSelect(result)}
-                                            className={`w-full px-4 py-3 flex items-start gap-3 text-left hover:bg-gray-50 transition-colors ${
-                                                selectedIndex === index ? 'bg-blue-50' : ''
+                                            className={`w-full px-4 py-3 flex items-start gap-3 text-left hover:bg-accent transition-colors ${
+                                                selectedIndex === index ? 'bg-primary/10' : ''
                                             }`}
                                         >
-                                            <MapPin className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                                            <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-sm font-medium text-gray-900 truncate">
+                                                <p className="text-sm font-medium text-foreground truncate">
                                                     {result.formatted_name}
                                                 </p>
-                                                <p className="text-xs text-gray-500 truncate mt-0.5">
+                                                <p className="text-xs text-muted-foreground truncate mt-0.5">
                                                     {result.display_name}
                                                 </p>
                                             </div>
@@ -243,7 +243,7 @@ export default function SearchBar({
 
                         {/* No results in city */}
                         {showNoResults && (
-                            <div className="px-4 py-3 text-sm text-gray-500">
+                            <div className="px-4 py-3 text-sm text-muted-foreground">
                                 <p>No results found in {cityConfig.displayName}.</p>
                                 <p className="text-xs mt-1">
                                     Results are filtered to the current city area.
@@ -253,14 +253,14 @@ export default function SearchBar({
 
                         {/* No results at all */}
                         {showEmptySearch && (
-                            <div className="px-4 py-3 text-sm text-gray-500">
+                            <div className="px-4 py-3 text-sm text-muted-foreground">
                                 No locations found for "{debouncedQuery}".
                             </div>
                         )}
 
                         {/* Loading state */}
                         {showLoading && (
-                            <div className="px-4 py-3 flex items-center gap-2 text-sm text-gray-500">
+                            <div className="px-4 py-3 flex items-center gap-2 text-sm text-muted-foreground">
                                 <Loader2 className="h-5 w-5 animate-spin" />
                                 Searching...
                             </div>
@@ -269,7 +269,7 @@ export default function SearchBar({
                         {/* Trending Searches (Empty State) */}
                         {showTrendingSection && (
                             <div>
-                                <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase bg-gray-50 flex items-center gap-2">
+                                <div className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase bg-muted flex items-center gap-2">
                                     <TrendingUp className="h-4 w-4" />
                                     Trending Searches
                                 </div>
@@ -279,7 +279,7 @@ export default function SearchBar({
                                             key={index}
                                             type="button"
                                             onClick={() => handleTrendingClick(term)}
-                                            className="px-3 py-1.5 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full transition-colors"
+                                            className="px-3 py-1.5 text-sm bg-muted hover:bg-accent text-foreground rounded-full transition-colors"
                                         >
                                             {term}
                                         </button>
@@ -290,8 +290,8 @@ export default function SearchBar({
                     </div>
 
                     {/* Footer */}
-                    <div className="px-4 py-2 bg-gray-50 border-t border-gray-100 flex-shrink-0">
-                        <p className="text-xs text-gray-400">
+                    <div className="px-4 py-2 bg-muted border-t border-border flex-shrink-0">
+                        <p className="text-xs text-muted-foreground/60">
                             Showing results in {cityConfig.displayName} • Powered by backend search
                         </p>
                     </div>

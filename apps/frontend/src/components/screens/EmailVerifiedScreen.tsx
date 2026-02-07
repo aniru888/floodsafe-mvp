@@ -63,7 +63,7 @@ export function EmailVerifiedScreen() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-muted flex items-center justify-center p-4">
             <Card className="w-full max-w-md p-8 text-center">
                 {success ? (
                     // Success state
@@ -71,22 +71,22 @@ export function EmailVerifiedScreen() {
                         <div className="mb-6">
                             <CheckCircle className="w-20 h-20 text-green-500 mx-auto" />
                         </div>
-                        <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                        <h1 className="text-2xl font-bold text-foreground mb-2">
                             {alreadyVerified ? 'Email Already Verified' : 'Email Verified!'}
                         </h1>
-                        <p className="text-gray-600 mb-6">
+                        <p className="text-muted-foreground mb-6">
                             {alreadyVerified
                                 ? 'Your email was already verified. You can continue using FloodSafe.'
                                 : 'Your email has been successfully verified. You now have full access to FloodSafe.'}
                         </p>
 
                         {isRefreshing ? (
-                            <div className="flex items-center justify-center gap-2 text-gray-500 mb-4">
+                            <div className="flex items-center justify-center gap-2 text-muted-foreground mb-4">
                                 <Loader2 className="w-4 h-4 animate-spin" />
                                 <span>Updating your profile...</span>
                             </div>
                         ) : (
-                            <p className="text-sm text-gray-500 mb-4">
+                            <p className="text-sm text-muted-foreground mb-4">
                                 Redirecting in {countdown} second{countdown !== 1 ? 's' : ''}...
                             </p>
                         )}
@@ -101,10 +101,10 @@ export function EmailVerifiedScreen() {
                         <div className="mb-6">
                             <XCircle className="w-20 h-20 text-red-500 mx-auto" />
                         </div>
-                        <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                        <h1 className="text-2xl font-bold text-foreground mb-2">
                             Verification Failed
                         </h1>
-                        <p className="text-gray-600 mb-6">
+                        <p className="text-muted-foreground mb-6">
                             {decodeURIComponent(message) || 'The verification link is invalid or has expired.'}
                         </p>
                         <div className="space-y-3">

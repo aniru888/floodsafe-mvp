@@ -134,7 +134,7 @@ export default function HistoricalFloodsPanel({
             {/* Inject scrollbar styles */}
             <style>{scrollbarStyles}</style>
             <div
-                className="bg-white rounded-xl shadow-2xl flex flex-col overflow-hidden"
+                className="bg-card rounded-xl shadow-2xl flex flex-col overflow-hidden"
                 style={{
                     width: '90vw',
                     maxWidth: '420px',
@@ -169,23 +169,23 @@ export default function HistoricalFloodsPanel({
                 </div>
 
                 {/* Statistics Bar */}
-                <div className="grid grid-cols-3 gap-2 p-3 bg-gray-50 border-b">
+                <div className="grid grid-cols-3 gap-2 p-3 bg-muted border-b">
                     <div className="text-center">
-                        <div className="text-xl font-bold text-gray-900">{floods.length}</div>
-                        <div className="text-[10px] text-gray-500">Events</div>
+                        <div className="text-xl font-bold text-foreground">{floods.length}</div>
+                        <div className="text-[10px] text-muted-foreground">Events</div>
                     </div>
                     <div className="text-center">
                         <div className="text-xl font-bold text-red-600">{totalFatalities}</div>
-                        <div className="text-[10px] text-gray-500">Fatalities</div>
+                        <div className="text-[10px] text-muted-foreground">Fatalities</div>
                     </div>
                     <div className="text-center">
                         <div className="text-xl font-bold text-orange-600">{severeCount}</div>
-                        <div className="text-[10px] text-gray-500">Severe</div>
+                        <div className="text-[10px] text-muted-foreground">Severe</div>
                     </div>
                 </div>
 
                 {/* Source Attribution */}
-                <div className="px-3 py-1.5 bg-blue-50 border-b text-[10px] text-blue-700">
+                <div className="px-3 py-1.5 bg-primary/10 border-b text-[10px] text-primary">
                     <strong>Source:</strong> IFI-Impacts • IIT-Delhi •
                     <a href="https://zenodo.org/records/11275211" target="_blank" rel="noopener noreferrer" className="underline ml-1">
                         Zenodo
@@ -205,10 +205,10 @@ export default function HistoricalFloodsPanel({
                 >
                     <div className="p-3 pr-1 space-y-3">
                     {isComingSoon ? (
-                        <div className="text-center py-12 text-gray-500">
+                        <div className="text-center py-12 text-muted-foreground">
                             <Calendar className="w-16 h-16 mx-auto mb-4 text-purple-200" />
-                            <p className="font-semibold text-lg text-gray-700 mb-2">Coming Soon!</p>
-                            <p className="text-sm text-gray-500 mb-4">{comingSoonMessage}</p>
+                            <p className="font-semibold text-lg text-foreground mb-2">Coming Soon!</p>
+                            <p className="text-sm text-muted-foreground mb-4">{comingSoonMessage}</p>
                             <div className="bg-purple-50 rounded-lg p-4 max-w-sm mx-auto border border-purple-100">
                                 <p className="text-xs text-purple-700">
                                     Historical flood data is currently available for <strong>Delhi NCR</strong> only.
@@ -217,8 +217,8 @@ export default function HistoricalFloodsPanel({
                             </div>
                         </div>
                     ) : Object.keys(groupedByDecade).length === 0 ? (
-                        <div className="text-center py-12 text-gray-500">
-                            <Calendar className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+                        <div className="text-center py-12 text-muted-foreground">
+                            <Calendar className="w-12 h-12 mx-auto mb-3 text-muted-foreground/60" />
                             <p className="font-medium">No historical flood data available</p>
                             <p className="text-sm mt-1">Data may still be loading.</p>
                         </div>
@@ -226,8 +226,8 @@ export default function HistoricalFloodsPanel({
                         .sort((a, b) => b[0].localeCompare(a[0]))
                         .map(([decade, events]) => (
                             <div key={decade}>
-                                <div className="sticky top-0 bg-white py-1 mb-2">
-                                    <span className="text-sm font-semibold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                                <div className="sticky top-0 bg-card py-1 mb-2">
+                                    <span className="text-sm font-semibold text-muted-foreground bg-muted px-3 py-1 rounded-full">
                                         {decade}
                                     </span>
                                 </div>
@@ -242,7 +242,7 @@ export default function HistoricalFloodsPanel({
                                             >
                                                 {/* Header: Date + Severity + Fatalities */}
                                                 <div className="flex items-center gap-2 mb-2">
-                                                    <span className="font-semibold text-gray-900">
+                                                    <span className="font-semibold text-foreground">
                                                         {formatDate(flood.date)}
                                                     </span>
                                                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${colors.text} ${colors.bg} border ${colors.border}`}>
@@ -258,11 +258,11 @@ export default function HistoricalFloodsPanel({
                                                 {/* News Headline (enriched) */}
                                                 {flood.news_headline && (
                                                     <div className="mb-2">
-                                                        <p className="text-sm font-medium text-gray-800 italic border-l-2 border-purple-400 pl-2">
+                                                        <p className="text-sm font-medium text-foreground italic border-l-2 border-purple-400 pl-2">
                                                             "{flood.news_headline}"
                                                         </p>
                                                         {flood.news_source && (
-                                                            <div className="flex items-center gap-1 mt-1 text-xs text-gray-500">
+                                                            <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
                                                                 <Newspaper className="w-3 h-3" />
                                                                 <span>{flood.news_source}</span>
                                                                 {flood.news_url && (
@@ -283,14 +283,14 @@ export default function HistoricalFloodsPanel({
 
                                                 {/* Cause (if no headline) */}
                                                 {!flood.news_headline && (
-                                                    <p className="text-sm text-gray-600 mb-2">
+                                                    <p className="text-sm text-muted-foreground mb-2">
                                                         <strong>Cause:</strong> {flood.main_cause || 'Not specified'}
                                                     </p>
                                                 )}
 
                                                 {/* Impact Summary (enriched) */}
                                                 {flood.impact_summary && (
-                                                    <p className="text-xs text-gray-600 mb-2 bg-white/50 rounded p-1.5">
+                                                    <p className="text-xs text-muted-foreground mb-2 bg-card/50 rounded p-1.5">
                                                         {flood.impact_summary}
                                                     </p>
                                                 )}
@@ -298,17 +298,17 @@ export default function HistoricalFloodsPanel({
                                                 {/* Specific Areas (enriched) */}
                                                 {flood.specific_areas && flood.specific_areas.length > 0 && (
                                                     <div className="flex flex-wrap gap-1 mb-2">
-                                                        <MapPin className="w-3 h-3 text-gray-400 mt-0.5" />
+                                                        <MapPin className="w-3 h-3 text-muted-foreground/60 mt-0.5" />
                                                         {flood.specific_areas.slice(0, 4).map((area, idx) => (
                                                             <span
                                                                 key={idx}
-                                                                className="text-xs px-1.5 py-0.5 bg-white/70 rounded text-gray-600 border border-gray-200"
+                                                                className="text-xs px-1.5 py-0.5 bg-card/70 rounded text-muted-foreground border border-border"
                                                             >
                                                                 {area}
                                                             </span>
                                                         ))}
                                                         {flood.specific_areas.length > 4 && (
-                                                            <span className="text-xs text-gray-400">
+                                                            <span className="text-xs text-muted-foreground/60">
                                                                 +{flood.specific_areas.length - 4} more
                                                             </span>
                                                         )}
@@ -316,7 +316,7 @@ export default function HistoricalFloodsPanel({
                                                 )}
 
                                                 {/* Stats Row */}
-                                                <div className="flex flex-wrap gap-3 text-xs text-gray-500">
+                                                <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
                                                     {flood.displaced > 0 && (
                                                         <span className="flex items-center gap-1">
                                                             <Users className="w-3 h-3" />
@@ -360,8 +360,8 @@ export default function HistoricalFloodsPanel({
                 </div>
 
                 {/* Footer */}
-                <div className="p-2 border-t bg-gray-50 rounded-b-xl">
-                    <p className="text-[10px] text-gray-400 text-center">
+                <div className="p-2 border-t bg-muted rounded-b-xl">
+                    <p className="text-[10px] text-muted-foreground/60 text-center">
                         Events shown as timeline (no GPS data available)
                     </p>
                 </div>

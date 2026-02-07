@@ -33,7 +33,7 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
     // Guard against missing or empty forecast data
     if (!forecast?.forecasts?.length) {
         return (
-            <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <div className="bg-card rounded-lg border border-border p-4">
                 <p className="text-sm text-muted-foreground text-center py-8">No forecast data available</p>
             </div>
         );

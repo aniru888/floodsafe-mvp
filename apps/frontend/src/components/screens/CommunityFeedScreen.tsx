@@ -57,23 +57,23 @@ export function CommunityFeedScreen({ onLocateReport }: CommunityFeedScreenProps
     ];
 
     return (
-        <div className="flex flex-col h-full bg-gray-50">
+        <div className="flex flex-col h-full bg-muted">
             {/* Header */}
-            <div className="bg-white border-b border-gray-200 px-4 py-3">
+            <div className="bg-card border-b border-border px-4 py-3">
                 <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                         <Users className="w-5 h-5 text-purple-600" />
-                        <h1 className="text-lg font-semibold text-gray-800">Community Reports</h1>
+                        <h1 className="text-lg font-semibold text-foreground">Community Reports</h1>
                     </div>
                     <button
                         onClick={handleRefresh}
                         disabled={isRefetching}
                         className={cn(
-                            "p-2 rounded-full hover:bg-gray-100 transition-colors",
+                            "p-2 rounded-full hover:bg-muted transition-colors",
                             isRefetching && "animate-spin"
                         )}
                     >
-                        <RefreshCw className="w-5 h-5 text-gray-600" />
+                        <RefreshCw className="w-5 h-5 text-muted-foreground" />
                     </button>
                 </div>
 
@@ -87,7 +87,7 @@ export function CommunityFeedScreen({ onLocateReport }: CommunityFeedScreenProps
                                 "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors",
                                 filter === key
                                     ? "bg-purple-100 text-purple-700"
-                                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                                    : "bg-muted text-muted-foreground hover:bg-accent"
                             )}
                         >
                             <Icon className="w-4 h-4" />
@@ -101,14 +101,14 @@ export function CommunityFeedScreen({ onLocateReport }: CommunityFeedScreenProps
             <div className="flex-1 overflow-auto px-4 py-4">
                 {isLoading ? (
                     <div className="flex flex-col items-center justify-center py-12">
-                        <RefreshCw className="w-8 h-8 text-gray-400 animate-spin" />
-                        <p className="mt-3 text-gray-500">Loading reports...</p>
+                        <RefreshCw className="w-8 h-8 text-muted-foreground/40 animate-spin" />
+                        <p className="mt-3 text-muted-foreground">Loading reports...</p>
                     </div>
                 ) : filteredReports.length === 0 ? (
                     <div className="flex flex-col items-center justify-center py-12">
-                        <Users className="w-12 h-12 text-gray-300" />
-                        <h3 className="mt-4 text-lg font-medium text-gray-700">No Reports Found</h3>
-                        <p className="mt-1 text-sm text-gray-500 text-center max-w-xs">
+                        <Users className="w-12 h-12 text-muted-foreground/40" />
+                        <h3 className="mt-4 text-lg font-medium text-foreground">No Reports Found</h3>
+                        <p className="mt-1 text-sm text-muted-foreground text-center max-w-xs">
                             {filter === 'verified'
                                 ? "No verified reports yet. Community reports get verified over time."
                                 : filter === 'trending'
@@ -119,7 +119,7 @@ export function CommunityFeedScreen({ onLocateReport }: CommunityFeedScreenProps
                 ) : (
                     <div className="space-y-4">
                         {/* Report Count */}
-                        <div className="text-sm text-gray-500">
+                        <div className="text-sm text-muted-foreground">
                             {filteredReports.length} {filter === 'verified' ? 'verified ' : ''} report{filteredReports.length !== 1 ? 's' : ''}
                         </div>
 

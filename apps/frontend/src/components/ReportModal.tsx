@@ -54,8 +54,8 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, userL
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-white rounded-lg p-6 w-full max-w-md relative">
-                <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+            <div className="bg-card rounded-lg p-6 w-full max-w-md relative">
+                <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
                     <X size={24} />
                 </button>
 
@@ -63,11 +63,11 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, userL
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label htmlFor="report-description" className="block text-sm font-medium text-gray-700">Description</label>
+                        <label htmlFor="report-description" className="block text-sm font-medium text-foreground">Description</label>
                         <textarea
                             id="report-description"
                             name="description"
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                            className="mt-1 block w-full rounded-md border-border shadow-sm focus:border-primary focus:ring-ring border p-2"
                             rows={3}
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -76,7 +76,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, userL
                     </div>
 
                     <div>
-                        <label htmlFor="report-photo" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="report-photo" className="block text-sm font-medium text-foreground">
                             Photo <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -90,14 +90,14 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, userL
                         />
                     </div>
 
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-muted-foreground">
                         Location: {userLocation ? `${userLocation.lat.toFixed(4)}, ${userLocation.lng.toFixed(4)}` : 'Locating...'}
                     </div>
 
                     <button
                         type="submit"
                         disabled={mutation.isPending || !userLocation}
-                        className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:bg-gray-400"
+                        className="w-full bg-primary text-primary-foreground py-2 px-4 rounded hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground"
                     >
                         {mutation.isPending ? 'Submitting...' : 'Submit Report'}
                     </button>

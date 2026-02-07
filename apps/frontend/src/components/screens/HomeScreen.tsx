@@ -492,7 +492,7 @@ export function HomeScreen({
                         </button>
                         <button
                             onClick={handleSetAlerts}
-                            className="bg-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors min-h-[44px]"
+                            className="bg-card px-3 py-1 rounded-lg text-sm font-medium hover:bg-muted transition-colors min-h-[44px]"
                             style={{ color: riskLevel === 'low' ? '#059669' : riskLevel === 'moderate' ? '#d97706' : riskLevel === 'high' ? '#ea580c' : '#dc2626' }}
                         >
                             Set Alerts

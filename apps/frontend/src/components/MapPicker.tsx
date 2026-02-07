@@ -322,19 +322,19 @@ function MapContent({ initialLocation, onLocationSelect, onClose }: MapContentPr
     return (
         <div className="flex flex-col h-full">
             {/* Header - Fixed height */}
-            <div className="shrink-0 px-4 pt-4 pb-2 border-b flex items-center justify-between bg-white">
+            <div className="shrink-0 px-4 pt-4 pb-2 border-b flex items-center justify-between bg-card">
                 <div>
-                    <h2 className="flex items-center gap-2 font-semibold text-gray-900">
-                        <MapPin className="h-5 w-5 text-red-500" />
+                    <h2 className="flex items-center gap-2 font-semibold text-foreground">
+                        <MapPin className="h-5 w-5 text-destructive" />
                         Select Location on Map
                     </h2>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-muted-foreground">
                         Click or drag the marker to select a location in {cityConfig.displayName}
                     </p>
                 </div>
                 <button
                     onClick={onClose}
-                    className="p-2 hover:bg-gray-100 rounded-full"
+                    className="p-2 hover:bg-muted rounded-full"
                     aria-label="Close"
                 >
                     <X className="h-5 w-5" />
@@ -342,7 +342,7 @@ function MapContent({ initialLocation, onLocationSelect, onClose }: MapContentPr
             </div>
 
             {/* Map Container - Flexible height, takes remaining space */}
-            <div className="flex-1 relative min-h-[200px] bg-gray-100">
+            <div className="flex-1 relative min-h-[200px] bg-muted">
                 <div
                     ref={mapContainer}
                     className="w-full h-full"
@@ -350,21 +350,21 @@ function MapContent({ initialLocation, onLocationSelect, onClose }: MapContentPr
 
                 {/* Map Loading State */}
                 {!isLoaded && !mapLoadError && (
-                    <div className="absolute inset-0 bg-gray-100 flex flex-col items-center justify-center z-40">
+                    <div className="absolute inset-0 bg-muted flex flex-col items-center justify-center z-40">
                         <Skeleton className="w-full h-full" />
                         <div className="absolute flex flex-col items-center gap-2">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-                            <p className="text-sm text-gray-600">Loading flood atlas map...</p>
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                            <p className="text-sm text-muted-foreground">Loading flood atlas map...</p>
                         </div>
                     </div>
                 )}
 
                 {/* Map Load Error State */}
                 {mapLoadError && (
-                    <div className="absolute inset-0 bg-gray-50 flex flex-col items-center justify-center z-40 p-6">
-                        <AlertCircle className="h-16 w-16 text-red-500 mb-4" />
-                        <p className="text-lg font-semibold text-gray-900 mb-2">Failed to Load Map</p>
-                        <p className="text-sm text-gray-600 text-center mb-4">
+                    <div className="absolute inset-0 bg-muted flex flex-col items-center justify-center z-40 p-6">
+                        <AlertCircle className="h-16 w-16 text-destructive mb-4" />
+                        <p className="text-lg font-semibold text-foreground mb-2">Failed to Load Map</p>
+                        <p className="text-sm text-muted-foreground text-center mb-4">
                             The map couldn't load. Please check your internet connection and try again.
                         </p>
                         <Button
@@ -387,7 +387,7 @@ function MapContent({ initialLocation, onLocationSelect, onClose }: MapContentPr
                         <Button
                             size="icon"
                             onClick={handleZoomIn}
-                            className="!bg-white !hover:bg-gray-100 !text-gray-800 shadow-xl rounded-full w-11 h-11 border-2 border-gray-300"
+                            className="!bg-card !hover:bg-secondary !text-foreground shadow-xl rounded-full w-11 h-11 border-2 border-border"
                             title="Zoom in"
                         >
                             <Plus className="h-5 w-5" />
@@ -395,7 +395,7 @@ function MapContent({ initialLocation, onLocationSelect, onClose }: MapContentPr
                         <Button
                             size="icon"
                             onClick={handleZoomOut}
-                            className="!bg-white !hover:bg-gray-100 !text-gray-800 shadow-xl rounded-full w-11 h-11 border-2 border-gray-300"
+                            className="!bg-card !hover:bg-secondary !text-foreground shadow-xl rounded-full w-11 h-11 border-2 border-border"
                             title="Zoom out"
                         >
                             <Minus className="h-5 w-5" />
@@ -403,7 +403,7 @@ function MapContent({ initialLocation, onLocationSelect, onClose }: MapContentPr
                         <Button
                             size="icon"
                             onClick={handleMyLocation}
-                            className="!bg-blue-500 !hover:bg-blue-600 !text-white shadow-xl rounded-full w-11 h-11"
+                            className="!bg-primary !hover:bg-primary/90 !text-white shadow-xl rounded-full w-11 h-11"
                             title="My location"
                         >
                             <Navigation className="h-5 w-5" />
@@ -413,23 +413,23 @@ function MapContent({ initialLocation, onLocationSelect, onClose }: MapContentPr
             </div>
 
             {/* Footer - Compact, scrollable if needed */}
-            <div className="shrink-0 px-3 py-2 border-t bg-white space-y-2 max-h-[30vh] overflow-y-auto">
+            <div className="shrink-0 px-3 py-2 border-t bg-card space-y-2 max-h-[30vh] overflow-y-auto">
                 <div className="space-y-0.5">
-                    <p className="text-xs font-medium text-gray-600">Selected Location:</p>
+                    <p className="text-xs font-medium text-muted-foreground">Selected Location:</p>
                     {isGeocoding ? (
                         <Skeleton className="h-5 w-full" />
                     ) : (
-                        <p className="text-sm font-semibold text-gray-900 line-clamp-2">
+                        <p className="text-sm font-semibold text-foreground line-clamp-2">
                             {locationName || 'Click on the map to select'}
                         </p>
                     )}
                     {selectedCoords && (
-                        <p className="text-[10px] text-gray-400">
+                        <p className="text-[10px] text-muted-foreground/60">
                             {selectedCoords[1].toFixed(5)}, {selectedCoords[0].toFixed(5)}
                         </p>
                     )}
                     {geocodingError && (
-                        <p className="text-xs text-red-600">{geocodingError}</p>
+                        <p className="text-xs text-destructive">{geocodingError}</p>
                     )}
                 </div>
 
@@ -447,7 +447,7 @@ function MapContent({ initialLocation, onLocationSelect, onClose }: MapContentPr
                         onClick={handleConfirm}
                         disabled={!selectedCoords || !!geocodingError || isGeocoding}
                         size="sm"
-                        className="flex-1 h-9 bg-blue-600 hover:bg-blue-700"
+                        className="flex-1 h-9 bg-primary hover:bg-primary/90"
                     >
                         <Check className="h-3 w-3 mr-1" />
                         Confirm
@@ -476,7 +476,7 @@ export default function MapPicker({ isOpen, onClose, initialLocation, onLocation
             {/* Side Panel - fits between TopNav and BottomNav */}
             <div
                 style={{ position: 'fixed', top: 56, left: 0, bottom: 'calc(64px + env(safe-area-inset-bottom, 0px))', width: 'min(350px, 90vw)', zIndex: 111 }}
-                className="bg-white shadow-xl flex flex-col rounded-br-lg overflow-hidden"
+                className="bg-card shadow-xl flex flex-col rounded-br-lg overflow-hidden"
             >
                 <MapContent
                     initialLocation={initialLocation}

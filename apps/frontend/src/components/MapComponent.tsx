@@ -672,8 +672,8 @@ export default function MapComponent({
                             ${props.verified ? '<span class="text-xs bg-green-500 text-white px-2 py-0.5 rounded">✓ Verified</span>' : '<span class="text-xs bg-amber-500 text-white px-2 py-0.5 rounded">Pending</span>'}
                         </div>
                         ${tagHtml ? `<div class="mb-2" style="display:flex;flex-wrap:wrap;">${tagHtml}</div>` : ''}
-                        <p class="text-sm text-gray-800 mb-2 line-clamp-3">${description}</p>
-                        <div class="text-xs space-y-1 text-gray-600 border-t pt-2">
+                        <p class="text-sm text-foreground mb-2 line-clamp-3">${description}</p>
+                        <div class="text-xs space-y-1 text-muted-foreground border-t pt-2">
                             <div class="flex justify-between">
                                 <span><strong>Water:</strong> <span class="capitalize">${waterDepth}</span></span>
                                 <span><strong>Vehicle:</strong> <span class="capitalize">${vehiclePassability}</span></span>
@@ -682,7 +682,7 @@ export default function MapComponent({
                                 <span><strong>IoT Score:</strong> ${iotScore}/100</span>
                                 ${props.phone_verified ? '<span class="text-green-600">📱 Verified</span>' : ''}
                             </div>
-                            <p class="text-gray-400 text-[10px] mt-1">${getRelativeTime(props.timestamp)} · ${parseUTCTimestamp(props.timestamp).toLocaleString()}</p>
+                            <p class="text-muted-foreground/60 text-[10px] mt-1">${getRelativeTime(props.timestamp)} · ${parseUTCTimestamp(props.timestamp).toLocaleString()}</p>
                         </div>
                     </div>
                 `;
@@ -827,13 +827,13 @@ export default function MapComponent({
                                 <div class="w-3 h-3 rounded-full" style="background-color: ${primaryColor}"></div>
                                 <h3 class="font-bold text-sm">Waterlogging Hotspot</h3>
                             </div>
-                            <p class="text-sm font-medium text-gray-800 mb-2">${props.name || 'Unknown Location'}</p>
+                            <p class="text-sm font-medium text-foreground mb-2">${props.name || 'Unknown Location'}</p>
 
                             <!-- FHI Section (PRIMARY - Live Weather) -->
                             ${fhiScore !== null ? `
-                            <div class="text-xs space-y-1 text-gray-600 pt-2 pb-2">
+                            <div class="text-xs space-y-1 text-muted-foreground pt-2 pb-2">
                                 <div class="flex items-center justify-between mb-1">
-                                    <span class="text-gray-500 flex items-center gap-1">
+                                    <span class="text-muted-foreground flex items-center gap-1">
                                         <span class="w-2 h-2 rounded-full animate-pulse" style="background-color: ${fhiColor}"></span>
                                         Live Flood Risk
                                     </span>
@@ -842,7 +842,7 @@ export default function MapComponent({
                                     </span>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <div class="flex-1 bg-gray-200 rounded-full h-2.5">
+                                    <div class="flex-1 bg-muted rounded-full h-2.5">
                                         <div
                                             class="h-2.5 rounded-full transition-all"
                                             style="width: ${fhiPct}%; background-color: ${fhiColor}"
@@ -852,32 +852,32 @@ export default function MapComponent({
                                         ${fhiPct}%
                                     </span>
                                 </div>
-                                ${elevation !== null ? `<div class="text-xs text-gray-400 mt-1">Elevation: ${elevation.toFixed(1)}m</div>` : ''}
+                                ${elevation !== null ? `<div class="text-xs text-muted-foreground/60 mt-1">Elevation: ${elevation.toFixed(1)}m</div>` : ''}
                                 <div class="text-xs mt-1 ${props.verified ? 'text-green-600' : 'text-amber-600'}">
                                     ${props.verified ? '✓ MCD Verified' : '⚠ ML Predicted (OSM)'}
                                 </div>
-                                <p class="text-gray-400 text-[10px] italic mt-1">Based on current weather conditions</p>
+                                <p class="text-muted-foreground/60 text-[10px] italic mt-1">Based on current weather conditions</p>
                             </div>
                             ` : ''}
 
                             <!-- ML Risk Score Section (Secondary - Static) -->
-                            <div class="text-xs space-y-1 text-gray-500 ${fhiScore !== null ? 'mt-2 pt-2 border-t border-gray-200' : 'pt-2'}">
+                            <div class="text-xs space-y-1 text-muted-foreground ${fhiScore !== null ? 'mt-2 pt-2 border-t border-border' : 'pt-2'}">
                                 <div class="flex justify-between items-center">
-                                    <span class="text-gray-400">Base Risk (ML)</span>
+                                    <span class="text-muted-foreground/60">Base Risk (ML)</span>
                                     <span class="px-1.5 py-0.5 rounded text-[10px] font-medium" style="background-color: ${riskColor}15; color: ${riskColor}">${riskLevel.toUpperCase()}</span>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <div class="flex-1 bg-gray-100 rounded-full h-1.5">
+                                    <div class="flex-1 bg-muted rounded-full h-1.5">
                                         <div class="h-1.5 rounded-full transition-all" style="width: ${riskPct}%; background-color: ${riskColor}"></div>
                                     </div>
                                     <span class="text-xs" style="color: ${riskColor}">${riskPct}%</span>
                                 </div>
-                                <p class="text-gray-300 text-[9px] italic">Terrain & land cover baseline</p>
+                                <p class="text-muted-foreground/60 text-[9px] italic">Terrain & land cover baseline</p>
                             </div>
 
                             <!-- Zone Info -->
                             ${props.zone ? `
-                            <div class="text-xs text-gray-500 mt-2 pt-2 border-t">
+                            <div class="text-xs text-muted-foreground mt-2 pt-2 border-t">
                                 <strong>Zone:</strong> ${props.zone}
                             </div>
                             ` : ''}
@@ -1631,7 +1631,7 @@ export default function MapComponent({
                         <Button
                             size="icon"
                             onClick={handleMyLocation}
-                            className="!bg-blue-500 hover:!bg-blue-600 !text-white shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100"
+                            className="!bg-primary hover:!bg-primary/90 !text-white shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100"
                             title="My location"
                         >
                             <Navigation className="h-4 w-4" />
@@ -1647,7 +1647,7 @@ export default function MapComponent({
                         <Button
                             size="icon"
                             onClick={() => setLayersVisible(prev => ({ ...prev, metro: !prev.metro }))}
-                            className={`${layersVisible.metro ? '!bg-indigo-500 hover:!bg-indigo-600 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
+                            className={`${layersVisible.metro ? '!bg-primary hover:!bg-primary/90 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
                             title="Toggle metro routes"
                         >
                             <Train className="h-4 w-4" />
@@ -1655,7 +1655,7 @@ export default function MapComponent({
                         <Button
                             size="icon"
                             onClick={() => setLayersVisible(prev => ({ ...prev, reports: !prev.reports }))}
-                            className={`${layersVisible.reports ? '!bg-orange-500 hover:!bg-orange-600 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
+                            className={`${layersVisible.reports ? '!bg-primary hover:!bg-primary/90 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
                             title="Toggle community reports"
                         >
                             <AlertCircle className="h-4 w-4" />
@@ -1663,7 +1663,7 @@ export default function MapComponent({
                         <Button
                             size="icon"
                             onClick={() => setShowHistoricalPanel(prev => !prev)}
-                            className={`${showHistoricalPanel ? '!bg-purple-500 hover:!bg-purple-600 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
+                            className={`${showHistoricalPanel ? '!bg-primary hover:!bg-primary/90 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
                             title="View historical flood events (1967-2023)"
                         >
                             <History className="h-4 w-4" />

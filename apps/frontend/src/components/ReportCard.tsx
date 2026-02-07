@@ -132,7 +132,7 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
     const netVotes = (report.upvotes || 0) - (report.downvotes || 0);
 
     return (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        <div className="bg-card rounded-lg shadow-sm border border-border overflow-hidden">
             {/* Header */}
             <div className="p-4">
                 <div className="flex items-start gap-3">
@@ -152,7 +152,7 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
 
                     {/* Content */}
                     <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 text-xs text-gray-500">
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
                             <Clock className="w-3 h-3" />
                             <span>{formatExactTime(report.timestamp)} ({formatTimeAgo(report.timestamp)})</span>
                             {report.verified && (
@@ -169,7 +169,7 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
                                 <>
                                     <ReportTagList tags={tags} />
                                     <p className={cn(
-                                        "text-gray-800 mt-1",
+                                        "text-foreground mt-1",
                                         showFullDetails ? "" : "line-clamp-2"
                                     )}>
                                         {description}
@@ -194,7 +194,7 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
                         )}
 
                         {/* Location */}
-                        <div className="flex items-center gap-1 mt-2 text-xs text-gray-500">
+                        <div className="flex items-center gap-1 mt-2 text-xs text-muted-foreground">
                             <MapPin className="w-3 h-3" />
                             <span>{report.latitude.toFixed(4)}, {report.longitude.toFixed(4)}</span>
                             {onLocate && (
@@ -222,7 +222,7 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
             </div>
 
             {/* Action Bar */}
-            <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 flex items-center gap-4">
+            <div className="px-4 py-3 bg-muted border-t border-border flex items-center gap-4">
                 {/* Upvote */}
                 <button
                     onClick={handleUpvote}
@@ -231,7 +231,7 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
                         "flex items-center gap-1 px-3 py-1.5 rounded-full text-sm transition-colors",
                         report.user_vote === 'upvote'
                             ? "bg-green-100 text-green-700"
-                            : "hover:bg-gray-100 text-gray-600"
+                            : "hover:bg-muted text-muted-foreground"
                     )}
                 >
                     <ThumbsUp className={cn("w-4 h-4", report.user_vote === 'upvote' && "fill-current")} />
@@ -246,7 +246,7 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
                         "flex items-center gap-1 px-3 py-1.5 rounded-full text-sm transition-colors",
                         report.user_vote === 'downvote'
                             ? "bg-red-100 text-red-700"
-                            : "hover:bg-gray-100 text-gray-600"
+                            : "hover:bg-muted text-muted-foreground"
                     )}
                 >
                     <ThumbsDown className={cn("w-4 h-4", report.user_vote === 'downvote' && "fill-current")} />
@@ -256,7 +256,7 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
                 {/* Net Score */}
                 <div className={cn(
                     "text-sm font-medium",
-                    netVotes > 0 ? "text-green-600" : netVotes < 0 ? "text-red-600" : "text-gray-500"
+                    netVotes > 0 ? "text-green-600" : netVotes < 0 ? "text-red-600" : "text-muted-foreground"
                 )}>
                     {netVotes > 0 ? '+' : ''}{netVotes}
                 </div>
@@ -265,7 +265,7 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
                 {onViewDetails && (
                     <button
                         onClick={() => onViewDetails(report)}
-                        className="px-3 py-1.5 rounded-full text-sm bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors ml-auto"
+                        className="px-3 py-1.5 rounded-full text-sm bg-primary/10 text-primary hover:bg-primary/20 transition-colors ml-auto"
                     >
                         View
                     </button>
@@ -275,7 +275,7 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
                 <button
                     onClick={() => setShowComments(!showComments)}
                     className={cn(
-                        "flex items-center gap-1 px-3 py-1.5 rounded-full text-sm hover:bg-gray-100 text-gray-600",
+                        "flex items-center gap-1 px-3 py-1.5 rounded-full text-sm hover:bg-muted text-muted-foreground",
                         !onViewDetails && "ml-auto"
                     )}
                 >
@@ -287,7 +287,7 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
 
             {/* Comments Section */}
             {showComments && (
-                <div className="px-4 py-3 border-t border-gray-100 bg-white">
+                <div className="px-4 py-3 border-t border-border bg-card">
                     {/* Add Comment */}
                     {user && (
                         <div className="flex gap-2 mb-3">
@@ -297,7 +297,7 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
                                 onChange={(e) => setNewComment(e.target.value)}
                                 placeholder="Add a comment..."
                                 maxLength={500}
-                                className="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                className="flex-1 px-3 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter' && !e.shiftKey) {
                                         e.preventDefault();
@@ -317,34 +317,34 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
 
                     {/* Comments List */}
                     {commentsLoading ? (
-                        <div className="text-sm text-gray-500 text-center py-4">Loading comments...</div>
+                        <div className="text-sm text-muted-foreground text-center py-4">Loading comments...</div>
                     ) : comments && comments.length > 0 ? (
                         <div className="space-y-3">
                             {comments.map((comment) => (
                                 <div key={comment.id} className="flex items-start gap-2">
-                                    <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs font-medium text-gray-600">
+                                    <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-xs font-medium text-muted-foreground">
                                         {comment.username.charAt(0).toUpperCase()}
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2">
-                                            <span className="text-sm font-medium text-gray-800">{comment.username}</span>
-                                            <span className="text-xs text-gray-400">{formatTimeAgo(comment.created_at)}</span>
+                                            <span className="text-sm font-medium text-foreground">{comment.username}</span>
+                                            <span className="text-xs text-muted-foreground/60">{formatTimeAgo(comment.created_at)}</span>
                                             {user?.id === comment.user_id && (
                                                 <button
                                                     onClick={() => handleDeleteComment(comment)}
-                                                    className="text-gray-400 hover:text-red-500 ml-auto"
+                                                    className="text-muted-foreground/60 hover:text-red-500 ml-auto"
                                                 >
                                                     <Trash2 className="w-3 h-3" />
                                                 </button>
                                             )}
                                         </div>
-                                        <p className="text-sm text-gray-600">{comment.content}</p>
+                                        <p className="text-sm text-muted-foreground">{comment.content}</p>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     ) : (
-                        <div className="text-sm text-gray-500 text-center py-4">
+                        <div className="text-sm text-muted-foreground text-center py-4">
                             No comments yet. Be the first to comment!
                         </div>
                     )}

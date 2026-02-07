@@ -22,7 +22,7 @@ export function EnhancedRouteCard({
             case 'moderate': return 'text-yellow-600 bg-yellow-100';
             case 'heavy': return 'text-orange-600 bg-orange-100';
             case 'severe': return 'text-red-600 bg-red-100';
-            default: return 'text-gray-600 bg-gray-100';
+            default: return 'text-muted-foreground bg-muted';
         }
     };
 
@@ -35,7 +35,7 @@ export function EnhancedRouteCard({
                 className={`p-3 rounded-lg border-2 text-left transition-all relative ${
                     selectedType === 'fastest'
                         ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-200'
-                        : 'border-gray-200 hover:border-blue-300'
+                        : 'border-border hover:border-primary/50'
                 } ${!routes.fastest ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
                 {/* Recommended Badge */}
@@ -65,7 +65,7 @@ export function EnhancedRouteCard({
                         </div>
 
                         {/* Distance */}
-                        <div className="text-xs text-gray-500">
+                        <div className="text-xs text-muted-foreground">
                             {formatDistance(routes.fastest.distance_meters)}
                         </div>
 
@@ -84,12 +84,12 @@ export function EnhancedRouteCard({
                         )}
 
                         {/* Safety Score */}
-                        <div className="mt-1 text-xs text-gray-500">
+                        <div className="mt-1 text-xs text-muted-foreground">
                             Safety: {routes.fastest.safety_score}/100
                         </div>
                     </>
                 ) : (
-                    <div className="text-sm text-gray-400">Unavailable</div>
+                    <div className="text-sm text-muted-foreground/60">Unavailable</div>
                 )}
             </button>
 
@@ -100,7 +100,7 @@ export function EnhancedRouteCard({
                 className={`p-3 rounded-lg border-2 text-left transition-all relative ${
                     selectedType === 'metro'
                         ? 'border-purple-500 bg-purple-50 ring-2 ring-purple-200'
-                        : 'border-gray-200 hover:border-purple-300'
+                        : 'border-border hover:border-purple-300'
                 } ${!routes.metro ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
                 {/* Recommended Badge */}
@@ -139,7 +139,7 @@ export function EnhancedRouteCard({
 
                         {/* Walking Distance */}
                         {routes.metro.total_distance_meters > 0 && (
-                            <div className="mt-1 text-xs text-gray-500">
+                            <div className="mt-1 text-xs text-muted-foreground">
                                 {formatDistance(routes.metro.total_distance_meters)} walking
                             </div>
                         )}
@@ -153,7 +153,7 @@ export function EnhancedRouteCard({
                         )}
                     </>
                 ) : (
-                    <div className="text-sm text-gray-400">Unavailable</div>
+                    <div className="text-sm text-muted-foreground/60">Unavailable</div>
                 )}
             </button>
 
@@ -164,7 +164,7 @@ export function EnhancedRouteCard({
                 className={`p-3 rounded-lg border-2 text-left transition-all relative ${
                     selectedType === 'safest'
                         ? 'border-green-500 bg-green-50 ring-2 ring-green-200'
-                        : 'border-gray-200 hover:border-green-300'
+                        : 'border-border hover:border-green-300'
                 } ${!routes.safest ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
                 {/* Recommended Badge */}
@@ -194,7 +194,7 @@ export function EnhancedRouteCard({
                         </div>
 
                         {/* Distance */}
-                        <div className="text-xs text-gray-500">
+                        <div className="text-xs text-muted-foreground">
                             {formatDistance(routes.safest.distance_meters)}
                         </div>
 
@@ -225,7 +225,7 @@ export function EnhancedRouteCard({
                         </div>
                     </>
                 ) : (
-                    <div className="text-sm text-gray-400">Unavailable</div>
+                    <div className="text-sm text-muted-foreground/60">Unavailable</div>
                 )}
             </button>
         </div>

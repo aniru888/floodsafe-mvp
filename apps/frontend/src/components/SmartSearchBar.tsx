@@ -213,11 +213,11 @@ export default function SmartSearchBar({
     // Get intent badge
     const getIntentBadge = (intent: SearchIntent) => {
         const badges = {
-            location: { icon: MapPin, label: 'Location', color: 'text-blue-600 bg-blue-50' },
+            location: { icon: MapPin, label: 'Location', color: 'text-primary bg-primary/10' },
             report: { icon: FileText, label: 'Report', color: 'text-orange-600 bg-orange-50' },
             user: { icon: User, label: 'User', color: 'text-purple-600 bg-purple-50' },
             mixed: { icon: Sparkles, label: 'Smart', color: 'text-green-600 bg-green-50' },
-            empty: { icon: Search, label: 'Search', color: 'text-gray-600 bg-gray-50' }
+            empty: { icon: Search, label: 'Search', color: 'text-muted-foreground bg-muted' }
         };
         return badges[intent] || badges.empty;
     };
@@ -230,9 +230,9 @@ export default function SmartSearchBar({
             <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     {showLoading ? (
-                        <Loader2 className="h-5 w-5 text-gray-400 animate-spin" />
+                        <Loader2 className="h-5 w-5 text-muted-foreground/60 animate-spin" />
                     ) : (
-                        <Search className="h-5 w-5 text-gray-400" />
+                        <Search className="h-5 w-5 text-muted-foreground/60" />
                     )}
                 </div>
                 <input
@@ -248,7 +248,7 @@ export default function SmartSearchBar({
                         }
                     }}
                     placeholder={placeholder}
-                    className="w-full pl-11 pr-11 py-3 text-sm font-normal bg-white border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-muted-foreground transition-all font-sans"
+                    className="w-full pl-11 pr-11 py-3 text-sm font-normal bg-card border border-border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent placeholder:text-muted-foreground transition-all font-sans"
                     autoComplete="off"
                     spellCheck="false"
                 />
@@ -258,27 +258,27 @@ export default function SmartSearchBar({
                         onClick={handleClear}
                         className="absolute inset-y-0 right-0 pr-3 flex items-center hover:opacity-70 transition-opacity"
                     >
-                        <X className="h-5 w-5 text-gray-400" />
+                        <X className="h-5 w-5 text-muted-foreground/60" />
                     </button>
                 )}
             </div>
 
             {/* Dropdown Results */}
             {isOpen && (
-                <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden max-h-[32rem] flex flex-col font-sans">
+                <div className="absolute z-50 w-full mt-1 bg-card border border-border rounded-lg shadow-lg overflow-hidden max-h-[32rem] flex flex-col font-sans">
 
                     {/* Dropdown Header with Close Button */}
-                    <div className="px-3 py-2 bg-gray-50 border-b border-gray-200 flex items-center justify-between flex-shrink-0">
-                        <span className="text-xs font-medium text-gray-600 tracking-wide">
+                    <div className="px-3 py-2 bg-muted border-b border-border flex items-center justify-between flex-shrink-0">
+                        <span className="text-xs font-medium text-muted-foreground tracking-wide">
                             {showResults ? 'Search Results' : 'Suggestions'}
                         </span>
                         <button
                             type="button"
                             onClick={() => setIsOpen(false)}
-                            className="p-1 hover:bg-gray-200 rounded transition-colors"
+                            className="p-1 hover:bg-accent rounded transition-colors"
                             aria-label="Close suggestions"
                         >
-                            <X className="h-4 w-4 text-gray-500" />
+                            <X className="h-4 w-4 text-muted-foreground" />
                         </button>
                     </div>
 
@@ -286,7 +286,7 @@ export default function SmartSearchBar({
                     <div className="overflow-y-auto flex-1">
                         {/* Intent Badge */}
                         {intentBadge && showResults && (
-                            <div className="px-4 py-2 bg-gray-50 border-b border-gray-100 flex items-center gap-2">
+                            <div className="px-4 py-2 bg-muted border-b border-border flex items-center gap-2">
                                 <intentBadge.icon className={`h-4 w-4 ${intentBadge.color.split(' ')[0]}`} />
                                 <span className={`text-xs font-medium px-2 py-0.5 rounded ${intentBadge.color}`}>
                                     {intentBadge.label} Search
@@ -297,9 +297,9 @@ export default function SmartSearchBar({
                     {/* Locations */}
                     {showResults && deduplicatedLocations.length > 0 && (
                         <div>
-                            <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase bg-gray-50 flex items-center justify-between">
+                            <div className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase bg-muted flex items-center justify-between">
                                 <span>Locations</span>
-                                <span className="text-xs font-normal text-gray-400 normal-case">
+                                <span className="text-xs font-normal text-muted-foreground/60 normal-case">
                                     {deduplicatedLocations.length} results
                                 </span>
                             </div>
@@ -308,16 +308,16 @@ export default function SmartSearchBar({
                                     key={`loc-${index}-${location.lat?.toFixed(4) || 'na'}-${location.lng?.toFixed(4) || 'na'}`}
                                     type="button"
                                     onClick={() => handleSelect(location)}
-                                    className={`w-full px-4 py-3 flex items-start gap-3 text-left hover:bg-gray-50 transition-colors ${
-                                        selectedIndex === index ? 'bg-blue-50' : ''
+                                    className={`w-full px-4 py-3 flex items-start gap-3 text-left hover:bg-muted transition-colors ${
+                                        selectedIndex === index ? 'bg-primary/10' : ''
                                     }`}
                                 >
-                                    <MapPin className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                                    <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                                     <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium text-gray-900 truncate">
+                                        <p className="text-sm font-medium text-foreground truncate">
                                             {location.formatted_name}
                                         </p>
-                                        <p className="text-xs text-gray-500 truncate mt-0.5">
+                                        <p className="text-xs text-muted-foreground truncate mt-0.5">
                                             {location.display_name}
                                         </p>
                                     </div>
@@ -327,7 +327,7 @@ export default function SmartSearchBar({
                                 <button
                                     type="button"
                                     onClick={() => setShowAllLocations(true)}
-                                    className="w-full px-4 py-2 text-xs text-blue-600 hover:bg-blue-50 transition-colors text-center font-medium"
+                                    className="w-full px-4 py-2 text-xs text-primary hover:bg-primary/10 transition-colors text-center font-medium"
                                 >
                                     Show all {deduplicatedLocations.length} locations
                                 </button>
@@ -338,9 +338,9 @@ export default function SmartSearchBar({
                     {/* Reports */}
                     {showResults && searchResults.reports.length > 0 && (
                         <div>
-                            <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase bg-gray-50 border-t border-gray-100 flex items-center justify-between">
+                            <div className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase bg-muted border-t border-border flex items-center justify-between">
                                 <span>Flood Reports</span>
-                                <span className="text-xs font-normal text-gray-400 normal-case">
+                                <span className="text-xs font-normal text-muted-foreground/60 normal-case">
                                     {searchResults.reports.length} results
                                 </span>
                             </div>
@@ -352,13 +352,13 @@ export default function SmartSearchBar({
                                         key={`report-${report.id}`}
                                         type="button"
                                         onClick={() => handleSelect(report)}
-                                        className={`w-full px-4 py-3 flex items-start gap-3 text-left hover:bg-gray-50 transition-colors ${
-                                            selectedIndex === resultIndex ? 'bg-blue-50' : ''
+                                        className={`w-full px-4 py-3 flex items-start gap-3 text-left hover:bg-muted transition-colors ${
+                                            selectedIndex === resultIndex ? 'bg-primary/10' : ''
                                         }`}
                                     >
                                         <FileText className="h-5 w-5 text-orange-500 mt-0.5 flex-shrink-0" />
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-sm text-gray-900">
+                                            <p className="text-sm text-foreground">
                                                 {report.highlight}
                                             </p>
                                             <div className="flex items-center gap-2 mt-1">
@@ -368,7 +368,7 @@ export default function SmartSearchBar({
                                                     </span>
                                                 )}
                                                 {report.water_depth && (
-                                                    <span className="text-xs text-gray-500">
+                                                    <span className="text-xs text-muted-foreground">
                                                         {report.water_depth} deep
                                                     </span>
                                                 )}
@@ -392,9 +392,9 @@ export default function SmartSearchBar({
                     {/* Users */}
                     {showResults && searchResults.users.length > 0 && (
                         <div>
-                            <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase bg-gray-50 border-t border-gray-100 flex items-center justify-between">
+                            <div className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase bg-muted border-t border-border flex items-center justify-between">
                                 <span>Users</span>
-                                <span className="text-xs font-normal text-gray-400 normal-case">
+                                <span className="text-xs font-normal text-muted-foreground/60 normal-case">
                                     {searchResults.users.length} results
                                 </span>
                             </div>
@@ -407,21 +407,21 @@ export default function SmartSearchBar({
                                         key={`user-${user.id}`}
                                         type="button"
                                         onClick={() => handleSelect(user)}
-                                        className={`w-full px-4 py-3 flex items-start gap-3 text-left hover:bg-gray-50 transition-colors ${
-                                            selectedIndex === resultIndex ? 'bg-blue-50' : ''
+                                        className={`w-full px-4 py-3 flex items-start gap-3 text-left hover:bg-muted transition-colors ${
+                                            selectedIndex === resultIndex ? 'bg-primary/10' : ''
                                         }`}
                                     >
                                         <User className="h-5 w-5 text-purple-500 mt-0.5 flex-shrink-0" />
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-sm font-medium text-gray-900">
+                                            <p className="text-sm font-medium text-foreground">
                                                 @{user.username}
                                             </p>
                                             <div className="flex items-center gap-2 mt-1">
-                                                <span className="text-xs text-gray-500">
+                                                <span className="text-xs text-muted-foreground">
                                                     Level {user.level} • {user.points} pts
                                                 </span>
                                                 {user.reports_count > 0 && (
-                                                    <span className="text-xs text-gray-500">
+                                                    <span className="text-xs text-muted-foreground">
                                                         • {user.reports_count} reports
                                                     </span>
                                                 )}
@@ -445,11 +445,11 @@ export default function SmartSearchBar({
                     {/* No Results */}
                     {showResults && !hasResults && (
                         <div className="px-4 py-8 text-center">
-                            <Search className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-                            <p className="text-sm text-gray-500">
+                            <Search className="h-12 w-12 text-muted-foreground/60 mx-auto mb-3" />
+                            <p className="text-sm text-muted-foreground">
                                 No results for "{debouncedQuery}"
                             </p>
-                            <p className="text-xs text-gray-400 mt-1">
+                            <p className="text-xs text-muted-foreground/60 mt-1">
                                 Try different keywords or check spelling
                             </p>
                         </div>
@@ -458,7 +458,7 @@ export default function SmartSearchBar({
                     {/* Trending Searches (Empty State) */}
                     {showTrendingSection && (
                         <div>
-                            <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase bg-gray-50 flex items-center gap-2">
+                            <div className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase bg-muted flex items-center gap-2">
                                 <TrendingUp className="h-4 w-4" />
                                 Trending Searches
                             </div>
@@ -468,7 +468,7 @@ export default function SmartSearchBar({
                                         key={index}
                                         type="button"
                                         onClick={() => handleTrendingClick(term)}
-                                        className="px-3 py-1.5 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full transition-colors"
+                                        className="px-3 py-1.5 text-sm bg-muted hover:bg-accent text-foreground rounded-full transition-colors"
                                     >
                                         {term}
                                     </button>
@@ -479,7 +479,7 @@ export default function SmartSearchBar({
 
                     {/* Loading State */}
                     {showLoading && (
-                        <div className="px-4 py-3 flex items-center gap-2 text-sm text-gray-500">
+                        <div className="px-4 py-3 flex items-center gap-2 text-sm text-muted-foreground">
                             <Loader2 className="h-5 w-5 animate-spin" />
                             Searching...
                         </div>
@@ -487,9 +487,9 @@ export default function SmartSearchBar({
 
                     {/* Search Tips */}
                     {showResults && searchResults.suggestions && searchResults.suggestions.length > 0 && (
-                        <div className="px-4 py-3 bg-blue-50 border-t border-blue-100">
+                        <div className="px-4 py-3 bg-primary/10 border-t border-border">
                             {searchResults.suggestions.map((suggestion, index) => (
-                                <div key={index} className="text-xs text-blue-700">
+                                <div key={index} className="text-xs text-primary">
                                     {suggestion.text}
                                 </div>
                             ))}

@@ -171,7 +171,7 @@ export function ReputationDashboard({ className }: ReputationDashboardProps) {
         <div className="mt-4 pt-4 border-t border-border">
           <button
             onClick={() => setShowExplainer(false)}
-            className="flex items-center gap-2 text-sm font-medium text-foreground mb-2 hover:text-gray-900"
+            className="flex items-center gap-2 text-sm font-medium text-foreground mb-2 hover:text-foreground"
           >
             <ChevronUp className="w-4 h-4" />
             How is reputation calculated?
