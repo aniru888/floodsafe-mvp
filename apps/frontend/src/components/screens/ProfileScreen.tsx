@@ -208,9 +208,9 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
               {getInitials(user.username)}
             </AvatarFallback>
           </Avatar>
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <h2 className="text-xl font-semibold">{user.username}</h2>
+              <h2 className="text-xl font-semibold truncate">{user.username}</h2>
               <Badge
                 variant="secondary"
                 className={cn(
@@ -231,18 +231,20 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
             {user.phone && <p className="text-xs opacity-75 mt-1">{user.phone}</p>}
             <p className="text-xs opacity-75 mt-1">Joined {memberSince}</p>
           </div>
-          <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
-            <DialogTrigger asChild>
-              <Button variant="secondary" size="sm">
-                <Edit className="w-4 h-4 mr-1" />
-                Edit
-              </Button>
-            </DialogTrigger>
-            <EditProfileDialog user={user} onSave={(updates) => {
-              updateUserMutation.mutate(updates);
-              setEditDialogOpen(false);
-            }} />
-          </Dialog>
+          <div className="flex-shrink-0">
+            <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+              <DialogTrigger asChild>
+                <Button variant="secondary" size="sm">
+                  <Edit className="w-4 h-4 mr-1" />
+                  Edit
+                </Button>
+              </DialogTrigger>
+              <EditProfileDialog user={user} onSave={(updates) => {
+                updateUserMutation.mutate(updates);
+                setEditDialogOpen(false);
+              }} />
+            </Dialog>
+          </div>
         </div>
       </div>
 
