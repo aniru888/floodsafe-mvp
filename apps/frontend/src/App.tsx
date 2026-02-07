@@ -96,6 +96,10 @@ function FloodSafeApp() {
     };
 
     const handleNavigateToMap = () => {
+        setActiveTab('map');
+    };
+
+    const handleNavigateToMapAndPlanRoute = () => {
         setShouldOpenNavigationPanel(true);
         setActiveTab('map');
     };
@@ -158,6 +162,7 @@ function FloodSafeApp() {
                 return <HomeScreen
                     onAlertClick={handleAlertClick}
                     onNavigateToMap={handleNavigateToMap}
+                    onNavigateToMapAndPlanRoute={handleNavigateToMapAndPlanRoute}
                     onNavigateToReport={handleNavigateToReport}
                     onNavigateToAlerts={handleNavigateToAlerts}
                     onNavigateToProfile={handleNavigateToProfile}
@@ -170,6 +175,7 @@ function FloodSafeApp() {
                     <HomeScreen
                         onAlertClick={handleAlertClick}
                         onNavigateToMap={handleNavigateToMap}
+                        onNavigateToMapAndPlanRoute={handleNavigateToMapAndPlanRoute}
                         onNavigateToReport={handleNavigateToReport}
                         onNavigateToAlerts={handleNavigateToAlerts}
                         onNavigateToProfile={handleNavigateToProfile}
@@ -197,6 +203,7 @@ function FloodSafeApp() {
                 return <HomeScreen
                     onAlertClick={handleAlertClick}
                     onNavigateToMap={handleNavigateToMap}
+                    onNavigateToMapAndPlanRoute={handleNavigateToMapAndPlanRoute}
                     onNavigateToReport={handleNavigateToReport}
                     onNavigateToAlerts={handleNavigateToAlerts}
                     onNavigateToProfile={handleNavigateToProfile}

@@ -37,6 +37,7 @@ import {
 interface HomeScreenProps {
     onAlertClick: (alert: FloodAlert) => void;
     onNavigateToMap?: () => void;
+    onNavigateToMapAndPlanRoute?: () => void;
     onNavigateToReport?: () => void;
     onNavigateToAlerts?: () => void;
     onNavigateToProfile?: () => void;
@@ -56,6 +57,7 @@ type CityFilter = 'all' | CityKey;
 export function HomeScreen({
     onAlertClick,
     onNavigateToMap,
+    onNavigateToMapAndPlanRoute,
     onNavigateToReport,
     onNavigateToAlerts,
     onNavigateToProfile,
@@ -346,8 +348,8 @@ export function HomeScreen({
                 duration: 4000,
             });
         } else {
-            // Navigate to FloodAtlasScreen without preset destination
-            onNavigateToMap?.();
+            // Navigate to FloodAtlasScreen and open route planner (no preset destination)
+            onNavigateToMapAndPlanRoute?.();
             toast.success('Opening safe route navigation');
         }
     };
