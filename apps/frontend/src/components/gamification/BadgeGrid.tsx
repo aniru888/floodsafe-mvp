@@ -67,7 +67,7 @@ export function BadgeGrid({ className, limit, onViewAll }: BadgeGridProps) {
         {onViewAll && (
           <button
             onClick={onViewAll}
-            className="text-xs text-purple-600 hover:text-purple-700 font-medium hover:underline"
+            className="text-xs text-purple-600 hover:text-purple-700 font-medium hover:underline transition-colors"
           >
             View All
           </button>

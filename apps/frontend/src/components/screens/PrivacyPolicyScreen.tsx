@@ -6,7 +6,7 @@ export function PrivacyPolicyScreen() {
   return (
     <div className="min-h-full bg-muted pb-4">
       {/* Header */}
-      <div className="bg-card border-b sticky top-0 z-10">
+      <div className="bg-card border-b sticky top-0 z-40">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={() => window.history.back()}>
             <ArrowLeft className="w-5 h-5" />
