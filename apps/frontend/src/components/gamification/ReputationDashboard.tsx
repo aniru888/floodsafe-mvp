@@ -18,11 +18,11 @@ export function ReputationDashboard({ className }: ReputationDashboardProps) {
     return (
       <Card className={cn('p-4', className)}>
         <div className="animate-pulse space-y-3">
-          <div className="h-6 bg-gray-200 rounded w-40"></div>
-          <div className="h-24 bg-gray-200 rounded"></div>
+          <div className="h-6 bg-muted rounded w-40"></div>
+          <div className="h-24 bg-muted rounded"></div>
           <div className="space-y-2">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-12 bg-gray-200 rounded"></div>
+              <div key={i} className="h-12 bg-muted rounded"></div>
             ))}
           </div>
         </div>
@@ -32,8 +32,8 @@ export function ReputationDashboard({ className }: ReputationDashboardProps) {
 
   if (error) {
     return (
-      <Card className={cn('p-4 bg-red-50 border-red-200', className)}>
-        <p className="text-sm text-red-600">Failed to load reputation data</p>
+      <Card className={cn('p-4 bg-destructive/10 border-destructive/20', className)}>
+        <p className="text-sm text-destructive">Failed to load reputation data</p>
       </Card>
     );
   }
@@ -64,13 +64,13 @@ export function ReputationDashboard({ className }: ReputationDashboardProps) {
     <Card className={cn('p-4', className)}>
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+        <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
           <Award className="w-4 h-4 text-purple-600" />
           Reputation Dashboard
         </h3>
         <button
           onClick={() => setShowExplainer(!showExplainer)}
-          className="text-gray-400 hover:text-gray-600 transition-colors"
+          className="text-muted-foreground/60 hover:text-muted-foreground transition-colors"
           aria-label="Show explanation"
         >
           <Info className="w-4 h-4" />
@@ -84,12 +84,12 @@ export function ReputationDashboard({ className }: ReputationDashboardProps) {
       )}>
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs text-gray-600 font-medium mb-1">Reputation Score</p>
+            <p className="text-xs text-muted-foreground font-medium mb-1">Reputation Score</p>
             <div className="flex items-baseline gap-2">
               <span className={cn('text-4xl font-bold', getScoreColor(reputationScore))}>
                 {Math.round(reputationScore)}
               </span>
-              <span className="text-lg text-gray-500">/100</span>
+              <span className="text-lg text-muted-foreground">/100</span>
             </div>
           </div>
           <TrendingUp className={cn('w-10 h-10', getScoreColor(reputationScore))} />
@@ -101,7 +101,7 @@ export function ReputationDashboard({ className }: ReputationDashboardProps) {
         <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
           <div className="flex items-center gap-2 mb-1">
             <Target className="w-4 h-4 text-blue-600" />
-            <p className="text-xs text-gray-600 font-medium">Accuracy</p>
+            <p className="text-xs text-muted-foreground font-medium">Accuracy</p>
           </div>
           <p className="text-2xl font-bold text-blue-600">
             {Math.round(accuracyRate * 100)}%
@@ -111,7 +111,7 @@ export function ReputationDashboard({ className }: ReputationDashboardProps) {
         <div className="p-3 bg-orange-50 rounded-lg border border-orange-100">
           <div className="flex items-center gap-2 mb-1">
             <Award className="w-4 h-4 text-orange-600" />
-            <p className="text-xs text-gray-600 font-medium">Streak</p>
+            <p className="text-xs text-muted-foreground font-medium">Streak</p>
           </div>
           <p className="text-2xl font-bold text-orange-600">
             {streakDays} {streakDays === 1 ? 'day' : 'days'}
@@ -121,11 +121,11 @@ export function ReputationDashboard({ className }: ReputationDashboardProps) {
 
       {/* Recent Activity */}
       <div>
-        <p className="text-xs font-semibold text-gray-700 mb-2">Recent Activity</p>
+        <p className="text-xs font-semibold text-foreground mb-2">Recent Activity</p>
         {historyLoading ? (
           <div className="space-y-2">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-12 bg-gray-100 rounded animate-pulse"></div>
+              <div key={i} className="h-12 bg-muted rounded animate-pulse"></div>
             ))}
           </div>
         ) : history && history.length > 0 ? (
@@ -133,14 +133,14 @@ export function ReputationDashboard({ className }: ReputationDashboardProps) {
             {history.map((entry, idx) => (
               <div
                 key={idx}
-                className="flex items-center justify-between p-2 bg-gray-50 rounded-lg"
+                className="flex items-center justify-between p-2 bg-muted rounded-lg"
               >
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-800 truncate">
+                  <p className="text-sm font-medium text-foreground truncate">
                     {entry.action}
                   </p>
                   {entry.reason && (
-                    <p className="text-xs text-gray-500 truncate">{entry.reason}</p>
+                    <p className="text-xs text-muted-foreground truncate">{entry.reason}</p>
                   )}
                 </div>
                 <div className="flex items-center gap-2">
@@ -160,7 +160,7 @@ export function ReputationDashboard({ className }: ReputationDashboardProps) {
             ))}
           </div>
         ) : (
-          <div className="text-center py-4 text-gray-500">
+          <div className="text-center py-4 text-muted-foreground">
             <p className="text-xs">No recent activity</p>
           </div>
         )}
@@ -168,15 +168,15 @@ export function ReputationDashboard({ className }: ReputationDashboardProps) {
 
       {/* Explainer */}
       {showExplainer && (
-        <div className="mt-4 pt-4 border-t border-gray-200">
+        <div className="mt-4 pt-4 border-t border-border">
           <button
             onClick={() => setShowExplainer(false)}
-            className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2 hover:text-gray-900"
+            className="flex items-center gap-2 text-sm font-medium text-foreground mb-2 hover:text-gray-900"
           >
             <ChevronUp className="w-4 h-4" />
             How is reputation calculated?
           </button>
-          <div className="text-xs text-gray-600 space-y-2 bg-blue-50 p-3 rounded-lg border border-blue-100">
+          <div className="text-xs text-muted-foreground space-y-2 bg-blue-50 p-3 rounded-lg border border-blue-100">
             <p>
               <strong>Reputation Score (0-100):</strong> Based on verified reports, accuracy, and community trust.
             </p>
@@ -199,7 +199,7 @@ export function ReputationDashboard({ className }: ReputationDashboardProps) {
       {!showExplainer && (
         <button
           onClick={() => setShowExplainer(true)}
-          className="mt-3 flex items-center gap-2 text-xs text-gray-500 hover:text-gray-700 transition-colors mx-auto"
+          className="mt-3 flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors mx-auto"
         >
           <ChevronDown className="w-3 h-3" />
           How is this calculated?

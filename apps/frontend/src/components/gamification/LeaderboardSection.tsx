@@ -24,7 +24,7 @@ export function LeaderboardSection({ userId, onViewFull, className }: Leaderboar
   // Rank icons for top 3
   const getRankIcon = (rank: number) => {
     if (rank === 1) return <Crown className="w-4 h-4 text-yellow-500" />;
-    if (rank === 2) return <Medal className="w-4 h-4 text-gray-400" />;
+    if (rank === 2) return <Medal className="w-4 h-4 text-muted-foreground/60" />;
     if (rank === 3) return <Medal className="w-4 h-4 text-orange-400" />;
     return null;
   };
@@ -32,24 +32,24 @@ export function LeaderboardSection({ userId, onViewFull, className }: Leaderboar
   // Rank color
   const getRankColor = (rank: number) => {
     if (rank === 1) return 'text-yellow-600 font-bold';
-    if (rank === 2) return 'text-gray-600 font-bold';
+    if (rank === 2) return 'text-muted-foreground font-bold';
     if (rank === 3) return 'text-orange-600 font-bold';
-    return 'text-gray-600';
+    return 'text-muted-foreground';
   };
 
   return (
     <Card className={cn('overflow-hidden', className)}>
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
         <CollapsibleTrigger className="w-full">
-          <div className="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+          <div className="p-4 flex items-center justify-between hover:bg-muted transition-colors">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                 <Users className="w-5 h-5 text-purple-600" />
               </div>
               <div className="text-left">
-                <h3 className="text-sm font-semibold text-gray-800">Leaderboard</h3>
+                <h3 className="text-sm font-semibold text-foreground">Leaderboard</h3>
                 {currentUserRank && (
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-muted-foreground">
                     Your Rank: <span className="font-semibold text-purple-600">#{currentUserRank}</span>
                   </p>
                 )}
@@ -62,16 +62,16 @@ export function LeaderboardSection({ userId, onViewFull, className }: Leaderboar
                 </Badge>
               )}
               {isOpen ? (
-                <ChevronUp className="w-5 h-5 text-gray-400" />
+                <ChevronUp className="w-5 h-5 text-muted-foreground/60" />
               ) : (
-                <ChevronDown className="w-5 h-5 text-gray-400" />
+                <ChevronDown className="w-5 h-5 text-muted-foreground/60" />
               )}
             </div>
           </div>
         </CollapsibleTrigger>
 
         <CollapsibleContent>
-          <div className="px-4 pb-4 border-t border-gray-100">
+          <div className="px-4 pb-4 border-t border-border">
             {/* Tab Selector */}
             <div className="flex gap-2 pt-4 pb-3">
               <button
@@ -80,7 +80,7 @@ export function LeaderboardSection({ userId, onViewFull, className }: Leaderboar
                   'flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all',
                   selectedType === 'global'
                     ? 'bg-purple-500 text-white shadow-sm'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
                 )}
               >
                 All Time
@@ -91,7 +91,7 @@ export function LeaderboardSection({ userId, onViewFull, className }: Leaderboar
                   'flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all',
                   selectedType === 'weekly'
                     ? 'bg-purple-500 text-white shadow-sm'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
                 )}
               >
                 Weekly
@@ -102,7 +102,7 @@ export function LeaderboardSection({ userId, onViewFull, className }: Leaderboar
                   'flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all',
                   selectedType === 'monthly'
                     ? 'bg-purple-500 text-white shadow-sm'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
                 )}
               >
                 Monthly
@@ -113,15 +113,15 @@ export function LeaderboardSection({ userId, onViewFull, className }: Leaderboar
             {isLoading && (
               <div className="space-y-2">
                 {[...Array(5)].map((_, i) => (
-                  <div key={i} className="h-12 bg-gray-100 rounded-lg animate-pulse"></div>
+                  <div key={i} className="h-12 bg-muted rounded-lg animate-pulse"></div>
                 ))}
               </div>
             )}
 
             {/* Error State */}
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                <p className="text-xs text-red-600">Failed to load leaderboard. Please try again.</p>
+              <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3">
+                <p className="text-xs text-destructive">Failed to load leaderboard. Please try again.</p>
               </div>
             )}
 
@@ -139,7 +139,7 @@ export function LeaderboardSection({ userId, onViewFull, className }: Leaderboar
                           'flex items-center gap-3 p-2 rounded-lg transition-colors',
                           isCurrentUser
                             ? 'bg-purple-50 border-2 border-purple-200'
-                            : 'hover:bg-gray-50'
+                            : 'hover:bg-muted'
                         )}
                       >
                         {/* Rank */}
@@ -156,7 +156,7 @@ export function LeaderboardSection({ userId, onViewFull, className }: Leaderboar
                           <div className="flex items-center gap-2">
                             <p className={cn(
                               'text-sm font-medium truncate',
-                              isCurrentUser ? 'text-purple-700' : 'text-gray-800'
+                              isCurrentUser ? 'text-purple-700' : 'text-foreground'
                             )}>
                               {entry.is_anonymous ? 'Anonymous User' : entry.display_name}
                             </p>
@@ -166,7 +166,7 @@ export function LeaderboardSection({ userId, onViewFull, className }: Leaderboar
                               </Badge>
                             )}
                           </div>
-                          <div className="flex items-center gap-2 text-xs text-gray-500">
+                          <div className="flex items-center gap-2 text-xs text-muted-foreground">
                             <span>Level {entry.level}</span>
                             <span>•</span>
                             <span>{entry.verified_reports} verified</span>
@@ -177,11 +177,11 @@ export function LeaderboardSection({ userId, onViewFull, className }: Leaderboar
                         <div className="text-right">
                           <p className={cn(
                             'text-sm font-semibold',
-                            isCurrentUser ? 'text-purple-600' : 'text-gray-700'
+                            isCurrentUser ? 'text-purple-600' : 'text-foreground'
                           )}>
                             {entry.points}
                           </p>
-                          <p className="text-[10px] text-gray-500">points</p>
+                          <p className="text-[10px] text-muted-foreground">points</p>
                         </div>
                       </div>
                     );
@@ -200,11 +200,11 @@ export function LeaderboardSection({ userId, onViewFull, className }: Leaderboar
 
                 {/* Current User Not in Top 10 */}
                 {currentUserRank && currentUserRank > 10 && (
-                  <div className="mt-3 pt-3 border-t border-gray-200">
-                    <p className="text-xs text-center text-gray-600">
+                  <div className="mt-3 pt-3 border-t border-border">
+                    <p className="text-xs text-center text-muted-foreground">
                       You're ranked <span className="font-semibold text-purple-600">#{currentUserRank}</span> overall
                     </p>
-                    <p className="text-xs text-center text-gray-500 mt-1">
+                    <p className="text-xs text-center text-muted-foreground mt-1">
                       Keep reporting to climb the ranks!
                     </p>
                   </div>
@@ -215,9 +215,9 @@ export function LeaderboardSection({ userId, onViewFull, className }: Leaderboar
             {/* Empty State */}
             {!isLoading && !error && leaderboardData && !Array.isArray(leaderboardData) && (leaderboardData.entries || []).length === 0 && (
               <div className="text-center py-8">
-                <Trophy className="w-12 h-12 mx-auto text-gray-300 mb-2" />
-                <p className="text-sm text-gray-600">No leaderboard data yet</p>
-                <p className="text-xs text-gray-500 mt-1">Be the first to start reporting!</p>
+                <Trophy className="w-12 h-12 mx-auto text-muted-foreground/40 mb-2" />
+                <p className="text-sm text-muted-foreground">No leaderboard data yet</p>
+                <p className="text-xs text-muted-foreground mt-1">Be the first to start reporting!</p>
               </div>
             )}
           </div>

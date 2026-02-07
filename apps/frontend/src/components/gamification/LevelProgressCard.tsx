@@ -39,7 +39,7 @@ export function LevelProgressCard({ user, className }: LevelProgressCardProps) {
     <Card className={cn('p-4 bg-gradient-to-br from-purple-50 to-blue-50 border-purple-200', className)}>
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+        <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
           <Trophy className="w-4 h-4 text-purple-600" />
           Level Progress
         </h3>
@@ -57,9 +57,9 @@ export function LevelProgressCard({ user, className }: LevelProgressCardProps) {
             <span className="text-2xl font-bold text-white">{currentLevel}</span>
           </div>
           <div className="flex-1">
-            <p className="text-xs text-gray-600 font-medium">Current Level</p>
-            <p className="text-2xl font-bold text-gray-800">Level {currentLevel}</p>
-            <p className="text-xs text-gray-500">{currentPoints} total points</p>
+            <p className="text-xs text-muted-foreground font-medium">Current Level</p>
+            <p className="text-2xl font-bold text-foreground">Level {currentLevel}</p>
+            <p className="text-xs text-muted-foreground">{currentPoints} total points</p>
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@ export function LevelProgressCard({ user, className }: LevelProgressCardProps) {
       {/* Progress Bar */}
       <div className="mb-4">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-xs text-gray-600 font-medium">
+          <span className="text-xs text-muted-foreground font-medium">
             Progress to Level {currentLevel + 1}
           </span>
           <span className="text-xs text-purple-600 font-semibold">
@@ -77,21 +77,21 @@ export function LevelProgressCard({ user, className }: LevelProgressCardProps) {
         <div className="relative">
           <Progress
             value={progressPercent}
-            className="h-3 bg-gray-200"
+            className="h-3 bg-muted"
           />
           <div
             className="absolute top-0 h-3 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 transition-all duration-500"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
-        <p className="text-xs text-gray-500 mt-2">
+        <p className="text-xs text-muted-foreground mt-2">
           {pointsToNextLevel} more points to level up
         </p>
       </div>
 
       {/* Milestones Visualization */}
       <div className="mb-4">
-        <p className="text-xs font-semibold text-gray-700 mb-2">Milestones</p>
+        <p className="text-xs font-semibold text-foreground mb-2">Milestones</p>
         <div className="flex justify-between items-center">
           {[5, 10, 15, 20, 25].map((milestone) => {
             const achieved = currentLevel >= milestone;
@@ -104,19 +104,19 @@ export function LevelProgressCard({ user, className }: LevelProgressCardProps) {
                     'w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all',
                     achieved
                       ? 'bg-purple-500 border-purple-600 shadow-md'
-                      : 'bg-gray-200 border-gray-300',
+                      : 'bg-muted border-border',
                     isCurrent && 'ring-2 ring-purple-400 ring-offset-2'
                   )}
                 >
                   {achieved ? (
                     <Star className="w-5 h-5 text-white fill-current" />
                   ) : (
-                    <span className="text-xs font-medium text-gray-500">{milestone}</span>
+                    <span className="text-xs font-medium text-muted-foreground">{milestone}</span>
                   )}
                 </div>
                 <span className={cn(
                   'text-[10px] mt-1 font-medium',
-                  achieved ? 'text-purple-600' : 'text-gray-400'
+                  achieved ? 'text-purple-600' : 'text-muted-foreground/60'
                 )}>
                   {milestone}
                 </span>
@@ -127,12 +127,12 @@ export function LevelProgressCard({ user, className }: LevelProgressCardProps) {
       </div>
 
       {/* Estimate to Next Level */}
-      <div className="pt-3 border-t border-purple-200 bg-white bg-opacity-50 rounded-lg p-3">
+      <div className="pt-3 border-t border-purple-200 bg-card/50 rounded-lg p-3">
         <div className="flex items-start gap-2">
           <Zap className="w-4 h-4 text-purple-600 mt-0.5" />
           <div className="flex-1">
-            <p className="text-xs font-medium text-gray-700">Quick Tip</p>
-            <p className="text-xs text-gray-600 mt-1">
+            <p className="text-xs font-medium text-foreground">Quick Tip</p>
+            <p className="text-xs text-muted-foreground mt-1">
               Submit <span className="font-semibold text-purple-600">~{reportsNeeded} more verified reports</span> to reach Level {currentLevel + 1}
             </p>
           </div>
@@ -142,7 +142,7 @@ export function LevelProgressCard({ user, className }: LevelProgressCardProps) {
       {/* Next Milestone */}
       {nextMilestone && (
         <div className="mt-3 pt-3 border-t border-purple-200">
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-muted-foreground">
             Next milestone: <span className="font-semibold text-purple-600">
               {nextMilestone.icon} {nextMilestone.label} (Level {nextMilestone.level})
             </span>

@@ -15,11 +15,11 @@ export function StreakWidget({ className }: StreakWidgetProps) {
     return (
       <Card className={cn('p-4', className)}>
         <div className="animate-pulse space-y-3">
-          <div className="h-6 bg-gray-200 rounded w-32"></div>
-          <div className="h-16 bg-gray-200 rounded"></div>
+          <div className="h-6 bg-muted rounded w-32"></div>
+          <div className="h-16 bg-muted rounded"></div>
           <div className="flex gap-2">
             {[...Array(7)].map((_, i) => (
-              <div key={i} className="h-8 w-8 bg-gray-200 rounded-full"></div>
+              <div key={i} className="h-8 w-8 bg-muted rounded-full"></div>
             ))}
           </div>
         </div>
@@ -29,8 +29,8 @@ export function StreakWidget({ className }: StreakWidgetProps) {
 
   if (error) {
     return (
-      <Card className={cn('p-4 bg-red-50 border-red-200', className)}>
-        <p className="text-sm text-red-600">Failed to load streak data</p>
+      <Card className={cn('p-4 bg-destructive/10 border-destructive/20', className)}>
+        <p className="text-sm text-destructive">Failed to load streak data</p>
       </Card>
     );
   }
@@ -70,7 +70,7 @@ export function StreakWidget({ className }: StreakWidgetProps) {
     )}>
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+        <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
           <Calendar className="w-4 h-4" />
           Report Streak
         </h3>
@@ -86,14 +86,14 @@ export function StreakWidget({ className }: StreakWidgetProps) {
       <div className="mb-4">
         <div className="flex items-baseline gap-2">
           <span className="text-4xl font-bold text-orange-600">{streakDays}</span>
-          <span className="text-lg text-gray-600">{streakDays === 1 ? 'day' : 'days'}</span>
+          <span className="text-lg text-muted-foreground">{streakDays === 1 ? 'day' : 'days'}</span>
         </div>
         {isActiveStreak ? (
-          <p className="text-xs text-gray-600 mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             Keep it going! Report today to maintain your streak.
           </p>
         ) : (
-          <p className="text-xs text-gray-600 mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             Submit a verified report to start a streak!
           </p>
         )}
@@ -102,7 +102,7 @@ export function StreakWidget({ className }: StreakWidgetProps) {
       {/* 7 Day Indicator */}
       <div className="mb-4">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-xs text-gray-500">Last 7 days</span>
+          <span className="text-xs text-muted-foreground">Last 7 days</span>
         </div>
         <div className="flex gap-2">
           {last7Days.map((active, idx) => (
@@ -112,7 +112,7 @@ export function StreakWidget({ className }: StreakWidgetProps) {
                 'w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all',
                 active
                   ? 'bg-orange-500 border-orange-600'
-                  : 'bg-gray-100 border-gray-200'
+                  : 'bg-muted border-border'
               )}
               title={`${6 - idx} days ago`}
             >
@@ -125,7 +125,7 @@ export function StreakWidget({ className }: StreakWidgetProps) {
       {/* Milestones */}
       {earnedMilestones.length > 0 && (
         <div className="mb-3">
-          <p className="text-xs font-medium text-gray-600 mb-2">Milestones Unlocked</p>
+          <p className="text-xs font-medium text-muted-foreground mb-2">Milestones Unlocked</p>
           <div className="flex flex-wrap gap-1">
             {earnedMilestones.map((milestone) => (
               <Badge
@@ -143,9 +143,9 @@ export function StreakWidget({ className }: StreakWidgetProps) {
       {/* Next Milestone */}
       {nextMilestone && (
         <div className="pt-3 border-t border-orange-100">
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-muted-foreground">
             Next milestone: <span className="font-medium text-orange-600">{nextMilestone.label} {nextMilestone.icon}</span>
-            <span className="text-gray-500"> ({nextMilestone.days - streakDays} more days)</span>
+            <span className="text-muted-foreground"> ({nextMilestone.days - streakDays} more days)</span>
           </p>
         </div>
       )}

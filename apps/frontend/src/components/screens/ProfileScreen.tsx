@@ -179,7 +179,7 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
       <div className="flex items-center justify-center min-h-full">
         <div className="text-center">
           <h2 className="text-xl font-semibold mb-2">No User Found</h2>
-          <p className="text-gray-600">Please run the database seed script</p>
+          <p className="text-muted-foreground">Please run the database seed script</p>
         </div>
       </div>
     );
@@ -199,12 +199,12 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
   const _verifiedReportsCount = user.verified_reports_count ?? 0;
 
   return (
-    <div className="pb-4 min-h-full bg-gray-50">
+    <div className="pb-4 min-h-full bg-muted">
       {/* Profile Header */}
-      <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white p-6">
+      <div className="bg-primary text-primary-foreground p-6 md:mx-auto md:max-w-4xl md:mt-6 md:rounded-xl">
         <div className="flex items-center gap-4 mb-4">
-          <Avatar className="w-16 h-16 bg-white text-blue-600">
-            <AvatarFallback className="text-2xl font-semibold">
+          <Avatar className="w-16 h-16 bg-primary-foreground text-primary">
+            <AvatarFallback className="text-2xl font-semibold bg-primary-foreground text-primary">
               {getInitials(user.username)}
             </AvatarFallback>
           </Avatar>
@@ -218,7 +218,7 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
                   user.role === "admin" && "bg-purple-100 text-purple-800",
                   user.role === "moderator" && "bg-blue-100 text-blue-800",
                   user.role === "verified_reporter" && "bg-green-100 text-green-800",
-                  user.role === "user" && "bg-gray-100 text-gray-800"
+                  user.role === "user" && "bg-secondary text-secondary-foreground"
                 )}
               >
                 {user.role === "admin" && <ShieldCheck className="w-3 h-3" />}
@@ -246,13 +246,13 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
         </div>
       </div>
 
-      <div className="p-4 space-y-4">
+      <div className="p-4 space-y-4 md:max-w-4xl md:mx-auto">
         {/* Profile Completion Card */}
         {!user.profile_complete && (
-          <Card className="p-4 bg-blue-50 border-blue-200">
+          <Card className="p-4 bg-primary/5 border-primary/20">
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-semibold text-lg flex items-center gap-2">
-                <Settings className="w-5 h-5 text-blue-600" />
+                <Settings className="w-5 h-5 text-primary" />
                 Complete Your Profile
               </h3>
               <Badge variant="secondary" className="text-xs">
@@ -262,58 +262,64 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
 
             <div className="space-y-2">
               <div className="flex justify-between text-sm mb-1">
-                <span className="text-gray-700">Profile Completion</span>
-                <span className="text-blue-600 font-medium">
+                <span className="text-foreground">Profile Completion</span>
+                <span className="text-primary font-medium">
                   {Math.round(((user.onboarding_step || 0) / 5) * 100)}%
                 </span>
               </div>
-              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div className="h-2 bg-muted rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-blue-600 transition-all duration-300"
+                  className="h-full bg-primary transition-all duration-300"
                   style={{ width: `${((user.onboarding_step || 0) / 5) * 100}%` }}
                 />
               </div>
 
-              <p className="text-xs text-gray-600 mt-2">
+              <p className="text-xs text-muted-foreground mt-2">
                 Complete your profile to unlock all features and personalized flood alerts
               </p>
             </div>
           </Card>
         )}
 
-        {/* Gamification Section */}
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-gray-800 px-1">Your Progress</h2>
+        {/* Two Column Desktop Grid */}
+        <div className="md:grid md:grid-cols-2 md:gap-6">
+          {/* LEFT COLUMN: Gamification / Progress */}
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold text-foreground px-1">Your Progress</h2>
 
-          {/* Streak Widget */}
-          <StreakWidget />
+            {/* Streak Widget */}
+            <StreakWidget />
 
-          {/* Reputation Dashboard */}
-          <ReputationDashboard />
+            {/* Reputation Dashboard */}
+            <ReputationDashboard />
 
-          {/* Level Progress */}
-          {user && <LevelProgressCard user={user} />}
+            {/* Level Progress */}
+            {user && <LevelProgressCard user={user} />}
 
-          {/* Badge Grid with View All */}
-          <BadgeGrid
-            limit={6}
-            onViewAll={() => setBadgeCatalogOpen(true)}
-          />
-
-          {/* Leaderboard Section */}
-          {user && (
-            <LeaderboardSection
-              userId={user.id}
-              onViewFull={() => setLeaderboardModalOpen(true)}
+            {/* Badge Grid with View All */}
+            <BadgeGrid
+              limit={6}
+              onViewAll={() => setBadgeCatalogOpen(true)}
             />
-          )}
-        </div>
+
+            {/* Leaderboard Section */}
+            {user && (
+              <LeaderboardSection
+                userId={user.id}
+                onViewFull={() => setLeaderboardModalOpen(true)}
+              />
+            )}
+          </div>
+
+          {/* RIGHT COLUMN: Settings / Areas */}
+          <div className="space-y-4 mt-4 md:mt-0">
+            <h2 className="text-lg font-semibold text-foreground px-1">Settings & Preferences</h2>
 
         {/* Watch Areas */}
-        <Card className="p-4">
+        <Card className="p-6">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold text-lg flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-gray-600" />
+              <MapPin className="w-5 h-5 text-muted-foreground" />
               Watch Areas ({watchAreas.length})
             </h3>
             <Button
@@ -330,12 +336,12 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
           {watchAreas.length > 0 ? (
             <div className="space-y-2">
               {watchAreas.map((area) => (
-                <div key={area.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div key={area.id} className="flex items-center justify-between p-3 bg-muted rounded-lg">
                   <div className="flex items-center gap-2 flex-1">
-                    <MapPin className="w-4 h-4 text-gray-600" />
+                    <MapPin className="w-4 h-4 text-muted-foreground" />
                     <div>
                       <div className="text-sm font-medium">{area.name}</div>
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-muted-foreground">
                         Radius: {(area.radius / 1000).toFixed(1)}km
                       </div>
                     </div>
@@ -346,14 +352,14 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
                     onClick={() => deleteWatchAreaMutation.mutate(area.id)}
                     disabled={deleteWatchAreaMutation.isPending}
                   >
-                    <Trash2 className="w-4 h-4 text-red-500" />
+                    <Trash2 className="w-4 h-4 text-destructive" />
                   </Button>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="text-center py-6 text-gray-500">
-              <MapPin className="w-12 h-12 mx-auto mb-2 opacity-50" />
+            <div className="text-center py-6 text-muted-foreground">
+              <MapPin className="w-12 h-12 mx-auto mb-2 text-muted-foreground/40" />
               <p className="text-sm">No watch areas yet</p>
               <p className="text-xs mt-1">Add locations to monitor for alerts</p>
             </div>
@@ -361,15 +367,15 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
         </Card>
 
         {/* City Preference */}
-        <Card className="p-4">
+        <Card className="p-6">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold text-lg flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-gray-600" />
+              <MapPin className="w-5 h-5 text-muted-foreground" />
               City Preference
             </h3>
           </div>
 
-          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+          <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
             <div>
               <div className="text-sm font-medium">
                 {user.city_preference ? (
@@ -378,7 +384,7 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
                   'Not set'
                 )}
               </div>
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-muted-foreground">
                 Your primary city for flood alerts
               </div>
             </div>
@@ -390,17 +396,17 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
           </div>
 
           {!user.city_preference && (
-            <p className="text-xs text-gray-500 mt-2">
+            <p className="text-xs text-muted-foreground mt-2">
               Set your city preference during onboarding or in settings
             </p>
           )}
         </Card>
 
         {/* Daily Routes */}
-        <Card className="p-4">
+        <Card className="p-6">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold text-lg flex items-center gap-2">
-              <Route className="w-5 h-5 text-gray-600" />
+              <Route className="w-5 h-5 text-muted-foreground" />
               Daily Routes ({dailyRoutes.length})
             </h3>
             <Button
@@ -417,12 +423,12 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
           {dailyRoutes.length > 0 ? (
             <div className="space-y-2">
               {dailyRoutes.map((route) => (
-                <div key={route.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div key={route.id} className="flex items-center justify-between p-3 bg-muted rounded-lg">
                   <div className="flex items-center gap-2 flex-1">
-                    <Route className="w-4 h-4 text-gray-600" />
+                    <Route className="w-4 h-4 text-muted-foreground" />
                     <div className="flex-1">
                       <div className="text-sm font-medium">{route.name}</div>
-                      <div className="text-xs text-gray-500 capitalize">
+                      <div className="text-xs text-muted-foreground capitalize">
                         {route.transport_mode} • Flood alerts: {route.notify_on_flood ? 'On' : 'Off'}
                       </div>
                     </div>
@@ -439,14 +445,14 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
                       }
                     }}
                   >
-                    <Trash2 className="w-4 h-4 text-red-500" />
+                    <Trash2 className="w-4 h-4 text-destructive" />
                   </Button>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="text-center py-6 text-gray-500">
-              <Route className="w-12 h-12 mx-auto mb-2 opacity-50" />
+            <div className="text-center py-6 text-muted-foreground">
+              <Route className="w-12 h-12 mx-auto mb-2 text-muted-foreground/40" />
               <p className="text-sm">No daily routes yet</p>
               <p className="text-xs mt-1">Add routes to get flood alerts along your commute</p>
             </div>
@@ -454,22 +460,22 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
         </Card>
 
         {/* My Reports */}
-        <Card className="p-4">
+        <Card className="p-6">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold text-lg flex items-center gap-2">
-              <FileText className="w-5 h-5 text-gray-600" />
+              <FileText className="w-5 h-5 text-muted-foreground" />
               My Reports ({userReports.length})
             </h3>
           </div>
 
           {reportsLoading ? (
-            <div className="text-center py-6 text-gray-500">
+            <div className="text-center py-6 text-muted-foreground">
               <div className="text-sm">Loading reports...</div>
             </div>
           ) : userReports.length > 0 ? (
             <div className="space-y-2 max-h-[clamp(150px,30vh,350px)] overflow-y-auto">
               {userReports.slice(0, 10).map((report: Report) => (
-                <div key={report.id} className="p-3 bg-gray-50 rounded-lg">
+                <div key={report.id} className="p-3 bg-muted rounded-lg">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       {(() => {
@@ -482,7 +488,7 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
                         );
                       })()}
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-muted-foreground">
                           {new Date(report.timestamp).toLocaleDateString('en-US', {
                             month: 'short',
                             day: 'numeric',
@@ -501,7 +507,7 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
                       </div>
                     </div>
                     <div className="flex flex-col items-end gap-2">
-                      <div className="text-right text-xs text-gray-500">
+                      <div className="text-right text-xs text-muted-foreground">
                         <div>{report.upvotes} upvotes</div>
                         {report.water_depth && (
                           <div className="capitalize">{report.water_depth}</div>
@@ -509,7 +515,7 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
                       </div>
                       <button
                         onClick={() => setSelectedReport(report)}
-                        className="flex items-center gap-1 px-2 py-1 text-xs bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition-colors"
+                        className="flex items-center gap-1 px-2 py-1 text-xs bg-primary/10 text-primary rounded hover:bg-primary/20 transition-colors"
                       >
                         <Eye className="w-3 h-3" />
                         View
@@ -519,14 +525,14 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
                 </div>
               ))}
               {userReports.length > 10 && (
-                <div className="text-center text-sm text-gray-500 pt-2">
+                <div className="text-center text-sm text-muted-foreground pt-2">
                   And {userReports.length - 10} more reports...
                 </div>
               )}
             </div>
           ) : (
-            <div className="text-center py-6 text-gray-500">
-              <FileText className="w-12 h-12 mx-auto mb-2 opacity-50" />
+            <div className="text-center py-6 text-muted-foreground">
+              <FileText className="w-12 h-12 mx-auto mb-2 text-muted-foreground/40" />
               <p className="text-sm">No reports yet</p>
               <p className="text-xs mt-1">Submit your first flood report to help your community</p>
             </div>
@@ -534,61 +540,64 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
         </Card>
 
         {/* Notification Preferences */}
-        <Card className="p-4">
+        <Card className="p-6">
           <h3 className="font-semibold text-lg flex items-center gap-2 mb-4">
-            <Bell className="w-5 h-5 text-gray-600" />
+            <Bell className="w-5 h-5 text-muted-foreground" />
             Notification Preferences
           </h3>
 
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="push" className="cursor-pointer font-normal">
-                Push notifications
-              </Label>
-              <Switch
-                id="push"
-                checked={user.notification_push ?? true}
-                onCheckedChange={(checked) => handleNotificationToggle('notification_push', checked)}
-              />
+            {/* Channels */}
+            <div className="bg-muted rounded-xl p-4 space-y-3">
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Channels</p>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="push" className="cursor-pointer font-normal">
+                  Push notifications
+                </Label>
+                <Switch
+                  id="push"
+                  checked={user.notification_push ?? true}
+                  onCheckedChange={(checked) => handleNotificationToggle('notification_push', checked)}
+                />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <Label htmlFor="sms" className="cursor-pointer font-normal">
+                  SMS alerts
+                </Label>
+                <Switch
+                  id="sms"
+                  checked={user.notification_sms ?? false}
+                  onCheckedChange={(checked) => handleNotificationToggle('notification_sms', checked)}
+                />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <Label htmlFor="whatsapp" className="cursor-pointer font-normal">
+                  WhatsApp updates
+                </Label>
+                <Switch
+                  id="whatsapp"
+                  checked={user.notification_whatsapp ?? false}
+                  onCheckedChange={(checked) => handleNotificationToggle('notification_whatsapp', checked)}
+                />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <Label htmlFor="email" className="cursor-pointer font-normal">
+                  Email notifications
+                </Label>
+                <Switch
+                  id="email"
+                  checked={user.notification_email ?? true}
+                  onCheckedChange={(checked) => handleNotificationToggle('notification_email', checked)}
+                />
+              </div>
             </div>
 
-            <div className="flex items-center justify-between">
-              <Label htmlFor="sms" className="cursor-pointer font-normal">
-                SMS alerts
-              </Label>
-              <Switch
-                id="sms"
-                checked={user.notification_sms ?? false}
-                onCheckedChange={(checked) => handleNotificationToggle('notification_sms', checked)}
-              />
-            </div>
-
-            <div className="flex items-center justify-between">
-              <Label htmlFor="whatsapp" className="cursor-pointer font-normal">
-                WhatsApp updates
-              </Label>
-              <Switch
-                id="whatsapp"
-                checked={user.notification_whatsapp ?? false}
-                onCheckedChange={(checked) => handleNotificationToggle('notification_whatsapp', checked)}
-              />
-            </div>
-
-            <div className="flex items-center justify-between">
-              <Label htmlFor="email" className="cursor-pointer font-normal">
-                Email notifications
-              </Label>
-              <Switch
-                id="email"
-                checked={user.notification_email ?? true}
-                onCheckedChange={(checked) => handleNotificationToggle('notification_email', checked)}
-              />
-            </div>
-
-            <Separator />
-
-            <div>
-              <Label className="mb-3 block font-semibold">Alert Types</Label>
+            {/* Alert Types */}
+            <div className="bg-muted rounded-xl p-4">
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">Alert Types</p>
               <div className="space-y-2">
                 {[
                   { id: 'watch', label: 'Yellow Watch alerts', icon: '🟡' },
@@ -616,9 +625,9 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
         </Card>
 
         {/* Language Selection */}
-        <Card className="p-4">
+        <Card className="p-6">
           <h3 className="font-semibold text-lg flex items-center gap-2 mb-4">
-            <Globe className="w-5 h-5 text-gray-600" />
+            <Globe className="w-5 h-5 text-muted-foreground" />
             Language
           </h3>
 
@@ -635,42 +644,42 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
         </Card>
 
         {/* Privacy Settings */}
-        <Card className="p-4">
+        <Card className="p-6">
           <h3 className="font-semibold text-lg flex items-center gap-2 mb-3">
-            <Settings className="w-5 h-5 text-gray-600" />
+            <Settings className="w-5 h-5 text-muted-foreground" />
             Privacy Settings
           </h3>
 
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <Label>Show on Leaderboard</Label>
-                <p className="text-xs text-gray-500">Display your profile on public leaderboards</p>
+            <div className="bg-muted rounded-xl p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label>Show on Leaderboard</Label>
+                  <p className="text-xs text-muted-foreground">Display your profile on public leaderboards</p>
+                </div>
+                <Switch
+                  checked={user.leaderboard_visible !== false}
+                  onCheckedChange={(checked) => updateUserMutation.mutate({ leaderboard_visible: checked } as Partial<User>)}
+                />
               </div>
-              <Switch
-                checked={user.leaderboard_visible !== false}
-                onCheckedChange={(checked) => updateUserMutation.mutate({ leaderboard_visible: checked } as Partial<User>)}
-              />
-            </div>
 
-            <Separator />
+              <Separator className="bg-border" />
 
-            <div className="flex items-center justify-between">
-              <div>
-                <Label>Public Profile</Label>
-                <p className="text-xs text-gray-500">Allow others to view your profile</p>
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label>Public Profile</Label>
+                  <p className="text-xs text-muted-foreground">Allow others to view your profile</p>
+                </div>
+                <Switch
+                  checked={user.profile_public !== false}
+                  onCheckedChange={(checked) => updateUserMutation.mutate({ profile_public: checked } as Partial<User>)}
+                />
               </div>
-              <Switch
-                checked={user.profile_public !== false}
-                onCheckedChange={(checked) => updateUserMutation.mutate({ profile_public: checked } as Partial<User>)}
-              />
             </div>
-
-            <Separator />
 
             <div className="space-y-2">
               <Label>Display Name</Label>
-              <p className="text-xs text-gray-500">Optional name shown instead of username</p>
+              <p className="text-xs text-muted-foreground">Optional name shown instead of username</p>
               <Input
                 placeholder="Enter display name"
                 defaultValue={user.display_name || ''}
@@ -686,47 +695,51 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
         </Card>
 
         {/* About Section */}
-        <Card className="p-4">
+        <Card className="p-6">
           <h3 className="font-semibold text-lg flex items-center gap-2 mb-3">
-            <Settings className="w-5 h-5 text-gray-600" />
+            <Settings className="w-5 h-5 text-muted-foreground" />
             About
           </h3>
 
-          <div className="space-y-2 text-sm">
-            <p className="text-gray-600">App version: 1.0.0 (MVP)</p>
-            <Separator />
+          <div className="space-y-4 text-sm">
+            <p className="text-xs text-muted-foreground">Version 1.0.0 (MVP)</p>
+
+            {/* Links */}
+            <div className="bg-muted rounded-xl p-4 space-y-1">
+              <Button
+                variant="ghost"
+                className="w-full justify-start px-2 h-9 text-primary hover:text-primary/80 hover:bg-card font-normal rounded-lg"
+                onClick={() => window.open('https://github.com/anthropics/floodsafe', '_blank')}
+              >
+                About FloodSafe
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start px-2 h-9 text-primary hover:text-primary/80 hover:bg-card font-normal rounded-lg"
+                onClick={() => onNavigate?.('privacy')}
+              >
+                Privacy Policy
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start px-2 h-9 text-primary hover:text-primary/80 hover:bg-card font-normal rounded-lg"
+                onClick={() => onNavigate?.('terms')}
+              >
+                Terms of Service
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start px-2 h-9 text-primary hover:text-primary/80 hover:bg-card font-normal rounded-lg"
+                onClick={() => window.location.href = 'mailto:support@floodsafe.app?subject=FloodSafe Support Request'}
+              >
+                Contact Support
+              </Button>
+            </div>
+
+            {/* Emergency Contacts — prominent */}
             <Button
               variant="ghost"
-              className="w-full justify-start p-0 h-auto text-blue-600 font-normal"
-              onClick={() => window.open('https://github.com/anthropics/floodsafe', '_blank')}
-            >
-              About FloodSafe
-            </Button>
-            <Button
-              variant="ghost"
-              className="w-full justify-start p-0 h-auto text-blue-600 font-normal"
-              onClick={() => onNavigate?.('privacy')}
-            >
-              Privacy Policy
-            </Button>
-            <Button
-              variant="ghost"
-              className="w-full justify-start p-0 h-auto text-blue-600 font-normal"
-              onClick={() => onNavigate?.('terms')}
-            >
-              Terms of Service
-            </Button>
-            <Button
-              variant="ghost"
-              className="w-full justify-start p-0 h-auto text-blue-600 font-normal"
-              onClick={() => window.location.href = 'mailto:support@floodsafe.app?subject=FloodSafe Support Request'}
-            >
-              Contact Support
-            </Button>
-            <Separator />
-            <Button
-              variant="ghost"
-              className="w-full justify-start p-0 h-auto text-red-600 font-normal"
+              className="w-full justify-start px-2 h-9 text-destructive hover:text-destructive/80 hover:bg-destructive/10 font-medium rounded-lg"
               onClick={() => setEmergencyModalOpen(true)}
             >
               <Phone className="w-4 h-4 mr-2" />
@@ -735,37 +748,33 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
 
             {/* Install App button - only shown when PWA is installable */}
             {canInstall && !isInstalled && (
-              <>
-                <Separator />
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start p-0 h-auto text-blue-600 font-normal"
-                  onClick={async () => {
-                    const accepted = await promptInstall();
-                    if (accepted) {
-                      toast.success('FloodSafe installed! Check your apps.');
-                    }
-                  }}
-                  disabled={isPrompting}
-                >
-                  <Download className="w-4 h-4 mr-2" />
-                  {isPrompting ? 'Installing...' : 'Install App'}
-                </Button>
-              </>
+              <Button
+                variant="ghost"
+                className="w-full justify-start px-2 h-9 text-primary hover:text-primary/80 hover:bg-card font-normal rounded-lg"
+                onClick={async () => {
+                  const accepted = await promptInstall();
+                  if (accepted) {
+                    toast.success('FloodSafe installed! Check your apps.');
+                  }
+                }}
+                disabled={isPrompting}
+              >
+                <Download className="w-4 h-4 mr-2" />
+                {isPrompting ? 'Installing...' : 'Install App'}
+              </Button>
             )}
 
             {/* Show "App Installed" indicator if already installed */}
             {isInstalled && (
-              <>
-                <Separator />
-                <p className="text-gray-500 flex items-center gap-2">
-                  <Download className="w-4 h-4" />
-                  App Installed
-                </p>
-              </>
+              <p className="text-muted-foreground flex items-center gap-2 px-2">
+                <Download className="w-4 h-4" />
+                App Installed
+              </p>
             )}
           </div>
         </Card>
+          </div>{/* End RIGHT COLUMN */}
+        </div>{/* End Two Column Grid */}
 
         {/* Logout */}
         <Button

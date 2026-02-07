@@ -63,14 +63,14 @@ export function LeaderboardModal({ open, onOpenChange, userId }: LeaderboardModa
     if (rank === 1) return 'bg-gradient-to-r from-yellow-50 to-yellow-100 border-yellow-300';
     if (rank === 2) return 'bg-gradient-to-r from-gray-50 to-gray-100 border-gray-300';
     if (rank === 3) return 'bg-gradient-to-r from-orange-50 to-orange-100 border-orange-300';
-    return 'bg-white';
+    return 'bg-card';
   };
 
   const getRankTextColor = (rank: number) => {
     if (rank === 1) return 'text-yellow-700';
     if (rank === 2) return 'text-gray-700';
     if (rank === 3) return 'text-orange-700';
-    return 'text-gray-700';
+    return 'text-foreground';
   };
 
   // Get total user count (estimate based on current user rank if available)
@@ -79,12 +79,12 @@ export function LeaderboardModal({ open, onOpenChange, userId }: LeaderboardModa
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[90vh] p-0">
-        <DialogHeader className="p-6 pb-4 border-b border-gray-200">
+        <DialogHeader className="p-6 pb-4 border-b border-border">
           <DialogTitle className="flex items-center gap-2 text-xl">
             <Trophy className="w-6 h-6 text-purple-600" />
             Leaderboard
           </DialogTitle>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             Top contributors ranked by points and verified reports
           </p>
         </DialogHeader>
@@ -115,7 +115,7 @@ export function LeaderboardModal({ open, onOpenChange, userId }: LeaderboardModa
               {isLoading && (
                 <div className="px-6 py-4 space-y-2">
                   {[...Array(10)].map((_, i) => (
-                    <div key={i} className="h-16 bg-gray-100 rounded-lg animate-pulse"></div>
+                    <div key={i} className="h-16 bg-muted rounded-lg animate-pulse"></div>
                   ))}
                 </div>
               )}
@@ -123,8 +123,8 @@ export function LeaderboardModal({ open, onOpenChange, userId }: LeaderboardModa
               {/* Error State */}
               {error && (
                 <div className="px-6 py-4">
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                    <p className="text-sm text-red-600">Failed to load leaderboard. Please try again.</p>
+                  <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4">
+                    <p className="text-sm text-destructive">Failed to load leaderboard. Please try again.</p>
                   </div>
                 </div>
               )}
@@ -135,7 +135,7 @@ export function LeaderboardModal({ open, onOpenChange, userId }: LeaderboardModa
                   <ScrollArea className="h-[500px]">
                     <div className="px-6 py-4">
                       {/* Table Header */}
-                      <div className="grid grid-cols-12 gap-3 px-4 py-2 text-xs font-medium text-gray-500 border-b border-gray-200 mb-2">
+                      <div className="grid grid-cols-12 gap-3 px-4 py-2 text-xs font-medium text-muted-foreground border-b border-border mb-2">
                         <div className="col-span-1 text-center">Rank</div>
                         <div className="col-span-4">User</div>
                         <div className="col-span-2 text-center">Level</div>
@@ -153,12 +153,12 @@ export function LeaderboardModal({ open, onOpenChange, userId }: LeaderboardModa
                             <div
                               key={entry.rank}
                               className={cn(
-                                'grid grid-cols-12 gap-3 px-4 py-3 rounded-lg border transition-all',
+                                'grid grid-cols-12 gap-3 px-4 py-3 rounded-xl border transition-all',
                                 isCurrentUser
                                   ? 'bg-purple-50 border-purple-300 shadow-sm ring-2 ring-purple-200'
                                   : entry.rank <= 3
                                     ? `${getRankStyle(entry.rank)} border`
-                                    : 'bg-white border-gray-200 hover:bg-gray-50'
+                                    : 'bg-card border-border hover:bg-muted'
                               )}
                             >
                               {/* Rank */}
@@ -181,7 +181,7 @@ export function LeaderboardModal({ open, onOpenChange, userId }: LeaderboardModa
                                 <div className="min-w-0 flex-1">
                                   <p className={cn(
                                     'text-sm font-medium truncate',
-                                    isCurrentUser ? 'text-purple-700' : 'text-gray-800'
+                                    isCurrentUser ? 'text-purple-700' : 'text-foreground'
                                   )}>
                                     {entry.is_anonymous ? 'Anonymous User' : entry.display_name}
                                   </p>
@@ -208,11 +208,11 @@ export function LeaderboardModal({ open, onOpenChange, userId }: LeaderboardModa
                                 <div className="text-center">
                                   <p className={cn(
                                     'text-sm font-semibold',
-                                    isCurrentUser ? 'text-purple-700' : 'text-gray-800'
+                                    isCurrentUser ? 'text-purple-700' : 'text-foreground'
                                   )}>
                                     {entry.points}
                                   </p>
-                                  <p className="text-[10px] text-gray-500">pts</p>
+                                  <p className="text-[10px] text-muted-foreground">pts</p>
                                 </div>
                               </div>
 
@@ -229,7 +229,7 @@ export function LeaderboardModal({ open, onOpenChange, userId }: LeaderboardModa
                                   )}>
                                     {Math.round(entry.reputation_score)}
                                   </p>
-                                  <p className="text-[10px] text-gray-500">score</p>
+                                  <p className="text-[10px] text-muted-foreground">score</p>
                                 </div>
                               </div>
 
@@ -248,13 +248,13 @@ export function LeaderboardModal({ open, onOpenChange, userId }: LeaderboardModa
 
                   {/* Footer with User Position */}
                   {userId && currentData.current_user_rank && (
-                    <div className="px-6 py-4 border-t border-gray-200 bg-gray-50">
+                    <div className="px-6 py-4 border-t border-border bg-muted">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm font-semibold text-gray-800">
+                          <p className="text-sm font-semibold text-foreground">
                             Your Position
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-muted-foreground">
                             Ranked #{currentData.current_user_rank} of {totalUsers.toLocaleString()} users
                           </p>
                         </div>
@@ -263,7 +263,7 @@ export function LeaderboardModal({ open, onOpenChange, userId }: LeaderboardModa
                             #{currentData.current_user_rank}
                           </Badge>
                           {currentData.current_user_rank > 10 && (
-                            <p className="text-xs text-gray-500 mt-1">
+                            <p className="text-xs text-muted-foreground mt-1">
                               {currentData.current_user_rank <= 50 ? 'So close to top 50!' : 'Keep climbing!'}
                             </p>
                           )}
@@ -277,9 +277,9 @@ export function LeaderboardModal({ open, onOpenChange, userId }: LeaderboardModa
               {/* Empty State */}
               {!isLoading && !error && currentData && currentData.entries.length === 0 && (
                 <div className="px-6 py-16 text-center">
-                  <Trophy className="w-16 h-16 mx-auto text-gray-300 mb-3" />
-                  <p className="text-sm text-gray-600 font-medium">No leaderboard data yet</p>
-                  <p className="text-xs text-gray-500 mt-1">Be the first to start reporting!</p>
+                  <Trophy className="w-16 h-16 mx-auto text-muted-foreground/40 mb-3" />
+                  <p className="text-sm text-muted-foreground font-medium">No leaderboard data yet</p>
+                  <p className="text-xs text-muted-foreground mt-1">Be the first to start reporting!</p>
                 </div>
               )}
             </TabsContent>
