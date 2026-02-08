@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchJson, uploadFile } from './client';
 import { API_BASE_URL } from './config';
-import { User, GeocodingResult, DailyRoute, DailyRouteCreate, WatchArea, WatchAreaCreate, RouteCalculationRequest, RouteCalculationResponse, MetroStation, RouteOption, RouteComparisonRequest, RouteComparisonResponse, EnhancedRouteComparisonResponse, FastestRouteOption, SafestRouteOption, WatchAreaRiskAssessment, FloodHubStatus, FloodHubGauge, FloodHubForecast, SafetyCircle, SafetyCircleDetail, SafetyCircleCreate, SafetyCircleUpdate, CircleMemberAdd, CircleMemberUpdate, CircleAlert, CircleAlertsResponse, CircleUnreadCount, JoinCircleRequest, BulkAddResult } from '../../types';
+import { User, GeocodingResult, DailyRoute, DailyRouteCreate, WatchArea, WatchAreaCreate, RouteCalculationRequest, RouteCalculationResponse, MetroStation, RouteOption, RouteComparisonRequest, RouteComparisonResponse, EnhancedRouteComparisonResponse, FastestRouteOption, SafestRouteOption, WatchAreaRiskAssessment, FloodHubStatus, FloodHubGauge, FloodHubForecast, FloodHubSignificantEvent, SafetyCircle, SafetyCircleDetail, SafetyCircleCreate, SafetyCircleUpdate, CircleMemberAdd, CircleMemberUpdate, CircleAlert, CircleAlertsResponse, CircleUnreadCount, JoinCircleRequest, BulkAddResult } from '../../types';
 import { validateUsers, validateSensors, validateReports } from './validators';
 
 // Types
@@ -1618,6 +1618,42 @@ export function useFloodHubForecast(gaugeId: string | null) {
         enabled: !!gaugeId,
         staleTime: 15 * 60 * 1000, // 15 minutes (forecasts update less frequently)
         gcTime: 30 * 60 * 1000, // 30 minutes
+        refetchOnWindowFocus: false,
+        retry: 1,
+    });
+}
+
+/**
+ * Get significant flood events affecting India.
+ * Empty during non-flood periods — this is normal.
+ */
+export function useFloodHubEvents() {
+    return useQuery({
+        queryKey: ['floodhub-events'],
+        queryFn: async (): Promise<FloodHubSignificantEvent[]> => {
+            return fetchJson<FloodHubSignificantEvent[]>('/floodhub/events');
+        },
+        staleTime: 15 * 60 * 1000, // 15 minutes
+        gcTime: 30 * 60 * 1000,
+        refetchOnWindowFocus: false,
+        retry: 1,
+    });
+}
+
+/**
+ * Get inundation polygon as GeoJSON for MapLibre rendering.
+ * @param polygonId - Polygon ID from gauge's inundation_map_set (null to disable)
+ */
+export function useFloodHubInundation(polygonId: string | null) {
+    return useQuery({
+        queryKey: ['floodhub-inundation', polygonId],
+        queryFn: async () => {
+            if (!polygonId) return null;
+            return fetchJson<GeoJSON.FeatureCollection>(`/floodhub/inundation/${polygonId}`);
+        },
+        enabled: !!polygonId,
+        staleTime: 30 * 60 * 1000, // 30 minutes (polygons change slowly)
+        gcTime: 60 * 60 * 1000,
         refetchOnWindowFocus: false,
         retry: 1,
     });

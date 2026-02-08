@@ -15,6 +15,7 @@ from ..domain.services.floodhub_service import (
     GaugeStatus,
     GaugeForecast,
     FloodHubStatus,
+    SignificantEvent,
 )
 
 router = APIRouter(prefix="/floodhub", tags=["floodhub"])
@@ -93,9 +94,9 @@ async def get_floodhub_gauges():
 @router.get("/forecast/{gauge_id}", response_model=Optional[GaugeForecast])
 async def get_gauge_forecast(gauge_id: str):
     """
-    Get 7-day forecast for a specific gauge.
+    Get forecast for a specific gauge.
 
-    Returns None if service is disabled.
+    Returns forecast with water level predictions and threshold levels.
     Raises HTTPException on API failures - NO SILENT FALLBACKS.
     """
     try:
@@ -117,3 +118,48 @@ async def get_gauge_forecast(gauge_id: str):
             status_code=503,
             detail="FloodHub service not configured"
         )
+
+
+@router.get("/inundation/{polygon_id}")
+async def get_inundation_map(polygon_id: str):
+    """
+    Get inundation map polygon as GeoJSON.
+
+    Fetches KML from Google API and converts to GeoJSON FeatureCollection
+    for rendering on MapLibre.
+    """
+    try:
+        service = get_floodhub_service()
+        geojson = await service.get_inundation_polygon(polygon_id)
+
+        if geojson is None:
+            raise HTTPException(
+                status_code=404,
+                detail=f"No inundation polygon found for ID {polygon_id}"
+            )
+
+        return geojson
+    except FloodHubAPIError as e:
+        raise HTTPException(status_code=502, detail=str(e))
+    except RuntimeError:
+        raise HTTPException(
+            status_code=503,
+            detail="FloodHub service not configured"
+        )
+
+
+@router.get("/events", response_model=List[SignificantEvent])
+async def get_significant_events():
+    """
+    Get current significant flood events affecting India.
+
+    Returns events with affected population, area, and linked gauges.
+    Empty list during non-flood periods is normal.
+    """
+    try:
+        service = get_floodhub_service()
+        return await service.get_significant_events()
+    except FloodHubAPIError as e:
+        raise HTTPException(status_code=502, detail=str(e))
+    except RuntimeError:
+        return []

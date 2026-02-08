@@ -726,6 +726,8 @@ export interface WatchAreaRiskAssessment {
 
 export type FloodHubSeverity = 'EXTREME' | 'SEVERE' | 'ABOVE_NORMAL' | 'NO_FLOODING' | 'UNKNOWN';
 
+export type FloodHubForecastTrend = 'RISE' | 'FALL' | 'NO_CHANGE';
+
 export interface FloodHubGauge {
     gauge_id: string;
     site_name: string;
@@ -735,6 +737,10 @@ export interface FloodHubGauge {
     severity: FloodHubSeverity;
     issued_time: string;
     source: string;
+    has_model?: boolean;
+    quality_verified?: boolean;
+    forecast_trend?: FloodHubForecastTrend | null;
+    inundation_map_set?: Record<string, string> | null; // {HIGH: polygonId, MEDIUM: ..., LOW: ...}
 }
 
 export interface FloodHubForecastPoint {
@@ -749,6 +755,8 @@ export interface FloodHubForecast {
     forecasts: FloodHubForecastPoint[];
     danger_level: number;
     warning_level: number;
+    extreme_danger_level?: number | null;
+    gauge_value_unit?: string; // "METERS" or "CUBIC_METERS_PER_SECOND"
 }
 
 export interface FloodHubStatus {
@@ -758,6 +766,17 @@ export interface FloodHubStatus {
     gauge_count?: number;
     alerts_by_severity?: Record<string, number>;
     last_updated?: string;
+}
+
+export interface FloodHubSignificantEvent {
+    start_time: string;
+    end_time?: string | null;
+    minimum_end_time?: string | null;
+    affected_country_codes: string[];
+    affected_population?: number | null;
+    area_km2?: number | null;
+    gauge_ids: string[];
+    event_polygon_id?: string | null;
 }
 
 // ============================================================================

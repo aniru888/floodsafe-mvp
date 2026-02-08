@@ -2,7 +2,7 @@
  * FloodHub Alerts List - Displays gauge cards with current flood status
  */
 
-import { MapPin, Clock, ChevronRight } from 'lucide-react';
+import { MapPin, Clock, ChevronRight, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import type { FloodHubGauge, FloodHubSeverity } from '../../types';
 
 interface FloodHubAlertsListProps {
@@ -95,6 +95,18 @@ function GaugeCard({
                             <Clock className="w-3 h-3" />
                             {issuedTime}
                         </span>
+                        {gauge.forecast_trend && gauge.forecast_trend !== 'NO_CHANGE' && (
+                            <span className={`flex items-center gap-0.5 font-medium ${
+                                gauge.forecast_trend === 'RISE' ? 'text-red-600' : 'text-green-600'
+                            }`}>
+                                {gauge.forecast_trend === 'RISE' ? (
+                                    <TrendingUp className="w-3 h-3" />
+                                ) : (
+                                    <TrendingDown className="w-3 h-3" />
+                                )}
+                                {gauge.forecast_trend === 'RISE' ? 'Rising' : 'Falling'}
+                            </span>
+                        )}
                     </div>
                 </div>
 
