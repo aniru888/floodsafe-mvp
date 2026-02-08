@@ -11,12 +11,13 @@ import { useState } from 'react';
 import { Loader2, AlertCircle, Info, MapPinOff } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useCurrentCity } from '../../contexts/CityContext';
-import { useFloodHubStatus, useFloodHubGauges, useFloodHubForecast } from '../../lib/api/hooks';
+import { useFloodHubStatus, useFloodHubGauges, useFloodHubForecast, useFloodHubEvents } from '../../lib/api/hooks';
 
 import { FloodHubHeader } from './FloodHubHeader';
 import { FloodHubAlertsList } from './FloodHubAlertsList';
 import { ForecastChart } from './ForecastChart';
 import { FloodHubFooter } from './FloodHubFooter';
+import { SignificantEventsCard } from './SignificantEventsCard';
 
 // Not available for non-Delhi cities
 function NotAvailableState() {
@@ -115,6 +116,10 @@ export function FloodHubTab() {
         isLoading: forecastLoading,
     } = useFloodHubForecast(selectedGaugeId);
 
+    const {
+        data: events,
+    } = useFloodHubEvents();
+
     // City guard - FloodHub only available for Delhi
     if (city !== 'delhi') {
         return <NotAvailableState />;
@@ -147,6 +152,14 @@ export function FloodHubTab() {
         <div className="space-y-4 p-4 max-w-4xl mx-auto">
             {/* Status Header */}
             {status && <FloodHubHeader status={status} />}
+
+            {/* Significant Events (shown above gauges when active) */}
+            {events && events.length > 0 && (
+                <SignificantEventsCard
+                    events={events}
+                    onSelectGauge={(gaugeId) => setSelectedGaugeId(gaugeId)}
+                />
+            )}
 
             {/* Gauge List */}
             {gaugesLoading ? (

@@ -27,6 +27,10 @@ const chartConfig = {
         label: 'Warning Level',
         color: '#F57C00', // Orange
     },
+    extreme: {
+        label: 'Extreme Danger',
+        color: '#7B1FA2', // Purple
+    },
 } satisfies ChartConfig;
 
 export function ForecastChart({ forecast }: ForecastChartProps) {
@@ -38,6 +42,11 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
             </div>
         );
     }
+
+    // Unit label from gauge model (meters vs discharge)
+    const isDischarge = forecast.gauge_value_unit === 'CUBIC_METERS_PER_SECOND';
+    const unitLabel = isDischarge ? 'm³/s' : 'm';
+    const unitName = isDischarge ? 'Discharge' : 'Water Level';
 
     // Transform forecast data for Recharts
     const data = forecast.forecasts.map((point) => {
@@ -56,10 +65,12 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
         };
     });
 
-    // Calculate Y-axis domain with padding
+    // Calculate Y-axis domain with padding — include extreme level if present
     const levels = data.map(d => d.level);
-    const minLevel = Math.min(...levels, forecast.warning_level) * 0.9;
-    const maxLevel = Math.max(...levels, forecast.danger_level) * 1.1;
+    const thresholds = [forecast.warning_level, forecast.danger_level];
+    if (forecast.extreme_danger_level) thresholds.push(forecast.extreme_danger_level);
+    const minLevel = Math.min(...levels, ...thresholds) * 0.9;
+    const maxLevel = Math.max(...levels, ...thresholds) * 1.1;
 
     // Custom dot renderer to distinguish observed vs forecast
     const renderDot = (props: any) => {
@@ -85,7 +96,7 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
                     {forecast.site_name}
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                    7-Day Water Level Forecast
+                    7-Day {unitName} Forecast{isDischarge ? '' : ''}
                 </p>
             </div>
 
@@ -93,15 +104,21 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
             <div className="flex flex-wrap gap-4 mb-4 text-xs">
                 <div className="flex items-center gap-1.5">
                     <div className="w-3 h-0.5 bg-[#4285F4]" />
-                    <span className="text-muted-foreground">Water Level (m)</span>
+                    <span className="text-muted-foreground">{unitName} ({unitLabel})</span>
+                </div>
+                {forecast.extreme_danger_level != null && forecast.extreme_danger_level > 0 && (
+                    <div className="flex items-center gap-1.5">
+                        <div className="w-3 h-0.5" style={{ borderStyle: 'dashed', borderWidth: '1px 0 0 0', borderColor: '#7B1FA2' }} />
+                        <span className="text-muted-foreground">Extreme</span>
+                    </div>
+                )}
+                <div className="flex items-center gap-1.5">
+                    <div className="w-3 h-0.5" style={{ borderStyle: 'dashed', borderWidth: '1px 0 0 0', borderColor: '#D32F2F' }} />
+                    <span className="text-muted-foreground">Danger</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                    <div className="w-3 h-0.5 bg-[#D32F2F] opacity-70" style={{ borderStyle: 'dashed', borderWidth: '1px 0 0 0', borderColor: '#D32F2F' }} />
-                    <span className="text-muted-foreground">Danger Level</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                    <div className="w-3 h-0.5 bg-[#F57C00] opacity-70" style={{ borderStyle: 'dashed', borderWidth: '1px 0 0 0', borderColor: '#F57C00' }} />
-                    <span className="text-muted-foreground">Warning Level</span>
+                    <div className="w-3 h-0.5" style={{ borderStyle: 'dashed', borderWidth: '1px 0 0 0', borderColor: '#F57C00' }} />
+                    <span className="text-muted-foreground">Warning</span>
                 </div>
             </div>
 
@@ -125,19 +142,35 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
                         axisLine={false}
                         tick={{ fill: '#6b7280' }}
                         domain={[minLevel, maxLevel]}
-                        tickFormatter={(value) => `${value.toFixed(1)}m`}
+                        tickFormatter={(value) => `${value.toFixed(1)}${unitLabel}`}
                     />
                     <ChartTooltip
                         content={
                             <ChartTooltipContent
                                 formatter={(value, name) => (
                                     <span>
-                                        {name}: <strong>{Number(value).toFixed(2)}m</strong>
+                                        {name}: <strong>{Number(value).toFixed(2)} {unitLabel}</strong>
                                     </span>
                                 )}
                             />
                         }
                     />
+
+                    {/* Extreme danger level reference line */}
+                    {forecast.extreme_danger_level != null && forecast.extreme_danger_level > 0 && (
+                        <ReferenceLine
+                            y={forecast.extreme_danger_level}
+                            stroke="#7B1FA2"
+                            strokeDasharray="5 5"
+                            strokeOpacity={0.7}
+                            label={{
+                                value: 'Extreme',
+                                position: 'right',
+                                fill: '#7B1FA2',
+                                fontSize: 10,
+                            }}
+                        />
+                    )}
 
                     {/* Danger level reference line */}
                     {forecast.danger_level > 0 && (
