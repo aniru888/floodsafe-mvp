@@ -130,10 +130,10 @@ class FloodHubService:
 
     # Delhi bounding box for filtering India-wide results
     DELHI_BOUNDS = {
-        "lat_min": 28.4,
-        "lat_max": 28.9,
-        "lng_min": 76.8,
-        "lng_max": 77.4,
+        "lat_min": 28.0,   # Expanded to Delhi NCR (aligned with GDACS bounds)
+        "lat_max": 29.2,
+        "lng_min": 76.5,
+        "lng_max": 77.8,
     }
 
     def __init__(self, api_key: Optional[str] = None):
