@@ -304,6 +304,81 @@ async def get_risk_at_point(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@router.get("/risk-summary")
+async def get_risk_summary(
+    lat: float = Query(..., description="Latitude"),
+    lng: float = Query(..., description="Longitude"),
+    language: str = Query("en", description="Language: 'en' or 'hi'"),
+):
+    """
+    Get AI-generated flood risk summary for a location.
+
+    Uses Meta Llama API to generate a natural language risk narrative
+    from structured FHI data. Returns None if Llama is disabled.
+
+    Args:
+        lat: Latitude
+        lng: Longitude
+        language: Response language ('en' or 'hi')
+
+    Returns:
+        JSON with risk_summary string and metadata
+    """
+    from ..domain.services.llama_service import generate_risk_summary, is_llama_enabled
+
+    if not is_llama_enabled():
+        return {"risk_summary": None, "enabled": False}
+
+    # Get risk data from the risk-at-point logic
+    risk_data = {"risk_level": "low", "fhi": 0.0, "is_hotspot": False}
+    if settings.ML_ENABLED:
+        try:
+            service = _get_hotspots_service()
+            min_distance = float("inf")
+            nearest = None
+            for h in service.hotspots_data:
+                h_lat = h.get("lat") or h.get("latitude")
+                h_lng = h.get("lng") or h.get("longitude")
+                if h_lat is None or h_lng is None:
+                    continue
+                dist = service.haversine_distance(lat, lng, h_lat, h_lng)
+                if dist < min_distance:
+                    min_distance = dist
+                    nearest = h
+            if min_distance < 0.5:
+                risk_data["fhi"] = 0.7
+            elif min_distance < 1.0:
+                risk_data["fhi"] = 0.5
+            elif min_distance < 2.0:
+                risk_data["fhi"] = 0.35
+            risk_data["is_hotspot"] = min_distance < 1.0
+            if risk_data["fhi"] > 0.6:
+                risk_data["risk_level"] = "high"
+            elif risk_data["fhi"] > 0.3:
+                risk_data["risk_level"] = "moderate"
+        except Exception:
+            pass
+
+    location_name = f"({lat:.4f}, {lng:.4f})"
+    summary = await generate_risk_summary(
+        latitude=lat,
+        longitude=lng,
+        location_name=location_name,
+        risk_level=risk_data["risk_level"],
+        fhi_score=risk_data["fhi"],
+        is_hotspot=risk_data["is_hotspot"],
+        language=language,
+    )
+
+    return {
+        "risk_summary": summary,
+        "enabled": True,
+        "risk_level": risk_data["risk_level"],
+        "fhi_score": risk_data["fhi"],
+        "language": language,
+    }
+
+
 @router.get("/health")
 async def hotspots_health():
     """Check hotspots service health."""

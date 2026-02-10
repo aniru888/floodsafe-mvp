@@ -37,6 +37,9 @@ from ..domain.services.alert_service import AlertService
 from ..domain.services.notification_service import get_notification_service
 from ..core.config import settings
 
+# Import Wit.ai NLU service
+from ..domain.services.wit_service import classify_message, get_mapped_command, is_wit_enabled
+
 # Import WhatsApp services
 from ..domain.services.whatsapp import (
     TemplateKey, get_message, get_user_language,
@@ -442,7 +445,48 @@ async def handle_whatsapp_webhook(
         return await handle_awaiting_photo(db, session, phone, user, Body, has_media, MediaUrl0, MediaContentType0)
 
     # ===========================================
-    # NEW COMMANDS: RISK, WARNINGS, MY AREAS, HELP
+    # WIT.AI NLU — Natural Language Understanding
+    # Attempts intent classification before keyword matching.
+    # Falls through to keyword matching if Wit.ai is disabled,
+    # unavailable, or confidence is below threshold.
+    # ===========================================
+    if is_wit_enabled() and body_stripped and not body_lower.startswith(("risk", "warnings", "alerts", "help", "menu", "status")):
+        wit_result = await classify_message(body_stripped)
+        if wit_result:
+            mapped = get_mapped_command(wit_result)
+            if mapped == "risk":
+                place_name = wit_result.location
+                last_location = None
+                if not place_name and session.data and "last_lat" in session.data:
+                    last_location = (session.data["last_lat"], session.data["last_lng"])
+                response = await handle_risk_command(db, user, place_name, last_location)
+                return generate_twiml_response(response)
+            elif mapped == "warnings":
+                response = await handle_warnings_command(db, user)
+                return generate_twiml_response(response)
+            elif mapped == "my_areas":
+                response = await handle_my_areas_command(db, user)
+                return generate_twiml_response(response)
+            elif mapped == "help":
+                response = await handle_help_command(user)
+                return generate_twiml_response(response)
+            elif mapped == "status":
+                response = await handle_status_command(db, user, phone)
+                return generate_twiml_response(response)
+            elif mapped == "report":
+                # User wants to report flooding via natural language
+                return generate_twiml_response(
+                    get_message(TemplateKey.WELCOME, language) if language == 'hi' else
+                    "To report flooding, please share:\n\n"
+                    "1. Take a photo of the flooding\n"
+                    "2. Tap + → Location → Send current location\n"
+                    "3. Send both together!\n\n"
+                    "We'll verify with AI and alert nearby people."
+                )
+            # mapped == "welcome" or unknown → fall through to keyword matching
+
+    # ===========================================
+    # KEYWORD COMMANDS: RISK, WARNINGS, MY AREAS, HELP
     # ===========================================
 
     # RISK command (with optional place name)

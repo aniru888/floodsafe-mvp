@@ -8,7 +8,7 @@ from .infrastructure import models  # noqa: F401 - ensures models are loaded
 # Run `alembic upgrade head` to apply migrations.
 # See apps/backend/alembic/ for migration files.
 
-from .api import webhook, reports, users, sensors, otp, watch_areas, daily_routes, reputation, leaderboards, badges, routes_api, auth, alerts, search, predictions, saved_routes, historical_floods, hotspots, external_alerts, rainfall, gamification, comments, ml, floodhub, circles, sos
+from .api import webhook, reports, users, sensors, otp, watch_areas, daily_routes, reputation, leaderboards, badges, routes_api, auth, alerts, search, predictions, saved_routes, historical_floods, hotspots, external_alerts, rainfall, gamification, comments, ml, floodhub, circles, sos, whatsapp_meta
 from .domain.services.external_alerts import start_scheduler, stop_scheduler
 from .domain.services.floodhub_service import init_floodhub_service
 
@@ -90,6 +90,7 @@ if settings.BACKEND_CORS_ORIGINS:
 
 app.include_router(auth.router, prefix="/api/auth", tags=["authentication"])
 app.include_router(webhook.router, prefix="/api/whatsapp", tags=["whatsapp"])
+app.include_router(whatsapp_meta.router, prefix="/api/whatsapp-meta", tags=["whatsapp-meta"])
 app.include_router(reports.router, prefix="/api/reports", tags=["reports"])
 app.include_router(users.router, prefix="/api/users", tags=["users"])
 app.include_router(sensors.router, prefix="/api/sensors", tags=["sensors"])

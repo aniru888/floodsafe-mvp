@@ -17,6 +17,7 @@ from .message_templates import (
     TemplateKey, get_message, get_user_language,
     format_risk_factors, format_alerts_list, format_watch_areas
 )
+from ..llama_service import generate_risk_summary, is_llama_enabled
 
 logger = logging.getLogger(__name__)
 
@@ -159,12 +160,33 @@ async def handle_risk_command(
     else:
         template = TemplateKey.RISK_LOW
 
-    return get_message(
+    template_response = get_message(
         template,
         language,
         location=location_name,
         factors=factors
     )
+
+    # Optionally append AI-generated summary from Meta Llama API
+    if is_llama_enabled() and latitude and longitude:
+        try:
+            summary = await generate_risk_summary(
+                latitude=latitude,
+                longitude=longitude,
+                location_name=location_name or "Unknown",
+                risk_level=risk_level,
+                fhi_score=fhi,
+                precipitation_mm=data.get("precipitation_mm", 0.0),
+                elevation=data.get("elevation"),
+                is_hotspot=is_hotspot,
+                language=language,
+            )
+            if summary:
+                template_response += f"\n\n---\nAI Summary: {summary}"
+        except Exception as e:
+            logger.debug(f"Llama summary generation failed: {e}")
+
+    return template_response
 
 
 async def handle_warnings_command(

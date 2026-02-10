@@ -112,6 +112,26 @@ class Settings(BaseSettings):
     SUPABASE_SERVICE_KEY: str = ""                # Service role key from Supabase Dashboard -> API
     SUPABASE_STORAGE_BUCKET: str = "report-photos"  # Bucket name for report photos
 
+    # Wit.ai NLU (Meta) — Natural language understanding for WhatsApp bot
+    WIT_AI_TOKEN: str = ""                         # Wit.ai Server Access Token
+    WIT_AI_ENABLED: bool = True                    # Auto-disabled if WIT_AI_TOKEN is empty
+
+    # Meta Llama API — AI-generated risk summaries
+    META_LLAMA_API_KEY: str = ""                   # Meta Llama API key (llama.developer.meta.com)
+    LLAMA_ENABLED: bool = True                     # Auto-disabled if no API key set
+    LLAMA_API_URL: str = "https://api.llama.com/compat/v1"  # Meta Llama API (OpenAI-compatible)
+    LLAMA_FALLBACK_URL: str = "https://api.groq.com/openai/v1"  # Groq free tier fallback
+    LLAMA_FALLBACK_API_KEY: str = ""               # Groq API key (fallback)
+    LLAMA_MODEL: str = "llama-3.3-8b"              # Model name for Meta API
+    LLAMA_FALLBACK_MODEL: str = "llama-3.1-8b-instant"  # Model name for Groq
+
+    # Meta WhatsApp Cloud API (parallel to Twilio)
+    META_WHATSAPP_TOKEN: str = ""                  # Meta Graph API access token
+    META_PHONE_NUMBER_ID: str = ""                 # WhatsApp Business phone number ID
+    META_VERIFY_TOKEN: str = ""                    # Webhook verification token
+    META_APP_SECRET: str = ""                      # App secret for signature validation
+    META_WHATSAPP_ENABLED: bool = True             # Auto-disabled if META_WHATSAPP_TOKEN is empty
+
     # Google FloodHub Integration
     GOOGLE_FLOODHUB_API_KEY: str = ""             # Google Flood Forecasting API key (waitlist required)
 
