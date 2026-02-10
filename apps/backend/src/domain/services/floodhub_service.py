@@ -489,6 +489,10 @@ class FloodHubService:
         except FloodHubAPIError:
             raise
         except httpx.HTTPStatusError as e:
+            if e.response.status_code == 404:
+                # Gauge or forecast not found — return None so router sends 404
+                logger.info(f"No forecast found for gauge {gauge_id} (HTTP 404)")
+                return None
             logger.error(f"FloodHub forecast HTTP error: {e.response.status_code}")
             raise FloodHubAPIError(f"Failed to fetch forecast: {e.response.status_code}")
         except httpx.RequestError as e:
@@ -652,6 +656,10 @@ class FloodHubService:
             return geojson
 
         except httpx.HTTPStatusError as e:
+            if e.response.status_code == 404:
+                # Polygon doesn't exist — return None so router sends 404
+                logger.info(f"Inundation polygon not found: {polygon_id}")
+                return None
             logger.error(f"Inundation polygon HTTP error: {e.response.status_code}")
             raise FloodHubAPIError(f"Failed to fetch inundation: {e.response.status_code}")
         except httpx.RequestError as e:
