@@ -745,7 +745,7 @@ export interface FloodHubGauge {
 
 export interface FloodHubForecastPoint {
     timestamp: string;
-    water_level: number;
+    water_level: number | null;  // null during dry season (NaN from Google API)
     is_forecast: boolean;
 }
 

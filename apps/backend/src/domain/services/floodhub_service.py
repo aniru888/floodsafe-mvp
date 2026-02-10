@@ -13,6 +13,7 @@ Authentication: API key as query parameter (?key=...)
 from typing import List, Dict, Optional, Any, Tuple
 from datetime import datetime, date, timedelta, timezone
 import logging
+import math
 import xml.etree.ElementTree as ET
 import httpx
 from pydantic import BaseModel
@@ -48,7 +49,7 @@ class GaugeStatus(BaseModel):
 class ForecastPoint(BaseModel):
     """Single point in a forecast time series."""
     timestamp: datetime
-    water_level: float  # value in meters or m³/s
+    water_level: Optional[float] = None  # value in meters or m³/s, None when NaN (dry season)
     is_forecast: bool = True
 
 
@@ -445,7 +446,9 @@ class FloodHubService:
                 if not start_str:
                     continue
                 ts = datetime.fromisoformat(start_str.replace("Z", "+00:00"))
-                value = fr.get("value", 0)
+                raw_value = fr.get("value")
+                # Google API returns NaN during dry season — not JSON-serializable
+                value = None if raw_value is None or (isinstance(raw_value, float) and math.isnan(raw_value)) else raw_value
 
                 # Determine if this is a forecast or observation
                 is_forecast = True

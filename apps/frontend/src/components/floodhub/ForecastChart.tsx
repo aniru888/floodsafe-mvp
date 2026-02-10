@@ -66,7 +66,8 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
     });
 
     // Calculate Y-axis domain with padding — include extreme level if present
-    const levels = data.map(d => d.level);
+    // Filter out null levels (dry season NaN from Google API)
+    const levels = data.map(d => d.level).filter((v): v is number => v !== null);
     const thresholds = [forecast.warning_level, forecast.danger_level];
     if (forecast.extreme_danger_level) thresholds.push(forecast.extreme_danger_level);
     const minLevel = Math.min(...levels, ...thresholds) * 0.9;
