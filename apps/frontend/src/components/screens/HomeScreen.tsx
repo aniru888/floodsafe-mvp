@@ -19,6 +19,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useCityContext } from '../../contexts/CityContext';
 import { CITIES } from '../../lib/map/cityConfigs';
 import { VerificationReminderBanner } from '../VerificationReminderBanner';
+import { AiRiskInsightsCard } from '../AiRiskInsightsCard';
 import {
     Select,
     SelectContent,
@@ -668,6 +669,13 @@ export function HomeScreen({
                         </div>
                     </div>
                 </div>
+
+                {/* AI Risk Insights Card — personalized risk narratives */}
+                <AiRiskInsightsCard
+                    watchAreas={userWatchAreas}
+                    dailyRoutes={userDailyRoutes}
+                    maxItems={3}
+                />
 
                 {/* Live Updates Feed with Auto-Refresh Settings */}
                 <div className="bg-card text-card-foreground rounded-xl border shadow-sm flex flex-col overflow-hidden">

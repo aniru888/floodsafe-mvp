@@ -880,3 +880,15 @@ export interface BulkAddResult {
     skipped: number;
     errors: string[];
 }
+
+// ============================================================================
+// AI RISK SUMMARY TYPES (Llama/Groq AI-generated risk narratives)
+// ============================================================================
+
+export interface RiskSummaryResponse {
+    risk_summary: string | null;
+    enabled: boolean;
+    risk_level: string;
+    fhi_score: number;
+    language: string;
+}

@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchJson, uploadFile } from './client';
 import { API_BASE_URL } from './config';
-import { User, GeocodingResult, DailyRoute, DailyRouteCreate, WatchArea, WatchAreaCreate, RouteCalculationRequest, RouteCalculationResponse, MetroStation, RouteOption, RouteComparisonRequest, RouteComparisonResponse, EnhancedRouteComparisonResponse, FastestRouteOption, SafestRouteOption, WatchAreaRiskAssessment, FloodHubStatus, FloodHubGauge, FloodHubForecast, FloodHubSignificantEvent, SafetyCircle, SafetyCircleDetail, SafetyCircleCreate, SafetyCircleUpdate, CircleMemberAdd, CircleMemberUpdate, CircleAlert, CircleAlertsResponse, CircleUnreadCount, JoinCircleRequest, BulkAddResult } from '../../types';
+import { User, GeocodingResult, DailyRoute, DailyRouteCreate, WatchArea, WatchAreaCreate, RouteCalculationRequest, RouteCalculationResponse, MetroStation, RouteOption, RouteComparisonRequest, RouteComparisonResponse, EnhancedRouteComparisonResponse, FastestRouteOption, SafestRouteOption, WatchAreaRiskAssessment, FloodHubStatus, FloodHubGauge, FloodHubForecast, FloodHubSignificantEvent, SafetyCircle, SafetyCircleDetail, SafetyCircleCreate, SafetyCircleUpdate, CircleMemberAdd, CircleMemberUpdate, CircleAlert, CircleAlertsResponse, CircleUnreadCount, JoinCircleRequest, BulkAddResult, RiskSummaryResponse } from '../../types';
 import { validateUsers, validateSensors, validateReports } from './validators';
 
 // Types
@@ -1865,5 +1865,36 @@ export function useUpdateCircle(circleId: string) {
             queryClient.invalidateQueries({ queryKey: ['circles'] });
             queryClient.invalidateQueries({ queryKey: ['circles', circleId] });
         },
+    });
+}
+
+// ============================================================================
+// AI RISK SUMMARY HOOKS (Llama/Groq AI-generated risk narratives)
+// ============================================================================
+
+/**
+ * Fetch AI-generated risk summary for a specific location.
+ *
+ * Uses the Groq-hosted Llama 3.1 model to generate natural language
+ * risk narratives based on FHI score and weather conditions.
+ *
+ * Each watch area/route calls this independently for parallel fetching.
+ * Backend caches for 1 hour; frontend staleTime is 10 minutes.
+ *
+ * @param lat - Latitude (null to disable)
+ * @param lng - Longitude (null to disable)
+ * @param language - 'en' or 'hi' (default: 'en')
+ */
+export function useRiskSummary(lat: number | null, lng: number | null, language = 'en') {
+    return useQuery({
+        queryKey: ['risk-summary', lat, lng, language],
+        queryFn: () => fetchJson<RiskSummaryResponse>(
+            `/hotspots/risk-summary?lat=${lat}&lng=${lng}&language=${language}`
+        ),
+        enabled: lat !== null && lng !== null,
+        staleTime: 10 * 60 * 1000,     // 10 min (backend caches 1 hour)
+        gcTime: 30 * 60 * 1000,         // 30 min garbage collection
+        refetchOnWindowFocus: false,
+        retry: 1,
     });
 }
