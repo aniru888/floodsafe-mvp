@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useMap } from '../lib/map/useMap';
-import { useSensors, useReports, useHistoricalFloods, useHotspots, Sensor, Report } from '../lib/api/hooks';
+import { useSensors, useReports, useHistoricalFloods, useHotspots, useFloodHubGauges, useFloodHubInundation, Sensor, Report } from '../lib/api/hooks';
 // usePredictionGrid removed - ensemble models not trained (see line 95-105)
 import maplibregl from 'maplibre-gl';
 import { Button } from './ui/button';
-import { Plus, Minus, Navigation, Layers, Train, AlertCircle, MapPin, History, Droplets } from 'lucide-react';
+import { Plus, Minus, Navigation, Layers, Train, AlertCircle, MapPin, History, Droplets, Waves } from 'lucide-react';
 import MapLegend from './MapLegend';
 import SearchBar from './SearchBar';
 import HistoricalFloodsPanel from './HistoricalFloodsPanel';
@@ -40,6 +40,7 @@ interface LayersVisibility {
     metro: boolean;
     predictions: boolean;  // ML flood hotspot predictions
     hotspots: boolean;     // 90 Delhi waterlogging hotspots (62 MCD + 28 OSM)
+    floodhub: boolean;     // Google Flood Forecasting inundation extent
 }
 
 interface MapBounds {
@@ -79,7 +80,8 @@ export default function MapComponent({
         routes: true,
         metro: true,
         predictions: true,  // ON by default per user decision
-        hotspots: true      // Waterlogging hotspots ON by default
+        hotspots: true,     // Waterlogging hotspots ON by default
+        floodhub: true      // Google Flood Forecasting inundation ON by default
     });
     const [_mapBounds, setMapBounds] = useState<MapBounds | null>(null);
     const [showHistoricalPanel, setShowHistoricalPanel] = useState(false);
@@ -112,6 +114,19 @@ export default function MapComponent({
         enabled: isDelhiCity,
         includeRainfall: true   // Enable live FHI from Open-Meteo weather data
     });
+
+    // Fetch Google Flood Forecasting gauge data (Delhi only)
+    const { data: floodHubGauges } = useFloodHubGauges();
+
+    // Find the highest-severity gauge with an inundation polygon available
+    const activeInundationGauge = (floodHubGauges ?? []).find(
+        g => g.severity !== 'NO_FLOODING' && g.severity !== 'UNKNOWN' && g.inundation_map_set
+    );
+    const inundationPolygonId = activeInundationGauge?.inundation_map_set?.HIGH
+        ?? activeInundationGauge?.inundation_map_set?.MEDIUM
+        ?? activeInundationGauge?.inundation_map_set?.LOW
+        ?? null;
+    const { data: inundationGeoJSON } = useFloodHubInundation(inundationPolygonId);
 
     const [isChangingCity, setIsChangingCity] = useState(false);
     const [mapStyleReady, setMapStyleReady] = useState(false);
@@ -1190,14 +1205,65 @@ export default function MapComponent({
             }
         }
 
-        // 7. Add Pulse Effect for Critical Sensors
-        // (Optional polish, can add later if needed)
+        // 7. Google Flood Forecasting Inundation Layer
+        // Renders flood extent polygons from Google's API when active flooding detected
+        if (!map.getSource('floodhub-inundation')) {
+            map.addSource('floodhub-inundation', {
+                type: 'geojson',
+                data: { type: 'FeatureCollection', features: [] }
+            });
+
+            // Fill layer — severity color derived from the active gauge
+            map.addLayer({
+                id: 'floodhub-inundation-fill',
+                type: 'fill',
+                source: 'floodhub-inundation',
+                layout: { 'visibility': 'visible' },
+                paint: {
+                    'fill-color': activeInundationGauge?.severity === 'EXTREME' ? '#dc2626'
+                        : activeInundationGauge?.severity === 'SEVERE' ? '#ea580c'
+                        : '#ca8a04',
+                    'fill-opacity': activeInundationGauge?.severity === 'EXTREME' ? 0.5
+                        : activeInundationGauge?.severity === 'SEVERE' ? 0.4
+                        : 0.3
+                }
+            }, 'routes-layer');
+
+            // Border for clarity
+            map.addLayer({
+                id: 'floodhub-inundation-border',
+                type: 'line',
+                source: 'floodhub-inundation',
+                layout: { 'visibility': 'visible' },
+                paint: {
+                    'line-color': activeInundationGauge?.severity === 'EXTREME' ? '#991b1b'
+                        : activeInundationGauge?.severity === 'SEVERE' ? '#9a3412'
+                        : '#854d0e',
+                    'line-width': 2,
+                    'line-opacity': 0.7
+                }
+            }, 'routes-layer');
+        }
+
+        // Update inundation data when available
+        if (inundationGeoJSON) {
+            const source = map.getSource('floodhub-inundation') as maplibregl.GeoJSONSource;
+            if (source) {
+                source.setData(inundationGeoJSON);
+            }
+        } else {
+            // Clear inundation when no active flooding
+            const source = map.getSource('floodhub-inundation') as maplibregl.GeoJSONSource;
+            if (source) {
+                source.setData({ type: 'FeatureCollection', features: [] });
+            }
+        }
 
         } catch (error) {
             console.error('Error updating map layers:', error);
         }
 
-    }, [map, isLoaded, mapStyleReady, sensors, reports, hotspotsData, isDelhiCity, navigationRoutes, selectedRouteId, navigationOrigin, navigationDestination, nearbyMetros, floodZones, onMetroClick]);
+    }, [map, isLoaded, mapStyleReady, sensors, reports, hotspotsData, isDelhiCity, navigationRoutes, selectedRouteId, navigationOrigin, navigationDestination, nearbyMetros, floodZones, onMetroClick, inundationGeoJSON, activeInundationGauge]);
 
     // Auto-zoom map to fit routes when calculated
     useEffect(() => {
@@ -1321,6 +1387,14 @@ export default function MapComponent({
         }
         if (map.getLayer('hotspots-labels')) {
             map.setLayoutProperty('hotspots-labels', 'visibility', layersVisible.hotspots ? 'visible' : 'none');
+        }
+
+        // Toggle FloodHub inundation layers
+        if (map.getLayer('floodhub-inundation-fill')) {
+            map.setLayoutProperty('floodhub-inundation-fill', 'visibility', layersVisible.floodhub ? 'visible' : 'none');
+        }
+        if (map.getLayer('floodhub-inundation-border')) {
+            map.setLayoutProperty('floodhub-inundation-border', 'visibility', layersVisible.floodhub ? 'visible' : 'none');
         }
         } catch (error) {
             console.error('Error toggling layer visibility:', error);
@@ -1675,6 +1749,14 @@ export default function MapComponent({
                             title="Toggle waterlogging hotspots (90 Delhi locations)"
                         >
                             <Droplets className="h-4 w-4" />
+                        </Button>
+                        <Button
+                            size="icon"
+                            onClick={() => setLayersVisible(prev => ({ ...prev, floodhub: !prev.floodhub }))}
+                            className={`${layersVisible.floodhub ? '!bg-blue-500 hover:!bg-blue-600 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
+                            title="Toggle flood extent forecast (Google FloodHub)"
+                        >
+                            <Waves className="h-4 w-4" />
                         </Button>
                     </div>
 
