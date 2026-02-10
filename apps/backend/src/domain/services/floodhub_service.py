@@ -407,16 +407,29 @@ class FloodHubService:
             if "error" in data:
                 raise FloodHubAPIError(f"API error: {data['error']}")
 
-            # Parse forecasts — response structure: {"forecasts": {"gaugeId": [Forecast, ...]}}
+            # Parse forecasts — response structure:
+            # {"forecasts": {"gaugeId": {"forecasts": [Forecast, ...]}}}
+            # Note: double-nested "forecasts" key per Google API spec
             forecasts_dict = data.get("forecasts", {})
-            gauge_forecasts_raw = forecasts_dict.get(gauge_id, [])
+            gauge_entry = forecasts_dict.get(gauge_id, {})
+            # Handle both dict (correct) and list (fallback) shapes
+            if isinstance(gauge_entry, dict):
+                gauge_forecasts_raw = gauge_entry.get("forecasts", [])
+            elif isinstance(gauge_entry, list):
+                gauge_forecasts_raw = gauge_entry
+            else:
+                gauge_forecasts_raw = []
 
             if not gauge_forecasts_raw:
                 logger.info(f"No forecasts returned for gauge {gauge_id}")
                 return None
 
-            # Take the most recently issued forecast
-            latest_forecast = max(gauge_forecasts_raw, key=lambda f: f.get("issuedTime", ""))
+            # Take the most recently issued forecast (filter to dicts only)
+            valid_forecasts = [f for f in gauge_forecasts_raw if isinstance(f, dict)]
+            if not valid_forecasts:
+                logger.info(f"No valid forecast entries for gauge {gauge_id}")
+                return None
+            latest_forecast = max(valid_forecasts, key=lambda f: f.get("issuedTime", ""))
 
             # Build forecast points from forecastRanges
             forecast_points: List[ForecastPoint] = []
@@ -426,6 +439,8 @@ class FloodHubService:
                 issued_time = datetime.fromisoformat(issued_time_str.replace("Z", "+00:00"))
 
             for fr in latest_forecast.get("forecastRanges", []):
+                if not isinstance(fr, dict):
+                    continue
                 start_str = fr.get("forecastStartTime", "")
                 if not start_str:
                     continue
