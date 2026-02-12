@@ -31,11 +31,11 @@ LOW_FHI_CAP = 0.15                 # Cap for dry conditions
 URBAN_IMPERVIOUS_FRACTION = 0.75   # Delhi ~75% impervious surfaces
 ANTECEDENT_SATURATION_THRESHOLD_MM = 50.0  # mm over 3 days for urban saturation proxy
 
-# City-specific calibration for elevation bounds, wet months, and urban fraction
+# City-specific calibration for elevation bounds, wet months, urban fraction, and rain-gate
 CITY_FHI_CALIBRATION = {
-    "delhi": {"elev_min": 190.0, "elev_max": 320.0, "wet_months": range(6, 10), "urban_fraction": 0.75},
-    "bangalore": {"elev_min": 800.0, "elev_max": 1000.0, "wet_months": range(6, 11), "urban_fraction": 0.65},
-    "yogyakarta": {"elev_min": 50.0, "elev_max": 800.0, "wet_months": [10, 11, 12, 1, 2, 3, 4], "urban_fraction": 0.55},
+    "delhi": {"elev_min": 190.0, "elev_max": 320.0, "wet_months": range(6, 10), "urban_fraction": 0.75, "rain_gate_mm": 5.0},
+    "bangalore": {"elev_min": 800.0, "elev_max": 1000.0, "wet_months": range(6, 11), "urban_fraction": 0.65, "rain_gate_mm": 5.0},
+    "yogyakarta": {"elev_min": 75.0, "elev_max": 200.0, "wet_months": [10, 11, 12, 1, 2, 3], "urban_fraction": 0.55, "rain_gate_mm": 15.0},
 }
 
 
@@ -490,11 +490,14 @@ def _calculate_fhi(
 
     # RAIN-GATE: If negligible rain, cap FHI at LOW
     # Physically justified: low pressure and elevation don't cause flooding without rain
-    if precip_3d_raw < MIN_RAIN_THRESHOLD_MM:
+    # Per-city threshold: tropical cities need higher threshold to filter drizzle
+    cal_gate = CITY_FHI_CALIBRATION.get(city, CITY_FHI_CALIBRATION["delhi"])
+    rain_threshold = cal_gate.get("rain_gate_mm", MIN_RAIN_THRESHOLD_MM)
+    if precip_3d_raw < rain_threshold:
         fhi_score = min(fhi_score, LOW_FHI_CAP)
         level, color = "low", "#22c55e"
         rain_gated = True
-        confidence_notes.append(f"Rain-gated: {precip_3d_raw:.1f}mm < {MIN_RAIN_THRESHOLD_MM}mm threshold")
+        confidence_notes.append(f"Rain-gated ({city}): {precip_3d_raw:.1f}mm < {rain_threshold}mm threshold")
 
     # Precipitation confidence (based on forecast horizon)
     if precip_24h_corrected > 50:

@@ -102,25 +102,28 @@ class FHICalculator:
     LOW_FHI_CAP = 0.15                 # Cap for dry conditions
     URBAN_SATURATION_THRESHOLD_MM = 50.0  # 3-day rain for urban drainage saturation
 
-    # City-aware calibration: elevation bounds, wet season months, urban fraction
+    # City-aware calibration: elevation bounds, wet season months, urban fraction, rain-gate
     CITY_CALIBRATION = {
         "delhi": {
             "elev_min": 190, "elev_max": 320,
             "wet_months": [6, 7, 8, 9],  # June-September (Indian monsoon)
             "urban_fraction": 0.75,
             "default_elev": 220,
+            "rain_gate_mm": 5.0,
         },
         "bangalore": {
             "elev_min": 800, "elev_max": 1000,
             "wet_months": [6, 7, 8, 9, 10],  # June-October
             "urban_fraction": 0.65,
             "default_elev": 920,
+            "rain_gate_mm": 5.0,
         },
         "yogyakarta": {
-            "elev_min": 50, "elev_max": 800,
-            "wet_months": [10, 11, 12, 1, 2, 3, 4],  # Oct-April (Indonesian wet season)
+            "elev_min": 75, "elev_max": 200,
+            "wet_months": [10, 11, 12, 1, 2, 3],  # Oct-March (Indonesian wet season)
             "urban_fraction": 0.55,
             "default_elev": 114,
+            "rain_gate_mm": 15.0,  # Higher for tropical: filter light drizzle
         },
     }
 
@@ -328,12 +331,14 @@ class FHICalculator:
 
             # RAIN-GATE: If negligible rain, cap FHI at LOW
             # Physically justified: low pressure and elevation don't cause flooding without rain
+            # Threshold is per-city: tropical cities need higher threshold to filter drizzle
             rain_gated = False
-            if precip_3d_raw < self.MIN_RAIN_THRESHOLD_MM:
+            rain_threshold = calibration.get("rain_gate_mm", self.MIN_RAIN_THRESHOLD_MM)
+            if precip_3d_raw < rain_threshold:
                 fhi_score = min(fhi_score, self.LOW_FHI_CAP)
                 rain_gated = True
                 logger.info(
-                    f"Rain-gate applied: {precip_3d_raw:.1f}mm < {self.MIN_RAIN_THRESHOLD_MM}mm threshold"
+                    f"Rain-gate applied ({detected_city}): {precip_3d_raw:.1f}mm < {rain_threshold}mm threshold"
                 )
 
             # Determine level and color
