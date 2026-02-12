@@ -34,7 +34,7 @@ export const CITIES = {
         center: [77.5777, 12.9776] as [number, number],
         zoom: 12.7,
         pitch: 45,
-        maxZoom: 15,
+        maxZoom: 17,
         minZoom: 12,
         bounds: [
             [77.199861111, 12.600138889], // [minLng, minLat]
@@ -55,7 +55,7 @@ export const CITIES = {
         center: [77.2090, 28.6139] as [number, number],
         zoom: 12.5,
         pitch: 45,
-        maxZoom: 15,
+        maxZoom: 17,
         minZoom: 12,
         bounds: [
             [76.94, 28.42],   // [minLng, minLat]
@@ -76,7 +76,7 @@ export const CITIES = {
         center: [110.3695, -7.7956] as [number, number],
         zoom: 13,
         pitch: 45,
-        maxZoom: 15,
+        maxZoom: 17,
         minZoom: 12,
         bounds: [
             [110.30, -7.95],   // [minLng, minLat]

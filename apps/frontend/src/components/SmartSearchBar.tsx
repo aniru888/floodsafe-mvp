@@ -25,7 +25,7 @@ interface SmartSearchBarProps {
 }
 
 /** Initial number of results shown per section before "Show more" */
-const INITIAL_LOCATIONS = 8;
+const INITIAL_LOCATIONS = 20;
 const INITIAL_REPORTS = 8;
 const INITIAL_USERS = 5;
 
