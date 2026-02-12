@@ -10,7 +10,7 @@ import SearchBar from './SearchBar';
 import HistoricalFloodsPanel from './HistoricalFloodsPanel';
 import { useCurrentCity, useCityContext } from '../contexts/CityContext';
 import { useAuth } from '../contexts/AuthContext';
-import { isWithinCityBounds, getAvailableCities, getCityConfig, CITIES, type CityKey } from '../lib/map/cityConfigs';
+import { isWithinCityBounds, getAvailableCities, getCityConfig, getCityKeyFromCoordinates, CITIES, type CityKey } from '../lib/map/cityConfigs';
 import { RouteOption, MetroStation } from '../types';
 import { toast } from 'sonner';
 import { parseReportDescription, generateTagHtml } from '../lib/tagParser';
@@ -115,8 +115,8 @@ export default function MapComponent({
         includeRainfall: true   // Enable live FHI from Open-Meteo weather data
     });
 
-    // Fetch Google Flood Forecasting gauge data (Delhi only)
-    const { data: floodHubGauges } = useFloodHubGauges();
+    // Fetch Google Flood Forecasting gauge data for current city
+    const { data: floodHubGauges } = useFloodHubGauges(city);
 
     // Find the highest-severity gauge with an inundation polygon available
     const activeInundationGauge = (floodHubGauges ?? []).find(
@@ -1409,22 +1409,9 @@ export default function MapComponent({
         if (map) map.zoomOut();
     };
 
-    // Detect which city the GPS coordinates belong to
-    const detectCityFromGPS = (lat: number, lng: number): CityKey | null => {
-        // Delhi bounds: roughly 28.4-28.9 lat, 76.8-77.4 lng
-        if (lat >= 28.3 && lat <= 29.0 && lng >= 76.7 && lng <= 77.5) {
-            return 'delhi';
-        }
-        // Bangalore bounds: roughly 12.7-13.3 lat, 77.3-77.9 lng
-        if (lat >= 12.7 && lat <= 13.3 && lng >= 77.3 && lng <= 78.0) {
-            return 'bangalore';
-        }
-        return null;
-    };
-
     // Update city context and optionally sync to profile based on GPS location
     const updateCityFromLocation = async (lat: number, lng: number) => {
-        const detectedCity = detectCityFromGPS(lat, lng);
+        const detectedCity = getCityKeyFromCoordinates(lng, lat);
         if (detectedCity && detectedCity !== city) {
             setCity(detectedCity);
             // Sync to user profile if logged in

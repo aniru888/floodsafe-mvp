@@ -109,7 +109,7 @@ export function FloodHubTab() {
         isLoading: gaugesLoading,
         error: gaugesError,
         refetch: refetchGauges,
-    } = useFloodHubGauges();
+    } = useFloodHubGauges(city);
 
     const {
         data: forecast,
@@ -118,12 +118,11 @@ export function FloodHubTab() {
 
     const {
         data: events,
-    } = useFloodHubEvents();
+    } = useFloodHubEvents(city);
 
-    // City guard - FloodHub only available for Delhi
-    if (city !== 'delhi') {
-        return <NotAvailableState />;
-    }
+    // City guard - FloodHub available for supported cities
+    // (Backend returns enabled=false with message if no gauges found)
+
 
     // Loading state
     if (statusLoading) {

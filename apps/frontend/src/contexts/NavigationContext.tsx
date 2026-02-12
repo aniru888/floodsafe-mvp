@@ -146,7 +146,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
                     current_position: state.currentPosition,
                     destination: state.activeRoute.destination,
                     route_type: state.activeRoute.type,
-                    city: city === 'bangalore' ? 'BLR' : 'DEL',
+                    city: city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL',
                 }),
             });
 

@@ -67,9 +67,11 @@ export function useMap(
         const basemapPMTiles = new PMTiles(cityConfig.pmtiles.basemap);
         protocol.add(basemapPMTiles);
 
-        // Add flood tiles PMTiles for selected city
-        const floodPMTiles = new PMTiles(cityConfig.pmtiles.flood);
-        protocol.add(floodPMTiles);
+        // Add flood tiles PMTiles for selected city (only if available)
+        if (cityConfig.pmtiles.flood) {
+            const floodPMTiles = new PMTiles(cityConfig.pmtiles.flood);
+            protocol.add(floodPMTiles);
+        }
 
         // Register protocol with MapLibre - only if not already registered
         // This prevents errors in React Strict Mode or multiple map instances
@@ -82,41 +84,50 @@ export function useMap(
             console.log('PMTiles protocol already registered, reusing existing');
         }
 
-        // Use the comprehensive OpenMapTiles style with flood data overlay
-        const style = {
-            ...mapStyle,
-            sources: {
-                ...mapStyle.sources,
-                // Override the basemap source with city-specific PMTiles
-                'openmaptiles': {
-                    type: 'vector',
-                    url: `pmtiles://${cityConfig.pmtiles.basemap}`
-                },
-                // Add flood visualization data for selected city
-                'flood-tiles': {
-                    type: 'vector',
-                    url: `pmtiles://${cityConfig.pmtiles.flood}`,
-                    attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a>'
-                },
-                // Add metro lines from GeoJSON for selected city
-                'metro-lines': {
-                    type: 'geojson',
-                    data: cityConfig.metro.lines
-                },
-                // Add metro stations from GeoJSON for selected city
-                'metro-stations': {
-                    type: 'geojson',
-                    data: cityConfig.metro.stations
-                },
-                // Add search result marker source
-                'search-result': {
-                    type: 'geojson',
-                    data: { type: 'FeatureCollection', features: [] }
-                }
+        // Build sources conditionally based on city capabilities
+        const sources: Record<string, any> = {
+            ...mapStyle.sources,
+            // Override the basemap source with city-specific PMTiles
+            'openmaptiles': {
+                type: 'vector',
+                url: `pmtiles://${cityConfig.pmtiles.basemap}`
             },
-            layers: [
-                ...mapStyle.layers.filter(l => l.id !== 'railway-transit' && l.id !== 'railway'),
-                // Add metro lines layer
+            // Add search result marker source
+            'search-result': {
+                type: 'geojson',
+                data: { type: 'FeatureCollection', features: [] }
+            }
+        };
+
+        // Add flood tiles source only if available
+        if (cityConfig.pmtiles.flood) {
+            sources['flood-tiles'] = {
+                type: 'vector',
+                url: `pmtiles://${cityConfig.pmtiles.flood}`,
+                attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a>'
+            };
+        }
+
+        // Add metro sources only if city has metro
+        if (cityConfig.metro) {
+            sources['metro-lines'] = {
+                type: 'geojson',
+                data: cityConfig.metro.lines
+            };
+            sources['metro-stations'] = {
+                type: 'geojson',
+                data: cityConfig.metro.stations
+            };
+        }
+
+        // Build layers conditionally
+        const layers: any[] = [
+            ...mapStyle.layers.filter(l => l.id !== 'railway-transit' && l.id !== 'railway'),
+        ];
+
+        // Add metro layers only if city has metro
+        if (cityConfig.metro) {
+            layers.push(
                 {
                     id: 'metro-lines-layer',
                     type: 'line',
@@ -132,7 +143,6 @@ export function useMap(
                         'line-opacity': 1
                     }
                 },
-                // Add metro stations layer
                 {
                     id: 'metro-stations-layer',
                     type: 'circle',
@@ -147,7 +157,6 @@ export function useMap(
                         'circle-stroke-color': ['get', 'color']
                     }
                 },
-                // Add metro station names layer
                 {
                     id: 'metro-station-names-layer',
                     type: 'symbol',
@@ -166,71 +175,81 @@ export function useMap(
                         'text-halo-color': '#ffffff',
                         'text-halo-width': 2
                     }
-                },
-                // Overlay flood data on top of basemap - graduated color scheme for flood risk
-                {
-                    id: 'flood-layer',
-                    type: 'fill',
-                    source: 'flood-tiles',
-                    'source-layer': 'stream_influence_water_difference',
-                    paint: {
-                        // Use data-driven styling based on VALUE property (1-4 scale from DEM processing)
-                        'fill-color': [
-                            'interpolate',
-                            ['linear'],
-                            ['get', 'VALUE'],
-                            1, '#FFFFCC',  // Light yellow - lowest flood risk
-                            2, '#A1DAB4',  // Light green
-                            3, '#41B6C4',  // Teal
-                            4, '#225EA8'   // Dark blue - highest flood risk
-                        ],
-                        'fill-opacity': 0.25
-                    }
-                },
-                // Search result marker - outer glow
-                {
-                    id: 'search-marker-glow',
-                    type: 'circle',
-                    source: 'search-result',
-                    paint: {
-                        'circle-radius': 20,
-                        'circle-color': '#ef4444',
-                        'circle-opacity': 0.3,
-                        'circle-blur': 0.5
-                    }
-                },
-                // Search result marker - main circle
-                {
-                    id: 'search-marker',
-                    type: 'circle',
-                    source: 'search-result',
-                    paint: {
-                        'circle-radius': 10,
-                        'circle-color': '#ef4444',
-                        'circle-stroke-width': 3,
-                        'circle-stroke-color': '#ffffff'
-                    }
-                },
-                // Search result label
-                {
-                    id: 'search-label',
-                    type: 'symbol',
-                    source: 'search-result',
-                    layout: {
-                        'text-field': ['get', 'name'],
-                        'text-font': ['Open Sans Bold'],
-                        'text-size': 13,
-                        'text-offset': [0, 2],
-                        'text-anchor': 'top',
-                        'text-max-width': 15
-                    },
-                    paint: {
-                        'text-color': '#1f2937',
-                        'text-halo-color': '#ffffff',
-                        'text-halo-width': 2
-                    }
                 }
-            ]
+            );
+        }
+
+        // Add flood layer only if flood tiles available
+        if (cityConfig.pmtiles.flood) {
+            layers.push({
+                id: 'flood-layer',
+                type: 'fill',
+                source: 'flood-tiles',
+                'source-layer': 'stream_influence_water_difference',
+                paint: {
+                    'fill-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'VALUE'],
+                        1, '#FFFFCC',
+                        2, '#A1DAB4',
+                        3, '#41B6C4',
+                        4, '#225EA8'
+                    ],
+                    'fill-opacity': 0.25
+                }
+            });
+        }
+
+        // Always add search result layers
+        layers.push(
+            {
+                id: 'search-marker-glow',
+                type: 'circle',
+                source: 'search-result',
+                paint: {
+                    'circle-radius': 20,
+                    'circle-color': '#ef4444',
+                    'circle-opacity': 0.3,
+                    'circle-blur': 0.5
+                }
+            },
+            {
+                id: 'search-marker',
+                type: 'circle',
+                source: 'search-result',
+                paint: {
+                    'circle-radius': 10,
+                    'circle-color': '#ef4444',
+                    'circle-stroke-width': 3,
+                    'circle-stroke-color': '#ffffff'
+                }
+            },
+            {
+                id: 'search-label',
+                type: 'symbol',
+                source: 'search-result',
+                layout: {
+                    'text-field': ['get', 'name'],
+                    'text-font': ['Open Sans Bold'],
+                    'text-size': 13,
+                    'text-offset': [0, 2],
+                    'text-anchor': 'top',
+                    'text-max-width': 15
+                },
+                paint: {
+                    'text-color': '#1f2937',
+                    'text-halo-color': '#ffffff',
+                    'text-halo-width': 2
+                }
+            }
+        );
+
+        // Use the comprehensive OpenMapTiles style with flood data overlay
+        const style = {
+            ...mapStyle,
+            sources,
+            layers
         };
 
         const map = new maplibregl.Map({

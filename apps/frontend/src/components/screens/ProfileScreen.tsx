@@ -19,6 +19,7 @@ import { User } from '../../types';
 import { useAuth } from '../../contexts/AuthContext';
 import { fetchJson } from '../../lib/api/client';
 import { cn } from '../../lib/utils';
+import { CITIES } from '../../lib/map/cityConfigs';
 import { parseReportDescription } from '../../lib/tagParser';
 import { ReportTagList } from '../ReportTagBadge';
 import { ReportDetailModal } from '../ReportDetailModal';
@@ -381,7 +382,7 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
             <div>
               <div className="text-sm font-medium">
                 {user.city_preference ? (
-                  user.city_preference === 'bangalore' ? 'Bangalore' : 'Delhi'
+                  CITIES[user.city_preference as keyof typeof CITIES]?.displayName || user.city_preference
                 ) : (
                   'Not set'
                 )}
@@ -392,7 +393,7 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
             </div>
             {user.city_preference && (
               <Badge variant="outline" className="text-xs">
-                {user.city_preference === 'bangalore' ? 'Karnataka' : 'NCT'}
+                {user.city_preference === 'bangalore' ? 'Karnataka' : user.city_preference === 'yogyakarta' ? 'DIY' : 'NCT'}
               </Badge>
             )}
           </div>

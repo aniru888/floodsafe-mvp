@@ -15,7 +15,7 @@ interface NavigationPanelProps {
     isOpen: boolean;
     onClose: () => void;
     userLocation: { lat: number; lng: number } | null;
-    city: 'bangalore' | 'delhi';
+    city: 'bangalore' | 'delhi' | 'yogyakarta';
     onRoutesCalculated: (routes: RouteOption[], floodZones: GeoJSON.FeatureCollection) => void;
     onRouteSelected: (route: RouteOption) => void;
     onMetroSelected: (station: MetroStation) => void;
@@ -97,7 +97,7 @@ export function NavigationPanel({
     const { data: metrosData } = useNearbyMetros(
         origin?.lat ?? null,
         origin?.lng ?? null,
-        city === 'bangalore' ? 'BLR' : 'DEL'
+        city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL'
     );
 
     const metros = metrosData?.metros ?? [];
@@ -157,7 +157,7 @@ export function NavigationPanel({
                 origin: { lat: origin.lat, lng: origin.lng },
                 destination: { lat: destination.lat, lng: destination.lng },
                 mode,
-                city: city === 'bangalore' ? 'BLR' : 'DEL',
+                city: city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL',
             },
             {
                 onSuccess: (data) => {
@@ -172,7 +172,7 @@ export function NavigationPanel({
                         routesForMap.push({
                             id: data.routes.fastest.id,
                             type: 'fast',
-                            city_code: city === 'bangalore' ? 'BLR' : 'DEL',
+                            city_code: city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL',
                             geometry: data.routes.fastest.geometry,
                             distance_meters: data.routes.fastest.distance_meters,
                             duration_seconds: data.routes.fastest.duration_seconds,
@@ -187,7 +187,7 @@ export function NavigationPanel({
                         routesForMap.push({
                             id: data.routes.safest.id,
                             type: 'safe',
-                            city_code: city === 'bangalore' ? 'BLR' : 'DEL',
+                            city_code: city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL',
                             geometry: data.routes.safest.geometry,
                             distance_meters: data.routes.safest.distance_meters,
                             duration_seconds: data.routes.safest.duration_seconds,
@@ -231,7 +231,7 @@ export function NavigationPanel({
             const route: RouteOption = {
                 id: comparison.routes.fastest.id,
                 type: 'fast',
-                city_code: city === 'bangalore' ? 'BLR' : 'DEL',
+                city_code: city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL',
                 geometry: comparison.routes.fastest.geometry,
                 distance_meters: comparison.routes.fastest.distance_meters,
                 duration_seconds: comparison.routes.fastest.duration_seconds,
@@ -250,7 +250,7 @@ export function NavigationPanel({
             const route: RouteOption = {
                 id: comparison.routes.safest.id,
                 type: 'safe',
-                city_code: city === 'bangalore' ? 'BLR' : 'DEL',
+                city_code: city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL',
                 geometry: comparison.routes.safest.geometry,
                 distance_meters: comparison.routes.safest.distance_meters,
                 duration_seconds: comparison.routes.safest.duration_seconds,
@@ -408,6 +408,7 @@ export function NavigationPanel({
     };
 
     return (
+        <>
         <Sheet open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
             <SheetContent
                 side="bottom"
@@ -697,21 +698,21 @@ export function NavigationPanel({
                 </div>
             </SheetContent>
 
-            {/* Map Picker for Origin */}
-            <MapPicker
-                isOpen={showOriginPicker}
-                onClose={() => setShowOriginPicker(false)}
-                initialLocation={userLocation ? { latitude: userLocation.lat, longitude: userLocation.lng, accuracy: 10 } : null}
-                onLocationSelect={handleOriginMapSelect}
-            />
-
-            {/* Map Picker for Destination */}
-            <MapPicker
-                isOpen={showDestPicker}
-                onClose={() => setShowDestPicker(false)}
-                initialLocation={origin ? { latitude: origin.lat, longitude: origin.lng, accuracy: 10 } : null}
-                onLocationSelect={handleDestMapSelect}
-            />
         </Sheet>
+
+        {/* MapPickers OUTSIDE Sheet to escape Radix Dialog's modal pointer-event trap */}
+        <MapPicker
+            isOpen={showOriginPicker}
+            onClose={() => setShowOriginPicker(false)}
+            initialLocation={userLocation ? { latitude: userLocation.lat, longitude: userLocation.lng, accuracy: 10 } : null}
+            onLocationSelect={handleOriginMapSelect}
+        />
+        <MapPicker
+            isOpen={showDestPicker}
+            onClose={() => setShowDestPicker(false)}
+            initialLocation={origin ? { latitude: origin.lat, longitude: origin.lng, accuracy: 10 } : null}
+            onLocationSelect={handleDestMapSelect}
+        />
+        </>
     );
 }

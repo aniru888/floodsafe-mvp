@@ -10,6 +10,7 @@ import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { useUnifiedAlerts, useRefreshExternalAlerts, useReports, Report, useUnreadCircleAlertCount } from '../../lib/api/hooks';
 import { useCurrentCity } from '../../contexts/CityContext';
+import { CITIES } from '../../lib/map/cityConfigs';
 import type { AlertSourceFilter } from '../../types';
 import { toast } from 'sonner';
 
@@ -167,7 +168,7 @@ export function AlertsScreen() {
                         <Bell className="w-5 h-5 text-primary" />
                         <h1 className="font-semibold text-foreground">Alerts</h1>
                         <Badge variant="outline" className="ml-1">
-                            {city === 'delhi' ? 'Delhi' : 'Bangalore'}
+                            {CITIES[city]?.displayName || city}
                         </Badge>
                     </div>
                     <div className="flex items-center gap-1">

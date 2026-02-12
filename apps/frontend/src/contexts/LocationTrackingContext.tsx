@@ -116,6 +116,8 @@ export function LocationTrackingProvider({ children }: { children: React.ReactNo
                 }
             );
         } else if ((!state.isEnabled || city !== 'delhi') && state.isTracking) {
+            // Stop tracking when disabled or when city doesn't have hotspot data
+            // TODO: Add yogyakarta here when hotspot data is available
             // Stop tracking
             if (watchIdRef.current !== null) {
                 navigator.geolocation.clearWatch(watchIdRef.current);

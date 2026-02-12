@@ -14,9 +14,10 @@ import { ReportDetailModal } from '../ReportDetailModal';
 import { EmergencyContactsModal } from '../EmergencyContactsModal';
 import { cn } from '../../lib/utils';
 import { getNestedArray, hasLocationData } from '../../lib/safe-access';
-import { detectCityFromCoordinates, getCityKeyFromCoordinates, type CityKey } from '../../lib/map/cityConfigs';
+import { detectCityFromCoordinates, getCityKeyFromCoordinates, getAvailableCities, type CityKey } from '../../lib/map/cityConfigs';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCityContext } from '../../contexts/CityContext';
+import { getCityCenterOrDefault } from '../../lib/cityCoordinates';
 import { CITIES } from '../../lib/map/cityConfigs';
 import { VerificationReminderBanner } from '../VerificationReminderBanner';
 import { AiRiskInsightsCard } from '../AiRiskInsightsCard';
@@ -91,9 +92,8 @@ export function HomeScreen({
     useEffect(() => {
         if (!navigator.geolocation) {
             // Browser doesn't support geolocation - use city context for fallback
-            const fallbackCoords = currentCity === 'bangalore'
-                ? { latitude: 12.9716, longitude: 77.5946 }
-                : { latitude: 28.6139, longitude: 77.2090 };
+            const cityCenter = getCityCenterOrDefault(currentCity);
+            const fallbackCoords = { latitude: cityCenter.lat, longitude: cityCenter.lng };
             setUserLocation(fallbackCoords);
             return;
         }
@@ -107,9 +107,8 @@ export function HomeScreen({
 
         const applyFallback = () => {
             // Use current city from CityContext (not database preference)
-            const fallbackCoords = currentCity === 'bangalore'
-                ? { latitude: 12.9716, longitude: 77.5946 }
-                : { latitude: 28.6139, longitude: 77.2090 };
+            const cityCenter = getCityCenterOrDefault(currentCity);
+            const fallbackCoords = { latitude: cityCenter.lat, longitude: cityCenter.lng };
             setUserLocation(fallbackCoords);
         };
 
@@ -326,7 +325,7 @@ export function HomeScreen({
         setCityFilter(newFilter);
 
         // If selecting a specific city (not 'all'), also update CityContext and sync to profile
-        if (newFilter !== 'all' && (newFilter === 'delhi' || newFilter === 'bangalore')) {
+        if (newFilter !== 'all' && newFilter in CITIES) {
             setCity(newFilter);
             // Sync to user profile if logged in
             if (user?.id) {
@@ -711,8 +710,9 @@ export function HomeScreen({
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value="all">All Cities</SelectItem>
-                                    <SelectItem value="delhi">Delhi</SelectItem>
-                                    <SelectItem value="bangalore">Bangalore</SelectItem>
+                                    {getAvailableCities().map((key) => (
+                                        <SelectItem key={key} value={key}>{CITIES[key].displayName}</SelectItem>
+                                    ))}
                                 </SelectContent>
                             </Select>
                         </div>

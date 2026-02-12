@@ -396,9 +396,10 @@ export function useCompareRoutes() {
     });
 }
 
-export function useGeocode(query: string, enabled: boolean = true) {
+export function useGeocode(query: string, enabled: boolean = true, city?: string) {
+    const countryCode = city === 'yogyakarta' ? 'id' : 'in';
     return useQuery({
-        queryKey: ['geocode', query],
+        queryKey: ['geocode', query, countryCode],
         queryFn: async (): Promise<GeocodingResult[]> => {
             if (!query || query.length < 3) {
                 return [];
@@ -409,7 +410,7 @@ export function useGeocode(query: string, enabled: boolean = true) {
                 `q=${encodeURIComponent(query)}&` +
                 `format=json&` +
                 `limit=5&` +
-                `countrycodes=in&` +
+                `countrycodes=${countryCode}&` +
                 `addressdetails=1`,
                 {
                     headers: {
@@ -507,7 +508,7 @@ export function useTrendingSearches(limit: number = 5) {
  * Search for locations only (optimized)
  * @param query - Search query
  * @param limit - Max results (default 5)
- * @param city - City to filter results ('delhi' | 'bangalore')
+ * @param city - City to filter results ('delhi' | 'bangalore' | 'yogyakarta')
  * @param enabled - Whether to enable the query
  */
 export function useLocationSearch(query: string, limit: number = 5, city?: string, enabled: boolean = true) {
@@ -1014,13 +1015,15 @@ export interface HotspotsResponse {
 export function useHotspots(options: {
     includeRainfall?: boolean;
     enabled?: boolean;
+    city?: string;
 } = {}) {
-    const { includeRainfall = false, enabled = true } = options;
+    const { includeRainfall = false, enabled = true, city } = options;
     return useQuery({
-        queryKey: ['hotspots', includeRainfall],
+        queryKey: ['hotspots', city, includeRainfall],
         queryFn: async (): Promise<HotspotsResponse> => {
             const params = new URLSearchParams({
                 include_rainfall: includeRainfall.toString(),
+                ...(city ? { city } : {}),
             });
             const response = await fetchJson<HotspotsResponse>(
                 `/hotspots/all?${params.toString()}`
@@ -1545,7 +1548,7 @@ export function useResendVerificationEmail() {
 }
 
 // ============================================================================
-// GOOGLE FLOODHUB HOOKS (Flood Forecasting for Delhi Yamuna River)
+// GOOGLE FLOODHUB HOOKS (Flood Forecasting for supported cities)
 // ============================================================================
 
 /**
@@ -1575,7 +1578,7 @@ export function useFloodHubStatus(city: string) {
 }
 
 /**
- * Get all Delhi Yamuna River gauges with current flood status.
+ * Get gauges with current flood status for a city.
  *
  * Returns empty array if FloodHub is disabled (no API key).
  * Throws error (502) if API request fails - NO SILENT FALLBACK.
@@ -1584,12 +1587,15 @@ export function useFloodHubStatus(city: string) {
  * - Location (lat/lng)
  * - Current severity level (EXTREME, SEVERE, ABOVE_NORMAL, NO_FLOODING)
  * - Last update time
+ *
+ * @param city - City key (delhi, bangalore, yogyakarta)
  */
-export function useFloodHubGauges() {
+export function useFloodHubGauges(city: string = 'delhi') {
+    const cityCode = city === 'delhi' ? 'DEL' : city === 'bangalore' ? 'BLR' : city === 'yogyakarta' ? 'YGY' : city.toUpperCase();
     return useQuery({
-        queryKey: ['floodhub-gauges'],
+        queryKey: ['floodhub-gauges', city],
         queryFn: async (): Promise<FloodHubGauge[]> => {
-            return fetchJson<FloodHubGauge[]>('/floodhub/gauges');
+            return fetchJson<FloodHubGauge[]>(`/floodhub/gauges?city=${cityCode}`);
         },
         staleTime: 10 * 60 * 1000, // 10 minutes (matches backend cache TTL)
         gcTime: 20 * 60 * 1000, // 20 minutes
@@ -1624,14 +1630,17 @@ export function useFloodHubForecast(gaugeId: string | null) {
 }
 
 /**
- * Get significant flood events affecting India.
+ * Get significant flood events for a city's country.
  * Empty during non-flood periods — this is normal.
+ *
+ * @param city - City key (delhi, bangalore, yogyakarta)
  */
-export function useFloodHubEvents() {
+export function useFloodHubEvents(city: string = 'delhi') {
+    const cityCode = city === 'delhi' ? 'DEL' : city === 'bangalore' ? 'BLR' : city === 'yogyakarta' ? 'YGY' : city.toUpperCase();
     return useQuery({
-        queryKey: ['floodhub-events'],
+        queryKey: ['floodhub-events', city],
         queryFn: async (): Promise<FloodHubSignificantEvent[]> => {
-            return fetchJson<FloodHubSignificantEvent[]>('/floodhub/events');
+            return fetchJson<FloodHubSignificantEvent[]>(`/floodhub/events?city=${cityCode}`);
         },
         staleTime: 15 * 60 * 1000, // 15 minutes
         gcTime: 30 * 60 * 1000,

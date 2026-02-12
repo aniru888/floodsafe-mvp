@@ -10,6 +10,7 @@ import { VoiceGuidanceProvider } from '../../contexts/VoiceGuidanceContext';
 import { NavigationProvider, useNavigation } from '../../contexts/NavigationContext';
 import type { RouteOption, MetroStation } from '../../types';
 import { toast } from 'sonner';
+import { getCityCenterOrDefault } from '../../lib/cityCoordinates';
 
 // GPS Testing Panel - only rendered when VITE_ENABLE_GPS_TESTING=true
 import { GPSTestPanel } from '../testing/GPSTestPanel';
@@ -45,10 +46,9 @@ function FloodAtlasContent({
     // Geolocation - get user's current location with retry mechanism
     useEffect(() => {
         if (!('geolocation' in navigator)) {
-            // Browser doesn't support geolocation - use default
-            const fallbackCoords = city === 'bangalore'
-                ? { lat: 12.9716, lng: 77.5946 }
-                : { lat: 28.6139, lng: 77.2090 };
+            // Browser doesn't support geolocation - use city center
+            const cityCenter = getCityCenterOrDefault(city);
+            const fallbackCoords = { lat: cityCenter.lat, lng: cityCenter.lng };
             setUserLocation(fallbackCoords);
             setNavigationOrigin(fallbackCoords);
             return;
@@ -61,9 +61,8 @@ function FloodAtlasContent({
         };
 
         const applyFallback = () => {
-            const fallbackCoords = city === 'bangalore'
-                ? { lat: 12.9716, lng: 77.5946 }
-                : { lat: 28.6139, lng: 77.2090 };
+            const cityCenter = getCityCenterOrDefault(city);
+            const fallbackCoords = { lat: cityCenter.lat, lng: cityCenter.lng };
             setUserLocation(fallbackCoords);
             setNavigationOrigin(fallbackCoords);
         };
@@ -170,7 +169,7 @@ function FloodAtlasContent({
                         ? [{
                             id: navState.activeRoute.id,
                             type: navState.activeRoute.type === 'fastest' ? 'fast' : navState.activeRoute.type === 'safest' ? 'safe' : 'metro',
-                            city_code: city === 'bangalore' ? 'BLR' : 'DEL',
+                            city_code: city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL',
                             geometry: {
                                 type: 'LineString' as const,
                                 coordinates: navState.remainingRouteCoordinates
