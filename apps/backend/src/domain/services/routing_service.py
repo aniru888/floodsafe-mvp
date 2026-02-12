@@ -763,11 +763,11 @@ class RoutingService:
             List of metro stations with distance, walking time, and safety info (Delhi only)
         """
         try:
-            # Load metro stations GeoJSON for city
+            # Load metro stations GeoJSON for city (None for cities without metro)
             metro_file = self._get_metro_file_path(city)
 
-            if not metro_file.exists():
-                logger.warning(f"Metro file not found: {metro_file}")
+            if metro_file is None or not metro_file.exists():
+                logger.info(f"No metro data for city {city}")
                 return []
 
             with open(metro_file, "r", encoding="utf-8") as f:
@@ -886,14 +886,16 @@ class RoutingService:
             "safety_warning": safety_warning,
         }
 
-    def _get_metro_file_path(self, city: str) -> Path:
-        """Get path to metro stations GeoJSON file."""
+    def _get_metro_file_path(self, city: str) -> Optional[Path]:
+        """Get path to metro stations GeoJSON file. Returns None for cities without metro."""
         metro_files = {
             "BLR": "metro-stations.geojson",
             "DEL": "delhi-metro-stations.geojson",
         }
 
-        filename = metro_files.get(city.upper(), metro_files["BLR"])
+        filename = metro_files.get(city.upper())
+        if not filename:
+            return None
 
         # Priority 1: Bundled data files (works in all deployments including Koyeb)
         # Path: routing_service.py -> services -> domain -> src -> data/metro

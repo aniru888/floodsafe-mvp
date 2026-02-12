@@ -61,6 +61,11 @@ class GDACSFetcher(BaseFetcher):
             "name": "Bangalore",
             "include_states": ["karnataka"],
         },
+        "yogyakarta": {
+            "bounds": (-7.95, -7.65, 110.30, 110.50),  # DIY province + Sleman/Bantul
+            "name": "Yogyakarta",
+            "include_states": ["yogyakarta", "jawa tengah"],  # DIY + Central Java
+        },
     }
 
     # Event types to include

@@ -5,7 +5,6 @@ Handles circle creation, member management, invite codes, and alert queries.
 All methods are synchronous (matching AlertService pattern, see plan D1).
 """
 
-import re
 import secrets
 import logging
 from datetime import datetime
@@ -16,6 +15,7 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from ...infrastructure.models import SafetyCircle, CircleMember, CircleAlert, User
+from ...core.phone_utils import normalize_phone as _normalize_phone, is_valid_e164
 
 logger = logging.getLogger(__name__)
 
@@ -27,10 +27,6 @@ MAX_MEMBERS_BY_TYPE = {
     "neighborhood": 1000,
     "custom": 50,
 }
-
-# Phone validation regex: must be 10+ digits after normalization
-PHONE_REGEX = re.compile(r"^\+\d{10,15}$")
-
 
 class CircleServiceError(Exception):
     """Base exception for circle service errors."""
@@ -74,28 +70,14 @@ class CircleService:
 
     @staticmethod
     def normalize_phone(phone: str) -> str:
-        """Normalize phone number to E.164 format.
-
-        Follows existing _normalize_phone() pattern from notification_service.py.
-        """
-        phone = phone.strip().replace(" ", "").replace("-", "")
-
-        if phone.startswith("+"):
-            return phone
-
-        if phone.startswith("0"):
-            phone = phone[1:]
-
-        if len(phone) == 10:
-            return f"+91{phone}"
-
-        return f"+{phone}"
+        """Normalize phone number to E.164 format. Delegates to shared utility."""
+        return _normalize_phone(phone)
 
     @staticmethod
     def validate_phone(phone: str) -> tuple[bool, str]:
         """Validate phone format. Returns (is_valid, error_message)."""
-        normalized = CircleService.normalize_phone(phone)
-        if not PHONE_REGEX.match(normalized):
+        normalized = _normalize_phone(phone)
+        if not is_valid_e164(normalized):
             return False, f"Invalid phone number format: must be 10+ digits, got '{phone}'"
         return True, ""
 

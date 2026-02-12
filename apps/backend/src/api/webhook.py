@@ -27,7 +27,6 @@ Session States:
 from fastapi import APIRouter, Request, Form, HTTPException, Depends, Response
 from typing import Optional
 import logging
-import re
 from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 
@@ -36,6 +35,7 @@ from ..infrastructure.models import User, Report, WhatsAppSession
 from ..domain.services.alert_service import AlertService
 from ..domain.services.notification_service import get_notification_service
 from ..core.config import settings
+from ..core.phone_utils import is_valid_e164
 
 # Import Wit.ai NLU service
 from ..domain.services.wit_service import classify_message, get_mapped_command, is_wit_enabled
@@ -66,13 +66,14 @@ RATE_LIMIT_MESSAGES = 10  # Max messages per window
 RATE_LIMIT_WINDOW_SECONDS = 60  # Window size in seconds
 _rate_limit_cache: dict[str, list[datetime]] = {}
 
-# Input validation patterns
-PHONE_E164_PATTERN = re.compile(r'^\+[1-9]\d{6,14}$')
-
-
 # =============================================================================
 # HEALTH CHECK & UTILITY FUNCTIONS
 # =============================================================================
+
+def validate_phone_format(phone: str) -> bool:
+    """Validate phone number is in E.164 format. Delegates to shared utility."""
+    return is_valid_e164(phone)
+
 
 def check_rate_limit(phone: str) -> bool:
     """
@@ -96,11 +97,6 @@ def check_rate_limit(phone: str) -> bool:
 
     _rate_limit_cache[phone].append(now)
     return True
-
-
-def validate_phone_format(phone: str) -> bool:
-    """Validate phone number is in E.164 format."""
-    return bool(PHONE_E164_PATTERN.match(phone))
 
 
 def validate_coordinates(lat: float, lng: float) -> bool:

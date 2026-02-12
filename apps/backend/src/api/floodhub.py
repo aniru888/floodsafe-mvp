@@ -1,7 +1,7 @@
 """
 FloodHub API endpoints - Google Flood Forecasting proxy.
 
-Provides flood forecasting data for Delhi's Yamuna River.
+Provides flood forecasting data for supported cities (Delhi, Bangalore, Yogyakarta).
 NO SILENT FALLBACKS - all errors are surfaced to frontend.
 """
 
@@ -31,8 +31,15 @@ class FloodHubStatusResponse(BaseModel):
     last_updated: Optional[str] = None
 
 
+SUPPORTED_CITIES = {
+    "DEL": "delhi", "DELHI": "delhi",
+    "BLR": "bangalore", "BANGALORE": "bangalore",
+    "YGY": "yogyakarta", "YOGYAKARTA": "yogyakarta",
+}
+
+
 @router.get("/status", response_model=FloodHubStatusResponse)
-async def get_floodhub_status(city: str = Query("DEL", description="City code (DEL or BLR)")):
+async def get_floodhub_status(city: str = Query("DEL", description="City code (DEL, BLR, or YGY)")):
     """
     Get overall FloodHub status for a city.
 
@@ -42,16 +49,43 @@ async def get_floodhub_status(city: str = Query("DEL", description="City code (D
 
     Raises HTTPException on API failures - NO SILENT FALLBACKS.
     """
-    # City guard - FloodHub only covers Delhi for now
-    if city.upper() not in ("DEL", "DELHI"):
+    city_key = SUPPORTED_CITIES.get(city.upper())
+    if not city_key:
         return FloodHubStatusResponse(
             enabled=False,
-            message="FloodHub coverage coming soon for this city"
+            message=f"FloodHub not available for city code '{city}'"
         )
 
     try:
         service = get_floodhub_service()
-        status = await service.get_overall_status()
+        # For Delhi, use existing optimized overall_status (uses cached Delhi gauges)
+        # For other cities, fetch city-specific gauges and derive status
+        if city_key == "delhi":
+            status = await service.get_overall_status()
+        else:
+            gauges = await service.get_city_gauges(city_key)
+            if not gauges:
+                return FloodHubStatusResponse(
+                    enabled=True,
+                    message=f"No FloodHub gauges found for {city_key.title()}. Coverage may be limited.",
+                    gauge_count=0,
+                )
+            # Derive status from gauges
+            severity_counts: dict = {}
+            for g in gauges:
+                sev = g.severity or "no_flooding"
+                severity_counts[sev] = severity_counts.get(sev, 0) + 1
+            overall = "no_flooding"
+            for sev in ["extreme", "danger", "warning"]:
+                if severity_counts.get(sev, 0) > 0:
+                    overall = sev
+                    break
+            status = FloodHubStatus(
+                enabled=True,
+                overall_severity=overall,
+                gauge_count=len(gauges),
+                alerts_by_severity=severity_counts,
+            )
 
         return FloodHubStatusResponse(
             enabled=status.enabled,
@@ -73,16 +107,20 @@ async def get_floodhub_status(city: str = Query("DEL", description="City code (D
 
 
 @router.get("/gauges", response_model=List[GaugeStatus])
-async def get_floodhub_gauges():
+async def get_floodhub_gauges(city: str = Query("DEL", description="City code (DEL, BLR, or YGY)")):
     """
-    Get all Delhi Yamuna River gauges with current flood status.
+    Get gauges with current flood status for a city.
 
     Returns empty list if service is disabled (frontend shows "Not Configured").
     Raises HTTPException on API failures - NO SILENT FALLBACKS.
     """
+    city_key = SUPPORTED_CITIES.get(city.upper())
+    if not city_key:
+        raise HTTPException(status_code=400, detail=f"Unsupported city code: {city}")
+
     try:
         service = get_floodhub_service()
-        return await service.get_delhi_gauges()
+        return await service.get_city_gauges(city_key)
     except FloodHubAPIError as e:
         # Surface API errors - NO SILENT FALLBACK
         raise HTTPException(status_code=502, detail=str(e))
@@ -149,16 +187,20 @@ async def get_inundation_map(polygon_id: str):
 
 
 @router.get("/events", response_model=List[SignificantEvent])
-async def get_significant_events():
+async def get_significant_events(city: str = Query("DEL", description="City code (DEL, BLR, or YGY)")):
     """
-    Get current significant flood events affecting India.
+    Get current significant flood events for a city's country.
 
     Returns events with affected population, area, and linked gauges.
     Empty list during non-flood periods is normal.
     """
+    city_key = SUPPORTED_CITIES.get(city.upper())
+    if not city_key:
+        raise HTTPException(status_code=400, detail=f"Unsupported city code: {city}")
+
     try:
         service = get_floodhub_service()
-        return await service.get_significant_events()
+        return await service.get_city_events(city_key)
     except FloodHubAPIError as e:
         raise HTTPException(status_code=502, detail=str(e))
     except RuntimeError:

@@ -31,6 +31,13 @@ LOW_FHI_CAP = 0.15                 # Cap for dry conditions
 URBAN_IMPERVIOUS_FRACTION = 0.75   # Delhi ~75% impervious surfaces
 ANTECEDENT_SATURATION_THRESHOLD_MM = 50.0  # mm over 3 days for urban saturation proxy
 
+# City-specific calibration for elevation bounds, wet months, and urban fraction
+CITY_FHI_CALIBRATION = {
+    "delhi": {"elev_min": 190.0, "elev_max": 320.0, "wet_months": range(6, 10), "urban_fraction": 0.75},
+    "bangalore": {"elev_min": 800.0, "elev_max": 1000.0, "wet_months": range(6, 11), "urban_fraction": 0.65},
+    "yogyakarta": {"elev_min": 50.0, "elev_max": 800.0, "wet_months": [10, 11, 12, 1, 2, 3, 4], "urban_fraction": 0.55},
+}
+
 
 # Response Models
 class RainfallForecastResponse(BaseModel):
@@ -339,6 +346,7 @@ def _calculate_fhi(
     month: int,
     precip_prob_max: float = 50.0,
     is_urban: bool = True,
+    city: str = "delhi",
 ) -> Dict[str, Any]:
     """
     Calculate Flood Hazard Index (FHI) using weighted components with urban calibration.
@@ -441,14 +449,16 @@ def _calculate_fhi(
     R = min(1.0, max(0.0, R))
 
     # E: Elevation Risk component (inverted - lower = higher risk)
-    # Reference: Delhi elevation range is approximately 190-320m
-    elev_clamped = max(190.0, min(320.0, elevation))
-    E = 1.0 - ((elev_clamped - 190.0) / (320.0 - 190.0))
+    # Use city-specific elevation bounds
+    cal = CITY_FHI_CALIBRATION.get(city, CITY_FHI_CALIBRATION["delhi"])
+    elev_min, elev_max = cal["elev_min"], cal["elev_max"]
+    elev_range = max(elev_max - elev_min, 1.0)
+    elev_clamped = max(elev_min, min(elev_max, elevation))
+    E = 1.0 - ((elev_clamped - elev_min) / elev_range)
     E = min(1.0, max(0.0, E))
 
-    # T: Temporal modifier (monsoon season amplification)
-    # Monsoon months: June (6) - September (9)
-    T = 1.2 if 6 <= month <= 9 else 1.0
+    # T: Temporal modifier (wet season amplification, city-aware)
+    T = 1.2 if month in cal["wet_months"] else 1.0
 
     # Calculate weighted FHI score
     fhi_raw = (0.35 * P + 0.18 * I + 0.12 * S + 0.12 * A + 0.08 * R + 0.15 * E) * T
@@ -947,7 +957,17 @@ async def get_flood_hazard_index(
             detail=f"Failed to process forecast data: {str(e)}"
         )
 
-    # Calculate FHI with probability-based correction
+    # Auto-detect city from coordinates for calibration
+    detected_city = "delhi"  # default
+    for city_name, cal in CITY_FHI_CALIBRATION.items():
+        bounds = {"delhi": (28.40, 28.88, 76.84, 77.35), "bangalore": (12.75, 13.20, 77.35, 77.80), "yogyakarta": (-7.95, -7.65, 110.30, 110.50)}
+        if city_name in bounds:
+            min_lat, max_lat, min_lng, max_lng = bounds[city_name]
+            if min_lat <= lat <= max_lat and min_lng <= lng <= max_lng:
+                detected_city = city_name
+                break
+
+    # Calculate FHI with probability-based correction and city calibration
     fhi_result = _calculate_fhi(
         precip_24h=precip_24h,
         precip_48h=precip_48h,
@@ -958,6 +978,7 @@ async def get_flood_hazard_index(
         elevation=elevation,
         month=current_month,
         precip_prob_max=precip_prob_max,
+        city=detected_city,
     )
 
     # Construct response with urban calibration data
@@ -976,7 +997,7 @@ async def get_flood_hazard_index(
         saturation_proxy=fhi_result["saturation_proxy"],
         surface_pressure_hpa=round(surface_pressure, 1),
         elevation_m=round(elevation, 1),
-        is_monsoon=(6 <= current_month <= 9),
+        is_monsoon=(current_month in CITY_FHI_CALIBRATION.get(detected_city, CITY_FHI_CALIBRATION["delhi"])["wet_months"]),
         is_urban_calibrated=fhi_result["is_urban_calibrated"],
         rain_gated=fhi_result["rain_gated"],
         correction_factor=fhi_result["correction_factor"],

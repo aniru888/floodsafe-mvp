@@ -109,7 +109,7 @@ async def get_historical_floods(
             detail="Invalid city parameter. Use only letters and spaces (max 50 characters)."
         )
 
-    # Currently only Delhi is supported
+    # Currently Delhi has historical data; other cities return empty gracefully
     if city not in ["delhi", "delhi ncr", "new delhi"]:
         logger.info(f"Historical floods requested for unsupported city: {city}")
         return HistoricalFloodsResponse(

@@ -128,14 +128,15 @@ def _cache_summary(cache_key: str, summary: str) -> None:
             del _summary_cache[k]
 
 
-SYSTEM_PROMPT = """You are a flood safety assistant for FloodSafe, a nonprofit flood monitoring platform in India.
+SYSTEM_PROMPT = """You are a flood safety assistant for FloodSafe, a nonprofit flood monitoring platform serving India and Indonesia.
 Generate a concise (2-3 sentence) flood risk summary based on the data provided.
 Be direct and actionable. Mention specific risks and practical advice.
 Do NOT use markdown formatting, bullet points, or headers — plain text only.
 If the risk is high or extreme, convey urgency without causing panic.
-Always end with one concrete action the person should take."""
+Always end with one concrete action the person should take.
+Adapt your language to the location — use "monsoon" for Indian cities, "wet season" or "musim hujan" for Indonesian cities."""
 
-SYSTEM_PROMPT_HI = """Tum FloodSafe ke flood safety assistant ho — India ka nonprofit flood monitoring platform.
+SYSTEM_PROMPT_HI = """Tum FloodSafe ke flood safety assistant ho — India aur Indonesia ke liye nonprofit flood monitoring platform.
 Data ke basis pe 2-3 sentence ka flood risk summary banao.
 Seedha aur actionable ho. Specific risks aur practical advice mention karo.
 Markdown formatting, bullet points, ya headers mat use karo — sirf plain text.

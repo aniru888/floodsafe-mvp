@@ -363,12 +363,99 @@ class BangaloreFloodRelevanceScorer:
         return 0.0, "No Bangalore signals"
 
 
+class YogyakartaFloodRelevanceScorer:
+    """
+    Relevance scorer for Yogyakarta, Indonesia flood alerts.
+    Covers DIY (Daerah Istimewa Yogyakarta) province including
+    Sleman, Bantul, Kulon Progo, and Gunung Kidul regencies.
+    """
+
+    YOGYAKARTA_LOCATIONS = {
+        "exact": ["yogyakarta", "jogjakarta", "jogja", "yogya", "diy"],
+        "areas": [
+            "bantul", "sleman", "kulon progo", "kulonprogo", "gunung kidul",
+            "gunungkidul", "malioboro", "kraton", "tugu", "prawirotaman",
+            "kaliurang", "parangtritis", "prambanan", "godean", "gamping",
+            "depok sleman", "mlati", "ngaglik", "pakem", "turi",
+            "kalasan", "berbah", "ngemplak", "cangkringan",
+            "kotagede", "umbulharjo", "mergangsan", "gondokusuman",
+        ],
+        "rivers": [
+            "kali code", "kali opak", "sungai progo", "kali gajah wong",
+            "kali winongo", "kali bedog", "kali kuning", "sungai opak",
+        ],
+        "landmarks": [
+            "merapi", "gunung merapi", "mount merapi",
+            "borobudur", "malioboro street", "tugu jogja",
+        ]
+    }
+
+    FLOOD_KEYWORDS_ID = [
+        "banjir", "genangan", "longsor", "lahar", "sungai",
+        "luapan", "tanggul", "rob", "drainase", "hujan lebat",
+    ]
+
+    FLOOD_KEYWORDS_EN = [
+        "flood", "waterlog", "inundat", "landslide", "lahar",
+        "overflow", "rain", "deluge", "submerge",
+    ]
+
+    AUTHORITY_KEYWORDS = [
+        "bpbd", "bmkg", "bnpb", "pupr", "pemda diy",
+        "pu diy", "basarnas", "sar", "tagana",
+    ]
+
+    def score(self, title: str, body: str) -> Tuple[float, str]:
+        """Score article relevance for Yogyakarta flooding."""
+        text = f"{title} {body}".lower()
+        score = 0.0
+        reasons = []
+
+        # Location signals
+        has_exact = any(loc in text for loc in self.YOGYAKARTA_LOCATIONS["exact"])
+        has_area = any(loc in text for loc in self.YOGYAKARTA_LOCATIONS["areas"])
+        has_river = any(r in text for r in self.YOGYAKARTA_LOCATIONS["rivers"])
+
+        # Flood signals (bilingual)
+        has_flood_id = any(kw in text for kw in self.FLOOD_KEYWORDS_ID)
+        has_flood_en = any(kw in text for kw in self.FLOOD_KEYWORDS_EN)
+        has_flood = has_flood_id or has_flood_en
+
+        # Authority signals
+        has_authority = any(auth in text for auth in self.AUTHORITY_KEYWORDS)
+
+        if has_exact:
+            score += 0.4
+            reasons.append("Yogyakarta exact match")
+        if has_area:
+            score += 0.3
+            reasons.append("Yogyakarta area match")
+        if has_river:
+            score += 0.3
+            reasons.append("Yogyakarta river match")
+        if has_flood:
+            score += 0.3
+            reasons.append("flood keyword")
+        if has_authority:
+            score += 0.1
+            reasons.append("authority keyword")
+
+        # Lahar from Merapi is a special high-priority signal
+        if "merapi" in text and ("lahar" in text or "erupsi" in text):
+            score += 0.2
+            reasons.append("Merapi volcanic flood risk")
+
+        score = min(score, 1.0)
+        reason = " + ".join(reasons) if reasons else "No Yogyakarta signals"
+        return score, reason
+
+
 def get_scorer_for_city(city: str):
     """
     Factory function to get the appropriate scorer for a city.
 
     Args:
-        city: City identifier (e.g., "delhi", "bangalore")
+        city: City identifier (e.g., "delhi", "bangalore", "yogyakarta")
 
     Returns:
         Appropriate relevance scorer instance
@@ -378,6 +465,8 @@ def get_scorer_for_city(city: str):
         return DelhiFloodRelevanceScorer()
     elif city_lower in ["bangalore", "bengaluru"]:
         return BangaloreFloodRelevanceScorer()
+    elif city_lower in ["yogyakarta", "jogjakarta", "jogja"]:
+        return YogyakartaFloodRelevanceScorer()
     else:
         # Default to Delhi scorer (most comprehensive)
         logger.warning(f"No specific scorer for city '{city}', using Delhi scorer")

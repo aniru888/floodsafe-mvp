@@ -25,6 +25,7 @@ from sqlalchemy.orm import Session
 from ..infrastructure.database import get_db
 from ..infrastructure.models import User, WhatsAppSession
 from ..core.config import settings
+from ..core.phone_utils import normalize_phone
 from ..domain.services.whatsapp.meta_client import (
     is_meta_whatsapp_enabled,
     send_text_message as meta_send_text,
@@ -106,13 +107,9 @@ def _get_or_create_session(db: Session, phone: str) -> WhatsAppSession:
 
 
 def _find_user_by_phone(db: Session, phone: str) -> Optional[User]:
-    """Find user by phone number."""
-    user = db.query(User).filter(User.phone == phone).first()
-    if user:
-        return user
-    if phone.startswith("+91"):
-        return db.query(User).filter(User.phone == phone[3:]).first()
-    return db.query(User).filter(User.phone == f"+91{phone}").first()
+    """Find user by phone number (single query using normalized E.164)."""
+    normalized = normalize_phone(phone)
+    return db.query(User).filter(User.phone == normalized).first()
 
 
 # =============================================================================

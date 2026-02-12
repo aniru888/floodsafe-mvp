@@ -102,12 +102,39 @@ class FHICalculator:
     LOW_FHI_CAP = 0.15                 # Cap for dry conditions
     URBAN_SATURATION_THRESHOLD_MM = 50.0  # 3-day rain for urban drainage saturation
 
-    # Delhi elevation bounds (meters)
+    # City-aware calibration: elevation bounds, wet season months, urban fraction
+    CITY_CALIBRATION = {
+        "delhi": {
+            "elev_min": 190, "elev_max": 320,
+            "wet_months": [6, 7, 8, 9],  # June-September (Indian monsoon)
+            "urban_fraction": 0.75,
+            "default_elev": 220,
+        },
+        "bangalore": {
+            "elev_min": 800, "elev_max": 1000,
+            "wet_months": [6, 7, 8, 9, 10],  # June-October
+            "urban_fraction": 0.65,
+            "default_elev": 920,
+        },
+        "yogyakarta": {
+            "elev_min": 50, "elev_max": 800,
+            "wet_months": [10, 11, 12, 1, 2, 3, 4],  # Oct-April (Indonesian wet season)
+            "urban_fraction": 0.55,
+            "default_elev": 114,
+        },
+    }
+
+    # City bounding boxes for auto-detection from coordinates
+    CITY_BOUNDS = {
+        "delhi": {"min_lat": 28.40, "max_lat": 28.88, "min_lng": 76.84, "max_lng": 77.35},
+        "bangalore": {"min_lat": 12.75, "max_lat": 13.20, "min_lng": 77.35, "max_lng": 77.80},
+        "yogyakarta": {"min_lat": -7.95, "max_lat": -7.65, "min_lng": 110.30, "max_lng": 110.50},
+    }
+
+    # Legacy defaults (Delhi) for backwards compatibility
     DELHI_ELEV_MIN = 190
     DELHI_ELEV_MAX = 320
-
-    # Monsoon months
-    MONSOON_MONTHS = [6, 7, 8, 9]  # June-September
+    MONSOON_MONTHS = [6, 7, 8, 9]
     MONSOON_MODIFIER = 1.2
 
     # Cache settings
@@ -117,6 +144,18 @@ class FHICalculator:
         """Initialize FHI calculator."""
         self._timeout = timeout_seconds
         self._cache: Dict[str, tuple] = {}  # (FHIResult, timestamp)
+
+    def _detect_city(self, lat: float, lng: float) -> str:
+        """Detect city from coordinates using bounding boxes. Returns 'delhi' as default."""
+        for city, bounds in self.CITY_BOUNDS.items():
+            if (bounds["min_lat"] <= lat <= bounds["max_lat"] and
+                    bounds["min_lng"] <= lng <= bounds["max_lng"]):
+                return city
+        return "delhi"  # Default calibration
+
+    def _get_calibration(self, city: str) -> dict:
+        """Get calibration constants for a city."""
+        return self.CITY_CALIBRATION.get(city, self.CITY_CALIBRATION["delhi"])
 
     async def _fetch_with_retry(
         self,
@@ -261,18 +300,23 @@ class FHICalculator:
             precip_72h = sum(precip_hourly_clean[48:72]) if len(precip_hourly_clean) >= 72 else 0
             precip_3d_raw = precip_24h + precip_48h + precip_72h
 
-            # Calculate components with probability-based correction
+            # Detect city for calibration
+            detected_city = self._detect_city(lat, lng)
+            calibration = self._get_calibration(detected_city)
+
+            # Calculate components with probability-based correction and city calibration
             components = self._calculate_components(
                 elevation=elevation,
                 precip_hourly=precip_hourly,
                 soil_moisture=soil_moisture,
                 surface_pressure=surface_pressure,
                 precip_prob_max=precip_prob_max,
+                calibration=calibration,
             )
 
-            # Monsoon modifier
+            # City-aware wet season modifier
             month = datetime.now().month
-            T_modifier = self.MONSOON_MODIFIER if month in self.MONSOON_MONTHS else 1.0
+            T_modifier = self.MONSOON_MODIFIER if month in calibration["wet_months"] else 1.0
 
             # Calculate weighted FHI
             fhi_raw = sum(
@@ -337,6 +381,7 @@ class FHICalculator:
         surface_pressure: list,
         precip_prob_max: float = 50.0,
         is_urban: bool = True,
+        calibration: Optional[dict] = None,
     ) -> Dict[str, float]:
         """
         Calculate normalized FHI components (0-1) with probability-based correction.
@@ -413,8 +458,14 @@ class FHICalculator:
         R = min(1.0, max(0.0, (self.PRESSURE_BASELINE_HPA - avg_pressure) / 30.0))
 
         # E: Elevation Risk (inverted: low elevation = high risk)
-        elev_clamped = max(self.DELHI_ELEV_MIN, min(self.DELHI_ELEV_MAX, elevation))
-        E = 1 - (elev_clamped - self.DELHI_ELEV_MIN) / (self.DELHI_ELEV_MAX - self.DELHI_ELEV_MIN)
+        # Use city-specific elevation bounds if calibration provided
+        elev_min = calibration["elev_min"] if calibration else self.DELHI_ELEV_MIN
+        elev_max = calibration["elev_max"] if calibration else self.DELHI_ELEV_MAX
+        elev_range = elev_max - elev_min
+        if elev_range <= 0:
+            elev_range = 1  # Prevent division by zero
+        elev_clamped = max(elev_min, min(elev_max, elevation))
+        E = 1 - (elev_clamped - elev_min) / elev_range
 
         return {
             "P": P,
@@ -444,9 +495,11 @@ class FHICalculator:
             elevation_list = data.get("elevation", [220])
             return elevation_list[0] if elevation_list else 220
         except FHICalculationError:
-            # Log and return Delhi default elevation
-            logger.warning(f"Elevation fetch failed for ({lat:.4f}, {lng:.4f}), using default 220m")
-            return 220.0
+            # Return city-appropriate default elevation
+            city = self._detect_city(lat, lng)
+            default_elev = self._get_calibration(city).get("default_elev", 220)
+            logger.warning(f"Elevation fetch failed for ({lat:.4f}, {lng:.4f}), using default {default_elev}m ({city})")
+            return float(default_elev)
 
     async def _fetch_weather(self, lat: float, lng: float) -> Dict:
         """

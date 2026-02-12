@@ -13,6 +13,7 @@ Design principles:
 
 import logging
 from typing import List, Dict, Optional
+from ...core.phone_utils import normalize_phone
 from uuid import UUID
 from datetime import datetime
 
@@ -144,7 +145,7 @@ class SOSService:
 
             # Normalize phone number
             try:
-                normalized_phone = self._normalize_phone(phone)
+                normalized_phone = normalize_phone(phone)
             except Exception as e:
                 error_log_lines.append(f"Recipient {name} ({phone}): Invalid phone - {e}")
                 results.append({
@@ -208,28 +209,6 @@ class SOSService:
             "failed": failed_count,
             "results": results,
         }
-
-    def _normalize_phone(self, phone: str) -> str:
-        """
-        Normalize phone number to E.164 format.
-        Assumes Indian numbers (+91) if no country code.
-
-        Copied from notification_service.py for consistency.
-        """
-        phone = phone.strip().replace(" ", "").replace("-", "")
-
-        # Already has country code
-        if phone.startswith("+"):
-            return phone
-
-        # Indian number without country code
-        if phone.startswith("0"):
-            phone = phone[1:]  # Remove leading 0
-
-        if len(phone) == 10:
-            return f"+91{phone}"  # Assume India
-
-        return f"+{phone}"  # Assume it has country code without +
 
     def _send_whatsapp(self, phone: str, message: str):
         """Send WhatsApp message via Twilio."""

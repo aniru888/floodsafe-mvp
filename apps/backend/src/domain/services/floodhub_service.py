@@ -128,12 +128,32 @@ class FloodHubService:
     FORECAST_BUCKET_SIZE = 500
     MODEL_BUCKET_SIZE = 50
 
-    # Delhi bounding box for filtering India-wide results
-    DELHI_BOUNDS = {
-        "lat_min": 28.0,   # Expanded to Delhi NCR (aligned with GDACS bounds)
-        "lat_max": 29.2,
-        "lng_min": 76.5,
-        "lng_max": 77.8,
+    # City bounding boxes for filtering region-wide results
+    CITY_BOUNDS = {
+        "delhi": {
+            "lat_min": 28.0,   # Expanded to Delhi NCR (aligned with GDACS bounds)
+            "lat_max": 29.2,
+            "lng_min": 76.5,
+            "lng_max": 77.8,
+            "region_code": "IN",
+            "country_code": "IN",
+        },
+        "bangalore": {
+            "lat_min": 12.75,
+            "lat_max": 13.20,
+            "lng_min": 77.35,
+            "lng_max": 77.80,
+            "region_code": "IN",
+            "country_code": "IN",
+        },
+        "yogyakarta": {
+            "lat_min": -7.95,
+            "lat_max": -7.65,
+            "lng_min": 110.30,
+            "lng_max": 110.50,
+            "region_code": "ID",
+            "country_code": "ID",
+        },
     }
 
     def __init__(self, api_key: Optional[str] = None):
@@ -209,15 +229,25 @@ class FloodHubService:
     # Core methods
     # ------------------------------------------------------------------
 
-    async def get_india_gauges(self) -> list:
-        """
-        Fetch all gauges in India from Google API.
-        Returns raw gauge dicts from the API.
-        """
+    def _filter_by_bounds(self, items: list, bounds: dict,
+                          lat_key: str = "latitude", lng_key: str = "longitude",
+                          location_wrapper: Optional[str] = None) -> list:
+        """Filter items to a bounding box."""
+        result = []
+        for item in items:
+            loc = item.get(location_wrapper, item) if location_wrapper else item
+            lat = loc.get(lat_key, 0)
+            lng = loc.get(lng_key, 0)
+            if bounds["lat_min"] <= lat <= bounds["lat_max"] and bounds["lng_min"] <= lng <= bounds["lng_max"]:
+                result.append(item)
+        return result
+
+    async def get_region_gauges(self, region_code: str) -> list:
+        """Fetch all gauges for a region (e.g. 'IN', 'ID')."""
         if not self.enabled or self.client is None:
             return []
 
-        cache_key = "india_gauges_raw"
+        cache_key = f"{region_code.lower()}_gauges_raw"
         cached = self._get_cached(cache_key, self.CACHE_TTL_GAUGES_MIN)
         if cached is not None:
             return cached
@@ -226,32 +256,28 @@ class FloodHubService:
             gauges = await self._paginated_post(
                 f"{self.BASE_URL}/gauges:searchGaugesByArea",
                 body={
-                    "regionCode": "IN",
+                    "regionCode": region_code,
                     "pageSize": 10000,
                     "includeNonQualityVerified": False,
                 },
                 result_key="gauges",
             )
             self._set_cached(cache_key, gauges)
-            logger.info(f"Fetched {len(gauges)} India gauges from Google API")
+            logger.info(f"Fetched {len(gauges)} {region_code} gauges from Google API")
             return gauges
-
         except httpx.HTTPStatusError as e:
-            logger.error(f"FloodHub gauges HTTP error: {e.response.status_code}")
+            logger.error(f"FloodHub gauges HTTP error for {region_code}: {e.response.status_code}")
             raise FloodHubAPIError(f"Google API returned {e.response.status_code}")
         except httpx.RequestError as e:
-            logger.error(f"FloodHub gauges request error: {e}")
+            logger.error(f"FloodHub gauges request error for {region_code}: {e}")
             raise FloodHubAPIError(f"Network error connecting to FloodHub: {e}")
 
-    async def get_india_flood_statuses(self) -> list:
-        """
-        Fetch all flood statuses in India from Google API.
-        Returns raw floodStatus dicts from the API.
-        """
+    async def get_region_flood_statuses(self, region_code: str) -> list:
+        """Fetch all flood statuses for a region."""
         if not self.enabled or self.client is None:
             return []
 
-        cache_key = "india_statuses_raw"
+        cache_key = f"{region_code.lower()}_statuses_raw"
         cached = self._get_cached(cache_key, self.CACHE_TTL_STATUS_MIN)
         if cached is not None:
             return cached
@@ -260,74 +286,64 @@ class FloodHubService:
             statuses = await self._paginated_post(
                 f"{self.BASE_URL}/floodStatus:searchLatestFloodStatusByArea",
                 body={
-                    "regionCode": "IN",
+                    "regionCode": region_code,
                     "pageSize": 10000,
                     "includeNonQualityVerified": False,
                 },
                 result_key="floodStatuses",
             )
             self._set_cached(cache_key, statuses)
-            logger.info(f"Fetched {len(statuses)} India flood statuses")
+            logger.info(f"Fetched {len(statuses)} {region_code} flood statuses")
             return statuses
-
         except httpx.HTTPStatusError as e:
-            logger.error(f"FloodHub status HTTP error: {e.response.status_code}")
+            logger.error(f"FloodHub status HTTP error for {region_code}: {e.response.status_code}")
             raise FloodHubAPIError(f"Google API returned {e.response.status_code}")
         except httpx.RequestError as e:
-            logger.error(f"FloodHub status request error: {e}")
+            logger.error(f"FloodHub status request error for {region_code}: {e}")
             raise FloodHubAPIError(f"Network error: {e}")
 
-    def _filter_delhi(self, items: list, lat_key: str = "latitude", lng_key: str = "longitude",
-                      location_wrapper: Optional[str] = None) -> list:
-        """Filter items to Delhi bounding box."""
-        b = self.DELHI_BOUNDS
-        result = []
-        for item in items:
-            loc = item.get(location_wrapper, item) if location_wrapper else item
-            lat = loc.get(lat_key, 0)
-            lng = loc.get(lng_key, 0)
-            if b["lat_min"] <= lat <= b["lat_max"] and b["lng_min"] <= lng <= b["lng_max"]:
-                result.append(item)
-        return result
-
-    async def get_delhi_gauges(self) -> List[GaugeStatus]:
+    async def get_city_gauges(self, city: str) -> List[GaugeStatus]:
         """
-        Fetch Delhi gauges with current flood status.
-
-        Strategy:
-        1. Fetch all India gauges → filter to Delhi bounding box
-        2. Fetch all India flood statuses → join by gauge_id
-        3. Return combined GaugeStatus objects
+        Fetch gauges for any supported city.
+        Routes to correct region code and filters by city bounds.
+        Returns empty list with log message if city not supported.
         """
+        city_lower = city.lower()
+        if city_lower not in self.CITY_BOUNDS:
+            logger.warning(f"FloodHub: unsupported city '{city}' — no bounds configured")
+            return []
+
+        bounds = self.CITY_BOUNDS[city_lower]
+        region_code = bounds["region_code"]
+
         if not self.enabled or self.client is None:
             return []
 
-        cache_key = "delhi_gauges"
+        cache_key = f"{city_lower}_gauges"
         cached = self._get_cached(cache_key, self.CACHE_TTL_GAUGES_MIN)
         if cached is not None:
             return cached
 
         try:
-            # Step 1: Get all India gauges, filter to Delhi
-            all_gauges = await self.get_india_gauges()
-            delhi_gauges = self._filter_delhi(all_gauges, location_wrapper="location")
+            # Step 1: Get all region gauges, filter to city bounds
+            all_gauges = await self.get_region_gauges(region_code)
+            city_gauges = self._filter_by_bounds(all_gauges, bounds, location_wrapper="location")
 
-            if not delhi_gauges:
-                logger.info("No gauges found in Delhi region")
+            if not city_gauges:
+                logger.info(f"No gauges found in {city} region (region={region_code})")
                 self._set_cached(cache_key, [])
                 return []
 
-            # Step 2: Get all India flood statuses, build lookup by gauge_id
-            all_statuses = await self.get_india_flood_statuses()
+            # Step 2: Get all region flood statuses, build lookup by gauge_id
+            all_statuses = await self.get_region_flood_statuses(region_code)
             status_map = {s["gaugeId"]: s for s in all_statuses}
 
             # Step 3: Combine gauge metadata + flood status
             result = []
-            for gauge in delhi_gauges:
+            for gauge in city_gauges:
                 gauge_id = gauge["gaugeId"]
                 status = status_map.get(gauge_id, {})
 
-                # Parse inundation map set if present
                 inundation = None
                 imap_set = status.get("inundationMapSet")
                 if imap_set and imap_set.get("inundationMaps"):
@@ -335,7 +351,6 @@ class FloodHubService:
                     for imap in imap_set["inundationMaps"]:
                         inundation[imap.get("level", "UNKNOWN")] = imap.get("serializedPolygonId", "")
 
-                # Parse issued time
                 issued_str = status.get("issuedTime", "")
                 if issued_str:
                     issued_time = datetime.fromisoformat(issued_str.replace("Z", "+00:00"))
@@ -358,20 +373,25 @@ class FloodHubService:
                 ))
 
             self._set_cached(cache_key, result)
-            logger.info(f"Fetched {len(result)} Delhi gauges from FloodHub")
+            logger.info(f"Fetched {len(result)} {city} gauges from FloodHub")
             return result
 
         except FloodHubAPIError:
             raise
-        except httpx.HTTPStatusError as e:
-            logger.error(f"FloodHub API HTTP error: {e.response.status_code}")
-            raise FloodHubAPIError(f"Google FloodHub API returned {e.response.status_code}")
-        except httpx.RequestError as e:
-            logger.error(f"FloodHub API request error: {e}")
-            raise FloodHubAPIError(f"Network error connecting to FloodHub: {e}")
         except Exception as e:
-            logger.error(f"FloodHub API unexpected error: {e}")
-            raise FloodHubAPIError(f"Unexpected error: {e}")
+            logger.error(f"FloodHub city gauge fetch failed for {city}: {e}")
+            raise FloodHubAPIError(f"Failed to fetch {city} gauges: {e}")
+
+    async def get_city_events(self, city: str) -> list:
+        """Get significant events for a city's country. Returns events filtered by country code."""
+        city_lower = city.lower()
+        if city_lower not in self.CITY_BOUNDS:
+            return []
+        country_code = self.CITY_BOUNDS[city_lower]["country_code"]
+        all_events = await self.get_significant_events()
+        # get_significant_events already filters to "IN" — re-filter for the actual country
+        # We need to fetch unfiltered events for non-IN cities
+        return [e for e in all_events if country_code in e.affected_country_codes]
 
     async def get_gauge_forecast(self, gauge_id: str) -> Optional[GaugeForecast]:
         """
@@ -469,7 +489,7 @@ class FloodHubService:
 
             # Find gauge site name from cached gauges
             site_name = "Unknown Station"
-            all_gauges = await self.get_india_gauges()
+            all_gauges = await self.get_region_gauges("IN")
             for g in all_gauges:
                 if g.get("gaugeId") == gauge_id:
                     site_name = g.get("siteName", "") or "Unknown Station"
@@ -514,7 +534,7 @@ class FloodHubService:
             )
 
         try:
-            gauges = await self.get_delhi_gauges()
+            gauges = await self.get_city_gauges("delhi")
 
             if not gauges:
                 return FloodHubStatus(
@@ -774,12 +794,10 @@ class FloodHubService:
                     event_polygon_id=raw.get("eventPolygonId"),
                 ))
 
-            # Filter to events affecting India
-            india_events = [e for e in events if "IN" in e.affected_country_codes]
-
-            self._set_cached(cache_key, india_events)
-            logger.info(f"Fetched {len(india_events)} significant events for India (of {len(events)} global)")
-            return india_events
+            # Cache all events (filtering by country happens in get_city_events)
+            self._set_cached(cache_key, events)
+            logger.info(f"Fetched {len(events)} significant events globally")
+            return events
 
         except httpx.HTTPStatusError as e:
             logger.error(f"Significant events HTTP error: {e.response.status_code}")

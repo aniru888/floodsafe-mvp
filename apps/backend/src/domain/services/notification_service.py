@@ -13,6 +13,7 @@ Features:
 import logging
 from typing import Optional, List
 from uuid import UUID
+from ...core.phone_utils import normalize_phone
 
 from sqlalchemy.orm import Session
 from sqlalchemy import text
@@ -103,7 +104,7 @@ class TwilioNotificationService(INotificationService):
             return False
 
         # Normalize phone number (ensure it has country code)
-        phone = self._normalize_phone(user.phone)
+        phone = normalize_phone(user.phone)
 
         try:
             if channel == "whatsapp":
@@ -156,7 +157,7 @@ class TwilioNotificationService(INotificationService):
             notified_count = 0
             for user_row in users:
                 user_id, phone, pref_whatsapp, pref_sms = user_row
-                phone = self._normalize_phone(phone)
+                phone = normalize_phone(phone)
 
                 try:
                     if pref_whatsapp:
@@ -212,26 +213,6 @@ class TwilioNotificationService(INotificationService):
                 notified_count += 1
 
         return notified_count
-
-    def _normalize_phone(self, phone: str) -> str:
-        """
-        Normalize phone number to E.164 format.
-        Assumes Indian numbers if no country code.
-        """
-        phone = phone.strip().replace(" ", "").replace("-", "")
-
-        # Already has country code
-        if phone.startswith("+"):
-            return phone
-
-        # Indian number without country code
-        if phone.startswith("0"):
-            phone = phone[1:]  # Remove leading 0
-
-        if len(phone) == 10:
-            return f"+91{phone}"  # Assume India
-
-        return f"+{phone}"  # Assume it has country code without +
 
     def _send_whatsapp(self, phone: str, message: str):
         """Send WhatsApp message via Twilio."""

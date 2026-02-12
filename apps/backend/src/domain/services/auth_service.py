@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 
 from src.infrastructure.models import User, RefreshToken
 from src.core.config import settings
+from src.core.phone_utils import normalize_phone
 from .security import (
     create_access_token,
     create_refresh_token,
@@ -212,6 +213,9 @@ class AuthService:
         Returns:
             User instance
         """
+        # Normalize before query/store to ensure consistent E.164 format
+        phone = normalize_phone(phone)
+
         # Try to find by phone
         user = db.query(User).filter(User.phone == phone).first()
 

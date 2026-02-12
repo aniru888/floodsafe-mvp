@@ -234,17 +234,18 @@ async def get_hotspot_risk(
 
 @router.post("/risk-at-point")
 async def get_risk_at_point(
-    lat: float = Query(..., ge=28.3, le=29.0, description="Latitude"),
-    lng: float = Query(..., ge=76.7, le=77.5, description="Longitude"),
+    lat: float = Query(..., ge=-90.0, le=90.0, description="Latitude"),
+    lng: float = Query(..., ge=-180.0, le=180.0, description="Longitude"),
 ):
     """
-    Get flood risk for any point in Delhi.
+    Get flood risk for any point in a supported city.
 
     Uses proximity to known hotspots and current weather.
+    Currently only Delhi has hotspot data — other cities return baseline risk.
 
     Args:
-        lat: Latitude (must be within Delhi bounds)
-        lng: Longitude (must be within Delhi bounds)
+        lat: Latitude (WGS84)
+        lng: Longitude (WGS84)
 
     Returns:
         Risk assessment for the point
