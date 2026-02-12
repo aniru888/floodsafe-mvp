@@ -63,9 +63,11 @@ export function useMap(
         // Initialize PMTiles protocol
         const protocol = new Protocol();
 
-        // Add basemap PMTiles for selected city
-        const basemapPMTiles = new PMTiles(cityConfig.pmtiles.basemap);
-        protocol.add(basemapPMTiles);
+        // Add basemap PMTiles for selected city (only if local file exists)
+        if (cityConfig.pmtiles.basemap) {
+            const basemapPMTiles = new PMTiles(cityConfig.pmtiles.basemap);
+            protocol.add(basemapPMTiles);
+        }
 
         // Add flood tiles PMTiles for selected city (only if available)
         if (cityConfig.pmtiles.flood) {
@@ -87,11 +89,10 @@ export function useMap(
         // Build sources conditionally based on city capabilities
         const sources: Record<string, any> = {
             ...mapStyle.sources,
-            // Override the basemap source with city-specific PMTiles
-            'openmaptiles': {
-                type: 'vector',
-                url: `pmtiles://${cityConfig.pmtiles.basemap}`
-            },
+            // Override the basemap source — use local PMTiles if available, else online CDN
+            'openmaptiles': cityConfig.pmtiles.basemap
+                ? { type: 'vector' as const, url: `pmtiles://${cityConfig.pmtiles.basemap}` }
+                : { type: 'vector' as const, url: 'https://tiles.openfreemap.org/planet' },
             // Add search result marker source
             'search-result': {
                 type: 'geojson',

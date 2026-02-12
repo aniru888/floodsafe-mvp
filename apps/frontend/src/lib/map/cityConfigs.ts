@@ -83,7 +83,7 @@ export const CITIES = {
             [110.50, -7.65]    // [maxLng, maxLat]
         ] as [[number, number], [number, number]],
         pmtiles: {
-            basemap: '/yogyakarta-basemap.pmtiles',
+            basemap: '',  // No local PMTiles — uses online fallback (OpenFreeMap)
             flood: ''  // Deferred — flood DEM PMTiles generated later
         }
         // No metro — Yogyakarta doesn't have metro rail
