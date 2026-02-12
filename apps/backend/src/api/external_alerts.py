@@ -31,6 +31,7 @@ class CityEnum(str, Enum):
     """Valid city identifiers for external alerts."""
     delhi = "delhi"
     bangalore = "bangalore"
+    yogyakarta = "yogyakarta"
 
 
 # Response Models

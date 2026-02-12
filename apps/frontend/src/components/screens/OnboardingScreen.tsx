@@ -21,7 +21,7 @@ import {
     useLocationSearch
 } from '../../lib/api/hooks';
 import type { OnboardingFormState, OnboardingAction, WatchAreaCreate, DailyRouteCreate, SearchLocationResult } from '../../types';
-import { CITIES, isWithinCityBounds } from '../../lib/map/cityConfigs';
+import { CITIES, isWithinCityBounds, getAvailableCities, type CityKey } from '../../lib/map/cityConfigs';
 
 // UI Components
 import { Card } from '../ui/card';
@@ -121,7 +121,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
             }
             // Pre-fill city if already set
             if (user.city_preference) {
-                dispatch({ type: 'SET_CITY', payload: user.city_preference as 'bangalore' | 'delhi' });
+                dispatch({ type: 'SET_CITY', payload: user.city_preference as CityKey });
             }
             // Pre-fill username
             if (user.username) {
@@ -303,6 +303,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                         <Step2Profile
                             username={state.username}
                             phone={state.phone}
+                            city={state.city}
                             onUpdate={(data) => dispatch({ type: 'SET_PROFILE', payload: data })}
                             errors={state.errors}
                         />
@@ -383,9 +384,16 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
 // ============================================================================
 
 // Step 1: City Selection
+// Region subtitles for onboarding city selection
+const CITY_REGIONS: Record<string, string> = {
+    bangalore: 'Karnataka, India',
+    delhi: 'National Capital Territory, India',
+    yogyakarta: 'Special Region of Yogyakarta, Indonesia',
+};
+
 interface Step1CityProps {
-    city: 'bangalore' | 'delhi' | null;
-    onSelect: (city: 'bangalore' | 'delhi') => void;
+    city: CityKey | null;
+    onSelect: (city: CityKey) => void;
     error?: string;
 }
 
@@ -399,8 +407,8 @@ function Step1City({ city, onSelect, error }: Step1CityProps) {
                 </p>
             </div>
 
-            <RadioGroup value={city || ''} onValueChange={(v) => onSelect(v as 'bangalore' | 'delhi')}>
-                {(['bangalore', 'delhi'] as const).map((cityKey) => (
+            <RadioGroup value={city || ''} onValueChange={(v) => onSelect(v as CityKey)}>
+                {getAvailableCities().map((cityKey) => (
                     <div
                         key={cityKey}
                         className={`flex items-center space-x-3 p-4 border rounded-lg cursor-pointer transition-colors ${city === cityKey ? 'border-primary/20 bg-primary/10' : 'border-border hover:border-border'
@@ -411,7 +419,7 @@ function Step1City({ city, onSelect, error }: Step1CityProps) {
                         <Label htmlFor={cityKey} className="flex-1 cursor-pointer">
                             <div className="font-medium">{CITIES[cityKey].displayName}</div>
                             <div className="text-sm text-muted-foreground">
-                                {cityKey === 'bangalore' ? 'Karnataka, India' : 'National Capital Territory, India'}
+                                {CITY_REGIONS[cityKey] || ''}
                             </div>
                         </Label>
                     </div>
@@ -427,11 +435,14 @@ function Step1City({ city, onSelect, error }: Step1CityProps) {
 interface Step2ProfileProps {
     username: string;
     phone: string;
+    city: string | null;
     onUpdate: (data: { username: string; phone: string }) => void;
     errors: Record<string, string>;
 }
 
-function Step2Profile({ username, phone, onUpdate, errors }: Step2ProfileProps) {
+function Step2Profile({ username, phone, city, onUpdate, errors }: Step2ProfileProps) {
+    const phonePlaceholder = city === 'yogyakarta' ? '+62 XXX XXXX XXXX' : '+91 XXXXX XXXXX';
+
     return (
         <div className="space-y-4">
             <div>
@@ -461,7 +472,7 @@ function Step2Profile({ username, phone, onUpdate, errors }: Step2ProfileProps) 
                         type="tel"
                         value={phone}
                         onChange={(e) => onUpdate({ username, phone: e.target.value })}
-                        placeholder="+91 XXXXX XXXXX"
+                        placeholder={phonePlaceholder}
                     />
                     <p className="text-xs text-muted-foreground mt-1">
                         Used for SMS alerts (optional)
@@ -476,7 +487,7 @@ function Step2Profile({ username, phone, onUpdate, errors }: Step2ProfileProps) 
 interface Step3WatchAreasProps {
     watchAreas: WatchAreaCreate[];
     existingWatchAreas: any[];
-    city: 'bangalore' | 'delhi' | null;
+    city: CityKey | null;
     onAdd: (wa: WatchAreaCreate) => void;
     onRemove: (index: number) => void;
     error?: string;
@@ -531,7 +542,7 @@ function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove
 
                 // Validate location is within selected city bounds
                 if (!isWithinCityBounds(longitude, latitude, city)) {
-                    const cityName = city === 'delhi' ? 'Delhi' : 'Bangalore';
+                    const cityName = CITIES[city]?.displayName || city;
                     toast.error(`Your location is outside ${cityName} bounds`);
                     setIsGettingLocation(false);
                     return;
@@ -711,7 +722,7 @@ function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove
 interface Step4DailyRoutesProps {
     routes: DailyRouteCreate[];
     existingRoutes: any[];
-    city: 'bangalore' | 'delhi' | null;
+    city: CityKey | null;
     onAdd: (route: DailyRouteCreate) => void;
     onRemove: (index: number) => void;
     userId: string;
@@ -780,7 +791,7 @@ function Step4DailyRoutes({ routes, existingRoutes }: Step4DailyRoutesProps) {
 
 // Step 5: Completion
 interface Step5CompletionProps {
-    city: 'bangalore' | 'delhi' | null;
+    city: CityKey | null;
     username: string;
     watchAreasCount: number;
     dailyRoutesCount: number;

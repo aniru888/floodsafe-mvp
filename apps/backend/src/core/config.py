@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     BACKEND_CORS_ORIGINS: Annotated[List[str], NoDecode] = [
         "http://localhost:5175",
         "http://localhost:8000",
+        "https://frontend-lime-psi-83.vercel.app",
     ]
 
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")

@@ -204,7 +204,8 @@ export function EmergencyContactsModal({ isOpen, onClose }: EmergencyContactsMod
     const { city } = useCityContext();
     const contacts = getContactsByCategory(city);
 
-    const cityLabel = city === 'delhi' ? 'Delhi' : city === 'bangalore' ? 'Bangalore' : '';
+    const cityLabels: Record<string, string> = { delhi: 'Delhi', bangalore: 'Bangalore', yogyakarta: 'Yogyakarta' };
+    const cityLabel = city ? cityLabels[city] || '' : '';
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>

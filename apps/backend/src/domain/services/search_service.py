@@ -349,7 +349,7 @@ class SearchService:
                     "q": expanded_query,  # Use expanded query for better results
                     "format": "json",
                     "limit": 30,  # Increased from 10 to 30
-                    "countrycodes": "in",
+                    "countrycodes": city_bounds.get("country_code", "in") if city_bounds else "in",
                     "addressdetails": 1,
                     "dedupe": 0  # Disable deduplication for more results
                 }

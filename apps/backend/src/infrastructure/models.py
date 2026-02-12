@@ -56,7 +56,7 @@ class User(Base):
     alert_preferences = Column(String, default='{"watch":true,"advisory":true,"warning":true,"emergency":true}') # JSON string
 
     # Onboarding & City Preference
-    city_preference = Column(String, nullable=True)  # 'bangalore' | 'delhi'
+    city_preference = Column(String, nullable=True)  # 'bangalore' | 'delhi' | 'yogyakarta'
     profile_complete = Column(Boolean, default=False)
     onboarding_step = Column(Integer, nullable=True)  # 1-5, tracks current step if incomplete
 

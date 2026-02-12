@@ -21,7 +21,7 @@ export interface CityConfig {
         basemap: string;
         flood: string;
     };
-    metro: {
+    metro?: {
         lines: string;
         stations: string;
     };
@@ -69,6 +69,24 @@ export const CITIES = {
             lines: '/delhi-metro-lines.geojson',
             stations: '/delhi-metro-stations.geojson'
         }
+    },
+    yogyakarta: {
+        name: 'yogyakarta',
+        displayName: 'Yogyakarta',
+        center: [110.3695, -7.7956] as [number, number],
+        zoom: 13,
+        pitch: 45,
+        maxZoom: 15,
+        minZoom: 12,
+        bounds: [
+            [110.30, -7.95],   // [minLng, minLat]
+            [110.50, -7.65]    // [maxLng, maxLat]
+        ] as [[number, number], [number, number]],
+        pmtiles: {
+            basemap: '/yogyakarta-basemap.pmtiles',
+            flood: ''  // Deferred — flood DEM PMTiles generated later
+        }
+        // No metro — Yogyakarta doesn't have metro rail
     }
 } as const;
 

@@ -1,27 +1,38 @@
 /**
- * Emergency Contact Numbers for India
+ * Emergency Contact Numbers for India and Indonesia
  *
  * Zero-cost implementation using static data.
- * All numbers verified for India as of 2024.
+ * All numbers verified as of 2024.
+ *
+ * SAFETY-CRITICAL: Country-aware filtering ensures Indian numbers
+ * are never shown to Indonesian users and vice versa.
  */
 
 export type EmergencyContactCategory = 'critical' | 'police-fire' | 'medical' | 'flood' | 'city-specific';
-export type CityFilter = 'delhi' | 'bangalore' | 'all';
+export type CityFilter = 'delhi' | 'bangalore' | 'yogyakarta' | 'all';
 
 export interface EmergencyContact {
     id: string;
     name: string;
     nameHindi?: string;
+    nameLocal?: string;
     number: string;
     description: string;
     category: EmergencyContactCategory;
     icon: 'AlertTriangle' | 'Shield' | 'Flame' | 'Ambulance' | 'Heart' | 'Waves' | 'Building' | 'Building2';
     city: CityFilter;
+    country?: 'india' | 'indonesia';
     available24x7: boolean;
 }
 
+const CITY_COUNTRY: Record<string, string> = {
+    delhi: 'india',
+    bangalore: 'india',
+    yogyakarta: 'indonesia',
+};
+
 /**
- * All emergency contacts for India.
+ * All emergency contacts for India and Indonesia.
  * Ordered by priority within each category.
  */
 export const EMERGENCY_CONTACTS: EmergencyContact[] = [
@@ -48,6 +59,7 @@ export const EMERGENCY_CONTACTS: EmergencyContact[] = [
         category: 'critical',
         icon: 'Shield',
         city: 'all',
+        country: 'india',
         available24x7: true,
     },
 
@@ -63,6 +75,7 @@ export const EMERGENCY_CONTACTS: EmergencyContact[] = [
         category: 'police-fire',
         icon: 'Shield',
         city: 'all',
+        country: 'india',
         available24x7: true,
     },
     {
@@ -74,6 +87,7 @@ export const EMERGENCY_CONTACTS: EmergencyContact[] = [
         category: 'police-fire',
         icon: 'Flame',
         city: 'all',
+        country: 'india',
         available24x7: true,
     },
 
@@ -89,6 +103,7 @@ export const EMERGENCY_CONTACTS: EmergencyContact[] = [
         category: 'medical',
         icon: 'Ambulance',
         city: 'all',
+        country: 'india',
         available24x7: true,
     },
     {
@@ -100,6 +115,7 @@ export const EMERGENCY_CONTACTS: EmergencyContact[] = [
         category: 'medical',
         icon: 'Heart',
         city: 'all',
+        country: 'india',
         available24x7: true,
     },
 
@@ -115,6 +131,7 @@ export const EMERGENCY_CONTACTS: EmergencyContact[] = [
         category: 'flood',
         icon: 'Waves',
         city: 'all',
+        country: 'india',
         available24x7: true,
     },
 
@@ -158,23 +175,121 @@ export const EMERGENCY_CONTACTS: EmergencyContact[] = [
         city: 'bangalore',
         available24x7: true,
     },
+
+    // ===================
+    // INDONESIA — NATIONAL
+    // ===================
+    {
+        id: 'id-police',
+        name: 'Polisi',
+        nameLocal: 'Polisi',
+        number: '110',
+        description: 'Kepolisian (Police)',
+        category: 'police-fire',
+        icon: 'Shield',
+        city: 'all',
+        country: 'indonesia',
+        available24x7: true,
+    },
+    {
+        id: 'id-fire',
+        name: 'Pemadam Kebakaran',
+        nameLocal: 'Pemadam Kebakaran',
+        number: '113',
+        description: 'Dinas Pemadam (Fire Service)',
+        category: 'police-fire',
+        icon: 'Flame',
+        city: 'all',
+        country: 'indonesia',
+        available24x7: true,
+    },
+    {
+        id: 'id-ambulance',
+        name: 'Ambulans',
+        nameLocal: 'Ambulans',
+        number: '118',
+        description: 'Ambulans darurat (Emergency Ambulance)',
+        category: 'medical',
+        icon: 'Ambulance',
+        city: 'all',
+        country: 'indonesia',
+        available24x7: true,
+    },
+    {
+        id: 'id-sar',
+        name: 'SAR / Basarnas',
+        nameLocal: 'Basarnas',
+        number: '117',
+        description: 'Search & Rescue (Badan SAR Nasional)',
+        category: 'critical',
+        icon: 'Shield',
+        city: 'all',
+        country: 'indonesia',
+        available24x7: true,
+    },
+    {
+        id: 'id-bnpb',
+        name: 'BNPB',
+        nameLocal: 'BNPB',
+        number: '021-29827444',
+        description: 'Badan Nasional Penanggulangan Bencana (National Disaster Agency)',
+        category: 'flood',
+        icon: 'Waves',
+        city: 'all',
+        country: 'indonesia',
+        available24x7: true,
+    },
+
+    // ===================
+    // CITY-SPECIFIC: YOGYAKARTA
+    // ===================
+    {
+        id: 'ygy-bpbd',
+        name: 'BPBD DIY',
+        nameLocal: 'BPBD DIY',
+        number: '0274-555459',
+        description: 'Badan Penanggulangan Bencana Daerah (Local Disaster Agency)',
+        category: 'city-specific',
+        icon: 'Building',
+        city: 'yogyakarta',
+        country: 'indonesia',
+        available24x7: true,
+    },
+    {
+        id: 'ygy-bmkg',
+        name: 'BMKG Yogyakarta',
+        nameLocal: 'BMKG',
+        number: '0274-512624',
+        description: 'Badan Meteorologi & Geofisika (Weather & Seismology)',
+        category: 'city-specific',
+        icon: 'Building2',
+        city: 'yogyakarta',
+        country: 'indonesia',
+        available24x7: true,
+    },
 ];
 
 /**
- * Filter contacts by city.
- * Returns universal contacts (city='all') plus city-specific ones.
+ * Filter contacts by city with country awareness.
+ * Returns truly universal contacts (112) + country-wide contacts + city-specific ones.
+ *
+ * Country logic: contacts with no `country` field are universal.
+ * Contacts with `country` field only appear for cities in that country.
  */
-export function getContactsForCity(city: 'delhi' | 'bangalore' | null): EmergencyContact[] {
-    return EMERGENCY_CONTACTS.filter(
-        contact => contact.city === 'all' || contact.city === city
-    );
+export function getContactsForCity(city: 'delhi' | 'bangalore' | 'yogyakarta' | null): EmergencyContact[] {
+    const country = city ? CITY_COUNTRY[city] : 'india';
+    return EMERGENCY_CONTACTS.filter(contact => {
+        const cityMatch = contact.city === 'all' || contact.city === city;
+        const countryMatch = !contact.country || contact.country === country;
+        return cityMatch && countryMatch;
+    });
 }
 
 /**
  * Get contacts grouped by category for the given city.
  * Returns an object with arrays for each category.
  */
-export function getContactsByCategory(city: 'delhi' | 'bangalore' | null): {
+export function getContactsByCategory(city: 'delhi' | 'bangalore' | 'yogyakarta' | null): {
     critical: EmergencyContact[];
     policeFire: EmergencyContact[];
     medical: EmergencyContact[];

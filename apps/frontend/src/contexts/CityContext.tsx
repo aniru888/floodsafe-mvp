@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import type { CityKey } from '../lib/map/cityConfigs';
+import { CITIES, type CityKey } from '../lib/map/cityConfigs';
 import { MAP_CONSTANTS } from '../lib/map/config';
 import { useAuth } from './AuthContext';
 import { API_BASE_URL } from '../lib/api/config';
@@ -25,13 +25,14 @@ export function CityProvider({ children }: CityProviderProps) {
     // Initialize from user preference > localStorage > default
     const [city, setCityState] = useState<CityKey>(() => {
         // Priority 1: User preference (if logged in)
-        if (user?.city_preference && (user.city_preference === 'bangalore' || user.city_preference === 'delhi')) {
+        const validCities = Object.keys(CITIES);
+        if (user?.city_preference && validCities.includes(user.city_preference)) {
             return user.city_preference as CityKey;
         }
         // Priority 2: localStorage
         if (typeof window !== 'undefined') {
             const saved = localStorage.getItem(STORAGE_KEY);
-            if (saved && (saved === 'bangalore' || saved === 'delhi')) {
+            if (saved && validCities.includes(saved)) {
                 return saved as CityKey;
             }
         }
@@ -42,7 +43,7 @@ export function CityProvider({ children }: CityProviderProps) {
     // Sync with user preference on mount or when user changes
     useEffect(() => {
         if (user?.city_preference && user.city_preference !== city) {
-            if (user.city_preference === 'bangalore' || user.city_preference === 'delhi') {
+            if (Object.keys(CITIES).includes(user.city_preference)) {
                 setCityState(user.city_preference as CityKey);
             }
         }

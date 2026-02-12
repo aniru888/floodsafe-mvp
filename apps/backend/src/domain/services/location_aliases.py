@@ -138,6 +138,47 @@ LOCATION_ALIASES: Dict[str, str] = {
     "civil lines": "Civil Lines Delhi",
 
     # ========================================
+    # YOGYAKARTA / JOGJA (Indonesia)
+    # ========================================
+    "jogja": "Yogyakarta Indonesia",
+    "jogjakarta": "Yogyakarta Indonesia",
+    "yogya": "Yogyakarta Indonesia",
+    "malioboro": "Malioboro Yogyakarta",
+    "jalan malioboro": "Jalan Malioboro Yogyakarta",
+    "kraton": "Kraton Yogyakarta",
+    "keraton": "Kraton Yogyakarta",
+    "tugu": "Tugu Yogyakarta",
+    "tugu jogja": "Tugu Yogyakarta",
+    "prawirotaman": "Prawirotaman Yogyakarta",
+    "kaliurang": "Kaliurang Sleman Yogyakarta",
+    "parangtritis": "Parangtritis Beach Bantul Yogyakarta",
+    "prambanan": "Prambanan Temple Yogyakarta",
+    "borobudur": "Borobudur Temple Magelang",
+    "ugm": "Universitas Gadjah Mada Yogyakarta",
+    "gadjah mada": "Universitas Gadjah Mada Yogyakarta",
+    "uny": "Universitas Negeri Yogyakarta",
+    "amplaz": "Ambarukmo Plaza Yogyakarta",
+    "ambarukmo": "Ambarukmo Plaza Yogyakarta",
+    "hartono mall": "Hartono Mall Yogyakarta",
+    "jcm": "Jogja City Mall Yogyakarta",
+    "jogja city mall": "Jogja City Mall Yogyakarta",
+    "gejayan": "Jalan Gejayan Yogyakarta",
+    "seturan": "Seturan Yogyakarta",
+    "babarsari": "Babarsari Yogyakarta",
+    "condong catur": "Condong Catur Sleman Yogyakarta",
+    "godean": "Godean Sleman Yogyakarta",
+    "gamping": "Gamping Sleman Yogyakarta",
+    "bantul": "Bantul Yogyakarta",
+    "sleman": "Sleman Yogyakarta",
+    "kulon progo": "Kulon Progo Yogyakarta",
+    "gunung kidul": "Gunung Kidul Yogyakarta",
+    "wonosari": "Wonosari Gunung Kidul Yogyakarta",
+    "imogiri": "Imogiri Bantul Yogyakarta",
+    "kotagede": "Kotagede Yogyakarta",
+    "adisucipto": "Adisucipto Airport Yogyakarta",
+    "yia": "Yogyakarta International Airport Kulon Progo",
+
+    # ========================================
     # MUMBAI
     # ========================================
     "bkc": "Bandra Kurla Complex Mumbai",

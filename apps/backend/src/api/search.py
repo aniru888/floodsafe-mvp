@@ -84,14 +84,24 @@ DELHI_BOUNDS = {
     "min_lat": 28.40,
     "max_lat": 28.88,
     "min_lng": 76.84,
-    "max_lng": 77.35
+    "max_lng": 77.35,
+    "country_code": "in",
 }
 
 BANGALORE_BOUNDS = {
     "min_lat": 12.75,
     "max_lat": 13.20,
     "min_lng": 77.35,
-    "max_lng": 77.80
+    "max_lng": 77.80,
+    "country_code": "in",
+}
+
+YOGYAKARTA_BOUNDS = {
+    "min_lat": -7.95,
+    "max_lat": -7.65,
+    "min_lng": 110.30,
+    "max_lng": 110.50,
+    "country_code": "id",
 }
 
 
@@ -106,7 +116,7 @@ async def unified_search(
     lng: Optional[float] = Query(None, description="Longitude for spatial search"),
     radius: float = Query(5000, ge=100, le=50000, description="Search radius in meters"),
     limit: int = Query(30, ge=1, le=100, description="Max results per category"),
-    city: str = Query("all", description="City filter: 'delhi', 'bangalore', or 'all'"),
+    city: str = Query("all", description="City filter: 'delhi', 'bangalore', 'yogyakarta', or 'all'"),
     db: Session = Depends(get_db)
 ):
     """
@@ -135,6 +145,8 @@ async def unified_search(
         city_bounds = DELHI_BOUNDS
     elif city.lower() == 'bangalore':
         city_bounds = BANGALORE_BOUNDS
+    elif city.lower() == 'yogyakarta':
+        city_bounds = YOGYAKARTA_BOUNDS
     # For 'all' or any other value, don't filter by bounds (city_bounds = None)
 
     search_service = get_search_service(db)
@@ -155,7 +167,7 @@ async def unified_search(
 async def search_locations(
     q: str = Query(..., min_length=2, description="Location search query"),
     limit: int = Query(30, ge=1, le=50, description="Max results"),
-    city: Optional[str] = Query(None, regex="^(delhi|bangalore)$", description="City filter: 'delhi' or 'bangalore'"),
+    city: Optional[str] = Query(None, regex="^(delhi|bangalore|yogyakarta)$", description="City filter: 'delhi', 'bangalore', or 'yogyakarta'"),
     db: Session = Depends(get_db)
 ):
     """
@@ -172,6 +184,8 @@ async def search_locations(
         city_bounds = DELHI_BOUNDS
     elif city == 'bangalore':
         city_bounds = BANGALORE_BOUNDS
+    elif city == 'yogyakarta':
+        city_bounds = YOGYAKARTA_BOUNDS
 
     search_service = get_search_service(db)
     results = await search_service.unified_search(

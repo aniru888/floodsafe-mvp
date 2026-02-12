@@ -16,7 +16,7 @@ export interface CityInfo {
 }
 
 /**
- * City coordinates for Indian metros.
+ * City coordinates for supported cities.
  * Key is lowercase city identifier matching user.city_preference.
  */
 export const CITY_COORDINATES: Record<string, CityInfo> = {
@@ -61,6 +61,13 @@ export const CITY_COORDINATES: Record<string, CityInfo> = {
     name: "Hyderabad",
     displayName: "Hyderabad",
     radiusKm: 25,
+  },
+  yogyakarta: {
+    lat: -7.7956,
+    lng: 110.3695,
+    name: "Yogyakarta",
+    displayName: "Yogyakarta",
+    radiusKm: 15,
   },
 };
 

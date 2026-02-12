@@ -16,8 +16,8 @@ interface SmartSearchBarProps {
     placeholder?: string;
     className?: string;
     showTrending?: boolean;
-    /** City key for filtering location results. If not provided, searches all of India. */
-    cityKey?: 'delhi' | 'bangalore';
+    /** City key for filtering location results. If not provided, searches globally. */
+    cityKey?: 'delhi' | 'bangalore' | 'yogyakarta';
     /** User's current latitude for proximity-sorted results */
     userLat?: number;
     /** User's current longitude for proximity-sorted results */
