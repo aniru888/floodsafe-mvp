@@ -17,40 +17,46 @@ from ..core.config import settings
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
+SUPPORTED_CITIES = {"delhi", "bangalore", "yogyakarta"}
 
-# Lazy-loaded service instance
-_hotspots_service = None
+# Per-city service instances
+_hotspots_services: Dict[str, Any] = {}
 
 
-def _get_hotspots_service():
-    """Get or create the hotspots service instance."""
-    global _hotspots_service
-
-    if _hotspots_service is None:
+def _get_hotspots_service(city: str = "delhi"):
+    """Get or create the hotspots service instance for a city."""
+    if city not in _hotspots_services:
         from ..domain.ml.hotspots_service import HotspotsService
-        _hotspots_service = HotspotsService()
-        _hotspots_service.initialize()
+        service = HotspotsService(city=city)
+        service.initialize()
+        _hotspots_services[city] = service
 
-    return _hotspots_service
+    return _hotspots_services[city]
+
+
+def _detect_city_from_coords(lat: float, lng: float) -> str:
+    """Auto-detect city from coordinates using FHI calculator bounds."""
+    from ..domain.ml.fhi_calculator import FHICalculator
+    calc = FHICalculator()
+    return calc._detect_city(lat, lng)
 
 
 # Path to static hotspot data (for when ML is completely disabled)
-def _get_static_hotspots_path() -> Optional[Path]:
-    """Get path to static hotspots data file."""
-    # Check backend's data directory first
-    backend_data = Path(__file__).resolve().parent.parent.parent / "data" / "delhi_waterlogging_hotspots.json"
+def _get_static_hotspots_path(city: str = "delhi") -> Optional[Path]:
+    """Get path to static hotspots data file for a city."""
+    backend_data = Path(__file__).resolve().parent.parent.parent / "data" / f"{city}_waterlogging_hotspots.json"
     if backend_data.exists():
         return backend_data
 
     return None
 
 
-def _load_static_hotspots() -> Dict[str, Any]:
+def _load_static_hotspots(city: str = "delhi") -> Dict[str, Any]:
     """
     Load static hotspot data when ML is completely disabled.
     Returns GeoJSON FeatureCollection with baseline risk levels.
     """
-    data_path = _get_static_hotspots_path()
+    data_path = _get_static_hotspots_path(city)
     if not data_path:
         raise HTTPException(
             status_code=503,
@@ -150,11 +156,12 @@ def _load_static_hotspots() -> Dict[str, Any]:
 
 @router.get("/all")
 async def get_all_hotspots(
+    city: str = Query("delhi", description="City: delhi, bangalore, yogyakarta"),
     include_rainfall: bool = Query(True, description="Include current rainfall factor (via FHI)"),
     test_fhi_override: str = Query(None, description="Override FHI for testing: 'high', 'extreme', or 'mixed'"),
 ):
     """
-    Get all Delhi waterlogging hotspots with current risk levels.
+    Get all waterlogging hotspots for a city with current risk levels.
 
     Returns GeoJSON FeatureCollection with:
     - Point features for each hotspot
@@ -163,30 +170,33 @@ async def get_all_hotspots(
     Risk is dynamically adjusted based on current weather when ML is enabled.
     Falls back to static baseline data when ML is disabled.
     """
+    if city not in SUPPORTED_CITIES:
+        raise HTTPException(status_code=400, detail=f"Unsupported city: {city}. Supported: {', '.join(SUPPORTED_CITIES)}")
+
     # If ML is completely disabled, return static data
     if not settings.ML_ENABLED:
-        logger.info("ML disabled, serving static hotspot data")
-        return _load_static_hotspots()
+        logger.info(f"ML disabled, serving static hotspot data for {city}")
+        return _load_static_hotspots(city)
 
     try:
         # Use embedded ML service
-        service = _get_hotspots_service()
+        service = _get_hotspots_service(city)
         result = await service.get_all_hotspots(
             include_fhi=include_rainfall,  # FHI uses weather data including rainfall
             test_fhi_override=test_fhi_override,
         )
 
         feature_count = len(result.get("features", []))
-        logger.info(f"Hotspots returned: {feature_count} locations" +
+        logger.info(f"Hotspots returned: {feature_count} {city} locations" +
                    (f" (TEST MODE: {test_fhi_override})" if test_fhi_override else ""))
 
         return result
 
     except RuntimeError as e:
-        logger.error(f"Hotspots service error: {e}")
+        logger.error(f"Hotspots service error for {city}: {e}")
         # Fallback to static data on service error
-        logger.info("Falling back to static hotspot data")
-        return _load_static_hotspots()
+        logger.info(f"Falling back to static hotspot data for {city}")
+        return _load_static_hotspots(city)
     except Exception as e:
         logger.error(f"Unexpected error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -195,6 +205,7 @@ async def get_all_hotspots(
 @router.get("/hotspot/{hotspot_id}")
 async def get_hotspot_risk(
     hotspot_id: int,
+    city: str = Query("delhi", description="City: delhi, bangalore, yogyakarta"),
     include_fhi: bool = Query(True, description="Include FHI calculation"),
 ):
     """
@@ -202,6 +213,7 @@ async def get_hotspot_risk(
 
     Args:
         hotspot_id: Hotspot identifier
+        city: City key (IDs overlap between cities)
         include_fhi: Include Flood Hazard Index calculation
 
     Returns:
@@ -214,7 +226,7 @@ async def get_hotspot_risk(
         )
 
     try:
-        service = _get_hotspots_service()
+        service = _get_hotspots_service(city)
         result = await service.get_hotspot_by_id(hotspot_id, include_fhi=include_fhi)
 
         if result is None:
@@ -241,7 +253,7 @@ async def get_risk_at_point(
     Get flood risk for any point in a supported city.
 
     Uses proximity to known hotspots and current weather.
-    Currently only Delhi has hotspot data — other cities return baseline risk.
+    Auto-detects city from coordinates.
 
     Args:
         lat: Latitude (WGS84)
@@ -257,7 +269,8 @@ async def get_risk_at_point(
         )
 
     try:
-        service = _get_hotspots_service()
+        detected_city = _detect_city_from_coords(lat, lng)
+        service = _get_hotspots_service(detected_city)
 
         # Find nearest hotspot
         min_distance = float("inf")
@@ -330,11 +343,12 @@ async def get_risk_summary(
     if not is_llama_enabled():
         return {"risk_summary": None, "enabled": False}
 
-    # Get risk data from the risk-at-point logic
+    # Get risk data from the risk-at-point logic (auto-detect city from coords)
     risk_data = {"risk_level": "low", "fhi": 0.0, "is_hotspot": False}
     if settings.ML_ENABLED:
         try:
-            service = _get_hotspots_service()
+            detected_city = _detect_city_from_coords(lat, lng)
+            service = _get_hotspots_service(detected_city)
             min_distance = float("inf")
             nearest = None
             for h in service.hotspots_data:

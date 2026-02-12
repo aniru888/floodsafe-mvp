@@ -96,16 +96,18 @@ class RouteHotspotAnalysis:
 
 async def fetch_hotspots_with_fhi(
     include_fhi: bool = True,
-    test_fhi_override: str = None
+    test_fhi_override: str = None,
+    city: str = "delhi",
 ) -> List[Dict]:
     """
-    Fetch all Delhi hotspots with current FHI scores from ML service.
+    Fetch all hotspots for a city with current FHI scores from ML service.
 
     Returns empty list if ML service is unavailable (graceful degradation).
 
     Args:
         include_fhi: Whether to include live FHI calculation (default True)
         test_fhi_override: Override FHI for testing: 'high', 'extreme', or 'mixed'
+        city: City key (delhi, bangalore, yogyakarta)
 
     Returns:
         List of GeoJSON features with hotspot properties
@@ -116,7 +118,7 @@ async def fetch_hotspots_with_fhi(
 
     try:
         async with httpx.AsyncClient(timeout=30.0) as client:
-            params = {"include_rainfall": "true"} if include_fhi else {}
+            params = {"include_rainfall": "true", "city": city} if include_fhi else {"city": city}
             if test_fhi_override:
                 params["test_fhi_override"] = test_fhi_override
                 logger.info(f"Fetching hotspots with TEST MODE: {test_fhi_override}")

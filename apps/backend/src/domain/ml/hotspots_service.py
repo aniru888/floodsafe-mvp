@@ -40,13 +40,14 @@ class HotspotsService:
     # Response cache (5 minute TTL)
     CACHE_TTL = timedelta(minutes=5)
 
-    def __init__(self, data_dir: Optional[Path] = None, models_dir: Optional[Path] = None):
+    def __init__(self, data_dir: Optional[Path] = None, models_dir: Optional[Path] = None, city: str = "delhi"):
         """
         Initialize hotspots service.
 
         Args:
             data_dir: Path to data directory containing hotspots JSON
             models_dir: Path to models directory containing XGBoost model
+            city: City key (delhi, bangalore, yogyakarta)
         """
         # Resolve directories relative to backend root
         if data_dir is None:
@@ -56,6 +57,7 @@ class HotspotsService:
 
         self.data_dir = data_dir
         self.models_dir = models_dir
+        self.city = city
 
         # Data storage
         self.hotspots_data: List[Dict] = []
@@ -81,8 +83,8 @@ class HotspotsService:
 
         success = True
 
-        # Load hotspots data
-        hotspots_file = self.data_dir / "delhi_waterlogging_hotspots.json"
+        # Load hotspots data (city-specific file)
+        hotspots_file = self.data_dir / f"{self.city}_waterlogging_hotspots.json"
         if hotspots_file.exists():
             try:
                 with open(hotspots_file, "r", encoding="utf-8") as f:
@@ -106,32 +108,40 @@ class HotspotsService:
             self.hotspots_data = []
             success = False
 
-        # Load pre-computed predictions cache
-        cache_file = self.data_dir / "hotspot_predictions_cache.json"
-        if cache_file.exists():
-            try:
-                with open(cache_file, "r", encoding="utf-8") as f:
-                    cache_data = json.load(f)
-                    self.predictions_cache = cache_data.get("predictions", {})
-                logger.info(f"Loaded pre-computed predictions for {len(self.predictions_cache)} hotspots")
-            except Exception as e:
-                logger.warning(f"Failed to load predictions cache: {e}")
+        # Load pre-computed predictions cache (Delhi-only — XGBoost trained on Delhi data)
+        if self.city == "delhi":
+            cache_file = self.data_dir / "hotspot_predictions_cache.json"
+            if cache_file.exists():
+                try:
+                    with open(cache_file, "r", encoding="utf-8") as f:
+                        cache_data = json.load(f)
+                        self.predictions_cache = cache_data.get("predictions", {})
+                    logger.info(f"Loaded pre-computed predictions for {len(self.predictions_cache)} hotspots")
+                except Exception as e:
+                    logger.warning(f"Failed to load predictions cache: {e}")
+                    self.predictions_cache = {}
+            else:
+                logger.info("No predictions cache found - will use severity-based fallback")
                 self.predictions_cache = {}
         else:
-            logger.info("No predictions cache found - will use severity-based fallback")
+            logger.info(f"Skipping predictions cache for {self.city} (Delhi-only)")
             self.predictions_cache = {}
 
-        # Load trained XGBoost model
-        model_path = self.models_dir / "xgboost_hotspot"
-        if model_path.exists():
-            try:
-                self.hotspot_model = load_trained_model(model_path)
-                logger.info("XGBoost hotspot model loaded")
-            except Exception as e:
-                logger.warning(f"Failed to load hotspot model: {e}")
+        # Load trained XGBoost model (Delhi-only — model trained on Delhi data)
+        if self.city == "delhi":
+            model_path = self.models_dir / "xgboost_hotspot"
+            if model_path.exists():
+                try:
+                    self.hotspot_model = load_trained_model(model_path)
+                    logger.info("XGBoost hotspot model loaded")
+                except Exception as e:
+                    logger.warning(f"Failed to load hotspot model: {e}")
+                    self.hotspot_model = None
+            else:
+                logger.info("No trained hotspot model found - using severity-based risk estimation")
                 self.hotspot_model = None
         else:
-            logger.info("No trained hotspot model found - using severity-based risk estimation")
+            logger.info(f"Skipping XGBoost model for {self.city} (Delhi-only) — using severity-based FHI")
             self.hotspot_model = None
 
         self._initialized = success or len(self.hotspots_data) > 0
@@ -499,14 +509,14 @@ class HotspotsService:
         return R * c
 
 
-# Singleton instance
-_hotspots_service: Optional[HotspotsService] = None
+# Per-city service instances
+_hotspots_services: Dict[str, HotspotsService] = {}
 
 
-def get_hotspots_service() -> HotspotsService:
-    """Get singleton hotspots service instance."""
-    global _hotspots_service
-    if _hotspots_service is None:
-        _hotspots_service = HotspotsService()
-        _hotspots_service.initialize()
-    return _hotspots_service
+def get_hotspots_service(city: str = "delhi") -> HotspotsService:
+    """Get hotspots service instance for a city (lazy-initialized)."""
+    if city not in _hotspots_services:
+        service = HotspotsService(city=city)
+        service.initialize()
+        _hotspots_services[city] = service
+    return _hotspots_services[city]

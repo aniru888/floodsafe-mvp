@@ -29,7 +29,8 @@ const ALERT_COOLDOWN_DISTANCE_METERS = 1000; // User must move 1km before re-ale
 
 export function LocationTrackingProvider({ children }: { children: React.ReactNode }) {
     const city = useCurrentCity();
-    const { data: hotspotsData } = useHotspots({ enabled: city === 'delhi' });
+    const hasHotspots = ['delhi', 'yogyakarta'].includes(city);
+    const { data: hotspotsData } = useHotspots({ enabled: hasHotspots, city });
 
     const [state, setState] = useState<LocationTrackingState>({
         isTracking: false,
@@ -64,9 +65,9 @@ export function LocationTrackingProvider({ children }: { children: React.ReactNo
     useEffect(() => {
         // Only track if:
         // 1. Feature is enabled
-        // 2. City is Delhi (has hotspot data)
+        // 2. City has hotspot data (Delhi, Yogyakarta)
         // 3. Not already tracking
-        if (state.isEnabled && city === 'delhi' && !state.isTracking) {
+        if (state.isEnabled && hasHotspots && !state.isTracking) {
             setState(prev => ({ ...prev, isTracking: true }));
 
             watchIdRef.current = navigator.geolocation.watchPosition(
@@ -115,10 +116,8 @@ export function LocationTrackingProvider({ children }: { children: React.ReactNo
                     timeout: 10000,
                 }
             );
-        } else if ((!state.isEnabled || city !== 'delhi') && state.isTracking) {
+        } else if ((!state.isEnabled || !hasHotspots) && state.isTracking) {
             // Stop tracking when disabled or when city doesn't have hotspot data
-            // TODO: Add yogyakarta here when hotspot data is available
-            // Stop tracking
             if (watchIdRef.current !== null) {
                 navigator.geolocation.clearWatch(watchIdRef.current);
                 watchIdRef.current = null;
@@ -132,7 +131,7 @@ export function LocationTrackingProvider({ children }: { children: React.ReactNo
                 watchIdRef.current = null;
             }
         };
-    }, [state.isEnabled, state.isTracking, city, hotspotsData]);
+    }, [state.isEnabled, state.isTracking, hasHotspots, hotspotsData]);
 
     // Alert for nearby hotspots (with cooldown)
     useEffect(() => {

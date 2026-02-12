@@ -93,8 +93,10 @@ export default function MapComponent({
     const alertedHotspotsRef = useRef<Set<string>>(new Set());
     const animationFrameRef = useRef<number | null>(null);
 
-    // Check if predictions are available for current city
-    // Currently, ML predictions are only available for Delhi
+    // Cities with hotspot data available
+    const HOTSPOT_CITIES = ['delhi', 'yogyakarta'];
+    const hasHotspots = HOTSPOT_CITIES.includes(city);
+    // ML predictions (ensemble) are Delhi-only and currently disabled
     const isDelhiCity = city === 'delhi';
 
     // Fetch ML predictions for heatmap (only for Delhi)
@@ -109,10 +111,11 @@ export default function MapComponent({
     //     enabled: isDelhiCity && layersVisible.predictions && !!mapBounds,
     // });
 
-    // Fetch waterlogging hotspots (only for Delhi)
+    // Fetch waterlogging hotspots (cities with data: Delhi + Yogyakarta)
     const { data: hotspotsData, error: hotspotsError } = useHotspots({
-        enabled: isDelhiCity,
-        includeRainfall: true   // Enable live FHI from Open-Meteo weather data
+        enabled: hasHotspots,
+        includeRainfall: true,
+        city,
     });
 
     // Fetch Google Flood Forecasting gauge data for current city
@@ -172,13 +175,13 @@ export default function MapComponent({
 
     // Show error toast when hotspots fail to load
     useEffect(() => {
-        if (hotspotsError && isDelhiCity) {
+        if (hotspotsError && hasHotspots) {
             toast.error('Failed to load waterlogging hotspots', {
                 description: 'Some flood risk data may be unavailable',
                 duration: 5000,
             });
         }
-    }, [hotspotsError, isDelhiCity]);
+    }, [hotspotsError, hasHotspots]);
 
     // Start continuous location tracking when component mounts
     useEffect(() => {
@@ -348,7 +351,7 @@ export default function MapComponent({
 
     // Check proximity to high-risk hotspots and show alerts
     useEffect(() => {
-        if (!userLocation || !hotspotsData?.features || !isDelhiCity) return;
+        if (!userLocation || !hotspotsData?.features || !hasHotspots) return;
 
         hotspotsData.features.forEach((feature) => {
             const props = feature.properties;
@@ -395,7 +398,7 @@ export default function MapComponent({
                 );
             }
         });
-    }, [userLocation, hotspotsData, isDelhiCity, calculateDistance, PROXIMITY_ALERT_RADIUS_METERS, HIGH_RISK_LEVELS]);
+    }, [userLocation, hotspotsData, hasHotspots, calculateDistance, PROXIMITY_ALERT_RADIUS_METERS, HIGH_RISK_LEVELS]);
 
     // Reset alerted hotspots when city changes or user moves far away
     useEffect(() => {
@@ -722,8 +725,8 @@ export default function MapComponent({
         // 2b. Historical Flood Events - Now shown as info panel instead of map markers
         // (See HistoricalFloodsPanel component - toggled via History button)
 
-        // 2c. Add Waterlogging Hotspots Layer (90 Delhi locations with live FHI risk)
-        if (hotspotsData && isDelhiCity) {
+        // 2c. Add Waterlogging Hotspots Layer (Delhi + Yogyakarta with live FHI risk)
+        if (hotspotsData && hasHotspots) {
             // Wrap in try-catch to handle race conditions during city switch
             try {
                 // mapStyleReady is already checked at effect level, no need to re-check here
@@ -1263,7 +1266,7 @@ export default function MapComponent({
             console.error('Error updating map layers:', error);
         }
 
-    }, [map, isLoaded, mapStyleReady, sensors, reports, hotspotsData, isDelhiCity, navigationRoutes, selectedRouteId, navigationOrigin, navigationDestination, nearbyMetros, floodZones, onMetroClick, inundationGeoJSON, activeInundationGauge]);
+    }, [map, isLoaded, mapStyleReady, sensors, reports, hotspotsData, hasHotspots, navigationRoutes, selectedRouteId, navigationOrigin, navigationDestination, nearbyMetros, floodZones, onMetroClick, inundationGeoJSON, activeInundationGauge]);
 
     // Auto-zoom map to fit routes when calculated
     useEffect(() => {
@@ -1733,7 +1736,7 @@ export default function MapComponent({
                             size="icon"
                             onClick={() => setLayersVisible(prev => ({ ...prev, hotspots: !prev.hotspots }))}
                             className={`${layersVisible.hotspots ? '!bg-green-500 hover:!bg-green-600 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
-                            title="Toggle waterlogging hotspots (90 Delhi locations)"
+                            title="Toggle waterlogging hotspots"
                         >
                             <Droplets className="h-4 w-4" />
                         </Button>

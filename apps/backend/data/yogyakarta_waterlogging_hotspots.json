@@ -1,0 +1,208 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "created": "2026-02-13",
+    "source": "Local flood reports + Nominatim geocoding",
+    "total_hotspots": 19,
+    "zones": {
+      "east": 4,
+      "north": 14,
+      "central": 1
+    },
+    "composition": {
+      "local_reports": 19
+    }
+  },
+  "hotspots": [
+    {
+      "id": 1,
+      "name": "Jalan Kusumanegara",
+      "lat": -7.802042,
+      "lng": 110.390551,
+      "description": "Flood-prone street in Yogyakarta",
+      "zone": "east",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 2,
+      "name": "Jalan Gejayan",
+      "lat": -7.780424,
+      "lng": 110.388247,
+      "description": "Flood-prone street in Yogyakarta",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 3,
+      "name": "Jalan Ringroad Utara",
+      "lat": -7.750884,
+      "lng": 110.370141,
+      "description": "Flood-prone street in Yogyakarta",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 4,
+      "name": "Klitren",
+      "lat": -7.783817,
+      "lng": 110.383415,
+      "description": "Flood-prone neighborhood in Yogyakarta",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 5,
+      "name": "Jalan Balirejo",
+      "lat": -7.798442,
+      "lng": 110.394149,
+      "description": "Flood-prone street in Yogyakarta",
+      "zone": "east",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 6,
+      "name": "Jalan Ipda Tut Harsono",
+      "lat": -7.790325,
+      "lng": 110.393407,
+      "description": "Flood-prone street in Yogyakarta",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 7,
+      "name": "Terban",
+      "lat": -7.779115,
+      "lng": 110.373201,
+      "description": "Flood-prone neighborhood in Yogyakarta",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 8,
+      "name": "Bintaran",
+      "lat": -7.802981,
+      "lng": 110.372872,
+      "description": "Flood-prone neighborhood in Yogyakarta",
+      "zone": "central",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 9,
+      "name": "Jalan Babarsari",
+      "lat": -7.771169,
+      "lng": 110.414913,
+      "description": "Flood-prone street in Yogyakarta",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 10,
+      "name": "Jalan Seturan",
+      "lat": -7.764273,
+      "lng": 110.411062,
+      "description": "Flood-prone street in Yogyakarta",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 11,
+      "name": "Perumnas Seturan",
+      "lat": -7.769048,
+      "lng": 110.410001,
+      "description": "Flood-prone neighborhood in Yogyakarta",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 12,
+      "name": "Selokan Mataram",
+      "lat": -7.76764,
+      "lng": 110.39439,
+      "description": "Flood-prone street in Yogyakarta",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 13,
+      "name": "Jalan Affandi",
+      "lat": -7.780409,
+      "lng": 110.388173,
+      "description": "Flood-prone street in Yogyakarta",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 14,
+      "name": "Jalan Urip Sumoharjo",
+      "lat": -7.783048,
+      "lng": 110.383477,
+      "description": "Flood-prone street in Yogyakarta",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 15,
+      "name": "Jalan Laksda Adisucipto",
+      "lat": -7.783067,
+      "lng": 110.389681,
+      "description": "Flood-prone street in Yogyakarta",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 16,
+      "name": "Jalan Jendral Sudirman (Tugu Yogyakarta)",
+      "lat": -7.78295,
+      "lng": 110.367851,
+      "description": "Flood-prone street in Yogyakarta",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 17,
+      "name": "Jalan Majapahit",
+      "lat": -7.80917,
+      "lng": 110.408589,
+      "description": "Flood-prone street in Yogyakarta",
+      "zone": "east",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 18,
+      "name": "Gedongkuning - Wonocatur",
+      "lat": -7.804807,
+      "lng": 110.402658,
+      "description": "Flood-prone neighborhood in Yogyakarta",
+      "zone": "east",
+      "severity_history": "moderate",
+      "source": "local_reports"
+    },
+    {
+      "id": 19,
+      "name": "Underpass Kentungan",
+      "lat": -7.749753,
+      "lng": 110.387685,
+      "description": "Flood-prone underpass in Yogyakarta",
+      "zone": "north",
+      "severity_history": "high",
+      "source": "local_reports"
+    }
+  ]
+}

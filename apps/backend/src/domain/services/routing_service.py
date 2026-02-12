@@ -776,12 +776,14 @@ class RoutingService:
             user_location = (lat, lng)
             nearby_stations = []
 
-            # Fetch hotspots for Delhi safety analysis
+            # Fetch hotspots for safety analysis (cities with hotspot data)
             hotspots = []
-            if city.upper() == "DEL":
+            city_map = {"DEL": "delhi", "BLR": "bangalore", "YOG": "yogyakarta"}
+            hotspot_city = city_map.get(city.upper())
+            if hotspot_city in ("delhi", "yogyakarta"):
                 try:
                     from .hotspot_routing import fetch_hotspots_with_fhi
-                    hotspots = await fetch_hotspots_with_fhi(include_fhi=True)
+                    hotspots = await fetch_hotspots_with_fhi(include_fhi=True, city=hotspot_city)
                 except Exception as e:
                     logger.warning(f"Could not fetch hotspots for metro safety: {e}")
 

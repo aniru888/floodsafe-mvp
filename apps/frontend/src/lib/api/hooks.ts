@@ -946,7 +946,7 @@ export function useIncrementRouteUsage() {
 }
 
 // ============================================================================
-// WATERLOGGING HOTSPOTS HOOKS (90 Delhi Hotspots - 62 MCD + 28 OSM)
+// WATERLOGGING HOTSPOTS HOOKS (Delhi + Yogyakarta)
 // ============================================================================
 
 export interface HotspotFeature {
@@ -971,7 +971,7 @@ export interface HotspotFeature {
         fhi_color?: string;         // Hex color for FHI level
         elevation_m?: number;       // Elevation in meters
         // Source and verification status
-        source?: 'mcd_reports' | 'osm_underpass' | 'user_report';  // Data source
+        source?: 'mcd_reports' | 'osm_underpass' | 'user_report' | 'local_reports';  // Data source
         verified?: boolean;         // True for MCD-validated, False for ML-predicted
         osm_id?: number;            // OSM way/node ID for underpasses
     };
@@ -1001,7 +1001,7 @@ export interface HotspotsResponse {
 }
 
 /**
- * Fetch all 90 Delhi waterlogging hotspots with current FHI risk levels
+ * Fetch all waterlogging hotspots for a city with current FHI risk levels
  *
  * Risk is dynamically calculated based on:
  * - Historical severity (always available)
