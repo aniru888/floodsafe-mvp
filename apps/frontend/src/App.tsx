@@ -26,6 +26,7 @@ import { CityProvider } from './contexts/CityContext';
 import { UserProvider } from './contexts/UserContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { Loader2 } from 'lucide-react';
+import { WebMCPProvider } from './components/WebMCPProvider';
 
 const queryClient = new QueryClient();
 
@@ -247,6 +248,9 @@ export default function App() {
                     <CityProvider>
                         <InstallPromptProvider>
                             <LocationTrackingProvider>
+                                {/* WebMCP: AI agent bridge for real-time debugging */}
+                                <WebMCPProvider />
+
                                 {/* PWA Update Banner - renders at root level so SW registers immediately */}
                                 <PWAUpdateBanner />
 

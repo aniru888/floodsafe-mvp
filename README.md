@@ -44,7 +44,7 @@ FloodSafe is a nonprofit project built for social good.
 | **XGBoost Risk Model** | 18-feature binary classifier (AUC 0.98) for weather-responsive risk prediction at known hotspots |
 | **Flood Photo Classifier** | MobileNet v1 via TFLite, threshold 0.3 (safety-first to minimize false negatives) |
 | **Historical Floods** | 45 Delhi NCR events (1969–2023) from the IFI-Impacts dataset, grouped by decade |
-| **Google FloodHub** | Yamuna River gauge proxy — Old Railway Bridge, ITO Junction, Okhla Barrage — with 7-day forecasts |
+| **Google Flood Forecasting** | Live Google Flood Forecasting API — 1 Delhi gauge (CWC_015-UYDDEL, Yamuna), 28-hour forecasts, 3-tier thresholds (warning/danger/extreme), significant events with population impact, KML→GeoJSON inundation maps |
 | **External Alerts** | 7 sources: IMD, CWC, RSS feeds, Twitter/X, GDACS, GDELT, news. Severity-scored and deduplicated |
 
 ### Community & Reporting
@@ -72,7 +72,8 @@ FloodSafe is a nonprofit project built for social good.
 |---------|-------------|
 | **Watch Areas** | User-defined monitoring zones with PostGIS spatial queries and custom radius |
 | **Push Notifications** | Real-time alert delivery when flood events occur within watch areas |
-| **WhatsApp Bot** | Twilio-powered with 9 Quick Reply button types, location-based SOS, photo classification, Hindi support |
+| **WhatsApp Bot** | Dual transport (Twilio + Meta Cloud API) with Wit.ai NLU (6 intents, Hindi support), 9 Quick Reply button types, location-based SOS, photo classification, Hindi/Hinglish support, AI risk summaries (Meta Llama with Groq fallback, 1hr cache) |
+| **Emergency Contacts** | City-aware emergency numbers (112, NDMA 1070, Delhi DDMA 1077, Bangalore BBMP) with 88px tap targets. Integrated in Alerts, Home (SOS), and Profile screens |
 
 ### Safety Circles
 
@@ -110,11 +111,12 @@ ESP32-based water level monitoring with dual sensor fusion (capacitive strips + 
 |-------|-------------|
 | **Frontend** | React 18, TypeScript 5, Vite, Tailwind CSS v4, Radix UI, MapLibre GL JS, TanStack Query, Workbox |
 | **Backend** | FastAPI, SQLAlchemy 2.0, Pydantic v2, Alembic, PostGIS |
-| **ML / AI** | XGBoost, TensorFlow / MobileNet (TFLite), Google Earth Engine, CHIRPS, Open-Meteo |
+| **ML / AI** | XGBoost, TensorFlow / MobileNet (TFLite), Google Flood Forecasting API, Google Earth Engine, CHIRPS, Open-Meteo |
 | **Database** | PostgreSQL 15 + PostGIS (SRID 4326) |
 | **Auth** | Email/Password (bcrypt), Google OAuth, Phone OTP (Firebase) |
 | **Maps** | MapLibre GL JS, PMTiles (offline tiles), OpenStreetMap, Photon + Nominatim geocoding |
-| **Messaging** | Twilio (WhatsApp + SMS), SendGrid (email) |
+| **Messaging** | Twilio (WhatsApp + SMS), Meta WhatsApp Cloud API, SendGrid (email) |
+| **Meta AI** | Wit.ai (NLU), Meta Llama API (risk summaries), MobileSAM (flood segmentation demo) |
 | **Deploy** | Vercel (frontend), Koyeb (backend + ML), Supabase (database) |
 | **Testing** | Playwright (E2E + visual regression), Vitest, pytest, TypeScript strict mode |
 
@@ -137,22 +139,24 @@ ESP32-based water level monitoring with dual sensor fusion (capacitive strips + 
                          ┌─────────────▼──────────────┐
                          │        Backend API          │
                          │   FastAPI + SQLAlchemy      │
-                         │  27 routers, 80+ endpoints  │
+                         │  29 routers, 90+ endpoints  │
                          │     Clean Architecture      │
-                         └───┬──────────┬──────────┬──┘
-                             │          │          │
-                  ┌──────────▼───┐ ┌────▼─────┐ ┌─▼────────────┐
-                  │ PostgreSQL   │ │    ML    │ │     IoT      │
-                  │ + PostGIS    │ │  Service │ │  Ingestion   │
-                  │  19 tables   │ │ XGBoost  │ │  (Paused)    │
-                  │ (Supabase)   │ │ MobileNet│ │  Port 8001   │
-                  └──────────────┘ │ FHI Calc │ └──────────────┘
-                                   └──────────┘
+                         └─┬───────┬──────────┬────┬──┘
+                           │       │          │    │
+              ┌────────────▼──┐ ┌──▼─────┐ ┌──▼──┐ ┌▼─────────────┐
+              │ PostgreSQL    │ │   ML   │ │ IoT │ │ External APIs │
+              │ + PostGIS     │ │ Service│ │Ingest│ │───────────────│
+              │  19 tables    │ │ XGBoost│ │(8001)│ │ Google Flood  │
+              │ (Supabase)    │ │MbilNet │ │Paused│ │ Forecasting   │
+              └───────────────┘ │FHI Calc│ └─────┘ │ Meta/Wit.ai   │
+                                └────────┘         │ Twilio        │
+                                                   └───────────────┘
 ```
 
 - **Frontend** — 12 screens, 7 React contexts, full PWA with offline support. Hosted on Vercel.
-- **Backend API** — 27 router modules following Clean Architecture (`api/` → `domain/services/` → `infrastructure/`). Hosted on Koyeb.
+- **Backend API** — 29 router modules following Clean Architecture (`api/` → `domain/services/` → `infrastructure/`). Hosted on Koyeb.
 - **ML Service** — XGBoost hotspot risk model, FHI calculator, MobileNet flood classifier. Hosted on Koyeb.
+- **External APIs** — Google Flood Forecasting (gauge forecasts, inundation maps), Wit.ai (NLU for WhatsApp), Meta Llama (AI risk summaries with Groq fallback), Twilio + Meta WhatsApp Cloud API (dual transport).
 - **Database** — PostgreSQL 15 with PostGIS extensions, 19 tables, UUID primary keys. Hosted on Supabase.
 
 ---
@@ -180,7 +184,7 @@ ESP32-based water level monitoring with dual sensor fusion (capacitive strips + 
 ### Docker (Full Stack)
 
 ```bash
-git clone https://github.com/your-org/FloodSafe.git
+git clone https://github.com/FloodSafe-Delhi/floodsafe-mvp.git
 cd FloodSafe
 docker-compose up -d
 ```
@@ -221,26 +225,34 @@ Each service has a `.env.example` file. Key variables:
 | `VITE_API_URL` | Frontend | Backend API URL |
 | `VITE_FIREBASE_*` | Frontend | Firebase config (6 vars) |
 | `TWILIO_*` | Backend | WhatsApp/SMS (account SID, auth token, number) |
+| `GOOGLE_FLOODHUB_API_KEY` | Backend | Google Flood Forecasting API access |
+| `WIT_AI_TOKEN` | Backend | Wit.ai NLU for WhatsApp command classification |
+| `META_LLAMA_API_KEY` | Backend | Meta Llama API for AI risk summaries |
+| `LLAMA_FALLBACK_API_KEY` | Backend | Groq fallback for Llama (optional, `gsk_...` prefix) |
+| `META_WHATSAPP_TOKEN` | Backend | Meta WhatsApp Cloud API token |
+| `META_PHONE_NUMBER_ID` | Backend | Meta WhatsApp phone number ID |
+| `META_VERIFY_TOKEN` | Backend | Meta webhook verification token |
+| `META_APP_SECRET` | Backend | Meta app HMAC signature validation |
 | `GCP_PROJECT_ID` | ML | Google Earth Engine access |
 
 ---
 
 ## API Overview
 
-The backend exposes 27 router modules with 80+ endpoints. Full Swagger docs available at `/docs`.
+The backend exposes 29 router modules with 90+ endpoints. Full Swagger docs available at `/docs`.
 
 | Group | Routers | Endpoints | Description |
 |-------|---------|:---------:|-------------|
 | **Auth** | `auth`, `otp` | 6 | Email register/login, Google OAuth, phone OTP (Firebase) |
 | **Users** | `users` | 4 | Profile CRUD, account management |
 | **Reports** | `reports`, `comments`, `ml` | 10 | Flood reports with photo upload, voting, comments, ML classification |
-| **Flood Data** | `hotspots`, `rainfall`, `predictions`, `historical_floods`, `floodhub`, `external_alerts` | 19 | Hotspots with FHI, weather data, ML predictions, FloodHub proxy, multi-source alerts |
+| **Flood Data** | `hotspots`, `rainfall`, `predictions`, `historical_floods`, `floodhub`, `external_alerts` | 22 | Hotspots with FHI, weather data, ML predictions, FloodHub proxy (5 endpoints: status, gauges, forecast, inundation, events), multi-source alerts |
 | **Routing** | `routes_api`, `saved_routes`, `daily_routes` | 8 | Route comparison, bookmarks, daily commute tracking |
 | **Alerts** | `alerts`, `watch_areas` | 6 | Alert CRUD, watch area management with PostGIS |
 | **Social** | `gamification`, `badges`, `reputation`, `leaderboards` | 9 | Points, badges, streaks, leaderboards, privacy controls |
 | **Safety** | `circles`, `sos` | 17 | Safety circles CRUD, members, invites, SOS emergency fanout |
 | **Search** | `search` | 5 | Unified search: locations, reports, users, suggestions |
-| **Messaging** | `webhook` | 2 | WhatsApp webhook (Twilio) |
+| **Messaging** | `webhook`, `whatsapp_meta` | 4 | WhatsApp webhooks — Twilio (legacy) + Meta Cloud API (parallel transport) |
 | **IoT** | `sensors` | 6 | Sensor CRUD, readings, API key auth (paused) |
 
 ---
@@ -252,7 +264,7 @@ FloodSafe/
 ├── apps/
 │   ├── backend/                 # FastAPI backend
 │   │   └── src/
-│   │       ├── api/             # 27 router modules
+│   │       ├── api/             # 29 router modules
 │   │       ├── domain/services/ # Business logic (auth, routing, alerts, circles...)
 │   │       ├── infrastructure/  # SQLAlchemy models, database
 │   │       └── core/            # Config, dependencies
@@ -284,10 +296,10 @@ FloodSafe/
 
 | City | Status | Hotspots | Historical Events | FloodHub | Alert Sources |
 |------|--------|:--------:|:-----------------:|:--------:|:-------------:|
-| **Delhi** | Full | 90 (62 MCD + 28 OSM) | 45 (1969–2023) | Yamuna gauges | All 7 |
+| **Delhi NCR** | Full | 90 (62 MCD + 28 OSM) | 45 (1969–2023) | 1 CWC gauge (live) | All 7 |
 | **Bangalore** | Basic | — | — | — | Limited |
 
-Expansion to other Indian metros is planned for Tier 7.
+Delhi NCR bounds are aligned with the GDACS NCR region. FloodHub provides live gauge data for CWC_015-UYDDEL (Delhi Railway Bridge, Yamuna) with 28-hour forecasts and 3-tier flood thresholds. Expansion to other Indian metros is planned for Tier 7.
 
 ---
 
@@ -296,10 +308,10 @@ Expansion to other Indian metros is planned for Tier 7.
 | Tier | Name | Status |
 |:----:|------|--------|
 | 1 | **Community Intelligence** | Complete — Reports, auth, alerts, onboarding, voting, comments, E2E tests |
-| 2 | **ML/AI Foundation** | Complete — XGBoost (AUC 0.98), FHI calculator, MobileNet, external alerts, FloodHub, historical floods |
+| 2 | **ML/AI Foundation** | Complete — XGBoost (AUC 0.98), FHI calculator, MobileNet, external alerts, Google Flood Forecasting API (live), historical floods |
 | 3 | **Smart Sensors** | Mostly complete — ESP32 firmware and ingestion built; edge ML not yet implemented. IoT paused |
 | 4 | **Smart Features** | Complete — Gamification, safe routing, saved routes, smart search, live navigation |
-| 5 | **Messaging** | Complete — WhatsApp bot with Hindi support, Twilio integration |
+| 5 | **Messaging** | Complete — WhatsApp bot (Twilio + Meta Cloud API dual transport), Wit.ai NLU (6 intents), Meta Llama risk summaries, Hindi support |
 | 6 | **Mobile & Offline** | Complete — PWA (Workbox), install banner, offline caching, Safety Circles with offline SOS |
 
 ### What's Next (Tier 7: Scale)

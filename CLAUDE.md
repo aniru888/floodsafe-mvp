@@ -296,6 +296,59 @@ search_for_pattern    # Regex search across codebase
 
 ---
 
+## WebMCP Bridge (AI Agent Interface)
+
+**Status**: Active in production. Enables Claude Code browser automation.
+
+### Architecture
+- **Packages**: `@mcp-b/react-webmcp` v1.1.1 + `@mcp-b/global` v1.5.0
+- **Component**: `WebMCPProvider.tsx` (272 lines, renders null — pure side-effect)
+- **Mount**: `App.tsx` root level (inside LocationTrackingProvider)
+- **Protocol**: postMessage API (browser window events)
+- **Contexts consumed**: AuthContext, CityContext, LocationTrackingContext, TanStack Query
+
+### Registered Entities (13 total)
+
+**Contexts (2)**:
+| Name | Description |
+|------|-------------|
+| `context_app_state` | City, auth status, user profile, gamification points |
+| `context_location` | GPS position, nearby hotspots with FHI, tracking state |
+
+**Tools (3)**:
+| Name | Input | Destructive? |
+|------|-------|-------------|
+| `search_locations` | `{query, city?, limit?}` | No (read-only) |
+| `get_query_cache` | `{query_key}` (JSON format) | No (read-only) |
+| `switch_city` | `{city: delhi\|bangalore\|yogyakarta}` | Yes |
+
+**Resources (5)** — All return JSON:
+| URI | Description |
+|-----|-------------|
+| `floodsafe://config` | API URL, city list, bounds, feature flags |
+| `floodsafe://alerts/{city}` | Unified flood alerts (IMD, GDACS, community, FloodHub) |
+| `floodsafe://hotspots/{city}` | Waterlogging hotspots with FHI risk levels |
+| `floodsafe://reports` | Recent community flood reports |
+| `floodsafe://floodhub/{city}` | Google Flood Forecasting status + gauges |
+
+**Prompts (3)** — Orchestrate tools for complex tasks:
+| Name | Description |
+|------|-------------|
+| `analyze-flood-risk` | Full risk analysis for a city (reads config, hotspots, floodhub, alerts) |
+| `debug-ui-state` | Gather all app state for debugging (auth, city, cache, console) |
+| `verify-yogyakarta` | E2E Yogyakarta integration check |
+
+### Common Cache Keys (for `get_query_cache`)
+```
+["reports"]
+["hotspots","<city>",false]
+["unified-alerts","<city>","all"]
+["floodhub-status","<city>"]
+["gamification","badges","me"]
+```
+
+---
+
 ## Skills (Slash Commands)
 
 ### Project Skills (`.claude/skills/`)
@@ -458,6 +511,49 @@ Every feature must be approached with systems-level thinking:
 > Key domains: @reports, @auth, @community, @alerts, @hotspots, @routing, @gamification,
 > @rainfall, @floodhub, @external-alerts, @smart-search, @live-navigation, @pwa,
 > @whatsapp, @iot-ingestion, @esp32-firmware, @ml-predictions, @saved-routes, @profiles, @e2e-testing
+
+---
+
+## Google Flood Forecasting API (FloodHub)
+
+**Status**: Code complete. Waiting for API key activation from Google pilot program.
+
+### API Reference
+- **Base URL**: `https://floodforecasting.googleapis.com/v1`
+- **Auth**: API key as query parameter `?key=KEY` (NOT header)
+- **Region**: `regionCode: "IN"` (country-level), Delhi filtered locally by bounding box
+- **Env var**: `GOOGLE_FLOODHUB_API_KEY` in `apps/backend/.env`
+
+### Correct Endpoints (CRITICAL — old code was wrong)
+| Operation | Method | Endpoint |
+|-----------|--------|----------|
+| Search gauges | POST | `/v1/gauges:searchGaugesByArea` + `{"regionCode":"IN"}` |
+| Flood status | POST | `/v1/floodStatus:searchLatestFloodStatusByArea` |
+| Forecasts | GET | `/v1/gauges:queryGaugeForecasts?gaugeIds=X&issuedTimeStart=Y` |
+| Gauge models | GET | `/v1/gaugeModels:batchGet?names=gaugeModels/X` (max 50/req) |
+| Inundation | GET | `/v1/serializedPolygons/{id}` (returns KML → convert to GeoJSON) |
+| Events | POST | `/v1/significantEvents:search` |
+
+### Backend Files
+- **Service**: `apps/backend/src/domain/services/floodhub_service.py` (785 lines)
+- **Router**: `apps/backend/src/api/floodhub.py` (5 endpoints: status, gauges, forecast, inundation, events)
+- **Cache TTLs**: gauges 10min, forecasts 15min, models 60min, inundation 30min, events 15min
+
+### Frontend Files
+- **Types**: `FloodHubGauge`, `FloodHubForecast`, `FloodHubSignificantEvent` in `types.ts`
+- **Hooks**: `useFloodHubStatus`, `useFloodHubGauges`, `useFloodHubForecast`, `useFloodHubEvents`, `useFloodHubInundation` in `hooks.ts`
+- **Components**: `floodhub/FloodHubTab.tsx` → Header, SignificantEventsCard, AlertsList, ForecastChart, Footer
+
+### Remaining Work (deferred until API key active)
+1. **InundationLayer** — MapLibre GeoJSON fill layer in `MapComponent.tsx` (hook exists, layer not wired)
+2. **E2E testing** with live API data
+3. **Deploy** — Koyeb backend (add env var), Vercel frontend
+
+### Key API Facts
+- Pagination: `nextPageToken` pattern, max 500 gauges for forecasts, 50 for models
+- Inundation maps: KML format → converted via stdlib `xml.etree.ElementTree` (no extra deps)
+- Gauge location: `gauge.location.latitude` (NOT `gaugeLocation`)
+- Reference notebook: `Google_Flood_Forecasting_API_Usage_Example.ipynb` in project root
 
 ---
 

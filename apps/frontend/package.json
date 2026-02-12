@@ -18,6 +18,8 @@
         "screenshot:baseline": "npx tsx scripts/ui-overhaul-visual-test.ts"
     },
     "dependencies": {
+        "@mcp-b/global": "^1.5.0",
+        "@mcp-b/react-webmcp": "^1.1.1",
         "@radix-ui/react-accordion": "^1.2.12",
         "@radix-ui/react-alert-dialog": "^1.1.15",
         "@radix-ui/react-aspect-ratio": "^1.1.8",
@@ -61,13 +63,15 @@
         "react-day-picker": "^9.11.1",
         "react-dom": "^18.2.0",
         "react-hook-form": "^7.66.1",
+        "react-is": "^19.2.4",
         "react-resizable-panels": "^3.0.6",
         "react-router-dom": "^7.11.0",
         "recharts": "^3.4.1",
         "sonner": "^2.0.7",
         "tailwind-merge": "^2.6.0",
         "vaul": "^1.1.2",
-        "vite-plugin-pwa": "^1.2.0"
+        "vite-plugin-pwa": "^1.2.0",
+        "zod": "^4.3.6"
     },
     "devDependencies": {
         "@playwright/test": "^1.57.0",
