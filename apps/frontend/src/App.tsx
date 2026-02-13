@@ -17,6 +17,7 @@ import { PWAUpdateBanner } from './components/PWAUpdateBanner';
 import { IOSInstallBanner } from './components/IOSInstallBanner';
 import { InstallBanner } from './components/InstallBanner';
 import { InstallPromptProvider } from './contexts/InstallPromptContext';
+import { VoiceGuidanceProvider } from './contexts/VoiceGuidanceContext';
 import { LocationTrackingProvider } from './contexts/LocationTrackingContext';
 import { FloodAlert } from './types';
 import { JoinCircleModal } from './components/circles';
@@ -27,6 +28,8 @@ import { UserProvider } from './contexts/UserContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { Loader2 } from 'lucide-react';
 import { WebMCPProvider } from './components/WebMCPProvider';
+import { OnboardingBotProvider, useOnboardingBot } from './contexts/OnboardingBotContext';
+import { OnboardingBot } from './components/onboarding-bot/OnboardingBot';
 
 const queryClient = new QueryClient();
 
@@ -34,11 +37,27 @@ type Screen = 'home' | 'map' | 'report' | 'alerts' | 'profile' | 'alert-detail' 
 
 function FloodSafeApp() {
     const { isAuthenticated, isLoading: authLoading, user } = useAuth();
+    const { registerNavigation, startTour } = useOnboardingBot();
     const [activeTab, setActiveTab] = useState<Screen>('home');
     const [selectedAlert, setSelectedAlert] = useState<FloodAlert | null>(null);
     const [initialRouteDestination, setInitialRouteDestination] = useState<[number, number] | null>(null);
     const [shouldOpenNavigationPanel, setShouldOpenNavigationPanel] = useState(false);
     const [pendingInviteCode, setPendingInviteCode] = useState<string | null>(null);
+
+    // Register setActiveTab so the bot can navigate between screens during app tour
+    useEffect(() => {
+        registerNavigation((tab: string) => setActiveTab(tab as Screen));
+    }, [registerNavigation]);
+
+    // Auto-start app tour after onboarding completion (flagged by OnboardingScreen)
+    useEffect(() => {
+        if (user?.profile_complete && localStorage.getItem('floodsafe_start_app_tour') === 'true') {
+            localStorage.removeItem('floodsafe_start_app_tour');
+            // Small delay to let the main app render first
+            const timer = setTimeout(() => startTour('app-tour'), 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [user?.profile_complete, startTour]);
 
     // Deep link: check URL for ?join=CODE on mount
     useEffect(() => {
@@ -235,6 +254,9 @@ function FloodSafeApp() {
                 initialCode={pendingInviteCode || ''}
             />
 
+            {/* Onboarding Bot — floating companion for app tour */}
+            <OnboardingBot />
+
             <Toaster position="top-center" />
         </ResponsiveLayout>
     );
@@ -247,6 +269,8 @@ export default function App() {
                 <UserProvider>
                     <CityProvider>
                         <InstallPromptProvider>
+                            <VoiceGuidanceProvider>
+                            <OnboardingBotProvider>
                             <LocationTrackingProvider>
                                 {/* WebMCP: AI agent bridge for real-time debugging */}
                                 <WebMCPProvider />
@@ -266,6 +290,8 @@ export default function App() {
                                     <Route path="*" element={<FloodSafeApp />} />
                                 </Routes>
                             </LocationTrackingProvider>
+                            </OnboardingBotProvider>
+                            </VoiceGuidanceProvider>
                         </InstallPromptProvider>
                     </CityProvider>
                 </UserProvider>

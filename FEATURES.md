@@ -106,15 +106,33 @@ patterns:
 ### @hotspots (COMPLETE)
 ```yaml
 files:
-  - apps/ml-service/src/api/hotspots.py - 90 Delhi hotspots (62 MCD + 28 OSM)
-  - apps/ml-service/src/data/fhi_calculator.py - FHI calculation
-  - apps/ml-service/data/delhi_waterlogging_hotspots.json - Location data
-  - apps/backend/src/api/hotspots.py - API proxy with caching
+  ML Service:
+  - apps/ml-service/src/api/hotspots.py - HotspotsService (singleton per city)
+  - apps/ml-service/src/data/fhi_calculator.py - FHI calculation (Delhi-tuned)
+  - apps/ml-service/data/delhi_waterlogging_hotspots.json - 90 Delhi hotspots (62 MCD + 28 OSM)
+  - apps/ml-service/data/yogyakarta_waterlogging_hotspots.json - 19 Yogyakarta hotspots
+  Backend:
+  - apps/backend/src/api/hotspots.py - API proxy with caching + risk-summary endpoint
+  - apps/backend/src/api/rainfall.py - Per-city FHI calibration (lines 36-38)
+
+hotspot_counts:
+  delhi: 90 (62 MCD + 28 OSM underpasses)
+  yogyakarta: 19 (river confluences, low-elevation areas)
+  total: 109
 
 FHI_formula: |
   FHI = (0.35×P + 0.18×I + 0.12×S + 0.12×A + 0.08×R + 0.15×E) × T
   CUSTOM HEURISTIC - weights empirically tuned, not from research
-  Rain-gate: If <5mm/3d, FHI capped at 0.15 (prevents false alarms)
+  Rain-gate: City-specific threshold — below = FHI capped at 0.15
+
+city_calibration:
+  delhi:      { elev: 190-320m, wet_months: Jun-Sep,  urban: 75%, rain_gate: 5mm  }
+  bangalore:  { elev: 800-1000m, wet_months: Jun-Oct, urban: 65%, rain_gate: 5mm  }
+  yogyakarta: { elev: 75-200m, wet_months: Oct-Mar,  urban: 55%, rain_gate: 15mm }
+
+pipeline: |
+  Load hotspots (city-specific JSON) → XGBoost scoring (Delhi only) or severity fallback
+  → FHI calculation (per-city calibration) → parallel scoring → cached response
 
 color_priority: FHI first (live weather), fallback to ML risk (static)
 verification: python apps/backend/verify_hotspot_spatial.py
@@ -234,8 +252,13 @@ files:
 
 model: ExternalAlert (source, source_id, source_name, city, title, message, severity, url, lat/lng, raw_data, expires_at)
 severity_levels: low, moderate, high, severe
-cities: delhi, bangalore
+cities: delhi, bangalore, yogyakarta
 deduplication: Unique constraint on source_id
+
+yogyakarta_support:
+  GDACS bounding box: (-7.95, -7.65, 110.30, 110.50) — DIY province + Sleman/Bantul
+  include_states: yogyakarta, jawa tengah (Central Java)
+  Bilingual relevance scoring: Indonesian flood keywords (banjir, genangan, longsor, lahar, sungai)
 
 endpoints:
   - GET /api/external-alerts - Alerts by city (filter: source, severity)
@@ -267,7 +290,14 @@ FHI_levels:
   high: 0.4-0.7 (Orange)
   extreme: 0.7-1.0 (Red)
 
-calibration: Urban Delhi 1.5x-2.25x correction, 20 historical events tested
+calibration: Urban 1.5x-2.25x correction, 20 historical events tested (Delhi)
+
+city_specific_calibration:
+  delhi:      { elev: 190-320m, wet_months: Jun-Sep,  urban_fraction: 0.75, rain_gate: 5mm  }
+  bangalore:  { elev: 800-1000m, wet_months: Jun-Oct, urban_fraction: 0.65, rain_gate: 5mm  }
+  yogyakarta: { elev: 75-200m, wet_months: Oct-Mar,  urban_fraction: 0.55, rain_gate: 15mm }
+
+rain_gate: Per-city threshold. Below threshold = FHI capped at 0.15 (prevents false alarms in dry conditions)
 cache: 1-hour TTL, in-memory
 ```
 
@@ -275,24 +305,38 @@ cache: 1-hour TTL, in-memory
 ```yaml
 files:
   Backend:
-  - apps/backend/src/api/floodhub.py - FloodHub proxy endpoints
-  - apps/backend/src/domain/services/floodhub_service.py - Google FloodHub integration
+  - apps/backend/src/api/floodhub.py - FloodHub proxy endpoints (5 endpoints)
+  - apps/backend/src/domain/services/floodhub_service.py - Google FloodHub integration (785 lines)
 
   Frontend:
   - apps/frontend/src/components/floodhub/FloodHubTab.tsx - Main tab
   - apps/frontend/src/components/floodhub/FloodHubHeader.tsx
   - apps/frontend/src/components/floodhub/FloodHubAlertsList.tsx
-  - apps/frontend/src/components/floodhub/ForecastChart.tsx
+  - apps/frontend/src/components/floodhub/ForecastChart.tsx - Dynamic units (m vs m³/s), extreme danger reference line
+  - apps/frontend/src/components/floodhub/SignificantEventsCard.tsx - Active flood events display
   - apps/frontend/src/components/floodhub/FloodHubFooter.tsx
+  - apps/frontend/src/components/MapComponent.tsx - Inundation GeoJSON fill layer (severity coloring)
 
-coverage: Delhi's Yamuna River (Old Railway Bridge, ITO Junction, Okhla Barrage)
-severity_levels: normal, watch, warning, emergency
-city_guard: Returns enabled=false for non-Delhi cities
+status: LIVE IN PRODUCTION (API key active, E2E verified Feb 2026)
+coverage: Delhi's Yamuna River (CWC_015-UYDDEL — Delhi Railway Bridge)
+severity_levels: no_flooding, warning, danger, extreme
+city_support: Delhi (primary), Bangalore/Yogyakarta (city-specific gauge search)
+
+hooks: useFloodHubStatus, useFloodHubGauges, useFloodHubForecast, useFloodHubEvents, useFloodHubInundation
 
 endpoints:
   - GET /api/floodhub/status?city=DEL - Overall status with severity
-  - GET /api/floodhub/gauges - All Delhi Yamuna gauges
-  - GET /api/floodhub/forecast/{gauge_id} - 7-day forecast
+  - GET /api/floodhub/gauges?city=DEL - City gauges with flood status
+  - GET /api/floodhub/forecast/{gauge_id} - Forecast with water level predictions
+  - GET /api/floodhub/inundation/{polygon_id} - Inundation map as GeoJSON (KML→GeoJSON conversion)
+  - GET /api/floodhub/events?city=DEL - Significant flood events
+
+cache_ttls: gauges 10min, forecasts 15min, models 60min, inundation 30min, events 15min
+
+api_bugs_fixed:
+  - Double-nested forecasts response: {"forecasts": {"gaugeId": {"forecasts": [...]}}} — unwrap twice
+  - NaN water levels: Not JSON-serializable — convert to None, Optional[float]
+  - Inundation 404: Upstream 404 returned as None, not wrapped as FloodHubAPIError
 
 no_silent_fallbacks: All API errors surfaced as HTTPException 502
 ```
@@ -332,8 +376,9 @@ geocoding: |
   - Results merged, deduplicated by coordinates (0.0005° ~55m tolerance)
   - Sorted by haversine distance to user (proximity-first) when location available
   - Soft city bounds: retries without bounded if bounded returns < 5 results
-  - Geo-bias default: when no user lat/lng provided, defaults to city center (Delhi: 28.6315, 77.2167)
-    so cloud servers (e.g. Koyeb Frankfurt) return Indian results instead of European ones
+  - Geo-bias default: when no user lat/lng provided, defaults to city center
+    so cloud servers (e.g. Koyeb Frankfurt) return local results instead of European ones
+  - Country code: Nominatim countrycodes param uses city_bounds.country_code ("in" for Delhi/Bangalore, "id" for Yogyakarta)
   - 30-minute in-memory cache for both sources
   - User-Agent header: "FloodSafe-MVP/1.0" sent with Photon requests (good API citizenship)
 
@@ -353,7 +398,8 @@ intent_detection:
 
 result_limits: |
   Per-category: locations (30), reports (30), users (15)
-  Frontend shows 8 locations, 8 reports, 5 users initially
+  Frontend shows initial results, expandable per section
+  Photon fetches 20 results, Nominatim fetches 30 as supplement
   "Show all X results" expandable button per section
   Result count badges in section headers
 
@@ -558,6 +604,150 @@ run: cd apps/frontend && npx tsx scripts/e2e-full-test.ts
 output: 21 screenshots (e2e-1-*.png to e2e-21-*.png)
 ```
 
+### @safety-circles (COMPLETE)
+```yaml
+files:
+  Backend:
+  - apps/backend/src/api/circles.py - 16 endpoints (CRUD, members, alerts, invite codes)
+  - apps/backend/src/domain/services/circle_service.py - CircleService (20+ methods)
+  - apps/backend/src/domain/services/circle_notification_service.py - WhatsApp/SMS/email dispatch
+  Frontend:
+  - apps/frontend/src/components/circles/SafetyCirclesTab.tsx - Main tab (in AlertsScreen)
+  - apps/frontend/src/components/circles/CreateCircleModal.tsx - Circle creation form
+  - apps/frontend/src/components/circles/JoinCircleModal.tsx - Join via invite code
+  - apps/frontend/src/components/circles/CircleDetailModal.tsx - Members, settings
+  - apps/frontend/src/components/circles/CircleMemberList.tsx - Member list with roles
+  - apps/frontend/src/components/circles/AddMemberModal.tsx - Single + bulk add
+  - apps/frontend/src/components/circles/CircleSettingsSheet.tsx - Edit name/description
+  - apps/frontend/src/components/circles/InviteLinkShare.tsx - Share invite code
+  - apps/frontend/src/components/circles/CircleAlertCard.tsx - Alert with read status
+  - apps/frontend/src/components/circles/index.ts - Barrel export
+
+circle_types:
+  family: max 20 members
+  school: max 500 members
+  apartment: max 200 members
+  neighborhood: max 1000 members
+  custom: max 50 members
+
+roles: creator (full delete) > admin (manage members/settings) > member (receive, leave)
+
+models:
+  SafetyCircle: id, name, description, circle_type, created_by, invite_code (8-char unique), max_members, is_active
+  CircleMember: id, circle_id, user_id (nullable for non-registered), phone (E.164), email, display_name, role, is_muted, notify_whatsapp/sms/email, joined_at, invited_by
+  CircleAlert: id, circle_id, report_id, reporter_user_id, member_id, message, is_read, notification_sent, notification_channel
+
+key_points:
+  - Non-registered contacts supported (phone/email only), auto-upgrade when they register
+  - Invite code: 8-char alphanumeric with collision retry (5 attempts)
+  - Notification tracking per alert: notification_sent + notification_channel (Rule #14: no silent fallbacks)
+  - Phone normalization delegates to core/phone_utils.py (E.164 format)
+  - Partial unique constraint: registered users one-per-circle, unregistered contacts unconstrained
+  - Shown as tab in AlertsScreen with unread count badge
+
+hooks (TanStack Query):
+  Queries: useMyCircles (60s stale), useCircleDetail (30s), useCircleAlerts (30s, 60s refetch), useUnreadCircleAlertCount (30s, 60s refetch)
+  Mutations: useCreateCircle, useJoinCircle, useAddCircleMember, useBulkAddCircleMembers, useRemoveCircleMember, useUpdateCircleMember, useLeaveCircle, useDeleteCircle, useMarkCircleAlertRead, useMarkAllCircleAlertsRead, useUpdateCircle
+
+endpoints:
+  - POST /api/circles/ - Create circle
+  - GET /api/circles/ - List user's circles
+  - GET /api/circles/{id} - Circle detail with members
+  - PUT /api/circles/{id} - Update circle (admin+)
+  - DELETE /api/circles/{id} - Delete (creator only)
+  - POST /api/circles/{id}/members - Add member
+  - POST /api/circles/{id}/members/bulk - Bulk add
+  - DELETE /api/circles/{id}/members/{member_id} - Remove
+  - PATCH /api/circles/{id}/members/{member_id} - Update role/notifications
+  - POST /api/circles/join - Join via invite code
+  - POST /api/circles/{id}/leave - Leave circle
+  - GET /api/circles/alerts - Get circle alerts (paginated)
+  - PATCH /api/circles/alerts/{id}/read - Mark alert read
+  - PATCH /api/circles/alerts/read-all - Mark all read
+  - GET /api/circles/alerts/unread-count - Unread badge count
+
+migration: python -m apps.backend.src.scripts.migrate_add_safety_circles
+```
+
+### @ai-risk-insights (COMPLETE)
+```yaml
+files:
+  Backend:
+  - apps/backend/src/domain/services/llama_service.py - Groq/Llama risk summary generation
+  - apps/backend/src/domain/services/wit_service.py - Wit.ai NLU (7 intents, EN/HI)
+  - apps/backend/src/domain/services/meta_client.py - Meta API client
+  - apps/backend/src/api/hotspots.py - /risk-summary endpoint (lines 321-394)
+  Frontend:
+  - apps/frontend/src/components/AiRiskInsightsCard.tsx - Risk card with language toggle
+  - apps/frontend/src/lib/api/hooks.ts - useRiskSummary hook
+
+architecture:
+  Primary API: Meta Llama (llama-3.3-8b, api.llama.com)
+  Fallback API: Groq (llama-3.1-8b-instant, api.groq.com) — ACTIVE
+  NLU: Wit.ai (floodsafe app, 7 intents, 51 utterances)
+
+languages: English (default), Hindi (toggle in UI)
+caching: 1-hour backend TTL per (lat, lng, language), max 500 entries. 10-min frontend staleTime.
+
+rate_limiting_groq:
+  hard: 120 req/min, 2000 req/day
+  soft: 100 req/min, 1800 req/day (warns at 80% daily)
+  exceeded: returns null (graceful degradation, UI shows "service busy")
+
+endpoint: GET /api/hotspots/risk-summary?lat=X&lng=Y&language=en|hi
+response: { risk_summary: string|null, enabled: bool, risk_level: string, fhi_score: float, language: string }
+
+frontend_ui_states:
+  1. Loading - Gray skeleton lines
+  2. Error - "Could not load insight" + Retry
+  3. Disabled - "AI insights being set up" (enabled=false)
+  4. Rate-limited - "AI service is busy" + Refresh (enabled=true, summary=null)
+  5. Success - Colored border (emerald/amber/orange/red) + risk badge + narrative
+
+integration: HomeScreen shows top 3 locations (watch areas + daily routes) with independent parallel fetching
+
+wit_ai_intents: check_risk, report_flood, get_warnings, check_status, get_help, get_my_areas, greet
+wit_confidence_threshold: 0.5
+
+graceful_disable: All failures return risk_summary=null without throwing. UI handles independently.
+```
+
+### @webmcp-bridge (COMPLETE)
+```yaml
+files:
+  - apps/frontend/src/components/WebMCPProvider.tsx - Bridge component (renders null, pure side-effect)
+  - apps/frontend/package.json - @mcp-b/react-webmcp@1.1.1, @mcp-b/global@1.5.0
+
+mount: App.tsx root level (inside LocationTrackingProvider)
+protocol: postMessage API (browser window events)
+status: Production-enabled
+
+entities (13 total):
+  Contexts (2):
+    context_app_state: City, auth status, user profile, gamification points
+    context_location: GPS position, nearby hotspots with FHI, tracking state
+
+  Tools (3):
+    search_locations: { query, city?, limit? } - Read-only
+    get_query_cache: { query_key } - Read-only (TanStack Query cache)
+    switch_city: { city: delhi|bangalore|yogyakarta } - Destructive
+
+  Resources (5):
+    floodsafe://config - API URL, city list, bounds, feature flags
+    floodsafe://alerts/{city} - Unified flood alerts (IMD, GDACS, community, FloodHub)
+    floodsafe://hotspots/{city} - Waterlogging hotspots with FHI risk levels
+    floodsafe://reports - Recent community flood reports
+    floodsafe://floodhub/{city} - Google Flood Forecasting status + gauges
+
+  Prompts (3):
+    analyze-flood-risk: Full risk analysis for a city
+    debug-ui-state: Gather all app state for debugging
+    verify-yogyakarta: E2E Yogyakarta integration check
+
+contexts_consumed: AuthContext, CityContext, LocationTrackingContext, TanStack Query
+zod_constraint: Must use zod@^3.25.0 (v4 breaks @mcp-b/react-webmcp peer dependency)
+```
+
 ### @edge-ai (PLANNED)
 ```yaml
 concept: ANN model running on IoT devices (ESP32/Raspberry Pi)
@@ -604,7 +794,7 @@ next: Add Capacitor wrapper if native features needed beyond PWA
 | Voice Guidance | `VoiceGuidanceContext.tsx` | TTS for navigation |
 | Install Prompt | `InstallPromptContext.tsx` | PWA install state |
 
-## Backend API Files (25)
+## Backend API Files (26)
 
 | File | Domain | Endpoints |
 |------|--------|-----------|
@@ -616,13 +806,14 @@ next: Add Capacitor wrapper if native features needed beyond PWA
 | `alerts.py` | @alerts | alert CRUD |
 | `watch_areas.py` | @alerts | watch area CRUD |
 | `sensors.py` | @iot-ingestion | sensor CRUD, API keys |
-| `hotspots.py` | @hotspots | hotspot proxy |
+| `hotspots.py` | @hotspots | hotspot proxy, risk-summary |
 | `predictions.py` | @ml-predictions | ML service proxy |
 | `ml.py` | @photo-verification | embedded TFLite classifier |
-| `rainfall.py` | @rainfall | forecast + FHI |
+| `rainfall.py` | @rainfall | forecast + FHI (per-city calibration) |
 | `historical_floods.py` | @historical-floods | flood history |
 | `external_alerts.py` | @external-alerts | multi-source alerts |
-| `floodhub.py` | @floodhub | FloodHub proxy |
+| `floodhub.py` | @floodhub | FloodHub proxy (5 endpoints) |
+| `circles.py` | @safety-circles | circle CRUD, members, alerts (16 endpoints) |
 | `search.py` | @smart-search | unified search |
 | `routes_api.py` | @routing | route comparison |
 | `saved_routes.py` | @saved-routes | route bookmarks |
@@ -634,7 +825,7 @@ next: Add Capacitor wrapper if native features needed beyond PWA
 | `webhook.py` | @whatsapp | WhatsApp webhook |
 | `deps.py` | (shared) | auth dependencies, role checks |
 
-## Database Models (16)
+## Database Models (22)
 
 | Model | Table | Key Fields |
 |-------|-------|------------|
@@ -654,6 +845,9 @@ next: Add Capacitor wrapper if native features needed beyond PWA
 | UserBadge | user_badges | user_id, badge_id, earned_at |
 | ReputationHistory | reputation_history | action, points_change, new_total |
 | RoleHistory | role_history | old_role, new_role, changed_by |
+| SafetyCircle | safety_circles | name, circle_type, invite_code (8-char unique), max_members, created_by |
+| CircleMember | circle_members | circle_id, user_id (nullable), phone, role, notify_whatsapp/sms/email |
+| CircleAlert | circle_alerts | circle_id, report_id, member_id, is_read, notification_sent/channel |
 | WhatsAppSession | whatsapp_sessions | phone, state, expires_at |
 | RefreshToken | refresh_tokens | user_id, token_hash, expires_at |
 | EmailVerificationToken | email_verification_tokens | user_id, token, expires_at |
@@ -666,12 +860,13 @@ next: Add Capacitor wrapper if native features needed beyond PWA
 Reports, map, alerts, onboarding, auth (Email/Google/Phone), E2E tests, community voting/comments
 
 ### Tier 2: ML/AI Foundation ✅ MOSTLY COMPLETE
-- [x] XGBoost for 90 known hotspots (weather-sensitive, AUC 0.98)
-- [x] FHI formula + rainfall forecasts (Open-Meteo)
+- [x] XGBoost for 109 known hotspots (90 Delhi + 19 Yogyakarta, AUC 0.98)
+- [x] FHI formula + rainfall forecasts (Open-Meteo, per-city calibration)
 - [x] Historical Floods Panel (45 Delhi events, 1969-2023)
 - [x] Photo classification (embedded TFLite MobileNet)
 - [x] External alert aggregation (IMD, CWC, RSS, Twitter, GDACS, GDELT)
-- [x] FloodHub integration (Yamuna River gauges)
+- [x] FloodHub integration (Yamuna gauges + inundation layer + significant events)
+- [x] AI Risk Insights (Groq Llama 3.1 summaries, EN/HI, per-location narratives)
 - [ ] Ensemble models (LSTM/GNN) - NOT TRAINED
 - [ ] Better generalization (need 300+ diverse locations)
 
@@ -699,9 +894,11 @@ Reports, map, alerts, onboarding, auth (Email/Google/Phone), E2E tests, communit
 - [x] Cache strategies (CacheFirst, NetworkFirst, StaleWhileRevalidate)
 - [ ] Capacitor native wrapper (if needed beyond PWA)
 
-### Tier 7: Scale (PLANNED)
-- [ ] Multi-language UI (Hindi, Kannada — WhatsApp Hindi done)
+### Tier 7: Scale ✅ PARTIALLY COMPLETE
+- [x] City expansion: Yogyakarta added as 3rd city (19 hotspots, GDACS, FHI, search)
+- [x] WebMCP browser automation bridge (13 entities, production-enabled)
+- [x] Safety Circles (emergency contacts, 5 circle types, notification tracking)
+- [ ] Multi-language UI (Hindi, Kannada, Indonesian — WhatsApp Hindi done)
 - [ ] GNN for flood propagation modeling
-- [ ] City expansion beyond Delhi/Bangalore
 - [ ] Real photo storage (S3/Blob, currently mocked)
 - [ ] Water depth estimation from photos

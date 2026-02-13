@@ -59,6 +59,7 @@ class User(Base):
     city_preference = Column(String, nullable=True)  # 'bangalore' | 'delhi' | 'yogyakarta'
     profile_complete = Column(Boolean, default=False)
     onboarding_step = Column(Integer, nullable=True)  # 1-5, tracks current step if incomplete
+    tour_completed_at = Column(DateTime, nullable=True)  # When user finished app tour
 
     # Role enhancement - timestamps for role transitions
     verified_reporter_since = Column(DateTime, nullable=True)  # When became verified_reporter

@@ -32,6 +32,8 @@ import { Progress } from '../ui/progress';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import { MapPin, User, Bell, Route, CheckCircle, Trash2, ChevronLeft, ChevronRight, Loader2, Navigation } from 'lucide-react';
 import { toast } from 'sonner';
+import { BotInlineCard } from '../onboarding-bot/BotInlineCard';
+import { useOnboardingBot } from '../../contexts/OnboardingBotContext';
 
 // Debounce hook for search
 function useDebounce<T>(value: T, delay: number): T {
@@ -102,6 +104,19 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
     const { user } = useAuth();
     const { syncCityToUser } = useCityContext();
     const [state, dispatch] = useReducer(onboardingReducer, initialState);
+    const { startTour, syncOnboardingStep, state: botState } = useOnboardingBot();
+
+    // Start onboarding bot on mount (if not dismissed)
+    useEffect(() => {
+        if (!localStorage.getItem('floodsafe_bot_dismissed')) {
+            startTour('onboarding');
+        }
+    }, []);
+
+    // Sync bot step when wizard step changes
+    useEffect(() => {
+        syncOnboardingStep(state.currentStep);
+    }, [state.currentStep, syncOnboardingStep]);
 
     // Mutations
     const createWatchArea = useCreateWatchArea();
@@ -220,6 +235,12 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                     // Mark onboarding complete
                     await updateUser.mutateAsync({ userId: user.id, data: { profile_complete: true } });
                     toast.success('Welcome to FloodSafe!');
+
+                    // If bot wasn't dismissed, it will transition to app tour in App.tsx
+                    if (botState.phase === 'onboarding' && !botState.isDismissed) {
+                        localStorage.setItem('floodsafe_start_app_tour', 'true');
+                    }
+
                     onComplete();
                     return;
             }
@@ -292,6 +313,9 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
 
                 {/* Step Content */}
                 <Card className="p-6">
+                    {/* Bot inline helper (compact, auto-collapses) */}
+                    <BotInlineCard />
+
                     {state.currentStep === 1 && (
                         <Step1City
                             city={state.city}

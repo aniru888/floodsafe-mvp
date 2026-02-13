@@ -254,6 +254,7 @@ class UserResponse(BaseModel):
     city_preference: Optional[str] = None
     profile_complete: bool = False
     onboarding_step: Optional[int] = None
+    tour_completed_at: Optional[datetime] = None
 
     @field_validator('badges', mode='before')
     @classmethod

@@ -32,6 +32,23 @@ async def get_my_profile(
     return current_user
 
 
+@router.post("/me/tour-complete")
+async def mark_tour_complete(
+    current_user: models.User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Mark the onboarding app tour as completed for the current user."""
+    try:
+        current_user.tour_completed_at = datetime.utcnow()
+        db.commit()
+        db.refresh(current_user)
+        return {"success": True, "tour_completed_at": str(current_user.tour_completed_at)}
+    except Exception as e:
+        logger.error(f"Error marking tour complete: {e}")
+        db.rollback()
+        raise HTTPException(status_code=500, detail="Failed to mark tour complete")
+
+
 @router.patch("/me/profile", response_model=UserResponse)
 async def update_my_profile(
     user_update: UserUpdate,

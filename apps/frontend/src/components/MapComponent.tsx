@@ -1677,7 +1677,7 @@ export default function MapComponent({
             {showControls && isLoaded && (
                 <>
                     {/* Map Controls - Right side, compact on mobile */}
-                    <div className="absolute right-2 md:right-4 flex flex-col gap-1.5 md:gap-2 max-h-[calc(100vh-200px)] overflow-y-auto" style={{ bottom: 'calc(144px + env(safe-area-inset-bottom, 0px))', zIndex: 60 }}>
+                    <div className="absolute right-2 md:right-4 flex flex-col gap-1.5 md:gap-2 max-h-[calc(100vh-200px)] overflow-y-auto" style={{ bottom: 'calc(144px + env(safe-area-inset-bottom, 0px))', zIndex: 60 }} data-tour-id="map-layers">
                         <Button
                             size="icon"
                             onClick={handleZoomIn}

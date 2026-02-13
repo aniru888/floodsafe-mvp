@@ -580,7 +580,7 @@ export function HomeScreen({
                         </div>
 
                         {/* Quick Actions - Single Card with Dividers */}
-                        <div className="bg-card text-card-foreground rounded-xl border shadow-sm overflow-hidden">
+                        <div className="bg-card text-card-foreground rounded-xl border shadow-sm overflow-hidden" data-tour-id="emergency-contacts">
                             <div className="grid grid-cols-3 divide-x divide-border">
                                 {/* SOS Button */}
                                 <button
@@ -625,7 +625,7 @@ export function HomeScreen({
                     </div>
 
                     {/* RIGHT COLUMN: Map Preview (stacks below on mobile) */}
-                    <div className="bg-card text-card-foreground rounded-xl border shadow-sm overflow-hidden">
+                    <div className="bg-card text-card-foreground rounded-xl border shadow-sm overflow-hidden" data-tour-id="home-map-preview">
                         <div className="relative h-48 sm:h-56 md:h-full md:min-h-[20rem]">
                             <MapComponent
                                 className="w-full h-full"
@@ -670,14 +670,16 @@ export function HomeScreen({
                 </div>
 
                 {/* AI Risk Insights Card — personalized risk narratives */}
-                <AiRiskInsightsCard
-                    watchAreas={userWatchAreas}
-                    dailyRoutes={userDailyRoutes}
-                    maxItems={3}
-                />
+                <div data-tour-id="ai-insights">
+                    <AiRiskInsightsCard
+                        watchAreas={userWatchAreas}
+                        dailyRoutes={userDailyRoutes}
+                        maxItems={3}
+                    />
+                </div>
 
                 {/* Live Updates Feed with Auto-Refresh Settings */}
-                <div className="bg-card text-card-foreground rounded-xl border shadow-sm flex flex-col overflow-hidden">
+                <div className="bg-card text-card-foreground rounded-xl border shadow-sm flex flex-col overflow-hidden" data-tour-id="recent-reports">
                     <div className="px-4 py-3 border-b flex-shrink-0">
                         <div className="flex items-center justify-between">
                             <h3 className="font-semibold text-foreground flex items-center gap-2">

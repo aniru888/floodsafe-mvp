@@ -227,7 +227,7 @@ export function AlertsScreen() {
             </div>
 
             {/* Content based on filter */}
-            <div className={sourceFilter === 'floodhub' || sourceFilter === 'circles' ? '' : 'p-4 space-y-3 max-w-4xl mx-auto'}>
+            <div className={sourceFilter === 'floodhub' || sourceFilter === 'circles' ? '' : 'p-4 space-y-3 max-w-4xl mx-auto'} data-tour-id="unified-alerts">
                 {sourceFilter === 'circles' ? (
                     // Safety Circles Tab - Family & Community Notifications
                     <SafetyCirclesTab />

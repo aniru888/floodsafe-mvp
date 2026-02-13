@@ -7,7 +7,7 @@ import { Switch } from '../ui/switch';
 import { Label } from '../ui/label';
 import { Separator } from '../ui/separator';
 import { Avatar, AvatarFallback } from '../ui/avatar';
-import { MapPin, Bell, Globe, Settings, LogOut, Edit, Trash2, FileText, Route, ShieldCheck, Shield, UserCheck, Eye, Plus, Download, Phone } from 'lucide-react';
+import { MapPin, Bell, Globe, Settings, LogOut, Edit, Trash2, FileText, Route, ShieldCheck, Shield, UserCheck, Eye, Plus, Download, Phone, HelpCircle } from 'lucide-react';
 import { useInstallPrompt } from '../../contexts/InstallPromptContext';
 import { useUserReports, Report, useDailyRoutes, useDeleteDailyRoute } from '../../lib/api/hooks';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
@@ -35,6 +35,8 @@ import {
 } from '../gamification';
 import AddDailyRouteDialog from '../AddDailyRouteDialog';
 import AddWatchAreaDialog from '../AddWatchAreaDialog';
+import { useOnboardingBot } from '../../contexts/OnboardingBotContext';
+import { t } from '../../lib/onboarding-bot/translations';
 
 interface WatchArea {
   id: string;
@@ -287,7 +289,7 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
         {/* Two Column Desktop Grid */}
         <div className="md:grid md:grid-cols-2 md:gap-6">
           {/* LEFT COLUMN: Gamification / Progress */}
-          <div className="space-y-4">
+          <div className="space-y-4" data-tour-id="gamification-badges">
             <h2 className="text-lg font-semibold text-foreground px-1">Your Progress</h2>
 
             {/* Streak Widget */}
@@ -697,6 +699,9 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
           </div>
         </Card>
 
+        {/* Help & Tutorials */}
+        <TourAgainButton />
+
         {/* About Section */}
         <Card className="p-6">
           <h3 className="font-semibold text-lg flex items-center gap-2 mb-3">
@@ -837,6 +842,28 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
         onClose={() => setEmergencyModalOpen(false)}
       />
     </div>
+  );
+}
+
+// Tour the App Again button
+function TourAgainButton() {
+  const { startTour, state: botState } = useOnboardingBot();
+
+  return (
+    <Card className="p-6">
+      <h3 className="font-semibold text-lg flex items-center gap-2 mb-3">
+        <HelpCircle className="w-5 h-5 text-muted-foreground" />
+        Help & Tutorials
+      </h3>
+      <Button
+        variant="outline"
+        className="w-full justify-start"
+        onClick={() => startTour('app-tour')}
+      >
+        <span className="mr-2">💧</span>
+        {t(botState.language, 'bot.tourAgain')}
+      </Button>
+    </Card>
   );
 }
 

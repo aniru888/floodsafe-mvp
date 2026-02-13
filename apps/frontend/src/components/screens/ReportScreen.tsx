@@ -698,6 +698,7 @@ export function ReportScreen({ onBack, onSubmit }: ReportScreenProps) {
             ref={scrollContainerRef}
             className="min-h-full bg-muted overflow-y-auto pb-4"
             style={{ WebkitOverflowScrolling: 'touch' }}
+            data-tour-id="report-form"
         >
                 {/* Header */}
             <div className="bg-card shadow-sm sticky top-0 z-40">

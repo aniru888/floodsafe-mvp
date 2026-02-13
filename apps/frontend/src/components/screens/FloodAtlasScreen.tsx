@@ -6,7 +6,6 @@ import { NavigationPanel } from '../NavigationPanel';
 import { LiveNavigationPanel } from '../LiveNavigationPanel';
 import { useCurrentCity } from '../../contexts/CityContext';
 import { useAuth } from '../../contexts/AuthContext';
-import { VoiceGuidanceProvider } from '../../contexts/VoiceGuidanceContext';
 import { NavigationProvider, useNavigation } from '../../contexts/NavigationContext';
 import type { RouteOption, MetroStation } from '../../types';
 import { toast } from 'sonner';
@@ -211,9 +210,10 @@ function FloodAtlasContent({
 
             {/* Navigation Panel - hide when actively navigating */}
             {!navState.isNavigating && (
-                <NavigationPanel
-                    isOpen={showNavigationPanel}
-                    onClose={() => setShowNavigationPanel(false)}
+                <div data-tour-id="routing-panel">
+                    <NavigationPanel
+                        isOpen={showNavigationPanel}
+                        onClose={() => setShowNavigationPanel(false)}
                     userLocation={userLocation}
                     city={city}
                     onRoutesCalculated={handleRoutesCalculated}
@@ -222,7 +222,8 @@ function FloodAtlasContent({
                     onOriginChange={setNavigationOrigin}
                     onDestinationChange={setNavigationDestination}
                     initialDestination={navigationDestination}
-                />
+                    />
+                </div>
             )}
         </div>
     );
@@ -231,10 +232,8 @@ function FloodAtlasContent({
 // Main component with providers
 export function FloodAtlasScreen(props: FloodAtlasScreenProps) {
     return (
-        <VoiceGuidanceProvider>
-            <NavigationProvider>
-                <FloodAtlasContent {...props} />
-            </NavigationProvider>
-        </VoiceGuidanceProvider>
+        <NavigationProvider>
+            <FloodAtlasContent {...props} />
+        </NavigationProvider>
     );
 }
