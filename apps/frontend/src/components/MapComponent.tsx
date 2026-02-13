@@ -10,6 +10,7 @@ import SearchBar from './SearchBar';
 import HistoricalFloodsPanel from './HistoricalFloodsPanel';
 import { useCurrentCity, useCityContext } from '../contexts/CityContext';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigation } from '../contexts/NavigationContext';
 import { isWithinCityBounds, getAvailableCities, getCityConfig, getCityKeyFromCoordinates, CITIES, type CityKey } from '../lib/map/cityConfigs';
 import { RouteOption, MetroStation } from '../types';
 import { toast } from 'sonner';
@@ -69,6 +70,7 @@ export default function MapComponent({
     const city = useCurrentCity();
     const { setCity, syncCityToUser } = useCityContext();
     const { user } = useAuth();
+    const { state: navState } = useNavigation();
     const { map, isLoaded } = useMap(mapContainer, city);
     const { data: sensors } = useSensors();
     const { data: reports } = useReports();
@@ -1750,8 +1752,14 @@ export default function MapComponent({
                         </Button>
                     </div>
 
-                    {/* Map Legend - Bottom Right */}
-                    <div className="absolute" style={{ bottom: 'calc(144px + env(safe-area-inset-bottom, 0px))', right: '56px', zIndex: 60 }}>
+                    {/* Map Legend - Bottom Right (shifts up when live navigation is active) */}
+                    <div className="absolute" style={{
+                        bottom: navState.isNavigating
+                            ? 'calc(280px + env(safe-area-inset-bottom, 0px))'
+                            : 'calc(144px + env(safe-area-inset-bottom, 0px))',
+                        right: '56px',
+                        zIndex: 60
+                    }}>
                         <MapLegend className="max-w-xs" />
                     </div>
                 </>
