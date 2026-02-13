@@ -28,6 +28,7 @@ import { UserProvider } from './contexts/UserContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { Loader2 } from 'lucide-react';
 import { WebMCPProvider } from './components/WebMCPProvider';
+import { NavigationProvider } from './contexts/NavigationContext';
 import { OnboardingBotProvider, useOnboardingBot } from './contexts/OnboardingBotContext';
 import { OnboardingBot } from './components/onboarding-bot/OnboardingBot';
 
@@ -270,6 +271,7 @@ export default function App() {
                     <CityProvider>
                         <InstallPromptProvider>
                             <VoiceGuidanceProvider>
+                            <NavigationProvider>
                             <OnboardingBotProvider>
                             <LocationTrackingProvider>
                                 {/* WebMCP: AI agent bridge for real-time debugging */}
@@ -291,6 +293,7 @@ export default function App() {
                                 </Routes>
                             </LocationTrackingProvider>
                             </OnboardingBotProvider>
+                            </NavigationProvider>
                             </VoiceGuidanceProvider>
                         </InstallPromptProvider>
                     </CityProvider>

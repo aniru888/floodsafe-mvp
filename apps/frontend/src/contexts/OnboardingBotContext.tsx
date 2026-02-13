@@ -57,6 +57,10 @@ export function OnboardingBotProvider({ children }: { children: React.ReactNode 
         if (phase === 'app-tour' && navigateRef.current) {
             const built = buildAppTourSteps(navigateRef.current);
             setAppTourSteps(built);
+            // Run initial step's onBefore to navigate to the correct screen
+            if (built[0]?.onBefore) {
+                built[0].onBefore();
+            }
         }
 
         setState(prev => ({

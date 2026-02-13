@@ -2,13 +2,20 @@ import { createPortal } from 'react-dom';
 import { useOnboardingBot } from '../../contexts/OnboardingBotContext';
 import { t } from '../../lib/onboarding-bot/translations';
 import { Volume2, VolumeX, ChevronLeft, ChevronRight } from 'lucide-react';
+import type { OnboardingBotLanguage } from '../../types/onboarding-bot';
+
+const LANGUAGES: { code: OnboardingBotLanguage; label: string }[] = [
+    { code: 'en', label: 'EN' },
+    { code: 'hi', label: 'HI' },
+    { code: 'id', label: 'ID' },
+];
 
 /**
  * BotTooltip — Chat bubble with controls for the app tour phase.
  *
  * Position: anchored above the companion on mobile (bottom-40 right-4).
  * Max dimensions: 280px wide, 180px tall (desktop) / 160px (mobile).
- * Controls: Next (primary), Back (if >step 0), Skip (ghost), voice toggle.
+ * Controls: Next (primary), Back (if >step 0), Skip (ghost), voice toggle, language selector.
  * Rendered via Portal to document.body.
  */
 export function BotTooltip({ visible }: { visible: boolean }) {
@@ -20,6 +27,7 @@ export function BotTooltip({ visible }: { visible: boolean }) {
         prevStep,
         skipTour,
         toggleVoice,
+        setLanguage,
     } = useOnboardingBot();
 
     if (state.phase !== 'app-tour' || !visible || !currentStep) return null;
@@ -40,21 +48,39 @@ export function BotTooltip({ visible }: { visible: boolean }) {
             {/* Header */}
             <div className="px-3 pt-3 pb-1">
                 <div className="flex items-start justify-between gap-2">
-                    <div className="flex items-center gap-1.5">
-                        <span className="text-sm">💧</span>
-                        <h3 className="text-sm font-semibold text-gray-900 leading-tight">{title}</h3>
+                    <div className="flex items-center gap-1.5 min-w-0">
+                        <span className="text-sm flex-shrink-0">💧</span>
+                        <h3 className="text-sm font-semibold text-gray-900 leading-tight truncate">{title}</h3>
                     </div>
-                    <button
-                        onClick={toggleVoice}
-                        className="p-1 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors flex-shrink-0"
-                        title={state.isVoiceEnabled ? 'Mute' : 'Unmute'}
-                    >
-                        {state.isVoiceEnabled ? (
-                            <Volume2 className="w-3.5 h-3.5" />
-                        ) : (
-                            <VolumeX className="w-3.5 h-3.5" />
-                        )}
-                    </button>
+                    <div className="flex items-center gap-0.5 flex-shrink-0">
+                        {/* Language selector */}
+                        {LANGUAGES.map(({ code, label }) => (
+                            <button
+                                key={code}
+                                onClick={() => setLanguage(code)}
+                                className={`px-2 py-1 rounded text-[11px] font-semibold transition-colors ${
+                                    lang === code
+                                        ? 'bg-blue-500 text-white'
+                                        : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
+                                }`}
+                                title={t(lang, `lang.${code === 'en' ? 'english' : code === 'hi' ? 'hindi' : 'indonesian'}`)}
+                            >
+                                {label}
+                            </button>
+                        ))}
+                        {/* Voice toggle */}
+                        <button
+                            onClick={toggleVoice}
+                            className="p-1 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+                            title={state.isVoiceEnabled ? 'Mute' : 'Unmute'}
+                        >
+                            {state.isVoiceEnabled ? (
+                                <Volume2 className="w-3.5 h-3.5" />
+                            ) : (
+                                <VolumeX className="w-3.5 h-3.5" />
+                            )}
+                        </button>
+                    </div>
                 </div>
                 <p className="text-xs text-gray-600 mt-1 leading-relaxed line-clamp-3">{message}</p>
             </div>
