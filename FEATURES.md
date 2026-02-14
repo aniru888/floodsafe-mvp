@@ -78,8 +78,13 @@ files:
   - apps/backend/src/scripts/migrate_add_onboarding_fields.py
   - apps/backend/src/api/daily_routes.py
   - apps/frontend/src/components/screens/OnboardingScreen.tsx
+  - apps/frontend/src/contexts/OnboardingBotContext.tsx - Bot state for onboarding phase
+  - apps/frontend/src/components/onboarding-bot/ - Inline card, companion, spotlight, tooltip
 patterns: 5-step wizard, resumable flow (onboarding_step field), city preference
-flow: Login → profile_complete check → OnboardingScreen → HomeScreen
+flow: Login → profile_complete check → OnboardingScreen (with bot companion) → HomeScreen
+bot_integration: |
+  OnboardingBot inline card accompanies each wizard step (see @onboarding-bot).
+  tour_completed_at tracked on User model for replay from ProfileScreen.
 migration: python -m apps.backend.src.scripts.migrate_add_onboarding_fields
 ```
 
@@ -418,8 +423,8 @@ endpoints:
 ```yaml
 files:
   - apps/frontend/src/components/LiveNavigationPanel.tsx - Live nav overlay
-  - apps/frontend/src/contexts/NavigationContext.tsx - Route state management
-  - apps/frontend/src/contexts/VoiceGuidanceContext.tsx - TTS voice instructions
+  - apps/frontend/src/contexts/NavigationContext.tsx - Route state management (lifted to App root)
+  - apps/frontend/src/contexts/VoiceGuidanceContext.tsx - TTS voice instructions (lifted to App root)
   - apps/frontend/src/contexts/LocationTrackingContext.tsx - GPS tracking
 
 features:
@@ -429,6 +434,14 @@ features:
   - Voice guidance via Web Speech API (TTS)
   - Live ETA and distance remaining
   - Offline location buffering
+
+voice_languages: |
+  VoiceGuidanceContext supports 3 languages via Web Speech API:
+  - en-IN (English India)
+  - hi-IN (Hindi)
+  - id-ID (Indonesian)
+  Language-aware: tries exact match, then prefix, then English fallback.
+  Lifted to App root so onboarding bot can use voice narration across all screens.
 
 ui: Fixed bottom panel with instruction, street name, ETA, hotspot warnings
 ```
@@ -458,7 +471,7 @@ max_file_size: 3MB (bundle ~2.2MB)
 dev_mode: PWA disabled to avoid caching issues
 ```
 
-### @esp32-firmware (COMPLETE)
+### @esp32-firmware (PAUSED)
 ```yaml
 files:
   - apps/esp32-firmware/FloodSafe_IoT/FloodSafe_IoT.ino - Main firmware
@@ -491,9 +504,10 @@ config:
   BUFFER_SIZE: 100
 
 backend_integration: POST /api/iot-ingestion/ingest
+status: Hardware design and firmware complete. Deployment paused.
 ```
 
-### @iot-ingestion (COMPLETE)
+### @iot-ingestion (PAUSED)
 ```yaml
 files:
   Ingestion Service:
@@ -518,6 +532,7 @@ endpoints:
 sensor_model: user_id, name, hardware_type, firmware_version, api_key_hash, last_ping, location (PostGIS)
 auth: X-API-Key header, SHA256 hash comparison
 architecture: Ingestion service intentionally isolated for performance (raw SQL)
+status: Service code complete. Deployment and integration paused.
 ```
 
 ### @whatsapp (COMPLETE)
@@ -669,6 +684,61 @@ endpoints:
 migration: python -m apps.backend.src.scripts.migrate_add_safety_circles
 ```
 
+### @onboarding-bot (COMPLETE)
+```yaml
+files:
+  Frontend:
+  - apps/frontend/src/components/onboarding-bot/OnboardingBot.tsx - Root component (phase router)
+  - apps/frontend/src/components/onboarding-bot/BotCompanion.tsx - Floating companion (app tour phase)
+  - apps/frontend/src/components/onboarding-bot/BotInlineCard.tsx - Inline card (onboarding phase)
+  - apps/frontend/src/components/onboarding-bot/BotSpotlight.tsx - Element spotlight overlay
+  - apps/frontend/src/components/onboarding-bot/BotTooltip.tsx - Tooltip for spotlighted elements
+  - apps/frontend/src/contexts/OnboardingBotContext.tsx - Tour state, language, phase management
+  - apps/frontend/src/lib/onboarding-bot/tourSteps.ts - 6 onboarding + 11 app tour step definitions
+  - apps/frontend/src/lib/onboarding-bot/translations.ts - EN/HI/ID translations
+  - apps/frontend/src/types/onboarding-bot.ts - TourStep, BotPhase, BotLanguage types
+
+  Backend:
+  - apps/backend/src/infrastructure/models.py - User.tour_completed_at column
+  - apps/backend/src/api/users.py - POST /api/users/me/tour-completed endpoint
+  - apps/backend/scripts/migrate_add_tour_completed.py - Migration script
+
+two_phase_system: |
+  1. ONBOARDING PHASE: BotInlineCard embedded in OnboardingScreen.
+     - 6 steps matching wizard flow (welcome → city → profile → watch areas → routes → complete)
+     - Card auto-collapses to 32px pill after 5 seconds idle
+     - No spotlight — purely informational companion
+  2. APP TOUR PHASE: BotCompanion floats across all screens.
+     - 11 steps across Home, Map, Report, Alerts, Profile screens
+     - BotSpotlight highlights specific UI elements (data-tour-id attributes)
+     - Screen navigation via onBefore hooks (navigateTo callback)
+     - Triggered after onboarding completion via localStorage bridge
+
+multilingual:
+  languages: English (en), Hindi (hi), Indonesian (id)
+  selector: Language pill buttons in bot UI
+  voice: Language-aware narration via VoiceGuidanceContext (en-IN, hi-IN, id-ID)
+
+user_control:
+  - Skip/dismiss button on companion and inline card
+  - Escape key dismisses bot
+  - Replay tour from ProfileScreen (resets tour_completed_at)
+
+bridge_pattern: |
+  Onboarding → App tour bridge uses localStorage flag (floodsafe_start_app_tour).
+  OnboardingScreen sets flag + reloads page on completion.
+  App.tsx useEffect reads + clears flag, then starts app tour phase.
+  Required because page reload destroys React state.
+
+key_gotchas:
+  - setState({currentStepIndex: 0}) does NOT run onBefore hooks — must manually call steps[0].onBefore()
+  - NavigationProvider must be at App root (above OnboardingBotProvider) for screen navigation
+  - FloodAtlasScreen's inner NavigationProvider shadows root one for isolated nav sessions
+  - driver.js: overlayClickBehavior (NOT onOverlayClick), must destroy() before re-creating
+
+migration: python scripts/migrate_add_tour_completed.py (from apps/backend/)
+```
+
 ### @ai-risk-insights (COMPLETE)
 ```yaml
 files:
@@ -782,7 +852,7 @@ next: Add Capacitor wrapper if native features needed beyond PWA
 | Terms | `TermsScreen.tsx` | ✅ |
 | Placeholders | `Placeholders.tsx` | ✅ |
 
-## Frontend Contexts (7)
+## Frontend Contexts (8)
 
 | Context | File | Purpose |
 |---------|------|---------|
@@ -791,8 +861,9 @@ next: Add Capacitor wrapper if native features needed beyond PWA
 | User | `UserContext.tsx` | User profile/settings |
 | Navigation | `NavigationContext.tsx` | Route + screen navigation state |
 | Location Tracking | `LocationTrackingContext.tsx` | Real-time GPS |
-| Voice Guidance | `VoiceGuidanceContext.tsx` | TTS for navigation |
+| Voice Guidance | `VoiceGuidanceContext.tsx` | TTS for navigation + onboarding bot |
 | Install Prompt | `InstallPromptContext.tsx` | PWA install state |
+| Onboarding Bot | `OnboardingBotContext.tsx` | Tour state, language, phase management |
 
 ## Backend API Files (26)
 
@@ -870,10 +941,10 @@ Reports, map, alerts, onboarding, auth (Email/Google/Phone), E2E tests, communit
 - [ ] Ensemble models (LSTM/GNN) - NOT TRAINED
 - [ ] Better generalization (need 300+ diverse locations)
 
-### Tier 3: Smart Sensors & Edge AI ✅ MOSTLY COMPLETE
-- [x] IoT ingestion service (high-throughput, raw SQL)
-- [x] Sensor registration + API key auth (SHA256)
-- [x] ESP32 firmware (dual sensor, offline buffering, OLED)
+### Tier 3: Smart Sensors & Edge AI ⏸️ PAUSED
+- [x] IoT ingestion service (high-throughput, raw SQL) — code complete, deployment paused
+- [x] Sensor registration + API key auth (SHA256) — code complete, deployment paused
+- [x] ESP32 firmware (dual sensor, offline buffering, OLED) — hardware complete, deployment paused
 - [ ] Edge ML (currently threshold-based, no neural network yet)
 
 ### Tier 4: Smart Features ✅ COMPLETE
@@ -898,7 +969,8 @@ Reports, map, alerts, onboarding, auth (Email/Google/Phone), E2E tests, communit
 - [x] City expansion: Yogyakarta added as 3rd city (19 hotspots, GDACS, FHI, search)
 - [x] WebMCP browser automation bridge (13 entities, production-enabled)
 - [x] Safety Circles (emergency contacts, 5 circle types, notification tracking)
-- [ ] Multi-language UI (Hindi, Kannada, Indonesian — WhatsApp Hindi done)
+- [x] Multilingual onboarding bot with guided app tour (EN/HI/ID)
+- [ ] Multi-language UI (Hindi, Kannada, Indonesian — onboarding bot covers 3 languages, WhatsApp Hindi done)
 - [ ] GNN for flood propagation modeling
 - [ ] Real photo storage (S3/Blob, currently mocked)
 - [ ] Water depth estimation from photos
