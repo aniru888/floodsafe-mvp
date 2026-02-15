@@ -87,6 +87,27 @@ export const CITIES = {
             flood: ''  // Deferred — flood DEM PMTiles generated later
         }
         // No metro — Yogyakarta doesn't have metro rail
+    },
+    singapore: {
+        name: 'singapore',
+        displayName: 'Singapore',
+        center: [103.8198, 1.3521] as [number, number],
+        zoom: 12.5,
+        pitch: 45,
+        maxZoom: 17,
+        minZoom: 11,
+        bounds: [
+            [103.60, 1.15],   // [minLng, minLat]
+            [104.05, 1.47]    // [maxLng, maxLat]
+        ] as [[number, number], [number, number]],
+        pmtiles: {
+            basemap: '',  // No local PMTiles — uses OpenFreeMap CDN fallback
+            flood: ''     // No flood DEM layer
+        },
+        metro: {
+            lines: '/singapore-metro-lines.geojson',
+            stations: '/singapore-metro-stations.geojson'
+        }
     }
 } as const;
 

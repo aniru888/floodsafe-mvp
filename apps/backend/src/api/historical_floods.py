@@ -315,6 +315,6 @@ async def historical_floods_health():
         "status": "ok",
         "service": "historical-floods",
         "data_available": floods_file.exists(),
-        "supported_cities": ["delhi", "delhi ncr", "new delhi"],
+        "supported_cities": ["delhi", "delhi ncr", "new delhi", "singapore"],
         "data_path": str(floods_file)
     }

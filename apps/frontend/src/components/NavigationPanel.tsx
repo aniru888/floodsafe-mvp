@@ -10,12 +10,13 @@ import { toast } from 'sonner';
 import { useAuth } from '../contexts/AuthContext';
 import { EnhancedRouteCard } from './EnhancedRouteCard';
 import { useNavigation } from '../contexts/NavigationContext';
+import { getCityCode } from '../lib/cityUtils';
 
 interface NavigationPanelProps {
     isOpen: boolean;
     onClose: () => void;
     userLocation: { lat: number; lng: number } | null;
-    city: 'bangalore' | 'delhi' | 'yogyakarta';
+    city: 'bangalore' | 'delhi' | 'yogyakarta' | 'singapore';
     onRoutesCalculated: (routes: RouteOption[], floodZones: GeoJSON.FeatureCollection) => void;
     onRouteSelected: (route: RouteOption) => void;
     onMetroSelected: (station: MetroStation) => void;
@@ -97,7 +98,7 @@ export function NavigationPanel({
     const { data: metrosData } = useNearbyMetros(
         origin?.lat ?? null,
         origin?.lng ?? null,
-        city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL'
+        getCityCode(city)
     );
 
     const metros = metrosData?.metros ?? [];
@@ -157,7 +158,7 @@ export function NavigationPanel({
                 origin: { lat: origin.lat, lng: origin.lng },
                 destination: { lat: destination.lat, lng: destination.lng },
                 mode,
-                city: city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL',
+                city: getCityCode(city),
             },
             {
                 onSuccess: (data) => {
@@ -172,7 +173,7 @@ export function NavigationPanel({
                         routesForMap.push({
                             id: data.routes.fastest.id,
                             type: 'fast',
-                            city_code: city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL',
+                            city_code: getCityCode(city),
                             geometry: data.routes.fastest.geometry,
                             distance_meters: data.routes.fastest.distance_meters,
                             duration_seconds: data.routes.fastest.duration_seconds,
@@ -187,7 +188,7 @@ export function NavigationPanel({
                         routesForMap.push({
                             id: data.routes.safest.id,
                             type: 'safe',
-                            city_code: city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL',
+                            city_code: getCityCode(city),
                             geometry: data.routes.safest.geometry,
                             distance_meters: data.routes.safest.distance_meters,
                             duration_seconds: data.routes.safest.duration_seconds,
@@ -231,7 +232,7 @@ export function NavigationPanel({
             const route: RouteOption = {
                 id: comparison.routes.fastest.id,
                 type: 'fast',
-                city_code: city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL',
+                city_code: getCityCode(city),
                 geometry: comparison.routes.fastest.geometry,
                 distance_meters: comparison.routes.fastest.distance_meters,
                 duration_seconds: comparison.routes.fastest.duration_seconds,
@@ -250,7 +251,7 @@ export function NavigationPanel({
             const route: RouteOption = {
                 id: comparison.routes.safest.id,
                 type: 'safe',
-                city_code: city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL',
+                city_code: getCityCode(city),
                 geometry: comparison.routes.safest.geometry,
                 distance_meters: comparison.routes.safest.distance_meters,
                 duration_seconds: comparison.routes.safest.duration_seconds,

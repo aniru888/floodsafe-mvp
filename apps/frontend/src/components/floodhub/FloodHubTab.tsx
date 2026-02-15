@@ -30,8 +30,8 @@ function NotAvailableState() {
                 FloodHub Coming Soon
             </h2>
             <p className="text-muted-foreground max-w-sm">
-                Google FloodHub coverage is currently available for Delhi only.
-                Bangalore support coming soon.
+                Google FloodHub coverage is expanding to more cities.
+                Check back soon for updates in your area.
             </p>
         </div>
     );

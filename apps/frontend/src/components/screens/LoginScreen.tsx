@@ -249,7 +249,7 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                         </div>
                     </div>
                     <p className="hidden sm:block text-xs text-primary-foreground/50">
-                        Delhi &middot; Bangalore
+                        Delhi &middot; Bangalore &middot; Yogyakarta &middot; Singapore
                     </p>
                 </div>
                 {/* Amber accent line — inspired by Indian government document borders */}

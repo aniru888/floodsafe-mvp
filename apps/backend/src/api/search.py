@@ -104,6 +104,14 @@ YOGYAKARTA_BOUNDS = {
     "country_code": "id",
 }
 
+SINGAPORE_BOUNDS = {
+    "min_lat": 1.15,
+    "max_lat": 1.47,
+    "min_lng": 103.60,
+    "max_lng": 104.05,
+    "country_code": "sg",
+}
+
 
 @router.get("/", response_model=UnifiedSearchResponse)
 async def unified_search(
@@ -147,6 +155,8 @@ async def unified_search(
         city_bounds = BANGALORE_BOUNDS
     elif city.lower() == 'yogyakarta':
         city_bounds = YOGYAKARTA_BOUNDS
+    elif city.lower() == 'singapore':
+        city_bounds = SINGAPORE_BOUNDS
     # For 'all' or any other value, don't filter by bounds (city_bounds = None)
 
     search_service = get_search_service(db)
@@ -167,7 +177,7 @@ async def unified_search(
 async def search_locations(
     q: str = Query(..., min_length=2, description="Location search query"),
     limit: int = Query(30, ge=1, le=50, description="Max results"),
-    city: Optional[str] = Query(None, regex="^(delhi|bangalore|yogyakarta)$", description="City filter: 'delhi', 'bangalore', or 'yogyakarta'"),
+    city: Optional[str] = Query(None, regex="^(delhi|bangalore|yogyakarta|singapore)$", description="City filter: 'delhi', 'bangalore', 'yogyakarta', or 'singapore'"),
     db: Session = Depends(get_db)
 ):
     """
@@ -186,6 +196,8 @@ async def search_locations(
         city_bounds = BANGALORE_BOUNDS
     elif city == 'yogyakarta':
         city_bounds = YOGYAKARTA_BOUNDS
+    elif city == 'singapore':
+        city_bounds = SINGAPORE_BOUNDS
 
     search_service = get_search_service(db)
     results = await search_service.unified_search(

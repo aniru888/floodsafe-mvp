@@ -413,6 +413,7 @@ const CITY_REGIONS: Record<string, string> = {
     bangalore: 'Karnataka, India',
     delhi: 'National Capital Territory, India',
     yogyakarta: 'Special Region of Yogyakarta, Indonesia',
+    singapore: 'Republic of Singapore',
 };
 
 interface Step1CityProps {
@@ -465,7 +466,11 @@ interface Step2ProfileProps {
 }
 
 function Step2Profile({ username, phone, city, onUpdate, errors }: Step2ProfileProps) {
-    const phonePlaceholder = city === 'yogyakarta' ? '+62 XXX XXXX XXXX' : '+91 XXXXX XXXXX';
+    const phoneDefaults: Record<string, string> = {
+        delhi: '+91 XXXXX XXXXX', bangalore: '+91 XXXXX XXXXX',
+        yogyakarta: '+62 XXX XXXX XXXX', singapore: '+65 XXXX XXXX',
+    };
+    const phonePlaceholder = (city && phoneDefaults[city]) || '+91 XXXXX XXXXX';
 
     return (
         <div className="space-y-4">

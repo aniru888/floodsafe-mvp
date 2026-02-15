@@ -1,0 +1,219 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "created": "2026-02-15",
+    "source": "PUB Reports + NEA Warnings + Local Flood Records",
+    "total_hotspots": 20,
+    "zones": {
+      "central": 8,
+      "east": 4,
+      "west": 4,
+      "north": 4
+    },
+    "composition": {
+      "pub_records": 20
+    }
+  },
+  "hotspots": [
+    {
+      "id": 1,
+      "name": "Orchard Road",
+      "lat": 1.3048,
+      "lng": 103.8318,
+      "description": "Major shopping belt prone to flash floods during heavy downpours",
+      "zone": "central",
+      "severity_history": "high",
+      "source": "pub_records"
+    },
+    {
+      "id": 2,
+      "name": "Bukit Timah Road",
+      "lat": 1.3340,
+      "lng": 103.7764,
+      "description": "Low-lying road near Bukit Timah Canal, frequent ponding",
+      "zone": "central",
+      "severity_history": "high",
+      "source": "pub_records"
+    },
+    {
+      "id": 3,
+      "name": "Leng Kee Road",
+      "lat": 1.2878,
+      "lng": 103.8082,
+      "description": "Ponding-prone area near Alexandra Canal",
+      "zone": "central",
+      "severity_history": "moderate",
+      "source": "pub_records"
+    },
+    {
+      "id": 4,
+      "name": "Upper Thomson Road",
+      "lat": 1.3583,
+      "lng": 103.8286,
+      "description": "Flash flood area near Lower Peirce Reservoir catchment",
+      "zone": "central",
+      "severity_history": "moderate",
+      "source": "pub_records"
+    },
+    {
+      "id": 5,
+      "name": "Dunearn Road",
+      "lat": 1.3250,
+      "lng": 103.7890,
+      "description": "Adjacent to Bukit Timah Canal, prone to canal overflow",
+      "zone": "central",
+      "severity_history": "high",
+      "source": "pub_records"
+    },
+    {
+      "id": 6,
+      "name": "Novena / Irrawaddy Road",
+      "lat": 1.3205,
+      "lng": 103.8435,
+      "description": "Urban ponding near Novena MRT during intense rainfall",
+      "zone": "central",
+      "severity_history": "moderate",
+      "source": "pub_records"
+    },
+    {
+      "id": 7,
+      "name": "River Valley Road",
+      "lat": 1.2915,
+      "lng": 103.8330,
+      "description": "Low-lying area near Singapore River, flash flood risk",
+      "zone": "central",
+      "severity_history": "moderate",
+      "source": "pub_records"
+    },
+    {
+      "id": 8,
+      "name": "CTE / PIE Interchange",
+      "lat": 1.3390,
+      "lng": 103.8410,
+      "description": "Expressway underpass prone to ponding during storms",
+      "zone": "central",
+      "severity_history": "high",
+      "source": "pub_records"
+    },
+    {
+      "id": 9,
+      "name": "Tampines Avenue",
+      "lat": 1.3530,
+      "lng": 103.9450,
+      "description": "Flat terrain with drainage challenges during heavy rain",
+      "zone": "east",
+      "severity_history": "moderate",
+      "source": "pub_records"
+    },
+    {
+      "id": 10,
+      "name": "Bedok North",
+      "lat": 1.3340,
+      "lng": 103.9470,
+      "description": "Ponding along Bedok Canal during peak rainfall",
+      "zone": "east",
+      "severity_history": "moderate",
+      "source": "pub_records"
+    },
+    {
+      "id": 11,
+      "name": "Geylang / Sims Avenue",
+      "lat": 1.3158,
+      "lng": 103.8830,
+      "description": "Low-lying area near Geylang River, recurrent ponding",
+      "zone": "east",
+      "severity_history": "moderate",
+      "source": "pub_records"
+    },
+    {
+      "id": 12,
+      "name": "Upper Changi Road",
+      "lat": 1.3380,
+      "lng": 103.9610,
+      "description": "East-side flood zone near Changi drainage basin",
+      "zone": "east",
+      "severity_history": "moderate",
+      "source": "pub_records"
+    },
+    {
+      "id": 13,
+      "name": "Jurong East / Jurong West",
+      "lat": 1.3330,
+      "lng": 103.7420,
+      "description": "Industrial area with drainage capacity issues",
+      "zone": "west",
+      "severity_history": "moderate",
+      "source": "pub_records"
+    },
+    {
+      "id": 14,
+      "name": "Clementi Road",
+      "lat": 1.3152,
+      "lng": 103.7650,
+      "description": "Near Ulu Pandan Canal, ponding during monsoon storms",
+      "zone": "west",
+      "severity_history": "moderate",
+      "source": "pub_records"
+    },
+    {
+      "id": 15,
+      "name": "Commonwealth Avenue",
+      "lat": 1.3015,
+      "lng": 103.7960,
+      "description": "Low-lying residential area with periodic ponding",
+      "zone": "west",
+      "severity_history": "moderate",
+      "source": "pub_records"
+    },
+    {
+      "id": 16,
+      "name": "Ulu Pandan Road",
+      "lat": 1.3180,
+      "lng": 103.7750,
+      "description": "Flood-prone stretch along Ulu Pandan Canal",
+      "zone": "west",
+      "severity_history": "high",
+      "source": "pub_records"
+    },
+    {
+      "id": 17,
+      "name": "Ang Mo Kio Avenue",
+      "lat": 1.3691,
+      "lng": 103.8454,
+      "description": "HDB estate with periodic ponding near Kallang River headwaters",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "pub_records"
+    },
+    {
+      "id": 18,
+      "name": "Toa Payoh",
+      "lat": 1.3343,
+      "lng": 103.8502,
+      "description": "Mature estate with aging drainage infrastructure",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "pub_records"
+    },
+    {
+      "id": 19,
+      "name": "Woodlands",
+      "lat": 1.4382,
+      "lng": 103.7891,
+      "description": "Northern area near Causeway, prone to localized flooding",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "pub_records"
+    },
+    {
+      "id": 20,
+      "name": "Yishun Ring Road",
+      "lat": 1.4295,
+      "lng": 103.8350,
+      "description": "Low-lying HDB estate with drainage constraints",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "pub_records"
+    }
+  ]
+}

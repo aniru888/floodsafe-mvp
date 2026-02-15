@@ -125,6 +125,13 @@ class FHICalculator:
             "default_elev": 114,
             "rain_gate_mm": 15.0,  # Higher for tropical: filter light drizzle
         },
+        "singapore": {
+            "elev_min": 0, "elev_max": 50,
+            "wet_months": [11, 12, 1, 2],  # NE monsoon Nov-Feb, secondary Apr-May
+            "urban_fraction": 0.95,
+            "default_elev": 15,
+            "rain_gate_mm": 10.0,  # Urban flooding sensitive to moderate rain
+        },
     }
 
     # City bounding boxes for auto-detection from coordinates
@@ -132,6 +139,7 @@ class FHICalculator:
         "delhi": {"min_lat": 28.40, "max_lat": 28.88, "min_lng": 76.84, "max_lng": 77.35},
         "bangalore": {"min_lat": 12.75, "max_lat": 13.20, "min_lng": 77.35, "max_lng": 77.80},
         "yogyakarta": {"min_lat": -7.95, "max_lat": -7.65, "min_lng": 110.30, "max_lng": 110.50},
+        "singapore": {"min_lat": 1.15, "max_lat": 1.47, "min_lng": 103.60, "max_lng": 104.05},
     }
 
     # Legacy defaults (Delhi) for backwards compatibility

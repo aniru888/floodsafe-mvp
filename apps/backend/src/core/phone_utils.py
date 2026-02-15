@@ -10,6 +10,7 @@ import re
 COUNTRY_CODES = {
     "IN": "+91",  # India (10-digit mobile)
     "ID": "+62",  # Indonesia (10-12 digit mobile)
+    "SG": "+65",  # Singapore (8-digit mobile)
 }
 
 E164_PATTERN = re.compile(r"^\+[1-9]\d{6,14}$")
@@ -47,6 +48,10 @@ def normalize_phone(phone: str, default_country: str = "IN") -> str:
 
     # Indonesia: 10-12 digits
     if default_country == "ID" and 10 <= len(phone) <= 12:
+        return f"{prefix}{phone}"
+
+    # Singapore: exactly 8 digits (mobile starts with 8 or 9)
+    if default_country == "SG" and len(phone) == 8:
         return f"{prefix}{phone}"
 
     # Fallback: assume digits are a full number without +

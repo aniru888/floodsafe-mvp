@@ -4,6 +4,7 @@ import { useVoiceGuidance } from './VoiceGuidanceContext';
 import { haversineDistance, isOffRoute, findNextInstruction, findNearbyHotspots, getRemainingRoute } from '../lib/geo/distance';
 import { useHotspots } from '../lib/api/hooks';
 import { useCurrentCity } from './CityContext';
+import { getCityCode } from '../lib/cityUtils';
 
 interface TurnInstruction {
     instruction: string;
@@ -56,7 +57,7 @@ const TURN_ANNOUNCEMENT_DISTANCE_METERS = 100;
 export function NavigationProvider({ children }: { children: React.ReactNode }) {
     const city = useCurrentCity();
     const { speak } = useVoiceGuidance();
-    const hasHotspots = ['delhi', 'yogyakarta'].includes(city);
+    const hasHotspots = ['delhi', 'yogyakarta', 'singapore'].includes(city);
     const { data: hotspotsData } = useHotspots({ enabled: hasHotspots, city });
 
     const [state, setState] = useState<NavigationState>({
@@ -147,7 +148,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
                     current_position: state.currentPosition,
                     destination: state.activeRoute.destination,
                     route_type: state.activeRoute.type,
-                    city: city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL',
+                    city: getCityCode(city),
                 }),
             });
 

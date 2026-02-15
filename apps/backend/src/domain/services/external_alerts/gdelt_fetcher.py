@@ -63,6 +63,16 @@ class GDELTFetcher(BaseFetcher):
             "sourcecountry": "IN",
             "sourcelang": "english",
         },
+        "yogyakarta": {
+            "query": '("yogyakarta" OR "jogjakarta" OR "jogja") AND (banjir OR flood OR genangan OR "heavy rain" OR waterlog)',
+            "sourcecountry": "ID",
+            "sourcelang": "english",
+        },
+        "singapore": {
+            "query": '("singapore") AND (flood OR "flash flood" OR ponding OR "heavy rain" OR waterlog)',
+            "sourcecountry": "SG",
+            "sourcelang": "english",
+        },
     }
 
     def __init__(self, timeout: int = 30, max_retries: int = 3):

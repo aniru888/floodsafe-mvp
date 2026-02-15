@@ -1,0 +1,512 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.7422, 1.3329]
+      },
+      "properties": {
+        "name": "Jurong East",
+        "line": "NSL/EWL",
+        "color": "#E42313",
+        "interchange": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8318, 1.3048]
+      },
+      "properties": {
+        "name": "Orchard",
+        "line": "NSL/TEL",
+        "color": "#E42313",
+        "interchange": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8525, 1.2931]
+      },
+      "properties": {
+        "name": "City Hall",
+        "line": "NSL/EWL",
+        "color": "#E42313",
+        "interchange": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8545, 1.2764]
+      },
+      "properties": {
+        "name": "Marina Bay",
+        "line": "NSL/TEL",
+        "color": "#E42313",
+        "interchange": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8497, 1.3700]
+      },
+      "properties": {
+        "name": "Ang Mo Kio",
+        "line": "NSL",
+        "color": "#E42313",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8355, 1.4295]
+      },
+      "properties": {
+        "name": "Yishun",
+        "line": "NSL",
+        "color": "#E42313",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.7865, 1.4370]
+      },
+      "properties": {
+        "name": "Woodlands",
+        "line": "NSL",
+        "color": "#E42313",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.9493, 1.3732]
+      },
+      "properties": {
+        "name": "Pasir Ris",
+        "line": "EWL",
+        "color": "#009530",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.9452, 1.3534]
+      },
+      "properties": {
+        "name": "Tampines",
+        "line": "EWL",
+        "color": "#009530",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8928, 1.3179]
+      },
+      "properties": {
+        "name": "Paya Lebar",
+        "line": "EWL",
+        "color": "#009530",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8559, 1.3006]
+      },
+      "properties": {
+        "name": "Bugis",
+        "line": "EWL",
+        "color": "#009530",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8515, 1.2837]
+      },
+      "properties": {
+        "name": "Raffles Place",
+        "line": "EWL",
+        "color": "#009530",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.7653, 1.3150]
+      },
+      "properties": {
+        "name": "Clementi",
+        "line": "EWL",
+        "color": "#009530",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8203, 1.2654]
+      },
+      "properties": {
+        "name": "HarbourFront",
+        "line": "NEL/CCL",
+        "color": "#9016B2",
+        "interchange": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8394, 1.2803]
+      },
+      "properties": {
+        "name": "Outram Park",
+        "line": "NEL",
+        "color": "#9016B2",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8458, 1.2993]
+      },
+      "properties": {
+        "name": "Dhoby Ghaut",
+        "line": "NEL/CCL/DTL",
+        "color": "#9016B2",
+        "interchange": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8734, 1.3499]
+      },
+      "properties": {
+        "name": "Serangoon",
+        "line": "NEL",
+        "color": "#9016B2",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.9024, 1.4049]
+      },
+      "properties": {
+        "name": "Punggol",
+        "line": "NEL",
+        "color": "#9016B2",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8491, 1.3512]
+      },
+      "properties": {
+        "name": "Bishan",
+        "line": "CCL",
+        "color": "#F99D1C",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8157, 1.3225]
+      },
+      "properties": {
+        "name": "Botanic Gardens",
+        "line": "CCL/DTL",
+        "color": "#F99D1C",
+        "interchange": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.7960, 1.3115]
+      },
+      "properties": {
+        "name": "Holland Village",
+        "line": "CCL",
+        "color": "#F99D1C",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.7869, 1.2997]
+      },
+      "properties": {
+        "name": "one-north",
+        "line": "CCL",
+        "color": "#F99D1C",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8590, 1.2818]
+      },
+      "properties": {
+        "name": "Bayfront",
+        "line": "CCL/DTL",
+        "color": "#F99D1C",
+        "interchange": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.7619, 1.3785]
+      },
+      "properties": {
+        "name": "Bukit Panjang",
+        "line": "DTL",
+        "color": "#005DA2",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.7765, 1.3400]
+      },
+      "properties": {
+        "name": "Beauty World",
+        "line": "DTL",
+        "color": "#005DA2",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.9616, 1.3351]
+      },
+      "properties": {
+        "name": "Expo",
+        "line": "DTL",
+        "color": "#005DA2",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.7850, 1.4486]
+      },
+      "properties": {
+        "name": "Woodlands North",
+        "line": "TEL",
+        "color": "#9D5B25",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8191, 1.3967]
+      },
+      "properties": {
+        "name": "Springleaf",
+        "line": "TEL",
+        "color": "#9D5B25",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8393, 1.3378]
+      },
+      "properties": {
+        "name": "Caldecott",
+        "line": "TEL",
+        "color": "#9D5B25",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.9158, 1.2821]
+      },
+      "properties": {
+        "name": "Bayshore",
+        "line": "TEL",
+        "color": "#9D5B25",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8633, 1.2765]
+      },
+      "properties": {
+        "name": "Marina South Pier",
+        "line": "NSL",
+        "color": "#E42313",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.6489, 1.3387]
+      },
+      "properties": {
+        "name": "Tuas Link",
+        "line": "EWL",
+        "color": "#009530",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8525, 1.2950]
+      },
+      "properties": {
+        "name": "Clarke Quay",
+        "line": "NEL",
+        "color": "#9016B2",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8615, 1.3122]
+      },
+      "properties": {
+        "name": "Boon Keng",
+        "line": "NEL",
+        "color": "#9016B2",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8831, 1.3842]
+      },
+      "properties": {
+        "name": "Sengkang",
+        "line": "NEL",
+        "color": "#9016B2",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8037, 1.2762]
+      },
+      "properties": {
+        "name": "Telok Blangah",
+        "line": "CCL",
+        "color": "#F99D1C",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8928, 1.3179]
+      },
+      "properties": {
+        "name": "MacPherson",
+        "line": "CCL",
+        "color": "#F99D1C",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8458, 1.2993]
+      },
+      "properties": {
+        "name": "Stevens",
+        "line": "DTL",
+        "color": "#005DA2",
+        "interchange": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [103.8318, 1.3048]
+      },
+      "properties": {
+        "name": "Orchard Boulevard",
+        "line": "TEL",
+        "color": "#9D5B25",
+        "interchange": false
+      }
+    }
+  ]
+}

@@ -154,6 +154,14 @@ class FloodHubService:
             "region_code": "ID",
             "country_code": "ID",
         },
+        "singapore": {
+            "lat_min": 1.15,
+            "lat_max": 1.47,
+            "lng_min": 103.60,
+            "lng_max": 104.05,
+            "region_code": "SG",
+            "country_code": "SG",
+        },
     }
 
     def __init__(self, api_key: Optional[str] = None):

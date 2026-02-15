@@ -158,7 +158,7 @@ class UserUpdate(BaseModel):
     display_name: Optional[str] = Field(None, min_length=3, max_length=50)
 
     # Onboarding & City Preference
-    city_preference: Optional[str] = Field(None, pattern="^(bangalore|delhi|yogyakarta)$")
+    city_preference: Optional[str] = Field(None, pattern="^(bangalore|delhi|yogyakarta|singapore)$")
     profile_complete: Optional[bool] = None
     onboarding_step: Optional[int] = Field(None, ge=1, le=5)
 

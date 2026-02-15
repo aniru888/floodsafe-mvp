@@ -13,7 +13,7 @@ import { API_BASE_URL } from '../lib/api/config';
 
 const SearchInput = {
   query: z.string().min(2).describe('Search query (min 2 chars)'),
-  city: z.enum(['delhi', 'bangalore', 'yogyakarta']).optional().describe('City filter'),
+  city: z.enum(['delhi', 'bangalore', 'yogyakarta', 'singapore']).optional().describe('City filter'),
   limit: z.number().min(1).max(20).default(5).describe('Max results'),
 };
 
@@ -22,7 +22,7 @@ const CacheInput = {
 };
 
 const SwitchCityInput = {
-  city: z.enum(['delhi', 'bangalore', 'yogyakarta']).describe('Target city'),
+  city: z.enum(['delhi', 'bangalore', 'yogyakarta', 'singapore']).describe('Target city'),
 };
 
 // ─── WebMCP Provider ─────────────────────────────────────────────────────────
@@ -210,7 +210,7 @@ export function WebMCPProvider() {
   useWebMCPPrompt({
     name: 'analyze-flood-risk',
     description: 'Structured analysis of current flood risk for a city',
-    argsSchema: { city: z.enum(['delhi', 'bangalore', 'yogyakarta']).describe('City to analyze') },
+    argsSchema: { city: z.enum(['delhi', 'bangalore', 'yogyakarta', 'singapore']).describe('City to analyze') },
     get: useCallback(async (args: { city: string }) => ({
       messages: [{
         role: 'user' as const,

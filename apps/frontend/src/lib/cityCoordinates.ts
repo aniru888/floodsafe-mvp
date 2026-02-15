@@ -69,6 +69,13 @@ export const CITY_COORDINATES: Record<string, CityInfo> = {
     displayName: "Yogyakarta",
     radiusKm: 15,
   },
+  singapore: {
+    lat: 1.3521,
+    lng: 103.8198,
+    name: "Singapore",
+    displayName: "Singapore",
+    radiusKm: 20,
+  },
 };
 
 /** Default city when none specified */

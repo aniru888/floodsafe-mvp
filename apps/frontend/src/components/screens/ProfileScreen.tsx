@@ -18,6 +18,7 @@ import { toast } from 'sonner';
 import { User } from '../../types';
 import { useAuth } from '../../contexts/AuthContext';
 import { fetchJson } from '../../lib/api/client';
+import { CITY_REGION_SHORT } from '../../lib/cityUtils';
 import { cn } from '../../lib/utils';
 import { CITIES } from '../../lib/map/cityConfigs';
 import { parseReportDescription } from '../../lib/tagParser';
@@ -395,7 +396,7 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
             </div>
             {user.city_preference && (
               <Badge variant="outline" className="text-xs">
-                {user.city_preference === 'bangalore' ? 'Karnataka' : user.city_preference === 'yogyakarta' ? 'DIY' : 'NCT'}
+                {CITY_REGION_SHORT[user.city_preference || 'delhi'] || user.city_preference}
               </Badge>
             )}
           </div>

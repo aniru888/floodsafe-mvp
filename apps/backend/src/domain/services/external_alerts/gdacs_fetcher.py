@@ -66,6 +66,11 @@ class GDACSFetcher(BaseFetcher):
             "name": "Yogyakarta",
             "include_states": ["yogyakarta", "jawa tengah"],  # DIY + Central Java
         },
+        "singapore": {
+            "bounds": (1.15, 1.47, 103.60, 104.05),  # Singapore island + surrounding
+            "name": "Singapore",
+            "include_states": ["singapore"],
+        },
     }
 
     # Event types to include

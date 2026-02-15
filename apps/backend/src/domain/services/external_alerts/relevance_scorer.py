@@ -450,6 +450,96 @@ class YogyakartaFloodRelevanceScorer:
         return score, reason
 
 
+class SingaporeFloodRelevanceScorer:
+    """
+    Relevance scorer for Singapore flood alerts.
+    Singapore uses "ponding" terminology for urban flooding.
+    PUB (Public Utilities Board) is the primary flood authority.
+    """
+
+    SINGAPORE_LOCATIONS = {
+        "exact": ["singapore"],
+        "areas": [
+            "orchard road", "bukit timah", "tampines", "bedok",
+            "toa payoh", "ang mo kio", "jurong", "woodlands",
+            "geylang", "novena", "river valley", "clementi",
+            "paya lebar", "leng kee", "commonwealth", "queenstown",
+            "bishan", "serangoon", "hougang", "punggol",
+            "sengkang", "yishun", "sembawang", "pasir ris",
+            "upper thomson", "dunearn", "sims avenue", "ulu pandan",
+            "upper changi", "changi", "marine parade",
+        ],
+        "expressways": [
+            "pie", "aye", "cte", "ecp", "bke", "kpe", "tpe",
+            "pan island expressway", "ayer rajah expressway",
+            "central expressway", "east coast parkway",
+            "bukit timah expressway", "kallang-paya lebar expressway",
+            "tampines expressway",
+        ],
+        "landmarks": [
+            "marina bay", "singapore river", "kallang river",
+            "bukit timah canal", "stamford canal", "rochor canal",
+            "alexandra canal", "sungei api api",
+        ],
+        "authorities": [
+            "pub", "public utilities board", "nea", "national environment agency",
+            "scdf", "lta", "land transport authority", "nparks",
+        ],
+    }
+
+    FLOOD_KEYWORDS = [
+        "ponding", "flash flood", "flood", "waterlog", "inundat",
+        "submerge", "deluge", "canal overflow",
+        "heavy rain", "heavy rainfall", "torrential",
+        "road closure", "traffic disruption",
+    ]
+
+    def score(self, title: str, body: str) -> Tuple[float, str]:
+        """Score article relevance for Singapore flooding."""
+        text = f"{title} {body}".lower()
+        score = 0.0
+        reasons = []
+
+        # Location signals
+        has_exact = any(loc in text for loc in self.SINGAPORE_LOCATIONS["exact"])
+        has_area = any(loc in text for loc in self.SINGAPORE_LOCATIONS["areas"])
+        has_expressway = any(loc in text for loc in self.SINGAPORE_LOCATIONS["expressways"])
+        has_landmark = any(loc in text for loc in self.SINGAPORE_LOCATIONS["landmarks"])
+        has_authority = any(loc in text for loc in self.SINGAPORE_LOCATIONS["authorities"])
+
+        # Flood signals
+        has_flood = any(kw in text for kw in self.FLOOD_KEYWORDS)
+
+        # "ponding" is the Singapore-specific term — strong signal
+        has_ponding = "ponding" in text
+
+        if has_exact:
+            score += 0.4
+            reasons.append("Singapore exact match")
+        if has_area:
+            score += 0.3
+            reasons.append("Singapore area match")
+        if has_expressway:
+            score += 0.2
+            reasons.append("expressway match")
+        if has_landmark:
+            score += 0.2
+            reasons.append("landmark match")
+        if has_authority:
+            score += 0.1
+            reasons.append("authority keyword")
+        if has_ponding:
+            score += 0.4
+            reasons.append("ponding (Singapore-specific)")
+        elif has_flood:
+            score += 0.3
+            reasons.append("flood keyword")
+
+        score = min(score, 1.0)
+        reason = " + ".join(reasons) if reasons else "No Singapore signals"
+        return score, reason
+
+
 def get_scorer_for_city(city: str):
     """
     Factory function to get the appropriate scorer for a city.
@@ -467,6 +557,8 @@ def get_scorer_for_city(city: str):
         return BangaloreFloodRelevanceScorer()
     elif city_lower in ["yogyakarta", "jogjakarta", "jogja"]:
         return YogyakartaFloodRelevanceScorer()
+    elif city_lower == "singapore":
+        return SingaporeFloodRelevanceScorer()
     else:
         # Default to Delhi scorer (most comprehensive)
         logger.warning(f"No specific scorer for city '{city}', using Delhi scorer")

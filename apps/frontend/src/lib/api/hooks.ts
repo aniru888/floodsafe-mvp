@@ -3,6 +3,7 @@ import { fetchJson, uploadFile } from './client';
 import { API_BASE_URL } from './config';
 import { User, GeocodingResult, DailyRoute, DailyRouteCreate, WatchArea, WatchAreaCreate, RouteCalculationRequest, RouteCalculationResponse, MetroStation, RouteOption, RouteComparisonRequest, RouteComparisonResponse, EnhancedRouteComparisonResponse, FastestRouteOption, SafestRouteOption, WatchAreaRiskAssessment, FloodHubStatus, FloodHubGauge, FloodHubForecast, FloodHubSignificantEvent, SafetyCircle, SafetyCircleDetail, SafetyCircleCreate, SafetyCircleUpdate, CircleMemberAdd, CircleMemberUpdate, CircleAlert, CircleAlertsResponse, CircleUnreadCount, JoinCircleRequest, BulkAddResult, RiskSummaryResponse } from '../../types';
 import { validateUsers, validateSensors, validateReports } from './validators';
+import { getCityCode } from '../cityUtils';
 
 // Types
 export interface Sensor {
@@ -1591,7 +1592,7 @@ export function useFloodHubStatus(city: string) {
  * @param city - City key (delhi, bangalore, yogyakarta)
  */
 export function useFloodHubGauges(city: string = 'delhi') {
-    const cityCode = city === 'delhi' ? 'DEL' : city === 'bangalore' ? 'BLR' : city === 'yogyakarta' ? 'YGY' : city.toUpperCase();
+    const cityCode = getCityCode(city);
     return useQuery({
         queryKey: ['floodhub-gauges', city],
         queryFn: async (): Promise<FloodHubGauge[]> => {
@@ -1636,7 +1637,7 @@ export function useFloodHubForecast(gaugeId: string | null) {
  * @param city - City key (delhi, bangalore, yogyakarta)
  */
 export function useFloodHubEvents(city: string = 'delhi') {
-    const cityCode = city === 'delhi' ? 'DEL' : city === 'bangalore' ? 'BLR' : city === 'yogyakarta' ? 'YGY' : city.toUpperCase();
+    const cityCode = getCityCode(city);
     return useQuery({
         queryKey: ['floodhub-events', city],
         queryFn: async (): Promise<FloodHubSignificantEvent[]> => {

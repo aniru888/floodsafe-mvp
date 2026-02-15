@@ -778,9 +778,9 @@ class RoutingService:
 
             # Fetch hotspots for safety analysis (cities with hotspot data)
             hotspots = []
-            city_map = {"DEL": "delhi", "BLR": "bangalore", "YOG": "yogyakarta"}
+            city_map = {"DEL": "delhi", "BLR": "bangalore", "YOG": "yogyakarta", "SIN": "singapore"}
             hotspot_city = city_map.get(city.upper())
-            if hotspot_city in ("delhi", "yogyakarta"):
+            if hotspot_city in ("delhi", "yogyakarta", "singapore"):
                 try:
                     from .hotspot_routing import fetch_hotspots_with_fhi
                     hotspots = await fetch_hotspots_with_fhi(include_fhi=True, city=hotspot_city)
@@ -893,6 +893,7 @@ class RoutingService:
         metro_files = {
             "BLR": "metro-stations.geojson",
             "DEL": "delhi-metro-stations.geojson",
+            "SIN": "singapore-metro-stations.geojson",
         }
 
         filename = metro_files.get(city.upper())

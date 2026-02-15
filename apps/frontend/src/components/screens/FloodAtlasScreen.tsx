@@ -10,6 +10,7 @@ import { NavigationProvider, useNavigation } from '../../contexts/NavigationCont
 import type { RouteOption, MetroStation } from '../../types';
 import { toast } from 'sonner';
 import { getCityCenterOrDefault } from '../../lib/cityCoordinates';
+import { getCityCode } from '../../lib/cityUtils';
 
 // GPS Testing Panel - only rendered when VITE_ENABLE_GPS_TESTING=true
 import { GPSTestPanel } from '../testing/GPSTestPanel';
@@ -168,7 +169,7 @@ function FloodAtlasContent({
                         ? [{
                             id: navState.activeRoute.id,
                             type: navState.activeRoute.type === 'fastest' ? 'fast' : navState.activeRoute.type === 'safest' ? 'safe' : 'metro',
-                            city_code: city === 'yogyakarta' ? 'YGY' : city === 'bangalore' ? 'BLR' : 'DEL',
+                            city_code: getCityCode(city),
                             geometry: {
                                 type: 'LineString' as const,
                                 coordinates: navState.remainingRouteCoordinates
