@@ -171,16 +171,18 @@ export function HomeScreen({
     const { data: userDailyRoutes = [] } = useDailyRoutes(user?.id);
 
     // Singapore-specific: NEA weather data (only fetched when city is Singapore)
+    // Always use city center — NEA returns nearest station data, user GPS is irrelevant
     const isSingapore = currentCity === 'singapore' || cityFilter === 'singapore';
-    const sgLat = isSingapore ? (userLocation?.latitude ?? 1.3521) : null;
-    const sgLng = isSingapore ? (userLocation?.longitude ?? 103.8198) : null;
+    const sgLat = isSingapore ? 1.3521 : null;
+    const sgLng = isSingapore ? 103.8198 : null;
     const { data: sgConditions } = useSGConditions(sgLat, sgLng, isSingapore);
     const { data: sgForecast } = useSGWeatherForecast(isSingapore);
 
     // Yogyakarta-specific: BMKG weather data (only fetched when city is Yogyakarta)
+    // Always use city center — BMKG endpoint is city-scoped, user GPS is irrelevant
     const isYogyakarta = currentCity === 'yogyakarta' || cityFilter === 'yogyakarta';
-    const ykLat = isYogyakarta ? (userLocation?.latitude ?? -7.797) : null;
-    const ykLng = isYogyakarta ? (userLocation?.longitude ?? 110.361) : null;
+    const ykLat = isYogyakarta ? -7.7956 : null;
+    const ykLng = isYogyakarta ? 110.3695 : null;
     const { data: ykConditions } = useYKConditions(ykLat, ykLng, isYogyakarta);
     const { data: ykForecast } = useYKForecast(isYogyakarta);
 

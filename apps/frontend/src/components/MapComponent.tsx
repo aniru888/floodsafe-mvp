@@ -762,7 +762,12 @@ export default function MapComponent({
                     },
                     paint: {
                         'circle-radius': 18,
-                        'circle-color': ['coalesce', ['get', 'fhi_color'], ['get', 'risk_color']],
+                        'circle-color': [
+                            'case',
+                            ['has', 'fhi_color'], ['get', 'fhi_color'],
+                            ['has', 'risk_color'], ['get', 'risk_color'],
+                            '#9ca3af'
+                        ],
                         'circle-opacity': 0.25,
                         'circle-blur': 0.8
                     }
@@ -778,7 +783,12 @@ export default function MapComponent({
                     },
                     paint: {
                         'circle-radius': 8,
-                        'circle-color': ['coalesce', ['get', 'fhi_color'], ['get', 'risk_color']],
+                        'circle-color': [
+                            'case',
+                            ['has', 'fhi_color'], ['get', 'fhi_color'],
+                            ['has', 'risk_color'], ['get', 'risk_color'],
+                            '#9ca3af'
+                        ],
                         'circle-stroke-width': [
                             'case',
                             ['==', ['get', 'verified'], true], 2.5,  // Thicker for verified (MCD)
