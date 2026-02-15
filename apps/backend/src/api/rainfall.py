@@ -33,9 +33,10 @@ ANTECEDENT_SATURATION_THRESHOLD_MM = 50.0  # mm over 3 days for urban saturation
 
 # City-specific calibration for elevation bounds, wet months, urban fraction, and rain-gate
 CITY_FHI_CALIBRATION = {
-    "delhi": {"elev_min": 190.0, "elev_max": 320.0, "wet_months": range(6, 10), "urban_fraction": 0.75, "rain_gate_mm": 5.0},
-    "bangalore": {"elev_min": 800.0, "elev_max": 1000.0, "wet_months": range(6, 11), "urban_fraction": 0.65, "rain_gate_mm": 5.0},
-    "yogyakarta": {"elev_min": 75.0, "elev_max": 200.0, "wet_months": [10, 11, 12, 1, 2, 3], "urban_fraction": 0.55, "rain_gate_mm": 15.0},
+    "delhi": {"elev_min": 190.0, "elev_max": 320.0, "wet_months": range(6, 10), "urban_fraction": 0.75, "rain_gate_mm": 5.0, "precip_correction": 1.5, "E_dampen": 1.0},
+    "bangalore": {"elev_min": 800.0, "elev_max": 1000.0, "wet_months": range(6, 11), "urban_fraction": 0.65, "rain_gate_mm": 5.0, "precip_correction": 1.3, "E_dampen": 0.7},
+    "yogyakarta": {"elev_min": 75.0, "elev_max": 200.0, "wet_months": [11, 12, 1, 2], "urban_fraction": 0.55, "rain_gate_mm": 20.0, "precip_correction": 1.0, "E_dampen": 0.3},
+    "singapore": {"elev_min": 0.0, "elev_max": 50.0, "wet_months": [11, 12, 1, 2], "urban_fraction": 0.95, "rain_gate_mm": 10.0, "precip_correction": 1.0, "E_dampen": 0.5},
 }
 
 
@@ -386,10 +387,14 @@ def _calculate_fhi(
     # Calculate raw 3-day precipitation (before correction) for rain-gate check
     precip_3d_raw = precip_24h + precip_48h + precip_72h
 
+    # Get city calibration early (needed for correction factor + elevation)
+    cal = CITY_FHI_CALIBRATION.get(city, CITY_FHI_CALIBRATION["delhi"])
+
     # Probability-based correction factor (verified: achieves 100% on historical events)
-    # Range: 1.5x (0% prob) to 2.25x (100% prob)
+    # Per-city base: Delhi 1.5x (validated), Yogyakarta/Singapore 1.0x (no underestimation evidence)
     prob_boost = 1 + (precip_prob_max / 100) * PROB_BOOST_MULTIPLIER
-    correction_factor = BASE_PRECIP_CORRECTION * prob_boost
+    city_correction = cal.get("precip_correction", BASE_PRECIP_CORRECTION)
+    correction_factor = city_correction * prob_boost
 
     # Apply probability-based correction for forecast uncertainty
     precip_24h_corrected = precip_24h * correction_factor
@@ -449,13 +454,13 @@ def _calculate_fhi(
     R = min(1.0, max(0.0, R))
 
     # E: Elevation Risk component (inverted - lower = higher risk)
-    # Use city-specific elevation bounds
-    cal = CITY_FHI_CALIBRATION.get(city, CITY_FHI_CALIBRATION["delhi"])
+    # Use city-specific elevation bounds (cal already fetched above)
     elev_min, elev_max = cal["elev_min"], cal["elev_max"]
     elev_range = max(elev_max - elev_min, 1.0)
     elev_clamped = max(elev_min, min(elev_max, elevation))
     E = 1.0 - ((elev_clamped - elev_min) / elev_range)
     E = min(1.0, max(0.0, E))
+    E *= cal.get("E_dampen", 1.0)  # City-specific elevation risk dampening
 
     # T: Temporal modifier (wet season amplification, city-aware)
     T = 1.2 if month in cal["wet_months"] else 1.0
@@ -963,7 +968,7 @@ async def get_flood_hazard_index(
     # Auto-detect city from coordinates for calibration
     detected_city = "delhi"  # default
     for city_name, cal in CITY_FHI_CALIBRATION.items():
-        bounds = {"delhi": (28.40, 28.88, 76.84, 77.35), "bangalore": (12.75, 13.20, 77.35, 77.80), "yogyakarta": (-7.95, -7.65, 110.30, 110.50)}
+        bounds = {"delhi": (28.40, 28.88, 76.84, 77.35), "bangalore": (12.75, 13.20, 77.35, 77.80), "yogyakarta": (-7.95, -7.65, 110.30, 110.50), "singapore": (1.15, 1.47, 103.60, 104.10)}
         if city_name in bounds:
             min_lat, max_lat, min_lng, max_lng = bounds[city_name]
             if min_lat <= lat <= max_lat and min_lng <= lng <= max_lng:
@@ -1077,6 +1082,187 @@ async def get_nea_rainfall(
         "timestamp": result.timestamp,
         "data_source": result.data_source,
     }
+
+
+@router.get("/sg-conditions")
+async def get_sg_conditions(
+    lat: float = Query(..., ge=-90, le=90, description="Latitude"),
+    lng: float = Query(..., ge=-180, le=180, description="Longitude"),
+):
+    """
+    Get current temperature and humidity from nearest NEA stations.
+
+    Singapore-only endpoint. Returns real-time weather conditions from
+    government weather stations for display alongside FHI risk scores.
+
+    Response includes:
+    - temperature_c: Current temperature in Celsius
+    - humidity_pct: Current relative humidity percentage
+    - station names for attribution
+    """
+    from src.domain.services.nea_weather_service import get_nea_weather_service
+    from fastapi import HTTPException
+
+    # Quick bounds check for Singapore (1.15-1.47N, 103.6-104.1E)
+    if not (1.15 <= lat <= 1.47 and 103.6 <= lng <= 104.1):
+        raise HTTPException(
+            status_code=404,
+            detail="NEA conditions are only available for Singapore coordinates"
+        )
+
+    service = get_nea_weather_service()
+    result = await service.get_current_conditions(lat, lng)
+
+    if result is None:
+        raise HTTPException(
+            status_code=503,
+            detail="NEA weather data temporarily unavailable"
+        )
+
+    return {
+        "temperature_c": result.temperature_c,
+        "humidity_pct": result.humidity_pct,
+        "temp_station_name": result.temp_station_name,
+        "humidity_station_name": result.humidity_station_name,
+        "timestamp": result.timestamp,
+        "data_source": "nea",
+    }
+
+
+@router.get("/sg-forecast")
+async def get_sg_forecast():
+    """
+    Get NEA 2-hour weather forecast for all Singapore areas.
+
+    Returns area-specific weather conditions with flash flood risk flags.
+    Areas with 'Thundery Showers', 'Heavy Rain', or 'Heavy Thundery Showers'
+    are flagged as flash flood risk — a pre-emptive warning signal.
+
+    No authentication required. Updates every 30 minutes.
+    """
+    from src.domain.services.nea_weather_service import get_nea_weather_service
+    from fastapi import HTTPException
+
+    service = get_nea_weather_service()
+    result = await service.get_two_hour_forecast()
+
+    if result is None:
+        raise HTTPException(
+            status_code=503,
+            detail="NEA forecast data temporarily unavailable"
+        )
+
+    return {
+        "valid_period": {
+            "start": result.valid_period_start,
+            "end": result.valid_period_end,
+        },
+        "areas": [
+            {
+                "name": area.name,
+                "condition": area.condition,
+                "flash_flood_risk": area.flash_flood_risk,
+                "lat": area.lat,
+                "lng": area.lng,
+            }
+            for area in result.areas
+        ],
+        "high_risk_areas": result.high_risk_areas,
+        "update_timestamp": result.update_timestamp,
+        "data_source": "nea",
+    }
+
+
+@router.get("/yk-conditions")
+async def get_yk_conditions(
+    lat: float = Query(..., ge=-8.0, le=-7.5, description="Latitude (Yogyakarta bounds)"),
+    lng: float = Query(..., ge=110.2, le=110.6, description="Longitude (Yogyakarta bounds)"),
+):
+    """
+    Current weather conditions from BMKG for Yogyakarta.
+
+    Returns temperature, humidity, weather description (bilingual), and wind speed
+    from the nearest BMKG forecast district to the given coordinates.
+
+    Yogyakarta-only endpoint. Data sourced from BMKG (Indonesian Met Agency).
+    """
+    from src.domain.services.bmkg_weather_service import get_bmkg_weather_service
+
+    service = get_bmkg_weather_service()
+    result = await service.get_current_conditions(lat, lng)
+
+    if result is None:
+        raise HTTPException(
+            status_code=503,
+            detail="BMKG weather data temporarily unavailable"
+        )
+
+    return {
+        "temperature_c": result.temperature_c,
+        "humidity_pct": result.humidity_pct,
+        "weather_desc": result.weather_desc,
+        "weather_desc_id": result.weather_desc_id,
+        "wind_speed_kmh": result.wind_speed_kmh,
+        "cloud_cover_pct": result.cloud_cover_pct,
+        "location_name": result.location_name,
+        "timestamp": result.timestamp,
+        "data_source": "bmkg",
+    }
+
+
+@router.get("/yk-forecast")
+async def get_yk_forecast():
+    """
+    BMKG 3-day weather forecast for Yogyakarta with flash flood risk flags.
+
+    Returns 3-hourly forecast entries (8 per day) for 3 days.
+    Entries with "Heavy Rain" (Hujan Lebat) or "Thunderstorm" (Hujan Petir)
+    are flagged as flash flood risk.
+
+    No authentication required. Updates twice daily from BMKG.
+    Data source: BMKG (Badan Meteorologi, Klimatologi, dan Geofisika).
+    """
+    from src.domain.services.bmkg_weather_service import get_bmkg_weather_service
+
+    service = get_bmkg_weather_service()
+    result = await service.get_forecast()
+
+    if result is None:
+        raise HTTPException(
+            status_code=503,
+            detail="BMKG forecast data temporarily unavailable"
+        )
+
+    return {
+        "location_name": result.location_name,
+        "province": result.province,
+        "lat": result.lat,
+        "lng": result.lng,
+        "entries": [
+            {
+                "datetime_local": e.datetime_local,
+                "datetime_utc": e.datetime_utc,
+                "temperature_c": e.temperature_c,
+                "humidity_pct": e.humidity_pct,
+                "weather_desc": e.weather_desc,
+                "weather_desc_id": e.weather_desc_id,
+                "wind_speed_kmh": e.wind_speed_kmh,
+                "cloud_cover_pct": e.cloud_cover_pct,
+                "flash_flood_risk": e.flash_flood_risk,
+            }
+            for e in result.entries
+        ],
+        "high_risk_entries": [
+            {
+                "datetime_local": e.datetime_local,
+                "weather_desc": e.weather_desc,
+                "weather_desc_id": e.weather_desc_id,
+            }
+            for e in result.high_risk_entries
+        ],
+        "data_source": "bmkg",
+    }
+
 
 @router.get("/health")
 async def rainfall_health():
