@@ -123,7 +123,8 @@ files:
 hotspot_counts:
   delhi: 90 (62 MCD + 28 OSM underpasses)
   yogyakarta: 19 (river confluences, low-elevation areas)
-  total: 109
+  singapore: 20 (urban ponding hotspots, expressway underpasses)
+  total: 129
 
 FHI_formula: |
   FHI = (0.35×P + 0.18×I + 0.12×S + 0.12×A + 0.08×R + 0.15×E) × T
@@ -134,6 +135,7 @@ city_calibration:
   delhi:      { elev: 190-320m, wet_months: Jun-Sep,  urban: 75%, rain_gate: 5mm  }
   bangalore:  { elev: 800-1000m, wet_months: Jun-Oct, urban: 65%, rain_gate: 5mm  }
   yogyakarta: { elev: 75-200m, wet_months: Oct-Mar,  urban: 55%, rain_gate: 15mm }
+  singapore:  { elev: 0-50m,   wet_months: Nov-Feb,  urban: 95%, rain_gate: 10mm }
 
 pipeline: |
   Load hotspots (city-specific JSON) → XGBoost scoring (Delhi only) or severity fallback
@@ -257,13 +259,19 @@ files:
 
 model: ExternalAlert (source, source_id, source_name, city, title, message, severity, url, lat/lng, raw_data, expires_at)
 severity_levels: low, moderate, high, severe
-cities: delhi, bangalore, yogyakarta
+cities: delhi, bangalore, yogyakarta, singapore
 deduplication: Unique constraint on source_id
 
 yogyakarta_support:
   GDACS bounding box: (-7.95, -7.65, 110.30, 110.50) — DIY province + Sleman/Bantul
   include_states: yogyakarta, jawa tengah (Central Java)
   Bilingual relevance scoring: Indonesian flood keywords (banjir, genangan, longsor, lahar, sungai)
+
+singapore_support:
+  GDACS bounding box: (1.15, 1.47, 103.60, 104.05) — island-wide
+  include_states: singapore
+  Relevance scoring: Singapore flood keywords (ponding, PUB, NEA, expressway underpasses)
+  Expressways monitored: PIE, AYE, CTE, ECP, BKE, KPE, TPE
 
 endpoints:
   - GET /api/external-alerts - Alerts by city (filter: source, severity)
@@ -301,6 +309,7 @@ city_specific_calibration:
   delhi:      { elev: 190-320m, wet_months: Jun-Sep,  urban_fraction: 0.75, rain_gate: 5mm  }
   bangalore:  { elev: 800-1000m, wet_months: Jun-Oct, urban_fraction: 0.65, rain_gate: 5mm  }
   yogyakarta: { elev: 75-200m, wet_months: Oct-Mar,  urban_fraction: 0.55, rain_gate: 15mm }
+  singapore:  { elev: 0-50m,   wet_months: Nov-Feb,  urban_fraction: 0.95, rain_gate: 10mm }
 
 rain_gate: Per-city threshold. Below threshold = FHI capped at 0.15 (prevents false alarms in dry conditions)
 cache: 1-hour TTL, in-memory
@@ -800,7 +809,7 @@ entities (13 total):
   Tools (3):
     search_locations: { query, city?, limit? } - Read-only
     get_query_cache: { query_key } - Read-only (TanStack Query cache)
-    switch_city: { city: delhi|bangalore|yogyakarta } - Destructive
+    switch_city: { city: delhi|bangalore|yogyakarta|singapore } - Destructive
 
   Resources (5):
     floodsafe://config - API URL, city list, bounds, feature flags
