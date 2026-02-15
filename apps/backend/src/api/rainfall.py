@@ -1029,6 +1029,55 @@ async def get_flood_hazard_index(
     return response
 
 
+
+@router.get("/nea-rainfall")
+async def get_nea_rainfall(
+    lat: float = Query(..., ge=-90, le=90, description="Latitude"),
+    lng: float = Query(..., ge=-180, le=180, description="Longitude"),
+):
+    """
+    Get real-time rainfall from NEA Singapore (nearest station).
+
+    Returns 5-minute rainfall data from the nearest NEA rain gauge.
+    Only available for Singapore locations. Returns 404 for non-Singapore coordinates.
+
+    Response includes:
+    - station_id: NEA station identifier
+    - station_name: Human-readable station name
+    - distance_km: Distance from query point to nearest station
+    - rainfall_5min_mm: Raw 5-minute rainfall total
+    - rainfall_1h_mm: Estimated hourly rate (5min * 12)
+    - data_source: Always "nea"
+    """
+    from src.domain.services.nea_weather_service import get_nea_weather_service
+    from fastapi import HTTPException
+
+    # Quick bounds check for Singapore (1.15-1.47N, 103.6-104.1E)
+    if not (1.15 <= lat <= 1.47 and 103.6 <= lng <= 104.1):
+        raise HTTPException(
+            status_code=404,
+            detail="NEA rainfall is only available for Singapore coordinates"
+        )
+
+    service = get_nea_weather_service()
+    result = await service.get_nearest_rainfall(lat, lng)
+
+    if result is None:
+        raise HTTPException(
+            status_code=503,
+            detail="NEA rainfall data temporarily unavailable"
+        )
+
+    return {
+        "station_id": result.station_id,
+        "station_name": result.station_name,
+        "distance_km": result.distance_km,
+        "rainfall_5min_mm": result.rainfall_5min_mm,
+        "rainfall_1h_mm": result.rainfall_1h_mm,
+        "timestamp": result.timestamp,
+        "data_source": result.data_source,
+    }
+
 @router.get("/health")
 async def rainfall_health():
     """Check rainfall forecast service health."""

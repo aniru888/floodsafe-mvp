@@ -29,6 +29,7 @@ from .rss_fetcher import RSSFetcher
 from .imd_fetcher import IMDFetcher
 from .twitter_fetcher import TwitterFetcher
 from .cwc_scraper import CWCScraper
+from .pub_fetcher import PUBFetcher
 from .aggregator import AlertAggregator
 from .scheduler import AlertScheduler, start_scheduler, stop_scheduler, get_scheduler
 
@@ -39,6 +40,7 @@ __all__ = [
     "IMDFetcher",
     "TwitterFetcher",
     "CWCScraper",
+    "PUBFetcher",
     "AlertAggregator",
     "AlertScheduler",
     "start_scheduler",

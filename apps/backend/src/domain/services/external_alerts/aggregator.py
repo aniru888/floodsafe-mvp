@@ -18,6 +18,7 @@ from sqlalchemy import select, update, delete
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
 from .base_fetcher import BaseFetcher, ExternalAlertCreate
+from .pub_fetcher import PUBFetcher
 from .rss_fetcher import RSSFetcher
 from .imd_fetcher import IMDFetcher
 from .twitter_fetcher import TwitterFetcher
@@ -100,6 +101,7 @@ class AlertAggregator:
             CWCScraper(),
             GDELTFetcher(),    # News intelligence from GDELT
             GDACSFetcher(),    # UN disaster alerts
+            PUBFetcher(),      # Singapore PUB flood alerts
         ]
 
     def get_enabled_fetchers(self) -> list[BaseFetcher]:
@@ -130,6 +132,7 @@ class AlertAggregator:
             "cwc": "CWC Flood Forecast",
             "gdelt": "GDELT News",
             "gdacs": "UN GDACS",
+            "pub": "PUB Singapore",
         }
         return names.get(source, source.upper())
 

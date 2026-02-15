@@ -107,6 +107,7 @@ class Settings(BaseSettings):
     TWILIO_WHATSAPP_NUMBER: str = ""             # e.g., "whatsapp:+14155238886" (sandbox)
     TWILIO_SMS_NUMBER: str = ""                  # e.g., "+1234567890" (for SMS fallback)
     TWILIO_WEBHOOK_URL: str = ""                 # Your public webhook URL for signature validation
+    TWILIO_TEST_PHONE: str = ""                  # Default recipient for test scripts (E.164, e.g. +919876543210)
 
     # Supabase Storage Configuration (for report photos)
     SUPABASE_URL: str = ""                        # e.g., "https://udblirsscaghsepuxxqv.supabase.co"
@@ -135,6 +136,8 @@ class Settings(BaseSettings):
 
     # Google FloodHub Integration
     GOOGLE_FLOODHUB_API_KEY: str = ""             # Google Flood Forecasting API key (waitlist required)
+    PUB_API_KEY: str = ""                          # Singapore PUB data.gov.sg API key (optional, for higher rate limits)
+    NEA_API_KEY: str = ""                          # Singapore NEA weather API key (optional, for higher rate limits)
 
     class Config:
         case_sensitive = True

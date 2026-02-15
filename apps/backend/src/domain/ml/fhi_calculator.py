@@ -27,7 +27,7 @@ import asyncio
 from datetime import datetime
 from typing import Dict, Optional, Any
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 logger = logging.getLogger(__name__)
 
@@ -55,6 +55,7 @@ class FHIResult:
     rain_gated: bool = False  # Whether FHI was capped due to low rainfall
     correction_factor: float = 1.5  # Applied correction factor
     precip_prob_max: float = 50.0  # Max precipitation probability
+    data_source: str = "open-meteo"  # Weather data source ("open-meteo" or "nea")
 
     def to_dict(self) -> Dict:
         """Convert to dictionary."""
@@ -68,6 +69,7 @@ class FHIResult:
             "rain_gated": self.rain_gated,
             "correction_factor": round(self.correction_factor, 2),
             "precip_prob_max": round(self.precip_prob_max, 0),
+            "data_source": self.data_source,
         }
 
 
@@ -315,6 +317,27 @@ class FHICalculator:
             detected_city = self._detect_city(lat, lng)
             calibration = self._get_calibration(detected_city)
 
+            # For Singapore: try NEA real-time rainfall (5-min resolution, 60x better)
+            data_source = "open-meteo"
+            if detected_city == "singapore":
+                try:
+                    from src.domain.services.nea_weather_service import get_nea_weather_service
+                    nea_service = get_nea_weather_service()
+                    nea_result = await nea_service.get_nearest_rainfall(lat, lng)
+                    if nea_result and nea_result.rainfall_1h_mm is not None:
+                        # Override precipitation with NEA real-time data
+                        # Use NEA hourly estimate for the first 24h, keep Open-Meteo for 48h/72h
+                        nea_hourly = nea_result.rainfall_1h_mm
+                        precip_hourly_clean[:24] = [nea_hourly] * 24
+                        data_source = "nea"
+                        logger.info(
+                            f"NEA rainfall applied for Singapore: {nea_hourly:.1f}mm/h "
+                            f"(station {nea_result.station_id}, {nea_result.distance_km}km away)"
+                        )
+                except Exception as e:
+                    logger.warning(f"NEA rainfall failed, using Open-Meteo fallback: {e}")
+                    data_source = "open-meteo-fallback"
+
             # Calculate components with probability-based correction and city calibration
             components = self._calculate_components(
                 elevation=elevation,
@@ -369,6 +392,7 @@ class FHICalculator:
                 rain_gated=rain_gated,
                 correction_factor=correction_factor,
                 precip_prob_max=precip_prob_max,
+                data_source=data_source,
             )
 
             # Cache result

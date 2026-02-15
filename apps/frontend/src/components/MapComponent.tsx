@@ -4,7 +4,7 @@ import { useSensors, useReports, useHistoricalFloods, useHotspots, useFloodHubGa
 // usePredictionGrid removed - ensemble models not trained (see line 95-105)
 import maplibregl from 'maplibre-gl';
 import { Button } from './ui/button';
-import { Plus, Minus, Navigation, Layers, Train, AlertCircle, MapPin, History, Droplets, Waves } from 'lucide-react';
+import { Plus, Minus, Navigation, Layers, Train, AlertCircle, MapPin, History, Droplets, Waves, Radio, Camera } from 'lucide-react';
 import MapLegend from './MapLegend';
 import SearchBar from './SearchBar';
 import HistoricalFloodsPanel from './HistoricalFloodsPanel';
@@ -42,6 +42,8 @@ interface LayersVisibility {
     predictions: boolean;  // ML flood hotspot predictions
     hotspots: boolean;     // 90 Delhi waterlogging hotspots (62 MCD + 28 OSM)
     floodhub: boolean;     // Google Flood Forecasting inundation extent
+    pubSensors: boolean;   // PUB water level sensors (Singapore only)
+    pubCCTVs: boolean;     // PUB flood monitoring CCTVs (Singapore only)
 }
 
 interface MapBounds {
@@ -83,7 +85,9 @@ export default function MapComponent({
         metro: true,
         predictions: true,  // ON by default per user decision
         hotspots: true,     // Waterlogging hotspots ON by default
-        floodhub: true      // Google Flood Forecasting inundation ON by default
+        floodhub: true,     // Google Flood Forecasting inundation ON by default
+        pubSensors: false,  // PUB sensors OFF by default (dense, 208 markers)
+        pubCCTVs: false,    // PUB CCTVs OFF by default
     });
     const [_mapBounds, setMapBounds] = useState<MapBounds | null>(null);
     const [showHistoricalPanel, setShowHistoricalPanel] = useState(false);
@@ -96,7 +100,7 @@ export default function MapComponent({
     const animationFrameRef = useRef<number | null>(null);
 
     // Cities with hotspot data available
-    const HOTSPOT_CITIES = ['delhi', 'yogyakarta'];
+    const HOTSPOT_CITIES = ['delhi', 'yogyakarta', 'singapore'];
     const hasHotspots = HOTSPOT_CITIES.includes(city);
     // ML predictions (ensemble) are Delhi-only and currently disabled
     const isDelhiCity = city === 'delhi';
@@ -1264,6 +1268,104 @@ export default function MapComponent({
             }
         }
 
+        // ===== PUB INFRASTRUCTURE LAYERS (Singapore only) =====
+        if (city === 'singapore') {
+            // Water Level Sensors (208 stations)
+            if (!map.getSource('pub-sensors')) {
+                map.addSource('pub-sensors', {
+                    type: 'geojson',
+                    data: '/singapore-pub-sensors.geojson',
+                });
+                map.addLayer({
+                    id: 'pub-sensors-layer',
+                    type: 'circle',
+                    source: 'pub-sensors',
+                    layout: {
+                        'visibility': layersVisible.pubSensors ? 'visible' : 'none',
+                    },
+                    paint: {
+                        'circle-radius': 4,
+                        'circle-color': '#3b82f6',
+                        'circle-stroke-color': '#1e40af',
+                        'circle-stroke-width': 1,
+                        'circle-opacity': 0.7,
+                    },
+                });
+            }
+
+            // CCTV Cameras (48 flood monitoring cameras)
+            if (!map.getSource('pub-cctv')) {
+                map.addSource('pub-cctv', {
+                    type: 'geojson',
+                    data: '/singapore-pub-cctv.geojson',
+                });
+                map.addLayer({
+                    id: 'pub-cctv-layer',
+                    type: 'circle',
+                    source: 'pub-cctv',
+                    layout: {
+                        'visibility': layersVisible.pubCCTVs ? 'visible' : 'none',
+                    },
+                    paint: {
+                        'circle-radius': 5,
+                        'circle-color': '#8b5cf6',
+                        'circle-stroke-color': '#6d28d9',
+                        'circle-stroke-width': 1.5,
+                        'circle-opacity': 0.8,
+                    },
+                });
+            }
+
+            // Click handlers for PUB layers
+            map.on('click', 'pub-sensors-layer', (e: maplibregl.MapMouseEvent) => {
+                const features = map.queryRenderedFeatures(e.point, { layers: ['pub-sensors-layer'] });
+                if (!features || features.length === 0) return;
+                const props = features[0].properties;
+                const coords = (features[0].geometry as GeoJSON.Point).coordinates.slice() as [number, number];
+                new maplibregl.Popup({ offset: 10, maxWidth: '260px' })
+                    .setLngLat(coords)
+                    .setHTML(`
+                        <div class="p-2">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="w-2.5 h-2.5 rounded-full bg-blue-500"></div>
+                                <span class="font-bold text-xs">PUB Water Level Sensor</span>
+                            </div>
+                            <p class="text-xs text-muted-foreground">${props.station_name || 'Unknown'}</p>
+                            <p class="text-xs text-muted-foreground mt-1">ID: ${props.station_id || 'N/A'}</p>
+                        </div>
+                    `)
+                    .addTo(map);
+            });
+
+            map.on('click', 'pub-cctv-layer', (e: maplibregl.MapMouseEvent) => {
+                const features = map.queryRenderedFeatures(e.point, { layers: ['pub-cctv-layer'] });
+                if (!features || features.length === 0) return;
+                const props = features[0].properties;
+                const coords = (features[0].geometry as GeoJSON.Point).coordinates.slice() as [number, number];
+                const hyperlink = props.hyperlink || '';
+                new maplibregl.Popup({ offset: 10, maxWidth: '260px' })
+                    .setLngLat(coords)
+                    .setHTML(`
+                        <div class="p-2">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="w-2.5 h-2.5 rounded-full bg-violet-500"></div>
+                                <span class="font-bold text-xs">PUB Flood CCTV</span>
+                            </div>
+                            <p class="text-xs text-muted-foreground">${props.ref_name || 'Unknown'}</p>
+                            <p class="text-xs text-muted-foreground">Catchment: ${props.catchment || 'N/A'}</p>
+                            ${hyperlink ? `<a href="${hyperlink}" target="_blank" rel="noopener" class="text-xs text-blue-500 hover:underline mt-1 block">View Live CCTV</a>` : ''}
+                        </div>
+                    `)
+                    .addTo(map);
+            });
+
+            // Cursor changes for PUB layers
+            map.on('mouseenter', 'pub-sensors-layer', () => { map.getCanvas().style.cursor = 'pointer'; });
+            map.on('mouseleave', 'pub-sensors-layer', () => { map.getCanvas().style.cursor = ''; });
+            map.on('mouseenter', 'pub-cctv-layer', () => { map.getCanvas().style.cursor = 'pointer'; });
+            map.on('mouseleave', 'pub-cctv-layer', () => { map.getCanvas().style.cursor = ''; });
+        }
+
         } catch (error) {
             console.error('Error updating map layers:', error);
         }
@@ -1400,6 +1502,13 @@ export default function MapComponent({
         }
         if (map.getLayer('floodhub-inundation-border')) {
             map.setLayoutProperty('floodhub-inundation-border', 'visibility', layersVisible.floodhub ? 'visible' : 'none');
+        }
+        // PUB infrastructure layers (Singapore only)
+        if (map.getLayer('pub-sensors-layer')) {
+            map.setLayoutProperty('pub-sensors-layer', 'visibility', layersVisible.pubSensors ? 'visible' : 'none');
+        }
+        if (map.getLayer('pub-cctv-layer')) {
+            map.setLayoutProperty('pub-cctv-layer', 'visibility', layersVisible.pubCCTVs ? 'visible' : 'none');
         }
         } catch (error) {
             console.error('Error toggling layer visibility:', error);
@@ -1750,6 +1859,26 @@ export default function MapComponent({
                         >
                             <Waves className="h-4 w-4" />
                         </Button>
+                        {city === 'singapore' && (
+                            <>
+                                <Button
+                                    size="icon"
+                                    onClick={() => setLayersVisible(prev => ({ ...prev, pubSensors: !prev.pubSensors }))}
+                                    className={`${layersVisible.pubSensors ? '!bg-blue-500 hover:!bg-blue-600 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
+                                    title="Toggle PUB water level sensors (208)"
+                                >
+                                    <Radio className="h-4 w-4" />
+                                </Button>
+                                <Button
+                                    size="icon"
+                                    onClick={() => setLayersVisible(prev => ({ ...prev, pubCCTVs: !prev.pubCCTVs }))}
+                                    className={`${layersVisible.pubCCTVs ? '!bg-violet-500 hover:!bg-violet-600 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
+                                    title="Toggle PUB flood CCTVs (48)"
+                                >
+                                    <Camera className="h-4 w-4" />
+                                </Button>
+                            </>
+                        )}
                     </div>
 
                     {/* Map Legend - Bottom Right (shifts up when live navigation is active) */}
