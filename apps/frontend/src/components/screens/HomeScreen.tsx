@@ -3,12 +3,13 @@ import { Card } from '../ui/card';
 import { Badge } from '../ui/badge';
 import {
     MapPin, Users, AlertTriangle, Bell, Shield, Phone, Camera,
-    Navigation, ChevronRight, AlertCircle, Droplets,
-    Maximize2, Target, RefreshCw, Share2, ThumbsUp, Settings, MapPinned
+    Navigation, ChevronRight, AlertCircle, Droplets, Map as MapIcon,
+    Maximize2, Target, RefreshCw, Share2, ThumbsUp, Settings, MapPinned,
+    Cloud, Thermometer, Clock
 } from 'lucide-react';
 import { FloodAlert } from '../../types';
 import MapComponent from '../MapComponent';
-import { useSensors, useReports, useUsers, useActiveReporters, useNearbyReporters, useLocationDetails, useWatchAreas, useDailyRoutes, Report } from '../../lib/api/hooks';
+import { useSensors, useReports, useUsers, useActiveReporters, useNearbyReporters, useLocationDetails, useWatchAreas, useDailyRoutes, useSGConditions, useSGWeatherForecast, useYKConditions, useYKForecast, Report } from '../../lib/api/hooks';
 import { toast } from 'sonner';
 import { ReportDetailModal } from '../ReportDetailModal';
 import { EmergencyContactsModal } from '../EmergencyContactsModal';
@@ -168,6 +169,20 @@ export function HomeScreen({
     // Fetch user's watch areas and daily routes
     const { data: userWatchAreas = [] } = useWatchAreas(user?.id);
     const { data: userDailyRoutes = [] } = useDailyRoutes(user?.id);
+
+    // Singapore-specific: NEA weather data (only fetched when city is Singapore)
+    const isSingapore = currentCity === 'singapore' || cityFilter === 'singapore';
+    const sgLat = isSingapore ? (userLocation?.latitude ?? 1.3521) : null;
+    const sgLng = isSingapore ? (userLocation?.longitude ?? 103.8198) : null;
+    const { data: sgConditions } = useSGConditions(sgLat, sgLng, isSingapore);
+    const { data: sgForecast } = useSGWeatherForecast(isSingapore);
+
+    // Yogyakarta-specific: BMKG weather data (only fetched when city is Yogyakarta)
+    const isYogyakarta = currentCity === 'yogyakarta' || cityFilter === 'yogyakarta';
+    const ykLat = isYogyakarta ? (userLocation?.latitude ?? -7.797) : null;
+    const ykLng = isYogyakarta ? (userLocation?.longitude ?? 110.361) : null;
+    const { data: ykConditions } = useYKConditions(ykLat, ykLng, isYogyakarta);
+    const { data: ykForecast } = useYKForecast(isYogyakarta);
 
     // Transform sensors into alerts with location info
     const activeAlerts: FloodAlert[] = (sensors ?? [])
@@ -538,6 +553,195 @@ export function HomeScreen({
                             </div>
                         </div>
 
+                        {/* Singapore Weather Card — NEA 2-hour forecast + conditions */}
+                        {isSingapore && (sgConditions || sgForecast) && (
+                            <div className="bg-card text-card-foreground rounded-xl border shadow-sm p-4">
+                                {/* Header row: conditions pill + forecast period */}
+                                <div className="flex items-center justify-between mb-3">
+                                    <div className="flex items-center gap-2 text-muted-foreground text-xs font-medium uppercase tracking-wider">
+                                        <Cloud className="w-4 h-4" />
+                                        <span>NEA Weather</span>
+                                    </div>
+                                    {sgForecast?.valid_period && (
+                                        <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                                            <Clock className="w-3 h-3" />
+                                            Next 2 hrs
+                                        </span>
+                                    )}
+                                </div>
+
+                                {/* Current conditions pill */}
+                                {sgConditions && (
+                                    <div className="flex items-center gap-3 mb-3">
+                                        {sgConditions.temperature_c !== null && (
+                                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 text-sm font-medium">
+                                                <Thermometer className="w-3.5 h-3.5" />
+                                                {sgConditions.temperature_c}°C
+                                            </span>
+                                        )}
+                                        {sgConditions.humidity_pct !== null && (
+                                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-50 text-cyan-700 text-sm font-medium">
+                                                <Droplets className="w-3.5 h-3.5" />
+                                                {sgConditions.humidity_pct}%
+                                            </span>
+                                        )}
+                                    </div>
+                                )}
+
+                                {/* Flash flood risk banner */}
+                                {sgForecast && sgForecast.high_risk_areas.length > 0 && (
+                                    <div className="flex items-start gap-2 px-3 py-2 rounded-lg bg-red-50 border border-red-200 mb-3">
+                                        <AlertTriangle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
+                                        <div>
+                                            <p className="text-sm font-semibold text-red-700">Heavy Rain Expected</p>
+                                            <p className="text-xs text-red-600 mt-0.5">
+                                                {sgForecast.high_risk_areas.slice(0, 5).join(', ')}
+                                                {sgForecast.high_risk_areas.length > 5 && ` +${sgForecast.high_risk_areas.length - 5} more`}
+                                            </p>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* No risk — green status */}
+                                {sgForecast && sgForecast.high_risk_areas.length === 0 && (
+                                    <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-50 border border-emerald-200 mb-3">
+                                        <Shield className="w-4 h-4 text-emerald-500" />
+                                        <p className="text-sm text-emerald-700">No flash flood risk in next 2 hours</p>
+                                    </div>
+                                )}
+
+                                {/* Compact area conditions grid */}
+                                {sgForecast && sgForecast.areas.length > 0 && (
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {sgForecast.areas.slice(0, 12).map((area) => (
+                                            <span
+                                                key={area.name}
+                                                className={cn(
+                                                    "inline-flex items-center px-2 py-0.5 rounded text-xs",
+                                                    area.flash_flood_risk
+                                                        ? "bg-red-100 text-red-700"
+                                                        : area.condition.includes('Showers') || area.condition.includes('Rain')
+                                                            ? "bg-amber-50 text-amber-700"
+                                                            : area.condition.includes('Cloudy')
+                                                                ? "bg-gray-100 text-gray-600"
+                                                                : "bg-emerald-50 text-emerald-600"
+                                                )}
+                                                title={area.condition}
+                                            >
+                                                {area.name}
+                                            </span>
+                                        ))}
+                                        {sgForecast.areas.length > 12 && (
+                                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-gray-100 text-gray-500">
+                                                +{sgForecast.areas.length - 12} more
+                                            </span>
+                                        )}
+                                    </div>
+                                )}
+
+                                {/* NEA attribution */}
+                                <p className="text-xs text-muted-foreground/60 mt-2">
+                                    Source: NEA Singapore
+                                </p>
+                            </div>
+                        )}
+
+                        {/* Yogyakarta Weather Card — BMKG 3-day forecast + conditions */}
+                        {isYogyakarta && (ykConditions || ykForecast) && (
+                            <div className="bg-card text-card-foreground rounded-xl border shadow-sm p-4">
+                                {/* Header row: BMKG label + forecast window */}
+                                <div className="flex items-center justify-between mb-3">
+                                    <div className="flex items-center gap-2 text-muted-foreground text-xs font-medium uppercase tracking-wider">
+                                        <Cloud className="w-4 h-4" />
+                                        <span>BMKG Weather</span>
+                                    </div>
+                                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                                        <Clock className="w-3 h-3" />
+                                        3-day forecast
+                                    </span>
+                                </div>
+
+                                {/* Current conditions: temp + humidity pills + bilingual description */}
+                                {ykConditions && (
+                                    <div className="mb-3">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            {ykConditions.temperature_c != null && (
+                                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 text-sm font-medium">
+                                                    <Thermometer className="w-3.5 h-3.5" />
+                                                    {ykConditions.temperature_c}°C
+                                                </span>
+                                            )}
+                                            {ykConditions.humidity_pct != null && (
+                                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-50 text-cyan-700 text-sm font-medium">
+                                                    <Droplets className="w-3.5 h-3.5" />
+                                                    {ykConditions.humidity_pct}%
+                                                </span>
+                                            )}
+                                        </div>
+                                        <p className="text-sm text-foreground">
+                                            {ykConditions.weather_desc}
+                                            {ykConditions.weather_desc_id && ykConditions.weather_desc_id !== ykConditions.weather_desc && (
+                                                <span className="text-muted-foreground"> — {ykConditions.weather_desc_id}</span>
+                                            )}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {/* Flash flood risk banner */}
+                                {ykForecast && ykForecast.high_risk_entries.length > 0 && (
+                                    <div className="flex items-start gap-2 px-3 py-2 rounded-lg bg-red-50 border border-red-200 mb-3">
+                                        <AlertTriangle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
+                                        <div>
+                                            <p className="text-sm font-semibold text-red-700">Heavy Rain Expected</p>
+                                            <p className="text-xs text-red-600 mt-0.5">
+                                                {ykForecast.high_risk_entries.slice(0, 3).map(e =>
+                                                    `${e.weather_desc} (${e.datetime_local.split(' ')[1]?.slice(0, 5) || ''})`
+                                                ).join(', ')}
+                                                {ykForecast.high_risk_entries.length > 3 && ` +${ykForecast.high_risk_entries.length - 3} more`}
+                                            </p>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* No risk — green status */}
+                                {ykForecast && ykForecast.high_risk_entries.length === 0 && (
+                                    <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-50 border border-emerald-200 mb-3">
+                                        <Shield className="w-4 h-4 text-emerald-500" />
+                                        <p className="text-sm text-emerald-700">No heavy rain expected in next 3 days</p>
+                                    </div>
+                                )}
+
+                                {/* Next 24h compact timeline */}
+                                {ykForecast && ykForecast.entries.length > 0 && (
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {ykForecast.entries.slice(0, 8).map((entry, i) => (
+                                            <span
+                                                key={i}
+                                                className={cn(
+                                                    "inline-flex items-center px-2 py-0.5 rounded text-xs",
+                                                    entry.flash_flood_risk
+                                                        ? "bg-red-100 text-red-700"
+                                                        : entry.weather_desc.includes('Rain') || entry.weather_desc.includes('Showers')
+                                                            ? "bg-amber-50 text-amber-700"
+                                                            : entry.weather_desc.includes('Cloudy')
+                                                                ? "bg-gray-100 text-gray-600"
+                                                                : "bg-emerald-50 text-emerald-600"
+                                                )}
+                                                title={`${entry.weather_desc} — ${entry.temperature_c}°C`}
+                                            >
+                                                {entry.datetime_local.split(' ')[1]?.slice(0, 5) || ''} {entry.weather_desc_id.split(' ')[0]}
+                                            </span>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* BMKG attribution */}
+                                <p className="text-xs text-muted-foreground/60 mt-2">
+                                    Source: BMKG Indonesia
+                                </p>
+                            </div>
+                        )}
+
                         {/* Alerts & Safety - Side by Side */}
                         <div className="flex gap-3">
                             {/* Alerts Card */}
@@ -646,16 +850,18 @@ export function HomeScreen({
                                 </div>
                             )}
 
+                            {/* Open Flood Atlas banner */}
+                            <button
+                                onClick={handleFullscreenMap}
+                                className="absolute bottom-0 left-0 right-0 flex items-center justify-center gap-2 bg-blue-600/90 backdrop-blur-sm text-white py-2.5 hover:bg-blue-700/90 transition-colors cursor-pointer"
+                            >
+                                <MapIcon className="w-4 h-4" />
+                                <span className="text-sm font-medium">Open Flood Atlas</span>
+                                <ChevronRight className="w-4 h-4" />
+                            </button>
+
                             {/* Map controls - Vertical stack on the right */}
-                            <div className="absolute bottom-3 right-3 flex flex-col gap-2">
-                                <button
-                                    onClick={handleFullscreenMap}
-                                    className="bg-card p-2 rounded-lg shadow-sm border hover:bg-secondary transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-                                    aria-label="Open full Flood Atlas"
-                                    title="Zoom / Full Map"
-                                >
-                                    <Maximize2 className="w-4 h-4" />
-                                </button>
+                            <div className="absolute bottom-12 right-3 flex flex-col gap-2">
                                 <button
                                     onClick={handleCenterMap}
                                     className="bg-card p-2 rounded-lg shadow-sm border hover:bg-secondary transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"

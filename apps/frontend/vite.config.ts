@@ -155,6 +155,7 @@ export default defineConfig({
         // Skip waiting for new service worker - immediately activate new SW
         skipWaiting: true,
         clientsClaim: true,
+        cleanupOutdatedCaches: true, // Remove stale precache entries on SW update
       },
       devOptions: {
         enabled: false, // Disable in dev to avoid caching issues during development

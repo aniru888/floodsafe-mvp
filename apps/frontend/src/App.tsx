@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { Routes, Route } from 'react-router-dom';
 import { ResponsiveLayout } from './components/ResponsiveLayout';
 import { HomeScreen } from './components/screens/HomeScreen';
@@ -265,7 +266,9 @@ function FloodSafeApp() {
 
 export default function App() {
     return (
-        <QueryClientProvider client={queryClient}>
+        <>
+            <Analytics />
+            <QueryClientProvider client={queryClient}>
             <AuthProvider>
                 <UserProvider>
                     <CityProvider>
@@ -300,5 +303,6 @@ export default function App() {
                 </UserProvider>
             </AuthProvider>
         </QueryClientProvider>
+        </>
     );
 }

@@ -1908,3 +1908,144 @@ export function useRiskSummary(lat: number | null, lng: number | null, language 
         retry: 1,
     });
 }
+
+
+// ─── Singapore NEA Weather ────────────────────────────────────────────────────
+
+export interface SGConditions {
+    temperature_c: number | null;
+    humidity_pct: number | null;
+    temp_station_name: string | null;
+    humidity_station_name: string | null;
+    timestamp: string;
+    data_source: string;
+}
+
+export interface SGForecastArea {
+    name: string;
+    condition: string;
+    flash_flood_risk: boolean;
+    lat: number;
+    lng: number;
+}
+
+export interface SGForecast {
+    valid_period: { start: string; end: string };
+    areas: SGForecastArea[];
+    high_risk_areas: string[];
+    update_timestamp: string;
+    data_source: string;
+}
+
+/**
+ * Current temperature and humidity from nearest NEA station.
+ * Singapore-only — returns null/disabled for other cities.
+ */
+export function useSGConditions(lat: number | null, lng: number | null, enabled = true) {
+    return useQuery({
+        queryKey: ['sg-conditions', lat, lng],
+        queryFn: () => fetchJson<SGConditions>(
+            `/rainfall/sg-conditions?lat=${lat}&lng=${lng}`
+        ),
+        enabled: enabled && lat !== null && lng !== null,
+        staleTime: 5 * 60 * 1000,      // 5 min (matches NEA refresh)
+        gcTime: 15 * 60 * 1000,         // 15 min garbage collection
+        refetchInterval: 5 * 60 * 1000, // Auto-refresh every 5 min
+        refetchOnWindowFocus: false,
+        retry: 1,
+    });
+}
+
+/**
+ * NEA 2-hour weather forecast with flash flood risk flags.
+ * Singapore-only — no coordinates needed (covers all SG areas).
+ */
+export function useSGWeatherForecast(enabled = true) {
+    return useQuery({
+        queryKey: ['sg-forecast'],
+        queryFn: () => fetchJson<SGForecast>('/rainfall/sg-forecast'),
+        enabled,
+        staleTime: 15 * 60 * 1000,      // 15 min (forecast updates every 30 min)
+        gcTime: 30 * 60 * 1000,          // 30 min garbage collection
+        refetchInterval: 15 * 60 * 1000, // Auto-refresh every 15 min
+        refetchOnWindowFocus: false,
+        retry: 1,
+    });
+}
+
+
+// ─── Yogyakarta BMKG Weather ──────────────────────────────────────────────────
+
+export interface YKConditions {
+    temperature_c: number;
+    humidity_pct: number;
+    weather_desc: string;        // English
+    weather_desc_id: string;     // Indonesian
+    wind_speed_kmh: number;
+    cloud_cover_pct: number;
+    location_name: string;
+    timestamp: string;
+    data_source: string;
+}
+
+export interface YKForecastEntry {
+    datetime_local: string;
+    datetime_utc: string;
+    temperature_c: number;
+    humidity_pct: number;
+    weather_desc: string;
+    weather_desc_id: string;
+    wind_speed_kmh: number;
+    cloud_cover_pct: number;
+    flash_flood_risk: boolean;
+}
+
+export interface YKForecast {
+    location_name: string;
+    province: string;
+    lat: number;
+    lng: number;
+    entries: YKForecastEntry[];
+    high_risk_entries: Array<{
+        datetime_local: string;
+        weather_desc: string;
+        weather_desc_id: string;
+    }>;
+    data_source: string;
+}
+
+/**
+ * Current temperature, humidity, and weather from nearest BMKG forecast district.
+ * Yogyakarta-only — returns null/disabled for other cities.
+ */
+export function useYKConditions(lat: number | null, lng: number | null, enabled = true) {
+    return useQuery({
+        queryKey: ['yk-conditions', lat, lng],
+        queryFn: () => fetchJson<YKConditions>(
+            `/rainfall/yk-conditions?lat=${lat}&lng=${lng}`
+        ),
+        enabled: enabled && lat !== null && lng !== null,
+        staleTime: 30 * 60 * 1000,      // 30 min (BMKG updates twice daily)
+        gcTime: 60 * 60 * 1000,          // 1 hr garbage collection
+        refetchInterval: 30 * 60 * 1000, // Auto-refresh every 30 min
+        refetchOnWindowFocus: false,
+        retry: 1,
+    });
+}
+
+/**
+ * BMKG 3-day weather forecast with flash flood risk flags.
+ * Yogyakarta-only — no coordinates needed (covers Yogyakarta city).
+ */
+export function useYKForecast(enabled = true) {
+    return useQuery({
+        queryKey: ['yk-forecast'],
+        queryFn: () => fetchJson<YKForecast>('/rainfall/yk-forecast'),
+        enabled,
+        staleTime: 30 * 60 * 1000,      // 30 min
+        gcTime: 60 * 60 * 1000,          // 1 hr garbage collection
+        refetchInterval: 30 * 60 * 1000, // Auto-refresh every 30 min
+        refetchOnWindowFocus: false,
+        retry: 1,
+    });
+}

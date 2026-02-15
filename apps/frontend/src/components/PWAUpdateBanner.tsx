@@ -22,6 +22,16 @@ export function PWAUpdateBanner() {
                     registration.update();
                 }, 15 * 60 * 1000);
             }
+
+            // Auto-reload when new service worker takes control
+            // This ensures new deploys take effect on first refresh (not requiring two)
+            let refreshing = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (refreshing) return; // Prevent infinite reload loops
+                refreshing = true;
+                console.log('[PWA] New service worker active — reloading for fresh assets');
+                window.location.reload();
+            });
         },
         onRegisterError(error) {
             console.error('[PWA] Service worker registration failed:', error);

@@ -100,6 +100,19 @@ export function useMap(
             }
         };
 
+        // Report CDN fallback — NO SILENT FALLBACKS (CLAUDE.md rule #14)
+        if (!cityConfig.pmtiles.basemap) {
+            console.info(`[Map] ${cityConfig.displayName}: No local basemap — using online CDN tiles`);
+            toast.info(
+                `${cityConfig.displayName}: Using online map tiles (no local data available)`,
+                { id: 'map-cdn-fallback', duration: 5000 }
+            );
+        }
+
+        if (!cityConfig.pmtiles.flood) {
+            console.info(`[Map] ${cityConfig.displayName}: No flood overlay tiles available`);
+        }
+
         // Add flood tiles source only if available
         if (cityConfig.pmtiles.flood) {
             sources['flood-tiles'] = {
