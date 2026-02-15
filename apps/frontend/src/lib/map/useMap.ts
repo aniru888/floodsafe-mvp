@@ -152,7 +152,7 @@ export function useMap(
                         'line-cap': 'round'
                     },
                     paint: {
-                        'line-color': ['get', 'colour'],
+                        'line-color': ['coalesce', ['get', 'colour'], ['get', 'color'], '#888888'],
                         'line-width': 4,
                         'line-opacity': 1
                     }
@@ -168,7 +168,7 @@ export function useMap(
                         'circle-radius': 4,
                         'circle-color': '#ffffff',
                         'circle-stroke-width': 2,
-                        'circle-stroke-color': ['get', 'color']
+                        'circle-stroke-color': ['coalesce', ['get', 'colour'], ['get', 'color'], '#888888']
                     }
                 },
                 {
