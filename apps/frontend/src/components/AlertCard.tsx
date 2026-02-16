@@ -115,7 +115,9 @@ function formatTimeAgo(timestamp: string): string {
     if (diffHours < 24) return `${diffHours}h ago`;
 
     const diffDays = Math.floor(diffHours / 24);
-    return `${diffDays}d ago`;
+    if (diffDays <= 7) return `${diffDays}d ago`;
+
+    return then.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
 export function AlertCard({ alert }: AlertCardProps) {

@@ -233,6 +233,7 @@ class TelegramFetcher(BaseFetcher):
             longitude=None,
             raw_data={"channel": channel, "data_post": data_post, "text": raw_text[:500]},
             expires_at=expires_at,
+            alert_time=alert_time.replace(tzinfo=None) if alert_time else None,
         )
 
     def _infer_severity(self, text: str) -> str:

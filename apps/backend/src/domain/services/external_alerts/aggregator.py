@@ -277,7 +277,7 @@ class AlertAggregator:
                         continue
 
                 # Insert new alert
-                new_alert = ExternalAlert(
+                alert_kwargs = dict(
                     source=alert.source,
                     source_id=alert.source_id,
                     source_name=alert.source_name,
@@ -291,6 +291,10 @@ class AlertAggregator:
                     raw_data=alert.raw_data,
                     expires_at=alert.expires_at,
                 )
+                # Use original message time if available; otherwise let DB default (utcnow)
+                if alert.alert_time:
+                    alert_kwargs["created_at"] = alert.alert_time
+                new_alert = ExternalAlert(**alert_kwargs)
                 self.db.add(new_alert)
                 new_count += 1
 

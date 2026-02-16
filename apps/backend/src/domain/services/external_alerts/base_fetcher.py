@@ -32,6 +32,7 @@ class ExternalAlertCreate(BaseModel):
     longitude: Optional[float] = Field(None, description="Location longitude if available")
     raw_data: Optional[dict] = Field(None, description="Original API/RSS response data")
     expires_at: Optional[datetime] = Field(None, description="When alert becomes stale")
+    alert_time: Optional[datetime] = Field(None, description="Original message timestamp (tz-naive UTC)")
 
     class Config:
         from_attributes = True
