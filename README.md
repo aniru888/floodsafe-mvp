@@ -1,7 +1,7 @@
 <div align="center">
   <img src="apps/frontend/public/pwa-512x512.png" alt="FloodSafe" width="120" />
   <h1>FloodSafe</h1>
-  <p><strong>Open-source flood monitoring platform for Indian cities</strong></p>
+  <p><strong>Open-source flood monitoring platform for flood-prone cities</strong></p>
   <p>Community reporting · AI predictions · Safe routing · Real-time alerts</p>
 
   ![License: Nonprofit](https://img.shields.io/badge/License-Nonprofit-blue)
@@ -17,13 +17,13 @@
 
 ## Why FloodSafe
 
-Every monsoon season, Delhi and other Indian cities face devastating urban flooding. The 2023 Yamuna floods displaced over 25,000 people in Delhi alone. Waterlogging paralyzes transportation, endangers lives, and disproportionately impacts low-income communities who rely on public transit and live in flood-prone areas.
+Every monsoon and wet season, cities across Asia face devastating urban flooding. The 2023 Yamuna floods displaced over 25,000 people in Delhi alone; Singapore sees flash floods from intense tropical rainfall; Yogyakarta contends with river overflows during the rainy season. Waterlogging paralyzes transportation, endangers lives, and disproportionately impacts low-income communities who rely on public transit and live in flood-prone areas.
 
 **FloodSafe addresses this with four pillars:**
 
 - **Community Intelligence** — Citizens report flooding in real-time with GPS-verified photos, building a crowd-sourced flood map that helps everyone navigate safely.
 
-- **AI-Powered Prediction** — Machine learning models (XGBoost, AUC 0.98) predict waterlogging risk at 90 known hotspots using live weather data, giving people advance warning before they step outside.
+- **AI-Powered Prediction** — Machine learning models (XGBoost, AUC 0.98) predict waterlogging risk at 169 known hotspots across 4 cities using live weather data, giving people advance warning before they step outside.
 
 - **Safe Routing** — A route planner that avoids high-risk flood zones with 300-meter safety buffers, with live turn-by-turn voice navigation to guide you through safer paths.
 
@@ -40,12 +40,12 @@ FloodSafe is a nonprofit project built for social good.
 | Feature | Description |
 |---------|-------------|
 | **Flood Hazard Index (FHI)** | Live risk score (0–1) from 6 weather components: `0.35×P + 0.18×I + 0.12×S + 0.12×A + 0.08×R + 0.15×E`. Monsoon 1.2x modifier. Sources: Open-Meteo + CHIRPS |
-| **Waterlogging Hotspots** | 90 Delhi locations (62 MCD-identified + 28 OSM underpasses) with live FHI-based color coding |
+| **Waterlogging Hotspots** | 169 locations across 4 cities (90 Delhi, 19 Yogyakarta, 60 Singapore) with live FHI-based color coding. Per-city weather sources: NEA (Singapore), OpenWeatherMap (Yogyakarta), Open-Meteo (Delhi/Bangalore) |
 | **XGBoost Risk Model** | 18-feature binary classifier (AUC 0.98) for weather-responsive risk prediction at known hotspots |
 | **Flood Photo Classifier** | MobileNet v1 via TFLite, threshold 0.3 (safety-first to minimize false negatives) |
 | **Historical Floods** | 45 Delhi NCR events (1969–2023) from the IFI-Impacts dataset, grouped by decade |
 | **Google Flood Forecasting** | Live Google Flood Forecasting API — 1 Delhi gauge (CWC_015-UYDDEL, Yamuna), 28-hour forecasts, 3-tier thresholds (warning/danger/extreme), significant events with population impact, KML→GeoJSON inundation maps |
-| **External Alerts** | 7 sources: IMD, CWC, RSS feeds, Twitter/X, GDACS, GDELT, news. Severity-scored and deduplicated |
+| **External Alerts** | 8 sources: IMD, CWC, RSS feeds, Twitter/X, GDACS, GDELT, news, PUB Telegram channel (Singapore). Severity-scored and deduplicated |
 
 ### Community & Reporting
 
@@ -62,8 +62,8 @@ FloodSafe is a nonprofit project built for social good.
 |---------|-------------|
 | **Route Comparison** | Side-by-side normal vs flood-safe routes with distance, time, and risk comparison |
 | **Hotspot Avoidance** | HARD AVOID for HIGH/EXTREME FHI zones (300m buffer). LOW/MODERATE: warning overlay only |
-| **Metro Integration** | Suggests nearby Delhi Metro stations when routes cross active flood zones |
-| **Live Navigation** | Turn-by-turn with voice guidance (Web Speech API), real-time hotspot proximity warnings |
+| **Metro Integration** | Delhi Metro + Singapore MRT (6 lines, official colors) station suggestions when routes cross flood zones. Route line casing for map contrast |
+| **Live Navigation** | Turn-by-turn with voice guidance (Web Speech API), direction arrow (chevron bearing indicator), real-time hotspot proximity warnings |
 | **Saved Routes** | Bookmark routes with use-count tracking across 3 transport modes (driving, walking, cycling) |
 
 ### Alerts & Monitoring
@@ -73,7 +73,7 @@ FloodSafe is a nonprofit project built for social good.
 | **Watch Areas** | User-defined monitoring zones with PostGIS spatial queries and custom radius |
 | **Push Notifications** | Real-time alert delivery when flood events occur within watch areas |
 | **WhatsApp Bot** | Dual transport (Twilio + Meta Cloud API) with Wit.ai NLU (6 intents, Hindi support), 9 Quick Reply button types, location-based SOS, photo classification, Hindi/Hinglish support, AI risk summaries (Meta Llama with Groq fallback, 1hr cache) |
-| **Emergency Contacts** | City-aware emergency numbers (112, NDMA 1070, Delhi DDMA 1077, Bangalore BBMP) with 88px tap targets. Integrated in Alerts, Home (SOS), and Profile screens |
+| **Emergency Contacts** | City-aware emergency numbers: Delhi (112, NDMA 1070, DDMA 1077), Bangalore (BBMP), Yogyakarta (112, BPBD), Singapore (999 SPF, 995 SCDF, PUB 1800-284-6600). 88px tap targets. Integrated in Alerts, Home (SOS), and Profile screens |
 
 ### Safety Circles
 
@@ -111,7 +111,7 @@ ESP32-based water level monitoring with dual sensor fusion (capacitive strips + 
 |-------|-------------|
 | **Frontend** | React 18, TypeScript 5, Vite, Tailwind CSS v4, Radix UI, MapLibre GL JS, TanStack Query, Workbox |
 | **Backend** | FastAPI, SQLAlchemy 2.0, Pydantic v2, Alembic, PostGIS |
-| **ML / AI** | XGBoost, TensorFlow / MobileNet (TFLite), Google Flood Forecasting API, Google Earth Engine, CHIRPS, Open-Meteo |
+| **ML / AI** | XGBoost, TensorFlow / MobileNet (TFLite), Google Flood Forecasting API, Google Earth Engine, CHIRPS, Open-Meteo, NEA (Singapore weather), OpenWeatherMap |
 | **Database** | PostgreSQL 15 + PostGIS (SRID 4326) |
 | **Auth** | Email/Password (bcrypt), Google OAuth, Phone OTP (Firebase) |
 | **Maps** | MapLibre GL JS, PMTiles (offline tiles), OpenStreetMap, Photon + Nominatim geocoding |
@@ -146,18 +146,18 @@ ESP32-based water level monitoring with dual sensor fusion (capacitive strips + 
               ┌────────────▼──┐ ┌──▼─────┐ ┌──▼──┐ ┌▼─────────────┐
               │ PostgreSQL    │ │   ML   │ │ IoT │ │ External APIs │
               │ + PostGIS     │ │ Service│ │Ingest│ │───────────────│
-              │  19 tables    │ │ XGBoost│ │(8001)│ │ Google Flood  │
+              │  22 tables    │ │ XGBoost│ │(8001)│ │ Google Flood  │
               │ (Supabase)    │ │MbilNet │ │Paused│ │ Forecasting   │
               └───────────────┘ │FHI Calc│ └─────┘ │ Meta/Wit.ai   │
                                 └────────┘         │ Twilio        │
                                                    └───────────────┘
 ```
 
-- **Frontend** — 12 screens, 7 React contexts, full PWA with offline support. Hosted on Vercel.
+- **Frontend** — 12 screens, 8 React contexts, full PWA with offline support. Hosted on Vercel.
 - **Backend API** — 29 router modules following Clean Architecture (`api/` → `domain/services/` → `infrastructure/`). Hosted on Koyeb.
 - **ML Service** — XGBoost hotspot risk model, FHI calculator, MobileNet flood classifier. Hosted on Koyeb.
-- **External APIs** — Google Flood Forecasting (gauge forecasts, inundation maps), Wit.ai (NLU for WhatsApp), Meta Llama (AI risk summaries with Groq fallback), Twilio + Meta WhatsApp Cloud API (dual transport).
-- **Database** — PostgreSQL 15 with PostGIS extensions, 19 tables, UUID primary keys. Hosted on Supabase.
+- **External APIs** — Google Flood Forecasting (gauge forecasts, inundation maps), NEA (Singapore weather), Wit.ai (NLU for WhatsApp), Meta Llama (AI risk summaries with Groq fallback), Twilio + Meta WhatsApp Cloud API (dual transport).
+- **Database** — PostgreSQL 15 with PostGIS extensions, 22 tables, UUID primary keys. Hosted on Supabase.
 
 ---
 
@@ -233,6 +233,8 @@ Each service has a `.env.example` file. Key variables:
 | `META_PHONE_NUMBER_ID` | Backend | Meta WhatsApp phone number ID |
 | `META_VERIFY_TOKEN` | Backend | Meta webhook verification token |
 | `META_APP_SECRET` | Backend | Meta app HMAC signature validation |
+| `NEA_API_KEY` | Backend | Singapore NEA weather data (optional, has free tier) |
+| `OPENWEATHERMAP_API_KEY` | Backend | Yogyakarta OWM One Call 3.0 (optional) |
 | `GCP_PROJECT_ID` | ML | Google Earth Engine access |
 
 ---
@@ -275,7 +277,7 @@ FloodSafe/
 │   │       │   ├── ui/          # Radix UI primitives
 │   │       │   ├── floodhub/    # FloodHub tab
 │   │       │   └── circles/     # Safety Circles
-│   │       ├── contexts/        # 7 React contexts
+│   │       ├── contexts/        # 8 React contexts
 │   │       ├── lib/api/         # API client (fetchJson, uploadFile)
 │   │       └── hooks/           # Custom React hooks
 │   ├── ml-service/              # ML prediction service
@@ -287,19 +289,21 @@ FloodSafe/
 │   └── esp32-firmware/          # Arduino firmware (paused)
 ├── docker-compose.yml
 ├── CLAUDE.md                    # AI development guide
-└── FEATURES.md                  # Feature registry (700+ lines)
+└── FEATURES.md                  # Feature registry (980+ lines)
 ```
 
 ---
 
 ## City Coverage
 
-| City | Status | Hotspots | Historical Events | FloodHub | Alert Sources |
-|------|--------|:--------:|:-----------------:|:--------:|:-------------:|
-| **Delhi NCR** | Full | 90 (62 MCD + 28 OSM) | 45 (1969–2023) | 1 CWC gauge (live) | All 7 |
-| **Bangalore** | Basic | — | — | — | Limited |
+| City | Status | Hotspots | Historical Events | FloodHub | Weather Source | Alert Sources |
+|------|--------|:--------:|:-----------------:|:--------:|:-------------:|:-------------:|
+| **Delhi NCR** | Full | 90 (62 MCD + 28 OSM) | 45 (1969–2023) | 1 CWC gauge | Open-Meteo | All 8 + IMD |
+| **Bangalore** | Basic | — | — | — | Open-Meteo | Limited |
+| **Yogyakarta** | Active | 19 | — | — | OWM / Open-Meteo | GDACS + bilingual ID |
+| **Singapore** | Active | 60 (PUB official) | — | — | NEA (5min) | PUB + GDACS + Telegram |
 
-Delhi NCR bounds are aligned with the GDACS NCR region. FloodHub provides live gauge data for CWC_015-UYDDEL (Delhi Railway Bridge, Yamuna) with 28-hour forecasts and 3-tier flood thresholds. Expansion to other Indian metros is planned for Tier 7.
+FloodSafe supports 4 cities across 3 countries. Delhi has the deepest integration (FloodHub gauge forecasts, 45 historical events, 90 hotspots). Singapore uses NEA for real-time weather with 5-minute updates. Yogyakarta uses OpenWeatherMap when an API key is configured. Each city has per-city FHI calibration tuned to local elevation, wet season, and urban density.
 
 ---
 
@@ -316,9 +320,12 @@ Delhi NCR bounds are aligned with the GDACS NCR region. FloodHub provides live g
 
 ### What's Next (Tier 7: Scale)
 
-- [ ] Multi-language UI (Hindi, Kannada)
+- [x] City expansion: Yogyakarta (3rd) + Singapore (4th)
+- [x] Per-city weather calibration (NEA, OWM, Open-Meteo)
+- [x] Telegram channel integration (Singapore)
+- [x] Navigation direction arrow + route casing
+- [ ] Multi-language UI (Hindi, Kannada, Indonesian)
 - [ ] GNN for flood propagation modeling
-- [ ] City expansion beyond Delhi and Bangalore
 - [ ] Cloud photo storage (S3)
 - [ ] Water depth estimation from photos
 - [ ] Edge ML on IoT devices
@@ -330,7 +337,7 @@ Delhi NCR bounds are aligned with the GDACS NCR region. FloodHub provides live g
 FloodSafe is a nonprofit project — contributions are welcome.
 
 1. Read [`CLAUDE.md`](./CLAUDE.md) for development patterns and architecture rules
-2. Read [`FEATURES.md`](./FEATURES.md) for the full feature registry (700+ lines of domain context)
+2. Read [`FEATURES.md`](./FEATURES.md) for the full feature registry (980+ lines of domain context)
 3. Open an issue before starting large changes
 
 **Quality gates** (all must pass before merge):

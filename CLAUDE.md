@@ -259,7 +259,7 @@ search_for_pattern    # Regex search across codebase
 **Workflow**: `get_symbols_overview` → `find_symbol(include_body=True)` → `find_referencing_symbols` → `replace_symbol_body` or `replace_content`
 **Prefer over grep/read** for: understanding files, refactoring, tracing dependencies, editing code
 
-### MCP Status (Jan 2026)
+### MCP Status (Feb 2026)
 
 ✅ **Working**: Serena, Context7, Chrome DevTools
 ❌ **Not connected**: Claude-in-Chrome (needs browser extension)
@@ -320,7 +320,7 @@ search_for_pattern    # Regex search across codebase
 |------|-------|-------------|
 | `search_locations` | `{query, city?, limit?}` | No (read-only) |
 | `get_query_cache` | `{query_key}` (JSON format) | No (read-only) |
-| `switch_city` | `{city: delhi\|bangalore\|yogyakarta}` | Yes |
+| `switch_city` | `{city: delhi\|bangalore\|yogyakarta\|singapore}` | Yes |
 
 **Resources (5)** — All return JSON:
 | URI | Description |
@@ -400,7 +400,7 @@ Configured in `.claude/settings.local.json` under `"hooks"`:
 - **Never**: DB queries in routers, business logic in models
 
 ### Frontend (React/TS)
-- **State**: 7 Contexts (Auth, City, User, Navigation, LocationTracking, VoiceGuidance, InstallPrompt) + TanStack Query (server)
+- **State**: 8 Contexts (Auth, City, User, Navigation, LocationTracking, VoiceGuidance, InstallPrompt, OnboardingBot) + TanStack Query (server)
 - **API**: Use `fetchJson`/`uploadFile` from `lib/api/client.ts`
 - **Components**: `screens/` (12 screens) for pages, `ui/` for primitives, `floodhub/` for FloodHub tab
 - **Styling**: Tailwind CSS + Radix UI

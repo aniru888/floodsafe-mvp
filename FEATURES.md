@@ -123,8 +123,8 @@ files:
 hotspot_counts:
   delhi: 90 (62 MCD + 28 OSM underpasses)
   yogyakarta: 19 (river confluences, low-elevation areas)
-  singapore: 20 (urban ponding hotspots, expressway underpasses)
-  total: 129
+  singapore: 60 (24 PUB hotspots + 36 flood-prone areas, geocoded from PUB Nov 2025 PDFs)
+  total: 169
 
 FHI_formula: |
   FHI = (0.35×P + 0.18×I + 0.12×S + 0.12×A + 0.08×R + 0.15×E) × T
@@ -200,6 +200,13 @@ strategy: |
   - LOW/MODERATE FHI: Allow (warning only)
   - HIGH/EXTREME FHI: Must reroute around
 
+metro_integration:
+  delhi: Delhi Metro stations suggested when routes cross flood zones
+  singapore: MRT 6 lines (NSL, EWL, NEL, CCL, DTL, TEL) rendered on map with official colors
+  mrt_generator: apps/frontend/scripts/generate-sg-metro.py (OSM data → validated GeoJSON)
+  mrt_validation: Station proximity (550m), terminal endpoint (1km), backtrack removal, zigzag smoothing
+  route_casing: Google Maps-style darker outline behind route lines for contrast
+
 flow: POST /routes/compare → analyze hotspots → normal vs FloodSafe comparison
 ```
 
@@ -273,6 +280,18 @@ singapore_support:
   Relevance scoring: Singapore flood keywords (ponding, PUB, NEA, expressway underpasses)
   Expressways monitored: PIE, AYE, CTE, ECP, BKE, KPE, TPE
 
+telegram_integration:
+  status: LIVE (Singapore only)
+  source: PUB (Public Utilities Board) Telegram channel
+  display: Branded alert card in AlertsScreen Social tab
+  features:
+    - Recent alert history with original message dates
+    - Branded container (not iframe — Telegram X-Frame-Options blocks it)
+    - 5-second timeout with graceful fallback
+  files:
+    - apps/frontend/src/components/screens/AlertsScreen.tsx (Telegram section)
+    - apps/backend/src/domain/services/external_alerts/telegram_fetcher.py
+
 endpoints:
   - GET /api/external-alerts - Alerts by city (filter: source, severity)
   - GET /api/external-alerts/sources - Available sources with counts
@@ -286,7 +305,7 @@ endpoints:
 files:
   - apps/backend/src/api/rainfall.py - All rainfall/FHI endpoints (~1600 lines)
 
-data_source: Open-Meteo API (free, no auth required)
+data_source: Multi-source: Open-Meteo (Delhi/Bangalore), NEA (Singapore), OpenWeatherMap (Yogyakarta)
 
 endpoints:
   - GET /api/rainfall/forecast - 3-day forecast for point
@@ -313,6 +332,20 @@ city_specific_calibration:
 
 rain_gate: Per-city threshold. Below threshold = FHI capped at 0.15 (prevents false alarms in dry conditions)
 cache: 1-hour TTL, in-memory
+
+weather_sources:
+  delhi: Open-Meteo (1hr cache TTL)
+  bangalore: Open-Meteo (1hr cache TTL)
+  yogyakarta: OpenWeatherMap One Call 3.0 when OPENWEATHERMAP_API_KEY set, else Open-Meteo (30min cache TTL)
+  singapore: NEA (5min realtime, ×6 extrapolation for 3-day component) + OpenWeatherMap fallback (5min cache TTL)
+
+nea_integration: |
+  Singapore uses NEA (National Environment Agency) as primary weather source:
+  - Current conditions: temperature, humidity, wind
+  - 2-hour flash flood nowcast
+  - 5-minute update frequency
+  - ×6 extrapolation: NEA provides 2hr cumulative → multiply by 6 for FHI's 12hr component
+  - Falls back to Open-Meteo if NEA unavailable
 ```
 
 ### @floodhub (COMPLETE)
@@ -334,7 +367,11 @@ files:
 status: LIVE IN PRODUCTION (API key active, E2E verified Feb 2026)
 coverage: Delhi's Yamuna River (CWC_015-UYDDEL — Delhi Railway Bridge)
 severity_levels: no_flooding, warning, danger, extreme
-city_support: Delhi (primary), Bangalore/Yogyakarta (city-specific gauge search)
+city_support:
+  delhi: 1 active CWC gauge (Yamuna) — full forecasts + inundation
+  bangalore: No gauges (Google monitors rivers, not urban drains)
+  yogyakarta: No gauges (Google monitors rivers, not urban drains)
+  singapore: No gauges (Google monitors rivers, not urban ponding)
 
 hooks: useFloodHubStatus, useFloodHubGauges, useFloodHubForecast, useFloodHubEvents, useFloodHubInundation
 
@@ -443,6 +480,9 @@ features:
   - Voice guidance via Web Speech API (TTS)
   - Live ETA and distance remaining
   - Offline location buffering
+  - Direction arrow: chevron replaces pulsing dot during live navigation, rotates to bearing
+  - Route line casing: Google Maps-style darker outline (12px casing + 8px fill for selected, 5px + 3px unselected)
+  - calculateBearing() geo utility in lib/geo/distance.ts
 
 voice_languages: |
   VoiceGuidanceContext supports 3 languages via Web Speech API:
@@ -940,7 +980,7 @@ next: Add Capacitor wrapper if native features needed beyond PWA
 Reports, map, alerts, onboarding, auth (Email/Google/Phone), E2E tests, community voting/comments
 
 ### Tier 2: ML/AI Foundation ✅ MOSTLY COMPLETE
-- [x] XGBoost for 109 known hotspots (90 Delhi + 19 Yogyakarta, AUC 0.98)
+- [x] XGBoost for 169 known hotspots (90 Delhi + 19 Yogyakarta + 60 Singapore, AUC 0.98)
 - [x] FHI formula + rainfall forecasts (Open-Meteo, per-city calibration)
 - [x] Historical Floods Panel (45 Delhi events, 1969-2023)
 - [x] Photo classification (embedded TFLite MobileNet)
@@ -976,6 +1016,11 @@ Reports, map, alerts, onboarding, auth (Email/Google/Phone), E2E tests, communit
 
 ### Tier 7: Scale ✅ PARTIALLY COMPLETE
 - [x] City expansion: Yogyakarta added as 3rd city (19 hotspots, GDACS, FHI, search)
+- [x] Singapore added as 4th city (60 PUB hotspots, MRT, NEA weather, Telegram alerts)
+- [x] Per-city FHI weather sources (NEA for Singapore, OWM for Yogyakarta)
+- [x] Telegram channel integration for Singapore flood alerts
+- [x] Navigation direction arrow + route line casing
+- [x] MRT line validation with station-proximity checks
 - [x] WebMCP browser automation bridge (13 entities, production-enabled)
 - [x] Safety Circles (emergency contacts, 5 circle types, notification tracking)
 - [x] Multilingual onboarding bot with guided app tour (EN/HI/ID)
