@@ -138,6 +138,7 @@ class Settings(BaseSettings):
     GOOGLE_FLOODHUB_API_KEY: str = ""             # Google Flood Forecasting API key (waitlist required)
     PUB_API_KEY: str = ""                          # Singapore PUB data.gov.sg API key (optional, for higher rate limits)
     NEA_API_KEY: str = ""                          # Singapore NEA weather API key (optional, for higher rate limits)
+    OPENWEATHERMAP_API_KEY: str = ""               # OpenWeatherMap One Call 3.0 (Yogyakarta, free 1000/day)
 
     class Config:
         case_sensitive = True

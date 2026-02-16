@@ -142,7 +142,7 @@ class NEAWeatherService:
         self._cache: Dict[str, Tuple[dict, float]] = {}  # key -> (data, timestamp)
 
     async def get_nearest_rainfall(
-        self, lat: float, lng: float
+        self, lat: float, lng: float, extrapolation_factor: float = 6.0
     ) -> Optional[NEARainfallResult]:
         """
         Get rainfall from the nearest NEA station to the given coordinates.
@@ -180,8 +180,9 @@ class NEAWeatherService:
                 logger.info(f"[NEA] No reading for station {nearest_station.station_id}")
                 return None
 
-            # Estimate hourly rainfall from 5-min reading (multiply by 12)
-            rainfall_1h_estimate = reading.value_mm * 12
+            # Estimate hourly rainfall from 5-min reading
+            # Default ×6 (not ×12): tropical showers are bursty, 5-min rate rarely sustains
+            rainfall_1h_estimate = reading.value_mm * extrapolation_factor
 
             return NEARainfallResult(
                 station_id=nearest_station.station_id,

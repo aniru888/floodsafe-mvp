@@ -104,7 +104,8 @@ class FHICalculator:
     LOW_FHI_CAP = 0.15                 # Cap for dry conditions
     URBAN_SATURATION_THRESHOLD_MM = 50.0  # 3-day rain for urban drainage saturation
 
-    # City-aware calibration: elevation bounds, wet season months, urban fraction, rain-gate
+    # City-aware calibration: elevation, wet season, thresholds, correction factors
+    # Cities without explicit overrides inherit class-level defaults (Delhi-tuned)
     CITY_CALIBRATION = {
         "delhi": {
             "elev_min": 190, "elev_max": 320,
@@ -112,6 +113,8 @@ class FHICalculator:
             "urban_fraction": 0.75,
             "default_elev": 220,
             "rain_gate_mm": 5.0,
+            "fhi_cache_ttl_seconds": 3600,  # 1 hour (Open-Meteo forecast)
+            # Uses class defaults for correction/thresholds (tuned for Delhi)
         },
         "bangalore": {
             "elev_min": 800, "elev_max": 1000,
@@ -119,6 +122,7 @@ class FHICalculator:
             "urban_fraction": 0.65,
             "default_elev": 920,
             "rain_gate_mm": 5.0,
+            "fhi_cache_ttl_seconds": 3600,  # 1 hour (Open-Meteo forecast)
         },
         "yogyakarta": {
             "elev_min": 75, "elev_max": 200,
@@ -126,13 +130,31 @@ class FHICalculator:
             "urban_fraction": 0.55,
             "default_elev": 114,
             "rain_gate_mm": 15.0,  # Higher for tropical: filter light drizzle
+            "fhi_cache_ttl_seconds": 1800,  # 30 min (OWM updates every 10 min, future)
+            "precip_correction": 1.1,       # Slight boost (Open-Meteo underestimates tropics)
+            "prob_boost_multiplier": 0.3,
+            "precip_threshold_mm": 80.0,    # Yogyakarta heavy = 60-80mm/day
+            "intensity_threshold_mm_h": 60.0,  # Yogyakarta intense = 40-60mm/h
+            "antecedent_threshold_mm": 175.0,  # Moderate drainage infrastructure
+            "elev_weight_scale": 0.8,       # Elevation matters more (hilly terrain)
+            "monsoon_modifier": 1.15,       # Wet season is significant
+            "weather_source": "owm",        # Use OWM when API key configured
         },
         "singapore": {
-            "elev_min": 0, "elev_max": 50,
-            "wet_months": [11, 12, 1, 2],  # NE monsoon Nov-Feb, secondary Apr-May
+            "elev_min": 0, "elev_max": 165,  # Bukit Timah = 163m
+            "wet_months": [11, 12, 1, 2],  # NE monsoon Nov-Feb
             "urban_fraction": 0.95,
             "default_elev": 15,
-            "rain_gate_mm": 10.0,  # Urban flooding sensitive to moderate rain
+            "rain_gate_mm": 25.0,           # SG gets 20mm+ routinely in monsoon
+            "fhi_cache_ttl_seconds": 300,   # 5 min (match NEA refresh)
+            "precip_correction": 1.0,       # SG has reliable NEA data, no boost needed
+            "prob_boost_multiplier": 0.25,  # Max 1.25x (not 2.25x)
+            "precip_threshold_mm": 100.0,   # PUB heavy rain = 70-100mm/day
+            "intensity_threshold_mm_h": 70.0,  # PUB flash flood = 50-70mm/h
+            "antecedent_threshold_mm": 200.0,  # Excellent SG drainage
+            "elev_weight_scale": 0.5,       # Halve E contribution (flat city)
+            "monsoon_modifier": 1.1,        # Monsoon is daily life, less dramatic
+            "nea_extrapolation_factor": 6.0,  # ×6 (not ×12) for bursty tropical showers
         },
     }
 
@@ -283,6 +305,10 @@ class FHICalculator:
             return cached_result
 
         try:
+            # Detect city EARLY for per-city calibration (before correction factor)
+            detected_city = self._detect_city(lat, lng)
+            calibration = self._get_calibration(detected_city)
+
             # Fetch data in parallel
             elevation, weather = await asyncio.gather(
                 self._fetch_elevation(lat, lng),
@@ -301,21 +327,8 @@ class FHICalculator:
             precip_prob_values = daily.get("precipitation_probability_max", [])
             precip_prob_max = max([p for p in precip_prob_values if p is not None], default=50)
 
-            # Calculate probability-based correction factor
-            # Range: 1.5x (0% prob) to 2.25x (100% prob)
-            prob_boost = 1 + (precip_prob_max / 100) * self.PROB_BOOST_MULTIPLIER
-            correction_factor = self.BASE_PRECIP_CORRECTION * prob_boost
-
-            # Calculate raw 3-day precipitation for rain-gate check
+            # Clean precipitation data (None → 0.0)
             precip_hourly_clean = [p if p is not None else 0.0 for p in precip_hourly]
-            precip_24h = sum(precip_hourly_clean[:24]) if len(precip_hourly_clean) >= 24 else 0
-            precip_48h = sum(precip_hourly_clean[24:48]) if len(precip_hourly_clean) >= 48 else 0
-            precip_72h = sum(precip_hourly_clean[48:72]) if len(precip_hourly_clean) >= 72 else 0
-            precip_3d_raw = precip_24h + precip_48h + precip_72h
-
-            # Detect city for calibration
-            detected_city = self._detect_city(lat, lng)
-            calibration = self._get_calibration(detected_city)
 
             # For Singapore: try NEA real-time rainfall (5-min resolution, 60x better)
             data_source = "open-meteo"
@@ -323,7 +336,10 @@ class FHICalculator:
                 try:
                     from src.domain.services.nea_weather_service import get_nea_weather_service
                     nea_service = get_nea_weather_service()
-                    nea_result = await nea_service.get_nearest_rainfall(lat, lng)
+                    nea_extrapolation = calibration.get("nea_extrapolation_factor", 6.0)
+                    nea_result = await nea_service.get_nearest_rainfall(
+                        lat, lng, extrapolation_factor=nea_extrapolation
+                    )
                     if nea_result and nea_result.rainfall_1h_mm is not None:
                         # Override precipitation with NEA real-time data
                         # Use NEA hourly estimate for the first 24h, keep Open-Meteo for 48h/72h
@@ -338,19 +354,53 @@ class FHICalculator:
                     logger.warning(f"NEA rainfall failed, using Open-Meteo fallback: {e}")
                     data_source = "open-meteo-fallback"
 
-            # Calculate components with probability-based correction and city calibration
+            # For Yogyakarta: try OpenWeatherMap (minutely precip, better tropical resolution)
+            elif detected_city == "yogyakarta" and calibration.get("weather_source") == "owm":
+                try:
+                    from src.domain.services.owm_weather_service import get_owm_weather_service
+                    owm_service = get_owm_weather_service()
+                    owm_result = await owm_service.get_weather(lat, lng)
+                    if owm_result and owm_result.hourly_precip:
+                        # Override hourly precip with OWM data (up to 48h)
+                        owm_hours = min(len(owm_result.hourly_precip), 48)
+                        precip_hourly_clean[:owm_hours] = owm_result.hourly_precip[:owm_hours]
+                        data_source = "owm"
+                        logger.info(
+                            f"OWM rainfall applied for Yogyakarta: "
+                            f"hourly_max={owm_result.hourly_max_intensity:.1f}mm/h, "
+                            f"minutely_max={owm_result.minutely_max_intensity:.1f}mm/h, "
+                            f"alerts={len(owm_result.alerts)}"
+                        )
+                except Exception as e:
+                    logger.warning(f"OWM weather failed for Yogyakarta, using Open-Meteo fallback: {e}")
+                    data_source = "open-meteo-fallback"
+
+            # Calculate 3-day precipitation AFTER any source overrides (NEA, OWM)
+            precip_24h = sum(precip_hourly_clean[:24]) if len(precip_hourly_clean) >= 24 else 0
+            precip_48h = sum(precip_hourly_clean[24:48]) if len(precip_hourly_clean) >= 48 else 0
+            precip_72h = sum(precip_hourly_clean[48:72]) if len(precip_hourly_clean) >= 72 else 0
+            precip_3d_raw = precip_24h + precip_48h + precip_72h
+
+            # Per-city correction factor (for metadata — actual math uses _calculate_components)
+            base_correction = calibration.get("precip_correction", self.BASE_PRECIP_CORRECTION)
+            boost_mult = calibration.get("prob_boost_multiplier", self.PROB_BOOST_MULTIPLIER)
+            prob_boost = 1 + (precip_prob_max / 100) * boost_mult
+            correction_factor = base_correction * prob_boost
+
+            # Calculate components with per-city calibration and CLEANED precipitation
             components = self._calculate_components(
                 elevation=elevation,
-                precip_hourly=precip_hourly,
+                precip_hourly=precip_hourly_clean,
                 soil_moisture=soil_moisture,
                 surface_pressure=surface_pressure,
                 precip_prob_max=precip_prob_max,
                 calibration=calibration,
             )
 
-            # City-aware wet season modifier
+            # City-aware wet season modifier (per-city)
             month = datetime.now().month
-            T_modifier = self.MONSOON_MODIFIER if month in calibration["wet_months"] else 1.0
+            city_monsoon_mod = calibration.get("monsoon_modifier", self.MONSOON_MODIFIER)
+            T_modifier = city_monsoon_mod if month in calibration["wet_months"] else 1.0
 
             # Calculate weighted FHI
             fhi_raw = sum(
@@ -400,8 +450,9 @@ class FHICalculator:
 
             logger.info(
                 f"FHI calculated for ({lat:.4f}, {lng:.4f}): "
-                f"score={fhi_score:.3f}, level={level}, "
-                f"correction={correction_factor:.2f}x, rain_gated={rain_gated}"
+                f"score={fhi_score:.3f}, level={level}, city={detected_city}, "
+                f"correction={correction_factor:.2f}x, rain_gated={rain_gated}, "
+                f"source={data_source}"
             )
 
             return result
@@ -443,16 +494,23 @@ class FHICalculator:
         soil_moisture = [s if s is not None else 0.2 for s in soil_moisture]
         surface_pressure = [p if p is not None else 1013.0 for p in surface_pressure]
 
+        # Per-city thresholds (fall back to class defaults for Delhi/Bangalore)
+        precip_threshold = calibration.get("precip_threshold_mm", self.PRECIP_THRESHOLD_MM) if calibration else self.PRECIP_THRESHOLD_MM
+        intensity_threshold = calibration.get("intensity_threshold_mm_h", self.INTENSITY_THRESHOLD_MM_H) if calibration else self.INTENSITY_THRESHOLD_MM_H
+        antecedent_threshold = calibration.get("antecedent_threshold_mm", self.ANTECEDENT_THRESHOLD_MM) if calibration else self.ANTECEDENT_THRESHOLD_MM
+        base_correction = calibration.get("precip_correction", self.BASE_PRECIP_CORRECTION) if calibration else self.BASE_PRECIP_CORRECTION
+        boost_mult = calibration.get("prob_boost_multiplier", self.PROB_BOOST_MULTIPLIER) if calibration else self.PROB_BOOST_MULTIPLIER
+        elev_weight_scale = calibration.get("elev_weight_scale", 1.0) if calibration else 1.0
+
         # Calculate raw precipitation totals
         precip_24h = sum(precip_hourly[:24]) if len(precip_hourly) >= 24 else 0
         precip_48h = sum(precip_hourly[24:48]) if len(precip_hourly) >= 48 else 0
         precip_72h = sum(precip_hourly[48:72]) if len(precip_hourly) >= 72 else 0
         precip_3d = precip_24h + precip_48h + precip_72h
 
-        # Calculate probability-based correction factor
-        # Range: 1.5x (0% prob) to 2.25x (100% prob)
-        prob_boost = 1 + (precip_prob_max / 100) * self.PROB_BOOST_MULTIPLIER
-        correction_factor = self.BASE_PRECIP_CORRECTION * prob_boost
+        # Calculate probability-based correction factor (per-city)
+        prob_boost = 1 + (precip_prob_max / 100) * boost_mult
+        correction_factor = base_correction * prob_boost
 
         # Apply probability-based correction for forecast uncertainty
         precip_24h_corrected = precip_24h * correction_factor
@@ -461,15 +519,15 @@ class FHICalculator:
 
         # P: Precipitation forecast (weighted 24h/48h/72h) with probability correction
         P = min(1.0,
-                0.5 * (precip_24h_corrected / self.PRECIP_THRESHOLD_MM) +
-                0.3 * (precip_48h_corrected / self.PRECIP_THRESHOLD_MM) +
-                0.2 * (precip_72h_corrected / self.PRECIP_THRESHOLD_MM)
+                0.5 * (precip_24h_corrected / precip_threshold) +
+                0.3 * (precip_48h_corrected / precip_threshold) +
+                0.2 * (precip_72h_corrected / precip_threshold)
         )
 
         # I: Intensity (hourly max) with probability correction
         hourly_max = max(precip_hourly[:24]) if precip_hourly else 0
         hourly_max_corrected = hourly_max * correction_factor
-        I = min(1.0, hourly_max_corrected / self.INTENSITY_THRESHOLD_MM_H)
+        I = min(1.0, hourly_max_corrected / intensity_threshold)
 
         # S: Saturation Component (HYBRID URBAN-CALIBRATED)
         # For urban areas: 70% antecedent rainfall proxy + 30% soil moisture
@@ -487,7 +545,7 @@ class FHICalculator:
 
         # A: Antecedent conditions (total 3-day precipitation) with probability correction
         precip_3d_corrected = precip_3d * correction_factor
-        A = min(1.0, precip_3d_corrected / self.ANTECEDENT_THRESHOLD_MM)
+        A = min(1.0, precip_3d_corrected / antecedent_threshold)
 
         # R: Runoff Potential (pressure-based)
         avg_pressure = sum(surface_pressure[:24]) / 24 if surface_pressure else 1013
@@ -502,7 +560,8 @@ class FHICalculator:
         if elev_range <= 0:
             elev_range = 1  # Prevent division by zero
         elev_clamped = max(elev_min, min(elev_max, elevation))
-        E = 1 - (elev_clamped - elev_min) / elev_range
+        E_raw = 1 - (elev_clamped - elev_min) / elev_range
+        E = min(1.0, E_raw * elev_weight_scale)  # Per-city scaling, clamped to [0,1]
 
         return {
             "P": P,
@@ -561,17 +620,25 @@ class FHICalculator:
         return await self._fetch_with_retry(self.FORECAST_URL, params=params)
 
     def _get_from_cache(self, cache_key: str) -> Optional[FHIResult]:
-        """Get result from cache if valid."""
+        """Get result from cache if valid. Uses per-city TTL."""
         if cache_key not in self._cache:
             return None
 
         result, cached_at = self._cache[cache_key]
 
-        # Check if cache is still valid
+        # Per-city cache TTL: detect city from cache_key coordinates
+        try:
+            lat, lng = map(float, cache_key.split(","))
+            city = self._detect_city(lat, lng)
+            calibration = self._get_calibration(city)
+            ttl = calibration.get("fhi_cache_ttl_seconds", self.CACHE_TTL_SECONDS)
+        except (ValueError, KeyError):
+            ttl = self.CACHE_TTL_SECONDS
+
         age_seconds = (datetime.now() - cached_at).total_seconds()
-        if age_seconds > self.CACHE_TTL_SECONDS:
+        if age_seconds > ttl:
             del self._cache[cache_key]
-            logger.debug(f"FHI cache expired for {cache_key}")
+            logger.debug(f"FHI cache expired for {cache_key} (TTL={ttl}s)")
             return None
 
         return result
