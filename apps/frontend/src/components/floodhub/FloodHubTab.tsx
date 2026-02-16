@@ -150,7 +150,7 @@ export function FloodHubTab() {
     return (
         <div className="space-y-4 p-4 max-w-4xl mx-auto">
             {/* Status Header */}
-            {status && <FloodHubHeader status={status} />}
+            {status && <FloodHubHeader status={status} city={city} />}
 
             {/* Significant Events (shown above gauges when active) */}
             {events && events.length > 0 && (

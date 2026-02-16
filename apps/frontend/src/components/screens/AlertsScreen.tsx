@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Bell, RefreshCw, Loader2, AlertCircle, Cloud, Newspaper, MessageCircle, Users, Waves, Phone, Shield } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Bell, RefreshCw, Loader2, AlertCircle, Cloud, Newspaper, MessageCircle, Users, Waves, Phone, Shield, ExternalLink } from 'lucide-react';
 import { AlertCard } from '../AlertCard';
 import { ReportCard } from '../ReportCard';
 import { ReportDetailModal } from '../ReportDetailModal';
@@ -65,6 +65,44 @@ export function AlertsScreen() {
     const [sourceFilter, setSourceFilter] = useState<AlertSourceFilter>('all');
     const [selectedReport, setSelectedReport] = useState<Report | null>(null);
     const [emergencyModalOpen, setEmergencyModalOpen] = useState(false);
+
+    // Telegram embed state (Singapore Social tab)
+    const [telegramLoaded, setTelegramLoaded] = useState(false);
+    const [telegramError, setTelegramError] = useState(false);
+    const telegramTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    // Reset telegram state when leaving social tab
+    useEffect(() => {
+        if (sourceFilter !== 'social') {
+            setTelegramLoaded(false);
+            setTelegramError(false);
+            if (telegramTimeoutRef.current) {
+                clearTimeout(telegramTimeoutRef.current);
+                telegramTimeoutRef.current = null;
+            }
+        }
+        return () => {
+            if (telegramTimeoutRef.current) {
+                clearTimeout(telegramTimeoutRef.current);
+            }
+        };
+    }, [sourceFilter]);
+
+    // Start timeout when social tab is shown for Singapore
+    useEffect(() => {
+        if (sourceFilter === 'social' && city.toLowerCase() === 'singapore' && !telegramLoaded && !telegramError) {
+            telegramTimeoutRef.current = setTimeout(() => {
+                if (!telegramLoaded) {
+                    setTelegramError(true);
+                }
+            }, 5000);
+        }
+        return () => {
+            if (telegramTimeoutRef.current) {
+                clearTimeout(telegramTimeoutRef.current);
+            }
+        };
+    }, [sourceFilter, city, telegramLoaded, telegramError]);
 
     // Fetch alerts
     const { data, isLoading, error, refetch } = useUnifiedAlerts(city, sourceFilter);
@@ -264,8 +302,103 @@ export function AlertsScreen() {
                             </p>
                         </div>
                     )
+                ) : sourceFilter === 'social' ? (
+                    // Social Tab - Telegram embed (Singapore) + alert cards
+                    <>
+                        {/* Telegram Channel Embed — Singapore only */}
+                        {city.toLowerCase() === 'singapore' && (
+                            <div className="mb-4 rounded-xl border border-border bg-card shadow-sm overflow-hidden">
+                                {/* Header bar */}
+                                <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-[#0088cc]/5">
+                                    <div className="flex items-center gap-2.5">
+                                        <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#0088cc] flex-shrink-0" fill="currentColor">
+                                            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                                        </svg>
+                                        <span className="font-semibold text-sm text-foreground">PUB Flood Alerts</span>
+                                    </div>
+                                    <a
+                                        href="https://t.me/pubfloodalerts"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center gap-1.5 text-xs font-medium text-[#0088cc] hover:text-[#006699] transition-colors"
+                                    >
+                                        Open in Telegram
+                                        <ExternalLink className="w-3 h-3" />
+                                    </a>
+                                </div>
+
+                                {/* Embed body */}
+                                {telegramError ? (
+                                    // Error fallback — iframe blocked or timed out
+                                    <div className="flex flex-col items-center justify-center py-10 px-4">
+                                        <svg viewBox="0 0 24 24" className="w-10 h-10 text-[#0088cc] mb-3" fill="currentColor">
+                                            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                                        </svg>
+                                        <p className="text-sm text-muted-foreground mb-3 text-center">
+                                            Unable to load embedded channel.
+                                        </p>
+                                        <a
+                                            href="https://t.me/s/pubfloodalerts"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white bg-[#0088cc] hover:bg-[#006699] transition-colors"
+                                        >
+                                            View on Telegram
+                                            <ExternalLink className="w-3.5 h-3.5" />
+                                        </a>
+                                    </div>
+                                ) : (
+                                    // iframe + loading overlay
+                                    <div className="relative" style={{ height: 450 }}>
+                                        {/* Loading spinner overlay */}
+                                        {!telegramLoaded && (
+                                            <div className="absolute inset-0 flex items-center justify-center bg-card z-10">
+                                                <div className="flex flex-col items-center gap-2">
+                                                    <Loader2 className="w-6 h-6 animate-spin text-[#0088cc]" />
+                                                    <span className="text-xs text-muted-foreground">Loading channel...</span>
+                                                </div>
+                                            </div>
+                                        )}
+                                        <iframe
+                                            src="https://t.me/s/pubfloodalerts"
+                                            title="PUB Flood Alerts Telegram Channel"
+                                            className="w-full h-full border-0"
+                                            sandbox="allow-scripts allow-same-origin allow-popups"
+                                            onLoad={() => {
+                                                setTelegramLoaded(true);
+                                                if (telegramTimeoutRef.current) {
+                                                    clearTimeout(telegramTimeoutRef.current);
+                                                    telegramTimeoutRef.current = null;
+                                                }
+                                            }}
+                                            onError={() => setTelegramError(true)}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {/* Alert cards below the embed */}
+                        {alerts.length > 0 ? (
+                            alerts.map((alert) => (
+                                <AlertCard
+                                    key={alert.id}
+                                    alert={alert}
+                                />
+                            ))
+                        ) : (
+                            <div className="text-center py-10">
+                                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                                    <MessageCircle className="w-6 h-6 text-primary" />
+                                </div>
+                                <p className="text-muted-foreground text-sm">
+                                    No social media alerts available
+                                </p>
+                            </div>
+                        )}
+                    </>
                 ) : (
-                    // Alerts Section (for all other filters)
+                    // Alerts Section (for all/official/news filters)
                     alerts.length > 0 ? (
                         alerts.map((alert) => (
                             <AlertCard

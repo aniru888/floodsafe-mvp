@@ -1568,7 +1568,7 @@ export function useFloodHubStatus(city: string) {
     return useQuery({
         queryKey: ['floodhub-status', city],
         queryFn: async (): Promise<FloodHubStatus> => {
-            const cityCode = city.toLowerCase() === 'delhi' ? 'DEL' : city.toUpperCase();
+            const cityCode = getCityCode(city);
             return fetchJson<FloodHubStatus>(`/floodhub/status?city=${cityCode}`);
         },
         staleTime: 5 * 60 * 1000, // 5 minutes

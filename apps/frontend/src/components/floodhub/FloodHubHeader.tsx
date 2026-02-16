@@ -7,6 +7,7 @@ import type { FloodHubStatus, FloodHubSeverity } from '../../types';
 
 interface FloodHubHeaderProps {
     status: FloodHubStatus;
+    city?: string;
 }
 
 const severityConfig: Record<FloodHubSeverity, {
@@ -53,10 +54,13 @@ const severityConfig: Record<FloodHubSeverity, {
     },
 };
 
-export function FloodHubHeader({ status }: FloodHubHeaderProps) {
+export function FloodHubHeader({ status, city }: FloodHubHeaderProps) {
     const severity = status.overall_severity || 'UNKNOWN';
     const config = severityConfig[severity];
     const Icon = config.icon;
+
+    // City-specific header label
+    const headerLabel = city?.toLowerCase() === 'delhi' ? 'Yamuna River Status' : 'Flood Monitoring Status';
 
     // Format last updated time
     const lastUpdated = status.last_updated
@@ -78,7 +82,7 @@ export function FloodHubHeader({ status }: FloodHubHeaderProps) {
                     <div className="flex items-center gap-2">
                         <Waves className={`w-4 h-4 ${config.textColor}`} />
                         <h3 className={`font-semibold ${config.textColor}`}>
-                            Yamuna River Status
+                            {headerLabel}
                         </h3>
                     </div>
                     <p className={`text-lg font-bold mt-1 ${config.textColor}`}>
