@@ -213,12 +213,12 @@ class TelegramFetcher(BaseFetcher):
         # Build title: first sentence or first 120 chars
         title = self._extract_title(raw_text)
 
-        # Set expiry
+        # Set expiry (strip tz for TIMESTAMP WITHOUT TIME ZONE column)
         expires_at = None
         if alert_time:
-            expires_at = alert_time + timedelta(hours=ALERT_EXPIRY_HOURS)
+            expires_at = (alert_time + timedelta(hours=ALERT_EXPIRY_HOURS)).replace(tzinfo=None)
         else:
-            expires_at = datetime.now(timezone.utc) + timedelta(hours=ALERT_EXPIRY_HOURS)
+            expires_at = (datetime.now(timezone.utc) + timedelta(hours=ALERT_EXPIRY_HOURS)).replace(tzinfo=None)
 
         return ExternalAlertCreate(
             source="telegram",
