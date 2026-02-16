@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
 import { toast } from 'sonner';
 import { useVoiceGuidance } from './VoiceGuidanceContext';
-import { haversineDistance, isOffRoute, findNextInstruction, findNearbyHotspots, getRemainingRoute } from '../lib/geo/distance';
+import { haversineDistance, isOffRoute, findNextInstruction, findNearbyHotspots, getRemainingRoute, calculateBearing } from '../lib/geo/distance';
 import { useHotspots } from '../lib/api/hooks';
 import { useCurrentCity } from './CityContext';
 import { getCityCode } from '../lib/cityUtils';
@@ -38,6 +38,7 @@ interface NavigationState {
     isRecalculating: boolean;
     nearbyHotspots: Array<{ id: number; name: string; fhi_level: string; fhi_color: string; distanceMeters: number }>;
     remainingRouteCoordinates: [number, number][]; // Trimmed route for display (from current position to destination)
+    heading: number | null; // Degrees clockwise from north (0-360), null when unknown
 }
 
 interface NavigationContextValue {
@@ -72,6 +73,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
         isRecalculating: false,
         nearbyHotspots: [],
         remainingRouteCoordinates: [],
+        heading: null,
     });
 
     const watchIdRef = useRef<number | null>(null);
@@ -79,6 +81,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
     const recalculatingRef = useRef<boolean>(false); // Prevent race conditions
     const spokenInstructionsRef = useRef<Set<string>>(new Set());
     const alertedHotspotsRef = useRef<Set<number>>(new Set());
+    const prevPositionRef = useRef<{ lat: number; lng: number } | null>(null);
 
     const startNavigation = useCallback((route: ActiveRoute) => {
         setState(prev => ({
@@ -109,6 +112,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
         recalculatingRef.current = false;
         spokenInstructionsRef.current.clear();
         alertedHotspotsRef.current.clear();
+        prevPositionRef.current = null;
 
         // Reset full state (not spread) for clean stop
         setState({
@@ -123,6 +127,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
             isRecalculating: false,
             nearbyHotspots: [],
             remainingRouteCoordinates: [],
+            heading: null,
         });
 
         speak('Navigation ended.', 'high');
@@ -207,6 +212,32 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
                     lng: position.coords.longitude,
                 };
 
+                // Extract heading: prefer native GPS heading, fallback to computed bearing
+                let heading: number | null = null;
+                const nativeHeading = position.coords.heading;
+                if (nativeHeading !== null && !isNaN(nativeHeading) && nativeHeading >= 0) {
+                    heading = nativeHeading;
+                } else if (prevPositionRef.current) {
+                    // Only compute bearing if moved >= 3m (avoids jitter when stationary)
+                    const moved = haversineDistance(
+                        prevPositionRef.current.lat, prevPositionRef.current.lng,
+                        currentPos.lat, currentPos.lng
+                    );
+                    if (moved >= 3) {
+                        heading = calculateBearing(
+                            prevPositionRef.current.lat, prevPositionRef.current.lng,
+                            currentPos.lat, currentPos.lng
+                        );
+                    }
+                }
+
+                // Update prev position ref when we've moved significantly
+                if (!prevPositionRef.current ||
+                    haversineDistance(prevPositionRef.current.lat, prevPositionRef.current.lng,
+                                     currentPos.lat, currentPos.lng) >= 3) {
+                    prevPositionRef.current = currentPos;
+                }
+
                 setState(prev => {
                     if (!prev.activeRoute) return prev;
 
@@ -266,6 +297,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
                         isOffRoute: offRoute,
                         nearbyHotspots,
                         remainingRouteCoordinates: remainingRoute,
+                        heading: heading ?? prev.heading, // Retain previous heading when stationary
                     };
                 });
             },

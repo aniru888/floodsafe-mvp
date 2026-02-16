@@ -225,6 +225,43 @@ export default function MapComponent({
         };
     }, []);
 
+    // Register navigation arrow image on map (must run before user-location effect)
+    useEffect(() => {
+        if (!map || !isLoaded) return;
+        try {
+            if (!map.isStyleLoaded() || map.hasImage('nav-arrow')) return;
+
+            // Draw a 64x64 chevron arrow pointing UP (north=0)
+            const size = 64;
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            // Chevron shape: pointed top, notched bottom
+            ctx.beginPath();
+            ctx.moveTo(size / 2, 4);           // Top center (tip)
+            ctx.lineTo(size - 6, size - 10);   // Bottom right
+            ctx.lineTo(size / 2, size - 20);   // Bottom notch center
+            ctx.lineTo(6, size - 10);          // Bottom left
+            ctx.closePath();
+
+            // Fill blue with white stroke
+            ctx.fillStyle = '#2563eb';
+            ctx.fill();
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 3;
+            ctx.lineJoin = 'round';
+            ctx.stroke();
+
+            const imageData = ctx.getImageData(0, 0, size, size);
+            map.addImage('nav-arrow', imageData, { pixelRatio: 2 });
+        } catch {
+            // Map may be transitioning styles (city switch)
+        }
+    }, [map, isLoaded]);
+
     // Add/update user location layer on map
     useEffect(() => {
         if (!map || !isLoaded || !userLocation) return;
@@ -240,7 +277,7 @@ export default function MapComponent({
                         type: 'Point',
                         coordinates: [userLocation.lng, userLocation.lat]
                     },
-                    properties: {}
+                    properties: { heading: navState.heading ?? 0 }
                 }]
             };
 
@@ -297,6 +334,38 @@ export default function MapComponent({
                     }
                 });
 
+                // Navigation glow (visible only during active navigation)
+                map.addLayer({
+                    id: 'user-location-nav-glow',
+                    type: 'circle',
+                    source: 'user-location',
+                    layout: { 'visibility': 'none' },
+                    paint: {
+                        'circle-radius': 24,
+                        'circle-color': '#3b82f6',
+                        'circle-opacity': 0.15,
+                        'circle-blur': 0.8
+                    }
+                });
+
+                // Navigation direction arrow (visible only during active navigation)
+                if (map.hasImage('nav-arrow')) {
+                    map.addLayer({
+                        id: 'user-location-arrow',
+                        type: 'symbol',
+                        source: 'user-location',
+                        layout: {
+                            'icon-image': 'nav-arrow',
+                            'icon-size': 1,
+                            'icon-rotate': ['get', 'heading'],
+                            'icon-rotation-alignment': 'map',
+                            'icon-allow-overlap': true,
+                            'icon-ignore-placement': true,
+                            'visibility': 'none'
+                        }
+                    });
+                }
+
                 // Start pulsing animation
                 let pulseRadius = 15;
                 let pulseOpacity = 0.4;
@@ -342,6 +411,22 @@ export default function MapComponent({
                 }
                 animationFrameRef.current = requestAnimationFrame(animatePulse);
             }
+
+            // Toggle between pulsing dot (browsing) and direction arrow (navigating)
+            const isNav = navState.isNavigating && navState.heading !== null;
+            const dotVis = isNav ? 'none' : 'visible';
+            const arrowVis = isNav ? 'visible' : 'none';
+
+            if (map.getLayer('user-location-pulse'))
+                map.setLayoutProperty('user-location-pulse', 'visibility', dotVis);
+            if (map.getLayer('user-location-ring'))
+                map.setLayoutProperty('user-location-ring', 'visibility', dotVis);
+            if (map.getLayer('user-location-dot'))
+                map.setLayoutProperty('user-location-dot', 'visibility', dotVis);
+            if (map.getLayer('user-location-nav-glow'))
+                map.setLayoutProperty('user-location-nav-glow', 'visibility', arrowVis);
+            if (map.getLayer('user-location-arrow'))
+                map.setLayoutProperty('user-location-arrow', 'visibility', arrowVis);
         } catch (error) {
             console.warn('Could not update user location layer:', error);
         }
@@ -353,7 +438,7 @@ export default function MapComponent({
                 animationFrameRef.current = null;
             }
         };
-    }, [map, isLoaded, userLocation]);
+    }, [map, isLoaded, userLocation, navState.isNavigating, navState.heading]);
 
     // Check proximity to high-risk hotspots and show alerts
     useEffect(() => {
@@ -949,6 +1034,25 @@ export default function MapComponent({
                 }
             });
 
+            // Route casing — darker outline behind the route line (Google Maps style)
+            map.addLayer({
+                id: 'routes-casing-layer',
+                type: 'line',
+                source: 'navigation-routes',
+                layout: { 'line-join': 'round', 'line-cap': 'round', 'visibility': 'visible' },
+                paint: {
+                    'line-color': [
+                        'match', ['get', 'type'],
+                        'safe', '#15803d',       // green-700 (darker outline)
+                        'balanced', '#1d4ed8',   // blue-700
+                        'fast', '#c2410c',       // orange-700
+                        '#555555'
+                    ],
+                    'line-width': ['case', ['==', ['get', 'id'], selectedRouteId || ''], 12, 5],
+                    'line-opacity': ['case', ['==', ['get', 'id'], selectedRouteId || ''], 1.0, 0.4]
+                }
+            });
+
             map.addLayer({
                 id: 'routes-layer',
                 type: 'line',
@@ -970,7 +1074,7 @@ export default function MapComponent({
                     'line-width': [
                         'case',
                         ['==', ['get', 'id'], selectedRouteId || ''],
-                        6,  // Selected route is thicker
+                        8,  // Selected route (wider for casing effect)
                         3   // Others are thinner
                     ],
                     'line-opacity': [
@@ -1003,6 +1107,20 @@ export default function MapComponent({
                     type: 'FeatureCollection',
                     features
                 });
+
+                // Update casing + route paint properties when selectedRouteId changes
+                if (map.getLayer('routes-casing-layer')) {
+                    map.setPaintProperty('routes-casing-layer', 'line-width',
+                        ['case', ['==', ['get', 'id'], selectedRouteId || ''], 12, 5]);
+                    map.setPaintProperty('routes-casing-layer', 'line-opacity',
+                        ['case', ['==', ['get', 'id'], selectedRouteId || ''], 1.0, 0.4]);
+                }
+                if (map.getLayer('routes-layer')) {
+                    map.setPaintProperty('routes-layer', 'line-width',
+                        ['case', ['==', ['get', 'id'], selectedRouteId || ''], 8, 3]);
+                    map.setPaintProperty('routes-layer', 'line-opacity',
+                        ['case', ['==', ['get', 'id'], selectedRouteId || ''], 1.0, 0.6]);
+                }
             }
         }
 
@@ -1463,7 +1581,10 @@ export default function MapComponent({
             map.setLayoutProperty('reports-layer', 'visibility', layersVisible.reports ? 'visible' : 'none');
         }
 
-        // Toggle routes layer
+        // Toggle routes layer (casing + main line)
+        if (map.getLayer('routes-casing-layer')) {
+            map.setLayoutProperty('routes-casing-layer', 'visibility', layersVisible.routes ? 'visible' : 'none');
+        }
         if (map.getLayer('routes-layer')) {
             map.setLayoutProperty('routes-layer', 'visibility', layersVisible.routes ? 'visible' : 'none');
         }
