@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 TELEGRAM_PREVIEW_URL = "https://t.me/s/{channel}"
 
 # Skip messages older than this
-MAX_MESSAGE_AGE_HOURS = 48
+MAX_MESSAGE_AGE_HOURS = 720  # 30 days — store recent history for UI display
 
 # Alert expiry (from alert time)
 ALERT_EXPIRY_HOURS = 12

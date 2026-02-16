@@ -295,17 +295,47 @@ export function AlertsScreen() {
                                     </div>
 
                                     {/* Alert cards inside branded frame */}
-                                    <div className="p-3 space-y-3">
-                                        {telegramAlerts.length > 0 ? (
-                                            telegramAlerts.map((alert) => (
-                                                <AlertCard key={alert.id} alert={alert} />
-                                            ))
-                                        ) : (
-                                            <div className="text-center py-6">
-                                                <p className="text-sm text-muted-foreground">No recent PUB alerts</p>
+                                    {(() => {
+                                        const now = Date.now();
+                                        const ACTIVE_WINDOW_MS = 48 * 60 * 60 * 1000; // 48 hours
+                                        const activeAlerts = telegramAlerts.filter(a => {
+                                            const ts = a.created_at.endsWith('Z') ? a.created_at : a.created_at + 'Z';
+                                            return now - new Date(ts).getTime() < ACTIVE_WINDOW_MS;
+                                        });
+                                        const historyAlerts = telegramAlerts.filter(a => {
+                                            const ts = a.created_at.endsWith('Z') ? a.created_at : a.created_at + 'Z';
+                                            return now - new Date(ts).getTime() >= ACTIVE_WINDOW_MS;
+                                        }).slice(0, 3);
+
+                                        return (
+                                            <div className="p-3 space-y-3">
+                                                {activeAlerts.length > 0 ? (
+                                                    activeAlerts.map((alert) => (
+                                                        <AlertCard key={alert.id} alert={alert} />
+                                                    ))
+                                                ) : (
+                                                    <div className="text-center py-4">
+                                                        <p className="text-sm text-muted-foreground">No active flood warnings</p>
+                                                    </div>
+                                                )}
+
+                                                {historyAlerts.length > 0 && (
+                                                    <>
+                                                        <div className="flex items-center gap-2 pt-1">
+                                                            <div className="flex-1 h-px bg-border" />
+                                                            <span className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">Recent History</span>
+                                                            <div className="flex-1 h-px bg-border" />
+                                                        </div>
+                                                        <div className="space-y-2 opacity-60">
+                                                            {historyAlerts.map((alert) => (
+                                                                <AlertCard key={alert.id} alert={alert} />
+                                                            ))}
+                                                        </div>
+                                                    </>
+                                                )}
                                             </div>
-                                        )}
-                                    </div>
+                                        );
+                                    })()}
                                 </div>
                             );
                         })()}

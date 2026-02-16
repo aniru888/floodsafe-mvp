@@ -251,7 +251,7 @@ def get_unified_alerts(
             "cwc": SourceMeta(name="CWC Flood Forecast", count=source_counts.get("cwc", 0)),
             "rss": SourceMeta(name="News Feeds", count=source_counts.get("rss", 0)),
             "twitter": SourceMeta(name="Twitter/X", count=source_counts.get("twitter", 0)),
-            "telegram": SourceMeta(name="Telegram", count=source_counts.get("telegram", 0), enabled=False),
+            "telegram": SourceMeta(name="Telegram", count=source_counts.get("telegram", 0), enabled=True),
             "floodsafe": SourceMeta(name="Community Reports", count=source_counts.get("floodsafe", 0)),
         }
 
