@@ -30,6 +30,7 @@ from .imd_fetcher import IMDFetcher
 from .twitter_fetcher import TwitterFetcher
 from .cwc_scraper import CWCScraper
 from .pub_fetcher import PUBFetcher
+from .telegram_fetcher import TelegramFetcher
 from .aggregator import AlertAggregator
 from .scheduler import AlertScheduler, start_scheduler, stop_scheduler, get_scheduler
 
@@ -41,6 +42,7 @@ __all__ = [
     "TwitterFetcher",
     "CWCScraper",
     "PUBFetcher",
+    "TelegramFetcher",
     "AlertAggregator",
     "AlertScheduler",
     "start_scheduler",

@@ -19,6 +19,7 @@ from sqlalchemy.dialects.postgresql import insert as pg_insert
 
 from .base_fetcher import BaseFetcher, ExternalAlertCreate
 from .pub_fetcher import PUBFetcher
+from .telegram_fetcher import TelegramFetcher
 from .rss_fetcher import RSSFetcher
 from .imd_fetcher import IMDFetcher
 from .twitter_fetcher import TwitterFetcher
@@ -102,6 +103,7 @@ class AlertAggregator:
             GDELTFetcher(),    # News intelligence from GDELT
             GDACSFetcher(),    # UN disaster alerts
             PUBFetcher(),      # Singapore PUB flood alerts
+            TelegramFetcher(), # PUB Telegram channel alerts
         ]
 
     def get_enabled_fetchers(self) -> list[BaseFetcher]:
@@ -133,6 +135,7 @@ class AlertAggregator:
             "gdelt": "GDELT News",
             "gdacs": "UN GDACS",
             "pub": "PUB Singapore",
+            "telegram": "PUB Telegram",
         }
         return names.get(source, source.upper())
 

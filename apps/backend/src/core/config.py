@@ -90,6 +90,7 @@ class Settings(BaseSettings):
     ALERT_REFRESH_IMD_MINUTES: int = 60    # IMD refresh interval
     ALERT_REFRESH_TWITTER_MINUTES: int = 30  # Twitter refresh interval
     ALERT_REFRESH_CWC_MINUTES: int = 120   # CWC scraper refresh interval
+    ALERT_REFRESH_TELEGRAM_MINUTES: int = 10  # PUB Telegram channel refresh interval
 
     # SendGrid Email Service (for email verification)
     SENDGRID_API_KEY: str = ""

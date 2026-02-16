@@ -111,6 +111,15 @@ class AlertScheduler:
             replace_existing=True,
         )
 
+        # Schedule PUB Telegram fetcher (frequent — time-sensitive alerts)
+        self.scheduler.add_job(
+            self._run_telegram_fetch,
+            IntervalTrigger(minutes=settings.ALERT_REFRESH_TELEGRAM_MINUTES),
+            id="telegram_fetch",
+            name="PUB Telegram Fetch",
+            replace_existing=True,
+        )
+
         # Schedule cleanup (once per day)
         self.scheduler.add_job(
             self._run_cleanup,
@@ -128,6 +137,7 @@ class AlertScheduler:
         logger.info(f"  IMD: every {settings.ALERT_REFRESH_IMD_MINUTES} minutes")
         logger.info(f"  Twitter: every {settings.ALERT_REFRESH_TWITTER_MINUTES} minutes")
         logger.info(f"  CWC: every {settings.ALERT_REFRESH_CWC_MINUTES} minutes")
+        logger.info(f"  Telegram: every {settings.ALERT_REFRESH_TELEGRAM_MINUTES} minutes")
 
     def stop(self):
         """Stop the scheduler."""
@@ -203,6 +213,10 @@ class AlertScheduler:
             await self._run_fetch(["cwc"], "CWC Fetch")
         else:
             logger.debug("[Scheduler] CWC fetch skipped (disabled)")
+
+    async def _run_telegram_fetch(self):
+        """Run PUB Telegram channel fetch job."""
+        await self._run_fetch(["telegram"], "Telegram Fetch")
 
     async def _run_cleanup(self):
         """Run cleanup of expired alerts."""

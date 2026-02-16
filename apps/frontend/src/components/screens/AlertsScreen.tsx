@@ -109,7 +109,7 @@ export function AlertsScreen() {
         // Map filters to source types
         const sourceMapping: Record<AlertSourceFilter, string[]> = {
             all: [],
-            official: ['imd', 'cwc', 'gdacs'],  // GDACS is UN official
+            official: ['imd', 'cwc', 'gdacs', 'pub', 'telegram'],  // Government agencies
             news: ['rss', 'gdelt'],              // GDELT is news intelligence
             social: ['twitter', 'telegram'],
             community: ['floodsafe'],
