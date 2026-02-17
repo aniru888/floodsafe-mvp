@@ -110,7 +110,7 @@ def _load_static_hotspots(city: str = "delhi") -> Dict[str, Any]:
 
         # Determine source and verification status
         source = hotspot.get("source", "mcd_reports")
-        verified = source == "mcd_reports"
+        verified = source != "osm_underpass"
 
         feature = {
             "type": "Feature",

@@ -289,7 +289,7 @@ class HotspotsService:
 
             # Determine source and verification status
             source = hotspot.get("source", "mcd_reports")
-            verified = source == "mcd_reports"
+            verified = source != "osm_underpass"
 
             # Get coordinates (support both naming conventions)
             lng = hotspot.get("lng") or hotspot.get("longitude")
@@ -326,9 +326,13 @@ class HotspotsService:
                 "properties": properties,
             })
 
-        # Count verified vs unverified
+        # Count verified vs unverified and source composition
         verified_count = sum(1 for f in features if f["properties"].get("verified", True))
         unverified_count = len(features) - verified_count
+        source_counts: Dict[str, int] = {}
+        for f in features:
+            src = f["properties"].get("source", "unknown")
+            source_counts[src] = source_counts.get(src, 0) + 1
 
         response = {
             "type": "FeatureCollection",
@@ -338,10 +342,7 @@ class HotspotsService:
                 "total_hotspots": len(features),
                 "verified_count": verified_count,
                 "unverified_count": unverified_count,
-                "composition": {
-                    "mcd_reports": verified_count,
-                    "osm_underpass": unverified_count,
-                },
+                "composition": source_counts,
                 "predictions_source": "ml_cache" if self.predictions_cache else "severity_fallback",
                 "cached_predictions_count": len(self.predictions_cache),
                 "model_available": self.hotspot_model is not None and self.hotspot_model.is_trained,

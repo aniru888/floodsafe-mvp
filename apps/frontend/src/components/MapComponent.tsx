@@ -940,6 +940,10 @@ export default function MapComponent({
                     // Use FHI color as primary indicator color
                     const primaryColor = fhiColor || riskColor;
 
+                    // Source-aware verification label (multi-city)
+                    const sourceLabels: Record<string, string> = {mcd_reports:'MCD',PUB:'PUB',BBMP:'BBMP',local_reports:'Official'};
+                    const sourceLabel = sourceLabels[props.source as string] || 'Gov';
+
                     const popupHTML = `
                         <div class="p-3 min-w-[200px]" style="max-width: min(320px, calc(100vw - 32px))">
                             <div class="flex items-center gap-2 mb-2">
@@ -973,7 +977,7 @@ export default function MapComponent({
                                 </div>
                                 ${elevation !== null ? `<div class="text-xs text-muted-foreground/60 mt-1">Elevation: ${elevation.toFixed(1)}m</div>` : ''}
                                 <div class="text-xs mt-1 ${props.verified ? 'text-green-600' : 'text-amber-600'}">
-                                    ${props.verified ? '✓ MCD Verified' : '⚠ ML Predicted (OSM)'}
+                                    ${props.verified ? '✓ ' + sourceLabel + ' Verified' : '⚠ ML Predicted (OSM)'}
                                 </div>
                                 <p class="text-muted-foreground/60 text-[10px] italic mt-1">Based on current weather conditions</p>
                             </div>
