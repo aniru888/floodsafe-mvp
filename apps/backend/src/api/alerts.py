@@ -127,9 +127,9 @@ def get_unified_alerts(
 
     Source filters:
     - all: All sources
-    - official: IMD, CWC (government sources)
+    - official: IMD, CWC, PUB Telegram (government sources)
     - news: RSS news feeds
-    - social: Twitter, Telegram
+    - social: Twitter
     - community: FloodSafe user reports
 
     Returns alerts sorted by created_at descending (most recent first).
@@ -140,9 +140,9 @@ def get_unified_alerts(
 
         # Map filter to sources
         source_mapping = {
-            "official": ["imd", "cwc"],
+            "official": ["imd", "cwc", "telegram"],
             "news": ["rss"],
-            "social": ["twitter", "telegram"],
+            "social": ["twitter"],
             "community": ["floodsafe"],
         }
 
