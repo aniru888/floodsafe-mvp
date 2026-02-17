@@ -8,24 +8,31 @@ See CLAUDE.md @hotspots for documentation.
 FHI = (0.35×P + 0.18×I + 0.12×S + 0.12×A + 0.08×R + 0.15×E) × T_modifier
 
 Components:
-- P (35%): Precipitation forecast (with probability-based correction)
+- P (35%): Precipitation forecast (with probability-based correction + ceiling-only percentiles)
 - I (18%): Intensity (hourly max)
-- S (12%): Soil Saturation from Open-Meteo (hybrid urban-calibrated)
-- A (12%): Antecedent conditions
+- S (12%): Soil Saturation (70% Antecedent Precipitation Index + 30% ERA5 soil moisture)
+- A (12%): Antecedent conditions (3-day burst)
 - R (8%): Runoff Potential (pressure-based)
 - E (15%): Elevation Risk (inverted: low elevation = high risk)
-- T_modifier: 1.2 during monsoon (June-Sept), else 1.0
+- T_modifier: per-city wet season modifier
 
-Key Calibrations for Urban Delhi:
-1. Probability-based correction: 1.5x to 2.25x based on forecast confidence
-2. Rain-gate: If <5mm in 3 days, cap FHI at LOW (no flood without rain)
-3. Soil Saturation Proxy: Hybrid 70% antecedent + 30% soil moisture
+Key Calibrations:
+1. Probability-based correction: 1.0x-2.25x based on forecast confidence (per-city)
+2. Rain-gate: If <threshold mm in 3 days, cap FHI at LOW (no flood without rain)
+3. Antecedent Precipitation Index (API): 14-day exponential decay (replaces crude 3-day proxy)
+   - Uses past_days=14 in Open-Meteo call (same request, no extra API calls)
+   - Per-city decay constant k: Delhi 0.92, Bangalore 0.88, Yogyakarta 0.85, Singapore 0.80
+4. Ceiling-only percentiles for P component: monthly P95 can RAISE threshold, never lower it
+   - Reduces monsoon cry-wolf without affecting dry months
+5. Singapore triple advantage: NEA real-time + SG percentiles + fast drainage decay (k=0.80)
 """
 
 import httpx
 import asyncio
+import json
 from datetime import datetime
-from typing import Dict, Optional, Any
+from pathlib import Path
+from typing import Dict, List, Optional, Any
 import logging
 from dataclasses import dataclass, field
 
@@ -104,7 +111,10 @@ class FHICalculator:
     LOW_FHI_CAP = 0.15                 # Cap for dry conditions
     URBAN_SATURATION_THRESHOLD_MM = 50.0  # 3-day rain for urban drainage saturation
 
-    # City-aware calibration: elevation, wet season, thresholds, correction factors
+    # Number of past days to fetch from Open-Meteo for Antecedent Precipitation Index
+    PAST_DAYS = 14
+
+    # City-aware calibration: elevation, wet season, thresholds, correction factors, API decay
     # Cities without explicit overrides inherit class-level defaults (Delhi-tuned)
     CITY_CALIBRATION = {
         "delhi": {
@@ -114,6 +124,8 @@ class FHICalculator:
             "default_elev": 220,
             "rain_gate_mm": 5.0,
             "fhi_cache_ttl_seconds": 3600,  # 1 hour (Open-Meteo forecast)
+            "api_decay_k": 0.92,            # Slow drainage, clay soils, monsoonal
+            "api_threshold": 80.0,          # mm — API value above which soil is saturated
             # Uses class defaults for correction/thresholds (tuned for Delhi)
         },
         "bangalore": {
@@ -123,6 +135,8 @@ class FHICalculator:
             "default_elev": 920,
             "rain_gate_mm": 5.0,
             "fhi_cache_ttl_seconds": 3600,  # 1 hour (Open-Meteo forecast)
+            "api_decay_k": 0.88,            # Better runoff at 920m elevation
+            "api_threshold": 90.0,
         },
         "yogyakarta": {
             "elev_min": 75, "elev_max": 200,
@@ -139,6 +153,8 @@ class FHICalculator:
             "elev_weight_scale": 0.8,       # Elevation matters more (hilly terrain)
             "monsoon_modifier": 1.15,       # Wet season is significant
             "weather_source": "owm",        # Use OWM when API key configured
+            "api_decay_k": 0.85,            # Tropical evapotranspiration, volcanic soils
+            "api_threshold": 70.0,
         },
         "singapore": {
             "elev_min": 0, "elev_max": 165,  # Bukit Timah = 163m
@@ -155,6 +171,8 @@ class FHICalculator:
             "elev_weight_scale": 0.5,       # Halve E contribution (flat city)
             "monsoon_modifier": 1.1,        # Monsoon is daily life, less dramatic
             "nea_extrapolation_factor": 6.0,  # ×6 (not ×12) for bursty tropical showers
+            "api_decay_k": 0.80,            # World-class drainage, rapid canal flush
+            "api_threshold": 100.0,
         },
     }
 
@@ -175,10 +193,56 @@ class FHICalculator:
     # Cache settings
     CACHE_TTL_SECONDS = 3600  # 1 hour
 
+    # Class-level cache for percentile data (loaded once per city, never expires)
+    _percentile_data: Dict[str, Dict] = {}
+
     def __init__(self, timeout_seconds: float = 15.0):
         """Initialize FHI calculator."""
         self._timeout = timeout_seconds
         self._cache: Dict[str, tuple] = {}  # (FHIResult, timestamp)
+
+    @staticmethod
+    def compute_api(daily_precip: List[float], k: float = 0.90) -> float:
+        """Compute Antecedent Precipitation Index with exponential decay.
+
+        API_t = k * API_{t-1} + P_t
+
+        Args:
+            daily_precip: List of daily precipitation in mm, oldest to newest.
+            k: Decay constant (0-1). Higher = slower drainage/more moisture retention.
+               Delhi 0.92, Bangalore 0.88, Yogyakarta 0.85, Singapore 0.80.
+
+        Returns:
+            API value in mm (higher = wetter antecedent conditions)
+        """
+        api = 0.0
+        for p in daily_precip:
+            api = k * api + (p if p is not None else 0.0)
+        return api
+
+    def _get_monthly_p95(self, city: str, month: int) -> float:
+        """Get P95 daily precipitation for city/month from pre-computed percentile data.
+
+        Returns 0.0 if percentile data is unavailable (ceiling-only logic means
+        0.0 will never activate — max(0.0, fixed_threshold) = fixed_threshold).
+        """
+        if city not in self._percentile_data:
+            data_dir = Path(__file__).parent.parent.parent.parent / "data"
+            path = data_dir / f"{city}_climate_percentiles.json"
+            if path.exists():
+                try:
+                    raw = json.loads(path.read_text(encoding="utf-8"))
+                    self._percentile_data[city] = raw.get("monthly", {})
+                    logger.info(f"Loaded climate percentiles for {city} from {path.name}")
+                except Exception as e:
+                    logger.warning(f"Failed to load percentiles for {city}: {e}")
+                    self._percentile_data[city] = {}
+            else:
+                logger.warning(f"No percentile data for {city} at {path} — using fixed thresholds")
+                self._percentile_data[city] = {}
+
+        month_data = self._percentile_data[city].get(str(month), {})
+        return month_data.get("P95", 0.0)
 
     def _detect_city(self, lat: float, lng: float) -> str:
         """Detect city from coordinates using bounding boxes. Returns 'delhi' as default."""
@@ -315,19 +379,46 @@ class FHICalculator:
                 self._fetch_weather(lat, lng),
             )
 
-            # Extract weather components
+            # Extract weather components with past_days offset
+            # With past_days=14: hourly arrays have 336 past + 72 forecast = 408 values
+            # Daily arrays have 14 past + 3 forecast = 17 values
             hourly = weather.get("hourly", {})
             daily = weather.get("daily", {})
 
-            precip_hourly = hourly.get("precipitation", [0] * 72)
-            soil_moisture = hourly.get("soil_moisture_0_to_7cm", [0.2] * 72)
-            surface_pressure = hourly.get("surface_pressure", [1013] * 72)
+            past_hours = self.PAST_DAYS * 24  # 336
+            past_daily_count = self.PAST_DAYS  # 14
 
-            # Extract precipitation probability from daily data
-            precip_prob_values = daily.get("precipitation_probability_max", [])
-            precip_prob_max = max([p for p in precip_prob_values if p is not None], default=50)
+            # Full arrays (past + forecast)
+            precip_hourly_full = hourly.get("precipitation", [0] * (past_hours + 72))
+            soil_moisture_full = hourly.get("soil_moisture_0_to_7cm", [0.2] * (past_hours + 72))
+            surface_pressure_full = hourly.get("surface_pressure", [1013] * (past_hours + 72))
 
-            # Clean precipitation data (None → 0.0)
+            # Extract FORECAST-ONLY portion (offset past historical hours)
+            precip_hourly = precip_hourly_full[past_hours:]
+            soil_moisture = soil_moisture_full[past_hours:]
+            surface_pressure = surface_pressure_full[past_hours:]
+
+            # Extract historical daily precipitation for API calculation
+            daily_precip_all = daily.get("precipitation_sum", [])
+            historical_daily_precip = daily_precip_all[:past_daily_count]
+
+            # Fallback: if daily precipitation_sum unavailable, compute from hourly
+            if not historical_daily_precip and len(precip_hourly_full) >= past_hours:
+                logger.warning("daily precipitation_sum missing — computing from hourly data")
+                historical_daily_precip = []
+                for day_idx in range(self.PAST_DAYS):
+                    start = day_idx * 24
+                    end = start + 24
+                    day_vals = precip_hourly_full[start:end]
+                    day_sum = sum(v if v is not None else 0.0 for v in day_vals)
+                    historical_daily_precip.append(day_sum)
+
+            # Extract precipitation probability from FORECAST-ONLY daily data
+            daily_prob_all = daily.get("precipitation_probability_max", [])
+            forecast_prob = daily_prob_all[past_daily_count:]  # Skip past days
+            precip_prob_max = max([p for p in forecast_prob if p is not None], default=50)
+
+            # Clean forecast precipitation data (None → 0.0)
             precip_hourly_clean = [p if p is not None else 0.0 for p in precip_hourly]
 
             # For Singapore: try NEA real-time rainfall (5-min resolution, 60x better)
@@ -395,6 +486,8 @@ class FHICalculator:
                 surface_pressure=surface_pressure,
                 precip_prob_max=precip_prob_max,
                 calibration=calibration,
+                historical_daily_precip=historical_daily_precip,
+                city=detected_city,
             )
 
             # City-aware wet season modifier (per-city)
@@ -470,39 +563,56 @@ class FHICalculator:
         precip_prob_max: float = 50.0,
         is_urban: bool = True,
         calibration: Optional[dict] = None,
+        historical_daily_precip: Optional[List[float]] = None,
+        city: str = "delhi",
     ) -> Dict[str, float]:
         """
         Calculate normalized FHI components (0-1) with probability-based correction.
 
         Urban Calibration:
-        1. Apply probability-based correction (1.5x to 2.25x) for forecast uncertainty
-        2. Use hybrid saturation: 70% antecedent rainfall + 30% soil moisture
+        1. Apply probability-based correction (per-city) for forecast uncertainty
+        2. S component: 70% Antecedent Precipitation Index (14-day decay) + 30% soil moisture
+        3. Ceiling-only percentiles for P: monthly P95 can raise threshold, never lower it
 
         Args:
             elevation: Elevation in meters
-            precip_hourly: List of hourly precipitation (mm/h)
-            soil_moisture: List of soil moisture (m³/m³)
-            surface_pressure: List of surface pressure (hPa)
+            precip_hourly: List of hourly precipitation (mm/h) — FORECAST ONLY (72 values)
+            soil_moisture: List of soil moisture (m³/m³) — FORECAST ONLY
+            surface_pressure: List of surface pressure (hPa) — FORECAST ONLY
             precip_prob_max: Maximum precipitation probability (0-100%)
-            is_urban: Whether to apply urban calibration (default True for Delhi)
+            is_urban: Whether to apply urban calibration (default True)
+            calibration: Per-city calibration dict
+            historical_daily_precip: 14 days of daily precipitation totals (oldest to newest)
+            city: Detected city name for percentile lookup
 
         Returns:
             Dictionary with P, I, S, A, R, E components
         """
-        # Filter out None values and convert to list
+        # Filter out None values
         precip_hourly = [p if p is not None else 0.0 for p in precip_hourly]
         soil_moisture = [s if s is not None else 0.2 for s in soil_moisture]
         surface_pressure = [p if p is not None else 1013.0 for p in surface_pressure]
 
         # Per-city thresholds (fall back to class defaults for Delhi/Bangalore)
-        precip_threshold = calibration.get("precip_threshold_mm", self.PRECIP_THRESHOLD_MM) if calibration else self.PRECIP_THRESHOLD_MM
+        fixed_precip_threshold = calibration.get("precip_threshold_mm", self.PRECIP_THRESHOLD_MM) if calibration else self.PRECIP_THRESHOLD_MM
         intensity_threshold = calibration.get("intensity_threshold_mm_h", self.INTENSITY_THRESHOLD_MM_H) if calibration else self.INTENSITY_THRESHOLD_MM_H
         antecedent_threshold = calibration.get("antecedent_threshold_mm", self.ANTECEDENT_THRESHOLD_MM) if calibration else self.ANTECEDENT_THRESHOLD_MM
         base_correction = calibration.get("precip_correction", self.BASE_PRECIP_CORRECTION) if calibration else self.BASE_PRECIP_CORRECTION
         boost_mult = calibration.get("prob_boost_multiplier", self.PROB_BOOST_MULTIPLIER) if calibration else self.PROB_BOOST_MULTIPLIER
         elev_weight_scale = calibration.get("elev_weight_scale", 1.0) if calibration else 1.0
 
-        # Calculate raw precipitation totals
+        # Ceiling-only percentile: P95 can only RAISE threshold, never lower it
+        # Reduces false alarms during peak wet months without affecting dry months
+        current_month = datetime.now().month
+        p95 = self._get_monthly_p95(city, current_month)
+        precip_threshold = max(p95, fixed_precip_threshold)
+        if p95 > fixed_precip_threshold:
+            logger.debug(
+                f"Ceiling-only P95 activated for {city} month {current_month}: "
+                f"P95={p95:.1f}mm > fixed={fixed_precip_threshold:.1f}mm → threshold={precip_threshold:.1f}mm"
+            )
+
+        # Calculate raw precipitation totals (from forecast-only hourly data)
         precip_24h = sum(precip_hourly[:24]) if len(precip_hourly) >= 24 else 0
         precip_48h = sum(precip_hourly[24:48]) if len(precip_hourly) >= 48 else 0
         precip_72h = sum(precip_hourly[48:72]) if len(precip_hourly) >= 72 else 0
@@ -518,6 +628,7 @@ class FHICalculator:
         precip_72h_corrected = precip_72h * correction_factor
 
         # P: Precipitation forecast (weighted 24h/48h/72h) with probability correction
+        # Uses ceiling-only threshold (may be raised during peak wet months)
         P = min(1.0,
                 0.5 * (precip_24h_corrected / precip_threshold) +
                 0.3 * (precip_48h_corrected / precip_threshold) +
@@ -529,21 +640,35 @@ class FHICalculator:
         hourly_max_corrected = hourly_max * correction_factor
         I = min(1.0, hourly_max_corrected / intensity_threshold)
 
-        # S: Saturation Component (HYBRID URBAN-CALIBRATED)
-        # For urban areas: 70% antecedent rainfall proxy + 30% soil moisture
-        # This captures both drainage saturation and regional moisture conditions
-        antecedent_proxy = min(1.0, precip_3d / self.URBAN_SATURATION_THRESHOLD_MM)
+        # S: Saturation Component — Antecedent Precipitation Index (API) + ERA5 soil moisture
+        # API captures 14-day exponential decay: recent rain weighted more than old rain
+        # Soil moisture from ERA5 preserved at 30% for satellite-based signal
+        api_k = calibration.get("api_decay_k", 0.90) if calibration else 0.90
+        api_threshold = calibration.get("api_threshold", 80.0) if calibration else 80.0
+
         avg_soil = sum(soil_moisture[:24]) / 24 if soil_moisture else 0.2
         soil_norm = min(1.0, avg_soil / self.SOIL_SATURATION_MAX)
 
-        if is_urban:
-            # Hybrid: 70% drainage proxy + 30% regional soil moisture
-            S = 0.7 * antecedent_proxy + 0.3 * soil_norm
+        if historical_daily_precip and len(historical_daily_precip) >= 3:
+            # Use 14-day API (upgraded from crude 3-day proxy)
+            api_value = self.compute_api(historical_daily_precip, k=api_k)
+            api_norm = min(1.0, api_value / api_threshold)
+
+            if is_urban:
+                S = 0.7 * api_norm + 0.3 * soil_norm
+            else:
+                S = 0.3 * api_norm + 0.7 * soil_norm
         else:
-            # Rural: 30% drainage proxy + 70% soil moisture
-            S = 0.3 * antecedent_proxy + 0.7 * soil_norm
+            # Fallback: crude 3-day proxy (original behavior)
+            logger.warning(f"API fallback: using crude 3-day proxy (got {len(historical_daily_precip or [])} days)")
+            antecedent_proxy = min(1.0, precip_3d / self.URBAN_SATURATION_THRESHOLD_MM)
+            if is_urban:
+                S = 0.7 * antecedent_proxy + 0.3 * soil_norm
+            else:
+                S = 0.3 * antecedent_proxy + 0.7 * soil_norm
 
         # A: Antecedent conditions (total 3-day precipitation) with probability correction
+        # Distinct from S: A measures short-term 3-day burst, S measures 14-day long-term wetness
         precip_3d_corrected = precip_3d * correction_factor
         A = min(1.0, precip_3d_corrected / antecedent_threshold)
 
@@ -612,7 +737,8 @@ class FHICalculator:
             "latitude": lat,
             "longitude": lng,
             "hourly": "precipitation,soil_moisture_0_to_7cm,surface_pressure",
-            "daily": "precipitation_probability_max",  # For probability-based correction
+            "daily": "precipitation_probability_max,precipitation_sum",
+            "past_days": self.PAST_DAYS,   # 14 days historical for API calculation
             "forecast_days": 3,
             "timezone": "auto",
         }

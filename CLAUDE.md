@@ -360,6 +360,8 @@ search_for_pattern    # Regex search across codebase
 | `/verify-ui` | Claude-in-Chrome visual verification of all screens | User-only |
 | `/screenshot` | Playwright screenshot capture for UI debugging | User-only |
 | `/code-reference-finder` | Find code examples and patterns | User-only |
+| `/sync-docs` | Scan code for real counts, diff against docs, report/fix drift | User-only |
+| `/health` | Check all production services + per-city integrations | User-only |
 
 Legacy commands in `.claude/commands/` also still work (e.g., `/test`, `/data`, `/explore`).
 
