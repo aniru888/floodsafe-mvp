@@ -262,10 +262,66 @@ creds = json.loads(base64.b64decode(os.environ["FIREBASE_SERVICE_ACCOUNT_B64"]))
 
 This is well-documented and works. Not a blocker.
 
+#### Dual Push Architecture (Capacitor vs PWA)
+
+**Critical finding from Capacitor docs (Context7)**: Capacitor uses `@capacitor/push-notifications` (native plugin) which talks directly to FCM/APNs. This is **different from** the web `getMessaging()` approach:
+
+```
+PWA (browser):                      Capacitor (native):
+─────────────                       ──────────────────
+getMessaging() + getToken()         PushNotifications.register()
+firebase-messaging-sw.js           Native background handler (no SW needed)
+Notification.requestPermission()   PushNotifications.requestPermissions()
+Web Push API (VAPID key)            Native FCM/APNs token
+
+Both paths → same backend endpoint: POST /api/users/me/fcm-token
+Both paths → same backend push service: firebase-admin messaging.send()
+```
+
+**You need both codepaths** since the web PWA must continue working:
+```typescript
+import { Capacitor } from '@capacitor/core';
+
+if (Capacitor.isNativePlatform()) {
+  // Native: @capacitor/push-notifications
+  const { PushNotifications } = await import('@capacitor/push-notifications');
+  await PushNotifications.requestPermissions();
+  await PushNotifications.register();
+  PushNotifications.addListener('registration', (token) => {
+    postFCMToken(token.value);  // same backend endpoint
+  });
+} else {
+  // Web: Firebase messaging SDK
+  const messaging = getMessaging(app);
+  const token = await getToken(messaging, { vapidKey: VAPID_KEY });
+  postFCMToken(token);  // same backend endpoint
+}
+```
+
+**Capacitor config** (`capacitor.config.ts`) must include:
+```typescript
+const config: CapacitorConfig = {
+  appId: 'com.floodsafe.app',
+  appName: 'FloodSafe',
+  webDir: 'dist',  // Vite output
+  server: {
+    androidScheme: 'http',  // Capacitor 6+ defaults to https, keep http for compatibility
+  },
+  android: {
+    resolveServiceWorkerRequests: true,  // Capacitor 7+ — routes SW through bridge
+  },
+  plugins: {
+    PushNotifications: {
+      presentationOptions: ['alert', 'sound'],
+    },
+  },
+};
+```
+
 ### Verdict
 
 **HIGHLY VIABLE**. FCM is free and unlimited. The main work is:
-1. Frontend: initialize messaging, request permission, store token (half a day)
+1. Frontend: dual push init (native plugin + web fallback), store token (half a day)
 2. Backend: FCM push service + cron endpoint (1 day)
 3. Cooldown + spatial route check logic (half a day)
 
