@@ -43,7 +43,7 @@ No Capacitor config, no `android/` or `ios/` directories, no native wrapper of a
 | BLE access | Web Bluetooth (foreground only) | Native BLE (background capable) |
 | Background tasks | Background Sync only | True background services |
 | File system | Cache API (~50MB soft limit) | Full native filesystem |
-| Geofencing | None | Native geofence triggers |
+| Geofencing | None | **No official plugin** — BackgroundRunner can poll location every 15min (not true geofencing) |
 | SMS sending | None | Native SMS intent |
 
 ### Critical Scrutiny
@@ -81,6 +81,17 @@ Firebase `signInWithPopup` (used for Google Auth) **does not work in Capacitor W
 2. Google Cloud Console → OAuth consent screen → Authorized redirect URIs
 
 **Testing constraint**: All auth PoC testing must be done through the **production Koyeb backend** and **production Vercel frontend URLs**, not local dev. The Capacitor WebView must point its API calls to the production backend (which it will, since the env var `VITE_API_URL` points to Koyeb in the build).
+
+#### Geofencing Reality Check
+
+**No official `@capacitor/geofencing` plugin exists.** The design initially claimed "native geofence triggers" but this was incorrect.
+
+What's actually available:
+1. **Capacitor BackgroundRunner** — periodic tasks every 15min with `geolocation` API access. This is **polling**, not true geofencing (no OS-level enter/exit triggers, no automatic wake-on-boundary-cross).
+2. **`LocationTrackingContext.tsx`** (already exists) — uses `navigator.geolocation.watchPosition` + `findNearbyHotspots` for real-time proximity detection, but **foreground only**.
+3. **Community plugin `@nicenoise/capacitor-geofence`** — exists but unmaintained and not recommended for production.
+
+**Pragmatic path**: BackgroundRunner polls location every 15min → checks against cached hotspot data → triggers local notification if HIGH+ hotspot within 300m. This works **offline** using cached data and is more resilient than the backend cron approach (no connectivity needed). But it's not instant — up to 15min delay before detection.
 
 #### MapLibre WebGL Performance
 
@@ -399,18 +410,25 @@ Do NOT test yet:
 - `sos_service.py`: SOS broadcast to safety circle phones via Twilio
 - `circle_notification_service.py`: dispatches via WhatsApp/SMS/email
 
-**The gap**: These are disconnected systems:
-- A flood report sent via WhatsApp does NOT create a `Report` record in the database
-- A report submitted in the app does NOT notify WhatsApp contacts (unless it triggers a safety circle alert)
-- `WhatsAppSession.phone` (line 430 in models.py) has no foreign key to `User.phone` (line 47). **There is no reliable way to link a WhatsApp sender to a FloodSafe user account.**
+**CORRECTION (verified 2026-02-22)**: WhatsApp inbound sync **already works** better than initially assessed:
+
+- **Both webhooks create Report records**: Twilio's `handle_location` → `create_sos_report()` (webhook.py:657) AND Meta's `_create_report_with_photo` (whatsapp_meta.py:475) + `_finalize_without_photo` (whatsapp_meta.py:573) all create proper `Report` records with PostGIS locations, ML classification, and trigger `check_watch_areas_for_report`.
+- **LINK command DOES persist phone→user mapping**: `handle_email_input` (webhook.py:806) sets `existing_user.phone = phone` + `notification_whatsapp = True` + links pending reports retroactively (webhook.py:818-823).
+- Reports from unlinked users still work — they have `user_id=None` but include `phone_number` for tracing.
+
+**Remaining gaps** (narrower than originally stated):
+- A report submitted in-app does NOT notify WhatsApp contacts (unless it triggers a safety circle alert) — outbound sync still missing
+- `WhatsAppSession.phone` has no FK to `User.phone` — but the LINK flow bridges this via email lookup
+- Email/Google signup users don't have `User.phone` populated, so `_find_user_by_phone` returns None until they LINK
+- No bidirectional state sync (read receipts, edit propagation)
 
 ### Three Approaches
 
-**Approach A: Inbound-Only Sync (Recommended)**
+**Approach A: Inbound-Only Sync (Recommended) — LARGELY EXISTS**
 
-WhatsApp reports create proper `Report` records visible in-app. No proactive outbound.
+WhatsApp reports already create `Report` records visible in-app. The LINK command already persists phone→user mapping. Main remaining work is improving LINK discoverability and ensuring all report types (photo, no-photo, location-only) flow correctly through both Twilio and Meta webhooks.
 
-- Effort: 2-3 days
+- Effort: **0.5-1 day** (verification + polish, NOT 2-3 days as initially estimated)
 - Cost: $0
 - Meta approval: NOT required (webhook already works)
 
@@ -445,9 +463,17 @@ When a WhatsApp message arrives, the webhook knows the sender's phone number. To
 2. The user may have registered with a different phone (Firebase Phone Auth number != WhatsApp number)
 3. **70-80% of users may not be matchable** if they signed up via email/Google
 
-**Fix**: Create a `user_phone_links` table or add a `whatsapp_phone` field on User. Require explicit linking (user sends "LINK" command in WhatsApp → enters email → verified).
+**Fix**: The LINK command flow already handles this:
+1. User sends `LINK` → session state → `awaiting_choice` (webhook.py:553-568)
+2. User picks "1" (create/link account) → `awaiting_email` (webhook.py:730-740)
+3. User provides email → `handle_email_input` (webhook.py:763+):
+   - Looks up `User` by email
+   - Sets `existing_user.phone = phone` (line 806)
+   - Sets `existing_user.notification_whatsapp = True` (line 807)
+   - Sets `session.user_id = existing_user.id` (line 808)
+   - Retroactively links pending reports: `report.user_id = existing_user.id` (line 822)
 
-This linking flow already partially exists (`LINK` command in command_handlers.py) but I haven't verified it creates the DB association. This needs investigation before building sync.
+**VERIFIED**: The LINK command is complete and functional. The remaining gap is discoverability — most WhatsApp users don't know to type LINK, and the prompt only appears in the STATUS response.
 
 #### Meta Business Verification — The Organizational Blocker
 
@@ -519,7 +545,7 @@ This migration is non-trivial. Estimate: 1-2 days just for the API swap, before 
 
 ### Verdict
 
-**Approach A (inbound sync) is VIABLE** — mostly exists, main work is Report creation from WA messages + phone→user linking.
+**Approach A (inbound sync) ALREADY EXISTS** — code review confirms both Twilio and Meta webhooks create `Report` records with ML classification, PostGIS locations, and watch area alerts. LINK command persists phone→user mapping. **However, frontend visibility of WA-created reports is UNVERIFIED** — the user reports that WhatsApp reports may not show up in the app. This needs rigorous E2E testing to identify any frontend query gaps (city filtering, user_id exclusion, etc.).
 
 **Approach B requires Meta Business Verification** — organizational blocker, not technical. Apply early, build if approved.
 
@@ -528,35 +554,37 @@ This migration is non-trivial. Estimate: 1-2 days just for the API swap, before 
 ### PoC Test Plan
 
 ```
-Experiment A: "Can a WhatsApp flood report create a Report in the database?"
-Time estimate: 3-4 hours
+Experiment A: "Verify WhatsApp → Report pipeline works end-to-end"
+Time estimate: 1-2 hours (VERIFICATION, not implementation — code already exists)
 Prerequisites: Twilio sandbox connected
 
-Steps:
-1. Investigate LINK command: does it actually persist phone→user mapping? (Read command_handlers.py)
-2. If not: add whatsapp_phone column to User model (migration)
-3. Modify photo_handler.py:
-   - After ML classification, create Report record:
-     reporter_id = User lookup by whatsapp_phone (or create anonymous "wa_reporter")
-     location = from WhatsApp location pin (already parsed in webhook)
-     severity = from ML confidence score
-     source = "whatsapp" (add to Report model if needed)
-4. Send WhatsApp message: photo + location pin to Twilio sandbox number
-5. Check database: Report record created?
-6. Open FloodSafe app: Report visible on map + community feed?
+ALREADY DONE (verified via code review 2026-02-22):
+✅ LINK command persists phone→user mapping (webhook.py:806-808)
+✅ Photo reports create Report records (webhook.py:657, whatsapp_meta.py:475)
+✅ No-photo reports create Report records (webhook.py `finalize_report_without_photo`)
+✅ ML classification runs on photos (webhook.py:654)
+✅ Watch area alerts triggered (webhook.py:665-667)
+✅ Anonymous reports work (user_id=None, phone_number populated)
+
+Remaining verification steps:
+1. Send WhatsApp message to Twilio sandbox: photo + location pin
+2. Check database: Report record created with correct lat/lng?
+3. Open FloodSafe app: Report visible on map + community feed?
+4. Test LINK flow: send LINK → enter email → verify user.phone updated
+5. Send another report after linking → verify user_id populated on Report
 
 Verify:
-- [ ] WhatsApp photo → Report record in DB
-- [ ] Location pin → correct lat/lng on Report
-- [ ] Report visible in app immediately (query invalidation working)
-- [ ] ML classification score attached
-- [ ] Duplicate detection: same user, same location, <10 min → no duplicate
-- [ ] Anonymous reporter: if phone not linked to User, report still created
+- [ ] WhatsApp photo → Report record in DB (EXPECTED TO WORK)
+- [ ] Location pin → correct lat/lng on Report (EXPECTED TO WORK)
+- [ ] Report visible in app immediately (query invalidation may need testing)
+- [ ] ML classification score attached (EXPECTED TO WORK)
+- [ ] LINK command: user.phone set, notification_whatsapp=True
+- [ ] Post-link report: user_id populated (not anonymous)
 
-Kill criteria:
-- WhatsApp media download fails (Meta CDN URL expired) → increase download timeout
-- Photo storage is mocked → reports will have mock URLs (acceptable for PoC)
-- Location pin not sent → report created without coordinates (allow, flag for review)
+Improvement opportunities found during verification:
+- Add LINK prompt to first-time welcome message (currently only in STATUS)
+- Add auto-LINK suggestion after 3rd anonymous report
+- Consider adding `source = "whatsapp"` field to Report model for analytics
 
 WebMCP Testing (verify WA→Report sync via bridge):
 - After WhatsApp report created, use `floodsafe://reports` resource to check if
@@ -816,7 +844,7 @@ If user creates reports or SOSes offline and they sync when back online:
 | **FCM Push Notifications** | **HIGH** | $0 | 2-3 days | **HIGHEST** |
 | **Capacitor Android Wrapper** | **HIGH** | $25 one-time | 5-7 days (with auth fixes) | **HIGH** |
 | **Store-and-Forward SMS** | **HIGH** | $0 | 1-2 days | **HIGH** |
-| **WhatsApp Inbound Sync** | **MODERATE** | $0 | 2-3 days | **MODERATE** |
+| **WhatsApp Inbound Sync** | **HIGH** (code exists, needs E2E verification) | $0 | 1-2 days (verify + polish) | **MODERATE** |
 | **WhatsApp Outbound Sync** | **LOW** | INR 0-325/mo | 1-2 weeks + Meta approval | **MODERATE** |
 | **BLE Beacon** | **LOW** | $0 | 1-2 weeks | **LOW** (needs 60K users) |
 | **BLE Mesh Chat** | **NOT VIABLE** | $0 | 2-3 months | **THEORETICAL** |
@@ -837,11 +865,13 @@ Phase 2 — Core Value (Week 2):
   4. SMS compose for offline SOS (1 day)
      → Capacitor SMS plugin + safety circle contact caching
 
-Phase 3 — WhatsApp Inbound (Week 3):
-  5. Phone → User linking (1 day)
-     → whatsapp_phone column or linking table
-  6. WA report → DB Report creation (1-2 days)
-     → Modify photo_handler + webhook to create Report records
+Phase 3 — WhatsApp Verification + Polish (Week 3):
+  5. E2E verification: WA report → visible in app (1-2 days)
+     → Backend creates Reports (code exists), but frontend visibility UNVERIFIED
+     → Possible gaps: city filtering, user_id=None exclusion, query key mismatch
+     → Need rigorous testing: send real WA reports, check DB, check app UI
+  6. LINK discoverability + auto-prompt improvements (0.5 day)
+     → Add LINK suggestion to welcome message and after anonymous reports
 
 Phase 4 — Deferred (only if Meta approves):
   7. Submit Meta Business Verification (start during Phase 1)
@@ -900,11 +930,12 @@ After 50,000 active users:
 - NEW: Capacitor SMS plugin integration
 - MODIFY: SOS UI to show "SMS will open" when offline
 
-**WhatsApp Inbound Sync:**
-- MODIFY: `apps/backend/src/domain/services/whatsapp/photo_handler.py` (create Report)
-- MODIFY: `apps/backend/src/infrastructure/models.py` (whatsapp_phone on User, source on Report)
-- MODIFY: `apps/backend/src/domain/services/whatsapp/command_handlers.py` (LINK persists mapping)
-- NEW: Migration script for new columns
+**WhatsApp Inbound Sync (MOSTLY EXISTS — verification needed):**
+- VERIFY: `apps/backend/src/api/webhook.py` (Twilio path already creates Reports via `create_sos_report`)
+- VERIFY: `apps/backend/src/api/whatsapp_meta.py` (Meta path already creates Reports via `_create_report_with_photo`)
+- VERIFY: `apps/backend/src/api/webhook.py` `handle_email_input` (LINK already persists phone→user)
+- INVESTIGATE: Frontend reports queries — do they show WA-created reports? (user_id=None, no city field?)
+- OPTIONAL: `apps/backend/src/infrastructure/models.py` (add `source` enum on Report for analytics)
 
 ### Current Phone Number State in DB
 
@@ -914,8 +945,10 @@ WhatsAppSession.phone (line 430): PK, E.164 format, NO FK to User
 CircleMember.phone (line 494):    Nullable, E.164 format, NO FK to User
 SOSMessage.recipients_json:       Raw JSON array of {phone, name, ...}
 
-Gap: No reliable phone → user_id mapping for WhatsApp senders.
-Fix: Add User.whatsapp_phone column OR create phone_links table.
+Gap: No FK linking WhatsAppSession to User.
+Fix: LINK command already bridges this (webhook.py handle_email_input sets User.phone).
+     Remaining gap: users who never use LINK have user_id=None on reports.
+     Consider: auto-prompt LINK after Nth anonymous report.
 ```
 
 ---
@@ -934,3 +967,18 @@ The following errors were caught during critical dependency review and corrected
 | 6 | **MEDIUM** | iOS WKWebView has "partial/unstable" SW support | **Understated.** Service workers effectively DO NOT work in Capacitor iOS due to `capacitor://` scheme conflict. Open issues #4122, #7069. |
 | 7 | **HIGH** | Google Auth not mentioned as domain-restricted | **Missing.** Google OAuth only allows login from Koyeb + Vercel production URLs. Capacitor `http://localhost` must be added to authorized domains. All PoC testing must use production backend. |
 | 8 | **LOW** | Android 12 BLE permissions: only SCAN + ADVERTISE mentioned | **Incomplete.** BLUETOOTH_CONNECT also exists (but not needed for beacon use case). Positive: ACCESS_FINE_LOCATION no longer required for BLE on Android 12+. |
+
+---
+
+## Appendix: Geofencing + WhatsApp Verification (2026-02-22)
+
+Corrections found during post-commit verification of geofencing capabilities and WhatsApp integration workflows.
+
+| # | Severity | Original Claim | Correction |
+|---|----------|---------------|------------|
+| 9 | **HIGH** | "Geofencing: Native geofence triggers" in Capacitor table | **No official `@capacitor/geofencing` plugin exists.** BackgroundRunner can poll location every 15min — NOT true geofencing. No OS-level enter/exit triggers. |
+| 10 | **HIGH** | "A flood report sent via WhatsApp does NOT create a Report record" | **WRONG.** Both `webhook.py:create_sos_report` (Twilio) and `whatsapp_meta.py:_create_report_with_photo` + `_finalize_without_photo` (Meta) create proper `Report` records with PostGIS locations, ML classification, and watch area alerts. |
+| 11 | **HIGH** | "LINK command needs investigation — may not persist mapping" | **VERIFIED: It does.** `handle_email_input` (webhook.py:806-808) sets `existing_user.phone = phone`, `notification_whatsapp = True`, and retroactively links pending reports (lines 818-823). |
+| 12 | **MEDIUM** | WhatsApp PoC estimated at "2-3 days" | **Reduced to 1-2 days.** Code already exists — main work is E2E verification and frontend visibility testing, not implementation. |
+| 13 | **MEDIUM** | No mention of client-side geofencing alternative | **`LocationTrackingContext.tsx` already does foreground proximity detection** via `watchPosition` + `findNearbyHotspots`. Combined with BackgroundRunner (15min polling), provides offline-capable "geofencing" without server dependency. |
+| 14 | **LOW** | LINK command location cited as "command_handlers.py" | **Actually in `webhook.py`** (line 553). `command_handlers.py` has MY AREAS/STATUS/HELP but not LINK. |
