@@ -551,11 +551,146 @@ This migration is non-trivial. Estimate: 1-2 days just for the API swap, before 
 
 **Approach C is NOT REALISTIC** for solo dev on free tier.
 
+### Frontend Visibility Deep Dive (verified 2026-02-22)
+
+Full end-to-end data flow traced through code. The pipeline:
+
+```
+WhatsApp message → Twilio/Meta webhook → create_sos_report() → Report in DB
+                                                                     ↓
+Frontend useReports() → GET /reports/ → list_reports() → convert_report_to_response()
+                                                                     ↓
+                                         validateReport() → filteredReports → ReportCard
+```
+
+#### Backend Query: NO Blocking Filters
+
+`list_reports` (`reports.py:140-165`) applies ONLY:
+- `archived_at == None` (not explicitly archived)
+- `timestamp > 3 days ago` (not auto-archived)
+
+**No `user_id` filter. No city filter. No source filter.** WhatsApp reports with `user_id=None` are returned alongside in-app reports. All column defaults are set (`verification_score=0`, `upvotes=0`, `timestamp=utcnow()`), so no NULL crashes.
+
+#### Frontend Validation: ALL Checks Pass
+
+`validateReport` (`validators.ts:141-173`) requires 8 fields. WhatsApp reports pass all:
+
+| Field | Required Check | WA Report Value | Passes? |
+|-------|---------------|-----------------|---------|
+| `id` | `isString` + non-empty | UUID from `uuid.uuid4` | ✅ |
+| `description` | `isString` | `"[SOS WhatsApp] ..."` | ✅ |
+| `latitude` | `isNumber` + not NaN | From `to_shape(PostGIS POINT).y` | ✅ |
+| `longitude` | `isNumber` + not NaN | From `to_shape(PostGIS POINT).x` | ✅ |
+| `verified` | `isBoolean` | `True` or `False` | ✅ |
+| `verification_score` | `isNumber` | Default `0` | ✅ |
+| `upvotes` | `isNumber` | Default `0` | ✅ |
+| `timestamp` | `isString` | Pydantic serializes datetime to ISO string | ✅ |
+
+**Reports are NOT silently dropped by validation.**
+
+#### 5 Gaps That Affect WhatsApp Report Visibility
+
+**Gap 1: HomeScreen City Filter**
+
+HomeScreen (`HomeScreen.tsx:213-219`) filters reports by city bounding box:
+```typescript
+const filteredReports = cityFilter === 'all'
+    ? reports
+    : reports?.filter(report => {
+        const cityKey = getCityKeyFromCoordinates(report.longitude, report.latitude);
+        return cityKey === cityFilter;
+    });
+```
+- `cityFilter` defaults to `user.city_preference` (from onboarding), NOT `'all'`
+- WA reports with coordinates inside city bounds → **appear correctly**
+- WA reports with coordinates outside bounds → `getCityKeyFromCoordinates` returns `null` → **filtered out**
+- **CommunityFeedScreen has NO city filter** → WA reports always appear there
+- **MapComponent has NO city filter** → WA markers always appear on the map
+
+**Gap 2: `media_url` is NULL — Photos Don't Display**
+
+The in-app `create_report` (`reports.py:459`) sets `media_url` to a Supabase Storage URL. WhatsApp's `create_sos_report` (`webhook.py:272-279`) stores the photo URL inside `media_metadata` JSON but **never sets `media_url`**:
+
+```python
+# In-app path (reports.py:459):
+new_report = Report(media_url=media_url, ...)  # ✅ Supabase URL
+
+# WhatsApp path (webhook.py:270-279):
+report = Report(
+    media_metadata=media_metadata,  # JSON with {"media_url": "https://api.twilio.com/..."}
+    # media_url is NOT set → stays NULL
+)
+```
+
+Frontend expects `Report.media_url` for photo display. WhatsApp reports have `media_url: undefined` → **photos invisible**.
+
+**Fix (1 line)**: In `create_sos_report` (`webhook.py`), add `media_url=media_url` to the Report constructor.
+
+**Gap 3: ML Classification Fields Stripped by Frontend Validator**
+
+`validateReport` returns 18 fields but **silently drops ML fields**:
+```typescript
+// RETURNED by validateReport (works):
+id, description, latitude, longitude, verified, verification_score,
+upvotes, timestamp, phone_verified, water_depth, downvotes, quality_score,
+verified_at, comment_count, user_vote, vehicle_passability, iot_validation_score, media_url
+
+// DROPPED (never reaches UI):
+ml_classification, ml_confidence, ml_is_flood, ml_needs_review
+```
+
+Backend `convert_report_to_response` sends these fields from `media_metadata`. Frontend validator strips them. WhatsApp ML classification is invisible.
+
+**Fix (4 lines)**: Add to `validateReport` return object:
+```typescript
+ml_classification: isString(data.ml_classification) ? data.ml_classification : undefined,
+ml_confidence: isNumber(data.ml_confidence) ? data.ml_confidence : undefined,
+ml_is_flood: isBoolean(data.ml_is_flood) ? data.ml_is_flood : undefined,
+ml_needs_review: isBoolean(data.ml_needs_review) ? data.ml_needs_review : undefined,
+```
+
+**Gap 4: 30-Second Polling Delay (No Push Invalidation)**
+
+In-app report submission calls `queryClient.invalidateQueries({ queryKey: ['reports'] })` → instant UI update. WhatsApp webhook creates reports server-side → **no cache invalidation signal** → frontend discovers new report on next 30-second poll cycle (`refetchInterval: 30000` in `useReports`).
+
+Not a "never shows" problem, but a "takes up to 30 seconds" problem. No fix needed for PoC, but for production consider WebSocket/SSE push.
+
+**Gap 5: "[SOS WhatsApp]" Description Prefix**
+
+`create_sos_report` sets descriptions like:
+- `"[SOS WhatsApp] Flood verified by AI (87% confidence)"`
+- `"[SOS WhatsApp] Location-only report from +91..."`
+- `"[SOS WhatsApp] Photo submitted (ML unavailable)"`
+
+Visible to all users in Community Feed and HomeScreen. Exposes the source channel. Consider adding a `source` field to Report model instead of embedding in description.
+
+#### Summary: What's Broken vs What Works
+
+| Component | WA Reports Shown? | Issue |
+|-----------|-------------------|-------|
+| **CommunityFeedScreen** | ✅ YES | No filtering — all active reports shown |
+| **MapComponent** (markers) | ✅ YES | No filtering — all reports plotted |
+| **HomeScreen** | ⚠️ CONDITIONAL | Only if WA coordinates are within user's city bounding box |
+| **ReportCard** (photos) | ❌ NO | `media_url` is NULL — photos not rendered |
+| **ML badge** | ❌ NO | `validateReport` strips ML fields |
+
+#### Fix Priority
+
+| # | Fix | Where | Lines | Impact |
+|---|-----|-------|-------|--------|
+| 1 | Set `media_url=media_url` in `create_sos_report` | `webhook.py:270` | 1 | Photos visible on WA reports |
+| 2 | Add ML fields to `validateReport` | `validators.ts:153+` | 4 | ML classification visible |
+| 3 | Same `media_url` fix in Meta webhook | `whatsapp_meta.py:511` | 1 | Photos visible (Meta path too) |
+| 4 | Add `source` column to Report model | `models.py`, migration | ~20 | Clean source tracking, remove "[SOS WhatsApp]" prefix |
+| 5 | WebSocket push for real-time sync | New service | ~200 | Instant WA report appearance |
+
+Fixes 1-3 are trivial (~30 min total). Fix 4 is a small migration. Fix 5 is deferred to Phase 4.
+
 ### PoC Test Plan
 
 ```
 Experiment A: "Verify WhatsApp → Report pipeline works end-to-end"
-Time estimate: 1-2 hours (VERIFICATION, not implementation — code already exists)
+Time estimate: 1-2 hours (VERIFICATION + trivial fixes)
 Prerequisites: Twilio sandbox connected
 
 ALREADY DONE (verified via code review 2026-02-22):
@@ -565,26 +700,43 @@ ALREADY DONE (verified via code review 2026-02-22):
 ✅ ML classification runs on photos (webhook.py:654)
 ✅ Watch area alerts triggered (webhook.py:665-667)
 ✅ Anonymous reports work (user_id=None, phone_number populated)
+✅ Frontend validation passes all required fields (validators.ts verified)
+✅ No city/user_id filter in backend query (reports.py:list_reports verified)
+❌ media_url NOT set on WhatsApp reports (photos invisible)
+❌ ML fields stripped by frontend validator (classification invisible)
+⚠️ HomeScreen city filter may exclude edge-of-bounds reports
 
-Remaining verification steps:
-1. Send WhatsApp message to Twilio sandbox: photo + location pin
-2. Check database: Report record created with correct lat/lng?
-3. Open FloodSafe app: Report visible on map + community feed?
-4. Test LINK flow: send LINK → enter email → verify user.phone updated
-5. Send another report after linking → verify user_id populated on Report
+Pre-test fixes (apply before testing):
+1. Add `media_url=media_url` to Report() in create_sos_report (webhook.py)
+2. Add `media_url=media_url` to Report() in _create_report_with_photo (whatsapp_meta.py)
+3. Add ml_classification/ml_confidence/ml_is_flood/ml_needs_review to validateReport (validators.ts)
+
+Test steps:
+1. Send WhatsApp message to Twilio sandbox: location pin + photo
+2. Wait 30-35 seconds (polling interval)
+3. Check CommunityFeedScreen → report MUST appear (no filters)
+4. Check HomeScreen → report should appear if coordinates within city bounds
+5. Check MapComponent → marker should appear at WA location
+6. Check Report photo → should render after fix #1
+7. Check ML badge → should show after fix #3
+8. Test LINK flow: send LINK → 1 → enter email → verify user.phone updated
+9. Send another report after linking → verify user_id populated
 
 Verify:
-- [ ] WhatsApp photo → Report record in DB (EXPECTED TO WORK)
-- [ ] Location pin → correct lat/lng on Report (EXPECTED TO WORK)
-- [ ] Report visible in app immediately (query invalidation may need testing)
-- [ ] ML classification score attached (EXPECTED TO WORK)
+- [ ] WhatsApp photo → Report record in DB
+- [ ] Location pin → correct lat/lng on Report
+- [ ] Report visible in CommunityFeedScreen (≤30s delay)
+- [ ] Report visible in HomeScreen (city filter permitting)
+- [ ] Report marker on map
+- [ ] Photo renders in ReportCard (after media_url fix)
+- [ ] ML classification visible (after validator fix)
 - [ ] LINK command: user.phone set, notification_whatsapp=True
 - [ ] Post-link report: user_id populated (not anonymous)
 
-Improvement opportunities found during verification:
-- Add LINK prompt to first-time welcome message (currently only in STATUS)
-- Add auto-LINK suggestion after 3rd anonymous report
-- Consider adding `source = "whatsapp"` field to Report model for analytics
+Kill criteria:
+- WA webhook not receiving messages → Twilio sandbox expired, re-register
+- PostGIS POINT format rejected → WKT parse error, check GeoAlchemy2
+- Report created but validator drops it → check which field is NULL/wrong type
 
 WebMCP Testing (verify WA→Report sync via bridge):
 - After WhatsApp report created, use `floodsafe://reports` resource to check if
@@ -930,11 +1082,13 @@ After 50,000 active users:
 - NEW: Capacitor SMS plugin integration
 - MODIFY: SOS UI to show "SMS will open" when offline
 
-**WhatsApp Inbound Sync (MOSTLY EXISTS — verification needed):**
-- VERIFY: `apps/backend/src/api/webhook.py` (Twilio path already creates Reports via `create_sos_report`)
-- VERIFY: `apps/backend/src/api/whatsapp_meta.py` (Meta path already creates Reports via `_create_report_with_photo`)
-- VERIFY: `apps/backend/src/api/webhook.py` `handle_email_input` (LINK already persists phone→user)
-- INVESTIGATE: Frontend reports queries — do they show WA-created reports? (user_id=None, no city field?)
+**WhatsApp Inbound Sync (INVESTIGATED — 3 code fixes needed):**
+- FIX: `apps/backend/src/api/webhook.py` line ~270 — add `media_url=media_url` to Report() in `create_sos_report`
+- FIX: `apps/backend/src/api/whatsapp_meta.py` line ~511 — add `media_url=media_url` to Report() in `_create_report_with_photo`
+- FIX: `apps/frontend/src/lib/api/validators.ts` line ~153 — add 4 ML fields to `validateReport` return
+- VERIFIED OK: Backend `list_reports` has no user_id/city filter — WA reports ARE returned
+- VERIFIED OK: All column defaults populated — `validateReport` does NOT silently drop WA reports
+- VERIFIED OK: `handle_email_input` LINK flow persists phone→user mapping correctly
 - OPTIONAL: `apps/backend/src/infrastructure/models.py` (add `source` enum on Report for analytics)
 
 ### Current Phone Number State in DB
@@ -982,3 +1136,77 @@ Corrections found during post-commit verification of geofencing capabilities and
 | 12 | **MEDIUM** | WhatsApp PoC estimated at "2-3 days" | **Reduced to 1-2 days.** Code already exists — main work is E2E verification and frontend visibility testing, not implementation. |
 | 13 | **MEDIUM** | No mention of client-side geofencing alternative | **`LocationTrackingContext.tsx` already does foreground proximity detection** via `watchPosition` + `findNearbyHotspots`. Combined with BackgroundRunner (15min polling), provides offline-capable "geofencing" without server dependency. |
 | 14 | **LOW** | LINK command location cited as "command_handlers.py" | **Actually in `webhook.py`** (line 553). `command_handlers.py` has MY AREAS/STATUS/HELP but not LINK. |
+
+---
+
+## Appendix: WhatsApp → Frontend Visibility Gaps (2026-02-22)
+
+Full data flow investigation tracing WhatsApp reports from webhook creation through to frontend display.
+
+### Data Flow Asymmetry: In-App vs WhatsApp Reports
+
+| Aspect | In-App `create_report` | WhatsApp `create_sos_report` |
+|--------|----------------------|------------------------------|
+| Photo storage | Supabase Storage → `report.media_url` | Twilio/Meta CDN → `report.media_metadata.media_url` only |
+| `media_url` column | ✅ Set to Supabase URL | ❌ NULL (never set) |
+| ML classification | Stored in `media_metadata` + extracted fields | Stored in `media_metadata` only |
+| IoT cross-validation | ✅ `ReportValidationService.validate_report()` | ❌ Skipped |
+| Gamification | ✅ `user.points += 5/15`, streak tracking | ❌ No points awarded |
+| Cache invalidation | ✅ `queryClient.invalidateQueries(['reports'])` | ❌ No signal (30s poll delay) |
+| Safety Circle notify | ✅ `CircleNotificationService.notify_circles_for_report()` | ❌ Only `check_watch_areas_for_report` |
+| Description | User-written | `"[SOS WhatsApp] ..."` prefix |
+
+### Files Investigated
+
+| File | Purpose | Finding |
+|------|---------|---------|
+| `reports.py:list_reports` (L140-165) | Backend reports query | NO user_id or city filter — WA reports returned ✅ |
+| `reports.py:convert_report_to_response` (L79-137) | ORM→JSON conversion | Extracts lat/lng from PostGIS, includes ML fields ✅ |
+| `validators.ts:validateReport` (L141-173) | Frontend type validation | Passes all required fields, but strips ML fields ❌ |
+| `validators.ts:validateReports` (L178-184) | Batch validation | Maps + filters null reports — would drop if any required field fails |
+| `CommunityFeedScreen.tsx:filteredReports` (L17-46) | Frontend display filter | NO city filter — sorts by verified/trending/recent only ✅ |
+| `HomeScreen.tsx:filteredReports` (L213-219) | Frontend display filter | City filter via `getCityKeyFromCoordinates` ⚠️ |
+| `MapComponent.tsx` (L656-675) | Map marker source | No filter — all reports plotted ✅ |
+| `hooks.ts:useReports` (L78-87) | Data fetching | `GET /reports/`, `refetchInterval: 30000` (30s poll) |
+| `cityConfigs.ts:getCityKeyFromCoordinates` (L169-179) | Bounds check | Returns `null` if outside all city bounds → HomeScreen filters out |
+| `cityConfigs.ts:isWithinCityBounds` (L125-139) | Bounding box check | Simple min/max lat/lng comparison |
+
+### Concrete Fixes (apply before E2E testing)
+
+**Fix 1: `media_url` on WhatsApp reports (Twilio path)**
+```python
+# File: apps/backend/src/api/webhook.py, create_sos_report(), line ~270
+# BEFORE:
+report = Report(
+    location=f"POINT({longitude} {latitude})",
+    description=description,
+    ...
+    phone_number=phone,
+    media_metadata=media_metadata
+)
+# AFTER — add media_url parameter:
+report = Report(
+    location=f"POINT({longitude} {latitude})",
+    description=description,
+    ...
+    phone_number=phone,
+    media_url=media_url,         # ← ADD THIS LINE
+    media_metadata=media_metadata
+)
+```
+
+**Fix 2: `media_url` on WhatsApp reports (Meta path)**
+```python
+# File: apps/backend/src/api/whatsapp_meta.py, _create_report_with_photo(), line ~511
+# Same pattern — add media_url to Report() constructor
+```
+
+**Fix 3: ML fields in frontend validator**
+```typescript
+// File: apps/frontend/src/lib/api/validators.ts, validateReport(), line ~153
+// Add to the return object (after the existing fields):
+ml_classification: isString(data.ml_classification) ? data.ml_classification : undefined,
+ml_confidence: isNumber(data.ml_confidence) ? data.ml_confidence : undefined,
+ml_is_flood: isBoolean(data.ml_is_flood) ? data.ml_is_flood : undefined,
+ml_needs_review: isBoolean(data.ml_needs_review) ? data.ml_needs_review : undefined,
+```
