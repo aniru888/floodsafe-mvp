@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     BACKEND_CORS_ORIGINS: Annotated[List[str], NoDecode] = [
         "http://localhost:5175",
         "http://localhost:8000",
+        "http://localhost",  # Capacitor Android WebView origin (no port)
         "https://frontend-lime-psi-83.vercel.app",
     ]
 

@@ -78,6 +78,12 @@ venv/
 .venv/
 
 # ============================================================
+# Capacitor native platforms (generated, large, platform-specific)
+# ============================================================
+apps/frontend/android/
+apps/frontend/ios/
+
+# ============================================================
 # Binary tools & archives (not source code)
 # ============================================================
 koyeb-cli-extracted/
