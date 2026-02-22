@@ -282,6 +282,7 @@ def create_sos_report(
         water_depth="impassable" if (classification and classification.is_flood) else "unknown",
         user_id=user.id if user else None,
         phone_number=phone,
+        media_url=media_url,
         media_metadata=media_metadata
     )
     db.add(report)
