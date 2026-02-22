@@ -170,6 +170,10 @@ export function validateReport(data: unknown): Report | null {
         verified_at: isString(data.verified_at) ? data.verified_at : undefined,
         comment_count: isNumber(data.comment_count) ? data.comment_count : undefined,
         user_vote: data.user_vote === 'upvote' || data.user_vote === 'downvote' ? data.user_vote : undefined,
+        ml_classification: isString(data.ml_classification) ? data.ml_classification : undefined,
+        ml_confidence: isNumber(data.ml_confidence) ? data.ml_confidence : undefined,
+        ml_is_flood: isBoolean(data.ml_is_flood) ? data.ml_is_flood : undefined,
+        ml_needs_review: isBoolean(data.ml_needs_review) ? data.ml_needs_review : undefined,
     };
 }
 
