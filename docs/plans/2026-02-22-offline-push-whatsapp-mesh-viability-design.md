@@ -140,9 +140,13 @@ Steps:
 2. npm install @capacitor/core @capacitor/cli
 3. npx cap init FloodSafe com.floodsafe.app --web-dir dist
 4. npx cap add android
-5. Add "http://localhost" (Android) to backend CORS (config.py + Koyeb env)
-6. npm run build && npx cap sync
-7. npx cap open android → run on emulator (API 30+)
+5. READ config.py first (never modify without reading — CLAUDE.md rule)
+6. Add "http://localhost" (Android) to backend CORS in config.py
+7. Quality gates: cd apps/frontend && npx tsc --noEmit && npm run build
+8. Deploy backend (CORS change): ./koyeb-cli-extracted/koyeb.exe services redeploy floodsafe-backend/backend
+9. Wait 30-60s for Koyeb cold start, verify: curl https://floodsafe-backend-floodsafe-dda84554.koyeb.app/health
+10. npx cap sync
+11. npx cap open android → run on emulator (API 30+)
 
 Verify:
 - [ ] App loads without white screen
@@ -349,7 +353,7 @@ Steps:
 1. Generate Firebase service account key (Firebase Console > Project Settings > Service Accounts)
 2. Base64-encode it, add to Koyeb env as FIREBASE_SERVICE_ACCOUNT_B64
 
-Frontend:
+Frontend (READ firebase.ts and AuthContext.tsx FIRST — never modify without reading):
 3. In firebase.ts: import { getMessaging, getToken } from 'firebase/messaging'
 4. Create initMessaging() function:
    - Call getMessaging(app)
@@ -360,13 +364,20 @@ Frontend:
    - importScripts('https://www.gstatic.com/firebasejs/10.7.0/firebase-messaging-compat.js')
    - messaging.onBackgroundMessage → self.registration.showNotification()
 
-Backend:
+Backend (READ models.py FIRST — never modify without reading):
 6. pip install firebase-admin
 7. Create push_notification_service.py:
    - Initialize firebase_admin with decoded service account
    - send_push(token, title, body) → messaging.send(Message(...))
 8. Create /api/users/me/fcm-token endpoint (POST, stores token on User model)
 9. Send test push manually via Python shell
+
+Quality gates + Deploy:
+10. cd apps/frontend && npx tsc --noEmit && npm run build
+11. cd apps/backend && pytest
+12. Deploy frontend: cd apps/frontend && npx vercel --prod
+13. Deploy backend: ./koyeb-cli-extracted/koyeb.exe services redeploy floodsafe-backend/backend
+14. Wait 30-60s for Koyeb cold start before testing
 
 Verify:
 - [ ] Browser shows notification permission dialog
@@ -706,10 +717,17 @@ ALREADY DONE (verified via code review 2026-02-22):
 ❌ ML fields stripped by frontend validator (classification invisible)
 ⚠️ HomeScreen city filter may exclude edge-of-bounds reports
 
-Pre-test fixes (apply before testing):
-1. Add `media_url=media_url` to Report() in create_sos_report (webhook.py)
-2. Add `media_url=media_url` to Report() in _create_report_with_photo (whatsapp_meta.py)
-3. Add ml_classification/ml_confidence/ml_is_flood/ml_needs_review to validateReport (validators.ts)
+Pre-test fixes (apply before testing — READ each file FIRST per CLAUDE.md):
+1. READ webhook.py, then add `media_url=media_url` to Report() in create_sos_report
+2. READ whatsapp_meta.py, then add `media_url=media_url` to Report() in _create_report_with_photo
+3. READ validators.ts, then add ml_classification/ml_confidence/ml_is_flood/ml_needs_review to validateReport
+
+Quality gates + Deploy (REQUIRED — git push does NOT auto-deploy):
+4. cd apps/frontend && npx tsc --noEmit && npm run build
+5. cd apps/backend && pytest
+6. Deploy frontend: cd apps/frontend && npx vercel --prod
+7. Deploy backend: ./koyeb-cli-extracted/koyeb.exe services redeploy floodsafe-backend/backend
+8. Wait 30-60s for Koyeb cold start, verify: curl https://floodsafe-backend-floodsafe-dda84554.koyeb.app/health
 
 Test steps:
 1. Send WhatsApp message to Twilio sandbox: location pin + photo
@@ -885,8 +903,9 @@ Prerequisites: Capacitor set up (from Capability 1 PoC)
 
 Steps:
 1. npm install @byteowls/capacitor-sms (or use Capacitor App plugin with SMS intent)
-2. In useSOSQueue.ts: add SMS compose fallback when navigator.onLine === false
-3. Format message:
+2. READ useSOSQueue.ts FIRST (never modify without reading — CLAUDE.md rule)
+3. In useSOSQueue.ts: add SMS compose fallback when navigator.onLine === false
+4. Format message:
    "SOS FLOOD EMERGENCY from [name] at [address].
     Location: [lat],[lng]
     Time: [timestamp]
@@ -903,6 +922,12 @@ Verify:
 - [ ] SOS ALSO queued in IndexedDB for API delivery when online
 - [ ] If no safety circle contacts, show "Add emergency contacts first" prompt
 - [ ] Works on Android 10, 12, 14 (test permission variations)
+
+Quality gates + Deploy (SMS only works in Capacitor, not web):
+- cd apps/frontend && npx tsc --noEmit && npm run build
+- npx cap sync  (syncs web build into Android project)
+- Rebuild Capacitor APK via Android Studio
+- Note: Vercel deploy NOT needed (SMS feature is native-only)
 
 Kill criteria:
 - @byteowls/capacitor-sms plugin crashes on target Android version → try Intent approach
@@ -950,6 +975,43 @@ IndexedDB soft limit:   ~50 MB (browser), unlimited (Capacitor filesystem)
 ```
 
 Current caching is adequate for offline viewing. The main gap is **safety circle contacts** — the SMS compose feature needs phone numbers when offline. These should be cached in IndexedDB on every sync.
+
+### Deployment & Quality Gates (MANDATORY)
+
+**CRITICAL**: `git push` does NOT auto-deploy on either platform. Every code change requires manual deployment:
+
+```
+Frontend (Vercel):
+  cd apps/frontend && npx vercel --prod
+
+Backend (Koyeb):
+  ./koyeb-cli-extracted/koyeb.exe services redeploy floodsafe-backend/backend
+
+Backend env var changes:
+  Update via Koyeb dashboard or CLI, then redeploy
+```
+
+**Quality gates** (must pass BEFORE deploying):
+```
+cd apps/frontend && npx tsc --noEmit   # Type safety
+cd apps/frontend && npm run build      # Build check
+cd apps/backend && pytest              # Backend tests
+# Or use: /preflight skill (runs all gates)
+```
+
+**Koyeb cold start**: Free tier sleeps after 5min inactivity. First request after sleep takes 10-30s. All PoC verification steps should account for this delay.
+
+**Sensitive files** — per CLAUDE.md, NEVER modify without reading first:
+- `apps/backend/src/infrastructure/models.py` (DB schema)
+- `apps/backend/src/core/config.py` (environment config)
+- `apps/frontend/src/lib/firebase.ts` (Firebase setup)
+- `apps/frontend/src/contexts/AuthContext.tsx` (auth flows)
+- `apps/frontend/src/lib/auth/token-storage.ts` (token handling)
+
+**Production URLs** (verify all API calls target these):
+- Frontend: `https://frontend-lime-psi-83.vercel.app`
+- Backend: `https://floodsafe-backend-floodsafe-dda84554.koyeb.app`
+- Frontend dev port: **5175** (NOT 5173)
 
 ### Security Considerations
 
@@ -1002,6 +1064,12 @@ If user creates reports or SOSes offline and they sync when back online:
 | **BLE Mesh Chat** | **NOT VIABLE** | $0 | 2-3 months | **THEORETICAL** |
 
 ### Recommended Build Order
+
+> **Deployment reminder**: Every phase that modifies code requires manual deployment.
+> Frontend: `cd apps/frontend && npx vercel --prod`
+> Backend: `./koyeb-cli-extracted/koyeb.exe services redeploy floodsafe-backend/backend`
+> Quality gates (`npx tsc --noEmit`, `npm run build`, `pytest`) MUST pass before each deploy.
+> `git push` does NOT trigger auto-deploy on either platform.
 
 ```
 Phase 1 — Foundation (Week 1):
@@ -1061,20 +1129,23 @@ After 50,000 active users:
 
 ### Files That Need Changes (by capability)
 
+> **⚠ CLAUDE.md Rule**: Files marked with 🔒 are "never modify without reading first" per project rules.
+> Always `Read` these files completely before making changes. Understand existing patterns.
+
 **Capacitor Wrapper:**
 - NEW: `capacitor.config.ts`
 - NEW: `android/` directory (auto-generated)
-- MODIFY: `apps/backend/src/core/config.py` (add Capacitor CORS origin)
-- MODIFY: `apps/frontend/src/lib/firebase.ts` (redirect auth flow for WebView)
-- MODIFY: `apps/frontend/src/contexts/AuthContext.tsx` (handle redirect result)
+- 🔒 MODIFY: `apps/backend/src/core/config.py` (add Capacitor CORS origin)
+- 🔒 MODIFY: `apps/frontend/src/lib/firebase.ts` (redirect auth flow for WebView)
+- 🔒 MODIFY: `apps/frontend/src/contexts/AuthContext.tsx` (handle redirect result)
 
 **FCM Push:**
-- MODIFY: `apps/frontend/src/lib/firebase.ts` (add getMessaging, getToken)
+- 🔒 MODIFY: `apps/frontend/src/lib/firebase.ts` (add getMessaging, getToken)
 - NEW: `apps/frontend/public/firebase-messaging-sw.js`
 - MODIFY: `apps/frontend/vite.config.ts` (exclude firebase-messaging-sw from Workbox)
 - NEW: `apps/backend/src/domain/services/push_notification_service.py`
 - NEW: `apps/backend/src/api/cron.py` (route monitoring endpoint)
-- MODIFY: `apps/backend/src/infrastructure/models.py` (fcm_token on User, last_notified per route)
+- 🔒 MODIFY: `apps/backend/src/infrastructure/models.py` (fcm_token on User, last_notified per route)
 - MODIFY: `apps/backend/requirements.txt` (firebase-admin)
 
 **SMS Compose:**
@@ -1210,3 +1281,8 @@ ml_confidence: isNumber(data.ml_confidence) ? data.ml_confidence : undefined,
 ml_is_flood: isBoolean(data.ml_is_flood) ? data.ml_is_flood : undefined,
 ml_needs_review: isBoolean(data.ml_needs_review) ? data.ml_needs_review : undefined,
 ```
+
+> **After applying fixes 1-3**: Run quality gates (`npx tsc --noEmit`, `npm run build`, `pytest`), then deploy BOTH platforms:
+> - Frontend: `cd apps/frontend && npx vercel --prod`
+> - Backend: `./koyeb-cli-extracted/koyeb.exe services redeploy floodsafe-backend/backend`
+> - `git push` does NOT auto-deploy. Manual deploy is REQUIRED.
