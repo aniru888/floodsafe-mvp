@@ -508,6 +508,16 @@ async def _create_report_with_photo(
     if classification and not classification.is_flood:
         verified = False
 
+    # Build media metadata from classification (same pattern as Twilio webhook)
+    media_metadata = None
+    if classification:
+        media_metadata = {
+            "ml_classification": classification.classification,
+            "ml_confidence": classification.confidence,
+            "is_flood": classification.is_flood,
+            "needs_review": classification.needs_review,
+        }
+
     report = Report(
         location=f"POINT({longitude} {latitude})",
         description=description,
@@ -516,6 +526,7 @@ async def _create_report_with_photo(
         water_depth="impassable" if (classification and classification.is_flood) else "unknown",
         user_id=user.id if user else None,
         phone_number=phone,
+        media_metadata=media_metadata,
     )
     db.add(report)
     db.commit()
