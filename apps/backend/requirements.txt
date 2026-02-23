@@ -35,3 +35,6 @@ xgboost>=2.0.0
 numpy>=1.24.0,<2.0
 tflite-runtime>=2.14.0
 
+# Push Notifications (FCM)
+firebase-admin>=6.0.0
+

@@ -55,6 +55,10 @@ class User(Base):
     notification_email = Column(Boolean, default=True)
     alert_preferences = Column(String, default='{"watch":true,"advisory":true,"warning":true,"emergency":true}') # JSON string
 
+    # FCM Push Notification token
+    fcm_token = Column(String, nullable=True)  # Firebase Cloud Messaging device token
+    fcm_token_updated_at = Column(DateTime, nullable=True)
+
     # Onboarding & City Preference
     city_preference = Column(String, nullable=True)  # 'bangalore' | 'delhi' | 'yogyakarta'
     profile_complete = Column(Boolean, default=False)

@@ -8,7 +8,7 @@ from .infrastructure import models  # noqa: F401 - ensures models are loaded
 # Run `alembic upgrade head` to apply migrations.
 # See apps/backend/alembic/ for migration files.
 
-from .api import webhook, reports, users, sensors, otp, watch_areas, daily_routes, reputation, leaderboards, badges, routes_api, auth, alerts, search, predictions, saved_routes, historical_floods, hotspots, external_alerts, rainfall, gamification, comments, ml, floodhub, circles, sos, whatsapp_meta
+from .api import webhook, reports, users, sensors, otp, watch_areas, daily_routes, reputation, leaderboards, badges, routes_api, auth, alerts, search, predictions, saved_routes, historical_floods, hotspots, external_alerts, rainfall, gamification, comments, ml, floodhub, circles, sos, whatsapp_meta, push
 from .domain.services.external_alerts import start_scheduler, stop_scheduler
 from .domain.services.floodhub_service import init_floodhub_service
 
@@ -115,6 +115,7 @@ app.include_router(ml.router, prefix="/api/ml", tags=["ml"])
 app.include_router(floodhub.router, prefix="/api", tags=["floodhub"])
 app.include_router(circles.router, prefix="/api/circles", tags=["safety-circles"])
 app.include_router(sos.router, prefix="/api/sos", tags=["sos"])
+app.include_router(push.router, prefix="/api", tags=["push"])
 
 @app.get("/health")
 def health_check():
