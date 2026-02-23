@@ -152,6 +152,7 @@ export default defineConfig({
         ],
         // Precache essential files
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        globIgnores: ['**/firebase-messaging-sw.js'],  // Handled by Firebase, not Workbox
         // Skip waiting for new service worker - immediately activate new SW
         skipWaiting: true,
         clientsClaim: true,

@@ -18,6 +18,7 @@ import {
     signInWithPhoneNumber,
     ConfirmationResult,
 } from 'firebase/auth';
+import { getMessaging, getToken, onMessage, type Messaging } from 'firebase/messaging';
 
 // Firebase configuration from environment variables
 const firebaseConfig = {
@@ -199,5 +200,36 @@ export function cleanupRecaptcha(): void {
     }
 }
 
+// ── Firebase Cloud Messaging (Push Notifications) ──
+
+let messagingInstance: Messaging | null = null;
+
+/**
+ * Get Firebase Cloud Messaging instance.
+ * Returns null if browser doesn't support notifications or firebase isn't initialized.
+ */
+export function getFirebaseMessaging(): Messaging | null {
+    if (messagingInstance) return messagingInstance;
+
+    const app = getFirebaseApp();
+    if (!app) return null;
+
+    // Check browser support
+    if (!('Notification' in window) || !('serviceWorker' in navigator)) {
+        console.warn('Push notifications not supported in this browser');
+        return null;
+    }
+
+    try {
+        messagingInstance = getMessaging(app);
+        return messagingInstance;
+    } catch (error) {
+        console.error('Failed to initialize Firebase Messaging:', error);
+        return null;
+    }
+}
+
+export { getToken, onMessage };
+
 // Export types for consumers
-export type { ConfirmationResult };
+export type { ConfirmationResult, Messaging };
