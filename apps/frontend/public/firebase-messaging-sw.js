@@ -2,19 +2,24 @@
  * This runs in a separate SW scope from Workbox.
  * It handles push notifications when the app tab is closed/background.
  *
- * NOTE: Firebase config must be updated here when env vars change.
- * These values come from Firebase Console > Project Settings > General.
+ * IMPORTANT: These Firebase config values are public identifiers (NOT secrets).
+ * They are the same values visible in any browser's source tab.
+ * When Firebase is fully configured, update apiKey, messagingSenderId, and appId
+ * with values from Firebase Console > Project Settings > General > Your apps.
+ *
+ * NOTE: Service workers cannot access import.meta.env or window objects.
+ * Config must be hardcoded here — this is the Firebase-recommended pattern.
  */
 importScripts('https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.7.0/firebase-messaging-compat.js');
 
 firebase.initializeApp({
-    apiKey: self.__FIREBASE_CONFIG__?.apiKey || '',
-    authDomain: self.__FIREBASE_CONFIG__?.authDomain || 'gen-lang-client-0669818939.firebaseapp.com',
-    projectId: self.__FIREBASE_CONFIG__?.projectId || 'gen-lang-client-0669818939',
-    storageBucket: self.__FIREBASE_CONFIG__?.storageBucket || 'gen-lang-client-0669818939.appspot.com',
-    messagingSenderId: self.__FIREBASE_CONFIG__?.messagingSenderId || '',
-    appId: self.__FIREBASE_CONFIG__?.appId || '',
+    apiKey: '',  // TODO: Set from Firebase Console > Project Settings > General
+    authDomain: 'gen-lang-client-0669818939.firebaseapp.com',
+    projectId: 'gen-lang-client-0669818939',
+    storageBucket: 'gen-lang-client-0669818939.appspot.com',
+    messagingSenderId: '',  // TODO: Set from Firebase Console > Project Settings > Cloud Messaging
+    appId: '',  // TODO: Set from Firebase Console > Project Settings > General
 });
 
 const messaging = firebase.messaging();

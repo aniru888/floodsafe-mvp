@@ -38,7 +38,11 @@ export function usePushNotifications() {
             const perm = await Notification.requestPermission();
             setPermission(perm);
 
-            if (perm === 'granted' && VAPID_KEY) {
+            if (perm === 'granted') {
+                if (!VAPID_KEY) {
+                    console.warn('VITE_FIREBASE_VAPID_KEY not set — cannot register for push notifications');
+                    return;
+                }
                 const fcmToken = await getToken(messaging, { vapidKey: VAPID_KEY });
                 if (fcmToken) {
                     await registerToken(fcmToken);

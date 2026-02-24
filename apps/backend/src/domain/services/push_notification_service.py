@@ -7,6 +7,7 @@ import os
 import json
 import base64
 import logging
+import threading
 from typing import Optional
 
 import firebase_admin
@@ -14,30 +15,40 @@ from firebase_admin import credentials, messaging
 
 logger = logging.getLogger(__name__)
 
-# Initialize Firebase Admin SDK (once at module load)
+# Initialize Firebase Admin SDK (once at module load, thread-safe)
 _firebase_app = None
+_firebase_lock = threading.Lock()
 
 
 def _get_firebase_app():
-    """Lazy-init Firebase Admin SDK from base64-encoded service account."""
+    """Lazy-init Firebase Admin SDK from base64-encoded service account.
+
+    Uses double-checked locking to ensure thread safety during initialization
+    while avoiding lock overhead on subsequent calls.
+    """
     global _firebase_app
     if _firebase_app is not None:
         return _firebase_app
 
-    b64_creds = os.environ.get("FIREBASE_SERVICE_ACCOUNT_B64")
-    if not b64_creds:
-        logger.warning("FIREBASE_SERVICE_ACCOUNT_B64 not set — push notifications disabled")
-        return None
+    with _firebase_lock:
+        # Double-check after acquiring lock
+        if _firebase_app is not None:
+            return _firebase_app
 
-    try:
-        creds_dict = json.loads(base64.b64decode(b64_creds))
-        cred = credentials.Certificate(creds_dict)
-        _firebase_app = firebase_admin.initialize_app(cred)
-        logger.info("Firebase Admin SDK initialized for push notifications")
-        return _firebase_app
-    except Exception as e:
-        logger.error(f"Failed to initialize Firebase Admin SDK: {e}")
-        return None
+        b64_creds = os.environ.get("FIREBASE_SERVICE_ACCOUNT_B64")
+        if not b64_creds:
+            logger.warning("FIREBASE_SERVICE_ACCOUNT_B64 not set — push notifications disabled")
+            return None
+
+        try:
+            creds_dict = json.loads(base64.b64decode(b64_creds))
+            cred = credentials.Certificate(creds_dict)
+            _firebase_app = firebase_admin.initialize_app(cred)
+            logger.info("Firebase Admin SDK initialized for push notifications")
+            return _firebase_app
+        except Exception as e:
+            logger.error(f"Failed to initialize Firebase Admin SDK: {e}")
+            return None
 
 
 async def send_push_notification(
