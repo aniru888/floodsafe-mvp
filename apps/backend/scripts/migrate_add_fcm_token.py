@@ -85,15 +85,15 @@ def migrate_supabase():
         "Content-Type": "application/json",
     }
 
-    # Run migration
+    # Run migration (Supabase returns 201 for DDL statements)
     resp = requests.post(url, json={"query": SQL}, headers=headers)
-    if resp.status_code != 200:
+    if resp.status_code not in (200, 201):
         print(f"ERROR: Migration failed: {resp.status_code} - {resp.text}")
         sys.exit(1)
 
     # Verify
     resp = requests.post(url, json={"query": VERIFY_SQL}, headers=headers)
-    if resp.status_code == 200:
+    if resp.status_code in (200, 201):
         print("Migration complete via Supabase Management API")
         print(resp.json())
     else:

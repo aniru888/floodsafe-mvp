@@ -31,12 +31,17 @@ nul
 # Test artifacts
 coverage
 playwright-report
+test-results
 
 # Mac
 .DS_Store
 
 # Local Vercel
 .vercel
+
+# Capacitor native directories (not needed for web deployment)
+android
+ios
 
 # Data files (fetched at build time if needed)
 data
