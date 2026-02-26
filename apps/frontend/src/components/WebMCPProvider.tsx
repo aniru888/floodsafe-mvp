@@ -3,6 +3,7 @@ import '@mcp-b/global';
 import { useWebMCP, useWebMCPContext, useWebMCPResource, useWebMCPPrompt } from '@mcp-b/react-webmcp';
 import { z } from 'zod';
 import { useQueryClient } from '@tanstack/react-query';
+import { Capacitor } from '@capacitor/core';
 import { useAuth } from '../contexts/AuthContext';
 import { useCityContext } from '../contexts/CityContext';
 import { useLocationTracking } from '../contexts/LocationTrackingContext';
@@ -40,7 +41,7 @@ export function WebMCPProvider() {
 
   useWebMCPContext(
     'context_app_state',
-    'FloodSafe state: city, auth, user profile',
+    'FloodSafe state: city, auth, user profile, push notification permission',
     () => ({
       city,
       city_display: CITIES[city]?.displayName,
@@ -52,6 +53,7 @@ export function WebMCPProvider() {
       points: user?.points ?? 0,
       profile_complete: user?.profile_complete ?? false,
       available_cities: Object.keys(CITIES),
+      notification_permission: 'Notification' in window ? Notification.permission : 'unsupported',
     })
   );
 
@@ -205,7 +207,35 @@ export function WebMCPProvider() {
     }, [city, queryClient]),
   });
 
-  // ─── Prompts (3) ───────────────────────────────────────────────────
+  useWebMCPResource({
+    uri: 'floodsafe://push-status',
+    name: 'Push Notification Status',
+    description: 'FCM push notification diagnostics: permission, VAPID key, service worker, platform',
+    mimeType: 'application/json',
+    read: useCallback(async (uri: { toString(): string }) => {
+      const swRegistrations = await navigator.serviceWorker?.getRegistrations().catch(() => []);
+      const hasFirebaseSW = swRegistrations?.some(
+        r => r.active?.scriptURL.includes('firebase-messaging-sw')
+      ) ?? false;
+
+      return {
+        contents: [{
+          uri: uri.toString(),
+          mimeType: 'application/json',
+          text: JSON.stringify({
+            permission: 'Notification' in window ? Notification.permission : 'unsupported',
+            vapid_key_configured: !!import.meta.env.VITE_FIREBASE_VAPID_KEY,
+            service_worker_active: !!navigator.serviceWorker?.controller,
+            firebase_messaging_sw_registered: hasFirebaseSW,
+            is_native_platform: Capacitor.isNativePlatform(),
+            total_sw_registrations: swRegistrations?.length ?? 0,
+          }, null, 2),
+        }],
+      };
+    }, []),
+  });
+
+  // ─── Prompts (5) ───────────────────────────────────────────────────
 
   useWebMCPPrompt({
     name: 'analyze-flood-risk',
@@ -263,6 +293,66 @@ export function WebMCPProvider() {
           '8. search_locations(query="malioboro", city="yogyakarta") → verify search works',
           '9. list_console_messages → verify no JS errors',
           'Expected: city switches, map centers on Yogyakarta, search returns Indonesian results',
+        ].join('\n') },
+      }],
+    }), []),
+  });
+
+  useWebMCPPrompt({
+    name: 'verify-push-notifications',
+    description: 'End-to-end verification of push notification pipeline',
+    get: useCallback(async () => ({
+      messages: [{
+        role: 'user' as const,
+        content: { type: 'text' as const, text: [
+          'Verify push notification pipeline:',
+          '1. Call context_app_state → confirm authenticated, get user_id + notification_permission',
+          '2. Read floodsafe://push-status → check permission, VAPID, SW, Firebase SW',
+          '3. If permission != "granted": STOP — user must grant permission manually',
+          '4. list_network_requests → find POST /api/push/register-token with status 200',
+          '5. list_console_messages → check NO "Failed to register FCM token" errors',
+          '6. list_console_messages → check NO "VITE_FIREBASE_VAPID_KEY not set" warnings',
+          '7. get_query_cache(["reports"]) → verify reports data loaded (push triggers on report creation)',
+          '8. take_screenshot → capture visual state',
+          'Expected: permission=granted, VAPID configured, SW active, token registered (200), no errors',
+          'If any check fails, report which step failed and the error details',
+        ].join('\n') },
+      }],
+    }), []),
+  });
+
+  useWebMCPPrompt({
+    name: 'verify-full-e2e',
+    description: 'Comprehensive E2E verification of all FloodSafe features for a city',
+    argsSchema: { city: z.enum(['delhi', 'bangalore', 'yogyakarta', 'singapore']).default('delhi').describe('City to test') },
+    get: useCallback(async (args: { city: string }) => ({
+      messages: [{
+        role: 'user' as const,
+        content: { type: 'text' as const, text: [
+          `Full E2E verification for ${args.city}:`,
+          '',
+          '── Auth ──',
+          '1. Call context_app_state → confirm authenticated, profile_complete, notification_permission',
+          '',
+          '── Data Loading ──',
+          `2. get_query_cache(["hotspots","${args.city}",false]) → verify hotspots loaded`,
+          `3. get_query_cache(["unified-alerts","${args.city}","all"]) → verify alerts loaded`,
+          '4. get_query_cache(["reports"]) → verify reports loaded',
+          `5. Read floodsafe://floodhub/${args.city} → verify FloodHub data`,
+          '',
+          '── Push Notifications ──',
+          '6. Read floodsafe://push-status → check permission, VAPID, SW',
+          '7. list_network_requests → find POST /api/push/register-token',
+          '',
+          '── City Features ──',
+          `8. Read floodsafe://config → verify ${args.city} features`,
+          `9. search_locations(query="main road", city="${args.city}") → verify search`,
+          '',
+          '── Health ──',
+          '10. list_console_messages → check for JS errors (filter type=error)',
+          '11. take_screenshot → capture visual state',
+          '',
+          'Report: PASS/FAIL for each section with specific failures listed.',
         ].join('\n') },
       }],
     }), []),
