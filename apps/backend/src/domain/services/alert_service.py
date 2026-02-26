@@ -4,7 +4,7 @@ Alert service for managing flood alerts based on watch areas.
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from uuid import UUID
-from typing import List
+from typing import List, Tuple
 import logging
 
 from ...infrastructure import models
@@ -16,11 +16,11 @@ class AlertService:
     def __init__(self, db: Session):
         self.db = db
 
-    def check_watch_areas_for_report(self, report_id: UUID, latitude: float, longitude: float, reporter_user_id: UUID = None) -> int:
+    def check_watch_areas_for_report(self, report_id: UUID, latitude: float, longitude: float, reporter_user_id: UUID = None) -> Tuple[int, List[UUID]]:
         """
         Check all watch areas to see if the new report falls within any.
         Creates alerts for users whose watch areas are affected.
-        Returns count of alerts created.
+        Returns (count of alerts created, list of alerted user IDs).
         """
         # Use PostGIS ST_DWithin to find watch areas that contain the report location
         query = text("""
@@ -35,6 +35,7 @@ class AlertService:
 
         result = self.db.execute(query, {'lat': latitude, 'lng': longitude})
         alerts_created = 0
+        alerted_user_ids: List[UUID] = []
 
         for row in result:
             watch_area_id, user_id, watch_area_name, radius = row
@@ -60,12 +61,13 @@ class AlertService:
             )
             self.db.add(alert)
             alerts_created += 1
+            alerted_user_ids.append(user_id)
             logger.info(f"Created alert for user {user_id} in watch area {watch_area_name}")
 
         if alerts_created > 0:
             self.db.commit()
 
-        return alerts_created
+        return alerts_created, alerted_user_ids
 
     def get_user_alerts(self, user_id: UUID, unread_only: bool = False) -> List[dict]:
         """Get alerts for a user with report and watch area details."""

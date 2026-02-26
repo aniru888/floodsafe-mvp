@@ -430,6 +430,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 });
             }
 
+            // Unregister FCM push token (best-effort, before token is cleared)
+            const accessToken = TokenStorage.getAccessToken();
+            if (accessToken) {
+                await fetch(`${API_BASE_URL}/push/register-token`, {
+                    method: 'DELETE',
+                    headers: { Authorization: `Bearer ${accessToken}` },
+                }).catch(() => {});
+            }
+
             // Sign out from Firebase if used
             await firebaseSignOut().catch(() => {});
 

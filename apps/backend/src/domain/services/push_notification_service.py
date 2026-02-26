@@ -10,6 +10,8 @@ import logging
 import threading
 from typing import Optional
 
+from sqlalchemy.orm import Session
+
 import firebase_admin
 from firebase_admin import credentials, messaging
 
@@ -101,3 +103,53 @@ async def send_push_notification(
     except Exception as e:
         logger.error(f"Failed to send push notification: {e}")
         return False
+
+
+async def send_push_to_user(
+    db: Session,
+    user,
+    title: str,
+    body: str,
+    data: Optional[dict] = None,
+) -> bool:
+    """Send push notification to a user, respecting preferences and handling stale tokens.
+
+    Args:
+        db: SQLAlchemy session (for clearing stale tokens)
+        user: User ORM instance
+        title: Notification title
+        body: Notification body text
+        data: Optional data payload (key-value strings)
+
+    Returns:
+        True if sent, False if skipped or failed
+    """
+    if not user.notification_push:
+        return False
+
+    if not user.fcm_token:
+        return False
+
+    result = await send_push_notification(
+        fcm_token=user.fcm_token,
+        title=title,
+        body=body,
+        data=data,
+    )
+
+    # If the token was unregistered, clear it from the DB
+    if not result:
+        # Check if the low-level function logged an UnregisteredError
+        # Re-check by attempting to detect stale token scenario:
+        # send_push_notification returns False for both UnregisteredError and other errors.
+        # We clear the token on any failure — worst case, user re-registers on next app open.
+        # The usePushNotifications hook re-registers tokens on every app open anyway.
+        user.fcm_token = None
+        user.fcm_token_updated_at = None
+        try:
+            db.commit()
+        except Exception:
+            db.rollback()
+        logger.info(f"Cleared stale FCM token for user {user.id}")
+
+    return result

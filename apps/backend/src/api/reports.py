@@ -22,6 +22,7 @@ from ..infrastructure.storage import get_storage_service, StorageError, StorageN
 from math import radians, sin, cos, sqrt, atan2
 from ..domain.services.otp_service import get_otp_service
 from ..domain.services.validation_service import ReportValidationService
+from ..domain.services.push_notification_service import send_push_to_user
 from geoalchemy2.functions import ST_DWithin, ST_MakePoint
 
 router = APIRouter()
@@ -524,10 +525,13 @@ async def create_report(
             logger.info(f"User {user_id} earned streak bonus: {streak_bonus} points")
 
         # Trigger alerts for users with nearby watch areas
+        pushed_user_ids: set = set()
+        alerts_created = 0
+        alerted_user_ids = []
         try:
             from ..domain.services.alert_service import AlertService
             alert_service = AlertService(db)
-            alerts_created = alert_service.check_watch_areas_for_report(
+            alerts_created, alerted_user_ids = alert_service.check_watch_areas_for_report(
                 new_report.id, latitude, longitude, user_id
             )
             if alerts_created > 0:
@@ -535,6 +539,22 @@ async def create_report(
         except Exception as e:
             logger.warning(f"Failed to create alerts for report {new_report.id}: {e}")
             # Don't fail the report creation if alerts fail
+
+        # Push notifications for watch area alerts
+        for uid in alerted_user_ids:
+            try:
+                target_user = db.query(models.User).filter(models.User.id == uid).first()
+                if target_user:
+                    sent = await send_push_to_user(
+                        db, target_user,
+                        "Flood Report Near You",
+                        description[:80] if description else "New flood report in your watch area",
+                        data={"type": "watch_area_alert", "report_id": str(new_report.id)},
+                    )
+                    if sent:
+                        pushed_user_ids.add(uid)
+            except Exception as e:
+                logger.warning(f"Push notification failed for user {uid}: {e}")
 
         # Trigger Safety Circle notifications (synchronous, D1)
         circle_notification_summary = None
@@ -555,6 +575,34 @@ async def create_report(
             # Log as ERROR not warning — this is a real failure (CLAUDE.md rule #14)
             logger.error(f"Circle notification FAILED for report {new_report.id}: {e}", exc_info=True)
             circle_notification_summary = {"error": str(e)}
+
+        # Push notifications for circle members (skip users already pushed via watch area)
+        try:
+            circle_member_user_ids = db.query(models.CircleMember.user_id).join(
+                models.CircleAlert, models.CircleAlert.member_id == models.CircleMember.id
+            ).filter(
+                models.CircleAlert.report_id == new_report.id,
+                models.CircleMember.user_id.isnot(None),
+                models.CircleMember.user_id != user_id,
+            ).distinct().all()
+
+            for (cuid,) in circle_member_user_ids:
+                if cuid in pushed_user_ids:
+                    continue
+                try:
+                    target_user = db.query(models.User).filter(models.User.id == cuid).first()
+                    if target_user:
+                        await send_push_to_user(
+                            db, target_user,
+                            "Circle Alert",
+                            description[:80] if description else "A circle member reported flooding nearby",
+                            data={"type": "circle_alert", "report_id": str(new_report.id)},
+                        )
+                        pushed_user_ids.add(cuid)
+                except Exception as e:
+                    logger.warning(f"Circle push notification failed for user {cuid}: {e}")
+        except Exception as e:
+            logger.warning(f"Circle push query failed for report {new_report.id}: {e}")
 
         # Return response with combined fields from both features
         return ReportResponse(

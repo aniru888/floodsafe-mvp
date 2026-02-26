@@ -32,10 +32,24 @@ import { WebMCPProvider } from './components/WebMCPProvider';
 import { NavigationProvider } from './contexts/NavigationContext';
 import { OnboardingBotProvider, useOnboardingBot } from './contexts/OnboardingBotContext';
 import { OnboardingBot } from './components/onboarding-bot/OnboardingBot';
+import { usePushNotifications } from './hooks/usePushNotifications';
 
 const queryClient = new QueryClient();
 
 type Screen = 'home' | 'map' | 'report' | 'alerts' | 'profile' | 'alert-detail' | 'privacy' | 'terms';
+
+/** Registers FCM push token for authenticated users. Renders nothing. */
+function PushNotificationRegistrar() {
+    const { permission, requestPermission } = usePushNotifications();
+
+    useEffect(() => {
+        if (permission === 'default') {
+            requestPermission();
+        }
+    }, [permission, requestPermission]);
+
+    return null;
+}
 
 function FloodSafeApp() {
     const { isAuthenticated, isLoading: authLoading, user } = useAuth();
@@ -248,6 +262,9 @@ function FloodSafeApp() {
             <OfflineIndicator />
             <IOSInstallBanner />
             <InstallBanner />
+
+            {/* Push Notification Registration — prompts permission + registers FCM token */}
+            <PushNotificationRegistrar />
 
             {/* Deep link: Join circle via ?join=CODE */}
             <JoinCircleModal
