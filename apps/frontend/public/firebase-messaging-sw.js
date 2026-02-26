@@ -14,12 +14,12 @@ importScripts('https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js'
 importScripts('https://www.gstatic.com/firebasejs/10.7.0/firebase-messaging-compat.js');
 
 firebase.initializeApp({
-    apiKey: '',  // TODO: Set from Firebase Console > Project Settings > General
+    apiKey: 'AIzaSyDx22KzFutYSJgATaYiq-6oNVCti7S-KTw',
     authDomain: 'gen-lang-client-0669818939.firebaseapp.com',
     projectId: 'gen-lang-client-0669818939',
-    storageBucket: 'gen-lang-client-0669818939.appspot.com',
-    messagingSenderId: '',  // TODO: Set from Firebase Console > Project Settings > Cloud Messaging
-    appId: '',  // TODO: Set from Firebase Console > Project Settings > General
+    storageBucket: 'gen-lang-client-0669818939.firebasestorage.app',
+    messagingSenderId: '967834121532',
+    appId: '1:967834121532:web:1206e23fcffb1528789a39',
 });
 
 const messaging = firebase.messaging();
