@@ -117,19 +117,26 @@ files:
   - apps/ml-service/data/delhi_waterlogging_hotspots.json - 90 Delhi hotspots (62 MCD + 28 OSM)
   - apps/ml-service/data/yogyakarta_waterlogging_hotspots.json - 19 Yogyakarta hotspots
   Backend:
+  - apps/backend/data/bangalore_waterlogging_hotspots.json - 200 Bangalore BBMP hotspots
+  - apps/backend/data/singapore_waterlogging_hotspots.json - 60 Singapore PUB hotspots
   - apps/backend/src/api/hotspots.py - API proxy with caching + risk-summary endpoint
   - apps/backend/src/api/rainfall.py - Per-city FHI calibration (lines 36-38)
+  - apps/backend/src/domain/ml/hotspots_service.py - City-aware HotspotsService loader
 
 hotspot_counts:
   delhi: 90 (62 MCD + 28 OSM underpasses)
+  bangalore: 200 (BBMP official flood-vulnerable locations, 8 zones via OpenCity.in KML)
   yogyakarta: 19 (river confluences, low-elevation areas)
   singapore: 60 (24 PUB hotspots + 36 flood-prone areas, geocoded from PUB Nov 2025 PDFs)
-  total: 169
+  total: 369
 
 FHI_formula: |
   FHI = (0.35×P + 0.18×I + 0.12×S + 0.12×A + 0.08×R + 0.15×E) × T
   CUSTOM HEURISTIC - weights empirically tuned, not from research
   Rain-gate: City-specific threshold — below = FHI capped at 0.15
+  S component: 14-day exponential API decay (k: Delhi=0.92, Bangalore=0.88, Yogyakarta=0.85, Singapore=0.80)
+  P component: Ceiling-only monthly P95 percentiles from 10yr ERA5 data
+  S vs A distinction: S=14-day API decay (long-term wetness), A=3-day burst (short-term)
 
 city_calibration:
   delhi:      { elev: 190-320m, wet_months: Jun-Sep,  urban: 75%, rain_gate: 5mm  }
@@ -587,13 +594,26 @@ status: Service code complete. Deployment and integration paused.
 ### @whatsapp (COMPLETE)
 ```yaml
 files:
-  - apps/backend/src/api/webhook.py - WhatsApp webhook handler + health check
+  Twilio Transport:
+  - apps/backend/src/api/webhook.py - Twilio webhook handler (form-encoded, TwiML response)
   - apps/backend/src/domain/services/notification_service.py - TwilioNotificationService
+
+  Meta Cloud API Transport:
+  - apps/backend/src/api/whatsapp_meta.py - Meta Graph API webhook (715 lines, JSON, HMAC-SHA256 signature)
+  - apps/backend/src/domain/services/whatsapp/meta_client.py - Meta Graph API client (text, buttons, media)
+
+  Shared Services:
   - apps/backend/src/domain/services/whatsapp/
     - button_sender.py - Quick Reply buttons (9 types)
     - command_handlers.py - RISK, WARNINGS, MY AREAS commands
-    - message_templates.py - Message templating
+    - message_templates.py - Message templating (bilingual EN/HI)
     - photo_handler.py - Photo ingestion + ML classification
+
+dual_transport: |
+  Two parallel webhook endpoints, shared session model + message templates:
+  - Twilio: POST /api/whatsapp (form-encoded, TwiML response, Basic Auth media download)
+  - Meta:   POST /api/whatsapp-meta (JSON, Graph API outbound, HMAC-SHA256 signature validation)
+  Both use same WhatsAppSession, Wit.ai NLU, and ML classification pipeline.
 
 inbound: Location pin → SOS, photo → ML classify, text commands, Quick Reply buttons
 outbound: Alerts to watch areas via Twilio
@@ -603,15 +623,27 @@ quick_reply_buttons:
   - report_flood, check_risk, view_alerts, add_photo
   - submit_anyway, cancel, menu, report_another, check_my_location
 
-session: WhatsAppSession model, 30-min timeout
+session: WhatsAppSession model, 30-min timeout (shared by both transports)
 rate_limiting: 10 messages/minute per phone
 multi_language: English + Hindi templates
 
+meta_config:
+  env_vars: META_WHATSAPP_TOKEN, META_PHONE_NUMBER_ID, META_VERIFY_TOKEN, META_APP_SECRET
+  auto_disable: Meta transport disabled if META_WHATSAPP_TOKEN not set
+  verification: GET /api/whatsapp-meta with hub.mode=subscribe, hub.verify_token, returns hub.challenge
+  signature: X-Hub-Signature-256 HMAC-SHA256 validation on every POST
+
 setup: |
+  Twilio:
   1. Twilio sandbox creds → .env (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
   2. TWILIO_WHATSAPP_NUMBER=whatsapp:+14155238886
   3. ngrok http 8000 → webhook URL in Twilio Console
   4. Migration: python -m apps.backend.src.scripts.migrate_add_whatsapp_sessions
+
+  Meta Cloud API:
+  1. Meta Business Account + WhatsApp app → .env (META_WHATSAPP_TOKEN, META_PHONE_NUMBER_ID)
+  2. META_VERIFY_TOKEN (custom string) + META_APP_SECRET (from Meta dashboard)
+  3. Webhook URL: https://<domain>/api/whatsapp-meta (POST + GET verification)
 ```
 
 ### @profiles (COMPLETE)
@@ -708,6 +740,8 @@ key_points:
   - Phone normalization delegates to core/phone_utils.py (E.164 format)
   - Partial unique constraint: registered users one-per-circle, unregistered contacts unconstrained
   - Shown as tab in AlertsScreen with unread count badge
+  - SOS emergency: One-tap SOS sends to all circle members via Twilio (see @sos)
+  - Offline SOS: Queued in IndexedDB, delivered via Background Sync when online
 
 hooks (TanStack Query):
   Queries: useMyCircles (60s stale), useCircleDetail (30s), useCircleAlerts (30s, 60s refetch), useUnreadCircleAlertCount (30s, 60s refetch)
@@ -867,6 +901,91 @@ contexts_consumed: AuthContext, CityContext, LocationTrackingContext, TanStack Q
 zod_constraint: Must use zod@^3.25.0 (v4 breaks @mcp-b/react-webmcp peer dependency)
 ```
 
+### @push-notifications (COMPLETE)
+```yaml
+files:
+  Backend:
+  - apps/backend/src/api/push.py - FCM token registration (2 endpoints)
+  - apps/backend/src/domain/services/push_notification_service.py - Firebase Cloud Messaging sender
+  - apps/backend/src/scripts/migrate_add_fcm_token.py - Migration for User FCM fields
+  - apps/backend/src/infrastructure/models.py - User.fcm_token, fcm_token_updated_at, notification_push
+
+  Frontend:
+  - apps/frontend/src/hooks/usePushNotifications.ts - Permission request, token registration, foreground handler
+  - apps/frontend/public/firebase-messaging-sw.js - Background notification handler + click routing
+
+endpoints:
+  - POST /api/push/register-token - Store/update FCM token (auth required, 50-500 char token)
+  - DELETE /api/push/register-token - Remove FCM token (logout cleanup)
+
+notification_triggers:
+  - Watch area alert: When a flood report is created near a user's watch area
+  - Circle alert: When a safety circle member reports flooding nearby
+
+architecture: |
+  Registration: Frontend requestPermission() → Firebase getToken(vapidKey) → POST /api/push/register-token → User.fcm_token
+  Sending: Report created → identify affected users (watch areas + circles) → send_push_to_user() → Firebase Admin SDK → FCM
+  Foreground: React onMessage listener → native Notification()
+  Background: Service Worker onBackgroundMessage → self.registration.showNotification()
+  Click: Service Worker notificationclick → focus existing window or openWindow()
+
+firebase_admin: |
+  Initialized via FIREBASE_SERVICE_ACCOUNT_B64 env var (base64-encoded service account JSON).
+  Double-checked locking for thread-safe lazy initialization.
+  Stale token cleanup: UnregisteredError → auto-clear fcm_token from User record.
+
+preference_check: user.notification_push boolean checked before every send
+platform_detection: Capacitor.isNativePlatform() placeholder for future native push (not yet wired)
+
+migration: python -m apps.backend.src.scripts.migrate_add_fcm_token
+```
+
+### @sos (COMPLETE)
+```yaml
+files:
+  Backend:
+  - apps/backend/src/api/sos.py - SOS emergency endpoint (POST /api/sos/send)
+  - apps/backend/src/domain/services/sos_service.py - SOSService with Twilio SMS/WhatsApp fanout
+  - apps/backend/src/infrastructure/models.py - SOSMessage model with per-recipient JSON tracking
+
+  Frontend:
+  - apps/frontend/src/hooks/useSOSQueue.ts - Offline-first hook (IndexedDB + Background Sync)
+  - apps/frontend/src/components/SOSButton.tsx - SOS button (full + compact variants)
+  - apps/frontend/src/components/EmergencyContactsModal.tsx - Emergency contacts with integrated SOS
+  - apps/frontend/public/sw-sos-sync.js - Service Worker Background Sync handler
+
+offline_architecture: |
+  Online: SOSButton → useSOSQueue.queueSOS() → IndexedDB → flushQueue() → POST /api/sos/send
+  Offline: SOSButton → useSOSQueue.queueSOS() → IndexedDB → registerBackgroundSync('flush-sos-queue')
+  Recovery: SW sync event → sw-sos-sync.js flushSosQueue() → reads IndexedDB → POST /api/sos/send
+  Notification: SW postMessage 'SOS_SYNC_COMPLETE' → useSOSQueue listener updates UI
+
+indexeddb:
+  database: floodsafe-sos
+  store: sos-queue
+  max_queue: 50 messages
+  max_retries: 3 per message
+
+per_recipient_tracking: |
+  SOSMessage.recipients_json stores individual delivery results:
+  Each recipient: { phone, name, status ('sent'|'failed'), channel, error }
+  Overall status: 'sent' (all), 'partial' (some), 'failed' (none)
+
+channels: SMS or WhatsApp via Twilio (Meta Graph API not yet supported for SOS)
+phone_normalization: core/phone_utils.py (E.164 format)
+
+ui_states:
+  sending: Button disabled, spinner
+  sent: Green checkmark (5 seconds), shows contact count
+  offline: Yellow "Offline" pill with WifiOff icon
+  queued: Yellow pill showing pending count
+
+endpoints:
+  - POST /api/sos/send - Send emergency SOS to safety circle members (auth required)
+    request: { circle_ids: [uuid], message?: string, location?: {lat, lng}, channel: 'sms'|'whatsapp' }
+    response: { id, status, total, sent, failed, results: [...] }
+```
+
 ### @edge-ai (PLANNED)
 ```yaml
 concept: ANN model running on IoT devices (ESP32/Raspberry Pi)
@@ -875,11 +994,39 @@ current: ESP32 firmware does threshold-based alerts (no ML yet)
 next: Design lightweight neural network for edge inference
 ```
 
-### @mobile (NOT STARTED)
+### @mobile (IN PROGRESS)
 ```yaml
-current: PWA covers install + offline. Web-responsive via Tailwind CSS.
-missing: Capacitor config for native Android/iOS builds
-next: Add Capacitor wrapper if native features needed beyond PWA
+files:
+  - apps/frontend/capacitor.config.ts - Capacitor configuration (appId: com.floodsafe.app)
+  - apps/frontend/android/ - Android project (BridgeActivity, AndroidManifest.xml)
+  - apps/frontend/android/variables.gradle - minSdk 24, compileSdk 36, targetSdk 36
+
+status: |
+  Capacitor 8.1.0 initialized with Android wrapper.
+  BridgeActivity is minimal (extends com.getcapacitor.BridgeActivity, zero custom logic).
+  WebView loads Vite build output from assets. CORS permissive (access origin="*").
+  No native Capacitor plugins installed yet — all features run through web path.
+
+working:
+  - Capacitor Core installed ✅
+  - BridgeActivity configured ✅
+  - WebView asset loading ✅
+  - Platform detection (Capacitor.isNativePlatform()) in push notifications hook ✅
+
+not_yet_implemented:
+  - Native push notifications (@capacitor/push-notifications not installed)
+  - Native geolocation (@capacitor/geolocation not installed)
+  - Camera access (@capacitor/camera not installed)
+  - App signing for Play Store release
+
+android_config:
+  minSdk: 24 (Android 7.0)
+  targetSdk: 36
+  compileSdk: 36
+  javaVersion: 21
+  androidScheme: http (for local asset loading)
+
+next: Install native Capacitor plugins for push, geolocation, camera
 ```
 
 ---
@@ -914,7 +1061,7 @@ next: Add Capacitor wrapper if native features needed beyond PWA
 | Install Prompt | `InstallPromptContext.tsx` | PWA install state |
 | Onboarding Bot | `OnboardingBotContext.tsx` | Tour state, language, phase management |
 
-## Backend API Files (26)
+## Backend API Files (29)
 
 | File | Domain | Endpoints |
 |------|--------|-----------|
@@ -942,14 +1089,17 @@ next: Add Capacitor wrapper if native features needed beyond PWA
 | `badges.py` | @gamification | badge catalog |
 | `reputation.py` | @gamification | reputation + privacy |
 | `leaderboards.py` | @gamification | leaderboards |
-| `webhook.py` | @whatsapp | WhatsApp webhook |
+| `webhook.py` | @whatsapp | WhatsApp webhook (Twilio) |
+| `whatsapp_meta.py` | @whatsapp | WhatsApp webhook (Meta Cloud API) |
+| `push.py` | @push-notifications | FCM token registration |
+| `sos.py` | @sos | Emergency SOS fanout |
 | `deps.py` | (shared) | auth dependencies, role checks |
 
-## Database Models (22)
+## Database Models (23)
 
 | Model | Table | Key Fields |
 |-------|-------|------------|
-| User | users | role, points, level, badges, reputation_score, streak_days, password_hash |
+| User | users | role, points, level, badges, reputation_score, streak_days, password_hash, fcm_token, notification_push |
 | Report | reports | location (PostGIS), severity, verification_score, upvotes/downvotes |
 | ReportVote | report_votes | user_id + report_id (unique) |
 | Comment | comments | report_id, user_id, content |
@@ -969,6 +1119,7 @@ next: Add Capacitor wrapper if native features needed beyond PWA
 | CircleMember | circle_members | circle_id, user_id (nullable), phone, role, notify_whatsapp/sms/email |
 | CircleAlert | circle_alerts | circle_id, report_id, member_id, is_read, notification_sent/channel |
 | WhatsAppSession | whatsapp_sessions | phone, state, expires_at |
+| SOSMessage | sos_messages | user_id, circle_ids, message, location, recipients_json, status (sent/partial/failed) |
 | RefreshToken | refresh_tokens | user_id, token_hash, expires_at |
 | EmailVerificationToken | email_verification_tokens | user_id, token, expires_at |
 
@@ -980,7 +1131,7 @@ next: Add Capacitor wrapper if native features needed beyond PWA
 Reports, map, alerts, onboarding, auth (Email/Google/Phone), E2E tests, community voting/comments
 
 ### Tier 2: ML/AI Foundation ✅ MOSTLY COMPLETE
-- [x] XGBoost for 169 known hotspots (90 Delhi + 19 Yogyakarta + 60 Singapore, AUC 0.98)
+- [x] XGBoost for 369 known hotspots (90 Delhi + 200 Bangalore + 19 Yogyakarta + 60 Singapore, AUC 0.98)
 - [x] FHI formula + rainfall forecasts (Open-Meteo, per-city calibration)
 - [x] Historical Floods Panel (45 Delhi events, 1969-2023)
 - [x] Photo classification (embedded TFLite MobileNet)
@@ -1007,24 +1158,37 @@ Reports, map, alerts, onboarding, auth (Email/Google/Phone), E2E tests, communit
 - [x] WhatsApp bot (SOS, commands, Quick Reply buttons, photo ML)
 - [x] Multi-language (English + Hindi)
 - [x] Twilio integration (inbound + outbound)
+- [x] Meta WhatsApp Cloud API (parallel transport, Graph API, HMAC-SHA256 signature validation)
+- [x] FCM push notifications (watch area + circle alerts, foreground + background, service worker)
+- [x] SOS emergency fanout (offline-first IndexedDB queue, Background Sync, per-recipient tracking)
 
-### Tier 6: Mobile & Offline ✅ COMPLETE (PWA)
+### Tier 6: Mobile & Offline ✅ MOSTLY COMPLETE
 - [x] PWA with Workbox service worker
 - [x] Install banner + offline indicator
 - [x] Cache strategies (CacheFirst, NetworkFirst, StaleWhileRevalidate)
-- [ ] Capacitor native wrapper (if needed beyond PWA)
+- [x] Capacitor Android wrapper initialized (BridgeActivity, WebView, minSdk 24)
+- [ ] Capacitor native plugins (push, geolocation, camera — currently web-only paths)
+- [ ] Play Store release (app signing, listing)
 
 ### Tier 7: Scale ✅ PARTIALLY COMPLETE
 - [x] City expansion: Yogyakarta added as 3rd city (19 hotspots, GDACS, FHI, search)
 - [x] Singapore added as 4th city (60 PUB hotspots, MRT, NEA weather, Telegram alerts)
+- [x] Bangalore BBMP hotspots (200 official flood-vulnerable locations, 8 zones)
 - [x] Per-city FHI weather sources (NEA for Singapore, OWM for Yogyakarta)
+- [x] FHI 14-day API decay (S component) + ceiling-only P percentiles + per-city k differentiation
 - [x] Telegram channel integration for Singapore flood alerts
 - [x] Navigation direction arrow + route line casing
 - [x] MRT line validation with station-proximity checks
 - [x] WebMCP browser automation bridge (13 entities, production-enabled)
 - [x] Safety Circles (emergency contacts, 5 circle types, notification tracking)
 - [x] Multilingual onboarding bot with guided app tour (EN/HI/ID)
+- [x] FCM push notifications (watch area + circle alert triggers)
+- [x] SOS emergency with offline queue (IndexedDB + Background Sync + Twilio fanout)
+- [x] Meta WhatsApp Cloud API (parallel transport alongside Twilio)
+- [x] Capacitor Android wrapper (BridgeActivity, WebView, platform detection)
 - [ ] Multi-language UI (Hindi, Kannada, Indonesian — onboarding bot covers 3 languages, WhatsApp Hindi done)
 - [ ] GNN for flood propagation modeling
 - [ ] Real photo storage (S3/Blob, currently mocked)
 - [ ] Water depth estimation from photos
+- [ ] Native Capacitor plugins (push, geolocation, camera)
+- [ ] Play Store release
