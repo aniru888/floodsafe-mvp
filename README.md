@@ -184,7 +184,7 @@ ESP32-based water level monitoring with dual sensor fusion (capacitive strips + 
 ### Docker (Full Stack)
 
 ```bash
-git clone https://github.com/FloodSafe-Delhi/floodsafe-mvp.git
+git clone https://github.com/aniru888/floodsafe-mvp.git
 cd FloodSafe
 docker-compose up -d
 ```

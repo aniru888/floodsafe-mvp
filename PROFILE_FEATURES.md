@@ -391,7 +391,7 @@ When adding new profile features:
 ## Support
 
 For issues or questions:
-- GitHub Issues: https://github.com/FloodSafe-Delhi/floodsafe-mvp/issues
+- GitHub Issues: https://github.com/aniru888/floodsafe-mvp/issues
 - Email: support@floodsafe.ai
 
 ---

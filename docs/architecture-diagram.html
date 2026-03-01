@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloodSafe — System Architecture</title>
+    <style>
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --surface2: #242836;
+            --border: #2e3348;
+            --border-light: #3d4363;
+            --text: #e2e8f0;
+            --text-muted: #8892b0;
+            --text-dim: #5a6178;
+            --blue: #60a5fa;
+            --cyan: #22d3ee;
+            --green: #34d399;
+            --purple: #a78bfa;
+            --amber: #fbbf24;
+            --rose: #fb7185;
+            --orange: #fb923c;
+            --gray: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(180deg, #141722 0%, var(--bg) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 32px 40px 24px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--blue);
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        header .subtitle {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .cities-bar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .city-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 5px 16px;
+            font-size: 13px;
+            color: var(--purple);
+        }
+
+        .city-tag .dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+
+        /* ===== MAIN DIAGRAM AREA ===== */
+        .diagram-area {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 40px 32px 24px;
+        }
+
+        /* ===== LAYER BOX (GROUP) ===== */
+        .layer {
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            background: var(--surface);
+            padding: 20px 24px 24px;
+            margin-bottom: 0;
+            position: relative;
+        }
+
+        .layer-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            padding: 3px 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+
+        .layer-label .icon { font-size: 13px; }
+
+        .layer-nodes {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* ===== INDIVIDUAL NODE (SERVICE BOX) ===== */
+        .node {
+            background: var(--surface2);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 16px 20px;
+            min-width: 200px;
+            max-width: 320px;
+            flex: 1;
+            transition: border-color 0.2s;
+        }
+
+        .node:hover {
+            border-color: var(--blue);
+        }
+
+        .node-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .node-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .node-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .tag {
+            background: rgba(96, 165, 250, 0.1);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            border-radius: 4px;
+            padding: 1px 7px;
+            font-size: 10px;
+            color: var(--blue);
+            white-space: nowrap;
+        }
+
+        /* ===== CONNECTOR (ARROW BETWEEN LAYERS) ===== */
+        .connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .connector-line {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .connector-arrow {
+            width: 2px;
+            height: 20px;
+            background: var(--border-light);
+        }
+
+        .connector-arrow.thick {
+            width: 3px;
+            background: var(--green);
+        }
+
+        .connector-arrow.dashed {
+            background: repeating-linear-gradient(180deg, var(--orange) 0px, var(--orange) 4px, transparent 4px, transparent 8px);
+        }
+
+        .connector-head {
+            width: 0; height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid var(--border-light);
+        }
+
+        .connector-head.thick { border-top-color: var(--green); }
+        .connector-head.dashed { border-top-color: var(--orange); }
+
+        .connector-labels {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .connector-tag {
+            font-size: 11px;
+            color: var(--text-dim);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 2px 10px;
+            white-space: nowrap;
+        }
+
+        .connector-tag .highlight {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ===== LAYER COLORS ===== */
+        .layer.users { border-color: var(--blue); }
+        .layer.users .layer-label { background: rgba(96,165,250,0.12); color: var(--blue); }
+        .layer.users .node { border-left: 3px solid var(--blue); }
+
+        .layer.frontend { border-color: var(--cyan); }
+        .layer.frontend .layer-label { background: rgba(34,211,238,0.12); color: var(--cyan); }
+        .layer.frontend .node { border-left: 3px solid var(--cyan); }
+
+        .layer.backend { border-color: var(--green); }
+        .layer.backend .layer-label { background: rgba(52,211,153,0.12); color: var(--green); }
+        .layer.backend .node { border-left: 3px solid var(--green); }
+
+        .layer.ml { border-color: var(--purple); }
+        .layer.ml .layer-label { background: rgba(167,139,250,0.12); color: var(--purple); }
+        .layer.ml .node { border-left: 3px solid var(--purple); }
+
+        .layer.database { border-color: var(--amber); }
+        .layer.database .layer-label { background: rgba(251,191,36,0.12); color: var(--amber); }
+        .layer.database .node { border-left: 3px solid var(--amber); }
+
+        .layer.external { border-color: var(--rose); }
+        .layer.external .layer-label { background: rgba(251,113,133,0.12); color: var(--rose); }
+        .layer.external .node { border-left: 3px solid var(--rose); }
+
+        .layer.cicd { border-color: var(--gray); }
+        .layer.cicd .layer-label { background: rgba(148,163,184,0.12); color: var(--gray); }
+        .layer.cicd .node { border-left: 3px solid var(--gray); }
+
+        /* ===== SPLIT ROW (ML + DB SIDE BY SIDE) ===== */
+        .split-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* ===== EXTERNAL API GRID ===== */
+        .ext-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .ext-group-title {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            margin-bottom: 8px;
+        }
+
+        .ext-item {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 12px;
+        }
+
+        .ext-item-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--rose);
+            margin-bottom: 2px;
+        }
+
+        .ext-item-desc {
+            font-size: 11px;
+            color: var(--text-dim);
+        }
+
+        .ext-item-schedule {
+            font-size: 10px;
+            color: var(--orange);
+            margin-top: 3px;
+        }
+
+        /* ===== SIDE CONNECTIONS (visual indicators for direct client calls) ===== */
+        .side-note {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--text-dim);
+            margin-top: 8px;
+            padding: 6px 10px;
+            background: var(--bg);
+            border-radius: 6px;
+            border: 1px dashed var(--border);
+        }
+
+        .side-note .arrow { color: var(--purple); }
+
+        /* ===== LEGEND & INFO SECTION ===== */
+        .info-section {
+            max-width: 1300px;
+            margin: 32px auto 48px;
+            padding: 0 32px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .info-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .info-card h3 {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 12px;
+        }
+
+        .info-card table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .info-card th {
+            text-align: left;
+            padding: 5px 8px;
+            border-bottom: 1px solid var(--border);
+            color: var(--blue);
+            font-weight: 600;
+            font-size: 11px;
+        }
+
+        .info-card td {
+            padding: 5px 8px;
+            border-bottom: 1px solid rgba(46,51,72,0.5);
+            color: var(--text-muted);
+        }
+
+        .info-card code {
+            background: var(--bg);
+            padding: 1px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            color: var(--green);
+        }
+
+        .edge-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .edge-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .edge-line {
+            width: 36px;
+            height: 3px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .edge-line.solid { background: var(--green); }
+        .edge-line.dashed {
+            background: repeating-linear-gradient(90deg, var(--orange) 0px, var(--orange) 6px, transparent 6px, transparent 10px);
+        }
+        .edge-line.dotted {
+            background: repeating-linear-gradient(90deg, var(--purple) 0px, var(--purple) 3px, transparent 3px, transparent 7px);
+        }
+        .edge-line.thin { background: var(--border-light); height: 2px; }
+
+        .color-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 0;
+            font-size: 13px;
+        }
+
+        .color-swatch {
+            width: 14px; height: 14px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        /* ===== WEBHOOK BADGE ===== */
+        .webhook-badge {
+            display: inline-block;
+            background: rgba(251,113,133,0.15);
+            color: var(--rose);
+            font-size: 10px;
+            font-weight: 600;
+            padding: 1px 6px;
+            border-radius: 3px;
+            margin-left: 4px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 24px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .split-row { grid-template-columns: 1fr; }
+            .ext-grid { grid-template-columns: repeat(2, 1fr); }
+            header h1 { font-size: 24px; }
+        }
+
+        @media (max-width: 600px) {
+            .ext-grid { grid-template-columns: 1fr; }
+            .diagram-area { padding: 20px 16px; }
+            .info-section { padding: 0 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <h1>FloodSafe &mdash; System Architecture</h1>
+    <p class="subtitle">Nonprofit flood monitoring platform &bull; Delhi &bull; Bangalore &bull; Yogyakarta</p>
+    <div class="cities-bar">
+        <span class="city-tag"><span class="dot"></span> Delhi &mdash; 90 hotspots, PMTiles, FloodHub</span>
+        <span class="city-tag"><span class="dot"></span> Bangalore &mdash; FHI scoring, PMTiles</span>
+        <span class="city-tag"><span class="dot"></span> Yogyakarta &mdash; 19 hotspots, OpenFreeMap</span>
+    </div>
+</header>
+
+<div class="diagram-area">
+
+    <!-- ===== LAYER 1: USERS ===== -->
+    <div class="layer users">
+        <div class="layer-label"><span class="icon">&#x1F464;</span> USERS &amp; ENTRY POINTS</div>
+        <div class="layer-nodes">
+            <div class="node">
+                <div class="node-title" style="color:var(--blue)">Browser / PWA</div>
+                <div class="node-desc">
+                    React Progressive Web App<br>
+                    12 screens, offline-capable via Workbox<br>
+                    SOS IndexedDB queue + Background Sync
+                </div>
+                <div class="node-tech">
+                    <span class="tag">HTTPS</span>
+                    <span class="tag">Service Worker</span>
+                    <span class="tag">installable</span>
+                </div>
+            </div>
+            <div class="node">
+                <div class="node-title" style="color:var(--blue)">WhatsApp Users</div>
+                <div class="node-desc">
+                    Two parallel inbound channels:<br>
+                    Twilio Sandbox &#8594; <code>/api/whatsapp</code><br>
+                    Meta Cloud API &#8594; <code>/api/whatsapp-meta</code>
+                </div>
+                <div class="node-tech">
+                    <span class="tag">Twilio webhook</span>
+                    <span class="tag">Meta HMAC-SHA256</span>
+                </div>
+            </div>
+            <div class="node">
+                <div class="node-title" style="color:var(--blue)">WebMCP Bridge</div>
+                <div class="node-desc">
+                    AI agent interface for Claude Code<br>
+                    13 entities: 2 contexts, 3 tools,<br>
+                    5 resources, 3 prompts
+                </div>
+                <div class="node-tech">
+                    <span class="tag">postMessage API</span>
+                    <span class="tag">@mcp-b/react-webmcp</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONNECTOR: Users → Frontend -->
+    <div class="connector">
+        <div class="connector-line">
+            <div class="connector-arrow thick" style="height:24px"></div>
+            <div class="connector-head thick"></div>
+        </div>
+        <div class="connector-labels" style="position:absolute; left:0; right:0;">
+            <span class="connector-tag"><span class="highlight">HTTPS / PWA</span> &nbsp;&#x2193;&nbsp; Browser to Frontend</span>
+            <span class="connector-tag"><span class="highlight">Webhooks</span> &nbsp;&#x2193;&nbsp; WhatsApp to Backend</span>
+        </div>
+    </div>
+
+    <!-- ===== LAYER 2: FRONTEND ===== -->
+    <div class="layer frontend">
+        <div class="layer-label"><span class="icon">&#x1F310;</span> FRONTEND &mdash; Vercel CDN</div>
+        <div class="layer-nodes">
+            <div class="node" style="flex:2; max-width:480px">
+                <div class="node-title" style="color:var(--cyan)">React Application</div>
+                <div class="node-desc">
+                    React 18 + TypeScript + Vite + Tailwind CSS + Radix UI<br>
+                    7 Contexts (Auth, City, User, Navigation, Location, Voice, Install)<br>
+                    TanStack Query for server state &bull; MapLibre GL for maps
+                </div>
+                <div class="node-tech">
+                    <span class="tag">React 18</span>
+                    <span class="tag">TypeScript</span>
+                    <span class="tag">Vite</span>
+                    <span class="tag">Tailwind</span>
+                    <span class="tag">MapLibre GL</span>
+                    <span class="tag">TanStack Query</span>
+                </div>
+            </div>
+            <div class="node">
+                <div class="node-title" style="color:var(--cyan)">Workbox PWA</div>
+                <div class="node-desc">
+                    CacheFirst: fonts, tiles, images<br>
+                    NetworkFirst: API calls<br>
+                    StaleWhileRevalidate: GeoJSON
+                </div>
+                <div class="node-tech">
+                    <span class="tag">Service Worker</span>
+                    <span class="tag">IndexedDB</span>
+                    <span class="tag">Background Sync</span>
+                </div>
+            </div>
+            <div class="node">
+                <div class="node-title" style="color:var(--cyan)">Client-Side Direct</div>
+                <div class="node-desc">
+                    Google Sign-In SDK &#8594; OAuth ID token<br>
+                    Firebase Auth &#8594; Phone OTP + SMS<br>
+                    Nominatim &#8594; Location search<br>
+                    OpenFreeMap &#8594; Yogyakarta tiles
+                </div>
+                <div class="node-tech">
+                    <span class="tag">no backend proxy</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONNECTOR: Frontend → Backend -->
+    <div class="connector">
+        <div class="connector-line">
+            <div class="connector-arrow thick" style="height:24px"></div>
+            <div class="connector-head thick"></div>
+        </div>
+        <div class="connector-labels" style="position:absolute; left:0; right:0;">
+            <span class="connector-tag"><span class="highlight">REST API</span> &bull; JWT Bearer auth &bull; auto-refresh on 401</span>
+        </div>
+    </div>
+
+    <!-- ===== LAYER 3: BACKEND ===== -->
+    <div class="layer backend">
+        <div class="layer-label"><span class="icon">&#x2699;</span> BACKEND API &mdash; Koyeb (Docker)</div>
+        <div class="layer-nodes">
+            <div class="node" style="flex:2; max-width:480px">
+                <div class="node-title" style="color:var(--green)">FastAPI Server</div>
+                <div class="node-desc">
+                    SQLAlchemy 2.0 ORM + Pydantic v2<br>
+                    27 API routers (auth, reports, alerts, hotspots, circles, gamification, search, floodhub, sos, whatsapp...)<br>
+                    JWT auth with refresh tokens
+                </div>
+                <div class="node-tech">
+                    <span class="tag">FastAPI</span>
+                    <span class="tag">SQLAlchemy 2.0</span>
+                    <span class="tag">Pydantic v2</span>
+                    <span class="tag">PostGIS</span>
+                </div>
+            </div>
+            <div class="node">
+                <div class="node-title" style="color:var(--green)">Embedded ML</div>
+                <div class="node-desc">
+                    XGBoost: hotspot risk scoring (18 features)<br>
+                    MobileNet TFLite: flood image classifier<br>
+                    FHI Calculator: weather risk formula
+                </div>
+                <div class="node-tech">
+                    <span class="tag">XGBoost</span>
+                    <span class="tag">TFLite</span>
+                    <span class="tag">FHI</span>
+                </div>
+            </div>
+            <div class="node">
+                <div class="node-title" style="color:var(--green)">APScheduler</div>
+                <div class="node-desc">
+                    In-process async background jobs:<br>
+                    IMD (60min) &bull; CWC (120min)<br>
+                    GDACS (60min) &bull; GDELT (60min)<br>
+                    RSS feeds (15min)
+                </div>
+                <div class="node-tech">
+                    <span class="tag">5 scheduled jobs</span>
+                    <span class="tag">async</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONNECTOR: Backend → ML + DB -->
+    <div class="connector">
+        <div class="connector-labels" style="position:relative; display:flex; justify-content:center; gap:32px; margin:4px 0;">
+            <span class="connector-tag"><span class="highlight">SQLAlchemy ORM</span> &bull; PostGIS spatial</span>
+            <span class="connector-tag"><span class="highlight">HTTP Proxy</span> &bull; ML predictions</span>
+            <span class="connector-tag"><span class="highlight">HTTP/API</span> &bull; 18 external services</span>
+        </div>
+        <div style="display:flex; justify-content:center; gap:80px; margin-top:4px;">
+            <div class="connector-line"><div class="connector-arrow thick" style="height:16px"></div><div class="connector-head thick"></div></div>
+            <div class="connector-line"><div class="connector-arrow" style="height:16px"></div><div class="connector-head"></div></div>
+            <div class="connector-line"><div class="connector-arrow" style="height:16px"></div><div class="connector-head"></div></div>
+        </div>
+    </div>
+
+    <!-- ===== LAYER 4 + 5: DATABASE + ML (SIDE BY SIDE) ===== -->
+    <div class="split-row">
+        <div class="layer database">
+            <div class="layer-label"><span class="icon">&#x1F4BE;</span> DATABASE &mdash; Supabase</div>
+            <div class="layer-nodes" style="flex-direction:column;">
+                <div class="node">
+                    <div class="node-title" style="color:var(--amber)">PostgreSQL 15 + PostGIS</div>
+                    <div class="node-desc">
+                        22 tables: User, Report, Sensor, ExternalAlert, SafetyCircle, CircleMember, CircleAlert, Badge, WatchArea, DailyRoute, SavedRoute, WhatsAppSession, RefreshToken...<br>
+                        SRID 4326 &bull; ST_DWithin proximity &bull; POINT/POLYGON geometries
+                    </div>
+                    <div class="node-tech">
+                        <span class="tag">PostgreSQL 15</span>
+                        <span class="tag">PostGIS 3.3</span>
+                        <span class="tag">UUID PKs</span>
+                    </div>
+                </div>
+                <div class="node">
+                    <div class="node-title" style="color:var(--amber)">Supabase Storage</div>
+                    <div class="node-desc">
+                        <code>report-photos</code> bucket<br>
+                        Photo upload via signed URLs &bull; Active in production
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer ml">
+            <div class="layer-label"><span class="icon">&#x1F9E0;</span> ML SERVICE &mdash; Koyeb (Docker)</div>
+            <div class="layer-nodes" style="flex-direction:column;">
+                <div class="node">
+                    <div class="node-title" style="color:var(--purple)">XGBoost + TFLite</div>
+                    <div class="node-desc">
+                        Separate FastAPI container<br>
+                        Hotspot risk scorer &bull; Grid predictions cache<br>
+                        Called by backend via <code>ML_SERVICE_URL</code>
+                    </div>
+                    <div class="node-tech">
+                        <span class="tag">FastAPI</span>
+                        <span class="tag">XGBoost</span>
+                        <span class="tag">TFLite</span>
+                    </div>
+                </div>
+                <div class="side-note">
+                    <span class="arrow">&#x2194;</span>
+                    Note: Some ML is also embedded directly in the backend (dual-mode architecture)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONNECTOR: to External APIs -->
+    <div class="connector" style="padding:12px 0;">
+        <div style="display:flex; justify-content:center;">
+            <div class="connector-line"><div class="connector-arrow" style="height:20px"></div><div class="connector-head"></div></div>
+        </div>
+    </div>
+
+    <!-- ===== LAYER 6: EXTERNAL APIS ===== -->
+    <div class="layer external">
+        <div class="layer-label"><span class="icon">&#x1F30D;</span> EXTERNAL APIS &mdash; 18 Services</div>
+        <div class="ext-grid">
+            <!-- Auth -->
+            <div>
+                <div class="ext-group-title">Auth &amp; Identity</div>
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                    <div class="ext-item">
+                        <div class="ext-item-name">Google OAuth</div>
+                        <div class="ext-item-desc">ID token verification<br><code>oauth2.googleapis.com</code></div>
+                    </div>
+                    <div class="ext-item">
+                        <div class="ext-item-name">Firebase Auth</div>
+                        <div class="ext-item-desc">Phone OTP + reCAPTCHA<br>Client-side SDK</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Flood Data -->
+            <div>
+                <div class="ext-group-title">Flood &amp; Weather Data</div>
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                    <div class="ext-item">
+                        <div class="ext-item-name">Google FloodHub</div>
+                        <div class="ext-item-desc">Gauges, forecasts, inundation<br><code>floodforecasting.googleapis.com</code></div>
+                    </div>
+                    <div class="ext-item">
+                        <div class="ext-item-name">Open-Meteo</div>
+                        <div class="ext-item-desc">Weather + rainfall &#8594; FHI<br>Free, no auth</div>
+                    </div>
+                    <div class="ext-item">
+                        <div class="ext-item-name">IMD &bull; CWC</div>
+                        <div class="ext-item-desc">India weather &amp; flood alerts<br>Web scraping</div>
+                        <div class="ext-item-schedule">&#x23F0; 60min &bull; 120min</div>
+                    </div>
+                    <div class="ext-item">
+                        <div class="ext-item-name">GDACS &bull; GDELT &bull; RSS</div>
+                        <div class="ext-item-desc">Global alerts, news intel, feeds</div>
+                        <div class="ext-item-schedule">&#x23F0; 15-60min</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Geo & Maps -->
+            <div>
+                <div class="ext-group-title">Location &amp; Maps</div>
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                    <div class="ext-item">
+                        <div class="ext-item-name">Photon</div>
+                        <div class="ext-item-desc">Primary geocoding<br>Typo-tolerant, <code>photon.komoot.io</code></div>
+                    </div>
+                    <div class="ext-item">
+                        <div class="ext-item-name">Nominatim / OSM</div>
+                        <div class="ext-item-desc">Fallback geocoding<br>Also client-side direct</div>
+                    </div>
+                    <div class="ext-item">
+                        <div class="ext-item-name">Mapbox</div>
+                        <div class="ext-item-desc">Routing &amp; directions<br>Hotspot avoidance</div>
+                    </div>
+                    <div class="ext-item">
+                        <div class="ext-item-name">OpenFreeMap</div>
+                        <div class="ext-item-desc">Tile CDN<br>Yogyakarta fallback</div>
+                    </div>
+                </div>
+            </div>
+            <!-- AI & Comms -->
+            <div>
+                <div class="ext-group-title">AI &amp; Communications</div>
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                    <div class="ext-item">
+                        <div class="ext-item-name">Groq &bull; Llama 3.1</div>
+                        <div class="ext-item-desc">AI risk summaries (EN + HI)<br>Rate-limited: 100/min, 1800/day</div>
+                    </div>
+                    <div class="ext-item">
+                        <div class="ext-item-name">Wit.ai</div>
+                        <div class="ext-item-desc">NLU intent detection<br>7 intents, 51 utterances</div>
+                    </div>
+                    <div class="ext-item">
+                        <div class="ext-item-name">Twilio</div>
+                        <div class="ext-item-desc">WhatsApp + SMS outbound<br>SOS fanout</div>
+                        <div class="ext-item-schedule">&#x21C4; Webhook: /api/whatsapp</div>
+                    </div>
+                    <div class="ext-item">
+                        <div class="ext-item-name">Meta WhatsApp</div>
+                        <div class="ext-item-desc">Graph API v21.0<br>Interactive buttons</div>
+                        <div class="ext-item-schedule">&#x21C4; Webhook: /api/whatsapp-meta</div>
+                    </div>
+                    <div class="ext-item">
+                        <div class="ext-item-name">SendGrid</div>
+                        <div class="ext-item-desc">Email verification</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONNECTOR: CI/CD -->
+    <div class="connector" style="padding:12px 0;">
+        <div style="display:flex; justify-content:center;">
+            <div class="connector-line"><div class="connector-arrow" style="height:16px; background:var(--gray)"></div><div class="connector-head" style="border-top-color:var(--gray)"></div></div>
+        </div>
+    </div>
+
+    <!-- ===== LAYER 7: CI/CD ===== -->
+    <div class="layer cicd">
+        <div class="layer-label"><span class="icon">&#x1F504;</span> CI/CD &mdash; GitHub Actions</div>
+        <div class="layer-nodes">
+            <div class="node" style="flex:2; max-width: 100%;">
+                <div class="node-title" style="color:var(--gray)">GitHub Actions Pipeline</div>
+                <div class="node-desc">
+                    <strong>Trigger:</strong> Push/PR to master &nbsp;&bull;&nbsp;
+                    <strong>Jobs:</strong> frontend-test &#8594; backend-test &#8594; typecheck &#8594; docker-build<br>
+                    <strong style="color:var(--orange)">Note:</strong> CI runs tests only. Deployment is ALWAYS manual
+                    (<code>npx vercel --prod</code> for frontend, <code>koyeb services redeploy</code> for backend)
+                </div>
+                <div class="node-tech">
+                    <span class="tag">GitHub Actions</span>
+                    <span class="tag">pytest</span>
+                    <span class="tag">tsc --noEmit</span>
+                    <span class="tag">Docker build</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ===== LEGEND & INFO ===== -->
+<div class="info-section">
+    <div class="info-card">
+        <h3>Color Legend</h3>
+        <div class="color-legend-item"><div class="color-swatch" style="background:var(--blue)"></div> Users &amp; Entry Points</div>
+        <div class="color-legend-item"><div class="color-swatch" style="background:var(--cyan)"></div> Frontend &mdash; Vercel CDN</div>
+        <div class="color-legend-item"><div class="color-swatch" style="background:var(--green)"></div> Backend API &mdash; Koyeb (Docker)</div>
+        <div class="color-legend-item"><div class="color-swatch" style="background:var(--purple)"></div> ML Service &mdash; Koyeb (Docker)</div>
+        <div class="color-legend-item"><div class="color-swatch" style="background:var(--amber)"></div> Database &amp; Storage &mdash; Supabase</div>
+        <div class="color-legend-item"><div class="color-swatch" style="background:var(--rose)"></div> External APIs (18 services)</div>
+        <div class="color-legend-item"><div class="color-swatch" style="background:var(--gray)"></div> CI/CD &mdash; GitHub Actions</div>
+    </div>
+
+    <div class="info-card">
+        <h3>Edge Styles</h3>
+        <div class="edge-legend">
+            <div class="edge-item"><div class="edge-line solid"></div> Primary data flow (real-time)</div>
+            <div class="edge-item"><div class="edge-line thin"></div> Secondary data flow (on-demand)</div>
+            <div class="edge-item"><div class="edge-line dashed"></div> Scheduled / background (APScheduler)</div>
+            <div class="edge-item"><div class="edge-line dotted"></div> Client-side direct (no backend proxy)</div>
+        </div>
+    </div>
+
+    <div class="info-card">
+        <h3>Deployment Commands</h3>
+        <table>
+            <tr><th>Service</th><th>Platform</th><th>Command</th></tr>
+            <tr><td>Frontend</td><td>Vercel</td><td><code>npx vercel@50.15.1 --prod</code></td></tr>
+            <tr><td>Backend</td><td>Koyeb</td><td><code>koyeb services redeploy</code></td></tr>
+            <tr><td>ML Service</td><td>Koyeb</td><td><code>koyeb services redeploy</code></td></tr>
+            <tr><td>Database</td><td>Supabase</td><td>Managed (always on)</td></tr>
+        </table>
+        <p style="font-size:11px;color:var(--text-dim);margin-top:8px"><code>git push</code> does NOT auto-deploy. CI runs tests only.</p>
+    </div>
+
+    <div class="info-card">
+        <h3>Multi-City Coverage</h3>
+        <table>
+            <tr><th>City</th><th>Hotspots</th><th>Map Tiles</th><th>FloodHub</th></tr>
+            <tr><td>Delhi</td><td>90 (62 MCD + 28 OSM)</td><td>Local PMTiles</td><td>Yamuna gauge</td></tr>
+            <tr><td>Bangalore</td><td>FHI only</td><td>Local PMTiles</td><td>City search</td></tr>
+            <tr><td>Yogyakarta</td><td>19</td><td>OpenFreeMap CDN</td><td>City search</td></tr>
+        </table>
+    </div>
+
+    <div class="info-card">
+        <h3>Data Flow Summary</h3>
+        <table>
+            <tr><th>#</th><th>Flow</th><th>Type</th></tr>
+            <tr><td>1</td><td>Browser &#8594; Frontend (PWA)</td><td>HTTPS</td></tr>
+            <tr><td>2</td><td>Frontend &#8594; Backend (REST)</td><td>JWT Bearer</td></tr>
+            <tr><td>3</td><td>Backend &#8594; Database (ORM)</td><td>SQLAlchemy</td></tr>
+            <tr><td>4</td><td>Backend &#8594; ML Service (HTTP)</td><td>Proxy</td></tr>
+            <tr><td>5</td><td>Backend &#8594; FloodHub</td><td>API Key</td></tr>
+            <tr><td>6</td><td>Backend &#8594; Open-Meteo &#8594; FHI</td><td>Free API</td></tr>
+            <tr><td>7</td><td>Scheduler &#8594; IMD/CWC/GDACS</td><td>Scrape/API</td></tr>
+            <tr><td>8</td><td>WhatsApp &#8594; Twilio/Meta &#8594; Backend</td><td>Webhook</td></tr>
+            <tr><td>9</td><td>Backend &#8594; Twilio (SOS fanout)</td><td>API</td></tr>
+            <tr><td>10</td><td>Frontend &#8594; Google/Firebase (Auth)</td><td>Client SDK</td></tr>
+        </table>
+    </div>
+
+    <div class="info-card">
+        <h3>Tech Stack</h3>
+        <div style="display:flex; flex-wrap:wrap; gap:5px;">
+            <span class="tag">React 18</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Vite</span>
+            <span class="tag">Tailwind CSS</span>
+            <span class="tag">Radix UI</span>
+            <span class="tag">TanStack Query</span>
+            <span class="tag">MapLibre GL</span>
+            <span class="tag">Workbox PWA</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">SQLAlchemy 2.0</span>
+            <span class="tag">Pydantic v2</span>
+            <span class="tag">PostGIS</span>
+            <span class="tag">PostgreSQL 15</span>
+            <span class="tag">XGBoost</span>
+            <span class="tag">MobileNet TFLite</span>
+            <span class="tag">APScheduler</span>
+            <span class="tag">Docker</span>
+            <span class="tag">GitHub Actions</span>
+        </div>
+    </div>
+</div>
+
+<footer>
+    FloodSafe &mdash; Nonprofit Flood Monitoring Platform &bull; Last updated: February 2026 &bull; github.com/aniru888/floodsafe-mvp
+</footer>
+
+</body>
+</html>

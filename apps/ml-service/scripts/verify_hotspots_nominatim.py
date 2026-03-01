@@ -28,7 +28,7 @@ NOMINATIM_DELAY = 1.1  # seconds between requests
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse"
 
 # User agent (required by Nominatim terms of service)
-USER_AGENT = "FloodSafe-Delhi/1.0 (research-project)"
+USER_AGENT = "FloodSafe/1.0 (research-project)"
 
 
 def reverse_geocode(lat: float, lng: float) -> Dict:
