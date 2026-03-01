@@ -247,6 +247,435 @@ const translations: Record<string, Record<OnboardingBotLanguage, string>> = {
         hi: 'का',
         id: 'dari',
     },
+
+    // ── LoginScreen ──────────────────────────────────────────────
+    'login.brand.tagline': {
+        en: 'Community flood monitoring',
+        hi: 'सामुदायिक बाढ़ निगरानी',
+        id: 'Pemantauan banjir komunitas',
+    },
+    'login.brand.cities': {
+        en: 'Delhi \u00B7 Bangalore \u00B7 Yogyakarta \u00B7 Singapore',
+        hi: 'दिल्ली \u00B7 बेंगलुरु \u00B7 योग्यकर्ता \u00B7 सिंगापुर',
+        id: 'Delhi \u00B7 Bangalore \u00B7 Yogyakarta \u00B7 Singapura',
+    },
+    'login.heading.create': {
+        en: 'Create your account',
+        hi: 'अपना खाता बनाएं',
+        id: 'Buat akun Anda',
+    },
+    'login.heading.signin': {
+        en: 'Welcome back',
+        hi: 'वापसी पर स्वागत है',
+        id: 'Selamat datang kembali',
+    },
+    'login.subheading.create': {
+        en: 'Join the flood monitoring community',
+        hi: 'बाढ़ निगरानी समुदाय से जुड़ें',
+        id: 'Bergabung dengan komunitas pemantauan banjir',
+    },
+    'login.subheading.signin': {
+        en: 'Sign in to access alerts, routes & reports',
+        hi: 'अलर्ट, मार्ग और रिपोर्ट तक पहुंचने के लिए साइन इन करें',
+        id: 'Masuk untuk mengakses peringatan, rute & laporan',
+    },
+    'login.label.email': {
+        en: 'Email',
+        hi: 'ईमेल',
+        id: 'Email',
+    },
+    'login.label.password': {
+        en: 'Password',
+        hi: 'पासवर्ड',
+        id: 'Kata sandi',
+    },
+    'login.placeholder.email': {
+        en: 'you@example.com',
+        hi: 'you@example.com',
+        id: 'anda@contoh.com',
+    },
+    'login.placeholder.password.create': {
+        en: 'Min 8 characters',
+        hi: 'न्यूनतम 8 अक्षर',
+        id: 'Minimal 8 karakter',
+    },
+    'login.placeholder.password.signin': {
+        en: 'Your password',
+        hi: 'आपका पासवर्ड',
+        id: 'Kata sandi Anda',
+    },
+    'login.button.create': {
+        en: 'Create Account',
+        hi: 'खाता बनाएं',
+        id: 'Buat Akun',
+    },
+    'login.button.signin': {
+        en: 'Sign In',
+        hi: 'साइन इन करें',
+        id: 'Masuk',
+    },
+    'login.button.creating': {
+        en: 'Creating...',
+        hi: 'बना रहे हैं...',
+        id: 'Membuat...',
+    },
+    'login.button.signingIn': {
+        en: 'Signing in...',
+        hi: 'साइन इन हो रहा है...',
+        id: 'Masuk...',
+    },
+    'login.divider.or': {
+        en: 'or',
+        hi: 'या',
+        id: 'atau',
+    },
+    'login.toggle.toSignin': {
+        en: 'Already have an account?',
+        hi: 'पहले से खाता है?',
+        id: 'Sudah punya akun?',
+    },
+    'login.toggle.toSignup': {
+        en: "Don't have an account?",
+        hi: 'खाता नहीं है?',
+        id: 'Belum punya akun?',
+    },
+    'login.toggle.signin': {
+        en: 'Sign in',
+        hi: 'साइन इन',
+        id: 'Masuk',
+    },
+    'login.toggle.signup': {
+        en: 'Sign up',
+        hi: 'साइन अप',
+        id: 'Daftar',
+    },
+    'login.toggle.toPhone': {
+        en: 'Use phone number',
+        hi: 'फ़ोन नंबर का उपयोग करें',
+        id: 'Gunakan nomor telepon',
+    },
+    'login.phone.heading': {
+        en: 'Phone sign in',
+        hi: 'फ़ोन से साइन इन',
+        id: 'Masuk dengan telepon',
+    },
+    'login.phone.subheading': {
+        en: "We'll send you a verification code",
+        hi: 'हम आपको एक सत्यापन कोड भेजेंगे',
+        id: 'Kami akan mengirimkan kode verifikasi',
+    },
+    'login.phone.placeholder': {
+        en: 'Phone number',
+        hi: 'फ़ोन नंबर',
+        id: 'Nomor telepon',
+    },
+    'login.phone.sendCode': {
+        en: 'Send code',
+        hi: 'कोड भेजें',
+        id: 'Kirim kode',
+    },
+    'login.phone.changeNumber': {
+        en: 'Change number',
+        hi: 'नंबर बदलें',
+        id: 'Ganti nomor',
+    },
+    'login.phone.codeSent': {
+        en: 'Code sent to',
+        hi: 'कोड भेजा गया',
+        id: 'Kode dikirim ke',
+    },
+    'login.phone.resend': {
+        en: 'Resend code',
+        hi: 'कोड दोबारा भेजें',
+        id: 'Kirim ulang kode',
+    },
+    'login.phone.verify': {
+        en: 'Verify',
+        hi: 'सत्यापित करें',
+        id: 'Verifikasi',
+    },
+    'login.phone.backToEmail': {
+        en: 'Back to email sign in',
+        hi: 'ईमेल साइन इन पर वापस जाएं',
+        id: 'Kembali ke masuk email',
+    },
+    'login.terms': {
+        en: 'By continuing, you agree to our Terms & Privacy Policy',
+        hi: 'जारी रखकर, आप हमारी शर्तों और गोपनीयता नीति से सहमत हैं',
+        id: 'Dengan melanjutkan, Anda menyetujui Syarat & Kebijakan Privasi kami',
+    },
+    'login.error.email': {
+        en: 'Please enter a valid email address',
+        hi: 'कृपया एक मान्य ईमेल पता दर्ज करें',
+        id: 'Silakan masukkan alamat email yang valid',
+    },
+    'login.error.password': {
+        en: 'Password must be at least 8 characters',
+        hi: 'पासवर्ड कम से कम 8 अक्षर का होना चाहिए',
+        id: 'Kata sandi harus minimal 8 karakter',
+    },
+
+    // ── OnboardingScreen ─────────────────────────────────────────
+    'onboarding.header.welcome': {
+        en: 'Welcome to FloodSafe',
+        hi: 'FloodSafe में आपका स्वागत है',
+        id: 'Selamat datang di FloodSafe',
+    },
+    'onboarding.header.subtitle': {
+        en: "Let's set up your account",
+        hi: 'आइए आपका खाता सेट करें',
+        id: 'Mari siapkan akun Anda',
+    },
+    'onboarding.language.title': {
+        en: 'Choose your preferred language',
+        hi: 'अपनी पसंदीदा भाषा चुनें',
+        id: 'Pilih bahasa pilihan Anda',
+    },
+    'onboarding.language.continue': {
+        en: 'Continue',
+        hi: 'जारी रखें',
+        id: 'Lanjutkan',
+    },
+    'onboarding.steps.city': {
+        en: 'Select City',
+        hi: 'शहर चुनें',
+        id: 'Pilih Kota',
+    },
+    'onboarding.steps.profile': {
+        en: 'Your Profile',
+        hi: 'आपकी प्रोफ़ाइल',
+        id: 'Profil Anda',
+    },
+    'onboarding.steps.watchAreas': {
+        en: 'Watch Areas',
+        hi: 'निगरानी क्षेत्र',
+        id: 'Area Pantau',
+    },
+    'onboarding.steps.routes': {
+        en: 'Daily Routes',
+        hi: 'दैनिक मार्ग',
+        id: 'Rute Harian',
+    },
+    'onboarding.steps.complete': {
+        en: 'Complete',
+        hi: 'पूर्ण',
+        id: 'Selesai',
+    },
+    'onboarding.progress': {
+        en: 'Step {n} of 5: {title}',
+        hi: 'चरण {n} / 5: {title}',
+        id: 'Langkah {n} dari 5: {title}',
+    },
+    'onboarding.city.heading': {
+        en: 'Select Your City',
+        hi: 'अपना शहर चुनें',
+        id: 'Pilih Kota Anda',
+    },
+    'onboarding.city.subheading': {
+        en: 'Choose the city where you want to receive flood alerts',
+        hi: 'वह शहर चुनें जहां आप बाढ़ अलर्ट प्राप्त करना चाहते हैं',
+        id: 'Pilih kota tempat Anda ingin menerima peringatan banjir',
+    },
+    'onboarding.city.region.delhi': {
+        en: 'National Capital Territory, India',
+        hi: 'राष्ट्रीय राजधानी क्षेत्र, भारत',
+        id: 'Wilayah Ibu Kota Nasional, India',
+    },
+    'onboarding.city.region.bangalore': {
+        en: 'Karnataka, India',
+        hi: 'कर्नाटक, भारत',
+        id: 'Karnataka, India',
+    },
+    'onboarding.city.region.yogyakarta': {
+        en: 'Special Region of Yogyakarta, Indonesia',
+        hi: 'योग्यकर्ता विशेष क्षेत्र, इंडोनेशिया',
+        id: 'Daerah Istimewa Yogyakarta, Indonesia',
+    },
+    'onboarding.city.region.singapore': {
+        en: 'Republic of Singapore',
+        hi: 'सिंगापुर गणराज्य',
+        id: 'Republik Singapura',
+    },
+    'onboarding.profile.heading': {
+        en: 'Your Profile',
+        hi: 'आपकी प्रोफ़ाइल',
+        id: 'Profil Anda',
+    },
+    'onboarding.profile.subheading': {
+        en: 'Set up your profile information',
+        hi: 'अपनी प्रोफ़ाइल जानकारी सेट करें',
+        id: 'Atur informasi profil Anda',
+    },
+    'onboarding.profile.username': {
+        en: 'Username *',
+        hi: 'उपयोगकर्ता नाम *',
+        id: 'Nama pengguna *',
+    },
+    'onboarding.profile.usernamePlaceholder': {
+        en: 'Enter your username',
+        hi: 'अपना उपयोगकर्ता नाम दर्ज करें',
+        id: 'Masukkan nama pengguna Anda',
+    },
+    'onboarding.profile.phone': {
+        en: 'Phone Number (optional)',
+        hi: 'फ़ोन नंबर (वैकल्पिक)',
+        id: 'Nomor Telepon (opsional)',
+    },
+    'onboarding.profile.phoneHelper': {
+        en: 'Used for SMS alerts (optional)',
+        hi: 'SMS अलर्ट के लिए उपयोग (वैकल्पिक)',
+        id: 'Digunakan untuk peringatan SMS (opsional)',
+    },
+    'onboarding.watchAreas.heading': {
+        en: 'Watch Areas',
+        hi: 'निगरानी क्षेत्र',
+        id: 'Area Pantau',
+    },
+    'onboarding.watchAreas.subheading': {
+        en: 'Add locations you want to monitor for flood alerts (at least 1 required)',
+        hi: 'बाढ़ अलर्ट के लिए निगरानी हेतु स्थान जोड़ें (कम से कम 1 आवश्यक)',
+        id: 'Tambahkan lokasi yang ingin Anda pantau untuk peringatan banjir (minimal 1 diperlukan)',
+    },
+    'onboarding.watchAreas.areaName': {
+        en: 'Area name (e.g., Home, Office)',
+        hi: 'क्षेत्र का नाम (जैसे, घर, कार्यालय)',
+        id: 'Nama area (mis., Rumah, Kantor)',
+    },
+    'onboarding.watchAreas.search': {
+        en: 'Search for a location...',
+        hi: 'स्थान खोजें...',
+        id: 'Cari lokasi...',
+    },
+    'onboarding.watchAreas.useLocation': {
+        en: 'Use My Current Location',
+        hi: 'मेरा वर्तमान स्थान उपयोग करें',
+        id: 'Gunakan Lokasi Saya Saat Ini',
+    },
+    'onboarding.watchAreas.gettingLocation': {
+        en: 'Getting location...',
+        hi: 'स्थान प्राप्त हो रहा है...',
+        id: 'Mendapatkan lokasi...',
+    },
+    'onboarding.watchAreas.existing': {
+        en: 'Previously added:',
+        hi: 'पहले से जोड़ा गया:',
+        id: 'Sebelumnya ditambahkan:',
+    },
+    'onboarding.watchAreas.pending': {
+        en: 'To be added:',
+        hi: 'जोड़ा जाएगा:',
+        id: 'Akan ditambahkan:',
+    },
+    'onboarding.watchAreas.none': {
+        en: 'No watch areas added yet',
+        hi: 'अभी तक कोई निगरानी क्षेत्र नहीं जोड़ा गया',
+        id: 'Belum ada area pantau yang ditambahkan',
+    },
+    'onboarding.routes.heading': {
+        en: 'Daily Routes',
+        hi: 'दैनिक मार्ग',
+        id: 'Rute Harian',
+    },
+    'onboarding.routes.subheading': {
+        en: 'Add your regular commute routes to get flood alerts along your path (optional)',
+        hi: 'अपने नियमित आवागमन मार्ग जोड़ें ताकि आपके रास्ते में बाढ़ अलर्ट मिलें (वैकल्पिक)',
+        id: 'Tambahkan rute perjalanan reguler Anda untuk mendapatkan peringatan banjir di sepanjang jalur Anda (opsional)',
+    },
+    'onboarding.routes.tip': {
+        en: 'Tip: Add routes like "Home to Office" to receive alerts about flooding along your daily commute.',
+        hi: 'सुझाव: "घर से कार्यालय" जैसे मार्ग जोड़ें ताकि आपके दैनिक आवागमन में बाढ़ अलर्ट मिलें।',
+        id: 'Tips: Tambahkan rute seperti "Rumah ke Kantor" untuk menerima peringatan banjir di perjalanan harian Anda.',
+    },
+    'onboarding.routes.none': {
+        en: 'No daily routes added',
+        hi: 'कोई दैनिक मार्ग नहीं जोड़ा गया',
+        id: 'Belum ada rute harian yang ditambahkan',
+    },
+    'onboarding.routes.addLater': {
+        en: 'You can add routes later from your profile',
+        hi: 'आप बाद में अपनी प्रोफ़ाइल से मार्ग जोड़ सकते हैं',
+        id: 'Anda dapat menambahkan rute nanti dari profil Anda',
+    },
+    'onboarding.complete.heading': {
+        en: "You're All Set!",
+        hi: 'आप पूरी तरह तैयार हैं!',
+        id: 'Anda Siap!',
+    },
+    'onboarding.complete.subheading': {
+        en: "Here's a summary of your setup:",
+        hi: 'यहां आपके सेटअप का सारांश है:',
+        id: 'Berikut ringkasan pengaturan Anda:',
+    },
+    'onboarding.complete.instruction': {
+        en: 'Click "Get Started" to begin using FloodSafe',
+        hi: 'FloodSafe का उपयोग शुरू करने के लिए "शुरू करें" पर क्लिक करें',
+        id: 'Klik "Mulai" untuk mulai menggunakan FloodSafe',
+    },
+    'onboarding.complete.summary.city': {
+        en: 'City:',
+        hi: 'शहर:',
+        id: 'Kota:',
+    },
+    'onboarding.complete.summary.username': {
+        en: 'Username:',
+        hi: 'उपयोगकर्ता नाम:',
+        id: 'Nama pengguna:',
+    },
+    'onboarding.complete.summary.watchAreas': {
+        en: 'Watch Areas:',
+        hi: 'निगरानी क्षेत्र:',
+        id: 'Area Pantau:',
+    },
+    'onboarding.complete.summary.routes': {
+        en: 'Daily Routes:',
+        hi: 'दैनिक मार्ग:',
+        id: 'Rute Harian:',
+    },
+    'onboarding.nav.back': {
+        en: 'Back',
+        hi: 'पीछे',
+        id: 'Kembali',
+    },
+    'onboarding.nav.skip': {
+        en: 'Skip',
+        hi: 'छोड़ें',
+        id: 'Lewati',
+    },
+    'onboarding.nav.next': {
+        en: 'Next',
+        hi: 'आगे',
+        id: 'Selanjutnya',
+    },
+    'onboarding.nav.getStarted': {
+        en: 'Get Started',
+        hi: 'शुरू करें',
+        id: 'Mulai',
+    },
+    'onboarding.toast.welcome': {
+        en: 'Welcome to FloodSafe!',
+        hi: 'FloodSafe में आपका स्वागत है!',
+        id: 'Selamat datang di FloodSafe!',
+    },
+    'onboarding.toast.error': {
+        en: 'Something went wrong. Please try again.',
+        hi: 'कुछ गलत हो गया। कृपया दोबारा प्रयास करें।',
+        id: 'Terjadi kesalahan. Silakan coba lagi.',
+    },
+    'onboarding.error.city': {
+        en: 'Please select a city',
+        hi: 'कृपया एक शहर चुनें',
+        id: 'Silakan pilih kota',
+    },
+    'onboarding.error.username': {
+        en: 'Username must be at least 3 characters',
+        hi: 'उपयोगकर्ता नाम कम से कम 3 अक्षर का होना चाहिए',
+        id: 'Nama pengguna harus minimal 3 karakter',
+    },
+    'onboarding.error.watchAreas': {
+        en: 'Add at least one watch area',
+        hi: 'कम से कम एक निगरानी क्षेत्र जोड़ें',
+        id: 'Tambahkan minimal satu area pantau',
+    },
 };
 
 /**
