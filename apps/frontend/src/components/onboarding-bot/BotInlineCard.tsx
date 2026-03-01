@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useOnboardingBot } from '../../contexts/OnboardingBotContext';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { t } from '../../lib/onboarding-bot/translations';
 import { Volume2, VolumeX, X } from 'lucide-react';
 import type { OnboardingBotLanguage } from '../../types/onboarding-bot';
@@ -17,10 +18,10 @@ export function BotInlineCard() {
         state,
         currentStep,
         skipTour,
-        setLanguage,
         toggleVoice,
         setCardExpanded,
     } = useOnboardingBot();
+    const { setLanguage } = useLanguage();
 
     const collapseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 

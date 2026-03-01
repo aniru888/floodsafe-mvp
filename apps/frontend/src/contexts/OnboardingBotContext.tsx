@@ -7,9 +7,9 @@ import type {
     OnboardingBotContextValue,
 } from '../types/onboarding-bot';
 import { onboardingSteps, buildAppTourSteps, wizardStepToBotIndex } from '../lib/onboarding-bot/tourSteps';
-import { cityToLanguage, t, languageToVoiceCode } from '../lib/onboarding-bot/translations';
+import { t, languageToVoiceCode } from '../lib/onboarding-bot/translations';
 import { useVoiceGuidance } from './VoiceGuidanceContext';
-import { useCurrentCity } from './CityContext';
+import { useLanguage } from './LanguageContext';
 import { fetchJson } from '../lib/api/client';
 
 const OnboardingBotContext = createContext<OnboardingBotContextValue | null>(null);
@@ -19,17 +19,19 @@ const LS_COMPLETED = 'floodsafe_tour_completed';
 
 export function OnboardingBotProvider({ children }: { children: React.ReactNode }) {
     const { speak, stop: stopVoice } = useVoiceGuidance();
-    const currentCity = useCurrentCity();
+    const { language } = useLanguage();
     const navigateRef = useRef<((tab: string) => void) | null>(null);
 
-    const [state, setState] = useState<OnboardingBotState>({
+    const [internalState, setInternalState] = useState<Omit<OnboardingBotState, 'language'>>({
         phase: 'idle',
-        language: cityToLanguage(currentCity),
         currentStepIndex: 0,
         isVoiceEnabled: true,
         isCardExpanded: true,
         isDismissed: localStorage.getItem(LS_DISMISSED) === 'true',
     });
+
+    // Bridge: expose language from LanguageContext as part of state (backward-compatible)
+    const state: OnboardingBotState = { ...internalState, language };
 
     const [appTourSteps, setAppTourSteps] = useState<TourStep[]>([]);
 
@@ -49,10 +51,8 @@ export function OnboardingBotProvider({ children }: { children: React.ReactNode 
     }, [speak]);
 
     // Start a tour phase
-    const startTour = useCallback((phase: TourPhase, language?: OnboardingBotLanguage) => {
-        if (state.isDismissed && phase === 'onboarding') return;
-
-        const lang = language || cityToLanguage(currentCity);
+    const startTour = useCallback((phase: TourPhase) => {
+        if (internalState.isDismissed && phase === 'onboarding') return;
 
         if (phase === 'app-tour' && navigateRef.current) {
             const built = buildAppTourSteps(navigateRef.current);
@@ -63,15 +63,14 @@ export function OnboardingBotProvider({ children }: { children: React.ReactNode 
             }
         }
 
-        setState(prev => ({
+        setInternalState(prev => ({
             ...prev,
             phase,
-            language: lang,
             currentStepIndex: 0,
             isCardExpanded: true,
             isDismissed: false,
         }));
-    }, [currentCity, state.isDismissed]);
+    }, [internalState.isDismissed]);
 
     // Navigate steps
     const nextStep = useCallback(async () => {
@@ -90,7 +89,7 @@ export function OnboardingBotProvider({ children }: { children: React.ReactNode 
                 // Non-critical — localStorage is the primary flag
             }
 
-            setState(prev => ({ ...prev, phase: 'idle', currentStepIndex: 0 }));
+            setInternalState(prev => ({ ...prev, phase: 'idle', currentStepIndex: 0 }));
             return;
         }
 
@@ -101,7 +100,7 @@ export function OnboardingBotProvider({ children }: { children: React.ReactNode 
             await nextStepDef.onBefore();
         }
 
-        setState(prev => ({
+        setInternalState(prev => ({
             ...prev,
             currentStepIndex: nextIndex,
             isCardExpanded: true,
@@ -118,7 +117,7 @@ export function OnboardingBotProvider({ children }: { children: React.ReactNode 
             await prevStepDef.onBefore();
         }
 
-        setState(prev => ({
+        setInternalState(prev => ({
             ...prev,
             currentStepIndex: prevIndex,
             isCardExpanded: true,
@@ -128,7 +127,7 @@ export function OnboardingBotProvider({ children }: { children: React.ReactNode 
     const skipTour = useCallback(() => {
         stopVoice();
         localStorage.setItem(LS_DISMISSED, 'true');
-        setState(prev => ({
+        setInternalState(prev => ({
             ...prev,
             phase: 'idle',
             isDismissed: true,
@@ -136,12 +135,8 @@ export function OnboardingBotProvider({ children }: { children: React.ReactNode 
         }));
     }, [stopVoice]);
 
-    const setLanguage = useCallback((lang: OnboardingBotLanguage) => {
-        setState(prev => ({ ...prev, language: lang }));
-    }, []);
-
     const toggleVoice = useCallback(() => {
-        setState(prev => {
+        setInternalState(prev => {
             if (prev.isVoiceEnabled) {
                 stopVoice();
             }
@@ -150,7 +145,7 @@ export function OnboardingBotProvider({ children }: { children: React.ReactNode 
     }, [stopVoice]);
 
     const setCardExpanded = useCallback((expanded: boolean) => {
-        setState(prev => ({ ...prev, isCardExpanded: expanded }));
+        setInternalState(prev => ({ ...prev, isCardExpanded: expanded }));
     }, []);
 
     const registerNavigation = useCallback((fn: (tab: string) => void) => {
@@ -161,7 +156,7 @@ export function OnboardingBotProvider({ children }: { children: React.ReactNode 
     const syncOnboardingStep = useCallback((wizardStep: number) => {
         if (state.phase !== 'onboarding') return;
         const botIndex = wizardStepToBotIndex(wizardStep);
-        setState(prev => ({
+        setInternalState(prev => ({
             ...prev,
             currentStepIndex: botIndex,
             isCardExpanded: true,
@@ -171,8 +166,8 @@ export function OnboardingBotProvider({ children }: { children: React.ReactNode 
     // Speak when step changes (voice enabled)
     useEffect(() => {
         if (state.phase === 'idle' || !state.isVoiceEnabled || !currentStep) return;
-        speakCurrentStep(currentStep, state.language);
-    }, [state.currentStepIndex, state.phase, state.isVoiceEnabled, state.language, currentStep, speakCurrentStep]);
+        speakCurrentStep(currentStep, language);
+    }, [state.currentStepIndex, state.phase, state.isVoiceEnabled, language, currentStep, speakCurrentStep]);
 
     // Keyboard shortcuts: Escape to skip
     useEffect(() => {
@@ -201,7 +196,6 @@ export function OnboardingBotProvider({ children }: { children: React.ReactNode 
             nextStep,
             prevStep,
             skipTour,
-            setLanguage,
             toggleVoice,
             setCardExpanded,
             registerNavigation,

@@ -1,5 +1,6 @@
 import { createPortal } from 'react-dom';
 import { useOnboardingBot } from '../../contexts/OnboardingBotContext';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { t } from '../../lib/onboarding-bot/translations';
 import { Volume2, VolumeX, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { OnboardingBotLanguage } from '../../types/onboarding-bot';
@@ -27,8 +28,8 @@ export function BotTooltip({ visible }: { visible: boolean }) {
         prevStep,
         skipTour,
         toggleVoice,
-        setLanguage,
     } = useOnboardingBot();
+    const { setLanguage } = useLanguage();
 
     if (state.phase !== 'app-tour' || !visible || !currentStep) return null;
 

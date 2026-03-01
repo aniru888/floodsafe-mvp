@@ -38,11 +38,10 @@ export interface OnboardingBotContextValue {
     state: OnboardingBotState;
     steps: TourStep[];
     currentStep: TourStep | null;
-    startTour: (phase: TourPhase, language?: OnboardingBotLanguage) => void;
+    startTour: (phase: TourPhase) => void;
     nextStep: () => void;
     prevStep: () => void;
     skipTour: () => void;
-    setLanguage: (lang: OnboardingBotLanguage) => void;
     toggleVoice: () => void;
     setCardExpanded: (expanded: boolean) => void;
     registerNavigation: (fn: (tab: string) => void) => void;
