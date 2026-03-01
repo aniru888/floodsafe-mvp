@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { Routes, Route } from 'react-router-dom';
 import { ResponsiveLayout } from './components/ResponsiveLayout';
@@ -23,10 +23,13 @@ import { LocationTrackingProvider } from './contexts/LocationTrackingContext';
 import { FloodAlert } from './types';
 import { JoinCircleModal } from './components/circles';
 import { Toaster } from './components/ui/sonner';
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { CityProvider } from './contexts/CityContext';
-import { UserProvider } from './contexts/UserContext';
+import { UserProvider, useUser } from './contexts/UserContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { LanguageProvider, useLanguage, toShortCode } from './contexts/LanguageContext';
+import { fetchJson } from './lib/api/client';
+import { User } from './types';
 import { Loader2 } from 'lucide-react';
 import { WebMCPProvider } from './components/WebMCPProvider';
 import { NavigationProvider } from './contexts/NavigationContext';
@@ -47,6 +50,46 @@ function PushNotificationRegistrar() {
             requestPermission();
         }
     }, [permission, requestPermission]);
+
+    return null;
+}
+
+/**
+ * Syncs LanguageContext <-> user.language in DB.
+ * - On user load: DB wins for returning users (non-default language).
+ * - New users: localStorage value (set on LoginScreen) takes precedence.
+ *
+ * Uses /users/me/profile (full profile endpoint) because /auth/me (AuthUser)
+ * does not include the language field.
+ */
+function LanguageSyncBridge() {
+    const { userId } = useUser();
+    const { language, setLanguage } = useLanguage();
+    const hasSyncedRef = useRef(false);
+
+    const { data: profile } = useQuery({
+        queryKey: ['user', 'profile', userId],
+        queryFn: () => fetchJson<User>('/users/me/profile'),
+        enabled: !!userId,
+        staleTime: 5 * 60 * 1000, // 5 min — same as ProfileScreen
+    });
+
+    // On profile load: sync DB → context (DB wins for returning users)
+    useEffect(() => {
+        if (!profile || hasSyncedRef.current) return;
+        hasSyncedRef.current = true;
+
+        const dbLang = toShortCode(profile.language);
+        // DB wins if user has a non-default language set
+        if (profile.language && profile.language !== 'english' && dbLang !== language) {
+            setLanguage(dbLang);
+        }
+    }, [profile, language, setLanguage]);
+
+    // Reset sync flag on logout
+    useEffect(() => {
+        if (!userId) hasSyncedRef.current = false;
+    }, [userId]);
 
     return null;
 }
@@ -285,9 +328,11 @@ export default function App() {
     return (
         <>
             <Analytics />
+            <LanguageProvider>
             <QueryClientProvider client={queryClient}>
             <AuthProvider>
                 <UserProvider>
+                    <LanguageSyncBridge />
                     <CityProvider>
                         <InstallPromptProvider>
                             <VoiceGuidanceProvider>
@@ -320,6 +365,7 @@ export default function App() {
                 </UserProvider>
             </AuthProvider>
         </QueryClientProvider>
+        </LanguageProvider>
         </>
     );
 }
