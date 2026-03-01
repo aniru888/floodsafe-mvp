@@ -7,6 +7,7 @@ import { Capacitor } from '@capacitor/core';
 import { useAuth } from '../contexts/AuthContext';
 import { useCityContext } from '../contexts/CityContext';
 import { useLocationTracking } from '../contexts/LocationTrackingContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import { CITIES, type CityKey } from '../lib/map/cityConfigs';
 import { API_BASE_URL } from '../lib/api/config';
 
@@ -35,6 +36,7 @@ export function WebMCPProvider() {
   const { user, isAuthenticated, isLoading: authLoading } = useAuth();
   const { city, setCity } = useCityContext();
   const { state: locState } = useLocationTracking();
+  const { language } = useLanguage();
   const queryClient = useQueryClient();
 
   // ─── Contexts (2) ───────────────────────────────────────────────────
@@ -52,6 +54,7 @@ export function WebMCPProvider() {
       level: user?.level ?? 0,
       points: user?.points ?? 0,
       profile_complete: user?.profile_complete ?? false,
+      language,
       available_cities: Object.keys(CITIES),
       notification_permission: 'Notification' in window ? Notification.permission : 'unsupported',
     })
