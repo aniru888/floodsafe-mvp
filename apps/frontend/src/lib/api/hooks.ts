@@ -727,6 +727,7 @@ export function useUpdateUserOnboarding() {
                 username?: string;
                 phone?: string;
                 city_preference?: string;
+                language?: string;
             }
         }): Promise<void> => {
             await fetchJson(`/users/${userId}`, {

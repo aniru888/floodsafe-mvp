@@ -12,6 +12,8 @@
 import { useReducer, useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCityContext } from '../../contexts/CityContext';
+import { useLanguage, type AppLanguage, toDbValue } from '../../contexts/LanguageContext';
+import { t } from '../../lib/onboarding-bot/translations';
 import {
     useCreateWatchArea,
     useCreateDailyRoute,
@@ -103,8 +105,15 @@ interface OnboardingScreenProps {
 export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
     const { user } = useAuth();
     const { syncCityToUser } = useCityContext();
+    const { language, setLanguage } = useLanguage();
     const [state, dispatch] = useReducer(onboardingReducer, initialState);
     const { startTour, syncOnboardingStep, state: botState } = useOnboardingBot();
+
+    // Pre-step: show language confirmation before numbered wizard.
+    // Skip for resuming users (already past step 1).
+    const [languageConfirmed, setLanguageConfirmed] = useState(
+        () => !!(user?.onboarding_step && user.onboarding_step > 1)
+    );
 
     // Start onboarding bot on mount (if not dismissed)
     useEffect(() => {
@@ -152,13 +161,13 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
         switch (step) {
             case 1:
                 if (!state.city) {
-                    dispatch({ type: 'SET_ERROR', payload: { field: 'city', message: 'Please select a city' } });
+                    dispatch({ type: 'SET_ERROR', payload: { field: 'city', message: t(language, 'onboarding.error.city') } });
                     return false;
                 }
                 return true;
             case 2:
                 if (!state.username || state.username.length < 3) {
-                    dispatch({ type: 'SET_ERROR', payload: { field: 'username', message: 'Username must be at least 3 characters' } });
+                    dispatch({ type: 'SET_ERROR', payload: { field: 'username', message: t(language, 'onboarding.error.username') } });
                     return false;
                 }
                 return true;
@@ -166,7 +175,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                 // Check both local state and existing watch areas from backend
                 const totalWatchAreas = state.watchAreas.length + existingWatchAreas.length;
                 if (totalWatchAreas < 1) {
-                    dispatch({ type: 'SET_ERROR', payload: { field: 'watchAreas', message: 'Add at least one watch area' } });
+                    dispatch({ type: 'SET_ERROR', payload: { field: 'watchAreas', message: t(language, 'onboarding.error.watchAreas') } });
                     return false;
                 }
                 return true;
@@ -232,9 +241,12 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                     await updateUser.mutateAsync({ userId: user.id, data: { onboarding_step: 5 } });
                     break;
                 case 5:
-                    // Mark onboarding complete
-                    await updateUser.mutateAsync({ userId: user.id, data: { profile_complete: true } });
-                    toast.success('Welcome to FloodSafe!');
+                    // Mark onboarding complete and sync language preference to DB
+                    await updateUser.mutateAsync({
+                        userId: user.id,
+                        data: { profile_complete: true, language: toDbValue(language) }
+                    });
+                    toast.success(t(language, 'onboarding.toast.welcome'));
 
                     // If bot wasn't dismissed, it will transition to app tour in App.tsx
                     if (botState.phase === 'onboarding' && !botState.isDismissed) {
@@ -248,7 +260,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
             dispatch({ type: 'NEXT_STEP' });
         } catch (error) {
             console.error('Onboarding step failed:', error);
-            toast.error('Something went wrong. Please try again.');
+            toast.error(t(language, 'onboarding.toast.error'));
         } finally {
             dispatch({ type: 'SET_SUBMITTING', payload: false });
         }
@@ -264,7 +276,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
             dispatch({ type: 'NEXT_STEP' });
         } catch (error) {
             console.error('Skip failed:', error);
-            toast.error('Something went wrong. Please try again.');
+            toast.error(t(language, 'onboarding.toast.error'));
         } finally {
             dispatch({ type: 'SET_SUBMITTING', payload: false });
         }
@@ -273,17 +285,77 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
     // Progress percentage
     const progress = (state.currentStep / 5) * 100;
 
-    // Step titles
-    const stepTitles = ['Select City', 'Your Profile', 'Watch Areas', 'Daily Routes', 'Complete'];
+    // Step titles (translated)
+    const stepTitles = [
+        t(language, 'onboarding.steps.city'),
+        t(language, 'onboarding.steps.profile'),
+        t(language, 'onboarding.steps.watchAreas'),
+        t(language, 'onboarding.steps.routes'),
+        t(language, 'onboarding.steps.complete'),
+    ];
     const stepIcons = [MapPin, User, Bell, Route, CheckCircle];
+
+    // Pre-step: language confirmation — renders before the numbered wizard.
+    // Does NOT increment currentStep, affect the progress bar, or save to onboarding_step.
+    if (!languageConfirmed) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 flex items-center justify-center p-4">
+                <div className="w-full max-w-md">
+                    <div className="text-center mb-8">
+                        <h1 className="text-2xl font-bold text-gray-900">
+                            {t(language, 'onboarding.header.welcome')}
+                        </h1>
+                        <p className="text-gray-500 mt-2">
+                            {t(language, 'onboarding.language.title')}
+                        </p>
+                    </div>
+
+                    <Card className="p-6">
+                        <RadioGroup
+                            value={language}
+                            onValueChange={(val) => setLanguage(val as AppLanguage)}
+                        >
+                            <div className="space-y-3">
+                                <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
+                                    <RadioGroupItem value="en" id="lang-en" />
+                                    <Label htmlFor="lang-en" className="cursor-pointer font-normal text-base">
+                                        English
+                                    </Label>
+                                </div>
+                                <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
+                                    <RadioGroupItem value="hi" id="lang-hi" />
+                                    <Label htmlFor="lang-hi" className="cursor-pointer font-normal text-base">
+                                        हिन्दी (Hindi)
+                                    </Label>
+                                </div>
+                                <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
+                                    <RadioGroupItem value="id" id="lang-id" />
+                                    <Label htmlFor="lang-id" className="cursor-pointer font-normal text-base">
+                                        Bahasa Indonesia
+                                    </Label>
+                                </div>
+                            </div>
+                        </RadioGroup>
+
+                        <Button
+                            className="w-full mt-6"
+                            onClick={() => setLanguageConfirmed(true)}
+                        >
+                            {t(language, 'onboarding.language.continue')} →
+                        </Button>
+                    </Card>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-muted p-4">
             <div className="max-w-lg mx-auto">
                 {/* Header */}
                 <div className="text-center mb-6">
-                    <h1 className="text-2xl font-bold text-foreground">Welcome to FloodSafe</h1>
-                    <p className="text-muted-foreground mt-1">Let's set up your account</p>
+                    <h1 className="text-2xl font-bold text-foreground">{t(language, 'onboarding.header.welcome')}</h1>
+                    <p className="text-muted-foreground mt-1">{t(language, 'onboarding.header.subtitle')}</p>
                 </div>
 
                 {/* Progress Bar */}
@@ -307,7 +379,9 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                     </div>
                     <Progress value={progress} className="h-2" />
                     <p className="text-center text-sm text-muted-foreground mt-2">
-                        Step {state.currentStep} of 5: {stepTitles[state.currentStep - 1]}
+                        {t(language, 'onboarding.progress')
+                            .replace('{n}', String(state.currentStep))
+                            .replace('{title}', stepTitles[state.currentStep - 1])}
                     </p>
                 </div>
 
@@ -321,6 +395,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                             city={state.city}
                             onSelect={(city) => dispatch({ type: 'SET_CITY', payload: city })}
                             error={state.errors.city}
+                            language={language}
                         />
                     )}
                     {state.currentStep === 2 && (
@@ -330,6 +405,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                             city={state.city}
                             onUpdate={(data) => dispatch({ type: 'SET_PROFILE', payload: data })}
                             errors={state.errors}
+                            language={language}
                         />
                     )}
                     {state.currentStep === 3 && (
@@ -341,6 +417,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                             onRemove={(i) => dispatch({ type: 'REMOVE_WATCH_AREA', payload: i })}
                             error={state.errors.watchAreas}
                             userId={user?.id || ''}
+                            language={language}
                         />
                     )}
                     {state.currentStep === 4 && (
@@ -351,6 +428,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                             onAdd={(route) => dispatch({ type: 'ADD_DAILY_ROUTE', payload: route })}
                             onRemove={(i) => dispatch({ type: 'REMOVE_DAILY_ROUTE', payload: i })}
                             userId={user?.id || ''}
+                            language={language}
                         />
                     )}
                     {state.currentStep === 5 && (
@@ -359,6 +437,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                             username={state.username}
                             watchAreasCount={state.watchAreas.length + existingWatchAreas.length}
                             dailyRoutesCount={state.dailyRoutes.length + existingDailyRoutes.length}
+                            language={language}
                         />
                     )}
                 </Card>
@@ -371,7 +450,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                         disabled={state.currentStep === 1 || state.isSubmitting}
                     >
                         <ChevronLeft className="w-4 h-4 mr-1" />
-                        Back
+                        {t(language, 'onboarding.nav.back')}
                     </Button>
 
                     <div className="flex gap-2">
@@ -382,7 +461,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                                 onClick={handleSkip}
                                 disabled={state.isSubmitting}
                             >
-                                Skip
+                                {t(language, 'onboarding.nav.skip')}
                             </Button>
                         )}
 
@@ -393,7 +472,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
                             {state.isSubmitting ? (
                                 <Loader2 className="w-4 h-4 mr-1 animate-spin" />
                             ) : null}
-                            {state.currentStep === 5 ? 'Get Started' : 'Next'}
+                            {state.currentStep === 5 ? t(language, 'onboarding.nav.getStarted') : t(language, 'onboarding.nav.next')}
                             {state.currentStep < 5 && <ChevronRight className="w-4 h-4 ml-1" />}
                         </Button>
                     </div>
@@ -408,27 +487,28 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
 // ============================================================================
 
 // Step 1: City Selection
-// Region subtitles for onboarding city selection
-const CITY_REGIONS: Record<string, string> = {
-    bangalore: 'Karnataka, India',
-    delhi: 'National Capital Territory, India',
-    yogyakarta: 'Special Region of Yogyakarta, Indonesia',
-    singapore: 'Republic of Singapore',
-};
-
 interface Step1CityProps {
     city: CityKey | null;
     onSelect: (city: CityKey) => void;
     error?: string;
+    language: AppLanguage;
 }
 
-function Step1City({ city, onSelect, error }: Step1CityProps) {
+function Step1City({ city, onSelect, error, language }: Step1CityProps) {
+    // City region descriptions (translated)
+    const CITY_REGIONS: Record<string, string> = {
+        bangalore: t(language, 'onboarding.city.region.bangalore'),
+        delhi: t(language, 'onboarding.city.region.delhi'),
+        yogyakarta: t(language, 'onboarding.city.region.yogyakarta'),
+        singapore: t(language, 'onboarding.city.region.singapore'),
+    };
+
     return (
         <div className="space-y-4">
             <div>
-                <h2 className="text-xl font-semibold mb-2">Select Your City</h2>
+                <h2 className="text-xl font-semibold mb-2">{t(language, 'onboarding.city.heading')}</h2>
                 <p className="text-muted-foreground text-sm">
-                    Choose the city where you want to receive flood alerts
+                    {t(language, 'onboarding.city.subheading')}
                 </p>
             </div>
 
@@ -463,9 +543,10 @@ interface Step2ProfileProps {
     city: string | null;
     onUpdate: (data: { username: string; phone: string }) => void;
     errors: Record<string, string>;
+    language: AppLanguage;
 }
 
-function Step2Profile({ username, phone, city, onUpdate, errors }: Step2ProfileProps) {
+function Step2Profile({ username, phone, city, onUpdate, errors, language }: Step2ProfileProps) {
     const phoneDefaults: Record<string, string> = {
         delhi: '+91 XXXXX XXXXX', bangalore: '+91 XXXXX XXXXX',
         yogyakarta: '+62 XXX XXXX XXXX', singapore: '+65 XXXX XXXX',
@@ -475,27 +556,27 @@ function Step2Profile({ username, phone, city, onUpdate, errors }: Step2ProfileP
     return (
         <div className="space-y-4">
             <div>
-                <h2 className="text-xl font-semibold mb-2">Your Profile</h2>
+                <h2 className="text-xl font-semibold mb-2">{t(language, 'onboarding.profile.heading')}</h2>
                 <p className="text-muted-foreground text-sm">
-                    Set up your profile information
+                    {t(language, 'onboarding.profile.subheading')}
                 </p>
             </div>
 
             <div className="space-y-4">
                 <div>
-                    <Label htmlFor="username">Username *</Label>
+                    <Label htmlFor="username">{t(language, 'onboarding.profile.username')}</Label>
                     <Input
                         id="username"
                         value={username}
                         onChange={(e) => onUpdate({ username: e.target.value, phone })}
-                        placeholder="Enter your username"
+                        placeholder={t(language, 'onboarding.profile.usernamePlaceholder')}
                         className={errors.username ? 'border-destructive' : ''}
                     />
                     {errors.username && <p className="text-destructive text-sm mt-1">{errors.username}</p>}
                 </div>
 
                 <div>
-                    <Label htmlFor="phone">Phone Number (optional)</Label>
+                    <Label htmlFor="phone">{t(language, 'onboarding.profile.phone')}</Label>
                     <Input
                         id="phone"
                         type="tel"
@@ -504,7 +585,7 @@ function Step2Profile({ username, phone, city, onUpdate, errors }: Step2ProfileP
                         placeholder={phonePlaceholder}
                     />
                     <p className="text-xs text-muted-foreground mt-1">
-                        Used for SMS alerts (optional)
+                        {t(language, 'onboarding.profile.phoneHelper')}
                     </p>
                 </div>
             </div>
@@ -521,9 +602,10 @@ interface Step3WatchAreasProps {
     onRemove: (index: number) => void;
     error?: string;
     userId: string;
+    language: AppLanguage;
 }
 
-function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove, error, userId }: Step3WatchAreasProps) {
+function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove, error, userId, language }: Step3WatchAreasProps) {
     const [name, setName] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
     const [isGettingLocation, setIsGettingLocation] = useState(false);
@@ -638,9 +720,9 @@ function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove
     return (
         <div className="space-y-4">
             <div>
-                <h2 className="text-xl font-semibold mb-2">Watch Areas</h2>
+                <h2 className="text-xl font-semibold mb-2">{t(language, 'onboarding.watchAreas.heading')}</h2>
                 <p className="text-muted-foreground text-sm">
-                    Add locations you want to monitor for flood alerts (at least 1 required)
+                    {t(language, 'onboarding.watchAreas.subheading')}
                 </p>
             </div>
 
@@ -649,13 +731,13 @@ function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove
                 <Input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Area name (e.g., Home, Office)"
+                    placeholder={t(language, 'onboarding.watchAreas.areaName')}
                 />
                 <div className="relative">
                     <Input
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Search for a location..."
+                        placeholder={t(language, 'onboarding.watchAreas.search')}
                         className="pr-10"
                     />
                     {isSearching && searchQuery.length >= 3 && (
@@ -676,12 +758,12 @@ function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove
                     {isGettingLocation ? (
                         <>
                             <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                            Getting location...
+                            {t(language, 'onboarding.watchAreas.gettingLocation')}
                         </>
                     ) : (
                         <>
                             <Navigation className="w-4 h-4 mr-2" />
-                            Use My Current Location
+                            {t(language, 'onboarding.watchAreas.useLocation')}
                         </>
                     )}
                 </Button>
@@ -704,7 +786,7 @@ function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove
             {/* Existing watch areas from backend */}
             {existingWatchAreas.length > 0 && (
                 <div className="space-y-2">
-                    <Label className="text-sm text-muted-foreground">Previously added:</Label>
+                    <Label className="text-sm text-muted-foreground">{t(language, 'onboarding.watchAreas.existing')}</Label>
                     {existingWatchAreas.map((wa) => (
                         <div key={wa.id} className="flex items-center justify-between p-2 bg-green-50 rounded border border-green-200">
                             <div className="flex items-center gap-2">
@@ -720,7 +802,7 @@ function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove
             {/* New watch areas (pending save) */}
             {watchAreas.length > 0 && (
                 <div className="space-y-2">
-                    <Label className="text-sm text-muted-foreground">To be added:</Label>
+                    <Label className="text-sm text-muted-foreground">{t(language, 'onboarding.watchAreas.pending')}</Label>
                     {watchAreas.map((wa, i) => (
                         <div key={i} className="flex items-center justify-between p-2 bg-primary/10 rounded border border-primary/20">
                             <div className="flex items-center gap-2">
@@ -738,7 +820,7 @@ function Step3WatchAreas({ watchAreas, existingWatchAreas, city, onAdd, onRemove
             {totalAreas === 0 && (
                 <div className="text-center py-4 text-muted-foreground">
                     <MapPin className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                    <p className="text-sm">No watch areas added yet</p>
+                    <p className="text-sm">{t(language, 'onboarding.watchAreas.none')}</p>
                 </div>
             )}
 
@@ -755,15 +837,16 @@ interface Step4DailyRoutesProps {
     onAdd: (route: DailyRouteCreate) => void;
     onRemove: (index: number) => void;
     userId: string;
+    language: AppLanguage;
 }
 
-function Step4DailyRoutes({ routes, existingRoutes }: Step4DailyRoutesProps) {
+function Step4DailyRoutes({ routes, existingRoutes, language }: Step4DailyRoutesProps) {
     return (
         <div className="space-y-4">
             <div>
-                <h2 className="text-xl font-semibold mb-2">Daily Routes</h2>
+                <h2 className="text-xl font-semibold mb-2">{t(language, 'onboarding.routes.heading')}</h2>
                 <p className="text-muted-foreground text-sm">
-                    Add your regular commute routes to get flood alerts along your path (optional)
+                    {t(language, 'onboarding.routes.subheading')}
                 </p>
             </div>
 
@@ -805,14 +888,13 @@ function Step4DailyRoutes({ routes, existingRoutes }: Step4DailyRoutesProps) {
             {routes.length === 0 && existingRoutes.length === 0 && (
                 <div className="text-center py-6 text-muted-foreground">
                     <Route className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                    <p className="text-sm">No daily routes added</p>
-                    <p className="text-xs mt-1">You can add routes later from your profile</p>
+                    <p className="text-sm">{t(language, 'onboarding.routes.none')}</p>
+                    <p className="text-xs mt-1">{t(language, 'onboarding.routes.addLater')}</p>
                 </div>
             )}
 
             <p className="text-sm text-muted-foreground bg-muted p-3 rounded">
-                <strong>Tip:</strong> Add routes like "Home to Office" to receive alerts about flooding
-                along your daily commute.
+                {t(language, 'onboarding.routes.tip')}
             </p>
         </div>
     );
@@ -824,9 +906,10 @@ interface Step5CompletionProps {
     username: string;
     watchAreasCount: number;
     dailyRoutesCount: number;
+    language: AppLanguage;
 }
 
-function Step5Completion({ city, username, watchAreasCount, dailyRoutesCount }: Step5CompletionProps) {
+function Step5Completion({ city, username, watchAreasCount, dailyRoutesCount, language }: Step5CompletionProps) {
     return (
         <div className="space-y-4 text-center">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
@@ -834,33 +917,33 @@ function Step5Completion({ city, username, watchAreasCount, dailyRoutesCount }: 
             </div>
 
             <div>
-                <h2 className="text-xl font-semibold mb-2">You're All Set!</h2>
+                <h2 className="text-xl font-semibold mb-2">{t(language, 'onboarding.complete.heading')}</h2>
                 <p className="text-muted-foreground text-sm">
-                    Here's a summary of your setup:
+                    {t(language, 'onboarding.complete.subheading')}
                 </p>
             </div>
 
             <div className="bg-muted rounded-lg p-4 text-left space-y-3">
                 <div className="flex justify-between">
-                    <span className="text-muted-foreground">City:</span>
+                    <span className="text-muted-foreground">{t(language, 'onboarding.complete.summary.city')}</span>
                     <span className="font-medium">{city ? CITIES[city].displayName : 'Not set'}</span>
                 </div>
                 <div className="flex justify-between">
-                    <span className="text-muted-foreground">Username:</span>
+                    <span className="text-muted-foreground">{t(language, 'onboarding.complete.summary.username')}</span>
                     <span className="font-medium">{username}</span>
                 </div>
                 <div className="flex justify-between">
-                    <span className="text-muted-foreground">Watch Areas:</span>
+                    <span className="text-muted-foreground">{t(language, 'onboarding.complete.summary.watchAreas')}</span>
                     <span className="font-medium">{watchAreasCount} area(s)</span>
                 </div>
                 <div className="flex justify-between">
-                    <span className="text-muted-foreground">Daily Routes:</span>
+                    <span className="text-muted-foreground">{t(language, 'onboarding.complete.summary.routes')}</span>
                     <span className="font-medium">{dailyRoutesCount} route(s)</span>
                 </div>
             </div>
 
             <p className="text-sm text-muted-foreground">
-                Click "Get Started" to begin using FloodSafe
+                {t(language, 'onboarding.complete.instruction')}
             </p>
         </div>
     );
