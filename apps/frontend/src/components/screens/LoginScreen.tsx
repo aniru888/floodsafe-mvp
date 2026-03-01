@@ -7,7 +7,10 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { AlertCircle, Loader2, Shield, Phone, ArrowRight, ArrowLeft, Check, Eye, EyeOff } from 'lucide-react';
+import { useLanguage, type AppLanguage } from '../../contexts/LanguageContext';
+import { t } from '../../lib/onboarding-bot/translations';
+import { cn } from '../../lib/utils';
+import { AlertCircle, Loader2, Shield, Phone, ArrowRight, ArrowLeft, Check, Eye, EyeOff, Globe } from 'lucide-react';
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
 
@@ -46,6 +49,13 @@ declare global {
 
 export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
     const { loginWithGoogle, registerWithEmail, loginWithEmail, isLoading, error, clearError } = useAuth();
+    const { language, setLanguage } = useLanguage();
+
+    const LANG_OPTIONS: { code: AppLanguage; label: string }[] = [
+        { code: 'en', label: 'EN' },
+        { code: 'hi', label: 'हिंदी' },
+        { code: 'id', label: 'Bahasa' },
+    ];
 
     const [authMethod, setAuthMethod] = useState<'email' | 'phone'>('email');
     const [localError, setLocalError] = useState<string | null>(null);
@@ -186,8 +196,8 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
     const handleEmailSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLocalError(null);
-        if (!email || !email.includes('@')) { setLocalError('Please enter a valid email address'); return; }
-        if (password.length < 8) { setLocalError('Password must be at least 8 characters'); return; }
+        if (!email || !email.includes('@')) { setLocalError(t(language, 'login.error.email')); return; }
+        if (password.length < 8) { setLocalError(t(language, 'login.error.password')); return; }
         try {
             if (isSignUp) { await registerWithEmail(email, password); }
             else { await loginWithEmail(email, password); }
@@ -233,6 +243,25 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
     return (
         <div className="min-h-screen w-full flex flex-col bg-background">
 
+            {/* Language selector */}
+            <div className="flex items-center justify-center gap-1 py-2 bg-white/80 backdrop-blur-sm">
+                <Globe className="w-4 h-4 text-muted-foreground" />
+                {LANG_OPTIONS.map(({ code, label }) => (
+                    <button
+                        key={code}
+                        onClick={() => setLanguage(code)}
+                        className={cn(
+                            'px-3 py-1 rounded-full text-xs font-medium transition-colors',
+                            language === code
+                                ? 'bg-blue-600 text-white'
+                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        )}
+                    >
+                        {label}
+                    </button>
+                ))}
+            </div>
+
             {/* ════════════════════════════════════════════════════
                 BRAND BAR — Full width, top of entire page
                 Dark navy bg, white text. This IS the brand presence.
@@ -245,11 +274,11 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                         </div>
                         <div>
                             <h1 className="text-base font-bold tracking-tight leading-none">FloodSafe</h1>
-                            <p className="text-xs text-primary-foreground/60 mt-0.5">Community flood monitoring</p>
+                            <p className="text-xs text-primary-foreground/60 mt-0.5">{t(language, 'login.brand.tagline')}</p>
                         </div>
                     </div>
                     <p className="hidden sm:block text-xs text-primary-foreground/50">
-                        Delhi &middot; Bangalore &middot; Yogyakarta &middot; Singapore
+                        {t(language, 'login.brand.cities')}
                     </p>
                 </div>
                 {/* Amber accent line — inspired by Indian government document borders */}
@@ -290,12 +319,10 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                             <>
                                 {/* Heading */}
                                 <h2 className="text-2xl font-semibold text-foreground mb-1">
-                                    {isSignUp ? 'Create your account' : 'Welcome back'}
+                                    {isSignUp ? t(language, 'login.heading.create') : t(language, 'login.heading.signin')}
                                 </h2>
                                 <p className="text-muted-foreground text-sm mb-6">
-                                    {isSignUp
-                                        ? 'Join the flood monitoring community'
-                                        : 'Sign in to access alerts, routes & reports'}
+                                    {isSignUp ? t(language, 'login.subheading.create') : t(language, 'login.subheading.signin')}
                                 </p>
 
                                 {/* Error */}
@@ -309,26 +336,26 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                                 {/* Email form — tight spacing, no visual excess */}
                                 <form onSubmit={handleEmailSubmit} className="space-y-3">
                                     <div>
-                                        <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">Email</label>
+                                        <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">{t(language, 'login.label.email')}</label>
                                         <input
                                             id="email"
                                             type="email"
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
-                                            placeholder="you@example.com"
+                                            placeholder={t(language, 'login.placeholder.email')}
                                             className="w-full px-3.5 py-2.5 border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground bg-background focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                                             autoComplete="email"
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="password" className="block text-sm font-medium text-foreground mb-1">Password</label>
+                                        <label htmlFor="password" className="block text-sm font-medium text-foreground mb-1">{t(language, 'login.label.password')}</label>
                                         <div className="relative">
                                             <input
                                                 id="password"
                                                 type={showPassword ? 'text' : 'password'}
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
-                                                placeholder={isSignUp ? 'Min 8 characters' : 'Your password'}
+                                                placeholder={isSignUp ? t(language, 'login.placeholder.password.create') : t(language, 'login.placeholder.password.signin')}
                                                 className="w-full px-3.5 py-2.5 pr-10 border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground bg-background focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                                                 autoComplete={isSignUp ? 'new-password' : 'current-password'}
                                             />
@@ -347,9 +374,9 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                                         className="w-full py-2.5 mt-1 bg-primary hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed text-primary-foreground font-medium rounded-lg flex items-center justify-center gap-2 transition-all text-sm"
                                     >
                                         {isLoading ? (
-                                            <><Loader2 className="w-4 h-4 animate-spin" />{isSignUp ? 'Creating...' : 'Signing in...'}</>
+                                            <><Loader2 className="w-4 h-4 animate-spin" />{isSignUp ? t(language, 'login.button.creating') : t(language, 'login.button.signingIn')}</>
                                         ) : (
-                                            <>{isSignUp ? 'Create Account' : 'Sign In'}<ArrowRight className="w-4 h-4" /></>
+                                            <>{isSignUp ? t(language, 'login.button.create') : t(language, 'login.button.signin')}<ArrowRight className="w-4 h-4" /></>
                                         )}
                                     </button>
                                 </form>
@@ -358,7 +385,7 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                                 <div className="relative my-5">
                                     <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-border" /></div>
                                     <div className="relative flex justify-center text-xs">
-                                        <span className="bg-card px-3 text-muted-foreground">or</span>
+                                        <span className="bg-card px-3 text-muted-foreground">{t(language, 'login.divider.or')}</span>
                                     </div>
                                 </div>
 
@@ -382,12 +409,12 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                                 <div className="mt-6 text-center text-sm space-y-2">
                                     <p className="text-muted-foreground">
                                         {isSignUp ? (
-                                            <>Already have an account?{' '}
-                                                <button type="button" onClick={() => setIsSignUp(false)} className="text-primary font-medium hover:underline">Sign in</button>
+                                            <>{t(language, 'login.toggle.toSignin')}{' '}
+                                                <button type="button" onClick={() => setIsSignUp(false)} className="text-primary font-medium hover:underline">{t(language, 'login.toggle.signin')}</button>
                                             </>
                                         ) : (
-                                            <>Don&apos;t have an account?{' '}
-                                                <button type="button" onClick={() => setIsSignUp(true)} className="text-primary font-medium hover:underline">Sign up</button>
+                                            <>{t(language, 'login.toggle.toSignup')}{' '}
+                                                <button type="button" onClick={() => setIsSignUp(true)} className="text-primary font-medium hover:underline">{t(language, 'login.toggle.signup')}</button>
                                             </>
                                         )}
                                     </p>
@@ -397,15 +424,15 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                                         className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
                                     >
                                         <Phone className="w-3 h-3" />
-                                        Use phone number
+                                        {t(language, 'login.toggle.toPhone')}
                                     </button>
                                 </div>
                             </>
                         ) : (
                             <>
                                 {/* Phone auth view */}
-                                <h2 className="text-2xl font-semibold text-foreground mb-1">Phone sign in</h2>
-                                <p className="text-muted-foreground text-sm mb-6">We&apos;ll send you a verification code</p>
+                                <h2 className="text-2xl font-semibold text-foreground mb-1">{t(language, 'login.phone.heading')}</h2>
+                                <p className="text-muted-foreground text-sm mb-6">{t(language, 'login.phone.subheading')}</p>
 
                                 {displayError && (
                                     <div className="mb-4 p-3 bg-destructive/10 border border-destructive/20 rounded-lg flex items-start gap-2">
@@ -431,7 +458,7 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                                                 type="tel"
                                                 value={phoneNumber}
                                                 onChange={(e) => setPhoneNumber(e.target.value.replace(/[^0-9]/g, ''))}
-                                                placeholder="Phone number"
+                                                placeholder={t(language, 'login.phone.placeholder')}
                                                 className="flex-1 px-3.5 py-2.5 text-foreground placeholder:text-muted-foreground focus:outline-none text-sm bg-transparent"
                                                 maxLength={10}
                                             />
@@ -441,7 +468,7 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                                             disabled={phoneNumber.length < 10}
                                             className="w-full py-2.5 bg-primary hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed text-primary-foreground font-medium rounded-lg flex items-center justify-center gap-2 transition-all text-sm"
                                         >
-                                            Send code<ArrowRight className="w-4 h-4" />
+                                            {t(language, 'login.phone.sendCode')}<ArrowRight className="w-4 h-4" />
                                         </button>
                                     </form>
                                 ) : (
@@ -450,10 +477,10 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                                             onClick={() => { setOtpStep(false); setOtp(['', '', '', '', '', '']); }}
                                             className="flex items-center gap-1.5 text-muted-foreground hover:text-primary text-sm transition-colors"
                                         >
-                                            <ArrowLeft className="w-4 h-4" />Change number
+                                            <ArrowLeft className="w-4 h-4" />{t(language, 'login.phone.changeNumber')}
                                         </button>
                                         <p className="text-sm text-muted-foreground">
-                                            Code sent to <span className="font-medium text-foreground">{countryCode} {phoneNumber}</span>
+                                            {t(language, 'login.phone.codeSent')} <span className="font-medium text-foreground">{countryCode} {phoneNumber}</span>
                                         </p>
                                         <div className="flex gap-2 justify-center" onPaste={handleOtpPaste}>
                                             {otp.map((digit, index) => (
@@ -474,14 +501,14 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                                         </div>
                                         <p className="text-xs text-muted-foreground text-center">
                                             {countdown > 0 ? `Resend in ${countdown}s` : (
-                                                <button onClick={() => setCountdown(30)} className="text-primary hover:underline">Resend code</button>
+                                                <button onClick={() => setCountdown(30)} className="text-primary hover:underline">{t(language, 'login.phone.resend')}</button>
                                             )}
                                         </p>
                                         <button
                                             disabled={!isOtpComplete}
                                             className="w-full py-2.5 bg-primary hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed text-primary-foreground font-medium rounded-lg flex items-center justify-center gap-2 transition-all text-sm"
                                         >
-                                            Verify<Check className="w-4 h-4" />
+                                            {t(language, 'login.phone.verify')}<Check className="w-4 h-4" />
                                         </button>
                                     </div>
                                 )}
@@ -491,17 +518,14 @@ export function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                                     onClick={() => setAuthMethod('email')}
                                     className="w-full flex items-center justify-center gap-1.5 mt-6 text-sm text-muted-foreground hover:text-foreground transition-colors"
                                 >
-                                    <ArrowLeft className="w-3.5 h-3.5" />Back to email sign in
+                                    <ArrowLeft className="w-3.5 h-3.5" />{t(language, 'login.phone.backToEmail')}
                                 </button>
                             </>
                         )}
 
                         {/* Terms footer */}
-                        <p className="text-center text-xs text-muted-foreground mt-6">
-                            By continuing, you agree to our{' '}
-                            <span className="text-primary hover:underline cursor-pointer">Terms</span>
-                            {' '}&{' '}
-                            <span className="text-primary hover:underline cursor-pointer">Privacy Policy</span>
+                        <p className="text-center text-xs text-muted-foreground mt-6 cursor-pointer hover:underline">
+                            {t(language, 'login.terms')}
                         </p>
                     </div>
                 </div>
