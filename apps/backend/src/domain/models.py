@@ -145,7 +145,7 @@ class UserUpdate(BaseModel):
     email: Optional[str] = Field(None, pattern=r"^[\w\.-]+@[\w\.-]+\.\w+$")
     phone: Optional[str] = None
     profile_photo_url: Optional[str] = None
-    language: Optional[str] = None
+    language: Optional[str] = Field(None, pattern=r"^(english|hindi|indonesian|en|hi|id)$")
     notification_push: Optional[bool] = None
     notification_sms: Optional[bool] = None
     notification_whatsapp: Optional[bool] = None
