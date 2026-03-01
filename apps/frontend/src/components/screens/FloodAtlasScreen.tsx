@@ -196,7 +196,7 @@ function FloodAtlasContent({
             {!showNavigationPanel && !navState.isNavigating && (
                 <div
                     className="fixed right-4 md:right-auto md:left-1/2 md:ml-32 md:-translate-x-1/2 pointer-events-auto"
-                    style={{ bottom: 'calc(80px + env(safe-area-inset-bottom, 0px))', zIndex: 9999 }}
+                    style={{ bottom: 'calc(80px + env(safe-area-inset-bottom, 0px))', zIndex: 60 }}
                 >
                     <Button
                         onClick={() => setShowNavigationPanel(true)}

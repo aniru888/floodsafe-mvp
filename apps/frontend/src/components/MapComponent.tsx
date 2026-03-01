@@ -1930,7 +1930,7 @@ export default function MapComponent({
                     </div>
                 </div>
             )}
-            <div ref={mapContainer} className={`${className} relative`} style={{ width: '100%', height: '100%', minHeight: '300px', zIndex: 1 }} />
+            <div ref={mapContainer} className={`${className} relative`} style={{ width: '100%', height: '100%', minHeight: '300px' }} />
 
             {/* Map Controls Overlay */}
             {showControls && isLoaded && (

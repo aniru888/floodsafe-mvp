@@ -338,6 +338,17 @@ html {
 }
 
 /* ============================================================================
+   MapLibre popup z-index fix
+   MapLibre popups render inside the map container. Without this override,
+   they sit below map header (z-100) and controls (z-60), making popup
+   content unclickable — clicks pass through to the overlays behind.
+   z-index: 150 puts popups above map overlays but below Sheet/Dialog (z-200).
+   ============================================================================ */
+.maplibregl-popup {
+  z-index: 150;
+}
+
+/* ============================================================================
    Screen reader only utility (not included in Tailwind v4 by default)
    Used to hide file inputs while keeping them accessible
    ============================================================================ */

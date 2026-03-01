@@ -53,7 +53,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onClose, userL
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-card rounded-lg p-6 w-full max-w-md relative">
                 <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
                     <X size={24} />
