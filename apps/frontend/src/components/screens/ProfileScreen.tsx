@@ -38,6 +38,7 @@ import AddDailyRouteDialog from '../AddDailyRouteDialog';
 import AddWatchAreaDialog from '../AddWatchAreaDialog';
 import { useOnboardingBot } from '../../contexts/OnboardingBotContext';
 import { t } from '../../lib/onboarding-bot/translations';
+import { useLanguage, toShortCode, toDbValue } from '../../contexts/LanguageContext';
 
 interface WatchArea {
   id: string;
@@ -165,8 +166,12 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
     } as Partial<User>);
   };
 
+  const { setLanguage: setAppLanguage } = useLanguage();
+
   const handleLanguageChange = (language: string) => {
     if (!user) return;
+    // Dual-write: update global context (immediate UI) + persist to DB
+    setAppLanguage(toShortCode(language));
     updateUserMutation.mutate({ language } as Partial<User>);
   };
 
@@ -646,6 +651,10 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
               <RadioGroupItem value="hindi" id="hindi" />
               <Label htmlFor="hindi" className="cursor-pointer font-normal">हिन्दी (Hindi)</Label>
             </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="indonesian" id="indonesian" />
+              <Label htmlFor="indonesian" className="cursor-pointer font-normal">Bahasa Indonesia</Label>
+            </div>
           </RadioGroup>
         </Card>
 
@@ -848,7 +857,8 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
 
 // Tour the App Again button
 function TourAgainButton() {
-  const { startTour, state: botState } = useOnboardingBot();
+  const { startTour } = useOnboardingBot();
+  const { language } = useLanguage();
 
   return (
     <Card className="p-6">
@@ -862,7 +872,7 @@ function TourAgainButton() {
         onClick={() => startTour('app-tour')}
       >
         <span className="mr-2">💧</span>
-        {t(botState.language, 'bot.tourAgain')}
+        {t(language, 'bot.tourAgain')}
       </Button>
     </Card>
   );
