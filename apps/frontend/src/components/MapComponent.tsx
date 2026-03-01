@@ -255,6 +255,28 @@ export default function MapComponent({
 
             const imageData = ctx.getImageData(0, 0, size, size);
             map.addImage('nav-arrow', imageData, { pixelRatio: 2 });
+
+            // Route direction arrow — small triangle for placement along route lines
+            if (!map.hasImage('route-arrow')) {
+                const aSize = 24;
+                const aCanvas = document.createElement('canvas');
+                aCanvas.width = aSize;
+                aCanvas.height = aSize;
+                const aCtx = aCanvas.getContext('2d');
+                if (aCtx) {
+                    // Triangle pointing right (0°) — MapLibre rotates it to follow line direction
+                    aCtx.beginPath();
+                    aCtx.moveTo(aSize - 3, aSize / 2);     // Right tip
+                    aCtx.lineTo(5, 3);                       // Top left
+                    aCtx.lineTo(5, aSize - 3);               // Bottom left
+                    aCtx.closePath();
+                    aCtx.fillStyle = '#ffffff';
+                    aCtx.fill();
+
+                    const arrowData = aCtx.getImageData(0, 0, aSize, aSize);
+                    map.addImage('route-arrow', arrowData, { pixelRatio: 2 });
+                }
+            }
         } catch {
             // Map may be transitioning styles (city switch)
         }
@@ -1087,6 +1109,36 @@ export default function MapComponent({
                     ]
                 }
             });
+
+            // Route direction arrows — small triangles placed along the route line
+            map.addLayer({
+                id: 'routes-arrows-layer',
+                type: 'symbol',
+                source: 'navigation-routes',
+                layout: {
+                    'symbol-placement': 'line',        // Place symbols along the line geometry
+                    'symbol-spacing': 100,              // Arrow every ~100px
+                    'icon-image': 'route-arrow',
+                    'icon-size': [
+                        'case',
+                        ['==', ['get', 'id'], selectedRouteId || ''],
+                        0.9,    // Larger arrows on selected route
+                        0.5     // Smaller on unselected
+                    ],
+                    'icon-rotation-alignment': 'map',
+                    'icon-allow-overlap': true,
+                    'icon-ignore-placement': true,
+                    'visibility': 'visible'
+                },
+                paint: {
+                    'icon-opacity': [
+                        'case',
+                        ['==', ['get', 'id'], selectedRouteId || ''],
+                        0.9,    // Visible on selected route
+                        0.3     // Subtle on unselected
+                    ]
+                }
+            });
         }
 
         // Update navigation routes data
@@ -1122,6 +1174,12 @@ export default function MapComponent({
                         ['case', ['==', ['get', 'id'], selectedRouteId || ''], 8, 3]);
                     map.setPaintProperty('routes-layer', 'line-opacity',
                         ['case', ['==', ['get', 'id'], selectedRouteId || ''], 1.0, 0.6]);
+                }
+                if (map.getLayer('routes-arrows-layer')) {
+                    map.setLayoutProperty('routes-arrows-layer', 'icon-size',
+                        ['case', ['==', ['get', 'id'], selectedRouteId || ''], 0.9, 0.5]);
+                    map.setPaintProperty('routes-arrows-layer', 'icon-opacity',
+                        ['case', ['==', ['get', 'id'], selectedRouteId || ''], 0.9, 0.3]);
                 }
             }
         }

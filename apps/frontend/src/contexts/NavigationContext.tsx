@@ -38,6 +38,7 @@ interface NavigationState {
     isRecalculating: boolean;
     nearbyHotspots: Array<{ id: number; name: string; fhi_level: string; fhi_color: string; distanceMeters: number }>;
     remainingRouteCoordinates: [number, number][]; // Trimmed route for display (from current position to destination)
+    lastMatchedSegmentIdx: number; // Track progress along route to prevent GPS-jump snapping
     heading: number | null; // Degrees clockwise from north (0-360), null when unknown
 }
 
@@ -73,6 +74,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
         isRecalculating: false,
         nearbyHotspots: [],
         remainingRouteCoordinates: [],
+        lastMatchedSegmentIdx: 0,
         heading: null,
     });
 
@@ -92,6 +94,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
             distanceRemaining: route.totalDistanceMeters,
             etaSeconds: route.totalDurationSeconds,
             remainingRouteCoordinates: route.coordinates, // Full route at start
+            lastMatchedSegmentIdx: 0, // Start from beginning of route
         }));
 
         spokenInstructionsRef.current.clear();
@@ -127,6 +130,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
             isRecalculating: false,
             nearbyHotspots: [],
             remainingRouteCoordinates: [],
+            lastMatchedSegmentIdx: 0,
             heading: null,
         });
 
@@ -176,6 +180,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
                     distanceRemaining: data.route.distance_meters,
                     etaSeconds: data.route.duration_seconds,
                     remainingRouteCoordinates: data.route.coordinates, // New route from current position
+                    lastMatchedSegmentIdx: 0, // Reset segment tracking for new route
                 }));
 
                 speak('Route recalculated. Follow the new route.', 'high');
@@ -280,11 +285,12 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
                         );
                     }
 
-                    // Compute remaining route for display (smooth segment interpolation)
-                    const remainingRoute = getRemainingRoute(
+                    // Compute remaining route for display (windowed segment search prevents GPS-jump straight lines)
+                    const remainingResult = getRemainingRoute(
                         currentPos.lat,
                         currentPos.lng,
-                        prev.activeRoute.coordinates
+                        prev.activeRoute.coordinates,
+                        prev.lastMatchedSegmentIdx,
                     );
 
                     return {
@@ -296,7 +302,8 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
                         etaSeconds: Math.round(destDist / 10), // Rough estimate: 10 m/s avg speed
                         isOffRoute: offRoute,
                         nearbyHotspots,
-                        remainingRouteCoordinates: remainingRoute,
+                        remainingRouteCoordinates: remainingResult.coordinates,
+                        lastMatchedSegmentIdx: remainingResult.segmentIdx,
                         heading: heading ?? prev.heading, // Retain previous heading when stationary
                     };
                 });

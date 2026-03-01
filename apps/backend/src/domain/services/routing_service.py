@@ -71,11 +71,15 @@ STUCK_TIME_ESTIMATES = {
 
 
 class RoutingService:
+    # Class-level flag: persists across request instances within a worker process.
+    # Once pgRouting fails (e.g. stored procedure missing on Supabase), skip it
+    # for all subsequent requests instead of retrying and adding latency every time.
+    _pgrouting_available = True
+
     def __init__(self, db: Session):
         self.db = db
         self.mapbox_token = getattr(settings, 'MAPBOX_ACCESS_TOKEN', None)
         self.mapbox_base_url = "https://api.mapbox.com/directions/v5/mapbox"
-        self.use_pgrouting = True  # Try pgRouting first, fallback to Mapbox
 
     async def calculate_safe_routes(
         self,
@@ -95,12 +99,12 @@ class RoutingService:
         routes = []
 
         # Try pgRouting first
-        if self.use_pgrouting:
+        if RoutingService._pgrouting_available:
             try:
                 routes = await self._calculate_with_pgrouting(origin, destination, city_code, max_routes)
             except Exception as e:
                 logger.warning(f"pgRouting failed, falling back to Mapbox: {str(e)}")
-                self.use_pgrouting = False  # Disable for future requests
+                RoutingService._pgrouting_available = False  # Disable for future requests
                 self.db.rollback()  # Rollback failed transaction
 
         # Fallback to Mapbox if pgRouting unavailable or failed

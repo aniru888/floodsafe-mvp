@@ -259,25 +259,38 @@ export function projectPointOntoSegment(
  * Returns the remaining route from the projected point to destination,
  * prepended with the user's current position for smooth display.
  *
+ * Uses a search window around the last known segment to prevent GPS
+ * inaccuracy from snapping to far-away segments (which would truncate
+ * the displayed route into a near-straight line).
+ *
  * @param userLat - User's current latitude
  * @param userLng - User's current longitude
  * @param routeCoords - Full route coordinates [lng, lat][]
- * @returns Remaining route coordinates starting from user's position
+ * @param lastSegmentIdx - Last known segment index for windowed search (prevents GPS jump)
+ * @returns Object with remaining coordinates and the matched segment index
  */
 export function getRemainingRoute(
     userLat: number,
     userLng: number,
-    routeCoords: [number, number][]
-): [number, number][] {
-    if (routeCoords.length === 0) return [];
-    if (routeCoords.length === 1) return [[userLng, userLat], ...routeCoords];
+    routeCoords: [number, number][],
+    lastSegmentIdx: number = 0,
+): { coordinates: [number, number][]; segmentIdx: number } {
+    if (routeCoords.length === 0) return { coordinates: [], segmentIdx: 0 };
+    if (routeCoords.length === 1) return { coordinates: [[userLng, userLat], ...routeCoords], segmentIdx: 0 };
 
-    let closestSegmentIdx = 0;
+    // Search window: only look forward from last known position (+ small lookback for GPS jitter)
+    // This prevents inaccurate GPS from snapping to a segment near the end of the route
+    const LOOKBACK = 3;   // Allow small backward jump for GPS correction
+    const LOOKAHEAD = 40; // Look ahead up to 40 segments (~500-1000m on detailed routes)
+    const searchStart = Math.max(0, lastSegmentIdx - LOOKBACK);
+    const searchEnd = Math.min(routeCoords.length - 1, lastSegmentIdx + LOOKAHEAD);
+
+    let closestSegmentIdx = lastSegmentIdx;
     let minDistance = Infinity;
     let closestProjectedPoint: [number, number] = [userLng, userLat];
 
-    // Find the route SEGMENT closest to user (not just vertex)
-    for (let i = 0; i < routeCoords.length - 1; i++) {
+    // Find the route SEGMENT closest to user within the search window
+    for (let i = searchStart; i < searchEnd; i++) {
         const [startLng, startLat] = routeCoords[i];
         const [endLng, endLat] = routeCoords[i + 1];
 
@@ -298,15 +311,38 @@ export function getRemainingRoute(
         }
     }
 
+    // Safety: if user is very far from the windowed match (>300m), do a full scan
+    // This handles route recalculation or GPS re-acquisition after tunnel/signal loss
+    if (minDistance > 300) {
+        for (let i = 0; i < routeCoords.length - 1; i++) {
+            const [startLng, startLat] = routeCoords[i];
+            const [endLng, endLat] = routeCoords[i + 1];
+
+            const projected = projectPointOntoSegment(
+                userLat, userLng,
+                startLng, startLat,
+                endLng, endLat
+            );
+
+            const dist = haversineDistance(userLat, userLng, projected[1], projected[0]);
+
+            if (dist < minDistance) {
+                minDistance = dist;
+                closestSegmentIdx = i;
+                closestProjectedPoint = projected;
+            }
+        }
+    }
+
     // Build remaining route:
     // 1. User's current position (for smooth line from user marker)
     // 2. Projected point on route segment (snap point)
     // 3. All points from segment end to destination
-    const remainingRoute: [number, number][] = [
+    const coordinates: [number, number][] = [
         [userLng, userLat],            // Current user position
         closestProjectedPoint,          // Smooth snap point on route
         ...routeCoords.slice(closestSegmentIdx + 1)  // Rest of route
     ];
 
-    return remainingRoute;
+    return { coordinates, segmentIdx: closestSegmentIdx };
 }
