@@ -1,10 +1,12 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Brain, MapPin, RefreshCw, Sparkles } from 'lucide-react';
 import { Badge } from './ui/badge';
 import { Skeleton } from './ui/skeleton';
 import { cn } from '../lib/utils';
 import { useRiskSummary } from '../lib/api/hooks';
 import type { WatchArea, DailyRoute } from '../types';
+import { useLanguage } from '../contexts/LanguageContext';
+import type { AppLanguage } from '../contexts/LanguageContext';
 
 // ============================================================================
 // Types
@@ -44,11 +46,13 @@ function getRiskStyle(level: string) {
 // RiskInsightItem — one item per location, fetches independently
 // ============================================================================
 
-function RiskInsightItem({ location, language }: { location: LocationItem; language: 'en' | 'hi' }) {
+function RiskInsightItem({ location, language }: { location: LocationItem; language: AppLanguage }) {
+    // API only supports en/hi — fall back to English for other languages
+    const apiLang = language === 'hi' ? 'hi' : 'en';
     const { data, isLoading, isError, refetch } = useRiskSummary(
         location.latitude,
         location.longitude,
-        language
+        apiLang
     );
 
     // Loading skeleton
@@ -149,7 +153,7 @@ function RiskInsightItem({ location, language }: { location: LocationItem; langu
 // ============================================================================
 
 export function AiRiskInsightsCard({ watchAreas, dailyRoutes, maxItems = 3 }: AiRiskInsightsCardProps) {
-    const [language, setLanguage] = useState<'en' | 'hi'>('en');
+    const { language } = useLanguage();
 
     // Build location list: watch areas first, then fill remaining slots with route destinations
     const locations: LocationItem[] = useMemo(() => {
@@ -213,33 +217,8 @@ export function AiRiskInsightsCard({ watchAreas, dailyRoutes, maxItems = 3 }: Ai
                 </div>
                 <h3 className="font-semibold text-foreground text-sm">AI Risk Insights</h3>
 
-                {/* Language toggle */}
-                <div className="ml-auto flex items-center gap-1">
-                    <div className="flex bg-muted rounded-lg p-0.5">
-                        <button
-                            onClick={() => setLanguage('en')}
-                            className={cn(
-                                'px-2 py-1 rounded-md text-xs font-medium transition-colors min-h-[28px]',
-                                language === 'en'
-                                    ? 'bg-card text-foreground shadow-sm'
-                                    : 'text-muted-foreground hover:text-foreground'
-                            )}
-                        >
-                            EN
-                        </button>
-                        <button
-                            onClick={() => setLanguage('hi')}
-                            className={cn(
-                                'px-2 py-1 rounded-md text-xs font-medium transition-colors min-h-[28px]',
-                                language === 'hi'
-                                    ? 'bg-card text-foreground shadow-sm'
-                                    : 'text-muted-foreground hover:text-foreground'
-                            )}
-                        >
-                            HI
-                        </button>
-                    </div>
-                    <Badge className="bg-violet-50 text-violet-600 border-none text-[10px] px-1.5 py-0 hidden sm:inline-flex">
+                <div className="ml-auto">
+                    <Badge className="bg-violet-50 text-violet-600 border-none text-[10px] px-1.5 py-0">
                         <Sparkles className="w-3 h-3" />
                         AI
                     </Badge>

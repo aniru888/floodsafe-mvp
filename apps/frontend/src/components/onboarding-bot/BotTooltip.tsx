@@ -29,11 +29,9 @@ export function BotTooltip({ visible }: { visible: boolean }) {
         skipTour,
         toggleVoice,
     } = useOnboardingBot();
-    const { setLanguage } = useLanguage();
+    const { language: lang, setLanguage } = useLanguage();
 
     if (state.phase !== 'app-tour' || !visible || !currentStep) return null;
-
-    const lang = state.language;
     const title = t(lang, currentStep.title);
     const message = t(lang, currentStep.message);
     const stepNum = state.currentStepIndex + 1;

@@ -21,7 +21,7 @@ export function BotInlineCard() {
         toggleVoice,
         setCardExpanded,
     } = useOnboardingBot();
-    const { setLanguage } = useLanguage();
+    const { language: lang, setLanguage } = useLanguage();
 
     const collapseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -42,7 +42,6 @@ export function BotInlineCard() {
         return null;
     }
 
-    const lang = state.language;
     const title = t(lang, currentStep.title);
     const message = t(lang, currentStep.message);
     const isWelcome = currentStep.id === 'onboarding-welcome';
