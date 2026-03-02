@@ -32,6 +32,12 @@ from ..domain.services.whatsapp.meta_client import (
     send_interactive_buttons as meta_send_buttons,
     download_media as meta_download_media,
     mark_as_read,
+    send_welcome_buttons,
+    send_after_location_buttons,
+    send_after_report_buttons,
+    send_risk_result_buttons,
+    send_account_choice_buttons,
+    send_menu_buttons,
 )
 from ..domain.services.whatsapp import (
     TemplateKey, get_message, get_user_language,
@@ -110,6 +116,51 @@ def _find_user_by_phone(db: Session, phone: str) -> Optional[User]:
     """Find user by phone number (single query using normalized E.164)."""
     normalized = normalize_phone(phone)
     return db.query(User).filter(User.phone == normalized).first()
+
+
+# =============================================================================
+# HEALTH ENDPOINT
+# =============================================================================
+
+@router.get("/health")
+async def whatsapp_meta_health():
+    """Health check for Meta WhatsApp integration.
+
+    Returns status of Meta WhatsApp config, ML classifier, and Wit.ai.
+    """
+    # Meta WhatsApp config
+    meta_ok = is_meta_whatsapp_enabled()
+
+    # ML classifier
+    ml_available = False
+    if settings.ML_ENABLED:
+        try:
+            from ..domain.ml.tflite_classifier import get_classifier
+            get_classifier()
+            ml_available = True
+        except Exception:
+            pass
+
+    # Wit.ai NLU
+    wit_ok = is_wit_enabled()
+
+    status = "healthy" if meta_ok else "degraded"
+
+    return {
+        "status": status,
+        "meta_whatsapp": {
+            "enabled": meta_ok,
+            "phone_number_id": bool(settings.META_PHONE_NUMBER_ID),
+            "token_set": bool(settings.META_WHATSAPP_TOKEN),
+        },
+        "ml_classifier": {
+            "enabled": settings.ML_ENABLED,
+            "available": ml_available,
+        },
+        "wit_ai": {
+            "enabled": wit_ok,
+        },
+    }
 
 
 # =============================================================================
@@ -304,7 +355,15 @@ async def _handle_text(
     """Handle text message — Wit.ai NLU + keyword fallback."""
     text_lower = text.lower()
 
-    # Handle session states
+    # Handle session states (onboarding flow)
+    if session.state == "awaiting_choice":
+        await _handle_account_choice(db, session, phone, user, text, language)
+        return
+
+    if session.state == "awaiting_email":
+        await _handle_email_input(db, session, phone, user, text, language)
+        return
+
     if session.state == "awaiting_photo":
         if text_lower == "skip":
             await _finalize_without_photo(db, session, phone, user, language)
@@ -385,17 +444,55 @@ async def _handle_text(
         )
         return
 
+    if text_lower == "link":
+        if user:
+            await meta_send_text(
+                phone,
+                f"Your WhatsApp is already linked to {user.email}.\n"
+                f"No action needed!"
+            )
+            return
+        session.state = "awaiting_choice"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        await send_account_choice_buttons(phone, language)
+        return
+
+    if text_lower == "stop":
+        if user:
+            user.notification_whatsapp = False
+            db.commit()
+            await meta_send_text(
+                phone,
+                "You've unsubscribed from WhatsApp alerts.\n"
+                "You can still use the FloodSafe app.\n\n"
+                "Reply START to re-subscribe."
+            )
+        else:
+            await meta_send_text(
+                phone,
+                "You've been unsubscribed from WhatsApp alerts.\n"
+                "Reply START to re-subscribe."
+            )
+        return
+
+    if text_lower == "start":
+        if user:
+            user.notification_whatsapp = True
+            db.commit()
+            await meta_send_text(
+                phone,
+                "Welcome back! You're subscribed to flood alerts.\n"
+                "Send a photo + your location to report flooding."
+            )
+        else:
+            await meta_send_text(phone, get_message(TemplateKey.WELCOME, language))
+            await send_welcome_buttons(phone, language)
+        return
+
     # Default: welcome message with interactive buttons
-    await meta_send_buttons(
-        phone,
-        get_message(TemplateKey.WELCOME, language),
-        [
-            {"id": "report_flood", "title": "Report Flood"},
-            {"id": "check_risk", "title": "Check Risk"},
-            {"id": "view_alerts", "title": "View Alerts"},
-        ],
-        footer="FloodSafe — Protecting communities",
-    )
+    await meta_send_text(phone, get_message(TemplateKey.WELCOME, language))
+    await send_welcome_buttons(phone, language)
 
 
 async def _handle_location(
@@ -432,15 +529,7 @@ async def _handle_location(
     session.updated_at = datetime.utcnow()
     db.commit()
 
-    await meta_send_buttons(
-        phone,
-        get_message(TemplateKey.REPORT_NO_PHOTO, language),
-        [
-            {"id": "add_photo", "title": "Add Photo"},
-            {"id": "submit_anyway", "title": "Submit Without"},
-            {"id": "cancel", "title": "Cancel"},
-        ],
-    )
+    await send_after_location_buttons(phone, language)
 
 
 async def _handle_photo_for_pending_location(
@@ -571,15 +660,8 @@ async def _create_report_with_photo(
             alerts_count=alerts_count,
         )
 
-    await meta_send_buttons(
-        phone,
-        response,
-        [
-            {"id": "report_another", "title": "Report Another"},
-            {"id": "check_risk", "title": "Check Risk"},
-            {"id": "menu", "title": "Main Menu"},
-        ],
-    )
+    await meta_send_text(phone, response)
+    await send_after_report_buttons(phone, language)
 
 
 async def _finalize_without_photo(
@@ -634,6 +716,178 @@ async def _finalize_without_photo(
         alerts_count=alerts_count,
     )
     await meta_send_text(phone, response)
+
+
+async def _handle_account_choice(
+    db: Session,
+    session: WhatsAppSession,
+    phone: str,
+    user: Optional[User],
+    text: str,
+    language: str,
+):
+    """Handle user's choice to create account or stay anonymous."""
+    choice = text.strip()
+
+    if choice in ("1", "create_account"):
+        session.state = "awaiting_email"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        await meta_send_text(
+            phone,
+            "Great! To link your account, please reply with your email address.\n\n"
+            "If you already have a FloodSafe account, use that email.\n"
+            "If not, we'll create a new account for you."
+            if language == "en" else
+            "बढ़िया! अपना अकाउंट लिंक करने के लिए अपना ईमेल भेजें।\n\n"
+            "अगर FloodSafe अकाउंट है तो वही ईमेल भेजें।\n"
+            "नहीं तो हम नया अकाउंट बना देंगे।"
+        )
+        return
+
+    if choice in ("2", "stay_anonymous"):
+        session.state = "idle"
+        session.data = {}
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        await meta_send_text(
+            phone,
+            "Got it! Your reports will remain anonymous.\n\n"
+            "You can reply LINK anytime to connect your account."
+            if language == "en" else
+            "ठीक है! आपकी रिपोर्ट गुमनाम रहेगी।\n\n"
+            "कभी भी LINK भेजकर अकाउंट जोड़ सकते हैं।"
+        )
+        return
+
+    # Invalid choice — re-prompt
+    await meta_send_text(
+        phone,
+        "Please reply with:\n1 = Create/link account\n2 = Stay anonymous"
+        if language == "en" else
+        "कृपया भेजें:\n1 = अकाउंट बनाएं\n2 = गुमनाम रहें"
+    )
+
+
+async def _handle_email_input(
+    db: Session,
+    session: WhatsAppSession,
+    phone: str,
+    user: Optional[User],
+    text: str,
+    language: str,
+):
+    """Handle email input for account linking/creation."""
+    email = text.strip().lower()
+
+    # Cancel
+    if email == "cancel":
+        session.state = "idle"
+        session.data = {}
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        await meta_send_text(
+            phone,
+            "Account linking cancelled.\n"
+            "Your reports will remain anonymous.\n\n"
+            "Reply LINK anytime to try again."
+        )
+        return
+
+    # Basic email validation
+    if not email or "@" not in email or "." not in email:
+        await meta_send_text(
+            phone,
+            "That doesn't look like a valid email address.\n"
+            "Please reply with your email (e.g., name@example.com)\n\n"
+            "Or reply CANCEL to skip account linking."
+        )
+        return
+
+    # Check if email exists
+    existing_user = db.query(User).filter(User.email == email).first()
+
+    if existing_user:
+        # Email already linked to different phone
+        if existing_user.phone and existing_user.phone != phone:
+            await meta_send_text(
+                phone,
+                f"This email is already linked to a different phone number.\n"
+                f"Please log in to FloodSafe app to update your phone number.\n\n"
+                f"Or reply with a different email."
+            )
+            return
+
+        # Link existing account to this phone
+        existing_user.phone = phone
+        existing_user.notification_whatsapp = True
+        session.user_id = existing_user.id
+        session.state = "idle"
+
+        # Read pending_report_id BEFORE clearing session.data
+        pending_report_id = session.data.get("pending_report_id") if session.data else None
+        session.data = {}
+        session.updated_at = datetime.utcnow()
+        db.commit()
+
+        # Link pending report if exists
+        if pending_report_id:
+            from uuid import UUID
+            from ..infrastructure.models import Report
+            report = db.query(Report).filter(Report.id == UUID(pending_report_id)).first()
+            if report and not report.user_id:
+                report.user_id = existing_user.id
+                db.commit()
+
+        await meta_send_text(
+            phone,
+            f"Account linked successfully!\n\n"
+            f"Your WhatsApp ({phone}) is now connected to {email}.\n"
+            f"Future reports will be linked to your account."
+        )
+        await send_welcome_buttons(phone, language)
+        return
+
+    # Create new account
+    import uuid as uuid_mod
+    new_user = User(
+        id=uuid_mod.uuid4(),
+        email=email,
+        phone=phone,
+        auth_provider="whatsapp",
+        phone_verified=True,
+        notification_whatsapp=True,
+        profile_complete=False,
+    )
+    db.add(new_user)
+    db.commit()
+
+    session.user_id = new_user.id
+    session.state = "idle"
+
+    # Read pending_report_id BEFORE clearing session.data
+    pending_report_id = session.data.get("pending_report_id") if session.data else None
+    session.data = {}
+    session.updated_at = datetime.utcnow()
+    db.commit()
+
+    # Link pending report if exists
+    if pending_report_id:
+        from uuid import UUID
+        from ..infrastructure.models import Report
+        report = db.query(Report).filter(Report.id == UUID(pending_report_id)).first()
+        if report and not report.user_id:
+            report.user_id = new_user.id
+            db.commit()
+
+    await meta_send_text(
+        phone,
+        f"Account created!\n\n"
+        f"Email: {email}\n"
+        f"WhatsApp: {phone}\n\n"
+        f"Log into the FloodSafe app to complete your profile and set up watch areas."
+    )
+    await send_welcome_buttons(phone, language)
 
 
 async def _handle_button(
@@ -695,20 +949,16 @@ async def _handle_button(
             session.data["last_lng"] = last_lng
         session.updated_at = datetime.utcnow()
         db.commit()
-        await meta_send_buttons(
-            phone,
-            "Main Menu" if language == "en" else "Mukhya Menu",
-            [
-                {"id": "report_flood", "title": "Report Flood"},
-                {"id": "check_risk", "title": "Check Risk"},
-                {"id": "view_alerts", "title": "View Alerts"},
-            ],
-        )
+        await send_menu_buttons(phone, language)
     elif button_id == "report_another":
         await meta_send_text(
             phone,
             "Send your location + photo to report another flood."
         )
+    elif button_id == "create_account":
+        await _handle_account_choice(db, session, phone, user, "1", language)
+    elif button_id == "stay_anonymous":
+        await _handle_account_choice(db, session, phone, user, "2", language)
     else:
         logger.warning(f"Unknown Meta button: {button_id}")
         await meta_send_text(phone, get_message(TemplateKey.WELCOME, language))

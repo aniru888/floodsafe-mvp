@@ -1,14 +1,14 @@
 """
-Twilio-based notification service for WhatsApp and SMS alerts.
+Notification service for WhatsApp (Meta Cloud API) and SMS (Twilio) alerts.
 
 Implements INotificationService interface for sending flood alerts
 to users via their preferred channels (WhatsApp, SMS).
 
 Features:
+- WhatsApp via Meta Cloud API (primary)
+- SMS via Twilio (fallback)
 - Respects user notification preferences
-- Supports both WhatsApp and SMS channels
 - Broadcast emergency to all users in a geographic area
-- Graceful fallback when Twilio is not configured
 """
 import logging
 from typing import Optional, List
@@ -21,6 +21,10 @@ from sqlalchemy import text
 from .interfaces import INotificationService
 from ...infrastructure.models import User, WatchArea
 from ...core.config import settings
+from ..whatsapp.meta_client import (
+    send_text_message as meta_send_text,
+    is_meta_whatsapp_enabled,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -36,7 +40,7 @@ def get_twilio_client():
         return _twilio_client
 
     if not settings.TWILIO_ACCOUNT_SID or not settings.TWILIO_AUTH_TOKEN:
-        logger.warning("Twilio credentials not configured - notifications disabled")
+        logger.warning("Twilio credentials not configured - SMS disabled")
         return None
 
     try:
@@ -54,19 +58,21 @@ def get_twilio_client():
 
 class TwilioNotificationService(INotificationService):
     """
-    Twilio-based implementation of INotificationService.
+    Notification service: WhatsApp via Meta Cloud API, SMS via Twilio.
 
     Sends notifications via WhatsApp or SMS based on user preferences.
-    Falls back gracefully when Twilio is not configured.
+    Falls back gracefully when services are not configured.
     """
 
     def __init__(self, db: Session):
         self.db = db
-        self.client = get_twilio_client()
+        self.client = get_twilio_client()  # For SMS only
 
     def is_configured(self) -> bool:
-        """Check if Twilio is properly configured and ready."""
-        return self.client is not None and bool(settings.TWILIO_WHATSAPP_NUMBER)
+        """Check if any notification channel is available."""
+        whatsapp_ok = is_meta_whatsapp_enabled()
+        sms_ok = self.client is not None and bool(settings.TWILIO_SMS_NUMBER)
+        return whatsapp_ok or sms_ok
 
     async def send_alert(self, user_id: UUID, message: str, channel: str = "whatsapp") -> bool:
         """
@@ -81,7 +87,7 @@ class TwilioNotificationService(INotificationService):
             True if message was sent successfully, False otherwise
         """
         if not self.is_configured():
-            logger.warning(f"Twilio not configured - skipping notification to user {user_id}")
+            logger.warning(f"No notification channel configured - skipping notification to user {user_id}")
             return False
 
         # Fetch user
@@ -108,7 +114,7 @@ class TwilioNotificationService(INotificationService):
 
         try:
             if channel == "whatsapp":
-                self._send_whatsapp(phone, message)
+                await self._send_whatsapp(phone, message)
             else:
                 self._send_sms(phone, message)
 
@@ -131,7 +137,7 @@ class TwilioNotificationService(INotificationService):
             Number of users notified
         """
         if not self.is_configured():
-            logger.warning("Twilio not configured - skipping emergency broadcast")
+            logger.warning("No notification channel configured - skipping emergency broadcast")
             return 0
 
         # Find all users with watch areas in the affected polygon
@@ -161,7 +167,7 @@ class TwilioNotificationService(INotificationService):
 
                 try:
                     if pref_whatsapp:
-                        self._send_whatsapp(phone, message)
+                        await self._send_whatsapp(phone, message)
                         notified_count += 1
                     elif pref_sms:
                         self._send_sms(phone, message)
@@ -190,7 +196,7 @@ class TwilioNotificationService(INotificationService):
             Number of users notified
         """
         if not self.is_configured():
-            logger.warning("Twilio not configured - skipping watch area notifications")
+            logger.warning("No notification channel configured - skipping watch area notifications")
             return 0
 
         if not watch_area_ids:
@@ -214,16 +220,14 @@ class TwilioNotificationService(INotificationService):
 
         return notified_count
 
-    def _send_whatsapp(self, phone: str, message: str):
-        """Send WhatsApp message via Twilio."""
-        if not self.client:
-            raise RuntimeError("Twilio client not initialized")
+    async def _send_whatsapp(self, phone: str, message: str):
+        """Send WhatsApp message via Meta Cloud API."""
+        if not is_meta_whatsapp_enabled():
+            raise RuntimeError("Meta WhatsApp not configured")
 
-        self.client.messages.create(
-            body=message,
-            from_=settings.TWILIO_WHATSAPP_NUMBER,
-            to=f"whatsapp:{phone}"
-        )
+        success = await meta_send_text(phone, message)
+        if not success:
+            raise RuntimeError("Meta Graph API send failed")
 
     def _send_sms(self, phone: str, message: str):
         """Send SMS via Twilio."""

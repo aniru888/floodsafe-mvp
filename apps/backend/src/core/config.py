@@ -72,6 +72,7 @@ class Settings(BaseSettings):
     ML_ENABLED: bool = True                # Enable embedded ML models (XGBoost + TFLite)
     ML_MODELS_DIR: str = "./models"        # Path to model files
     ML_DATA_DIR: str = "./data"            # Path to data files (hotspots JSON)
+    ML_SERVICE_URL: str = ""               # Legacy: external ML service URL (unused, embedded TFLite now)
 
     # ML Routing Integration (gradual rollout)
     ML_ROUTING_ENABLED: bool = False       # Enable ML predictions in route comparison

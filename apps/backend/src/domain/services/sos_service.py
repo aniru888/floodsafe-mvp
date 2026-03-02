@@ -1,5 +1,5 @@
 """
-SOS Service — Offline-first emergency message fanout via Twilio.
+SOS Service — Offline-first emergency message fanout.
 
 Receives SOS messages queued offline on the frontend and broadcasts them to
 a list of recipients (Safety Circle members + emergency contacts) via SMS/WhatsApp.
@@ -8,7 +8,7 @@ Design principles:
 - Accept raw phone numbers (not user IDs) — recipients include non-registered contacts
 - Track every delivery attempt — no silent fallbacks (CLAUDE.md Rule #14)
 - Return per-recipient status for transparency
-- Reuse existing Twilio infrastructure from notification_service.py
+- WhatsApp via Meta Cloud API (primary), SMS via Twilio (fallback)
 """
 
 import logging
@@ -24,6 +24,7 @@ from geoalchemy2.elements import WKTElement
 from ...infrastructure.models import SOSMessage, User
 from ...core.config import settings
 from .notification_service import get_twilio_client
+from ..whatsapp.meta_client import send_text_message_sync, is_meta_whatsapp_enabled
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +33,7 @@ class SOSService:
     """
     Emergency SOS message broadcasting service.
 
-    Sends SOS alerts to a list of phone numbers via Twilio SMS or WhatsApp.
+    Sends SOS alerts to a list of phone numbers via WhatsApp (Meta) or SMS (Twilio).
     Tracks delivery status per recipient and stores results in DB.
     """
 
@@ -41,14 +42,10 @@ class SOSService:
         self.client = get_twilio_client()
 
     def is_configured(self) -> bool:
-        """Check if Twilio is properly configured."""
-        has_credentials = bool(settings.TWILIO_ACCOUNT_SID and settings.TWILIO_AUTH_TOKEN)
-        if not has_credentials:
-            return False
-
-        # Check for SMS or WhatsApp number based on channel
-        has_number = bool(settings.TWILIO_SMS_NUMBER or settings.TWILIO_WHATSAPP_NUMBER)
-        return self.client is not None and has_number
+        """Check if any notification channel is available (Meta WhatsApp or Twilio SMS)."""
+        whatsapp_ok = is_meta_whatsapp_enabled()
+        sms_ok = self.client is not None and bool(settings.TWILIO_SMS_NUMBER)
+        return whatsapp_ok or sms_ok
 
     def send_sos(
         self,
@@ -83,8 +80,8 @@ class SOSService:
         """
         if not self.is_configured():
             raise ValueError(
-                "Twilio not configured. Set TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, "
-                "and TWILIO_SMS_NUMBER or TWILIO_WHATSAPP_NUMBER in environment."
+                "No notification channel configured. Set META_WHATSAPP_TOKEN + "
+                "META_PHONE_NUMBER_ID for WhatsApp, or TWILIO_* vars for SMS."
             )
 
         if not recipients:
@@ -96,8 +93,8 @@ class SOSService:
         # Validate channel is configured
         if channel == "sms" and not settings.TWILIO_SMS_NUMBER:
             raise ValueError("SMS channel not configured (TWILIO_SMS_NUMBER missing)")
-        if channel == "whatsapp" and not settings.TWILIO_WHATSAPP_NUMBER:
-            raise ValueError("WhatsApp channel not configured (TWILIO_WHATSAPP_NUMBER missing)")
+        if channel == "whatsapp" and not is_meta_whatsapp_enabled():
+            raise ValueError("WhatsApp channel not configured (META_WHATSAPP_TOKEN missing)")
 
         # Create SOS message record (status = 'sending')
         location_geom = None
@@ -211,15 +208,13 @@ class SOSService:
         }
 
     def _send_whatsapp(self, phone: str, message: str):
-        """Send WhatsApp message via Twilio."""
-        if not self.client:
-            raise RuntimeError("Twilio client not initialized")
+        """Send WhatsApp message via Meta Cloud API (sync)."""
+        if not is_meta_whatsapp_enabled():
+            raise RuntimeError("Meta WhatsApp not configured")
 
-        self.client.messages.create(
-            body=message,
-            from_=settings.TWILIO_WHATSAPP_NUMBER,
-            to=f"whatsapp:{phone}"
-        )
+        success = send_text_message_sync(phone, message)
+        if not success:
+            raise RuntimeError("Meta Graph API send failed")
 
     def _send_sms(self, phone: str, message: str):
         """Send SMS via Twilio."""

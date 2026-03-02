@@ -1,10 +1,11 @@
 """
 WhatsApp Photo Handler
 
-Downloads photos from Twilio media URLs and classifies them
-using the ML service for flood detection.
+Downloads photos from Twilio/Meta media URLs and classifies them
+using the embedded TFLite classifier for flood detection.
 """
 import logging
+from io import BytesIO
 from typing import Optional, Tuple
 from dataclasses import dataclass
 
@@ -78,58 +79,41 @@ async def classify_flood_image(
     content_type: str = "image/jpeg"
 ) -> Optional[FloodClassification]:
     """
-    Send image to ML service for flood classification.
+    Classify image using embedded TFLite flood classifier.
+
+    Uses the same TFLite model as the reports endpoint (reports.py:411).
+    No external HTTP call needed — runs in-process.
 
     Args:
         image_bytes: Raw image bytes
         content_type: MIME type of the image
 
     Returns:
-        FloodClassification if successful, None if ML service unavailable
+        FloodClassification if successful, None if classifier unavailable
     """
     if not image_bytes:
         return None
 
-    # Use internal ML service URL for server-side calls
-    ml_url = settings.ML_SERVICE_URL
-    if not ml_url:
-        logger.warning("ML_SERVICE_URL not configured")
+    if not settings.ML_ENABLED:
+        logger.warning("ML_ENABLED is False — skipping classification")
         return None
 
     try:
-        async with httpx.AsyncClient() as client:
-            files = {
-                "image": ("whatsapp_photo.jpg", image_bytes, content_type)
-            }
+        from ....domain.ml.tflite_classifier import get_classifier
 
-            response = await client.post(
-                f"{ml_url}/api/v1/classify-flood",
-                files=files,
-                timeout=15.0
-            )
+        classifier = get_classifier()
+        result = classifier.predict(BytesIO(image_bytes))
 
-            if response.status_code == 503:
-                logger.warning("ML classifier not loaded")
-                return None
+        return FloodClassification(
+            is_flood=result.get("is_flood", False),
+            confidence=result.get("confidence", 0.0),
+            classification=result.get("classification", "no_flood"),
+            needs_review=result.get("needs_review", True),
+            raw_response=result,
+        )
 
-            if response.status_code != 200:
-                logger.error(f"ML classification failed: {response.status_code}")
-                return None
-
-            data = response.json()
-            return FloodClassification(
-                is_flood=data.get("is_flood", False),
-                confidence=data.get("confidence", 0.0),
-                classification=data.get("classification", "no_flood"),
-                needs_review=data.get("needs_review", True),
-                raw_response=data
-            )
-
-    except httpx.TimeoutException:
-        logger.warning("ML classification timed out")
-        return None
-    except httpx.ConnectError:
-        logger.warning(f"Cannot connect to ML service at {ml_url}")
+    except RuntimeError as e:
+        logger.warning(f"ML classifier not loaded: {e}")
         return None
     except Exception as e:
         logger.error(f"ML classification error: {e}")

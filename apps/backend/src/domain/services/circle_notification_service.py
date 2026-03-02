@@ -22,9 +22,10 @@ from ...infrastructure.models import (
     User,
 )
 from ...domain.models import NotificationResult
-from .notification_service import get_twilio_client, TwilioNotificationService
+from .notification_service import get_twilio_client
 from .circle_service import CircleService
 from ...core.config import settings
+from ..whatsapp.meta_client import send_text_message_sync, is_meta_whatsapp_enabled
 
 logger = logging.getLogger(__name__)
 
@@ -40,11 +41,15 @@ class CircleNotificationService:
 
     def __init__(self, db: Session):
         self.db = db
-        self.twilio_client = get_twilio_client()
+        self.twilio_client = get_twilio_client()  # For SMS only
 
-    def is_twilio_configured(self) -> bool:
-        """Check if Twilio is available for WhatsApp/SMS."""
-        return self.twilio_client is not None
+    def is_whatsapp_configured(self) -> bool:
+        """Check if Meta WhatsApp is available for sending."""
+        return is_meta_whatsapp_enabled()
+
+    def is_sms_configured(self) -> bool:
+        """Check if Twilio SMS is available."""
+        return self.twilio_client is not None and bool(settings.TWILIO_SMS_NUMBER)
 
     def notify_circles_for_report(
         self,
@@ -186,7 +191,8 @@ class CircleNotificationService:
                 continue
 
             # Try WhatsApp/SMS for members with phone numbers
-            if member.phone and self.is_twilio_configured():
+            can_send = self.is_whatsapp_configured() or self.is_sms_configured()
+            if member.phone and can_send:
                 sent = self._try_send_external(
                     member=member,
                     alert_record=alert_record,
@@ -195,10 +201,10 @@ class CircleNotificationService:
                 )
                 if sent:
                     external_sent_count += 1
-            elif member.phone and not self.is_twilio_configured():
-                # D8: Explicitly track that Twilio is not configured
+            elif member.phone and not can_send:
+                # D8: Explicitly track that no channel is configured
                 result.errors.append(
-                    f"Twilio not configured — cannot send SMS/WhatsApp to "
+                    f"No WhatsApp/SMS channel configured — cannot send to "
                     f"{member.phone[:4]}***"
                 )
 
@@ -247,16 +253,14 @@ class CircleNotificationService:
         return False
 
     def _send_whatsapp(self, phone: str, message: str) -> tuple[bool, str]:
-        """Send WhatsApp message. Returns (success, error_message)."""
+        """Send WhatsApp message via Meta Cloud API (sync). Returns (success, error_message)."""
         try:
-            if not self.twilio_client:
-                return False, "Twilio not configured"
+            if not is_meta_whatsapp_enabled():
+                return False, "Meta WhatsApp not configured"
 
-            self.twilio_client.messages.create(
-                body=message,
-                from_=settings.TWILIO_WHATSAPP_NUMBER,
-                to=f"whatsapp:{phone}",
-            )
+            success = send_text_message_sync(phone, message)
+            if not success:
+                return False, "Meta Graph API send failed"
             return True, ""
         except Exception as e:
             return False, str(e)
