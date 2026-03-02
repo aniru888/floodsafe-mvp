@@ -25,7 +25,7 @@ from ...domain.models import NotificationResult
 from .notification_service import get_twilio_client
 from .circle_service import CircleService
 from ...core.config import settings
-from ..whatsapp.meta_client import send_text_message_sync, is_meta_whatsapp_enabled
+from .whatsapp.meta_client import send_text_message_sync, is_meta_whatsapp_enabled
 
 logger = logging.getLogger(__name__)
 

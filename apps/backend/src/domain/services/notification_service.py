@@ -21,7 +21,7 @@ from sqlalchemy import text
 from .interfaces import INotificationService
 from ...infrastructure.models import User, WatchArea
 from ...core.config import settings
-from ..whatsapp.meta_client import (
+from .whatsapp.meta_client import (
     send_text_message as meta_send_text,
     is_meta_whatsapp_enabled,
 )

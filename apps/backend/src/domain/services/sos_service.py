@@ -24,7 +24,7 @@ from geoalchemy2.elements import WKTElement
 from ...infrastructure.models import SOSMessage, User
 from ...core.config import settings
 from .notification_service import get_twilio_client
-from ..whatsapp.meta_client import send_text_message_sync, is_meta_whatsapp_enabled
+from .whatsapp.meta_client import send_text_message_sync, is_meta_whatsapp_enabled
 
 logger = logging.getLogger(__name__)
 
