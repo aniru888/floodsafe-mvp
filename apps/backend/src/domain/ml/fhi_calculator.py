@@ -174,6 +174,18 @@ class FHICalculator:
             "api_decay_k": 0.80,            # World-class drainage, rapid canal flush
             "api_threshold": 100.0,
         },
+        "indore": {
+            "elev_min": 440, "elev_max": 650,  # Malwa plateau, 440-650m ASL
+            "wet_months": [6, 7, 8, 9],  # Indian monsoon Jun-Sep
+            "urban_fraction": 0.55,
+            "default_elev": 550,
+            "api_decay_k": 0.90,            # Similar to Delhi monsoon drainage
+            "rain_gate": 5.0,
+            "api_threshold": 85.0,
+            "precip_correction": 1.3,       # Open-Meteo underestimates Malwa convective events
+            "E_dampen": 0.85,               # Plateau terrain reduces elevation contribution
+            "cache_ttl": 3600,              # 1 hour (Open-Meteo source)
+        },
     }
 
     # City bounding boxes for auto-detection from coordinates
@@ -182,6 +194,7 @@ class FHICalculator:
         "bangalore": {"min_lat": 12.75, "max_lat": 13.20, "min_lng": 77.35, "max_lng": 77.80},
         "yogyakarta": {"min_lat": -7.95, "max_lat": -7.65, "min_lng": 110.30, "max_lng": 110.50},
         "singapore": {"min_lat": 1.15, "max_lat": 1.47, "min_lng": 103.60, "max_lng": 104.05},
+        "indore": {"min_lat": 22.52, "max_lat": 22.85, "min_lng": 75.72, "max_lng": 75.97},
     }
 
     # Legacy defaults (Delhi) for backwards compatibility

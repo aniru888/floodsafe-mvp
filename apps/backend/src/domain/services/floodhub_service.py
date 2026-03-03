@@ -162,6 +162,14 @@ class FloodHubService:
             "region_code": "SG",
             "country_code": "SG",
         },
+        "indore": {
+            "lat_min": 22.52,
+            "lat_max": 22.85,
+            "lng_min": 75.72,
+            "lng_max": 75.97,
+            "region_code": "IN",
+            "country_code": "IN",
+        },
     }
 
     def __init__(self, api_key: Optional[str] = None):

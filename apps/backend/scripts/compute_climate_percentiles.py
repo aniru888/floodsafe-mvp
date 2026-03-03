@@ -36,6 +36,7 @@ CITY_CENTROIDS = {
     "bangalore": {"lat": 12.9716, "lng": 77.5946},
     "yogyakarta": {"lat": -7.7956, "lng": 110.3695},
     "singapore": {"lat": 1.3521, "lng": 103.8198},
+    "indore": {"lat": 22.7196, "lng": 75.8577},
 }
 
 # Open-Meteo Historical Weather API (free, no key needed)

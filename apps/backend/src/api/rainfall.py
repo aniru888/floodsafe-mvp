@@ -37,6 +37,7 @@ CITY_FHI_CALIBRATION = {
     "bangalore": {"elev_min": 800.0, "elev_max": 1000.0, "wet_months": range(6, 11), "urban_fraction": 0.65, "rain_gate_mm": 5.0, "precip_correction": 1.3, "E_dampen": 0.7},
     "yogyakarta": {"elev_min": 75.0, "elev_max": 200.0, "wet_months": [11, 12, 1, 2], "urban_fraction": 0.55, "rain_gate_mm": 20.0, "precip_correction": 1.0, "E_dampen": 0.3},
     "singapore": {"elev_min": 0.0, "elev_max": 50.0, "wet_months": [11, 12, 1, 2], "urban_fraction": 0.95, "rain_gate_mm": 10.0, "precip_correction": 1.0, "E_dampen": 0.5},
+    "indore": {"elev_min": 440.0, "elev_max": 650.0, "wet_months": [6, 7, 8, 9], "urban_fraction": 0.55, "rain_gate_mm": 5.0, "precip_correction": 1.3, "E_dampen": 0.85},
 }
 
 
@@ -968,7 +969,7 @@ async def get_flood_hazard_index(
     # Auto-detect city from coordinates for calibration
     detected_city = "delhi"  # default
     for city_name, cal in CITY_FHI_CALIBRATION.items():
-        bounds = {"delhi": (28.40, 28.88, 76.84, 77.35), "bangalore": (12.75, 13.20, 77.35, 77.80), "yogyakarta": (-7.95, -7.65, 110.30, 110.50), "singapore": (1.15, 1.47, 103.60, 104.10)}
+        bounds = {"delhi": (28.40, 28.88, 76.84, 77.35), "bangalore": (12.75, 13.20, 77.35, 77.80), "yogyakarta": (-7.95, -7.65, 110.30, 110.50), "singapore": (1.15, 1.47, 103.60, 104.10), "indore": (22.52, 22.85, 75.72, 75.97)}
         if city_name in bounds:
             min_lat, max_lat, min_lng, max_lng = bounds[city_name]
             if min_lat <= lat <= max_lat and min_lng <= lng <= max_lng:

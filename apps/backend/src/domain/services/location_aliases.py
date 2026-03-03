@@ -178,6 +178,38 @@ LOCATION_ALIASES: Dict[str, str] = {
     "adisucipto": "Adisucipto Airport Yogyakarta",
     "yia": "Yogyakarta International Airport Kulon Progo",
 
+    # ─── Indore / Madhya Pradesh ───
+    "rajwada": "Rajwada Palace, Indore",
+    "vijay nagar": "Vijay Nagar, Indore",
+    "palasia": "Palasia, Indore",
+    "sapna sangeeta": "Sapna Sangeeta Road, Indore",
+    "bhawarkuan": "Bhawarkuan Square, Indore",
+    "chhappan dukan": "Chhappan Dukan (56 Shops), Indore",
+    "sarafa bazaar": "Sarafa Bazaar, Indore",
+    "khajrana": "Khajrana, Indore",
+    "pipliyahana": "Pipliyahana, Indore",
+    "rau": "Rau, Indore",
+    "mhow": "Mhow (Dr. Ambedkar Nagar), Indore",
+    "iim indore": "IIM Indore, Rau",
+    "iit indore": "IIT Indore, Simrol",
+    "super corridor": "Super Corridor, Indore",
+    "ab road": "Agra Bombay Road, Indore",
+    "mg road indore": "Mahatma Gandhi Road, Indore",
+    "scheme 54": "Scheme No. 54, Indore",
+    "scheme 78": "Scheme No. 78, Indore",
+    "lalbagh": "Lalbagh Palace, Indore",
+    "holkar stadium": "Holkar Cricket Stadium, Indore",
+    "treasure island": "Treasure Island Mall, Indore",
+    "nehru park indore": "Nehru Park, Indore",
+    "gangwal bus stand": "Gangwal Bus Stand, Indore",
+    "patalpani": "Patalpani Waterfall, Indore",
+    "banganga": "Banganga, Indore",
+    "nipania": "Nipania, Indore",
+    "musakhedi": "Musakhedi, Indore",
+    "juni indore": "Juni Indore (Old Indore)",
+    "chhawani": "Chhawani, Indore",
+    "silicon city": "Silicon City, Indore",
+
     # ========================================
     # MUMBAI
     # ========================================

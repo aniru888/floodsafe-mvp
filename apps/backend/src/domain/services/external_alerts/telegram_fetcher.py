@@ -36,6 +36,7 @@ ALERT_EXPIRY_HOURS = 12
 # Per-city channel configuration (extensible)
 DEFAULT_CHANNELS: dict[str, list[str]] = {
     "singapore": ["pubfloodalerts"],
+    "indore": [],  # No Indore-specific Telegram flood channels identified yet
     # Future: "delhi": ["delhifloodalerts"], etc.
 }
 

@@ -782,7 +782,7 @@ class RoutingService:
 
             # Fetch hotspots for safety analysis (cities with hotspot data)
             hotspots = []
-            city_map = {"DEL": "delhi", "BLR": "bangalore", "YOG": "yogyakarta", "SIN": "singapore"}
+            city_map = {"DEL": "delhi", "BLR": "bangalore", "YOG": "yogyakarta", "SIN": "singapore", "IDR": "indore"}
             hotspot_city = city_map.get(city.upper())
             if hotspot_city in ("delhi", "yogyakarta", "singapore"):
                 try:

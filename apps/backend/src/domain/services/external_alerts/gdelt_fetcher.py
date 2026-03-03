@@ -73,6 +73,10 @@ class GDELTFetcher(BaseFetcher):
             "sourcecountry": "SG",
             "sourcelang": "english",
         },
+        "indore": {
+            "query": '("indore" OR "madhya pradesh") AND (flood OR "flash flood" OR waterlogging OR "heavy rain" OR "khan river")',
+            "language": "English",
+        },
     }
 
     def __init__(self, timeout: int = 30, max_retries: int = 3):

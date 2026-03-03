@@ -17,7 +17,7 @@ from ..core.config import settings
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-SUPPORTED_CITIES = {"delhi", "bangalore", "yogyakarta", "singapore"}
+SUPPORTED_CITIES = {"delhi", "bangalore", "yogyakarta", "singapore", "indore"}
 
 # Per-city service instances
 _hotspots_services: Dict[str, Any] = {}

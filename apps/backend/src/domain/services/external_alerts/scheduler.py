@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
 
 
 # Default cities to refresh
-DEFAULT_CITIES = ["delhi", "bangalore", "yogyakarta", "singapore"]
+DEFAULT_CITIES = ["delhi", "bangalore", "yogyakarta", "singapore", "indore"]
 
 
 class AlertScheduler:

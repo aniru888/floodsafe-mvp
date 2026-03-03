@@ -36,6 +36,7 @@ SUPPORTED_CITIES = {
     "BLR": "bangalore", "BANGALORE": "bangalore",
     "YGY": "yogyakarta", "YOGYAKARTA": "yogyakarta",
     "SIN": "singapore", "SINGAPORE": "singapore",
+    "IDR": "indore", "INDORE": "indore",
 }
 
 

@@ -540,6 +540,111 @@ class SingaporeFloodRelevanceScorer:
         return score, reason
 
 
+class IndoreFloodRelevanceScorer:
+    """Relevance scorer for Indore, Madhya Pradesh."""
+
+    INDORE_LOCATIONS = {
+        "areas": [
+            "rajwada", "vijay nagar", "palasia", "old palasia", "sapna sangeeta",
+            "bhawarkuan", "geeta bhavan", "chhappan dukan", "sarafa", "mg road",
+            "ab road", "rau", "mhow", "scheme 54", "scheme 78", "scheme 94",
+            "sudama nagar", "khajrana", "silicon city", "super corridor", "nipania",
+            "banganga", "pipliyahana", "musakhedi", "chhawani", "juni indore",
+            "tejaji nagar", "dwarkapuri", "chandan nagar", "nyay nagar", "lg nagar",
+            "bicholi", "palda", "nayta mundla", "ralamandal", "krishnapura",
+            "kulkarni ka bhatti", "gangwal bus stand", "industry house",
+            "satya sai", "radisson", "luv kush", "collectorate", "palasikar",
+            "madhu milan", "teen imli", "robot square", "it park",
+        ],
+        "rivers": [
+            "khan river", "kanh river", "saraswati river", "kshipra",
+            "gambhir river", "bilawali",
+        ],
+        "landmarks": [
+            "holkar stadium", "devi ahilyabai airport", "iim indore", "iit indore",
+            "lalbagh palace", "central mall", "treasure island", "nehru park",
+            "rajwada palace", "patalpani", "ralamandal sanctuary",
+        ],
+        "authorities": [
+            "imc", "indore municipal corporation", "mpsdma", "mp sdma",
+            "indore collector", "sewag", "indore police", "mp fire",
+            "ndrf", "sdrf",
+        ],
+        "state": [
+            "madhya pradesh", "mp", "central india", "malwa",
+            "indore district", "indore division",
+        ],
+    }
+
+    FLOOD_KEYWORDS = [
+        "flood", "waterlog", "inundat", "submerge", "deluge",
+        "heavy rain", "flash flood", "cloudburst", "overflow",
+        "khan river flood", "kanh river", "road closure", "rescue",
+    ]
+
+    def _compute_location_score(self, text_lower: str) -> float:
+        score = 0.0
+        for area in self.INDORE_LOCATIONS["areas"]:
+            if area in text_lower:
+                score += 3.0
+        for river in self.INDORE_LOCATIONS["rivers"]:
+            if river in text_lower:
+                score += 2.5
+        for landmark in self.INDORE_LOCATIONS["landmarks"]:
+            if landmark in text_lower:
+                score += 2.0
+        for auth in self.INDORE_LOCATIONS["authorities"]:
+            if auth in text_lower:
+                score += 1.5
+        for state_ref in self.INDORE_LOCATIONS["state"]:
+            if state_ref in text_lower:
+                score += 1.0
+        return min(score, 10.0)
+
+    def score(self, title: str, body: str) -> Tuple[float, str]:
+        """Score article relevance for Indore flooding."""
+        text = f"{title} {body}".lower()
+        score = 0.0
+        reasons = []
+
+        # Location signals
+        has_exact = "indore" in text
+        has_area = any(loc in text for loc in self.INDORE_LOCATIONS["areas"])
+        has_river = any(r in text for r in self.INDORE_LOCATIONS["rivers"])
+        has_landmark = any(lm in text for lm in self.INDORE_LOCATIONS["landmarks"])
+        has_authority = any(auth in text for auth in self.INDORE_LOCATIONS["authorities"])
+        has_state = any(st in text for st in self.INDORE_LOCATIONS["state"])
+
+        # Flood signals
+        has_flood = any(kw in text for kw in self.FLOOD_KEYWORDS)
+
+        if has_exact:
+            score += 0.4
+            reasons.append("Indore exact match")
+        if has_area:
+            score += 0.3
+            reasons.append("Indore area match")
+        if has_river:
+            score += 0.3
+            reasons.append("Indore river match")
+        if has_landmark:
+            score += 0.2
+            reasons.append("Indore landmark match")
+        if has_authority:
+            score += 0.15
+            reasons.append("Indore authority keyword")
+        if has_state and not has_exact:
+            score += 0.1
+            reasons.append("Madhya Pradesh state reference")
+        if has_flood:
+            score += 0.3
+            reasons.append("flood keyword")
+
+        score = min(score, 1.0)
+        reason = " + ".join(reasons) if reasons else "No Indore signals"
+        return score, reason
+
+
 def get_scorer_for_city(city: str):
     """
     Factory function to get the appropriate scorer for a city.
@@ -559,6 +664,8 @@ def get_scorer_for_city(city: str):
         return YogyakartaFloodRelevanceScorer()
     elif city_lower == "singapore":
         return SingaporeFloodRelevanceScorer()
+    elif city_lower == "indore":
+        return IndoreFloodRelevanceScorer()
     else:
         # Default to Delhi scorer (most comprehensive)
         logger.warning(f"No specific scorer for city '{city}', using Delhi scorer")

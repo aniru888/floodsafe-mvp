@@ -33,6 +33,7 @@ class CityEnum(str, Enum):
     bangalore = "bangalore"
     yogyakarta = "yogyakarta"
     singapore = "singapore"
+    indore = "indore"
 
 
 # Response Models

@@ -71,6 +71,11 @@ class GDACSFetcher(BaseFetcher):
             "name": "Singapore",
             "include_states": ["singapore"],
         },
+        "indore": {
+            "bounds": (22.52, 22.85, 75.72, 75.97),
+            "name": "Indore",
+            "include_states": ["madhya pradesh"],
+        },
     }
 
     # Event types to include
