@@ -134,7 +134,7 @@ FHI_formula: |
   FHI = (0.35×P + 0.18×I + 0.12×S + 0.12×A + 0.08×R + 0.15×E) × T
   CUSTOM HEURISTIC - weights empirically tuned, not from research
   Rain-gate: City-specific threshold — below = FHI capped at 0.15
-  S component: 14-day exponential API decay (k: Delhi=0.92, Bangalore=0.88, Yogyakarta=0.85, Singapore=0.80)
+  S component: 14-day exponential API decay (k: Delhi=0.92, Bangalore=0.88, Yogyakarta=0.85, Singapore=0.80, Indore=0.90)
   P component: Ceiling-only monthly P95 percentiles from 10yr ERA5 data
   S vs A distinction: S=14-day API decay (long-term wetness), A=3-day burst (short-term)
 
@@ -1131,7 +1131,7 @@ next: Install native Capacitor plugins for push, geolocation, camera
 Reports, map, alerts, onboarding, auth (Email/Google/Phone), E2E tests, community voting/comments
 
 ### Tier 2: ML/AI Foundation ✅ MOSTLY COMPLETE
-- [x] XGBoost for 369 known hotspots (90 Delhi + 200 Bangalore + 19 Yogyakarta + 60 Singapore, AUC 0.98)
+- [x] XGBoost for 406 known hotspots (90 Delhi + 200 Bangalore + 19 Yogyakarta + 60 Singapore + 37 Indore, AUC 0.98)
 - [x] FHI formula + rainfall forecasts (Open-Meteo, per-city calibration)
 - [x] Historical Floods Panel (45 Delhi events, 1969-2023)
 - [x] Photo classification (embedded TFLite MobileNet)
