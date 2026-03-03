@@ -272,19 +272,35 @@ These files auto-work or are city-specific to others:
 
 ---
 
-## 10. Risk Assessment
+## 10. Google FloodHub Availability (Verified 2026-03-03)
+
+**Verification method**: Chrome DevTools browser automation on `sites.research.google/floods` centered on Indore (22.71°N, 75.86°E).
+
+| Layer | Available? | Details |
+|-------|-----------|---------|
+| **High-confidence river gauges** | No | No physical gauge pins visible at any zoom level within Indore bounds |
+| **Lower-confidence (virtual) gauges** | **Yes** | Dozens of green "Normal" dots across entire Indore region when extended coverage enabled |
+| **Urban flash floods (Beta)** | **Yes** | "Highly likely" and "Likely" categories available within 24h forecast |
+| **Narmada River gauges** | **Yes** | Multiple gauges visible along Narmada (~50km south of Indore center) |
+| **Regional coverage** | Dense | Gauges on Khan, Saraswati, Shipra/Kshipra tributaries and surrounding areas (Dewas, Ujjain, Dhar) |
+
+**Implication for FloodSafe**: `floodhub_service.py` CITY_BOUNDS for Indore will return gauge data via the API (same `regionCode: "IN"` + bounding box filter pattern as Delhi). The FloodHub tab will show gauge data, but forecasts may be less accurate (lower-confidence). This is the same pattern as Yogyakarta — our existing graceful degradation handles this well.
+
+---
+
+## 11. Risk Assessment
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|-----------|--------|------------|
 | Hotspot coordinates slightly off | Medium | Low | Geocode via Nominatim during impl, verify on map |
 | FHI thresholds not calibrated | Medium | Medium | Use class defaults, tune after first monsoon |
-| FloodHub returns no gauges | High | Low | Graceful empty response (existing pattern) |
+| FloodHub returns no high-confidence gauges | Confirmed | Low | Lower-confidence (virtual) gauges available via extended coverage — dozens in Indore region. Same pattern as Yogyakarta. Urban flash flood (Beta) layer also available. |
 | Emergency numbers outdated | Low | High | Cross-verified against IMC website |
 | Missing hotspot locations | Medium | Low | Start with 37, expand with IMC data later |
 
 ---
 
-## 11. Sources
+## 12. Sources
 
 - [Free Press Journal — Waterlogging locations in Indore](https://www.freepressjournal.in/indore/waterlogging-in-indore-commuters-face-pain-of-rapid-development-avoid-these-roads-to-escape-traffic-snarls-full-list-here)
 - [Free Press Journal — IMC brainstorm on waterlogging](https://www.freepressjournal.in/indore/indore-city-officers-brainstorm-to-address-water-logging-traffic-issues)
