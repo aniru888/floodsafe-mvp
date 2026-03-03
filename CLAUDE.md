@@ -95,7 +95,7 @@ This automatically applies safe patterns. See `.claude/commands/data.md`.
 
 | Service | URL | Platform |
 |---------|-----|----------|
-| **Frontend** | https://frontend-lime-psi-83.vercel.app | Vercel |
+| **Frontend** | https://floodsafe.live | Vercel |
 | **Backend API** | https://floodsafe-backend-floodsafe-dda84554.koyeb.app | Koyeb |
 | **ML Service** | https://floodsafe-ml-floodsafe-9b7acbea.koyeb.app | Koyeb |
 | **Database** | Supabase (project: `udblirsscaghsepuxxqv`) | Supabase |
@@ -384,12 +384,32 @@ Legacy commands in `.claude/commands/` also still work (e.g., `/test`, `/data`, 
 
 Configured in `.claude/settings.local.json` under `"hooks"`:
 
-| Hook | Event | What It Does |
-|------|-------|-------------|
-| Sensitive file protection | PreToolUse (Edit\|Write) | Blocks edits to `.env`, `credentials`, `secrets`, `.pem`, `.key` files |
+| Hook | Event | Script | What It Does |
+|------|-------|--------|-------------|
+| **Cognitive Triage** | UserPromptSubmit | `cognitive-triage.js` | Scores complexity (DELIBERATE/REFLEXIVE), routes to domain agents, flags danger signals, surfaces past reflections |
+| **Sensitive File Protection** | PreToolUse (Edit\|Write) | `protect-sensitive-files.js` | Blocks edits to `.env`, `credentials`, `secrets`, `.pem`, `.key` files |
+| **Change Tracker** | PostToolUse (Edit\|Write) | `change-tracker.js` | Tracks session file changes, 4-phase review on critical files, `/preflight` reminders at thresholds |
+| **Commit Reflector** | PostToolUse (Bash) | `commit-reflector.js` | Detects git commits, prompts reflection, saves lessons to `reflections.jsonl` |
 
-**Hook script**: `.claude/hooks/protect-sensitive-files.js`
-**To disable**: Remove the `"hooks"` section from `.claude/settings.local.json`
+**Hook scripts**: `.claude/hooks/`
+**Data files**: `reflections.jsonl` (persistent lessons), `session-changes.json` (per-session tracking)
+
+### Cognitive Triage Modes
+- **DELIBERATE** (score >= 3): Plan first, use explore agents, full analysis. Triggered by: refactor, auth, migration, schema changes, security
+- **REFLEXIVE** (score < 3): Quick action, minimal overhead. Triggered by: fix typo, add import, rename
+
+### Domain Routing (auto-suggested agents)
+- `ml-data`: FHI, XGBoost, rainfall, weather, NEA, calibration, prediction
+- `maps-geo`: MapLibre, PostGIS, GeoJSON, route, PMTiles, spatial
+- `frontend-ui`: React, component, screen, Tailwind, PWA, onboarding
+- `backend-api`: FastAPI, endpoint, SQLAlchemy, alert, WhatsApp, safety circle
+
+### Critical File Review (4-phase auto-triggered)
+When these files are modified, a 4-phase review chain fires automatically:
+- `infrastructure/models.py`, `auth_service.py`, `AuthContext.tsx`, `token-storage.ts`, `core/config.py`
+
+### Self-Improvement Loop
+Commit → Reflect → Save to `reflections.jsonl` → Surfaced on future prompts via keyword matching
 
 ---
 

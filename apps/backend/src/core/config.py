@@ -21,6 +21,7 @@ class Settings(BaseSettings):
         "http://localhost:8000",
         "http://localhost",  # Capacitor Android WebView origin (no port)
         "https://frontend-lime-psi-83.vercel.app",
+        "https://floodsafe.live",
     ]
 
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")
