@@ -59,7 +59,7 @@ const TURN_ANNOUNCEMENT_DISTANCE_METERS = 100;
 export function NavigationProvider({ children }: { children: React.ReactNode }) {
     const city = useCurrentCity();
     const { speak } = useVoiceGuidance();
-    const hasHotspots = ['delhi', 'yogyakarta', 'singapore'].includes(city);
+    const hasHotspots = ['delhi', 'bangalore', 'yogyakarta', 'singapore', 'indore'].includes(city);
     const { data: hotspotsData } = useHotspots({ enabled: hasHotspots, city });
 
     const [state, setState] = useState<NavigationState>({

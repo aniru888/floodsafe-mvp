@@ -398,7 +398,8 @@ export function useCompareRoutes() {
 }
 
 export function useGeocode(query: string, enabled: boolean = true, city?: string) {
-    const countryCode = city === 'yogyakarta' ? 'id' : 'in';
+    const CITY_COUNTRY_CODES: Record<string, string> = { yogyakarta: 'id', singapore: 'sg' };
+    const countryCode = CITY_COUNTRY_CODES[city ?? ''] || 'in';
     return useQuery({
         queryKey: ['geocode', query, countryCode],
         queryFn: async (): Promise<GeocodingResult[]> => {

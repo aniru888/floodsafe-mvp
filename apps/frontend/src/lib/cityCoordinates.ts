@@ -76,6 +76,13 @@ export const CITY_COORDINATES: Record<string, CityInfo> = {
     displayName: "Singapore",
     radiusKm: 20,
   },
+  indore: {
+    lat: 22.7196,
+    lng: 75.8577,
+    name: "Indore",
+    displayName: "Indore",
+    radiusKm: 25,
+  },
 };
 
 /** Default city when none specified */

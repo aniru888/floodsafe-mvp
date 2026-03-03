@@ -98,7 +98,7 @@ export default function MapComponent({
     const animationFrameRef = useRef<number | null>(null);
 
     // Cities with hotspot data available
-    const HOTSPOT_CITIES = ['delhi', 'bangalore', 'yogyakarta', 'singapore'];
+    const HOTSPOT_CITIES = ['delhi', 'bangalore', 'yogyakarta', 'singapore', 'indore'];
     const hasHotspots = HOTSPOT_CITIES.includes(city);
     // ML predictions (ensemble) are Delhi-only and currently disabled
     const isDelhiCity = city === 'delhi';

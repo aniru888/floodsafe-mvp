@@ -16,7 +16,7 @@ interface NavigationPanelProps {
     isOpen: boolean;
     onClose: () => void;
     userLocation: { lat: number; lng: number } | null;
-    city: 'bangalore' | 'delhi' | 'yogyakarta' | 'singapore';
+    city: 'bangalore' | 'delhi' | 'yogyakarta' | 'singapore' | 'indore';
     onRoutesCalculated: (routes: RouteOption[], floodZones: GeoJSON.FeatureCollection) => void;
     onRouteSelected: (route: RouteOption) => void;
     onMetroSelected: (station: MetroStation) => void;
@@ -414,6 +414,9 @@ export function NavigationPanel({
             <SheetContent
                 side="bottom"
                 className="p-0"
+                onPointerDownOutside={(e) => {
+                    if (showOriginPicker || showDestPicker) e.preventDefault();
+                }}
                 style={{
                     maxHeight: '70vh',
                     display: 'flex',

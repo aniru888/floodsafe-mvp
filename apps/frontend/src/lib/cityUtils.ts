@@ -10,6 +10,7 @@ export const CITY_CODES: Record<string, string> = {
   bangalore: 'BLR',
   yogyakarta: 'YGY',
   singapore: 'SIN',
+  indore: 'IDR',
 };
 
 /** Convert lowercase city key to uppercase API city code. */
@@ -21,6 +22,7 @@ export const CITY_REGIONS: Record<string, string> = {
   bangalore: 'Karnataka, India',
   yogyakarta: 'Special Region of Yogyakarta, Indonesia',
   singapore: 'Republic of Singapore',
+  indore: 'Madhya Pradesh, India',
 };
 
 export const CITY_REGION_SHORT: Record<string, string> = {
@@ -28,6 +30,7 @@ export const CITY_REGION_SHORT: Record<string, string> = {
   bangalore: 'Karnataka',
   yogyakarta: 'DIY',
   singapore: 'Singapore',
+  indore: 'MP',
 };
 
 export const CITY_PHONE_DEFAULTS: Record<string, { code: string; placeholder: string }> = {
@@ -35,4 +38,5 @@ export const CITY_PHONE_DEFAULTS: Record<string, { code: string; placeholder: st
   bangalore: { code: '+91', placeholder: '+91 XXXXX XXXXX' },
   yogyakarta: { code: '+62', placeholder: '+62 XXX XXXX XXXX' },
   singapore: { code: '+65', placeholder: '+65 XXXX XXXX' },
+  indore: { code: '+91', placeholder: '+91 XXXXX XXXXX' },
 };

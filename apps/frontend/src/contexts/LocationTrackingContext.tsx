@@ -29,7 +29,7 @@ const ALERT_COOLDOWN_DISTANCE_METERS = 1000; // User must move 1km before re-ale
 
 export function LocationTrackingProvider({ children }: { children: React.ReactNode }) {
     const city = useCurrentCity();
-    const hasHotspots = ['delhi', 'yogyakarta', 'singapore'].includes(city);
+    const hasHotspots = ['delhi', 'bangalore', 'yogyakarta', 'singapore', 'indore'].includes(city);
     const { data: hotspotsData } = useHotspots({ enabled: hasHotspots, city });
 
     const [state, setState] = useState<LocationTrackingState>({

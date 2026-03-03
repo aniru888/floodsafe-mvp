@@ -41,8 +41,8 @@ export const CITIES = {
             [77.899861111, 13.400138889]  // [maxLng, maxLat]
         ] as [[number, number], [number, number]],
         pmtiles: {
-            basemap: '/basemap.pmtiles',
-            flood: '/tiles.pmtiles'
+            basemap: '',  // No local PMTiles — uses online fallback (OpenFreeMap)
+            flood: ''     // No Bangalore-specific flood overlay tiles
         },
         metro: {
             lines: '/metro-lines.geojson',
@@ -108,6 +108,24 @@ export const CITIES = {
             lines: '/singapore-metro-lines.geojson',
             stations: '/singapore-metro-stations.geojson'
         }
+    },
+    indore: {
+        name: 'indore',
+        displayName: 'Indore',
+        center: [75.8577, 22.7196] as [number, number],
+        zoom: 12.5,
+        pitch: 45,
+        maxZoom: 17,
+        minZoom: 12,
+        bounds: [
+            [75.72, 22.52],   // [minLng, minLat] — includes Mhow
+            [75.97, 22.85]    // [maxLng, maxLat] — includes Super Corridor
+        ] as [[number, number], [number, number]],
+        pmtiles: {
+            basemap: '',  // No local PMTiles — uses OpenFreeMap CDN fallback
+            flood: ''     // No flood DEM layer
+        }
+        // No metro — Indore has BRTS but no metro rail
     }
 } as const;
 

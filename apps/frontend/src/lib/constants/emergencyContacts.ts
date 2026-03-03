@@ -9,7 +9,7 @@
  */
 
 export type EmergencyContactCategory = 'critical' | 'police-fire' | 'medical' | 'flood' | 'city-specific';
-export type CityFilter = 'delhi' | 'bangalore' | 'yogyakarta' | 'singapore' | 'all';
+export type CityFilter = 'delhi' | 'bangalore' | 'yogyakarta' | 'singapore' | 'indore' | 'all';
 
 export interface EmergencyContact {
     id: string;
@@ -30,6 +30,7 @@ const CITY_COUNTRY: Record<string, string> = {
     bangalore: 'india',
     yogyakarta: 'indonesia',
     singapore: 'singapore',
+    indore: 'india',
 };
 
 /**
@@ -469,6 +470,96 @@ export const EMERGENCY_CONTACTS: EmergencyContact[] = [
         country: 'singapore',
         available24x7: true,
     },
+
+    // ─── Indore, Madhya Pradesh ───────────────────────────────────────
+    {
+        id: 'indore-emergency',
+        name: 'Emergency (Police/Fire/Ambulance)',
+        number: '112',
+        description: 'National emergency number',
+        category: 'critical',
+        icon: 'AlertTriangle',
+        city: 'indore',
+        country: 'india',
+        available24x7: true,
+    },
+    {
+        id: 'indore-police',
+        name: 'Indore Police Control Room',
+        number: '0731-2435023',
+        description: 'Indore city police control room',
+        category: 'city-specific',
+        icon: 'Shield',
+        city: 'indore',
+        country: 'india',
+        available24x7: true,
+    },
+    {
+        id: 'indore-fire',
+        name: 'Fire Brigade',
+        number: '101',
+        description: 'Fire brigade emergency',
+        category: 'police-fire',
+        icon: 'Flame',
+        city: 'indore',
+        country: 'india',
+        available24x7: true,
+    },
+    {
+        id: 'indore-disaster',
+        name: 'Disaster Helpline',
+        number: '1070',
+        description: 'National disaster helpline',
+        category: 'flood',
+        icon: 'Waves',
+        city: 'indore',
+        country: 'india',
+        available24x7: true,
+    },
+    {
+        id: 'indore-sdma',
+        name: 'MP SDMA',
+        number: '0755-2441825',
+        description: 'Madhya Pradesh State Disaster Management Authority',
+        category: 'city-specific',
+        icon: 'Building',
+        city: 'indore',
+        country: 'india',
+        available24x7: true,
+    },
+    {
+        id: 'indore-imc',
+        name: 'Indore Municipal Corporation',
+        number: '0731-2432222',
+        description: 'IMC helpline for flood/drainage complaints',
+        category: 'city-specific',
+        icon: 'Building2',
+        city: 'indore',
+        country: 'india',
+        available24x7: true,
+    },
+    {
+        id: 'indore-ambulance',
+        name: 'Ambulance (108)',
+        number: '108',
+        description: 'Emergency ambulance service',
+        category: 'medical',
+        icon: 'Ambulance',
+        city: 'indore',
+        country: 'india',
+        available24x7: true,
+    },
+    {
+        id: 'indore-sewag',
+        name: 'SEWAG Flood/Drain Complaint',
+        number: '0731-2534666',
+        description: 'Indore drainage and sewage authority',
+        category: 'city-specific',
+        icon: 'Building',
+        city: 'indore',
+        country: 'india',
+        available24x7: true,
+    },
 ];
 
 /**
@@ -478,7 +569,7 @@ export const EMERGENCY_CONTACTS: EmergencyContact[] = [
  * Country logic: contacts with no `country` field are universal.
  * Contacts with `country` field only appear for cities in that country.
  */
-export function getContactsForCity(city: 'delhi' | 'bangalore' | 'yogyakarta' | 'singapore' | null): EmergencyContact[] {
+export function getContactsForCity(city: 'delhi' | 'bangalore' | 'yogyakarta' | 'singapore' | 'indore' | null): EmergencyContact[] {
     const country = city ? CITY_COUNTRY[city] : 'india';
     return EMERGENCY_CONTACTS.filter(contact => {
         const cityMatch = contact.city === 'all' || contact.city === city;
@@ -491,7 +582,7 @@ export function getContactsForCity(city: 'delhi' | 'bangalore' | 'yogyakarta' | 
  * Get contacts grouped by category for the given city.
  * Returns an object with arrays for each category.
  */
-export function getContactsByCategory(city: 'delhi' | 'bangalore' | 'yogyakarta' | 'singapore' | null): {
+export function getContactsByCategory(city: 'delhi' | 'bangalore' | 'yogyakarta' | 'singapore' | 'indore' | null): {
     critical: EmergencyContact[];
     policeFire: EmergencyContact[];
     medical: EmergencyContact[];

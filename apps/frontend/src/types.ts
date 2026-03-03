@@ -119,7 +119,7 @@ export interface User {
         emergency: boolean;
     };
     // Onboarding & City Preference
-    city_preference?: 'bangalore' | 'delhi' | 'yogyakarta' | 'singapore';
+    city_preference?: 'bangalore' | 'delhi' | 'yogyakarta' | 'singapore' | 'indore';
     profile_complete?: boolean;
     onboarding_step?: number;  // 1-5, tracks current step if incomplete
     // Privacy settings
@@ -323,7 +323,7 @@ export interface OnboardingFormState {
     currentStep: number;  // 1-5
 
     // Step 1: City
-    city: 'bangalore' | 'delhi' | 'yogyakarta' | 'singapore' | null;
+    city: 'bangalore' | 'delhi' | 'yogyakarta' | 'singapore' | 'indore' | null;
 
     // Step 2: Profile
     username: string;
@@ -341,7 +341,7 @@ export interface OnboardingFormState {
 }
 
 export type OnboardingAction =
-    | { type: 'SET_CITY'; payload: 'bangalore' | 'delhi' | 'yogyakarta' | 'singapore' }
+    | { type: 'SET_CITY'; payload: 'bangalore' | 'delhi' | 'yogyakarta' | 'singapore' | 'indore' }
     | { type: 'SET_PROFILE'; payload: { username: string; phone: string } }
     | { type: 'ADD_WATCH_AREA'; payload: WatchAreaCreate }
     | { type: 'REMOVE_WATCH_AREA'; payload: number }  // index
