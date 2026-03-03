@@ -1,7 +1,7 @@
 """
 FloodHub API endpoints - Google Flood Forecasting proxy.
 
-Provides flood forecasting data for supported cities (Delhi, Bangalore, Yogyakarta, Singapore).
+Provides flood forecasting data for supported cities (Delhi, Bangalore, Yogyakarta, Singapore, Indore).
 NO SILENT FALLBACKS - all errors are surfaced to frontend.
 """
 
@@ -41,7 +41,7 @@ SUPPORTED_CITIES = {
 
 
 @router.get("/status", response_model=FloodHubStatusResponse)
-async def get_floodhub_status(city: str = Query("DEL", description="City code (DEL, BLR, YGY, or SIN)")):
+async def get_floodhub_status(city: str = Query("DEL", description="City code (DEL, BLR, YGY, SIN, or IDR)")):
     """
     Get overall FloodHub status for a city.
 
@@ -109,7 +109,7 @@ async def get_floodhub_status(city: str = Query("DEL", description="City code (D
 
 
 @router.get("/gauges", response_model=List[GaugeStatus])
-async def get_floodhub_gauges(city: str = Query("DEL", description="City code (DEL, BLR, YGY, or SIN)")):
+async def get_floodhub_gauges(city: str = Query("DEL", description="City code (DEL, BLR, YGY, SIN, or IDR)")):
     """
     Get gauges with current flood status for a city.
 
@@ -189,7 +189,7 @@ async def get_inundation_map(polygon_id: str):
 
 
 @router.get("/events", response_model=List[SignificantEvent])
-async def get_significant_events(city: str = Query("DEL", description="City code (DEL, BLR, YGY, or SIN)")):
+async def get_significant_events(city: str = Query("DEL", description="City code (DEL, BLR, YGY, SIN, or IDR)")):
     """
     Get current significant flood events for a city's country.
 

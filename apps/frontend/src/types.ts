@@ -35,7 +35,7 @@ export type RiskLevel = 'low' | 'medium' | 'high';
 export interface RouteRequest {
     origin: LocationPoint;
     destination: LocationPoint;
-    city: 'BLR' | 'DEL' | 'YGY' | 'SIN';
+    city: 'BLR' | 'DEL' | 'YGY' | 'SIN' | 'IDR';
     mode: TransportMode;
     avoid_risk_levels?: string[];
 }

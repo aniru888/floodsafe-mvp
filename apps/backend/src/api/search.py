@@ -132,7 +132,7 @@ async def unified_search(
     lng: Optional[float] = Query(None, description="Longitude for spatial search"),
     radius: float = Query(5000, ge=100, le=50000, description="Search radius in meters"),
     limit: int = Query(30, ge=1, le=100, description="Max results per category"),
-    city: str = Query("all", description="City filter: 'delhi', 'bangalore', 'yogyakarta', or 'all'"),
+    city: str = Query("all", description="City filter: 'delhi', 'bangalore', 'yogyakarta', 'singapore', 'indore', or 'all'"),
     db: Session = Depends(get_db)
 ):
     """
