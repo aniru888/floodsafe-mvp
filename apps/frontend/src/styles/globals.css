@@ -372,3 +372,7 @@ html {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+
+@keyframes dash {
+  to { stroke-dashoffset: -100; }
+}
