@@ -891,4 +891,5 @@ export interface RiskSummaryResponse {
     risk_level: string;
     fhi_score: number;
     language: string;
+    weather_unavailable?: boolean;
 }
