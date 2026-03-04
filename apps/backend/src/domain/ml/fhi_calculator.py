@@ -35,6 +35,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Any
 import logging
 from dataclasses import dataclass, field
+from src.core.circuit_breaker import fhi_weather_breaker
 
 logger = logging.getLogger(__name__)
 
@@ -301,6 +302,9 @@ class FHICalculator:
         Raises:
             FHICalculationError: If all retries exhausted
         """
+        if fhi_weather_breaker.is_open:
+            raise FHICalculationError("Weather API circuit open — too many recent failures")
+
         last_error: Optional[Exception] = None
 
         for attempt in range(max_attempts):
@@ -329,6 +333,7 @@ class FHICalculator:
                         continue
 
                     response.raise_for_status()
+                    fhi_weather_breaker.record_success()
                     return response.json()
 
             except httpx.TimeoutException as e:
@@ -364,6 +369,7 @@ class FHICalculator:
                     await asyncio.sleep(wait_time)
                 continue
 
+        fhi_weather_breaker.record_failure()
         raise FHICalculationError(f"Failed after {max_attempts} attempts: {last_error}")
 
     async def calculate_fhi(self, lat: float, lng: float) -> FHIResult:

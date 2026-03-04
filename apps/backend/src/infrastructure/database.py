@@ -86,7 +86,14 @@ def get_connect_args(url: URL) -> dict:
 try:
     database_url = create_database_url()
     connect_args = get_connect_args(database_url)
-    engine = create_engine(database_url, connect_args=connect_args)
+    engine = create_engine(
+        database_url,
+        connect_args=connect_args,
+        pool_size=3,
+        max_overflow=5,
+        pool_pre_ping=True,
+        pool_recycle=1800,
+    )
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     logger.info(f"Database sync engine initialized (SSL: {'sslmode' in connect_args})")
 except Exception as e:
@@ -106,7 +113,15 @@ try:
         "ssl": "require",
         "server_settings": {"search_path": "public,tiger,extensions"}
     } if is_cloud else {}
-    async_engine = create_async_engine(async_url, echo=False, connect_args=async_connect_args)
+    async_engine = create_async_engine(
+        async_url,
+        echo=False,
+        connect_args=async_connect_args,
+        pool_size=3,
+        max_overflow=5,
+        pool_pre_ping=True,
+        pool_recycle=1800,
+    )
     AsyncSessionLocal = async_sessionmaker(
         async_engine, class_=AsyncSession, expire_on_commit=False
     )

@@ -3,7 +3,7 @@ Authentication dependencies for FastAPI routes.
 Provides dependency injection for protected endpoints.
 """
 from typing import Optional
-from collections import defaultdict
+from collections import OrderedDict
 from datetime import datetime, timedelta
 
 from fastapi import Depends, HTTPException, status
@@ -19,8 +19,9 @@ from src.domain.services.security import verify_token
 # Rate Limiting
 # =============================================================================
 
-# In-memory rate limit store: key -> list of timestamps
-_rate_limit_store: dict[str, list[datetime]] = defaultdict(list)
+# In-memory rate limit store: key -> list of timestamps (LRU-bounded, max 10K keys)
+_RATE_LIMIT_MAX_KEYS = 10_000
+_rate_limit_store: OrderedDict[str, list[datetime]] = OrderedDict()
 
 
 def check_rate_limit(
@@ -51,18 +52,27 @@ def check_rate_limit(
     now = datetime.utcnow()
     cutoff = now - timedelta(seconds=window_seconds)
 
+    # Get existing timestamps for this key (empty list if new)
+    timestamps = _rate_limit_store.get(key, [])
+
     # Clean old entries outside the window
-    _rate_limit_store[key] = [t for t in _rate_limit_store[key] if t > cutoff]
+    timestamps = [t for t in timestamps if t > cutoff]
 
     # Check if limit exceeded
-    if len(_rate_limit_store[key]) >= max_requests:
+    if len(timestamps) >= max_requests:
         raise HTTPException(
             status_code=status.HTTP_429_TOO_MANY_REQUESTS,
             detail=f"Too many requests. Please wait {window_seconds} seconds before trying again.",
         )
 
-    # Record this request
-    _rate_limit_store[key].append(now)
+    # Record this request and move key to end (most recently used)
+    timestamps.append(now)
+    _rate_limit_store[key] = timestamps
+    _rate_limit_store.move_to_end(key)
+
+    # Evict oldest keys if over capacity
+    while len(_rate_limit_store) > _RATE_LIMIT_MAX_KEYS:
+        _rate_limit_store.popitem(last=False)
 
 
 # HTTP Bearer token security scheme

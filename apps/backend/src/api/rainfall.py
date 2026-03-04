@@ -12,12 +12,26 @@ import hashlib
 import logging
 import asyncio
 
+from src.core.circuit_breaker import open_meteo_breaker
+
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-# In-memory cache (in production, use Redis)
+# In-memory LRU-bounded cache (max 450 entries = 406 hotspots + margin)
+_RAINFALL_CACHE_MAX = 450
 _rainfall_cache: Dict[str, Dict[str, Any]] = {}
 CACHE_TTL_SECONDS = 3600  # 1 hour
+
+
+def _cache_set(key: str, value: Dict[str, Any]) -> None:
+    """Set a cache entry with LRU eviction when over capacity."""
+    _rainfall_cache[key] = value
+    # Evict oldest entries if over capacity
+    if len(_rainfall_cache) > _RAINFALL_CACHE_MAX:
+        # Remove oldest entries (first inserted in dict order — Python 3.7+ dicts are ordered)
+        excess = len(_rainfall_cache) - _RAINFALL_CACHE_MAX
+        for old_key in list(_rainfall_cache.keys())[:excess]:
+            del _rainfall_cache[old_key]
 MAX_RETRIES = 3
 RETRY_DELAY_SECONDS = 1
 OPEN_METEO_BASE_URL = "https://api.open-meteo.com/v1/forecast"
@@ -234,6 +248,13 @@ async def _fetch_open_meteo_forecast(lat: float, lng: float) -> Dict[str, Any]:
         "timezone": "auto",
     }
 
+    # Circuit breaker: fail fast if Open-Meteo is known to be down
+    if open_meteo_breaker.is_open:
+        raise HTTPException(
+            status_code=503,
+            detail="Rainfall forecast service temporarily unavailable (circuit open). Try again shortly."
+        )
+
     last_error = None
 
     for attempt in range(MAX_RETRIES):
@@ -242,9 +263,10 @@ async def _fetch_open_meteo_forecast(lat: float, lng: float) -> Dict[str, Any]:
                 response = await client.get(OPEN_METEO_BASE_URL, params=params)
 
                 if response.status_code == 200:
+                    open_meteo_breaker.record_success()
                     return response.json()
                 elif response.status_code == 400:
-                    # Bad request - don't retry
+                    # Bad request - don't retry, don't count as circuit failure
                     logger.error(f"Open-Meteo bad request: {response.text}")
                     raise HTTPException(
                         status_code=400,
@@ -266,7 +288,8 @@ async def _fetch_open_meteo_forecast(lat: float, lng: float) -> Dict[str, Any]:
         if attempt < MAX_RETRIES - 1:
             await asyncio.sleep(RETRY_DELAY_SECONDS)
 
-    # All retries failed
+    # All retries failed — record circuit breaker failure
+    open_meteo_breaker.record_failure()
     logger.error(f"Open-Meteo API unavailable after {MAX_RETRIES} attempts: {last_error}")
     raise HTTPException(
         status_code=503,
@@ -682,10 +705,10 @@ async def get_rainfall_forecast(
     forecast = _process_forecast_data(raw_data, lat, lng)
 
     # Cache result
-    _rainfall_cache[cache_key] = {
+    _cache_set(cache_key, {
         "data": forecast,
         "timestamp": datetime.now(timezone.utc),
-    }
+    })
 
     # Cleanup old cache entries
     _cleanup_cache()

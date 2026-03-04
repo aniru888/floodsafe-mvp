@@ -145,8 +145,10 @@ class AuthService:
                 )
 
                 if response.status_code != 200:
-                    # Fallback: decode the token ourselves for development
-                    # In production, always verify with Firebase
+                    if settings.is_production:
+                        print(f"Firebase phone verification failed: {response.status_code}")
+                        return None
+                    # Fallback: decode the token ourselves for development only
                     return self._decode_firebase_token_dev(id_token)
 
                 data = response.json()
@@ -304,6 +306,10 @@ class AuthService:
 
         return user
 
+    # Account lockout constants
+    MAX_FAILED_ATTEMPTS = 5
+    LOCKOUT_DURATION_MINUTES = 15
+
     def authenticate_email_user(
         self,
         email: str,
@@ -313,6 +319,8 @@ class AuthService:
         """
         Authenticate a user with email and password.
 
+        Implements account lockout: 5 failed attempts → 15 min lockout.
+
         Args:
             email: User's email address
             password: Plaintext password to verify
@@ -320,7 +328,11 @@ class AuthService:
 
         Returns:
             User instance if authentication successful, None otherwise
+
+        Raises:
+            HTTPException: 403 if account is locked
         """
+        from fastapi import HTTPException
         from .security import verify_password
 
         # Normalize email
@@ -336,9 +348,28 @@ class AuthService:
         if not user.password_hash:
             return None
 
+        # Check if account is locked
+        if user.locked_until and user.locked_until > datetime.utcnow():
+            remaining = (user.locked_until - datetime.utcnow()).seconds // 60 + 1
+            raise HTTPException(
+                status_code=403,
+                detail=f"Account temporarily locked due to too many failed attempts. Try again in {remaining} minute(s)."
+            )
+
         # Verify password
         if not verify_password(password, user.password_hash):
+            # Increment failed attempts
+            user.failed_login_attempts = (user.failed_login_attempts or 0) + 1
+            if user.failed_login_attempts >= self.MAX_FAILED_ATTEMPTS:
+                user.locked_until = datetime.utcnow() + timedelta(minutes=self.LOCKOUT_DURATION_MINUTES)
+            db.commit()
             return None
+
+        # Success — reset failed attempts
+        if user.failed_login_attempts and user.failed_login_attempts > 0:
+            user.failed_login_attempts = 0
+            user.locked_until = None
+            db.commit()
 
         return user
 

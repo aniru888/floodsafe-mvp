@@ -11,7 +11,7 @@ from uuid import UUID
 from sqlalchemy.orm import Session
 
 from src.core.config import settings
-from src.infrastructure.models import User, EmailVerificationToken
+from src.infrastructure.models import User, EmailVerificationToken, PasswordResetToken
 from src.domain.services.security import hash_token
 
 
@@ -183,6 +183,72 @@ class VerificationService:
         ).delete()
         db.commit()
         return result
+
+    # =========================================================================
+    # Password Reset
+    # =========================================================================
+
+    def create_password_reset_token(self, user_id: UUID, db: Session) -> str:
+        """Generate a single-use password reset token (1 hour expiry)."""
+        raw_token = secrets.token_urlsafe(32)
+        token_hash = hash_token(raw_token)
+        expires_at = datetime.utcnow() + timedelta(hours=1)
+
+        token_record = PasswordResetToken(
+            user_id=user_id,
+            token_hash=token_hash,
+            expires_at=expires_at,
+        )
+        db.add(token_record)
+        db.commit()
+        return raw_token
+
+    def validate_password_reset_token(
+        self, token: str, db: Session
+    ) -> tuple[bool, Optional[User], str]:
+        """
+        Validate a password reset token.
+
+        Returns:
+            Tuple of (success, user, message)
+        """
+        token_hash = hash_token(token)
+        token_record = db.query(PasswordResetToken).filter(
+            PasswordResetToken.token_hash == token_hash
+        ).first()
+
+        if not token_record:
+            return False, None, "Invalid or expired reset link."
+
+        if token_record.used_at is not None:
+            return False, None, "This reset link has already been used."
+
+        if token_record.expires_at < datetime.utcnow():
+            return False, None, "Reset link has expired. Please request a new one."
+
+        user = db.query(User).filter(User.id == token_record.user_id).first()
+        if not user:
+            return False, None, "User not found."
+
+        # Mark token as used
+        token_record.used_at = datetime.utcnow()
+        db.flush()
+
+        return True, user, "Token valid."
+
+    def can_request_password_reset(
+        self, user_id: UUID, db: Session, max_per_hour: int = 3
+    ) -> tuple[bool, str]:
+        """Rate limit password reset requests: max 3 per hour."""
+        one_hour_ago = datetime.utcnow() - timedelta(hours=1)
+        recent_count = db.query(PasswordResetToken).filter(
+            PasswordResetToken.user_id == user_id,
+            PasswordResetToken.created_at > one_hour_ago,
+        ).count()
+
+        if recent_count >= max_per_hour:
+            return False, "Too many reset requests. Please try again in an hour."
+        return True, "OK"
 
 
 # Singleton instance

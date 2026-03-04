@@ -13,6 +13,7 @@ from .domain.services.external_alerts import start_scheduler, stop_scheduler
 from .domain.services.floodhub_service import init_floodhub_service
 
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.gzip import GZipMiddleware
 from .core.config import settings
 
 logger = logging.getLogger(__name__)
@@ -78,15 +79,29 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title=settings.PROJECT_NAME, lifespan=lifespan)
 
+# GZIP compression for responses >= 1KB (3-5x smaller GeoJSON, hotspot payloads)
+app.add_middleware(GZipMiddleware, minimum_size=1000)
+
 # Set all CORS enabled origins
 if settings.BACKEND_CORS_ORIGINS:
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.BACKEND_CORS_ORIGINS,
         allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
+        allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+        allow_headers=["Content-Type", "Authorization", "Accept", "X-Requested-With"],
     )
+
+# Security headers (production only)
+if settings.is_production:
+    @app.middleware("http")
+    async def security_headers(request, call_next):
+        response = await call_next(request)
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        return response
 
 app.include_router(auth.router, prefix="/api/auth", tags=["authentication"])
 app.include_router(webhook.router, prefix="/api/whatsapp", tags=["whatsapp"])

@@ -25,6 +25,8 @@ class User(Base):
     # Email/Password authentication
     password_hash = Column(String, nullable=True)  # NULL for OAuth/Phone users
     email_verified = Column(Boolean, default=False)
+    failed_login_attempts = Column(Integer, default=0)
+    locked_until = Column(DateTime, nullable=True)
 
     # Gamification
     points = Column(Integer, default=0)
@@ -73,6 +75,7 @@ class User(Base):
     refresh_tokens = relationship("RefreshToken", back_populates="user", cascade="all, delete-orphan")
     saved_routes = relationship("SavedRoute", back_populates="user", cascade="all, delete-orphan")
     verification_tokens = relationship("EmailVerificationToken", back_populates="user", cascade="all, delete-orphan")
+    password_reset_tokens = relationship("PasswordResetToken", back_populates="user", cascade="all, delete-orphan")
 
 class Sensor(Base):
     __tablename__ = "sensors"
@@ -339,6 +342,20 @@ class EmailVerificationToken(Base):
 
     # Relationship
     user = relationship("User", back_populates="verification_tokens")
+
+
+class PasswordResetToken(Base):
+    """Stores password reset tokens for forgot-password flow"""
+    __tablename__ = "password_reset_tokens"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    token_hash = Column(String, unique=True, nullable=False, index=True)
+    expires_at = Column(DateTime, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    used_at = Column(DateTime, nullable=True)
+
+    user = relationship("User", back_populates="password_reset_tokens")
 
 
 class SavedRoute(Base):

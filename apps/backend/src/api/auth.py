@@ -2,8 +2,9 @@
 Authentication API endpoints for FloodSafe.
 Handles Google OAuth, Phone Auth, Email/Password, and token management.
 """
+import re
 from typing import Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from fastapi import APIRouter, Depends, HTTPException, status, Request, BackgroundTasks
 from fastapi.responses import RedirectResponse
@@ -178,11 +179,32 @@ async def phone_auth(
 # Email/Password Authentication Endpoints
 # =============================================================================
 
+COMMON_PASSWORDS = {
+    "password", "12345678", "123456789", "1234567890", "qwerty123",
+    "password1", "iloveyou", "admin123", "welcome1", "monkey123",
+}
+
+
 class EmailRegisterRequest(BaseModel):
     """Request for email/password registration"""
     email: str = Field(..., description="User email address")
     password: str = Field(..., min_length=8, max_length=128, description="Password (min 8 chars)")
     username: Optional[str] = Field(None, min_length=3, max_length=50, description="Optional username")
+
+    @field_validator("password")
+    @classmethod
+    def password_complexity(cls, v: str) -> str:
+        if v.lower() in COMMON_PASSWORDS:
+            raise ValueError("This password is too common. Please choose a stronger password.")
+        if not re.search(r"[A-Z]", v):
+            raise ValueError("Password must contain at least one uppercase letter.")
+        if not re.search(r"[a-z]", v):
+            raise ValueError("Password must contain at least one lowercase letter.")
+        if not re.search(r"[0-9]", v):
+            raise ValueError("Password must contain at least one digit.")
+        if not re.search(r'[!@#$%^&*(),.?":{}|<>\-_=+\[\]\\;\'~/`]', v):
+            raise ValueError("Password must contain at least one special character.")
+        return v
 
 
 class EmailLoginRequest(BaseModel):
@@ -273,6 +295,14 @@ async def login_email(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"
+        )
+
+    # Enforce email verification for email/password users
+    if not user.email_verified:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Please verify your email before logging in. Check your inbox for a verification link.",
+            headers={"X-Verification-Required": "true"},
         )
 
     # Create tokens
@@ -508,3 +538,106 @@ async def get_verification_status(
     """
     status_data = verification_service.get_verification_status(current_user)
     return VerificationStatusResponse(**status_data)
+
+
+# =============================================================================
+# Password Reset Endpoints
+# =============================================================================
+
+class ForgotPasswordRequest(BaseModel):
+    """Request to initiate password reset"""
+    email: str = Field(..., description="Email address of the account")
+
+
+class ResetPasswordRequest(BaseModel):
+    """Request to set a new password with a reset token"""
+    token: str = Field(..., description="Password reset token from email")
+    new_password: str = Field(..., min_length=8, max_length=128, description="New password")
+
+    @field_validator("new_password")
+    @classmethod
+    def password_complexity(cls, v: str) -> str:
+        if v.lower() in COMMON_PASSWORDS:
+            raise ValueError("This password is too common. Please choose a stronger password.")
+        if not re.search(r"[A-Z]", v):
+            raise ValueError("Password must contain at least one uppercase letter.")
+        if not re.search(r"[a-z]", v):
+            raise ValueError("Password must contain at least one lowercase letter.")
+        if not re.search(r"[0-9]", v):
+            raise ValueError("Password must contain at least one digit.")
+        if not re.search(r'[!@#$%^&*(),.?":{}|<>\-_=+\[\]\\;\'~/`]', v):
+            raise ValueError("Password must contain at least one special character.")
+        return v
+
+
+@router.post("/forgot-password", response_model=MessageResponse, tags=["authentication"])
+async def forgot_password(
+    request: ForgotPasswordRequest,
+    http_request: Request,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db)
+):
+    """
+    Request a password reset email.
+
+    Always returns success (even if email not found) to prevent email enumeration.
+    Rate limited to 5 requests per minute per IP.
+    """
+    client_ip = http_request.client.host if http_request.client else "unknown"
+    check_rate_limit(f"forgot-password:{client_ip}", max_requests=5, window_seconds=60)
+
+    email = request.email.lower().strip()
+    user = db.query(User).filter(User.email == email).first()
+
+    if user and user.password_hash:
+        # Only send for email/password users (not OAuth/phone-only)
+        can_send, _ = verification_service.can_request_password_reset(user.id, db)
+        if can_send:
+            token = verification_service.create_password_reset_token(user.id, db)
+            background_tasks.add_task(
+                email_service.send_password_reset_email,
+                user.email,
+                token,
+                user.username
+            )
+
+    # Always return success to prevent email enumeration
+    return MessageResponse(
+        message="If an account with that email exists, a password reset link has been sent."
+    )
+
+
+@router.post("/reset-password", response_model=MessageResponse, tags=["authentication"])
+async def reset_password(
+    request: ResetPasswordRequest,
+    http_request: Request,
+    db: Session = Depends(get_db)
+):
+    """
+    Reset password using a valid reset token.
+
+    Validates the token, sets the new password, and revokes all existing sessions.
+    """
+    client_ip = http_request.client.host if http_request.client else "unknown"
+    check_rate_limit(f"reset-password:{client_ip}", max_requests=5, window_seconds=60)
+
+    success, user, message = verification_service.validate_password_reset_token(
+        request.token, db
+    )
+
+    if not success or not user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=message
+        )
+
+    # Set new password
+    from src.domain.services.security import hash_password
+    user.password_hash = hash_password(request.new_password)
+
+    # Revoke all existing sessions for security
+    auth_service.revoke_all_user_tokens(str(user.id), db)
+
+    db.commit()
+
+    return MessageResponse(message="Password reset successfully. Please log in with your new password.")

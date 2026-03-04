@@ -17,7 +17,8 @@ from ..core.config import settings
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-# Simple in-memory cache (in production, use Redis)
+# In-memory LRU-bounded cache (max 100 entries)
+_PREDICTION_CACHE_MAX = 100
 _prediction_cache: Dict[str, Dict[str, Any]] = {}
 CACHE_TTL_SECONDS = 3600  # 1 hour
 
@@ -121,11 +122,15 @@ async def get_prediction_grid(
 
             result = response.json()
 
-            # Cache the result
+            # Cache the result (with LRU eviction)
             _prediction_cache[cache_key] = {
                 "data": result,
                 "timestamp": datetime.now(),
             }
+            if len(_prediction_cache) > _PREDICTION_CACHE_MAX:
+                excess = len(_prediction_cache) - _PREDICTION_CACHE_MAX
+                for old_key in list(_prediction_cache.keys())[:excess]:
+                    del _prediction_cache[old_key]
 
             # Clean old cache entries (simple cleanup)
             _cleanup_cache()

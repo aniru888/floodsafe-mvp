@@ -30,6 +30,7 @@ from sqlalchemy.orm import sessionmaker
 
 from .aggregator import AlertAggregator
 from src.core.config import settings
+from src.infrastructure.database import create_database_url, get_connect_args
 
 logger = logging.getLogger(__name__)
 
@@ -50,16 +51,23 @@ class AlertScheduler:
         self.scheduler: Optional[AsyncIOScheduler] = None
         self._running = False
 
-        # Create shared async engine and session factory (reused across jobs)
-        database_url = settings.DATABASE_URL.replace(
-            "postgresql://", "postgresql+asyncpg://"
-        )
+        # Create shared async engine using same URL/SSL logic as main database.py
+        db_url = create_database_url()
+        async_url = db_url.set(drivername="postgresql+asyncpg")
+        host = db_url.host or ""
+        is_cloud = "localhost" not in host and "127.0.0.1" not in host and host != "db"
+        async_connect_args = {
+            "ssl": "require",
+            "server_settings": {"search_path": "public,tiger,extensions"}
+        } if is_cloud else {}
         self._engine = create_async_engine(
-            database_url,
+            async_url,
             echo=False,
-            pool_pre_ping=True,  # Verify connections before use
-            pool_size=5,
-            max_overflow=10,
+            connect_args=async_connect_args,
+            pool_pre_ping=True,
+            pool_size=2,
+            max_overflow=3,
+            pool_recycle=1800,
         )
         self._async_session = sessionmaker(
             self._engine, class_=AsyncSession, expire_on_commit=False

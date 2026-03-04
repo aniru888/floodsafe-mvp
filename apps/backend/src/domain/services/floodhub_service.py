@@ -16,6 +16,7 @@ import logging
 import math
 import xml.etree.ElementTree as ET
 import httpx
+from src.core.circuit_breaker import floodhub_breaker
 from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
@@ -216,30 +217,41 @@ class FloodHubService:
 
     async def _paginated_post(self, url: str, body: dict, result_key: str) -> list:
         """Execute a paginated POST request, collecting all pages."""
+        if floodhub_breaker.is_open:
+            raise FloodHubAPIError("FloodHub circuit open — too many recent failures")
+
         all_items: list = []
         page_token: Optional[str] = None
 
-        while True:
-            request_body = {**body}
-            if page_token:
-                request_body["pageToken"] = page_token
+        try:
+            while True:
+                request_body = {**body}
+                if page_token:
+                    request_body["pageToken"] = page_token
 
-            response = await self.client.post(  # type: ignore[union-attr]
-                url, params=self._auth_params(), json=request_body,
-            )
-            response.raise_for_status()
-            data = response.json()
+                response = await self.client.post(  # type: ignore[union-attr]
+                    url, params=self._auth_params(), json=request_body,
+                )
+                response.raise_for_status()
+                data = response.json()
 
-            if "error" in data:
-                raise FloodHubAPIError(f"API error: {data['error']}")
+                if "error" in data:
+                    raise FloodHubAPIError(f"API error: {data['error']}")
 
-            all_items.extend(data.get(result_key, []))
+                all_items.extend(data.get(result_key, []))
 
-            page_token = data.get("nextPageToken")
-            if not page_token:
-                break
+                page_token = data.get("nextPageToken")
+                if not page_token:
+                    break
 
-        return all_items
+            floodhub_breaker.record_success()
+            return all_items
+        except FloodHubAPIError:
+            floodhub_breaker.record_failure()
+            raise
+        except (httpx.HTTPStatusError, httpx.RequestError) as e:
+            floodhub_breaker.record_failure()
+            raise FloodHubAPIError(f"FloodHub API error: {e}") from e
 
     # ------------------------------------------------------------------
     # Core methods

@@ -98,6 +98,75 @@ class EmailService:
             logger.error(f"Error sending email: {e}")
             return False
 
+    async def send_password_reset_email(
+        self,
+        email: str,
+        token: str,
+        username: str
+    ) -> bool:
+        """Send password reset link to user."""
+        reset_link = f"{settings.FRONTEND_URL}/reset-password?token={token}"
+
+        client = self._get_client()
+        if not client:
+            print(f"\n{'='*60}")
+            print("[EMAIL] MOCK MODE - Password reset email")
+            print(f"{'='*60}")
+            print(f"To: {email}")
+            print(f"Subject: Reset your FloodSafe password")
+            print(f"Reset Link: {reset_link}")
+            print(f"{'='*60}\n")
+            return True
+
+        try:
+            from sendgrid.helpers.mail import Mail, Email, To
+
+            message = Mail(
+                from_email=Email(
+                    settings.SENDGRID_FROM_EMAIL,
+                    settings.SENDGRID_FROM_NAME
+                ),
+                to_emails=To(email),
+                subject="Reset your FloodSafe password",
+                html_content=self._build_reset_html(username or "User", reset_link)
+            )
+
+            response = client.send(message)
+            if response.status_code in (200, 201, 202):
+                logger.info(f"Password reset email sent to {email}")
+                return True
+            else:
+                logger.warning(f"SendGrid returned status {response.status_code}")
+                return False
+        except Exception as e:
+            logger.error(f"Error sending reset email: {e}")
+            return False
+
+    def _build_reset_html(self, username: str, reset_link: str) -> str:
+        """Build HTML for password reset email."""
+        return f"""
+        <!DOCTYPE html>
+        <html>
+        <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+                <h1 style="color: white; margin: 0; font-size: 28px;">FloodSafe</h1>
+                <p style="color: rgba(255,255,255,0.9); margin-top: 10px;">Password Reset</p>
+            </div>
+            <div style="background: #f9fafb; padding: 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 10px 10px;">
+                <h2 style="color: #1f2937; margin-top: 0;">Hi {username},</h2>
+                <p>We received a request to reset your password. Click the button below to set a new password:</p>
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="{reset_link}" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">Reset Password</a>
+                </div>
+                <p style="color: #6b7280; font-size: 14px;">Or copy and paste this link:<br><a href="{reset_link}" style="color: #667eea; word-break: break-all;">{reset_link}</a></p>
+                <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
+                <p style="color: #6b7280; font-size: 12px;">This link expires in 1 hour. If you didn't request this, ignore this email — your password won't change.</p>
+            </div>
+        </body>
+        </html>
+        """
+
     def _build_verification_link(self, token: str) -> str:
         """Build the verification URL that users will click.
 
