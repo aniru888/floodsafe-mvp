@@ -1897,12 +1897,18 @@ export function useUpdateCircle(circleId: string) {
  * @param lng - Longitude (null to disable)
  * @param language - 'en' or 'hi' (default: 'en')
  */
-export function useRiskSummary(lat: number | null, lng: number | null, language = 'en') {
+export function useRiskSummary(lat: number | null, lng: number | null, language = 'en', name?: string) {
     return useQuery({
-        queryKey: ['risk-summary', lat, lng, language],
-        queryFn: () => fetchJson<RiskSummaryResponse>(
-            `/hotspots/risk-summary?lat=${lat}&lng=${lng}&language=${language}`
-        ),
+        queryKey: ['risk-summary', lat, lng, language, name],
+        queryFn: () => {
+            const params = new URLSearchParams({
+                lat: String(lat),
+                lng: String(lng),
+                language,
+            });
+            if (name) params.set('name', name);
+            return fetchJson<RiskSummaryResponse>(`/hotspots/risk-summary?${params}`);
+        },
         enabled: lat !== null && lng !== null,
         staleTime: 10 * 60 * 1000,     // 10 min (backend caches 1 hour)
         gcTime: 30 * 60 * 1000,         // 30 min garbage collection

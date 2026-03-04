@@ -52,7 +52,8 @@ function RiskInsightItem({ location, language }: { location: LocationItem; langu
     const { data, isLoading, isError, refetch } = useRiskSummary(
         location.latitude,
         location.longitude,
-        apiLang
+        apiLang,
+        location.name
     );
 
     // Loading skeleton
@@ -144,6 +145,11 @@ function RiskInsightItem({ location, language }: { location: LocationItem; langu
             <p className="text-sm text-muted-foreground leading-relaxed">
                 {data.risk_summary}
             </p>
+            {data.weather_unavailable && (
+                <p className="text-xs text-muted-foreground/60 mt-1 italic">
+                    Weather data temporarily unavailable
+                </p>
+            )}
         </div>
     );
 }
