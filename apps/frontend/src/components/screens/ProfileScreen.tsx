@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Card } from '../ui/card';
 import { Badge } from '../ui/badge';
@@ -73,6 +74,7 @@ interface ProfileScreenProps {
 
 export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const { logout, user: authUser } = useAuth();
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedReport, setSelectedReport] = useState<Report | null>(null);
@@ -802,6 +804,7 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
             try {
               await logout();
               toast.success('Logged out successfully');
+              navigate('/login', { replace: true });
             } catch (error) {
               toast.error('Failed to logout');
             }

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Home, Map as MapIcon, PlusCircle, Bell, User, LogOut, Shield } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { useAuth } from '../contexts/AuthContext';
@@ -19,6 +20,7 @@ const navItems = [
 export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
     const { logout } = useAuth();
     const { user } = useUser();
+    const navigate = useNavigate();
 
     return (
         <aside data-sidebar className="hidden md:flex flex-col w-64 h-screen bg-card border-r fixed left-0 top-0 z-50">
@@ -84,7 +86,7 @@ export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
                     </div>
                 )}
                 <button
-                    onClick={() => logout()}
+                    onClick={async () => { await logout(); navigate('/login', { replace: true }); }}
                     className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-destructive hover:bg-destructive/10 transition-colors"
                 >
                     <LogOut className="w-4 h-4" />

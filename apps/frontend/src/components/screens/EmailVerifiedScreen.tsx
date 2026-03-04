@@ -44,7 +44,7 @@ export function EmailVerifiedScreen() {
             setCountdown((prev) => {
                 if (prev <= 1) {
                     clearInterval(timer);
-                    navigate('/', { replace: true });
+                    navigate('/app', { replace: true });
                     return 0;
                 }
                 return prev - 1;
@@ -55,7 +55,7 @@ export function EmailVerifiedScreen() {
     }, [success, navigate]);
 
     const handleContinue = () => {
-        navigate('/', { replace: true });
+        navigate('/app', { replace: true });
     };
 
     const handleResend = () => {

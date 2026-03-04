@@ -11,7 +11,7 @@ interface InviteLinkShareProps {
 export function InviteLinkShare({ inviteCode, circleName }: InviteLinkShareProps) {
     const [copied, setCopied] = useState(false);
 
-    const inviteUrl = `${window.location.origin}?join=${inviteCode}`;
+    const inviteUrl = `${window.location.origin}/?join=${inviteCode}`;
 
     const handleCopy = async () => {
         try {
