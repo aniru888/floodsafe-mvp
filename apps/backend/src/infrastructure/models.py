@@ -597,3 +597,27 @@ class SOSMessage(Base):
         Index('ix_sos_messages_created_at', 'created_at'),
         Index('ix_sos_messages_status', 'status'),
     )
+
+
+class AdminAuditLog(Base):
+    """
+    Audit trail for admin panel actions.
+    Tracks all admin operations for accountability and compliance.
+    """
+    __tablename__ = "admin_audit_log"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    admin_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    action = Column(String(100), nullable=False)  # 'ban_user', 'verify_report', 'award_badge', etc.
+    target_type = Column(String(50), nullable=True)  # 'user', 'report', 'badge'
+    target_id = Column(String(255), nullable=True)  # UUID string of target entity
+    details = Column(Text, nullable=True)  # JSON string with additional context
+    ip_address = Column(String(45), nullable=True)  # IPv4 or IPv6
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index('ix_admin_audit_log_admin_id', 'admin_id'),
+        Index('ix_admin_audit_log_action', 'action'),
+        Index('ix_admin_audit_log_created_at', 'created_at'),
+    )
+

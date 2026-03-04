@@ -38,6 +38,8 @@ import { OnboardingBot } from './components/onboarding-bot/OnboardingBot';
 import { usePushNotifications } from './hooks/usePushNotifications';
 
 const LandingPage = lazy(() => import('./components/screens/LandingPage'));
+const AdminLoginScreen = lazy(() => import('./components/screens/AdminLoginScreen').then(m => ({ default: m.AdminLoginScreen })));
+const AdminDashboard = lazy(() => import('./components/screens/AdminDashboard').then(m => ({ default: m.AdminDashboard })));
 
 const queryClient = new QueryClient();
 
@@ -334,57 +336,77 @@ export default function App() {
         <>
             <Analytics />
             <LanguageProvider>
-            <QueryClientProvider client={queryClient}>
-            <AuthProvider>
-                <UserProvider>
-                    <LanguageSyncBridge />
-                    <CityProvider>
-                        <InstallPromptProvider>
-                            <VoiceGuidanceProvider>
-                            <NavigationProvider>
-                            <OnboardingBotProvider>
-                            <LocationTrackingProvider>
-                                {/* WebMCP: AI agent bridge for real-time debugging */}
-                                <WebMCPProvider />
+                <QueryClientProvider client={queryClient}>
+                    <AuthProvider>
+                        <UserProvider>
+                            <LanguageSyncBridge />
+                            <CityProvider>
+                                <InstallPromptProvider>
+                                    <VoiceGuidanceProvider>
+                                        <NavigationProvider>
+                                            <OnboardingBotProvider>
+                                                <LocationTrackingProvider>
+                                                    {/* WebMCP: AI agent bridge for real-time debugging */}
+                                                    <WebMCPProvider />
 
-                                {/* PWA Update Banner - renders at root level so SW registers immediately */}
-                                <PWAUpdateBanner />
+                                                    {/* PWA Update Banner - renders at root level so SW registers immediately */}
+                                                    <PWAUpdateBanner />
 
-                                <Routes>
-                                    {/* Public routes */}
-                                    <Route path="/" element={
-                                        <Suspense fallback={
-                                            <div className="min-h-screen flex items-center justify-center">
-                                                <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-                                            </div>
-                                        }>
-                                            <LandingPage />
-                                        </Suspense>
-                                    } />
-                                    <Route path="/login" element={<LoginPage />} />
-                                    <Route path="/email-verified" element={
-                                        <>
-                                            <EmailVerifiedScreen />
-                                            <Toaster position="top-center" />
-                                        </>
-                                    } />
+                                                    <Routes>
+                                                        {/* Public routes */}
+                                                        <Route path="/" element={
+                                                            <Suspense fallback={
+                                                                <div className="min-h-screen flex items-center justify-center">
+                                                                    <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+                                                                </div>
+                                                            }>
+                                                                <LandingPage />
+                                                            </Suspense>
+                                                        } />
+                                                        <Route path="/login" element={<LoginPage />} />
+                                                        <Route path="/email-verified" element={
+                                                            <>
+                                                                <EmailVerifiedScreen />
+                                                                <Toaster position="top-center" />
+                                                            </>
+                                                        } />
 
-                                    {/* Authenticated app */}
-                                    <Route path="/app" element={<FloodSafeApp />} />
+                                                        {/* Authenticated app */}
+                                                        <Route path="/app" element={<FloodSafeApp />} />
 
-                                    {/* Catch-all redirect */}
-                                    <Route path="*" element={<Navigate to="/" replace />} />
-                                </Routes>
-                            </LocationTrackingProvider>
-                            </OnboardingBotProvider>
-                            </NavigationProvider>
-                            </VoiceGuidanceProvider>
-                        </InstallPromptProvider>
-                    </CityProvider>
-                </UserProvider>
-            </AuthProvider>
-        </QueryClientProvider>
-        </LanguageProvider>
+                                                        {/* Admin Panel (completely isolated — before catch-all) */}
+                                                        <Route path="/admin/login" element={
+                                                            <Suspense fallback={
+                                                                <div className="min-h-screen flex items-center justify-center" style={{ background: '#0f172a' }}>
+                                                                    <Loader2 className="w-8 h-8 animate-spin text-blue-400" />
+                                                                </div>
+                                                            }>
+                                                                <AdminLoginScreen />
+                                                            </Suspense>
+                                                        } />
+                                                        <Route path="/admin" element={
+                                                            <Suspense fallback={
+                                                                <div className="min-h-screen flex items-center justify-center" style={{ background: '#0f172a' }}>
+                                                                    <Loader2 className="w-8 h-8 animate-spin text-blue-400" />
+                                                                </div>
+                                                            }>
+                                                                <AdminDashboard />
+                                                            </Suspense>
+                                                        } />
+
+                                                        {/* Catch-all redirect */}
+                                                        <Route path="*" element={<Navigate to="/" replace />} />
+                                                    </Routes>
+                                                </LocationTrackingProvider>
+                                            </OnboardingBotProvider>
+                                        </NavigationProvider>
+                                    </VoiceGuidanceProvider>
+                                </InstallPromptProvider>
+                            </CityProvider>
+                        </UserProvider>
+                    </AuthProvider>
+                </QueryClientProvider>
+            </LanguageProvider>
         </>
     );
 }

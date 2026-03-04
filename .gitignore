@@ -74,8 +74,11 @@ apps/ml-service/models/yolov8_flood/
 
 # Virtual environments
 apps/ml-service/venv_tf214/
+apps/backend/venv/
 venv/
 .venv/
+pip-log.txt
+pip-delete-this-directory.txt
 
 # ============================================================
 # Capacitor native platforms (generated, large, platform-specific)

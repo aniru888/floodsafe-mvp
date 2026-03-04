@@ -144,6 +144,10 @@ class Settings(BaseSettings):
     NEA_API_KEY: str = ""                          # Singapore NEA weather API key (optional, for higher rate limits)
     OPENWEATHERMAP_API_KEY: str = ""               # OpenWeatherMap One Call 3.0 (Yogyakarta, free 1000/day)
 
+    # Admin Panel Credentials (set via environment variables in production)
+    ADMIN_EMAIL: str = "admin@floodsafe.app"
+    ADMIN_PASSWORD: str = "floodsafe-admin-change-me"
+
     class Config:
         case_sensitive = True
         env_file = ".env"
