@@ -63,6 +63,9 @@ class FHIResult:
     correction_factor: float = 1.5  # Applied correction factor
     precip_prob_max: float = 50.0  # Max precipitation probability
     data_source: str = "open-meteo"  # Weather data source ("open-meteo" or "nea")
+    precip_24h_mm: float = 0.0      # Raw 24h precipitation total (mm)
+    precip_3d_mm: float = 0.0       # Raw 3-day precipitation total (mm)
+    hourly_max_mm: float = 0.0      # Max hourly intensity (mm/h)
 
     def to_dict(self) -> Dict:
         """Convert to dictionary."""
@@ -77,6 +80,9 @@ class FHIResult:
             "correction_factor": round(self.correction_factor, 2),
             "precip_prob_max": round(self.precip_prob_max, 0),
             "data_source": self.data_source,
+            "precip_24h_mm": round(self.precip_24h_mm, 1),
+            "precip_3d_mm": round(self.precip_3d_mm, 1),
+            "hourly_max_mm": round(self.hourly_max_mm, 1),
         }
 
 
@@ -538,6 +544,9 @@ class FHICalculator:
             else:
                 level, color = "extreme", "#ef4444"  # red-500
 
+            # Compute hourly max from cleaned precipitation data
+            hourly_max_mm = max(precip_hourly_clean[:24]) if len(precip_hourly_clean) >= 24 else 0.0
+
             result = FHIResult(
                 fhi_score=fhi_score,
                 fhi_level=level,
@@ -549,6 +558,9 @@ class FHICalculator:
                 correction_factor=correction_factor,
                 precip_prob_max=precip_prob_max,
                 data_source=data_source,
+                precip_24h_mm=precip_24h,
+                precip_3d_mm=precip_3d_raw,
+                hourly_max_mm=hourly_max_mm,
             )
 
             # Cache result
@@ -842,4 +854,7 @@ async def calculate_fhi_for_location(lat: float, lng: float) -> Dict:
             "rain_gated": False,
             "correction_factor": 1.5,
             "precip_prob_max": 50,
+            "precip_24h_mm": 0.0,
+            "precip_3d_mm": 0.0,
+            "hourly_max_mm": 0.0,
         }
