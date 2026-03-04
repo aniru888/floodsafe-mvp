@@ -221,7 +221,7 @@ Current Risk Level: HIGH
 Factors:
 {factors}
 
-AVOID this area if possible. Use alternative routes.
+Waterlogging likely in this area. Consider alternate routes if commuting.
 
 Send your location + photo to report flooding.""",
 
@@ -234,7 +234,7 @@ Send your location + photo to report flooding.""",
 कारक:
 {factors}
 
-यदि संभव हो तो इस क्षेत्र से बचें। वैकल्पिक मार्गों का उपयोग करें।
+इस इलाके में जलभराव की संभावना है। यात्रा करते समय वैकल्पिक मार्ग अपनाएं।
 
 बाढ़ की रिपोर्ट करने के लिए अपना स्थान + फोटो भेजें।"""
     },
@@ -249,7 +249,7 @@ Current Risk Level: MODERATE
 Factors:
 {factors}
 
-Avoid underpasses and low areas during rain.
+Some waterlogging possible. Take care near underpasses and low-lying roads.
 
 Reply with a place name for risk elsewhere:
 Example: "RISK Lajpat Nagar\"""",
@@ -263,7 +263,7 @@ Example: "RISK Lajpat Nagar\"""",
 कारक:
 {factors}
 
-बारिश के दौरान अंडरपास और निचले इलाकों से बचें।
+कुछ जलभराव संभव है। अंडरपास और निचली सड़कों पर ध्यान रखें।
 
 अन्य जगह के लिए: "RISK [जगह का नाम]\""""
     },
