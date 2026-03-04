@@ -363,3 +363,12 @@ html {
   white-space: nowrap;
   border-width: 0;
 }
+
+/* ============================================================================
+   Landing page animations
+   Used by Preloader component for water-rise wave effect
+   ============================================================================ */
+@keyframes wave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
