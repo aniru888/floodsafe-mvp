@@ -299,9 +299,28 @@ async def get_risk_at_point(
         else:
             base_risk = 0.1
 
-        # Determine risk level and color
+        # Determine risk level and color from proximity
         from ..domain.ml.xgboost_hotspot import get_risk_level
         risk_level, risk_color = get_risk_level(base_risk)
+
+        # Enrich with real FHI weather data
+        fhi_score = None
+        elevation = None
+        precipitation_mm = None
+        try:
+            from ..domain.ml.fhi_calculator import calculate_fhi_for_location
+            fhi_result = await calculate_fhi_for_location(lat, lng)
+            fhi_score = fhi_result.get("fhi_score", 0.0)
+            fhi_level = fhi_result.get("fhi_level", "unknown")
+            elevation = fhi_result.get("elevation_m")
+            precipitation_mm = fhi_result.get("precip_24h_mm", 0.0)
+
+            # Use higher of proximity risk and FHI-based risk
+            if fhi_score > base_risk:
+                base_risk = fhi_score
+                risk_level, risk_color = get_risk_level(fhi_score)
+        except Exception as e:
+            logger.warning(f"FHI enrichment failed for risk-at-point: {e}")
 
         return {
             "latitude": lat,
@@ -311,6 +330,9 @@ async def get_risk_at_point(
             "risk_color": risk_color,
             "nearest_hotspot": nearest_hotspot.get("name") if nearest_hotspot else None,
             "distance_to_hotspot_km": round(min_distance, 2) if nearest_hotspot else None,
+            "fhi_score": fhi_score,
+            "elevation": elevation,
+            "precipitation_mm": precipitation_mm,
         }
 
     except Exception as e:
@@ -323,74 +345,83 @@ async def get_risk_summary(
     lat: float = Query(..., description="Latitude"),
     lng: float = Query(..., description="Longitude"),
     language: str = Query("en", description="Language: 'en' or 'hi'"),
+    name: Optional[str] = Query(None, description="Location name (e.g., watch area name)"),
 ):
     """
     Get AI-generated flood risk summary for a location.
 
-    Uses Meta Llama API to generate a natural language risk narrative
-    from structured FHI data. Returns None if Llama is disabled.
-
-    Args:
-        lat: Latitude
-        lng: Longitude
-        language: Response language ('en' or 'hi')
-
-    Returns:
-        JSON with risk_summary string and metadata
+    Uses real FHI calculator (live weather data) + nearest hotspot info
+    to generate a natural language risk narrative via Meta Llama API.
     """
     from ..domain.services.llama_service import generate_risk_summary, is_llama_enabled
+    from ..domain.ml.fhi_calculator import calculate_fhi_for_location
 
     if not is_llama_enabled():
         return {"risk_summary": None, "enabled": False}
 
-    # Get risk data from the risk-at-point logic (auto-detect city from coords)
-    risk_data = {"risk_level": "low", "fhi": 0.0, "is_hotspot": False}
-    if settings.ML_ENABLED:
-        try:
-            detected_city = _detect_city_from_coords(lat, lng)
-            service = _get_hotspots_service(detected_city)
-            min_distance = float("inf")
-            nearest = None
-            for h in service.hotspots_data:
-                h_lat = h.get("lat") or h.get("latitude")
-                h_lng = h.get("lng") or h.get("longitude")
-                if h_lat is None or h_lng is None:
-                    continue
-                dist = service.haversine_distance(lat, lng, h_lat, h_lng)
-                if dist < min_distance:
-                    min_distance = dist
-                    nearest = h
-            if min_distance < 0.5:
-                risk_data["fhi"] = 0.7
-            elif min_distance < 1.0:
-                risk_data["fhi"] = 0.5
-            elif min_distance < 2.0:
-                risk_data["fhi"] = 0.35
-            risk_data["is_hotspot"] = min_distance < 1.0
-            if risk_data["fhi"] > 0.6:
-                risk_data["risk_level"] = "high"
-            elif risk_data["fhi"] > 0.3:
-                risk_data["risk_level"] = "moderate"
-        except Exception:
-            pass
+    # Validate language
+    if language not in ("en", "hi"):
+        language = "en"
 
-    location_name = f"({lat:.4f}, {lng:.4f})"
+    # 1. Detect city BEFORE hotspot lookup (don't default to delhi on failure)
+    detected_city = _detect_city_from_coords(lat, lng)
+
+    # 2. Calculate REAL FHI from live weather data
+    fhi_result = await calculate_fhi_for_location(lat, lng)
+    fhi_score = fhi_result.get("fhi_score", 0.0)
+    fhi_level = fhi_result.get("fhi_level", "low")
+    elevation = fhi_result.get("elevation_m")
+    precipitation_mm = fhi_result.get("precip_24h_mm", 0.0)
+
+    # 3. Find nearest hotspot (name + distance)
+    nearest_name = None
+    is_hotspot = False
+    try:
+        service = _get_hotspots_service(detected_city)
+        min_distance = float("inf")
+        for h in service.hotspots_data:
+            h_lat = h.get("lat") or h.get("latitude")
+            h_lng = h.get("lng") or h.get("longitude")
+            if h_lat is None or h_lng is None:
+                continue
+            dist = service.haversine_distance(lat, lng, h_lat, h_lng)
+            if dist < min_distance:
+                min_distance = dist
+                nearest_name = h.get("name", h.get("location", "Unknown"))
+        is_hotspot = min_distance < 1.0  # within 1km of known hotspot
+    except Exception as e:
+        logger.warning(f"Hotspot lookup failed: {e}")
+
+    # 4. Determine risk level from REAL FHI (not distance)
+    if fhi_level == "unknown":
+        # FHI calculation failed — fall back to proximity
+        risk_level = "moderate" if is_hotspot else "low"
+    else:
+        risk_level = fhi_level  # low, moderate, high, extreme
+
+    # 5. Build location name
+    location_name = name or nearest_name or f"({lat:.4f}, {lng:.4f})"
+
+    # 6. Generate AI summary with real data
     summary = await generate_risk_summary(
         latitude=lat,
         longitude=lng,
         location_name=location_name,
-        risk_level=risk_data["risk_level"],
-        fhi_score=risk_data["fhi"],
-        is_hotspot=risk_data["is_hotspot"],
+        risk_level=risk_level,
+        fhi_score=fhi_score,
+        precipitation_mm=precipitation_mm,
+        elevation=elevation,
+        is_hotspot=is_hotspot,
         language=language,
     )
 
     return {
         "risk_summary": summary,
         "enabled": True,
-        "risk_level": risk_data["risk_level"],
-        "fhi_score": risk_data["fhi"],
+        "risk_level": risk_level,
+        "fhi_score": fhi_score,
         "language": language,
+        "weather_unavailable": fhi_level == "unknown",
     }
 
 
