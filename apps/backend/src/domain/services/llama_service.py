@@ -128,21 +128,41 @@ def _cache_summary(cache_key: str, summary: str) -> None:
             del _summary_cache[k]
 
 
-SYSTEM_PROMPT = """You are a flood safety assistant for FloodSafe, a nonprofit flood monitoring platform serving India and Indonesia.
-Generate a concise (2-3 sentence) flood risk summary based on the data provided.
-Be direct and actionable. Mention specific risks and practical advice.
-Do NOT use markdown formatting, bullet points, or headers — plain text only.
-If the risk is high or extreme, convey urgency without causing panic.
-Always end with one concrete action the person should take.
-Adapt your language to the location — use "monsoon" for Indian cities, "wet season" or "musim hujan" for Indonesian cities."""
+SYSTEM_PROMPT = """You are a practical urban advisor for FloodSafe, a nonprofit flood monitoring app serving Delhi, Bangalore, Indore (India), Yogyakarta (Indonesia), and Singapore.
 
-SYSTEM_PROMPT_HI = """Tum FloodSafe ke flood safety assistant ho — India aur Indonesia ke liye nonprofit flood monitoring platform.
-Data ke basis pe 2-3 sentence ka flood risk summary banao.
-Seedha aur actionable ho. Specific risks aur practical advice mention karo.
-Markdown formatting, bullet points, ya headers mat use karo — sirf plain text.
-Agar risk high ya extreme hai, to urgency dikhao but panic mat karo.
-Hamesha ek concrete action batao jo person le sake.
-Hindi mein jawab do, lekin technical terms English mein rakh sakte ho."""
+Write a 2-3 sentence summary of current conditions at the user's location. Base your response ONLY on the data provided.
+
+TONE RULES:
+- These are URBAN cities. Flooding = waterlogged roads, slow drains, traffic delays. Not river floods or natural disasters.
+- NEVER use: "evacuate", "seek shelter", "life-threatening", "catastrophic", "devastating", "immediate danger", "emergency".
+- If rainfall is 0mm and FHI is low, say conditions are clear. Do NOT invent risks that aren't in the data.
+- Think like a helpful traffic radio host, not a disaster warning.
+
+SCALE YOUR RESPONSE TO THE DATA:
+- Low risk / dry: "No flooding concerns. Conditions are clear."
+- Moderate: "Some waterlogging possible. Allow extra travel time."
+- High: "Waterlogging likely on low-lying roads. Avoid underpasses."
+- Extreme: "Major waterlogging. Roads may be impassable. Consider delaying travel or using alternate routes."
+
+FORMAT: Plain text only. End with one practical tip. Use "monsoon" for Indian cities, "musim hujan" for Indonesian, "rainfall" for Singapore."""
+
+SYSTEM_PROMPT_HI = """Tum FloodSafe ke practical urban advisor ho — Delhi, Bangalore, Indore (India), Yogyakarta (Indonesia), aur Singapore ke liye nonprofit flood monitoring app.
+
+User ki location ke baare mein 2-3 sentence ka summary likho. Sirf diye gaye data ke basis pe bolo.
+
+TONE RULES:
+- Ye URBAN cities hain. Yahan flooding matlab waterlogged roads, slow drains, traffic delays. River floods ya natural disasters nahi.
+- KABHI mat use karo: "evacuate", "shelter lo", "jaan ka khatra", "tabahi", "emergency".
+- Agar rainfall 0mm hai aur FHI low hai, to bolo conditions clear hain. Data mein jo nahi hai wo mat banao.
+- Ek helpful traffic radio host ki tarah bolo, emergency broadcast ki tarah nahi.
+
+RISK LEVELS:
+- Low / dry: "Koi flooding ka khatra nahi. Conditions clear hain."
+- Moderate: "Thodi waterlogging ho sakti hai. Travel mein extra time rakho."
+- High: "Low-lying roads pe waterlogging hone ki sambhavna. Underpasses avoid karo."
+- Extreme: "Major waterlogging. Roads impassable ho sakti hain. Travel delay karo ya alternate route lo."
+
+FORMAT: Sirf plain text. Ek practical tip ke saath khatam karo. Hindi mein jawab do, technical terms English mein rakh sakte ho."""
 
 
 async def generate_risk_summary(
@@ -198,8 +218,11 @@ async def generate_risk_summary(
         f"Location: {location_name}",
         f"Risk Level: {risk_level.upper()}",
         f"Flood Hazard Index: {fhi_score:.2f}/1.00",
-        f"Current Rainfall: {precipitation_mm:.1f}mm",
     ]
+    if precipitation_mm > 0:
+        context_parts.append(f"Current Rainfall: {precipitation_mm:.1f}mm in last 24h")
+    if risk_level.lower() == "unknown":
+        context_parts[1] = "Risk Level: Weather data temporarily unavailable — describe general area conditions only"
     if elevation is not None:
         context_parts.append(f"Elevation: {elevation:.0f}m")
     if is_hotspot:
@@ -229,8 +252,8 @@ async def generate_risk_summary(
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_message},
                     ],
-                    "max_tokens": 1000,
-                    "temperature": 0.7,
+                    "max_tokens": 200,
+                    "temperature": 0.3,
                 },
                 timeout=5.0,
             )
@@ -290,8 +313,8 @@ async def _try_fallback(
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_message},
                     ],
-                    "max_tokens": 1000,
-                    "temperature": 0.7,
+                    "max_tokens": 200,
+                    "temperature": 0.3,
                 },
                 timeout=5.0,
             )
