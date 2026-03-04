@@ -1,12 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { Analytics } from '@vercel/analytics/react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { ResponsiveLayout } from './components/ResponsiveLayout';
 import { HomeScreen } from './components/screens/HomeScreen';
 import { FloodAtlasScreen } from './components/screens/FloodAtlasScreen';
 import { ReportScreen } from './components/screens/ReportScreen';
 import { ProfileScreen } from './components/screens/ProfileScreen';
-import { LoginScreen } from './components/screens/LoginScreen';
+import { LoginPage } from './components/screens/LoginPage';
 import { OnboardingScreen } from './components/screens/OnboardingScreen';
 import { AlertsScreen } from './components/screens/AlertsScreen';
 import { AlertDetailScreen } from './components/screens/Placeholders';
@@ -36,6 +36,8 @@ import { NavigationProvider } from './contexts/NavigationContext';
 import { OnboardingBotProvider, useOnboardingBot } from './contexts/OnboardingBotContext';
 import { OnboardingBot } from './components/onboarding-bot/OnboardingBot';
 import { usePushNotifications } from './hooks/usePushNotifications';
+
+const LandingPage = lazy(() => import('./components/screens/LandingPage'));
 
 const queryClient = new QueryClient();
 
@@ -97,6 +99,7 @@ function LanguageSyncBridge() {
 function FloodSafeApp() {
     const { isAuthenticated, isLoading: authLoading, user } = useAuth();
     const { registerNavigation, startTour } = useOnboardingBot();
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState<Screen>('home');
     const [selectedAlert, setSelectedAlert] = useState<FloodAlert | null>(null);
     const [initialRouteDestination, setInitialRouteDestination] = useState<[number, number] | null>(null);
@@ -201,6 +204,13 @@ function FloodSafeApp() {
         setActiveTab('map');
     };
 
+    // Redirect unauthenticated users to /login
+    useEffect(() => {
+        if (!authLoading && !isAuthenticated) {
+            navigate('/login', { replace: true });
+        }
+    }, [authLoading, isAuthenticated, navigate]);
+
     // Show loading screen while checking auth
     if (authLoading) {
         return (
@@ -213,14 +223,9 @@ function FloodSafeApp() {
         );
     }
 
-    // Show login screen if not authenticated
+    // Don't render if not authenticated (redirect effect will fire)
     if (!isAuthenticated) {
-        return (
-            <>
-                <LoginScreen />
-                <Toaster position="top-center" />
-            </>
-        );
+        return null;
     }
 
     // Show onboarding if profile not complete
@@ -346,15 +351,29 @@ export default function App() {
                                 <PWAUpdateBanner />
 
                                 <Routes>
-                                    {/* Email verification callback - accessible without auth */}
+                                    {/* Public routes */}
+                                    <Route path="/" element={
+                                        <Suspense fallback={
+                                            <div className="min-h-screen flex items-center justify-center">
+                                                <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+                                            </div>
+                                        }>
+                                            <LandingPage />
+                                        </Suspense>
+                                    } />
+                                    <Route path="/login" element={<LoginPage />} />
                                     <Route path="/email-verified" element={
                                         <>
                                             <EmailVerifiedScreen />
                                             <Toaster position="top-center" />
                                         </>
                                     } />
-                                    {/* All other routes go to the main app */}
-                                    <Route path="*" element={<FloodSafeApp />} />
+
+                                    {/* Authenticated app */}
+                                    <Route path="/app" element={<FloodSafeApp />} />
+
+                                    {/* Catch-all redirect */}
+                                    <Route path="*" element={<Navigate to="/" replace />} />
                                 </Routes>
                             </LocationTrackingProvider>
                             </OnboardingBotProvider>
