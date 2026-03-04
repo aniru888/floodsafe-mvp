@@ -232,7 +232,7 @@ export function HomeScreen({
     // Determine risk level based on filtered alerts (user's city)
     // Aligned with userAreaRiskLevel thresholds for consistency
     const riskLevel = filteredAlerts.length === 0 ? 'low' :
-                      filteredAlerts.some(a => a.level === 'critical') ? 'severe' :
+                      filteredAlerts.some(a => a.level === 'critical') ? 'extreme' :
                       filteredAlerts.length > 3 ? 'high' :
                       filteredAlerts.length > 1 ? 'moderate' : 'low';
 
@@ -240,14 +240,14 @@ export function HomeScreen({
         low: 'bg-green-500',
         moderate: 'bg-yellow-500',
         high: 'bg-orange-500',
-        severe: 'bg-red-500'
+        extreme: 'bg-red-500'
     };
 
     const riskLabels = {
         low: 'LOW FLOOD RISK',
         moderate: 'MODERATE FLOOD RISK',
         high: 'HIGH FLOOD RISK',
-        severe: 'SEVERE FLOOD RISK'
+        extreme: 'EXTREME FLOOD RISK'
     };
 
     // Dynamic user area data - Use first watch area or current city from context
@@ -474,7 +474,7 @@ export function HomeScreen({
         low: { background: 'linear-gradient(to right, #10b981, #059669)' },      // emerald-500 to emerald-600
         moderate: { background: 'linear-gradient(to right, #f59e0b, #d97706)' }, // amber-500 to amber-600
         high: { background: 'linear-gradient(to right, #f97316, #ea580c)' },     // orange-500 to orange-600
-        severe: { background: 'linear-gradient(to right, #ef4444, #dc2626)' }    // red-500 to red-600
+        extreme: { background: 'linear-gradient(to right, #ef4444, #dc2626)' }    // red-500 to red-600
     };
 
     // Dynamic button text colors matching risk level
@@ -482,7 +482,7 @@ export function HomeScreen({
         low: 'text-emerald-600',
         moderate: 'text-amber-600',
         high: 'text-orange-600',
-        severe: 'text-red-600'
+        extreme: 'text-red-600'
     };
 
     return (
