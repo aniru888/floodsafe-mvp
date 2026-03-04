@@ -501,6 +501,7 @@ function Step1City({ city, onSelect, error, language }: Step1CityProps) {
         delhi: t(language, 'onboarding.city.region.delhi'),
         yogyakarta: t(language, 'onboarding.city.region.yogyakarta'),
         singapore: t(language, 'onboarding.city.region.singapore'),
+        indore: t(language, 'onboarding.city.region.indore'),
     };
 
     return (
@@ -550,6 +551,7 @@ function Step2Profile({ username, phone, city, onUpdate, errors, language }: Ste
     const phoneDefaults: Record<string, string> = {
         delhi: '+91 XXXXX XXXXX', bangalore: '+91 XXXXX XXXXX',
         yogyakarta: '+62 XXX XXXX XXXX', singapore: '+65 XXXX XXXX',
+        indore: '+91 XXXXX XXXXX',
     };
     const phonePlaceholder = (city && phoneDefaults[city]) || '+91 XXXXX XXXXX';
 

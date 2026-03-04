@@ -60,7 +60,7 @@ class User(Base):
     fcm_token_updated_at = Column(DateTime, nullable=True)
 
     # Onboarding & City Preference
-    city_preference = Column(String, nullable=True)  # 'bangalore' | 'delhi' | 'yogyakarta'
+    city_preference = Column(String, nullable=True)  # 'bangalore' | 'delhi' | 'yogyakarta' | 'singapore' | 'indore'
     profile_complete = Column(Boolean, default=False)
     onboarding_step = Column(Integer, nullable=True)  # 1-5, tracks current step if incomplete
     tour_completed_at = Column(DateTime, nullable=True)  # When user finished app tour

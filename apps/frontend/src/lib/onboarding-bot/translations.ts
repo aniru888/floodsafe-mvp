@@ -255,9 +255,9 @@ const translations: Record<string, Record<OnboardingBotLanguage, string>> = {
         id: 'Pemantauan banjir komunitas',
     },
     'login.brand.cities': {
-        en: 'Delhi \u00B7 Bangalore \u00B7 Yogyakarta \u00B7 Singapore',
-        hi: 'दिल्ली \u00B7 बेंगलुरु \u00B7 योग्यकर्ता \u00B7 सिंगापुर',
-        id: 'Delhi \u00B7 Bangalore \u00B7 Yogyakarta \u00B7 Singapura',
+        en: 'Delhi \u00B7 Bangalore \u00B7 Yogyakarta \u00B7 Singapore \u00B7 Indore',
+        hi: 'दिल्ली \u00B7 बेंगलुरु \u00B7 योग्यकर्ता \u00B7 सिंगापुर \u00B7 इंदौर',
+        id: 'Delhi \u00B7 Bangalore \u00B7 Yogyakarta \u00B7 Singapura \u00B7 Indore',
     },
     'login.heading.create': {
         en: 'Create your account',
@@ -495,6 +495,11 @@ const translations: Record<string, Record<OnboardingBotLanguage, string>> = {
         en: 'Republic of Singapore',
         hi: 'सिंगापुर गणराज्य',
         id: 'Republik Singapura',
+    },
+    'onboarding.city.region.indore': {
+        en: 'Madhya Pradesh, India',
+        hi: 'मध्य प्रदेश, भारत',
+        id: 'Madhya Pradesh, India',
     },
     'onboarding.profile.heading': {
         en: 'Your Profile',
