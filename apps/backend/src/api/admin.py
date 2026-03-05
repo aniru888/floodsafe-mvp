@@ -296,24 +296,6 @@ async def admin_create_report(
     return result
 
 
-@router.post("/run-migration")
-async def run_migration(
-    admin: User = Depends(get_current_admin_user),
-    db: Session = Depends(get_db),
-):
-    """Temporary: apply pending column migrations. Remove after use."""
-    from sqlalchemy import text
-    try:
-        db.execute(text("ALTER TABLE reports ADD COLUMN IF NOT EXISTS admin_created BOOLEAN DEFAULT false"))
-        db.execute(text("ALTER TABLE reports ADD COLUMN IF NOT EXISTS source VARCHAR(50)"))
-        db.execute(text("ALTER TABLE comments ADD COLUMN IF NOT EXISTS comment_type VARCHAR(20) DEFAULT 'community'"))
-        db.commit()
-        return {"success": True, "message": "Migration applied: admin_created, source, comment_type columns added"}
-    except Exception as e:
-        db.rollback()
-        raise HTTPException(status_code=500, detail=str(e))
-
-
 @router.get("/reports")
 async def list_reports(
     status: Optional[str] = Query(None, description="Filter: verified/unverified/archived"),
