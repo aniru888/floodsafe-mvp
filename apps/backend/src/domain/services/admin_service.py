@@ -14,7 +14,7 @@ from sqlalchemy import func, and_, or_, desc, case
 from src.infrastructure.models import (
     User, Report, Badge, UserBadge, ReputationHistory,
     RoleHistory, AdminAuditLog, SafetyCircle, ExternalAlert,
-    Comment, ReportVote
+    Comment, ReportVote, AdminInvite
 )
 from geoalchemy2.shape import from_shape
 from shapely.geometry import Point
@@ -789,3 +789,89 @@ def _badge_to_dict(badge: Badge) -> Dict[str, Any]:
         "points_reward": badge.points_reward,
         "is_active": badge.is_active,
     }
+
+
+# =============================================================================
+# INVITE MANAGEMENT
+# =============================================================================
+
+def create_invite(
+    db: Session,
+    admin_id: UUID,
+    email_hint: Optional[str] = None,
+) -> "AdminInvite":
+    """Generate a one-time admin invite code (48h expiry)."""
+    import secrets
+    code = secrets.token_urlsafe(32)
+    expires_at = datetime.utcnow() + timedelta(hours=48)
+
+    invite = AdminInvite(
+        code=code,
+        created_by=admin_id,
+        email_hint=email_hint,
+        expires_at=expires_at,
+    )
+    db.add(invite)
+    return invite
+
+
+def list_invites(db: Session) -> List[Dict[str, Any]]:
+    """List all admin invites with creator/redeemer info."""
+    invites = db.query(AdminInvite).order_by(AdminInvite.created_at.desc()).all()
+
+    result = []
+    for inv in invites:
+        creator = db.query(User).filter(User.id == inv.created_by).first() if inv.created_by else None
+        redeemer = db.query(User).filter(User.id == inv.used_by).first() if inv.used_by else None
+        result.append({
+            "id": str(inv.id),
+            "code": inv.code,
+            "email_hint": inv.email_hint,
+            "created_by_username": creator.username if creator else "unknown",
+            "used_by_username": redeemer.username if redeemer else None,
+            "expires_at": inv.expires_at.isoformat() if inv.expires_at else None,
+            "created_at": inv.created_at.isoformat() if inv.created_at else None,
+            "is_expired": inv.expires_at < datetime.utcnow() if inv.expires_at else True,
+            "is_used": inv.used_by is not None,
+        })
+    return result
+
+
+def revoke_invite(db: Session, code: str) -> None:
+    """Delete an unused invite code. Raises if not found or already used."""
+    invite = db.query(AdminInvite).filter(AdminInvite.code == code).first()
+    if not invite:
+        raise ValueError("Invite not found")
+    if invite.used_by:
+        raise ValueError("Cannot revoke — invite already used")
+    db.delete(invite)
+
+
+def redeem_invite(
+    db: Session,
+    code: str,
+    email: str,
+    password: str,
+) -> User:
+    """
+    Redeem an invite code: validate, find user, set admin role + password_hash.
+    Raises ValueError with descriptive message on failure.
+    """
+    from src.domain.services.security import hash_password
+
+    invite = db.query(AdminInvite).filter(AdminInvite.code == code).first()
+    if not invite or invite.used_by is not None:
+        raise ValueError("Invalid or already-used invite code")
+    if invite.expires_at < datetime.utcnow():
+        raise ValueError("Invite code has expired")
+    if invite.email_hint and invite.email_hint.lower() != email.lower():
+        raise ValueError("This invite is restricted to a different email")
+
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        raise ValueError("No FloodSafe account found with this email. Please sign up first.")
+
+    user.role = "admin"
+    user.password_hash = hash_password(password)
+    invite.used_by = user.id
+    return user

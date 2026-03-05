@@ -5,6 +5,8 @@ Separate login endpoint with environment-variable credentials.
 """
 import json
 import logging
+import secrets
+from datetime import datetime, timedelta
 from typing import Optional
 from uuid import UUID
 
@@ -13,7 +15,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from src.infrastructure.database import get_db
-from src.infrastructure.models import User, Badge
+from src.infrastructure.models import User, Badge, AdminInvite
 from src.api.deps import get_current_admin_user
 from src.core.config import settings
 from src.domain.services.security import (
@@ -106,6 +108,39 @@ class AdminCreateReportRequest(BaseModel):
     admin_notes: Optional[str] = Field(None, max_length=500)
 
 
+class CreateInviteRequest(BaseModel):
+    """Request to create an admin invite."""
+    email_hint: Optional[str] = Field(None, description="Restrict invite to this email")
+
+
+class CreateInviteResponse(BaseModel):
+    """Response with generated invite link."""
+    code: str
+    invite_url: str
+    email_hint: Optional[str]
+    expires_at: str
+
+
+class InviteListItem(BaseModel):
+    """Invite item for listing."""
+    id: str
+    code: str
+    email_hint: Optional[str]
+    created_by_username: str
+    used_by_username: Optional[str]
+    expires_at: str
+    created_at: str
+    is_expired: bool
+    is_used: bool
+
+
+class AdminRegisterRequest(BaseModel):
+    """Request to register as admin via invite code."""
+    code: str = Field(..., min_length=10)
+    email: str = Field(..., description="Must match existing FloodSafe account")
+    password: str = Field(..., min_length=8, max_length=128)
+
+
 # =============================================================================
 # ADMIN LOGIN (separate from regular auth)
 # =============================================================================
@@ -113,50 +148,38 @@ class AdminCreateReportRequest(BaseModel):
 @router.post("/login", response_model=AdminLoginResponse)
 async def admin_login(request: AdminLoginRequest, req: Request, db: Session = Depends(get_db)):
     """
-    Admin login with pre-configured credentials.
-    Uses ADMIN_EMAIL and ADMIN_PASSWORD_HASH environment variables.
-    Returns JWT tokens for admin API access.
+    Admin login with two-tier auth:
+    1. DB-based: user.role == 'admin' + user.password_hash
+    2. Env-var fallback: ADMIN_EMAIL + ADMIN_PASSWORD_HASH (bootstrap)
     """
     from src.api.deps import check_rate_limit
 
-    # Rate limit: 5 attempts per 5 minutes per IP
     check_rate_limit(f"admin_login:{req.client.host}", max_requests=5, window_seconds=300)
 
-    # Reject if admin not configured
-    if not settings.ADMIN_EMAIL or not settings.ADMIN_PASSWORD_HASH:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Admin panel not configured",
-        )
+    admin_user = None
 
-    # Validate email
-    if request.email != settings.ADMIN_EMAIL:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid admin credentials",
-        )
+    # Tier 1: DB-based admin auth
+    user = db.query(User).filter(User.email == request.email).first()
+    if user and user.role == "admin" and user.password_hash:
+        if verify_password(request.password, user.password_hash):
+            admin_user = user
 
-    # Validate password against bcrypt hash
-    if not verify_password(request.password, settings.ADMIN_PASSWORD_HASH):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid admin credentials",
-        )
+    # Tier 2: Env-var fallback (bootstrap / recovery)
+    if not admin_user:
+        if (settings.ADMIN_EMAIL and settings.ADMIN_PASSWORD_HASH
+                and request.email == settings.ADMIN_EMAIL
+                and verify_password(request.password, settings.ADMIN_PASSWORD_HASH)):
+            admin_user = db.query(User).filter(User.email == settings.ADMIN_EMAIL).first()
+            if admin_user and admin_user.role != "admin":
+                admin_user.role = "admin"
+                db.commit()
 
-    # Look up admin user (must be pre-seeded — no auto-creation)
-    admin_user = db.query(User).filter(User.email == settings.ADMIN_EMAIL).first()
     if not admin_user:
         raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Admin user not found. Run admin seed migration.",
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid admin credentials",
         )
 
-    # Ensure admin role
-    if admin_user.role != "admin":
-        admin_user.role = "admin"
-        db.commit()
-
-    # Generate tokens
     access_token = create_access_token(data={"sub": str(admin_user.id)})
     refresh_token_str, _ = create_refresh_token(str(admin_user.id))
 
@@ -512,3 +535,98 @@ async def get_audit_log(
 ):
     """View admin action audit trail."""
     return admin_service.get_audit_log(db, page, per_page)
+
+
+# =============================================================================
+# ADMIN INVITES
+# =============================================================================
+
+@router.post("/invites", response_model=CreateInviteResponse)
+async def create_invite(
+    request: CreateInviteRequest,
+    req: Request,
+    admin: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db),
+):
+    """Generate a one-time admin invite code (48h expiry)."""
+    invite = admin_service.create_invite(db, admin.id, request.email_hint)
+
+    admin_service.log_admin_action(
+        db, admin.id, "create_invite",
+        target_type="invite", target_id=invite.code,
+        details=json.dumps({"email_hint": request.email_hint}),
+        ip_address=req.client.host if req.client else None,
+    )
+    db.commit()
+
+    frontend_url = getattr(settings, 'FRONTEND_URL', "https://floodsafe.live")
+    invite_url = f"{frontend_url}/admin/register?code={invite.code}"
+
+    return CreateInviteResponse(
+        code=invite.code,
+        invite_url=invite_url,
+        email_hint=request.email_hint,
+        expires_at=invite.expires_at.isoformat(),
+    )
+
+
+@router.get("/invites")
+async def list_invites(
+    admin: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db),
+):
+    """List all admin invites (active and used)."""
+    return admin_service.list_invites(db)
+
+
+@router.delete("/invites/{code}")
+async def revoke_invite(
+    code: str,
+    req: Request,
+    admin: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db),
+):
+    """Revoke an unused invite code."""
+    try:
+        admin_service.revoke_invite(db, code)
+    except ValueError as e:
+        status_code = 404 if "not found" in str(e).lower() else 400
+        raise HTTPException(status_code=status_code, detail=str(e))
+
+    admin_service.log_admin_action(
+        db, admin.id, "revoke_invite",
+        target_type="invite", target_id=code,
+        ip_address=req.client.host if req.client else None,
+    )
+    db.commit()
+
+    return {"status": "revoked"}
+
+
+@router.post("/register")
+async def register_admin(
+    request: AdminRegisterRequest,
+    req: Request,
+    db: Session = Depends(get_db),
+):
+    """
+    Redeem an invite code to become an admin.
+    Public endpoint — no auth required, but needs valid invite code.
+    """
+    from src.api.deps import check_rate_limit
+    check_rate_limit(f"admin_register:{req.client.host}", max_requests=5, window_seconds=300)
+
+    try:
+        user = admin_service.redeem_invite(db, request.code, request.email, request.password)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    admin_service.log_admin_action(
+        db, user.id, "admin_registered",
+        target_type="invite", target_id=request.code,
+        details=json.dumps({"email": request.email}),
+        ip_address=req.client.host if req.client else None,
+    )
+    db.commit()
+
+    return {"status": "ok", "message": "Admin access granted. You can now log in at /admin/login."}

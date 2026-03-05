@@ -633,6 +633,19 @@ class AdminAuditLog(Base):
     )
 
 
+class AdminInvite(Base):
+    """Invite codes for multi-admin onboarding."""
+    __tablename__ = "admin_invites"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    code = Column(String(64), unique=True, nullable=False, index=True)
+    created_by = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    email_hint = Column(String(255), nullable=True)
+    used_by = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    expires_at = Column(DateTime, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
 class CityRoad(Base):
     """OSM road network segments for report road-snapping and hotspot discovery."""
     __tablename__ = "city_roads"
