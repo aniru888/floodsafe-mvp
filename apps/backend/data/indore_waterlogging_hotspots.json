@@ -18,9 +18,9 @@
     {
       "id": "indore-001",
       "name": "Khajrana Square",
-      "lat": 22.7275,
-      "lng": 75.8923,
-      "description": "Major junction on Ring Road \u00e2\u20ac\u201d chronic waterlogging during monsoon due to low gradient",
+      "lat": 22.7277,
+      "lng": 75.892,
+      "description": "Major junction on Ring Road — chronic waterlogging during monsoon due to low gradient",
       "zone": "Ring Road",
       "severity_history": "high",
       "source": "IMC"
@@ -28,9 +28,9 @@
     {
       "id": "indore-002",
       "name": "Musakhedi Square",
-      "lat": 22.705,
-      "lng": 75.835,
-      "description": "Ring Road underpass floods repeatedly \u00e2\u20ac\u201d drainage capacity insufficient",
+      "lat": 22.7048,
+      "lng": 75.8347,
+      "description": "Ring Road underpass floods repeatedly — drainage capacity insufficient",
       "zone": "Ring Road",
       "severity_history": "high",
       "source": "IMC"
@@ -38,8 +38,8 @@
     {
       "id": "indore-003",
       "name": "Pipliyahana Square",
-      "lat": 22.697,
-      "lng": 75.86,
+      "lat": 22.6975,
+      "lng": 75.8603,
       "description": "Saucer-shaped terrain causes water accumulation at Ring Road junction",
       "zone": "Ring Road",
       "severity_history": "high",
@@ -48,9 +48,9 @@
     {
       "id": "indore-004",
       "name": "IT Park Square",
-      "lat": 22.685,
-      "lng": 75.871,
-      "description": "Low-lying area near IT Park \u00e2\u20ac\u201d Khan River overflow zone",
+      "lat": 22.6853,
+      "lng": 75.8713,
+      "description": "Low-lying area near IT Park — Khan River overflow zone",
       "zone": "Ring Road",
       "severity_history": "high",
       "source": "IMC"
@@ -58,8 +58,8 @@
     {
       "id": "indore-005",
       "name": "Robot Square",
-      "lat": 22.738,
-      "lng": 75.885,
+      "lat": 22.7385,
+      "lng": 75.8855,
       "description": "Ring Road junction with poor stormwater drainage",
       "zone": "Ring Road",
       "severity_history": "high",
@@ -69,8 +69,8 @@
       "id": "indore-006",
       "name": "Vijay Nagar Square",
       "lat": 22.7534,
-      "lng": 75.8938,
-      "description": "Water accumulates due to slope \u00e2\u20ac\u201d drainage issues and traffic disruptions",
+      "lng": 75.894,
+      "description": "Water accumulates due to slope — drainage issues and traffic disruptions",
       "zone": "Central",
       "severity_history": "high",
       "source": "Free Press Journal"
@@ -78,8 +78,8 @@
     {
       "id": "indore-007",
       "name": "Satya Sai Square",
-      "lat": 22.742,
-      "lng": 75.878,
+      "lat": 22.7423,
+      "lng": 75.8782,
       "description": "Junction flooding from multiple road convergence",
       "zone": "Central",
       "severity_history": "high",
@@ -88,8 +88,8 @@
     {
       "id": "indore-008",
       "name": "Robert Square",
-      "lat": 22.719,
-      "lng": 75.87,
+      "lat": 22.7192,
+      "lng": 75.8702,
       "description": "Historic area with aging drainage infrastructure",
       "zone": "Central",
       "severity_history": "high",
@@ -98,9 +98,9 @@
     {
       "id": "indore-009",
       "name": "Sayaji Square",
-      "lat": 22.72,
-      "lng": 75.862,
-      "description": "Near Lalbagh \u00e2\u20ac\u201d low elevation collects runoff",
+      "lat": 22.7198,
+      "lng": 75.8622,
+      "description": "Near Lalbagh — low elevation collects runoff",
       "zone": "Central",
       "severity_history": "high",
       "source": "Free Press Journal"
@@ -108,8 +108,8 @@
     {
       "id": "indore-010",
       "name": "Industry House Square",
-      "lat": 22.731,
-      "lng": 75.865,
+      "lat": 22.7312,
+      "lng": 75.8652,
       "description": "Commercial area with impervious surfaces causing high runoff",
       "zone": "Central",
       "severity_history": "high",
@@ -118,8 +118,8 @@
     {
       "id": "indore-011",
       "name": "LIG Square",
-      "lat": 22.715,
-      "lng": 75.875,
+      "lat": 22.7148,
+      "lng": 75.8752,
       "description": "Residential area with inadequate drainage capacity",
       "zone": "Central",
       "severity_history": "high",
@@ -128,9 +128,9 @@
     {
       "id": "indore-012",
       "name": "Teen Imli Square",
-      "lat": 22.722,
-      "lng": 75.854,
-      "description": "Old city area \u00e2\u20ac\u201d drainage system dates to pre-independence era",
+      "lat": 22.7218,
+      "lng": 75.8545,
+      "description": "Old city area — drainage system dates to pre-independence era",
       "zone": "Central",
       "severity_history": "high",
       "source": "Free Press Journal"
@@ -138,9 +138,9 @@
     {
       "id": "indore-013",
       "name": "Palasikar Square",
-      "lat": 22.718,
-      "lng": 75.857,
-      "description": "Central Indore \u00e2\u20ac\u201d multiple road runoff convergence point",
+      "lat": 22.7182,
+      "lng": 75.8573,
+      "description": "Central Indore — multiple road runoff convergence point",
       "zone": "Central",
       "severity_history": "high",
       "source": "IMC"
@@ -148,8 +148,8 @@
     {
       "id": "indore-014",
       "name": "Madhu Milan Square",
-      "lat": 22.725,
-      "lng": 75.862,
+      "lat": 22.7252,
+      "lng": 75.8618,
       "description": "Junction prone to waterlogging during heavy spells",
       "zone": "Central",
       "severity_history": "high",
@@ -158,8 +158,8 @@
     {
       "id": "indore-015",
       "name": "Chandan Nagar Square",
-      "lat": 22.735,
-      "lng": 75.852,
+      "lat": 22.7352,
+      "lng": 75.8522,
       "description": "Residential area with overwhelmed stormwater drains",
       "zone": "Central",
       "severity_history": "high",
@@ -168,9 +168,9 @@
     {
       "id": "indore-016",
       "name": "Nyay Nagar",
-      "lat": 22.71,
-      "lng": 75.868,
-      "description": "Low-lying colony near Khan River \u00e2\u20ac\u201d backflow during floods",
+      "lat": 22.7098,
+      "lng": 75.8682,
+      "description": "Low-lying colony near Khan River — backflow during floods",
       "zone": "Central",
       "severity_history": "high",
       "source": "IMC"
@@ -178,9 +178,9 @@
     {
       "id": "indore-017",
       "name": "Radisson Square",
-      "lat": 22.745,
-      "lng": 75.89,
-      "description": "Major commercial junction \u00e2\u20ac\u201d surface runoff from wide roads",
+      "lat": 22.7455,
+      "lng": 75.8898,
+      "description": "Major commercial junction — surface runoff from wide roads",
       "zone": "Central",
       "severity_history": "high",
       "source": "Free Press Journal"
@@ -188,8 +188,8 @@
     {
       "id": "indore-018",
       "name": "Luv Kush Square",
-      "lat": 22.748,
-      "lng": 75.882,
+      "lat": 22.7482,
+      "lng": 75.8822,
       "description": "Waterlogging at underpass during moderate rainfall",
       "zone": "Central",
       "severity_history": "high",
@@ -198,9 +198,9 @@
     {
       "id": "indore-019",
       "name": "Collectorate Square",
-      "lat": 22.716,
-      "lng": 75.859,
-      "description": "Government area \u00e2\u20ac\u201d drainage upgrades pending",
+      "lat": 22.7162,
+      "lng": 75.8592,
+      "description": "Government area — drainage upgrades pending",
       "zone": "Central",
       "severity_history": "high",
       "source": "IMC"
@@ -208,9 +208,9 @@
     {
       "id": "indore-020",
       "name": "Chhawani",
-      "lat": 22.712,
-      "lng": 75.848,
-      "description": "Historic cantonment area \u00e2\u20ac\u201d Khan River proximity causes frequent inundation",
+      "lat": 22.7122,
+      "lng": 75.8482,
+      "description": "Historic cantonment area — Khan River proximity causes frequent inundation",
       "zone": "South",
       "severity_history": "high",
       "source": "IMC"
@@ -220,7 +220,7 @@
       "name": "Krishnapura Chhatri",
       "lat": 22.7175,
       "lng": 75.8555,
-      "description": "Heritage area near Khan River \u00e2\u20ac\u201d floods during peak monsoon",
+      "description": "Heritage area near Khan River — floods during peak monsoon",
       "zone": "South",
       "severity_history": "high",
       "source": "Free Press Journal"
@@ -228,9 +228,9 @@
     {
       "id": "indore-022",
       "name": "Juni Indore",
-      "lat": 22.713,
-      "lng": 75.851,
-      "description": "Oldest part of city \u00e2\u20ac\u201d narrow lanes and ancient drainage",
+      "lat": 22.7128,
+      "lng": 75.8512,
+      "description": "Oldest part of city — narrow lanes and ancient drainage",
       "zone": "South",
       "severity_history": "high",
       "source": "IMC"
@@ -238,8 +238,8 @@
     {
       "id": "indore-023",
       "name": "Kulkarni ka Bhatti",
-      "lat": 22.709,
-      "lng": 75.853,
+      "lat": 22.7092,
+      "lng": 75.8532,
       "description": "Low-elevation area near Khan River with poor drainage",
       "zone": "South",
       "severity_history": "high",
@@ -248,8 +248,8 @@
     {
       "id": "indore-024",
       "name": "Scheme 54",
-      "lat": 22.729,
-      "lng": 75.841,
+      "lat": 22.7288,
+      "lng": 75.8412,
       "description": "Residential scheme with insufficient storm water management",
       "zone": "South",
       "severity_history": "medium",
@@ -258,9 +258,9 @@
     {
       "id": "indore-025",
       "name": "Dwarkapuri",
-      "lat": 22.706,
-      "lng": 75.861,
-      "description": "Colony near Saraswati nullah \u00e2\u20ac\u201d backwater flooding",
+      "lat": 22.7058,
+      "lng": 75.8612,
+      "description": "Colony near Saraswati nullah — backwater flooding",
       "zone": "South",
       "severity_history": "high",
       "source": "IMC"
@@ -268,9 +268,9 @@
     {
       "id": "indore-026",
       "name": "Bicholi",
-      "lat": 22.75,
-      "lng": 75.82,
-      "description": "Bypass area \u00e2\u20ac\u201d construction debris blocks drainage channels",
+      "lat": 22.7502,
+      "lng": 75.8198,
+      "description": "Bypass area — construction debris blocks drainage channels",
       "zone": "Bypass",
       "severity_history": "medium",
       "source": "IMC"
@@ -278,9 +278,9 @@
     {
       "id": "indore-027",
       "name": "Palda",
-      "lat": 22.69,
-      "lng": 75.84,
-      "description": "Southern periphery \u00e2\u20ac\u201d agricultural runoff compounds urban drainage",
+      "lat": 22.6898,
+      "lng": 75.8398,
+      "description": "Southern periphery — agricultural runoff compounds urban drainage",
       "zone": "Bypass",
       "severity_history": "medium",
       "source": "Free Press Journal"
@@ -288,8 +288,8 @@
     {
       "id": "indore-028",
       "name": "Nayta Mundla",
-      "lat": 22.76,
-      "lng": 75.81,
+      "lat": 22.7598,
+      "lng": 75.8102,
       "description": "Developing area with incomplete drainage infrastructure",
       "zone": "Bypass",
       "severity_history": "medium",
@@ -298,9 +298,9 @@
     {
       "id": "indore-029",
       "name": "Ralamandal",
-      "lat": 22.68,
-      "lng": 75.805,
-      "description": "Near forest area \u00e2\u20ac\u201d natural drainage altered by development",
+      "lat": 22.6802,
+      "lng": 75.8048,
+      "description": "Near forest area — natural drainage altered by development",
       "zone": "Bypass",
       "severity_history": "medium",
       "source": "IMC"
@@ -308,8 +308,8 @@
     {
       "id": "indore-030",
       "name": "Tejaji Nagar",
-      "lat": 22.7,
-      "lng": 75.85,
+      "lat": 22.6998,
+      "lng": 75.8498,
       "description": "Low-lying residential area with chronic drainage issues",
       "zone": "Bypass",
       "severity_history": "high",
@@ -318,8 +318,8 @@
     {
       "id": "indore-031",
       "name": "Phoenix Mall to Radisson stretch",
-      "lat": 22.74,
-      "lng": 75.888,
+      "lat": 22.7402,
+      "lng": 75.8878,
       "description": "Commercial corridor with extensive impervious surface and poor gradient",
       "zone": "Corridor",
       "severity_history": "high",
@@ -328,8 +328,8 @@
     {
       "id": "indore-032",
       "name": "IIT Indore to IT Park stretch",
-      "lat": 22.656,
-      "lng": 75.835,
+      "lat": 22.6558,
+      "lng": 75.8348,
       "description": "Highway section with inadequate roadside drainage",
       "zone": "Corridor",
       "severity_history": "medium",
@@ -338,9 +338,9 @@
     {
       "id": "indore-033",
       "name": "Old Palasia Square (AB Road)",
-      "lat": 22.723,
-      "lng": 75.865,
-      "description": "Major commercial street \u00e2\u20ac\u201d drainage overwhelmed by peak traffic + rain",
+      "lat": 22.7228,
+      "lng": 75.8652,
+      "description": "Major commercial street — drainage overwhelmed by peak traffic + rain",
       "zone": "Corridor",
       "severity_history": "high",
       "source": "Free Press Journal"
@@ -348,9 +348,9 @@
     {
       "id": "indore-034",
       "name": "BRTS Corridor / AB Road",
-      "lat": 22.73,
-      "lng": 75.858,
-      "description": "Bus rapid transit corridor \u00e2\u20ac\u201d median drainage issues",
+      "lat": 22.7298,
+      "lng": 75.8582,
+      "description": "Bus rapid transit corridor — median drainage issues",
       "zone": "Corridor",
       "severity_history": "high",
       "source": "IMC"
@@ -358,8 +358,8 @@
     {
       "id": "indore-035",
       "name": "MR-9 Square",
-      "lat": 22.732,
-      "lng": 75.872,
+      "lat": 22.7322,
+      "lng": 75.8718,
       "description": "BRTS junction with water accumulation during storms",
       "zone": "Other",
       "severity_history": "high",
@@ -368,9 +368,9 @@
     {
       "id": "indore-036",
       "name": "Gangwal Bus Stand",
-      "lat": 22.719,
-      "lng": 75.855,
-      "description": "Major bus terminal \u00e2\u20ac\u201d low point collects surrounding runoff",
+      "lat": 22.7188,
+      "lng": 75.8548,
+      "description": "Major bus terminal — low point collects surrounding runoff",
       "zone": "Other",
       "severity_history": "high",
       "source": "Free Press Journal"
@@ -378,9 +378,9 @@
     {
       "id": "indore-037",
       "name": "Badigwaltoli",
-      "lat": 22.714,
-      "lng": 75.852,
-      "description": "St Paul to Bengali stretch \u00e2\u20ac\u201d narrow lanes with overflowing drains",
+      "lat": 22.7138,
+      "lng": 75.8522,
+      "description": "St Paul to Bengali stretch — narrow lanes with overflowing drains",
       "zone": "Other",
       "severity_history": "high",
       "source": "IMC"
