@@ -8,6 +8,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useCityContext } from '../contexts/CityContext';
 import { useLocationTracking } from '../contexts/LocationTrackingContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { isAdminAuthenticated, getAdminToken } from '../lib/api/admin-hooks';
 import { CITIES, type CityKey } from '../lib/map/cityConfigs';
 import { API_BASE_URL } from '../lib/api/config';
 
@@ -319,6 +320,128 @@ export function WebMCPProvider() {
           '8. take_screenshot → capture visual state',
           'Expected: permission=granted, VAPID configured, SW active, token registered (200), no errors',
           'If any check fails, report which step failed and the error details',
+        ].join('\n') },
+      }],
+    }), []),
+  });
+
+  // ─── Admin Context (read-only, no destructive tools) ───────────────
+
+  useWebMCPContext(
+    'context_admin_state',
+    'Admin panel state: auth status, token presence, cached dashboard stats',
+    () => {
+      const authenticated = isAdminAuthenticated();
+      const stats = queryClient.getQueryData(['admin', 'dashboard', 'stats']) as Record<string, unknown> | undefined;
+      return {
+        is_admin_authenticated: authenticated,
+        has_admin_token: !!getAdminToken(),
+        dashboard_loaded: !!stats,
+        stats_summary: stats ? {
+          total_users: (stats.users as Record<string, unknown>)?.total ?? null,
+          total_reports: (stats.reports as Record<string, unknown>)?.total ?? null,
+          pending_verification: (stats.reports as Record<string, unknown>)?.pending_verification ?? null,
+          generated_at: stats.generated_at ?? null,
+        } : null,
+      };
+    }
+  );
+
+  // ─── Admin Resources (read-only cache introspection) ──────────────
+
+  useWebMCPResource({
+    uri: 'floodsafe://admin/stats',
+    name: 'Admin Dashboard Stats',
+    description: 'Admin dashboard statistics: user counts, report counts, community metrics. Only populated when admin dashboard is open.',
+    mimeType: 'application/json',
+    read: useCallback(async (uri: { toString(): string }) => {
+      const stats = queryClient.getQueryData(['admin', 'dashboard', 'stats']);
+      const health = queryClient.getQueryData(['admin', 'system', 'health']);
+      return {
+        contents: [{
+          uri: uri.toString(),
+          mimeType: 'application/json',
+          text: JSON.stringify({ stats: stats ?? null, system_health: health ?? null, admin_authenticated: isAdminAuthenticated() }, null, 2),
+        }],
+      };
+    }, [queryClient]),
+  });
+
+  useWebMCPResource({
+    uri: 'floodsafe://admin/reports',
+    name: 'Admin Report Queue',
+    description: 'Admin verification queue: pending, verified, and rejected reports from cache. Only populated when admin Reports tab is open.',
+    mimeType: 'application/json',
+    read: useCallback(async (uri: { toString(): string }) => {
+      // Scan cache for admin report entries across filter states
+      const pending = queryClient.getQueryData(['admin', 'reports', 'pending', null, 1]);
+      const verified = queryClient.getQueryData(['admin', 'reports', 'verified', null, 1]);
+      const rejected = queryClient.getQueryData(['admin', 'reports', 'rejected', null, 1]);
+      const all = queryClient.getQueryData(['admin', 'reports', undefined, null, 1]);
+      return {
+        contents: [{
+          uri: uri.toString(),
+          mimeType: 'application/json',
+          text: JSON.stringify({
+            pending: pending ?? null,
+            verified: verified ?? null,
+            rejected: rejected ?? null,
+            all: all ?? null,
+            admin_authenticated: isAdminAuthenticated(),
+          }, null, 2),
+        }],
+      };
+    }, [queryClient]),
+  });
+
+  useWebMCPResource({
+    uri: 'floodsafe://admin/audit-log',
+    name: 'Admin Audit Log',
+    description: 'Recent admin actions (verify, ban, role change, report creation). Only populated when admin System tab is open.',
+    mimeType: 'application/json',
+    read: useCallback(async (uri: { toString(): string }) => {
+      const log = queryClient.getQueryData(['admin', 'audit-log', 1]);
+      return {
+        contents: [{
+          uri: uri.toString(),
+          mimeType: 'application/json',
+          text: JSON.stringify({ audit_log: log ?? null, admin_authenticated: isAdminAuthenticated() }, null, 2),
+        }],
+      };
+    }, [queryClient]),
+  });
+
+  // ─── Admin Prompt ─────────────────────────────────────────────────
+
+  useWebMCPPrompt({
+    name: 'verify-admin-panel',
+    description: 'End-to-end verification of admin panel: auth, dashboard stats, report queue, audit log',
+    get: useCallback(async () => ({
+      messages: [{
+        role: 'user' as const,
+        content: { type: 'text' as const, text: [
+          'Verify FloodSafe Admin Panel:',
+          '',
+          '── Auth ──',
+          '1. Call context_admin_state → check is_admin_authenticated, has_admin_token',
+          '2. If not authenticated: navigate to /admin/login, take_screenshot, STOP',
+          '',
+          '── Dashboard Stats ──',
+          '3. Read floodsafe://admin/stats → verify stats object has users.total, reports.total, reports.pending_verification',
+          '4. Verify system_health is populated (db, services)',
+          '',
+          '── Report Queue ──',
+          '5. Read floodsafe://admin/reports → check pending/verified/rejected counts',
+          '6. get_query_cache(\'["admin","reports","pending",null,1]\') → verify pending reports load',
+          '',
+          '── Audit Log ──',
+          '7. Read floodsafe://admin/audit-log → verify entries have admin_username, action, target_type',
+          '',
+          '── Visual ──',
+          '8. take_screenshot → capture admin dashboard state',
+          '9. list_console_messages → check for JS errors',
+          '',
+          'Report: PASS/FAIL for each section. Note any null resources (means that tab hasn\'t been opened yet).',
         ].join('\n') },
       }],
     }), []),
