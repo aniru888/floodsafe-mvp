@@ -74,7 +74,7 @@ export function buildAppTourSteps(navigateTo: (tab: string) => void): TourStep[]
             element: '[data-tour-id="home-map-preview"]',
             title: 'tour.mapPreview.title',
             message: 'tour.mapPreview.message',
-            useSpotlight: true,
+            useSpotlight: false,
             position: 'top',
         },
         {
@@ -83,7 +83,7 @@ export function buildAppTourSteps(navigateTo: (tab: string) => void): TourStep[]
             element: '[data-tour-id="recent-reports"]',
             title: 'tour.recentReports.title',
             message: 'tour.recentReports.message',
-            useSpotlight: true,
+            useSpotlight: false,
             position: 'top',
         },
         {
@@ -92,7 +92,7 @@ export function buildAppTourSteps(navigateTo: (tab: string) => void): TourStep[]
             element: '[data-tour-id="ai-insights"]',
             title: 'tour.aiInsights.title',
             message: 'tour.aiInsights.message',
-            useSpotlight: true,
+            useSpotlight: false,
             position: 'top',
         },
         {
@@ -101,7 +101,7 @@ export function buildAppTourSteps(navigateTo: (tab: string) => void): TourStep[]
             element: '[data-tour-id="emergency-contacts"]',
             title: 'tour.emergencyContacts.title',
             message: 'tour.emergencyContacts.message',
-            useSpotlight: true,
+            useSpotlight: false,
             position: 'top',
         },
 
@@ -124,7 +124,7 @@ export function buildAppTourSteps(navigateTo: (tab: string) => void): TourStep[]
             element: '[data-tour-id="map-layers"]',
             title: 'tour.mapLayers.title',
             message: 'tour.mapLayers.message',
-            useSpotlight: true,
+            useSpotlight: false,
             position: 'bottom',
         },
         {
@@ -133,7 +133,7 @@ export function buildAppTourSteps(navigateTo: (tab: string) => void): TourStep[]
             element: '[data-tour-id="routing-panel"]',
             title: 'tour.routing.title',
             message: 'tour.routing.message',
-            useSpotlight: true,
+            useSpotlight: false,
             position: 'bottom',
         },
 
@@ -144,7 +144,7 @@ export function buildAppTourSteps(navigateTo: (tab: string) => void): TourStep[]
             element: '[data-tour-id="report-form"]',
             title: 'tour.report.title',
             message: 'tour.report.message',
-            useSpotlight: true,
+            useSpotlight: false,
             position: 'bottom',
             onBefore: async () => {
                 navigateTo('report');
@@ -159,7 +159,7 @@ export function buildAppTourSteps(navigateTo: (tab: string) => void): TourStep[]
             element: '[data-tour-id="unified-alerts"]',
             title: 'tour.alerts.title',
             message: 'tour.alerts.message',
-            useSpotlight: true,
+            useSpotlight: false,
             position: 'bottom',
             onBefore: async () => {
                 navigateTo('alerts');
@@ -174,7 +174,7 @@ export function buildAppTourSteps(navigateTo: (tab: string) => void): TourStep[]
             element: '[data-tour-id="gamification-badges"]',
             title: 'tour.profile.title',
             message: 'tour.profile.message',
-            useSpotlight: true,
+            useSpotlight: false,
             position: 'bottom',
             onBefore: async () => {
                 navigateTo('profile');
