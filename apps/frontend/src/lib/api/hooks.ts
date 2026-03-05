@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query';
 import { fetchJson, uploadFile } from './client';
 import { API_BASE_URL } from './config';
 import { User, GeocodingResult, DailyRoute, DailyRouteCreate, WatchArea, WatchAreaCreate, RouteCalculationRequest, RouteCalculationResponse, MetroStation, RouteOption, RouteComparisonRequest, RouteComparisonResponse, EnhancedRouteComparisonResponse, FastestRouteOption, SafestRouteOption, WatchAreaRiskAssessment, FloodHubStatus, FloodHubGauge, FloodHubForecast, FloodHubSignificantEvent, SafetyCircle, SafetyCircleDetail, SafetyCircleCreate, SafetyCircleUpdate, CircleMemberAdd, CircleMemberUpdate, CircleAlert, CircleAlertsResponse, CircleUnreadCount, JoinCircleRequest, BulkAddResult, RiskSummaryResponse } from '../../types';
@@ -487,8 +487,9 @@ export function useUnifiedSearch(options: UnifiedSearchOptions) {
             return response;
         },
         enabled: enabled && query.length >= 2,
-        staleTime: 60 * 1000, // Increased to 1 minute for better caching
+        staleTime: 60 * 1000, // 1 minute — avoid refetching same query
         gcTime: 5 * 60 * 1000, // 5 minutes
+        placeholderData: keepPreviousData, // Keep showing previous results while loading new ones
     });
 }
 

@@ -4,6 +4,7 @@ Maps common Indian location abbreviations, nicknames, and variants to full searc
 Works like Google Maps - "HSR" returns "HSR Layout, Bangalore".
 """
 
+from difflib import get_close_matches
 from typing import Dict, List, Optional
 import re
 
@@ -377,9 +378,13 @@ for alias, full in LOCATION_ALIASES.items():
 
 def expand_query_with_aliases(query: str) -> str:
     """
-    Expand search query with location aliases.
-    "HSR" -> "HSR Layout Bangalore"
-    "HSR sector 2" -> "HSR Layout sector 2"
+    Expand search query with location aliases, including fuzzy matching for typos.
+
+    Matching priority:
+    1. Exact alias match: "vijay nagar" → "Vijay Nagar, Indore"
+    2. Prefix match: "hsr sector 2" → "HSR Layout sector 2"
+    3. Prefix-of-alias match: "khajr" → "Khajrana, Indore" (partial typing)
+    4. Fuzzy match (typos): "vijay nager" → "Vijay Nagar, Indore" (edit distance)
 
     Args:
         query: Original search query
@@ -392,33 +397,43 @@ def expand_query_with_aliases(query: str) -> str:
 
     query_lower = query.lower().strip()
 
-    # Direct alias match (most common case)
+    # 1. Direct alias match (most common case)
     if query_lower in LOCATION_ALIASES:
         return LOCATION_ALIASES[query_lower]
 
-    # Partial match - e.g., "hsr sector 2" -> "HSR Layout Bangalore sector 2"
+    # 2. Partial match - e.g., "hsr sector 2" -> "HSR Layout Bangalore sector 2"
     for alias, full_name in sorted(LOCATION_ALIASES.items(), key=lambda x: -len(x[0])):
         if query_lower.startswith(alias + " "):
             remainder = query[len(alias):].strip()
-            # Don't include city name twice if remainder has additional context
             base_parts = full_name.split()
-            # Remove city name for cleaner expansion
             if len(base_parts) > 1:
                 base_without_city = " ".join(base_parts[:-1])
                 return f"{base_without_city} {remainder}"
             return f"{full_name} {remainder}"
 
-        # Also check with common connectors
         if query_lower.startswith(alias + ","):
             remainder = query[len(alias)+1:].strip()
             return f"{full_name}, {remainder}"
+
+    # 3. Prefix-of-alias match: "khajr" matches "khajrana" (user still typing)
+    if len(query_lower) >= 3:
+        for alias, full_name in LOCATION_ALIASES.items():
+            if alias.startswith(query_lower):
+                return full_name
+
+    # 4. Fuzzy match for typos: "vijay nager" → "vijay nagar"
+    if len(query_lower) >= 4:
+        alias_keys = list(LOCATION_ALIASES.keys())
+        matches = get_close_matches(query_lower, alias_keys, n=1, cutoff=0.7)
+        if matches:
+            return LOCATION_ALIASES[matches[0]]
 
     return query
 
 
 def get_alias_suggestions(query: str, max_suggestions: int = 5) -> List[Dict]:
     """
-    Get alias-based suggestions for partial queries.
+    Get alias-based suggestions for partial queries, including fuzzy matches.
 
     Args:
         query: Search query
@@ -449,8 +464,24 @@ def get_alias_suggestions(query: str, max_suggestions: int = 5) -> List[Dict]:
                 "match_type": "substring"
             })
 
-    # Sort by match quality (prefix matches first, then by alias length)
-    suggestions.sort(key=lambda x: (x["match_type"] != "prefix", len(x["alias"])))
+    # If few exact matches, add fuzzy matches for typo tolerance
+    if len(suggestions) < max_suggestions and len(query_lower) >= 3:
+        existing_aliases = {s["alias"] for s in suggestions}
+        fuzzy_matches = get_close_matches(
+            query_lower, list(LOCATION_ALIASES.keys()),
+            n=max_suggestions, cutoff=0.6
+        )
+        for match in fuzzy_matches:
+            if match not in existing_aliases:
+                suggestions.append({
+                    "alias": match,
+                    "full_name": LOCATION_ALIASES[match],
+                    "match_type": "fuzzy"
+                })
+
+    # Sort: prefix > substring > fuzzy, then by alias length
+    match_priority = {"prefix": 0, "substring": 1, "fuzzy": 2}
+    suggestions.sort(key=lambda x: (match_priority.get(x["match_type"], 3), len(x["alias"])))
 
     return suggestions[:max_suggestions]
 

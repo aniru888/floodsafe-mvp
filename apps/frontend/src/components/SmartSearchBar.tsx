@@ -1,7 +1,9 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { Search, X, Loader2, MapPin, FileText, User, TrendingUp, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
+import { useQueryClient } from '@tanstack/react-query';
 import { useUnifiedSearch, useTrendingSearches } from '../lib/api/hooks';
+import type { HotspotsResponse } from '../lib/api/hooks';
 import type {
     SearchLocationResult,
     SearchReportResult,
@@ -22,6 +24,20 @@ interface SmartSearchBarProps {
     userLat?: number;
     /** User's current longitude for proximity-sorted results */
     userLng?: number;
+}
+
+/**
+ * Simple fuzzy match: checks if most characters in query appear in target in order.
+ * Handles typos like "Vijay Nager" matching "vijay nagar".
+ */
+function _fuzzyMatch(query: string, target: string): boolean {
+    if (!target || target.length < query.length * 0.5) return false;
+    let qi = 0;
+    for (let ti = 0; ti < target.length && qi < query.length; ti++) {
+        if (query[qi] === target[ti]) qi++;
+    }
+    // Match if >70% of query characters found in order
+    return qi >= query.length * 0.7;
 }
 
 /** Initial number of results shown per section before "Show more" */
@@ -68,8 +84,8 @@ export default function SmartSearchBar({
     const inputRef = useRef<HTMLInputElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    // Debounce the search query (30ms for fast response)
-    const debouncedQuery = useDebounce(query, 30);
+    // Debounce the search query (300ms to avoid hammering the geocoding APIs)
+    const debouncedQuery = useDebounce(query, 300);
 
     // Use the unified search hook with city filtering and proximity
     const { data: searchResults, isLoading, isFetching } = useUnifiedSearch({
@@ -84,16 +100,66 @@ export default function SmartSearchBar({
     // Get trending searches for empty state
     const { data: trending } = useTrendingSearches(5);
 
+    // Instant local hotspot matching from TanStack Query cache (no API call)
+    const queryClient = useQueryClient();
+    const localHotspotMatches = useMemo(() => {
+        if (query.length < 2) return [];
+        const queryLower = query.toLowerCase();
+
+        // Read cached hotspot data (already loaded by map screen)
+        const cachedHotspots = queryClient.getQueryData<HotspotsResponse>(
+            ['hotspots', cityKey, false]
+        );
+        if (!cachedHotspots?.features) return [];
+
+        return cachedHotspots.features
+            .filter(f => {
+                const name = f.properties.name?.toLowerCase() || '';
+                const desc = f.properties.description?.toLowerCase() || '';
+                const zone = f.properties.zone?.toLowerCase() || '';
+                // Match if query is a prefix, substring, or fuzzy match
+                return name.includes(queryLower) ||
+                    desc.includes(queryLower) ||
+                    zone.includes(queryLower) ||
+                    // Simple typo tolerance: check if >60% of query chars appear in name
+                    (queryLower.length >= 4 && _fuzzyMatch(queryLower, name));
+            })
+            .slice(0, 5)
+            .map(f => ({
+                type: 'location' as const,
+                display_name: `${f.properties.name} — ${f.properties.zone || 'Hotspot'}`,
+                lat: f.geometry.coordinates[1],
+                lng: f.geometry.coordinates[0],
+                address: {},
+                importance: 1.0, // Highest importance — local hotspots are most relevant
+                formatted_name: f.properties.name,
+            }));
+    }, [query, cityKey, queryClient]);
+
     // Deduplicate locations by formatted_name + coordinates to avoid duplicate key warnings
-    const deduplicatedLocations = searchResults?.locations
-        ? searchResults.locations.filter((loc, index, self) =>
-            index === self.findIndex((l) =>
-                l.formatted_name === loc.formatted_name &&
-                Math.abs((l.lat || 0) - (loc.lat || 0)) < 0.001 &&
-                Math.abs((l.lng || 0) - (loc.lng || 0)) < 0.001
+    // Merge local hotspot matches (instant) at the top, then API results
+    const deduplicatedLocations = useMemo(() => {
+        const apiLocations = searchResults?.locations
+            ? searchResults.locations.filter((loc, index, self) =>
+                index === self.findIndex((l) =>
+                    l.formatted_name === loc.formatted_name &&
+                    Math.abs((l.lat || 0) - (loc.lat || 0)) < 0.001 &&
+                    Math.abs((l.lng || 0) - (loc.lng || 0)) < 0.001
+                )
             )
-        )
-        : [];
+            : [];
+
+        // Merge: local hotspot matches first, then API results (deduped)
+        const merged = [...localHotspotMatches];
+        for (const loc of apiLocations) {
+            const isDuplicate = merged.some(
+                m => Math.abs((m.lat || 0) - (loc.lat || 0)) < 0.001 &&
+                     Math.abs((m.lng || 0) - (loc.lng || 0)) < 0.001
+            );
+            if (!isDuplicate) merged.push(loc);
+        }
+        return merged;
+    }, [searchResults?.locations, localHotspotMatches]);
 
     // Flatten all results for keyboard navigation
     const allResults = [

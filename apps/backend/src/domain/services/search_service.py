@@ -27,7 +27,7 @@ from .location_aliases import expand_query_with_aliases, get_alias_suggestions
 
 # Simple in-memory cache for geocoding results
 _geocode_cache: Dict[str, tuple[List[Dict], datetime]] = {}
-CACHE_TTL_MINUTES = 30
+CACHE_TTL_MINUTES = 60  # Cache geocoding results for 1 hour
 
 
 class SearchService:
@@ -197,7 +197,7 @@ class SearchService:
                 params["lat"] = lat
                 params["lon"] = lng
 
-            async with httpx.AsyncClient(timeout=8.0) as client:
+            async with httpx.AsyncClient(timeout=5.0) as client:
                 response = await client.get(
                     "https://photon.komoot.io/api",
                     params=params,
@@ -294,6 +294,58 @@ class SearchService:
             logger.info(f"Photon search error: {e}", exc_info=True)
             return []
 
+    async def _search_nominatim(
+        self,
+        query: str,
+        city_bounds: Optional[Dict[str, float]] = None,
+        limit: int = 20
+    ) -> List[Dict]:
+        """Search locations using Nominatim geocoder API."""
+        try:
+            params = {
+                "q": query,
+                "format": "json",
+                "limit": limit,
+                "countrycodes": city_bounds.get("country_code", "in") if city_bounds else "in",
+                "addressdetails": 1,
+                "dedupe": 0
+            }
+
+            if city_bounds:
+                params["viewbox"] = (
+                    f"{city_bounds['min_lng']},{city_bounds['max_lat']},"
+                    f"{city_bounds['max_lng']},{city_bounds['min_lat']}"
+                )
+                params["bounded"] = 1
+
+            async with httpx.AsyncClient(timeout=5.0) as client:
+                response = await client.get(
+                    "https://nominatim.openstreetmap.org/search",
+                    params=params,
+                    headers={"User-Agent": "FloodSafe-MVP/1.0 (https://floodsafe.app)"}
+                )
+
+                if response.status_code != 200:
+                    return []
+
+                results = response.json()
+
+                return [
+                    {
+                        "type": "location",
+                        "display_name": r.get("display_name", ""),
+                        "lat": float(r.get("lat", 0)),
+                        "lng": float(r.get("lon", 0)),
+                        "address": r.get("address", {}),
+                        "importance": float(r.get("importance", 0)),
+                        "formatted_name": self._format_location_name(r)
+                    }
+                    for r in results
+                ]
+        except Exception as e:
+            logger.error(f"Nominatim search error: {e}")
+            return []
+
     async def _search_locations(
         self,
         query: str,
@@ -325,85 +377,26 @@ class SearchService:
                     return filtered
                 return cached_results[:limit]
 
-        # Default to Delhi center when no user location provided (Photon needs geo-bias
+        # Default to city center when no user location provided (Photon needs geo-bias
         # from non-Indian servers like Koyeb Frankfurt to return Indian results)
         photon_lat = latitude if latitude is not None else (city_bounds.get('min_lat', 28.6) + city_bounds.get('max_lat', 28.7)) / 2 if city_bounds else 28.6315
         photon_lng = longitude if longitude is not None else (city_bounds.get('min_lng', 77.1) + city_bounds.get('max_lng', 77.3)) / 2 if city_bounds else 77.2167
 
-        # Try Photon first (use clean_query, NOT expanded)
+        # Photon first (no rate limits, fast), Nominatim only as fallback
+        # Nominatim has strict 1 req/sec policy — don't waste it when Photon succeeds
         logger.info(f"Search: Photon query='{clean_query}' lat={photon_lat} lng={photon_lng}")
         photon_results = await self._search_photon(
-            clean_query,
-            lat=photon_lat,
-            lng=photon_lng,
-            limit=20
+            clean_query, lat=photon_lat, lng=photon_lng, limit=20
         )
         logger.info(f"Search: Photon returned {len(photon_results)} results")
 
-        # Use Nominatim as supplement if Photon returns < 3 results
+        # Only fall back to Nominatim if Photon returned too few results
         nominatim_results = []
         if len(photon_results) < 3:
-            try:
-                # Build params with optional viewbox for city filtering
-                params = {
-                    "q": expanded_query,  # Use expanded query for better results
-                    "format": "json",
-                    "limit": 30,  # Increased from 10 to 30
-                    "countrycodes": city_bounds.get("country_code", "in") if city_bounds else "in",
-                    "addressdetails": 1,
-                    "dedupe": 0  # Disable deduplication for more results
-                }
-
-                # Add viewbox parameter when city_bounds provided (pre-filter at API level)
-                # viewbox format: left,top,right,bottom (minLng,maxLat,maxLng,minLat)
-                if city_bounds:
-                    params["viewbox"] = (
-                        f"{city_bounds['min_lng']},{city_bounds['max_lat']},"
-                        f"{city_bounds['max_lng']},{city_bounds['min_lat']}"
-                    )
-                    params["bounded"] = 1  # Strictly limit results to viewbox
-
-                async with httpx.AsyncClient(timeout=10.0) as client:
-                    response = await client.get(
-                        "https://nominatim.openstreetmap.org/search",
-                        params=params,
-                        headers={
-                            "User-Agent": "FloodSafe-MVP/1.0 (https://floodsafe.app)"
-                        }
-                    )
-
-                    if response.status_code == 200:
-                        results = response.json()
-
-                        # If bounded search returns < 5 results, retry without bounds
-                        if city_bounds and len(results) < 5:
-                            params_unbounded = {k: v for k, v in params.items() if k not in ["bounded", "viewbox"]}
-                            response_unbounded = await client.get(
-                                "https://nominatim.openstreetmap.org/search",
-                                params=params_unbounded,
-                                headers={
-                                    "User-Agent": "FloodSafe-MVP/1.0 (https://floodsafe.app)"
-                                }
-                            )
-                            if response_unbounded.status_code == 200:
-                                results = response_unbounded.json()
-
-                        # Transform to our format
-                        nominatim_results = [
-                            {
-                                "type": "location",
-                                "display_name": r.get("display_name", ""),
-                                "lat": float(r.get("lat", 0)),
-                                "lng": float(r.get("lon", 0)),
-                                "address": r.get("address", {}),
-                                "importance": float(r.get("importance", 0)),
-                                "formatted_name": self._format_location_name(r)
-                            }
-                            for r in results
-                        ]
-
-            except Exception as e:
-                print(f"Nominatim search error: {e}")
+            nominatim_results = await self._search_nominatim(
+                expanded_query, city_bounds, limit=20
+            )
+            logger.info(f"Search: Nominatim fallback returned {len(nominatim_results)} results")
 
         # Merge Photon + Nominatim results, deduplicate by coordinates
         merged_results = photon_results.copy()
