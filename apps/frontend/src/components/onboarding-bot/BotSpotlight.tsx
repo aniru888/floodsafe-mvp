@@ -7,7 +7,7 @@ const DRIVER_CONFIG: Config = {
     animate: true,
     overlayOpacity: 0.4,
     showButtons: [],
-    disableActiveInteraction: true,
+    disableActiveInteraction: false,
     allowClose: true,
     overlayColor: '#000',
     popoverClass: 'hidden',
@@ -25,7 +25,7 @@ const DRIVER_CONFIG: Config = {
  * - Element wait: retries querySelector every 100ms up to 2s, then skips
  * - Resize handling: driver.refresh() on orientation change (debounced)
  * - Overlay opacity: 0.4 (lighter to keep context visible)
- * - Spotlit elements are view-only (disableActiveInteraction: true)
+ * - Spotlit elements are interactive (disableActiveInteraction: false)
  */
 export function BotSpotlight() {
     const { state, currentStep } = useOnboardingBot();
