@@ -819,16 +819,26 @@ def list_invites(db: Session) -> List[Dict[str, Any]]:
     """List all admin invites with creator/redeemer info."""
     invites = db.query(AdminInvite).order_by(AdminInvite.created_at.desc()).all()
 
+    # Batch-load usernames to avoid N+1 queries
+    user_ids = set()
+    for inv in invites:
+        if inv.created_by:
+            user_ids.add(inv.created_by)
+        if inv.used_by:
+            user_ids.add(inv.used_by)
+    user_map: Dict[UUID, str] = {}
+    if user_ids:
+        users = db.query(User).filter(User.id.in_(user_ids)).all()
+        user_map = {u.id: u.username for u in users}
+
     result = []
     for inv in invites:
-        creator = db.query(User).filter(User.id == inv.created_by).first() if inv.created_by else None
-        redeemer = db.query(User).filter(User.id == inv.used_by).first() if inv.used_by else None
         result.append({
             "id": str(inv.id),
             "code": inv.code,
             "email_hint": inv.email_hint,
-            "created_by_username": creator.username if creator else "unknown",
-            "used_by_username": redeemer.username if redeemer else None,
+            "created_by_username": user_map.get(inv.created_by, "unknown") if inv.created_by else "unknown",
+            "used_by_username": user_map.get(inv.used_by) if inv.used_by else None,
             "expires_at": inv.expires_at.isoformat() if inv.expires_at else None,
             "created_at": inv.created_at.isoformat() if inv.created_at else None,
             "is_expired": inv.expires_at < datetime.utcnow() if inv.expires_at else True,
