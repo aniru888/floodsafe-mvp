@@ -1,5 +1,5 @@
-from sqlalchemy import Column, String, Float, DateTime, Boolean, ForeignKey, Integer, Text, Index, text
-from sqlalchemy.dialects.postgresql import UUID, JSON
+from sqlalchemy import Column, String, Float, DateTime, Boolean, ForeignKey, Integer, Text, Index, text, BigInteger, ARRAY
+from sqlalchemy.dialects.postgresql import UUID, JSON, JSONB
 from sqlalchemy.orm import relationship, object_session
 from sqlalchemy.ext.hybrid import hybrid_property
 from geoalchemy2 import Geometry
@@ -172,6 +172,12 @@ class Report(Base):
     # Admin report fields
     admin_created = Column(Boolean, default=False)  # True for admin-created reports
     source = Column(String(50), nullable=True)       # "field_observation"|"government_data"|"phone_report"
+
+    # ML pipeline enrichment fields
+    weather_snapshot = Column(JSONB, nullable=True)
+    road_segment_id = Column(UUID(as_uuid=True), nullable=True)
+    road_name = Column(String, nullable=True)
+    road_type = Column(String, nullable=True)
 
     @hybrid_property
     def latitude(self):
@@ -625,4 +631,41 @@ class AdminAuditLog(Base):
         Index('ix_admin_audit_log_action', 'action'),
         Index('ix_admin_audit_log_created_at', 'created_at'),
     )
+
+
+class CityRoad(Base):
+    """OSM road network segments for report road-snapping and hotspot discovery."""
+    __tablename__ = "city_roads"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    city = Column(String, nullable=False, index=True)
+    osm_id = Column(BigInteger, nullable=True)
+    name = Column(String, nullable=True)
+    road_type = Column(String, nullable=False)
+    is_underpass = Column(Boolean, default=False)
+    is_bridge = Column(Boolean, default=False)
+    geometry = Column(Geometry('GEOMETRY', srid=4326), nullable=False)
+    elevation_avg = Column(Float, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class CandidateHotspot(Base):
+    """Community-discovered flood-prone locations from clustered verified reports."""
+    __tablename__ = "candidate_hotspots"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    city = Column(String, nullable=False, index=True)
+    road_segment_id = Column(UUID(as_uuid=True), ForeignKey("city_roads.id"), nullable=True)
+    centroid = Column(Geometry('POINT', srid=4326), nullable=False)
+    road_name = Column(String, nullable=True)
+    report_count = Column(Integer, nullable=False)
+    report_ids = Column(ARRAY(UUID(as_uuid=True)), nullable=True)
+    avg_water_depth = Column(String, nullable=True)
+    avg_weather = Column(JSONB, nullable=True)
+    date_first_report = Column(DateTime, nullable=True)
+    date_last_report = Column(DateTime, nullable=True)
+    status = Column(String, default="candidate", index=True)
+    reviewed_by = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
+    reviewed_at = Column(DateTime, nullable=True)
+    promoted_to_hotspot_name = Column(String, nullable=True)
+    notes = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
 

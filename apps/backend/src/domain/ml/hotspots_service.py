@@ -62,6 +62,7 @@ class HotspotsService:
         # Data storage
         self.hotspots_data: List[Dict] = []
         self.predictions_cache: Dict[str, Dict] = {}  # Pre-computed ML predictions
+        self.top_city_predictors: List[Dict] = []  # City-level XGBoost feature importance
         self.hotspot_model: Optional[XGBoostHotspotModel] = None
 
         # Response cache
@@ -108,23 +109,26 @@ class HotspotsService:
             self.hotspots_data = []
             success = False
 
-        # Load pre-computed predictions cache (Delhi-only — XGBoost trained on Delhi data)
-        if self.city == "delhi":
-            cache_file = self.data_dir / "hotspot_predictions_cache.json"
-            if cache_file.exists():
-                try:
-                    with open(cache_file, "r", encoding="utf-8") as f:
-                        cache_data = json.load(f)
-                        self.predictions_cache = cache_data.get("predictions", {})
-                    logger.info(f"Loaded pre-computed predictions for {len(self.predictions_cache)} hotspots")
-                except Exception as e:
-                    logger.warning(f"Failed to load predictions cache: {e}")
-                    self.predictions_cache = {}
-            else:
-                logger.info("No predictions cache found - will use severity-based fallback")
+        # Load pre-computed predictions cache (per-city XGBoost models)
+        # Try city-specific cache first, fall back to default (Delhi) cache
+        cache_file = self.data_dir / f"{self.city}_predictions_cache.json"
+        if not cache_file.exists():
+            # Fall back to original Delhi cache for backward compatibility
+            if self.city == "delhi":
+                cache_file = self.data_dir / "hotspot_predictions_cache.json"
+
+        if cache_file.exists():
+            try:
+                with open(cache_file, "r", encoding="utf-8") as f:
+                    cache_data = json.load(f)
+                    self.predictions_cache = cache_data.get("predictions", {})
+                    self.top_city_predictors = cache_data.get("top_city_predictors", [])
+                logger.info(f"Loaded pre-computed predictions for {len(self.predictions_cache)} hotspots from {cache_file.name}")
+            except Exception as e:
+                logger.warning(f"Failed to load predictions cache: {e}")
                 self.predictions_cache = {}
         else:
-            logger.info(f"Skipping predictions cache for {self.city} (Delhi-only)")
+            logger.info(f"No predictions cache found for {self.city} - will use severity-based fallback")
             self.predictions_cache = {}
 
         # Load trained XGBoost model (Delhi-only — model trained on Delhi data)
@@ -314,6 +318,13 @@ class HotspotsService:
                 "osm_id": hotspot.get("osm_id"),
             }
 
+            # Add per-hotspot XGBoost feature importance (if available in predictions cache)
+            if hotspot_id_str in self.predictions_cache:
+                cached = self.predictions_cache[hotspot_id_str]
+                top_features = cached.get("top_features")
+                if top_features:
+                    properties["top_features"] = top_features
+
             # Add FHI data if calculated
             properties.update(fhi_data)
 
@@ -355,6 +366,7 @@ class HotspotsService:
                     "high": "0.50-0.75",
                     "extreme": "0.75-1.0",
                 },
+                "top_city_predictors": self.top_city_predictors,
             },
         }
 

@@ -980,6 +980,12 @@ export interface HotspotFeature {
         source?: 'mcd_reports' | 'osm_underpass' | 'user_report' | 'local_reports';  // Data source
         verified?: boolean;         // True for MCD-validated, False for ML-predicted
         osm_id?: number;            // OSM way/node ID for underpasses
+        // Per-hotspot XGBoost feature importance (from predictions cache)
+        top_features?: Array<{
+            feature: string;
+            contribution: number;
+            label: string;
+        }>;
     };
 }
 
@@ -1003,6 +1009,12 @@ export interface HotspotsResponse {
             high: string;
             extreme: string;
         };
+        // City-level XGBoost feature importance
+        top_city_predictors?: Array<{
+            feature: string;
+            importance: number;
+            label: string;
+        }>;
     };
 }
 

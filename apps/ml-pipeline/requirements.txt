@@ -1,0 +1,10 @@
+osmium
+psycopg2-binary
+shapely
+sqlalchemy
+python-dotenv
+earthengine-api
+xgboost
+scikit-learn
+numpy
+httpx

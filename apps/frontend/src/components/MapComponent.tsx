@@ -1018,6 +1018,28 @@ export default function MapComponent({
                                 <p class="text-muted-foreground/60 text-[9px] italic">Terrain & land cover baseline</p>
                             </div>
 
+                            <!-- Why this location floods (XGBoost feature importance) -->
+                            ${(() => {
+                                try {
+                                    const topFeatures = typeof props.top_features === 'string'
+                                        ? JSON.parse(props.top_features)
+                                        : props.top_features;
+                                    if (topFeatures && Array.isArray(topFeatures) && topFeatures.length > 0) {
+                                        return `
+                                        <div class="text-xs text-muted-foreground mt-2 pt-2 border-t border-border">
+                                            <div class="text-muted-foreground/60 mb-1 font-medium">Why this location floods</div>
+                                            ${topFeatures.slice(0, 3).map((f: {label: string; contribution: number}) =>
+                                                `<div class="flex justify-between items-center py-0.5">
+                                                    <span>${f.label}</span>
+                                                    <span class="text-muted-foreground/50 ml-2">${Math.round(f.contribution * 100)}%</span>
+                                                </div>`
+                                            ).join('')}
+                                        </div>`;
+                                    }
+                                    return '';
+                                } catch { return ''; }
+                            })()}
+
                             <!-- Zone Info -->
                             ${props.zone ? `
                             <div class="text-xs text-muted-foreground mt-2 pt-2 border-t">

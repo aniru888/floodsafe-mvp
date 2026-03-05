@@ -320,6 +320,12 @@ class ReportResponse(BaseModel):
     admin_created: bool = False
     source: Optional[str] = None  # "field_observation"|"government_data"|"phone_report"
 
+    # ML pipeline enrichment fields
+    weather_snapshot: Optional[dict] = None
+    road_segment_id: Optional[str] = None
+    road_name: Optional[str] = None
+    road_type: Optional[str] = None
+
     model_config = ConfigDict(from_attributes=True)
 
 

@@ -23,13 +23,33 @@ from math import radians, sin, cos, sqrt, atan2
 from ..domain.services.otp_service import get_otp_service
 from ..domain.services.validation_service import ReportValidationService
 from ..domain.services.push_notification_service import send_push_to_user
+from ..domain.services.weather_snapshot_service import WeatherSnapshotService
+from ..domain.services.road_snapping_service import RoadSnappingService
 from geoalchemy2.functions import ST_DWithin, ST_MakePoint
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-# Reports auto-archive after 3 days
-REPORT_ARCHIVE_DAYS = 3
+# Reports auto-archive after 5 days
+REPORT_ARCHIVE_DAYS = 5
+
+# City bounding boxes for coordinate-based detection (matches FHICalculator.CITY_BOUNDS)
+_CITY_BOUNDS = {
+    "delhi": {"min_lat": 28.40, "max_lat": 28.88, "min_lng": 76.84, "max_lng": 77.35},
+    "bangalore": {"min_lat": 12.75, "max_lat": 13.20, "min_lng": 77.35, "max_lng": 77.80},
+    "yogyakarta": {"min_lat": -7.95, "max_lat": -7.65, "min_lng": 110.30, "max_lng": 110.50},
+    "singapore": {"min_lat": 1.15, "max_lat": 1.47, "min_lng": 103.60, "max_lng": 104.05},
+    "indore": {"min_lat": 22.52, "max_lat": 22.85, "min_lng": 75.72, "max_lng": 75.97},
+}
+
+
+def _detect_city(lat: float, lng: float) -> Optional[str]:
+    """Detect city from coordinates using bounding boxes. Returns None if no match."""
+    for city, bounds in _CITY_BOUNDS.items():
+        if (bounds["min_lat"] <= lat <= bounds["max_lat"] and
+                bounds["min_lng"] <= lng <= bounds["max_lng"]):
+            return city
+    return None
 
 
 def get_active_reports_filter():
@@ -37,12 +57,12 @@ def get_active_reports_filter():
     Filter for active (non-archived) reports.
     A report is archived if:
     - It was explicitly archived (archived_at is not NULL), OR
-    - It's older than 3 days (auto-archive)
+    - It's older than 5 days (auto-archive)
     """
     archive_cutoff = datetime.utcnow() - timedelta(days=REPORT_ARCHIVE_DAYS)
     return and_(
         or_(models.Report.archived_at == None, models.Report.archived_at == None),  # Not explicitly archived
-        models.Report.timestamp > archive_cutoff  # Not auto-archived (less than 3 days old)
+        models.Report.timestamp > archive_cutoff  # Not auto-archived (less than 5 days old)
     )
 
 # Location verification tolerance in meters (matches frontend)
@@ -136,6 +156,11 @@ def convert_report_to_response(report: models.Report, comment_count: int = 0) ->
         ml_confidence=ml_confidence,
         ml_is_flood=ml_is_flood,
         ml_needs_review=ml_needs_review,
+        # ML pipeline enrichment
+        weather_snapshot=report.weather_snapshot,
+        road_segment_id=str(report.road_segment_id) if report.road_segment_id else None,
+        road_name=report.road_name,
+        road_type=report.road_type,
     )
 
 
@@ -143,7 +168,7 @@ def convert_report_to_response(report: models.Report, comment_count: int = 0) ->
 def list_reports(db: Session = Depends(get_db)):
     """
     List all active (non-archived) flood reports.
-    Reports are auto-archived after 3 days.
+    Reports are auto-archived after 5 days.
     Includes comment counts for each report.
     """
     try:
@@ -465,6 +490,34 @@ async def create_report(
         db.add(new_report)
         db.flush()  # Flush to get ID, but don't commit yet
 
+        # --- ML Pipeline Enrichment (non-blocking) ---
+        report_city = _detect_city(latitude, longitude)
+
+        # Weather snapshot
+        try:
+            weather_service = WeatherSnapshotService()
+            weather_data = await weather_service.get_snapshot(latitude, longitude)
+            if weather_data:
+                new_report.weather_snapshot = weather_data
+        except Exception as e:
+            logger.error(f"Weather enrichment failed for report {new_report.id}: {e}")
+
+        # Road snapping (only if city detected and roads imported)
+        if report_city:
+            try:
+                road_data = RoadSnappingService.snap_to_road(db, latitude, longitude, city=report_city)
+                if road_data:
+                    new_report.road_segment_id = road_data["road_segment_id"]
+                    new_report.road_name = road_data["road_name"]
+                    new_report.road_type = road_data["road_type"]
+            except Exception as e:
+                logger.error(f"Road snapping failed for report {new_report.id}: {e}")
+        else:
+            logger.debug(f"Could not detect city for ({latitude}, {longitude}), skipping road snap")
+
+        db.flush()  # Flush enrichment data
+        # --- End ML Pipeline Enrichment ---
+
         # 5. Validate against IoT sensors
         validation_service = ReportValidationService(db)
 
@@ -622,7 +675,12 @@ async def create_report(
             water_depth=new_report.water_depth,
             vehicle_passability=new_report.vehicle_passability,
             iot_validation_score=new_report.iot_validation_score,
-            location_verified=new_report.location_verified
+            location_verified=new_report.location_verified,
+            # ML pipeline enrichment
+            weather_snapshot=new_report.weather_snapshot,
+            road_segment_id=str(new_report.road_segment_id) if new_report.road_segment_id else None,
+            road_name=new_report.road_name,
+            road_type=new_report.road_type,
         )
     except HTTPException:
         db.rollback()
@@ -652,7 +710,7 @@ def get_hyperlocal_status(
 
     try:
         # 1. Find active reports in radius using PostGIS
-        # Note: 24-hour filter is more restrictive than 3-day archive, so archived_at check is redundant
+        # Note: 24-hour filter is more restrictive than 5-day archive, so archived_at check is redundant
         # but we include it for safety in case REPORT_ARCHIVE_DAYS changes
         query = text("""
             SELECT
@@ -980,7 +1038,7 @@ def get_user_archived_reports(
     Get archived reports for a specific user.
     A report is archived if:
     - It was explicitly archived (archived_at is set), OR
-    - It's older than 3 days (auto-archived)
+    - It's older than 5 days (auto-archived)
 
     Only the report owner can view their archived reports.
     """
@@ -992,12 +1050,12 @@ def get_user_archived_reports(
 
         archive_cutoff = datetime.utcnow() - timedelta(days=REPORT_ARCHIVE_DAYS)
 
-        # Get archived reports: explicitly archived OR older than 3 days
+        # Get archived reports: explicitly archived OR older than 5 days
         reports = db.query(models.Report).filter(
             models.Report.user_id == user_id,
             or_(
                 models.Report.archived_at != None,  # Explicitly archived
-                models.Report.timestamp <= archive_cutoff  # Auto-archived (3+ days old)
+                models.Report.timestamp <= archive_cutoff  # Auto-archived (5+ days old)
             )
         ).order_by(
             models.Report.timestamp.desc()
