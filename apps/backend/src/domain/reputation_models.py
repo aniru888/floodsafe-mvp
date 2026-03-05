@@ -147,5 +147,6 @@ class ReportVerificationRequest(BaseModel):
     """Request DTO for verifying a report"""
     verified: bool
     quality_score: Optional[float] = Field(None, ge=0, le=100)
+    notes: Optional[str] = Field(None, max_length=500)  # Admin verification notes
 
     model_config = ConfigDict(from_attributes=True)

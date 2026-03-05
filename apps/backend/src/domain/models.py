@@ -316,6 +316,10 @@ class ReportResponse(BaseModel):
     ml_is_flood: Optional[bool] = None
     ml_needs_review: Optional[bool] = None
 
+    # Admin report fields
+    admin_created: bool = False
+    source: Optional[str] = None  # "field_observation"|"government_data"|"phone_report"
+
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -349,6 +353,7 @@ class CommentResponse(BaseModel):
     username: str
     content: str
     created_at: datetime
+    comment_type: str = "community"  # "community"|"admin_verification"|"admin_rejection"
 
     model_config = ConfigDict(from_attributes=True)
 

@@ -14,7 +14,7 @@ from ..infrastructure.database import get_db
 from ..infrastructure import models
 from ..domain.models import ReportResponse, Report as ReportDomain, UserResponse, VoteResponse
 from ..domain.reputation_models import ReportVerificationRequest
-from .deps import get_current_user, get_current_user_optional
+from .deps import get_current_user, get_current_user_optional, get_current_verified_user
 from ..domain.services.reputation_service import ReputationService
 from ..core.utils import get_exif_data, get_lat_lon
 from ..core.config import settings
@@ -754,31 +754,22 @@ def get_hyperlocal_status(
 
 
 @router.post("/{report_id}/verify")
-def verify_report(
+async def verify_report(
     report_id: UUID,
     verification: ReportVerificationRequest,
+    current_user: models.User = Depends(get_current_verified_user),
     db: Session = Depends(get_db)
 ):
-    """
-    Verify or reject a report with quality scoring.
-
-    Uses the reputation system to:
-    - Calculate quality score
-    - Award points based on quality
-    - Update user reputation
-    - Check for badges
-    - Log history
-    """
+    """Verify or reject a report with quality scoring, admin notes, and push notification."""
     try:
         report = db.query(models.Report).filter(models.Report.id == report_id).first()
         if not report:
             raise HTTPException(status_code=404, detail="Report not found")
 
-        if report.verified:
-            # Already verified
+        if report.verified and verification.verified:
             return {
                 'message': 'Report already verified',
-                'report_id': report_id,
+                'report_id': str(report_id),
                 'verified': True,
                 'quality_score': report.quality_score
             }
@@ -791,17 +782,44 @@ def verify_report(
             quality_score=verification.quality_score
         )
 
+        # Create/update admin verification comment
+        if verification.notes:
+            from src.domain.services.admin_service import upsert_admin_comment
+            comment_type = "admin_verification" if verification.verified else "admin_rejection"
+            upsert_admin_comment(db, report_id, current_user.id, verification.notes, comment_type)
+            db.commit()
+
+        # Push notification to report author
+        if report.user_id and report.user_id != current_user.id:
+            author = db.query(models.User).filter(models.User.id == report.user_id).first()
+            if author:
+                try:
+                    if verification.verified:
+                        await send_push_to_user(
+                            db, author,
+                            "Report Verified!",
+                            f"Your flood report was verified by the FloodSafe team. +{result.get('points_earned', 0)} points!",
+                            data={"report_id": str(report_id), "type": "verification"}
+                        )
+                    elif verification.notes:  # Rejection push only if admin wrote a reason
+                        await send_push_to_user(
+                            db, author,
+                            "Report Update",
+                            "Your flood report was reviewed. Tap for details.",
+                            data={"report_id": str(report_id), "type": "review"}
+                        )
+                except Exception as push_err:
+                    logger.warning(f"Failed to send push notification: {push_err}")
+
         return {
             'message': 'Report verified' if verification.verified else 'Report rejected',
-            'report_id': report_id,
+            'report_id': str(report_id),
             'verified': verification.verified,
             **result
         }
 
     except HTTPException:
         raise
-    except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
     except Exception as e:
         logger.error(f"Error verifying report: {e}")
         db.rollback()

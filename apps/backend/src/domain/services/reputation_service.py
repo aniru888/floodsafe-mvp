@@ -138,6 +138,14 @@ class ReputationService:
             if not report:
                 raise ValueError(f"Report {report_id} not found")
 
+            # Skip reputation pipeline for admin-created reports
+            if report.admin_created:
+                return {
+                    "points_earned": 0,
+                    "quality_score": report.quality_score or 0,
+                    "skipped": "admin_created",
+                }
+
             user = self.db.query(models.User).filter(
                 models.User.id == report.user_id
             ).first()

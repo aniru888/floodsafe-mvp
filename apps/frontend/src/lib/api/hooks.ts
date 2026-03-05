@@ -45,6 +45,9 @@ export interface Report {
     ml_confidence?: number;  // 0.0 to 1.0
     ml_is_flood?: boolean;
     ml_needs_review?: boolean;
+    // Admin report fields
+    admin_created?: boolean;
+    source?: string;
 }
 
 export interface ReportCreate {
@@ -1323,6 +1326,7 @@ export interface Comment {
     username: string;
     content: string;
     created_at: string;
+    comment_type?: string;  // "community"|"admin_verification"|"admin_rejection"
 }
 
 /**

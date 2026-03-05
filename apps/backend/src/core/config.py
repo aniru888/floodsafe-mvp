@@ -144,6 +144,10 @@ class Settings(BaseSettings):
     NEA_API_KEY: str = ""                          # Singapore NEA weather API key (optional, for higher rate limits)
     OPENWEATHERMAP_API_KEY: str = ""               # OpenWeatherMap One Call 3.0 (Yogyakarta, free 1000/day)
 
+    # Admin Panel Credentials (set via environment variables in production)
+    ADMIN_EMAIL: str = ""
+    ADMIN_PASSWORD_HASH: str = ""  # bcrypt hash of admin password
+
     class Config:
         case_sensitive = True
         env_file = ".env"

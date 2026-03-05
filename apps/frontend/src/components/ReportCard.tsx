@@ -7,6 +7,7 @@ import {
     Clock,
     CheckCircle,
     AlertTriangle,
+    Shield,
     Send,
     Trash2,
     ChevronDown,
@@ -139,11 +140,15 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
                     {/* Status Icon */}
                     <div className={cn(
                         'p-2 rounded-full flex-shrink-0',
-                        report.verified
-                            ? 'bg-green-100 text-green-600'
-                            : 'bg-yellow-100 text-yellow-600'
+                        report.admin_created
+                            ? 'bg-blue-100 text-blue-600'
+                            : report.verified
+                                ? 'bg-green-100 text-green-600'
+                                : 'bg-yellow-100 text-yellow-600'
                     )}>
-                        {report.verified ? (
+                        {report.admin_created ? (
+                            <Shield className="w-5 h-5" />
+                        ) : report.verified ? (
                             <CheckCircle className="w-5 h-5" />
                         ) : (
                             <AlertTriangle className="w-5 h-5" />
@@ -155,11 +160,22 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
                         <div className="flex items-center gap-2 text-xs text-muted-foreground">
                             <Clock className="w-3 h-3" />
                             <span>{formatExactTime(report.timestamp)} ({formatTimeAgo(report.timestamp)})</span>
-                            {report.verified && (
+                            {report.admin_created ? (
+                                <span className="inline-flex items-center gap-1 text-xs font-medium text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full">
+                                    <Shield className="w-3.5 h-3.5" />
+                                    Official Report
+                                    {report.source && (
+                                        <span className="text-blue-500 ml-1">
+                                            ({report.source === 'field_observation' ? 'Field' :
+                                              report.source === 'government_data' ? 'Govt' : 'Phone'})
+                                        </span>
+                                    )}
+                                </span>
+                            ) : report.verified ? (
                                 <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-xs font-medium">
                                     Verified
                                 </span>
-                            )}
+                            ) : null}
                         </div>
 
                         {/* Tags and Description */}
@@ -315,12 +331,35 @@ export function ReportCard({ report, onLocate, onViewDetails, showFullDetails = 
                         </div>
                     )}
 
+                    {/* Admin Verification Notes */}
+                    {comments && comments.filter(c => c.comment_type === 'admin_verification' || c.comment_type === 'admin_rejection').length > 0 && (
+                        <div className="mb-3 space-y-2">
+                            {comments.filter(c => c.comment_type === 'admin_verification' || c.comment_type === 'admin_rejection').map((note) => (
+                                <div key={note.id} className={cn(
+                                    "p-2 rounded-lg border text-sm",
+                                    note.comment_type === 'admin_verification'
+                                        ? "bg-green-50 border-green-200 text-green-800"
+                                        : "bg-red-50 border-red-200 text-red-800"
+                                )}>
+                                    <div className="flex items-center gap-1 mb-1">
+                                        <Shield className="w-3.5 h-3.5" />
+                                        <span className="font-medium">
+                                            {note.comment_type === 'admin_verification' ? 'Admin Verified' : 'Admin Rejected'}
+                                        </span>
+                                        <span className="text-xs opacity-60 ml-auto">{formatTimeAgo(note.created_at)}</span>
+                                    </div>
+                                    <p>{note.content}</p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
                     {/* Comments List */}
                     {commentsLoading ? (
                         <div className="text-sm text-muted-foreground text-center py-4">Loading comments...</div>
-                    ) : comments && comments.length > 0 ? (
+                    ) : comments && comments.filter(c => c.comment_type !== 'admin_verification' && c.comment_type !== 'admin_rejection').length > 0 ? (
                         <div className="space-y-3">
-                            {comments.map((comment) => (
+                            {comments.filter(c => c.comment_type !== 'admin_verification' && c.comment_type !== 'admin_rejection').map((comment) => (
                                 <div key={comment.id} className="flex items-start gap-2">
                                     <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-xs font-medium text-muted-foreground">
                                         {comment.username.charAt(0).toUpperCase()}
