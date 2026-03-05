@@ -40,6 +40,7 @@ import { usePushNotifications } from './hooks/usePushNotifications';
 const LandingPage = lazy(() => import('./components/screens/LandingPage'));
 const AdminLoginScreen = lazy(() => import('./components/screens/AdminLoginScreen').then(m => ({ default: m.AdminLoginScreen })));
 const AdminDashboard = lazy(() => import('./components/screens/AdminDashboard').then(m => ({ default: m.AdminDashboard })));
+const AdminRegisterScreen = lazy(() => import('./components/screens/AdminRegisterScreen').then(m => ({ default: m.AdminRegisterScreen })));
 
 const queryClient = new QueryClient();
 
@@ -382,6 +383,15 @@ export default function App() {
                                                                 </div>
                                                             }>
                                                                 <AdminLoginScreen />
+                                                            </Suspense>
+                                                        } />
+                                                        <Route path="/admin/register" element={
+                                                            <Suspense fallback={
+                                                                <div className="min-h-screen flex items-center justify-center" style={{ background: '#0f172a' }}>
+                                                                    <Loader2 className="w-8 h-8 animate-spin text-blue-400" />
+                                                                </div>
+                                                            }>
+                                                                <AdminRegisterScreen />
                                                             </Suspense>
                                                         } />
                                                         <Route path="/admin" element={

@@ -237,6 +237,15 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
                 {user.role === "verified_reporter" && <UserCheck className="w-3 h-3" />}
                 {user.role === "verified_reporter" ? "Verified Reporter" : user.role}
               </Badge>
+              {user.role === "admin" && (
+                <a
+                  href="/admin"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-purple-100 text-purple-700 text-xs font-medium hover:bg-purple-200 transition-colors"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  Admin Panel
+                </a>
+              )}
             </div>
             <p className="text-sm opacity-90">{user.email}</p>
             {user.phone && <p className="text-xs opacity-75 mt-1">{user.phone}</p>}

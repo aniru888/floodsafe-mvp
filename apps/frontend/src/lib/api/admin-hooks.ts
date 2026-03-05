@@ -545,3 +545,81 @@ export function useAdminAuditLog(page = 1, perPage = 50) {
         enabled: isAdminAuthenticated(),
     });
 }
+
+// ============================================================================
+// INVITES
+// ============================================================================
+
+export interface AdminInvite {
+    id: string;
+    code: string;
+    email_hint: string | null;
+    created_by_username: string;
+    used_by_username: string | null;
+    expires_at: string;
+    created_at: string;
+    is_expired: boolean;
+    is_used: boolean;
+}
+
+export interface CreateInviteResponse {
+    code: string;
+    invite_url: string;
+    email_hint: string | null;
+    expires_at: string;
+}
+
+export function useAdminInvites() {
+    return useQuery<AdminInvite[]>({
+        queryKey: ['admin', 'invites'],
+        queryFn: () => adminFetch('/invites'),
+        staleTime: 15_000,
+        enabled: isAdminAuthenticated(),
+    });
+}
+
+export function useAdminCreateInvite() {
+    const qc = useQueryClient();
+    return useMutation<CreateInviteResponse, Error, { email_hint?: string }>({
+        mutationFn: (data) =>
+            adminFetch('/invites', {
+                method: 'POST',
+                body: JSON.stringify(data),
+            }),
+        onSuccess: () => {
+            qc.invalidateQueries({ queryKey: ['admin', 'invites'] });
+            toast.success('Invite created');
+        },
+        onError: (err) => { toast.error(err.message || 'Failed to create invite'); },
+    });
+}
+
+export function useAdminRevokeInvite() {
+    const qc = useQueryClient();
+    return useMutation<unknown, Error, string>({
+        mutationFn: (code) =>
+            adminFetch(`/invites/${code}`, { method: 'DELETE' }),
+        onSuccess: () => {
+            qc.invalidateQueries({ queryKey: ['admin', 'invites'] });
+            toast.success('Invite revoked');
+        },
+        onError: (err) => { toast.error(err.message || 'Failed to revoke invite'); },
+    });
+}
+
+export function useAdminRegister() {
+    return useMutation({
+        mutationFn: async (data: { code: string; email: string; password: string }) => {
+            const response = await fetch(`${API_BASE_URL}/admin/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (!response.ok) {
+                const err = await response.json().catch(() => ({ detail: 'Registration failed' }));
+                throw new Error(err.detail || 'Registration failed');
+            }
+            return response.json();
+        },
+    });
+}

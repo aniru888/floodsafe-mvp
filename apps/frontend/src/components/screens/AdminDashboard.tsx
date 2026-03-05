@@ -13,7 +13,7 @@ import {
     Search, ChevronLeft, ChevronRight, CheckCircle, XCircle,
     Archive, Trash2, Ban, UserPlus, Star, Activity, Globe,
     RefreshCw, Eye, AlertTriangle, TrendingUp, Loader2,
-    Clock, Database, Wifi, ChevronDown
+    Clock, Database, Wifi, ChevronDown, Link2, Copy, UserPlus2
 } from 'lucide-react';
 import {
     isAdminAuthenticated, clearAdminToken,
@@ -25,8 +25,9 @@ import {
     useAdminArchiveReport,
     useAdminDeleteReport, useAdminCreateReport, useAdminCreateBadge,
     useAdminAwardBadge, useAdminPromoteAmbassador,
+    useAdminInvites, useAdminCreateInvite, useAdminRevokeInvite,
     type AdminUser, type AdminReport, type AdminBadge,
-    type AdminCreateReportRequest
+    type AdminCreateReportRequest, type AdminInvite as AdminInviteType,
 } from '../../lib/api/admin-hooks';
 
 type AdminTab = 'overview' | 'users' | 'reports' | 'badges' | 'analytics' | 'system';
@@ -873,6 +874,11 @@ function AnalyticsPanel() {
 function SystemPanel() {
     const { data: health, isLoading: healthLoading, refetch: refetchHealth } = useAdminSystemHealth();
     const { data: auditData, isLoading: auditLoading } = useAdminAuditLog();
+    const { data: invites, isLoading: invitesLoading } = useAdminInvites();
+    const createInvite = useAdminCreateInvite();
+    const revokeInvite = useAdminRevokeInvite();
+    const [emailHint, setEmailHint] = useState('');
+    const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
     const healthData = health as Record<string, unknown> | undefined;
     const configData = healthData?.config as Record<string, boolean> | undefined;
@@ -906,6 +912,106 @@ function SystemPanel() {
                         ))}
                     </div>
                 ) : null}
+            </div>
+
+            {/* Admin Invites */}
+            <div className="admin-card" style={{ marginTop: '1.5rem' }}>
+                <div className="admin-card-header">
+                    <h3 className="admin-card-title"><UserPlus2 size={18} /> Admin Invites</h3>
+                </div>
+
+                {/* Create invite */}
+                <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', alignItems: 'center' }}>
+                    <input
+                        type="email"
+                        className="admin-input"
+                        placeholder="Email hint (optional — restrict to specific email)"
+                        value={emailHint}
+                        onChange={(e) => setEmailHint(e.target.value)}
+                        style={{ flex: 1 }}
+                    />
+                    <button
+                        className="admin-btn admin-btn-primary admin-btn-sm"
+                        onClick={() => {
+                            createInvite.mutate(
+                                { email_hint: emailHint || undefined },
+                                { onSuccess: () => setEmailHint('') }
+                            );
+                        }}
+                        disabled={createInvite.isPending}
+                    >
+                        <Link2 size={14} /> Create Invite
+                    </button>
+                </div>
+
+                {invitesLoading ? <LoadingSpinner /> : (
+                    <div className="admin-table-container">
+                        <table className="admin-table admin-table-compact">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Email Hint</th>
+                                    <th>Created By</th>
+                                    <th>Status</th>
+                                    <th>Expires</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {(invites ?? []).map((inv: AdminInviteType) => {
+                                    const statusColor = inv.is_used ? '#6b7280' : inv.is_expired ? '#ef4444' : '#22c55e';
+                                    const statusLabel = inv.is_used ? `Used by ${inv.used_by_username}` : inv.is_expired ? 'Expired' : 'Active';
+                                    return (
+                                        <tr key={inv.id}>
+                                            <td style={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
+                                                {inv.code.slice(0, 12)}...
+                                            </td>
+                                            <td>{inv.email_hint || '—'}</td>
+                                            <td>{inv.created_by_username}</td>
+                                            <td>
+                                                <span style={{ color: statusColor, fontWeight: 600, fontSize: '0.85rem' }}>
+                                                    {statusLabel}
+                                                </span>
+                                            </td>
+                                            <td>{parseUTC(inv.expires_at)?.toLocaleString() ?? '—'}</td>
+                                            <td>
+                                                <div className="admin-action-btns">
+                                                    {!inv.is_used && !inv.is_expired && (
+                                                        <>
+                                                            <button
+                                                                className="admin-btn admin-btn-sm"
+                                                                title="Copy invite link"
+                                                                onClick={() => {
+                                                                    const url = `${window.location.origin}/admin/register?code=${inv.code}`;
+                                                                    navigator.clipboard.writeText(url);
+                                                                    setCopiedCode(inv.code);
+                                                                    setTimeout(() => setCopiedCode(null), 2000);
+                                                                }}
+                                                            >
+                                                                {copiedCode === inv.code ? <CheckCircle size={14} /> : <Copy size={14} />}
+                                                            </button>
+                                                            <button
+                                                                className="admin-btn admin-btn-sm admin-btn-danger"
+                                                                title="Revoke invite"
+                                                                onClick={() => revokeInvite.mutate(inv.code)}
+                                                                disabled={revokeInvite.isPending}
+                                                            >
+                                                                <XCircle size={14} />
+                                                            </button>
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                                {(invites ?? []).length === 0 && (
+                                    <tr><td colSpan={6} className="admin-empty-row">No invites created yet</td></tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
             </div>
 
             {/* Audit Log */}
