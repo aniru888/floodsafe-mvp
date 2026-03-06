@@ -3,15 +3,15 @@
     "version": "2.0",
     "created": "2026-03-03",
     "updated": "2026-03-06",
-    "source": "IMC, Free Press Journal, Smart City Indore, KnockSense, Ground Report, Daily Pioneer",
-    "total_hotspots": 69,
+    "source": "IMC, Free Press Journal, Smart City Indore, KnockSense, Ground Report, Daily Pioneer, Agniban",
+    "total_hotspots": 73,
     "zones": {
       "Ring Road": 8,
-      "Central": 24,
+      "Central": 25,
       "South": 12,
-      "Bypass": 10,
+      "Bypass": 11,
       "Corridor": 7,
-      "Other": 4,
+      "Other": 6,
       "East": 4
     },
     "composition": "IMC identified + multi-source news reports"
@@ -706,6 +706,46 @@
       "zone": "East",
       "severity_history": "moderate",
       "source": "Ground Report"
+    },
+    {
+      "id": "indore-070",
+      "name": "Super Corridor",
+      "lat": 22.7264,
+      "lng": 75.7858,
+      "description": "Metro construction debris blocked drainage -- 2-2.5 feet waterlogging over 2km stretch",
+      "zone": "Other",
+      "severity_history": "high",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-072",
+      "name": "Peeliya Khal",
+      "lat": 22.708,
+      "lng": 75.8167,
+      "description": "Low-lying settlement -- houses flooded and residents evacuated during heavy rain",
+      "zone": "Bypass",
+      "severity_history": "high",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-073",
+      "name": "Tulsi Nagar",
+      "lat": 22.7564,
+      "lng": 75.9188,
+      "description": "Residential area with stagnant water issues reported to IMC commissioner",
+      "zone": "Other",
+      "severity_history": "moderate",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-074",
+      "name": "South Toda",
+      "lat": 22.7167,
+      "lng": 75.874,
+      "description": "Riverside settlement near Khan River -- chronic flooding from river overflow",
+      "zone": "Central",
+      "severity_history": "high",
+      "source": "Agniban"
     }
   ]
 }

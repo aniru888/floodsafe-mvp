@@ -3,13 +3,13 @@
     "version": "2.0",
     "created": "2026-02-13",
     "updated": "2026-03-06",
-    "source": "BPBD Kota Yogyakarta, PetaBencana.id, Tribun Jogja, Kompas, OpenStreetMap",
-    "total_hotspots": 69,
+    "source": "BPBD Kota Yogyakarta, DPUPKP Kota Yogyakarta, PetaBencana.id, Tribun Jogja, Kompas",
+    "total_hotspots": 76,
     "zones": {
       "east": 9,
-      "north": 25,
-      "central": 10,
-      "south": 24,
+      "north": 26,
+      "central": 12,
+      "south": 28,
       "west": 1
     },
     "rivers_monitored": [
@@ -716,6 +716,76 @@
       "zone": "south",
       "severity_history": "moderate",
       "source": "PetaBencana.id"
+    },
+    {
+      "id": 70,
+      "name": "Jalan Batikan",
+      "lat": -7.8136,
+      "lng": 110.3832,
+      "description": "Official DPUPKP waterlogging point -- drainage capacity inadequate for heavy rainfall",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "DPUPKP Kota Yogyakarta"
+    },
+    {
+      "id": 71,
+      "name": "Jalan Atmosukarto",
+      "lat": -7.7885,
+      "lng": 110.376,
+      "description": "Official DPUPKP waterlogging point -- surface water accumulation during heavy rain",
+      "zone": "central",
+      "severity_history": "moderate",
+      "source": "DPUPKP Kota Yogyakarta"
+    },
+    {
+      "id": 72,
+      "name": "Jalan Parangtritis Selatan (Jogokariyan)",
+      "lat": -7.8242,
+      "lng": 110.3644,
+      "description": "Official DPUPKP waterlogging point at Simpang Menukan/Jogokariyan intersection",
+      "zone": "south",
+      "severity_history": "high",
+      "source": "DPUPKP Kota Yogyakarta"
+    },
+    {
+      "id": 73,
+      "name": "Tegalpanggung (Sungai Code)",
+      "lat": -7.7934,
+      "lng": 110.3711,
+      "description": "Kelurahan along Sungai Code -- combined flood and landslide risk zone",
+      "zone": "central",
+      "severity_history": "high",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 74,
+      "name": "Bener (Sungai Winongo)",
+      "lat": -7.7761,
+      "lng": 110.3524,
+      "description": "Kelurahan on Sungai Winongo banks -- UGM flood study identified high-risk zone",
+      "zone": "north",
+      "severity_history": "high",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 75,
+      "name": "Pakuncen (Sungai Winongo)",
+      "lat": -7.797,
+      "lng": 110.3511,
+      "description": "Kelurahan with combined flood and landslide risk along Sungai Winongo",
+      "zone": "south",
+      "severity_history": "high",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 76,
+      "name": "Tegalgendu (Sungai Gajah Wong)",
+      "lat": -7.8259,
+      "lng": 110.3922,
+      "description": "BPBD CCTV+EWS monitoring point at Sungai Gajah Wong crossing",
+      "zone": "south",
+      "severity_history": "high",
+      "source": "BPBD Kota Yogyakarta"
     }
   ]
 }
