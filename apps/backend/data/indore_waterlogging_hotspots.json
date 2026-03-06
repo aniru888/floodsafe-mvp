@@ -1,18 +1,20 @@
 {
   "metadata": {
-    "version": "1.0",
+    "version": "2.0",
     "created": "2026-03-03",
-    "source": "IMC reports, Free Press Journal, Smart City Indore",
-    "total_hotspots": 37,
+    "updated": "2026-03-06",
+    "source": "IMC, Free Press Journal, Smart City Indore, KnockSense, Ground Report, Daily Pioneer",
+    "total_hotspots": 69,
     "zones": {
-      "Ring Road": 5,
-      "Central": 14,
-      "South": 6,
-      "Bypass": 5,
-      "Corridor": 4,
-      "Other": 3
+      "Ring Road": 8,
+      "Central": 24,
+      "South": 12,
+      "Bypass": 10,
+      "Corridor": 7,
+      "Other": 4,
+      "East": 4
     },
-    "composition": "IMC identified + news reports"
+    "composition": "IMC identified + multi-source news reports"
   },
   "hotspots": [
     {
@@ -384,6 +386,326 @@
       "zone": "Other",
       "severity_history": "high",
       "source": "IMC"
+    },
+    {
+      "id": "indore-038",
+      "name": "Annapurna Road",
+      "lat": 22.6948,
+      "lng": 75.8389,
+      "description": "Major commercial road — chronic waterlogging blocks traffic during monsoon",
+      "zone": "Bypass",
+      "severity_history": "high",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-039",
+      "name": "Rajendra Nagar",
+      "lat": 22.67,
+      "lng": 75.8292,
+      "description": "Residential colony with poor drainage — water enters ground-floor houses",
+      "zone": "Bypass",
+      "severity_history": "high",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-040",
+      "name": "Vaishali Nagar",
+      "lat": 22.6808,
+      "lng": 75.8331,
+      "description": "Low-lying residential area prone to monsoon waterlogging",
+      "zone": "Bypass",
+      "severity_history": "moderate",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-041",
+      "name": "Sadar Bazar",
+      "lat": 22.7138,
+      "lng": 75.8543,
+      "description": "Historic market area — narrow lanes and clogged drains cause flooding",
+      "zone": "Central",
+      "severity_history": "high",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-042",
+      "name": "Juna Risala",
+      "lat": 22.717,
+      "lng": 75.8685,
+      "description": "Old military quarter — aging drainage infrastructure overwhelmed during heavy rain",
+      "zone": "Central",
+      "severity_history": "high",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-043",
+      "name": "Badwali Chowki",
+      "lat": 22.7225,
+      "lng": 75.8494,
+      "description": "Junction area with inadequate storm drains",
+      "zone": "Central",
+      "severity_history": "moderate",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-044",
+      "name": "Moti Tabela",
+      "lat": 22.7087,
+      "lng": 75.8545,
+      "description": "Dense commercial area — runoff from surrounding roads converges here",
+      "zone": "Central",
+      "severity_history": "high",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-045",
+      "name": "Harsiddhi",
+      "lat": 22.7124,
+      "lng": 75.8574,
+      "description": "Temple area near Khan River — prone to backwater flooding",
+      "zone": "Central",
+      "severity_history": "moderate",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-046",
+      "name": "Malviya Nagar",
+      "lat": 22.7045,
+      "lng": 75.8651,
+      "description": "Residential area with insufficient drainage capacity during peak monsoon",
+      "zone": "Central",
+      "severity_history": "moderate",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-047",
+      "name": "Siyaganj",
+      "lat": 22.7164,
+      "lng": 75.8653,
+      "description": "Commercial hub — impervious surfaces and flat terrain trap rainwater",
+      "zone": "Central",
+      "severity_history": "high",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-048",
+      "name": "Nanda Nagar",
+      "lat": 22.7481,
+      "lng": 75.8781,
+      "description": "Residential area — drainage overwhelmed by rapid urbanization",
+      "zone": "Corridor",
+      "severity_history": "moderate",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-049",
+      "name": "Sudama Nagar",
+      "lat": 22.6883,
+      "lng": 75.8321,
+      "description": "Low-gradient area with recurring road waterlogging",
+      "zone": "Bypass",
+      "severity_history": "moderate",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-050",
+      "name": "Geeta Bhawan Square",
+      "lat": 22.7184,
+      "lng": 75.8843,
+      "description": "Major intersection — water accumulation due to poor gradient and high traffic",
+      "zone": "East",
+      "severity_history": "high",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-051",
+      "name": "Nehru Nagar",
+      "lat": 22.7228,
+      "lng": 75.8709,
+      "description": "Residential area with inadequate stormwater drainage system",
+      "zone": "Central",
+      "severity_history": "moderate",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-052",
+      "name": "Scheme 78",
+      "lat": 22.7662,
+      "lng": 75.9001,
+      "description": "Planned residential scheme with drainage capacity issues",
+      "zone": "East",
+      "severity_history": "moderate",
+      "source": "Smart City Indore"
+    },
+    {
+      "id": "indore-053",
+      "name": "Tilak Nagar",
+      "lat": 22.7057,
+      "lng": 75.9047,
+      "description": "Colony near major road — surface runoff from adjacent areas",
+      "zone": "South",
+      "severity_history": "moderate",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-054",
+      "name": "GPO Square",
+      "lat": 22.7074,
+      "lng": 75.8788,
+      "description": "Central postal area junction — low point collects water from surrounding streets",
+      "zone": "South",
+      "severity_history": "high",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-055",
+      "name": "Bhagirathpura",
+      "lat": 22.7637,
+      "lng": 75.847,
+      "description": "Dense residential area with old drainage network unable to handle monsoon load",
+      "zone": "Ring Road",
+      "severity_history": "moderate",
+      "source": "KnockSense"
+    },
+    {
+      "id": "indore-056",
+      "name": "Navlakha Square",
+      "lat": 22.6987,
+      "lng": 75.8779,
+      "description": "Major commercial junction — multiple road convergence creates waterlogging",
+      "zone": "South",
+      "severity_history": "high",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-057",
+      "name": "Raj Mahal Colony",
+      "lat": 22.7153,
+      "lng": 75.8973,
+      "description": "Residential area — Smart City drainage upgrades pending",
+      "zone": "Ring Road",
+      "severity_history": "moderate",
+      "source": "Ground Report"
+    },
+    {
+      "id": "indore-058",
+      "name": "Palhar Nagar",
+      "lat": 22.7291,
+      "lng": 75.8315,
+      "description": "Low-lying area with chronic monsoon waterlogging",
+      "zone": "Other",
+      "severity_history": "moderate",
+      "source": "KnockSense"
+    },
+    {
+      "id": "indore-059",
+      "name": "Sapna Sangeeta Road",
+      "lat": 22.7007,
+      "lng": 75.8691,
+      "description": "Major arterial road — waterlogging blocks traffic during heavy rainfall events",
+      "zone": "South",
+      "severity_history": "high",
+      "source": "KnockSense"
+    },
+    {
+      "id": "indore-060",
+      "name": "Palasia Square",
+      "lat": 22.7238,
+      "lng": 75.8857,
+      "description": "Commercial hub — flat terrain and impervious surfaces cause rapid water accumulation",
+      "zone": "East",
+      "severity_history": "high",
+      "source": "Daily Pioneer"
+    },
+    {
+      "id": "indore-061",
+      "name": "Sneh Nagar",
+      "lat": 22.7441,
+      "lng": 75.8733,
+      "description": "Residential colony with waterlogging near main road intersections",
+      "zone": "Corridor",
+      "severity_history": "moderate",
+      "source": "Ground Report"
+    },
+    {
+      "id": "indore-062",
+      "name": "Aerodrome Road",
+      "lat": 22.701,
+      "lng": 75.8813,
+      "description": "Wide road with poor side drainage — water pools on both edges during rain",
+      "zone": "South",
+      "severity_history": "moderate",
+      "source": "KnockSense"
+    },
+    {
+      "id": "indore-063",
+      "name": "Banganga (Khan River Bridge)",
+      "lat": 22.7409,
+      "lng": 75.85,
+      "description": "Khan River bridge area — river overflow floods surrounding roads and colonies",
+      "zone": "Corridor",
+      "severity_history": "high",
+      "source": "Daily Pioneer"
+    },
+    {
+      "id": "indore-064",
+      "name": "Bada Ganpati",
+      "lat": 22.7209,
+      "lng": 75.8398,
+      "description": "Heritage temple area — old city drainage overwhelmed by monsoon rains",
+      "zone": "Central",
+      "severity_history": "moderate",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-065",
+      "name": "Chappan Dukan",
+      "lat": 22.7203,
+      "lng": 75.9051,
+      "description": "Famous street food market — waterlogging during heavy spells affects businesses",
+      "zone": "Ring Road",
+      "severity_history": "moderate",
+      "source": "Free Press Journal"
+    },
+    {
+      "id": "indore-066",
+      "name": "Rau (AB Road South)",
+      "lat": 22.6765,
+      "lng": 75.8783,
+      "description": "Southern suburb on AB Road — highway drainage insufficient for urban runoff",
+      "zone": "South",
+      "severity_history": "moderate",
+      "source": "KnockSense"
+    },
+    {
+      "id": "indore-067",
+      "name": "Dewas Naka",
+      "lat": 22.7054,
+      "lng": 75.8437,
+      "description": "Northern entry point — highway underpass waterlogging during monsoon",
+      "zone": "Bypass",
+      "severity_history": "moderate",
+      "source": "Daily Pioneer"
+    },
+    {
+      "id": "indore-068",
+      "name": "Manik Bagh Road",
+      "lat": 22.7036,
+      "lng": 75.8555,
+      "description": "Road near Manik Bagh palace — slope runoff from surrounding hills",
+      "zone": "Central",
+      "severity_history": "moderate",
+      "source": "KnockSense"
+    },
+    {
+      "id": "indore-069",
+      "name": "Shivaji Nagar",
+      "lat": 22.7108,
+      "lng": 75.8829,
+      "description": "Residential area with waterlogging at low points near nullah",
+      "zone": "East",
+      "severity_history": "moderate",
+      "source": "Ground Report"
     }
   ]
 }

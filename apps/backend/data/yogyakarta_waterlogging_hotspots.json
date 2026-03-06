@@ -1,16 +1,29 @@
 {
   "metadata": {
-    "version": "1.0",
+    "version": "2.0",
     "created": "2026-02-13",
-    "source": "Local flood reports + Nominatim geocoding",
-    "total_hotspots": 19,
+    "updated": "2026-03-06",
+    "source": "BPBD Kota Yogyakarta, PetaBencana.id, Tribun Jogja, Kompas, OpenStreetMap",
+    "total_hotspots": 69,
     "zones": {
-      "east": 4,
-      "north": 14,
-      "central": 1
+      "east": 9,
+      "north": 25,
+      "central": 10,
+      "south": 24,
+      "west": 1
     },
+    "rivers_monitored": [
+      "Code",
+      "Winongo",
+      "Gajah Wong",
+      "Belik",
+      "Tekik"
+    ],
     "composition": {
-      "local_reports": 19
+      "BPBD Kota Yogyakarta": 42,
+      "Tribun Jogja": 13,
+      "Kompas": 3,
+      "PetaBencana.id": 11
     }
   },
   "hotspots": [
@@ -19,190 +32,690 @@
       "name": "Jalan Kusumanegara",
       "lat": -7.802042,
       "lng": 110.390551,
-      "description": "Flood-prone street in Yogyakarta",
+      "description": "Major east-west arterial road — low gradient causes waterlogging during heavy monsoon rainfall",
       "zone": "east",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 2,
       "name": "Jalan Gejayan",
       "lat": -7.780424,
       "lng": 110.388247,
-      "description": "Flood-prone street in Yogyakarta",
+      "description": "University corridor road — heavy urbanization overwhelms drainage during rainstorms",
       "zone": "north",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 3,
       "name": "Jalan Ringroad Utara",
       "lat": -7.750884,
       "lng": 110.370141,
-      "description": "Flood-prone street in Yogyakarta",
+      "description": "Northern ring road segment — underpass sections flood during intense rainfall",
       "zone": "north",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 4,
       "name": "Klitren",
       "lat": -7.783817,
       "lng": 110.383415,
-      "description": "Flood-prone neighborhood in Yogyakarta",
+      "description": "High-risk neighborhood along Sungai Belik — BPBD auto-EWS station installed for flood warning",
       "zone": "north",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 5,
       "name": "Jalan Balirejo",
       "lat": -7.798442,
       "lng": 110.394149,
-      "description": "Flood-prone street in Yogyakarta",
+      "description": "Road crossing Sungai Gajah Wong floodplain — periodic inundation from river overflow",
       "zone": "east",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 6,
       "name": "Jalan Ipda Tut Harsono",
       "lat": -7.790325,
       "lng": 110.393407,
-      "description": "Flood-prone street in Yogyakarta",
+      "description": "Road in eastern Yogyakarta — drainage capacity insufficient for peak monsoon",
       "zone": "north",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 7,
       "name": "Terban",
       "lat": -7.779115,
       "lng": 110.373201,
-      "description": "Flood-prone neighborhood in Yogyakarta",
+      "description": "Riverside kampung along Sungai Code — among most flood-affected neighborhoods in the city",
       "zone": "north",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 8,
       "name": "Bintaran",
       "lat": -7.802981,
       "lng": 110.372872,
-      "description": "Flood-prone neighborhood in Yogyakarta",
+      "description": "Historic neighborhood near Sungai Code — recurring flood events during wet season",
       "zone": "central",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 9,
       "name": "Jalan Babarsari",
       "lat": -7.771169,
       "lng": 110.414913,
-      "description": "Flood-prone street in Yogyakarta",
+      "description": "University area road in Sleman — rapid development outpaces storm drainage capacity",
       "zone": "north",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 10,
       "name": "Jalan Seturan",
       "lat": -7.764273,
       "lng": 110.411062,
-      "description": "Flood-prone street in Yogyakarta",
+      "description": "Commercial road in Sleman — flat terrain and impervious surfaces trap rainwater",
       "zone": "north",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 11,
       "name": "Perumnas Seturan",
       "lat": -7.769048,
       "lng": 110.410001,
-      "description": "Flood-prone neighborhood in Yogyakarta",
+      "description": "Housing complex in Sleman — low-lying area prone to waterlogging after heavy rain",
       "zone": "north",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 12,
       "name": "Selokan Mataram",
       "lat": -7.76764,
       "lng": 110.39439,
-      "description": "Flood-prone street in Yogyakarta",
+      "description": "Road along historic irrigation canal — canal overflow floods surrounding areas during monsoon",
       "zone": "north",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 13,
       "name": "Jalan Affandi",
       "lat": -7.780409,
       "lng": 110.388173,
-      "description": "Flood-prone street in Yogyakarta",
+      "description": "Major commercial road (formerly Gejayan) — intersection flooding blocks traffic during storms",
       "zone": "north",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 14,
       "name": "Jalan Urip Sumoharjo",
       "lat": -7.783048,
       "lng": 110.383477,
-      "description": "Flood-prone street in Yogyakarta",
+      "description": "Central arterial road — waterlogging at multiple low points during heavy rainfall",
       "zone": "north",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 15,
       "name": "Jalan Laksda Adisucipto",
       "lat": -7.783067,
       "lng": 110.389681,
-      "description": "Flood-prone street in Yogyakarta",
+      "description": "Airport road corridor — drainage overwhelmed during intense monsoon events",
       "zone": "north",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 16,
       "name": "Jalan Jendral Sudirman (Tugu Yogyakarta)",
       "lat": -7.78295,
       "lng": 110.367851,
-      "description": "Flood-prone street in Yogyakarta",
+      "description": "Iconic boulevard from Tugu to Kraton — water accumulates at Tugu intersection during storms",
       "zone": "north",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 17,
       "name": "Jalan Majapahit",
       "lat": -7.80917,
       "lng": 110.408589,
-      "description": "Flood-prone street in Yogyakarta",
+      "description": "Eastern road near Sungai Gajah Wong — bridge section floods during river surge events",
       "zone": "east",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 18,
       "name": "Gedongkuning - Wonocatur",
       "lat": -7.804807,
       "lng": 110.402658,
-      "description": "Flood-prone neighborhood in Yogyakarta",
+      "description": "Neighborhood straddling city-Bantul border — low elevation near Sungai Gajah Wong floodplain",
       "zone": "east",
       "severity_history": "moderate",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
     },
     {
       "id": 19,
       "name": "Underpass Kentungan",
       "lat": -7.749753,
       "lng": 110.387685,
-      "description": "Flood-prone underpass in Yogyakarta",
+      "description": "Ring Road underpass — critical flooding point, water reaches 50cm+ during heavy rain requiring road closure",
       "zone": "north",
       "severity_history": "high",
-      "source": "local_reports"
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 20,
+      "name": "Gondokusuman (Sungai Code)",
+      "lat": -7.7867,
+      "lng": 110.381,
+      "description": "Kelurahan along Sungai Code — recurrent flooding from river overflow, 8 EWS stations in corridor",
+      "zone": "north",
+      "severity_history": "high",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 21,
+      "name": "Jetis (Sungai Code)",
+      "lat": -7.7815,
+      "lng": 110.3647,
+      "description": "Dense urban area along Sungai Code banks — high flood risk from river surge",
+      "zone": "north",
+      "severity_history": "high",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 22,
+      "name": "Gedongtengen (Sungai Code)",
+      "lat": -7.7918,
+      "lng": 110.3608,
+      "description": "Old district along Sungai Code — narrow alleys impede evacuation during floods",
+      "zone": "central",
+      "severity_history": "high",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 23,
+      "name": "Cokrodiningratan",
+      "lat": -7.7784,
+      "lng": 110.3679,
+      "description": "Kelurahan at Sungai Code bend — river meander concentrates floodwater here",
+      "zone": "north",
+      "severity_history": "high",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 24,
+      "name": "Kota Baru (Sungai Code)",
+      "lat": -7.7859,
+      "lng": 110.3742,
+      "description": "Heritage district near Sungai Code — colonial-era drainage insufficient for monsoon",
+      "zone": "central",
+      "severity_history": "moderate",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 25,
+      "name": "Demangan",
+      "lat": -7.7849,
+      "lng": 110.39,
+      "description": "Residential area along Sungai Code tributary — backwater flooding during heavy rain",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 26,
+      "name": "Kampung Code Utara",
+      "lat": -7.8042,
+      "lng": 110.3655,
+      "description": "Riverside settlement directly on Sungai Code banks — first impacted by rising water",
+      "zone": "central",
+      "severity_history": "high",
+      "source": "Tribun Jogja"
+    },
+    {
+      "id": 27,
+      "name": "Sayidan",
+      "lat": -7.8016,
+      "lng": 110.3712,
+      "description": "Historic riverside community along Sungai Code — severe flooding events documented annually",
+      "zone": "central",
+      "severity_history": "high",
+      "source": "Tribun Jogja"
+    },
+    {
+      "id": 28,
+      "name": "Prawirodirjan",
+      "lat": -7.808,
+      "lng": 110.3695,
+      "description": "Kelurahan along Sungai Code southern stretch — flood risk from Code-Winongo confluence",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 29,
+      "name": "Tegalrejo (Sungai Winongo)",
+      "lat": -7.7805,
+      "lng": 110.3551,
+      "description": "Kecamatan along Sungai Winongo — 4 EWS stations monitor flood levels",
+      "zone": "north",
+      "severity_history": "high",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 30,
+      "name": "Ngampilan (Sungai Winongo)",
+      "lat": -7.8022,
+      "lng": 110.3576,
+      "description": "Low-lying area at Sungai Winongo floodplain — chronic inundation zone",
+      "zone": "central",
+      "severity_history": "high",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 31,
+      "name": "Mantrijeron",
+      "lat": -7.8181,
+      "lng": 110.3597,
+      "description": "Southern kecamatan along Sungai Winongo — flood risk amplified by urbanization",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 32,
+      "name": "Notoprajan",
+      "lat": -7.8048,
+      "lng": 110.355,
+      "description": "Kelurahan beside Sungai Winongo — among highest-risk areas for riverine flooding",
+      "zone": "south",
+      "severity_history": "high",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 33,
+      "name": "Patangpuluhan",
+      "lat": -7.8098,
+      "lng": 110.3489,
+      "description": "Area near Sungai Winongo with recurring flood events during monsoon peaks",
+      "zone": "west",
+      "severity_history": "moderate",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 34,
+      "name": "Kricak (Sungai Winongo)",
+      "lat": -7.7734,
+      "lng": 110.3569,
+      "description": "Riverside kampung on Sungai Winongo — houses built close to river banks",
+      "zone": "north",
+      "severity_history": "high",
+      "source": "Tribun Jogja"
+    },
+    {
+      "id": 35,
+      "name": "Wirobrajan",
+      "lat": -7.8026,
+      "lng": 110.3504,
+      "description": "Kecamatan between Winongo and Code rivers — dual flood risk from both corridors",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 36,
+      "name": "Umbulharjo (Sungai Gajah Wong)",
+      "lat": -7.8144,
+      "lng": 110.3874,
+      "description": "Largest kecamatan — Sungai Gajah Wong runs through center, 5 EWS stations",
+      "zone": "south",
+      "severity_history": "high",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 37,
+      "name": "Kotagede",
+      "lat": -7.8183,
+      "lng": 110.3979,
+      "description": "Heritage district along Sungai Gajah Wong — old drainage and narrow lanes",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 38,
+      "name": "Banguntapan",
+      "lat": -7.8244,
+      "lng": 110.4158,
+      "description": "Southern suburb along Sungai Gajah Wong — agricultural runoff compounds flood risk",
+      "zone": "east",
+      "severity_history": "moderate",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 39,
+      "name": "Muja Muju",
+      "lat": -7.7987,
+      "lng": 110.3927,
+      "description": "Kelurahan at Sungai Gajah Wong floodplain — water rises rapidly during storms",
+      "zone": "south",
+      "severity_history": "high",
+      "source": "Tribun Jogja"
+    },
+    {
+      "id": 40,
+      "name": "Warungboto",
+      "lat": -7.8082,
+      "lng": 110.3902,
+      "description": "Kelurahan near Sungai Gajah Wong with recurrent waterlogging",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 41,
+      "name": "Giwangan",
+      "lat": -7.831,
+      "lng": 110.3895,
+      "description": "Bus terminal area — low-lying terrain near Sungai Gajah Wong",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "Tribun Jogja"
+    },
+    {
+      "id": 42,
+      "name": "Iromejan (Klitren - Sungai Belik)",
+      "lat": -7.7813,
+      "lng": 110.383,
+      "description": "Highest-risk flood zone in Yogyakarta — Sungai Belik auto-EWS station installed",
+      "zone": "north",
+      "severity_history": "high",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 43,
+      "name": "Baciro (Sungai Belik)",
+      "lat": -7.7935,
+      "lng": 110.383,
+      "description": "Kelurahan along Sungai Belik — flash flood risk from rapid water rise",
+      "zone": "north",
+      "severity_history": "high",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 44,
+      "name": "Pakualaman (Sungai Tekik)",
+      "lat": -7.8008,
+      "lng": 110.3757,
+      "description": "Royal district along Sungai Tekik — auto-EWS station monitors flood levels",
+      "zone": "central",
+      "severity_history": "moderate",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 45,
+      "name": "Purwokinanti",
+      "lat": -7.7994,
+      "lng": 110.3737,
+      "description": "Kelurahan at Sungai Tekik corridor — periodic flooding during heavy monsoon",
+      "zone": "central",
+      "severity_history": "moderate",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 46,
+      "name": "Underpass Janti",
+      "lat": -7.7984,
+      "lng": 110.4036,
+      "description": "Major underpass on Ring Road — floods to 50cm+ during heavy rainfall events",
+      "zone": "east",
+      "severity_history": "high",
+      "source": "Tribun Jogja"
+    },
+    {
+      "id": 47,
+      "name": "Underpass Monjali",
+      "lat": -7.7865,
+      "lng": 110.3629,
+      "description": "Northern ring road underpass — recurring waterlogging traps vehicles",
+      "zone": "central",
+      "severity_history": "high",
+      "source": "Tribun Jogja"
+    },
+    {
+      "id": 48,
+      "name": "Jalan Godean",
+      "lat": -7.7812,
+      "lng": 110.35,
+      "description": "Western arterial road — surface flooding during heavy rain events",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "Tribun Jogja"
+    },
+    {
+      "id": 49,
+      "name": "Jalan Kaliurang",
+      "lat": -7.7604,
+      "lng": 110.3809,
+      "description": "Northern arterial toward Merapi — volcanic lahar sediment clogs drainage",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "Kompas"
+    },
+    {
+      "id": 50,
+      "name": "Jalan Bantul",
+      "lat": -7.8154,
+      "lng": 110.356,
+      "description": "Southern arterial road — low gradient collects runoff from surrounding areas",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "Tribun Jogja"
+    },
+    {
+      "id": 51,
+      "name": "Jalan Parangtritis",
+      "lat": -7.8185,
+      "lng": 110.3682,
+      "description": "Road to southern coast — crosses multiple river channels, floods at crossing points",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "Tribun Jogja"
+    },
+    {
+      "id": 52,
+      "name": "Jalan Solo (Adisucipto - Ring Road)",
+      "lat": -7.7782,
+      "lng": 110.4567,
+      "description": "Eastern arterial toward Solo — waterlogging at low points near airport area",
+      "zone": "east",
+      "severity_history": "moderate",
+      "source": "Kompas"
+    },
+    {
+      "id": 53,
+      "name": "Mergangsan",
+      "lat": -7.8147,
+      "lng": 110.3726,
+      "description": "Kecamatan at Code-Winongo interfluve — drainage overwhelmed during intense rainfall",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "PetaBencana.id"
+    },
+    {
+      "id": 54,
+      "name": "Pandeyan",
+      "lat": -7.8183,
+      "lng": 110.3884,
+      "description": "Kelurahan in low-lying southern Umbulharjo — waterlogging from poor drainage",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "PetaBencana.id"
+    },
+    {
+      "id": 55,
+      "name": "Sorosutan",
+      "lat": -7.8224,
+      "lng": 110.3809,
+      "description": "Southern kelurahan with recurrent monsoon waterlogging",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "PetaBencana.id"
+    },
+    {
+      "id": 56,
+      "name": "Tahunan",
+      "lat": -7.8067,
+      "lng": 110.3832,
+      "description": "Kelurahan near Gajah Wong tributary — seasonal flooding from channel overflow",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "PetaBencana.id"
+    },
+    {
+      "id": 57,
+      "name": "Semaki",
+      "lat": -7.7978,
+      "lng": 110.3838,
+      "description": "Central kelurahan with drainage capacity issues during heavy rainfall",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "PetaBencana.id"
+    },
+    {
+      "id": 58,
+      "name": "Kadipaten",
+      "lat": -7.8078,
+      "lng": 110.3592,
+      "description": "Area near Kraton palace — historic drainage system inadequate for modern rainfall",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 59,
+      "name": "Purbayan (Kotagede)",
+      "lat": -7.8268,
+      "lng": 110.4027,
+      "description": "Heritage kelurahan in Kotagede — narrow lanes flood from Gajah Wong overflow",
+      "zone": "east",
+      "severity_history": "moderate",
+      "source": "PetaBencana.id"
+    },
+    {
+      "id": 60,
+      "name": "Rejowinangun",
+      "lat": -7.8115,
+      "lng": 110.3983,
+      "description": "Eastern kelurahan near Sungai Gajah Wong — low-lying flood-prone terrain",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "PetaBencana.id"
+    },
+    {
+      "id": 61,
+      "name": "Caturtunggal (Depok)",
+      "lat": -7.7794,
+      "lng": 110.4051,
+      "description": "University area in Sleman — rapid urbanization outpaces drainage capacity",
+      "zone": "east",
+      "severity_history": "moderate",
+      "source": "Tribun Jogja"
+    },
+    {
+      "id": 62,
+      "name": "Condongcatur",
+      "lat": -7.7551,
+      "lng": 110.3994,
+      "description": "Northern suburb — Selokan Mataram canal overflow during heavy monsoon rain",
+      "zone": "north",
+      "severity_history": "moderate",
+      "source": "Tribun Jogja"
+    },
+    {
+      "id": 63,
+      "name": "Jalan Taman Siswa",
+      "lat": -7.8087,
+      "lng": 110.3774,
+      "description": "Central road near Sungai Code — waterlogging at low points during rain events",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "Kompas"
+    },
+    {
+      "id": 64,
+      "name": "Keparakan",
+      "lat": -7.8118,
+      "lng": 110.3714,
+      "description": "Kelurahan at Sungai Code floodplain — periodic inundation from river rise",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "PetaBencana.id"
+    },
+    {
+      "id": 65,
+      "name": "Brontokusuman",
+      "lat": -7.8217,
+      "lng": 110.3721,
+      "description": "Southern kelurahan near Code river — flood risk from combined river and surface water",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "PetaBencana.id"
+    },
+    {
+      "id": 66,
+      "name": "Jalan Imogiri Timur",
+      "lat": -7.8277,
+      "lng": 110.39,
+      "description": "Eastern road crossing Sungai Gajah Wong — floods at river bridge section",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "Tribun Jogja"
+    },
+    {
+      "id": 67,
+      "name": "Panembahan",
+      "lat": -7.8086,
+      "lng": 110.3662,
+      "description": "Historic area near Kraton — old water channels overflow during heavy rain",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "BPBD Kota Yogyakarta"
+    },
+    {
+      "id": 68,
+      "name": "Ngupasan",
+      "lat": -7.8047,
+      "lng": 110.3712,
+      "description": "Commercial area at Malioboro south end — drainage issues during intense rainfall",
+      "zone": "central",
+      "severity_history": "moderate",
+      "source": "PetaBencana.id"
+    },
+    {
+      "id": 69,
+      "name": "Prenggan (Kotagede)",
+      "lat": -7.8207,
+      "lng": 110.3974,
+      "description": "Kelurahan in Kotagede — historic silver district with poor modern drainage",
+      "zone": "south",
+      "severity_history": "moderate",
+      "source": "PetaBencana.id"
     }
   ]
 }
