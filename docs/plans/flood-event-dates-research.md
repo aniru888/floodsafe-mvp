@@ -197,13 +197,13 @@ Note: Singapore flash floods are characteristically short-lived (typically 20-60
 
 ## Summary: Event Date Availability by City
 
-| City | Total Events | Post-2014 (Sentinel-1 era) | HIGH confidence dates | Effective independent storms | Analysis Tier |
-|------|-------------|---------------------------|----------------------|------------------------------|---------------|
-| **Delhi** | 45 | 6 | 6 | 6 | Descriptive only |
-| **Bangalore** | 16 | 16 | 12 | ~13 | Mixed-effects → XGBoost borderline |
-| **Yogyakarta** | 34 | 34 | ~15 | ~15-18 | XGBoost viable |
-| **Singapore** | 8 | 8 | 5 | 8 | Mixed-effects |
-| **Indore** | 15 | 15 | 10 | ~13 | Mixed-effects → XGBoost borderline |
+| City | Total Events | Post-2014 (Sentinel-1 era) | HIGH confidence dates | Effective independent storms | Part B Scope |
+|------|-------------|---------------------------|----------------------|------------------------------|-------------|
+| **Delhi** | 45 | 6 | 6 | 6 | Part A only (too few post-2014) |
+| **Bangalore** | 16 | 16 | 12 | ~13 | **Part B primary** |
+| **Yogyakarta** | 34 | 34 | ~15 | ~15-18 | **Part B primary** |
+| **Singapore** | 8 | 8 | 5 | 8 | Part A only (floods too brief for SAR) |
+| **Indore** | 15 | 15 | 10 | ~13 | Part B stretch goal |
 
 ### Key Observations
 
@@ -217,13 +217,21 @@ Note: Singapore flash floods are characteristically short-lived (typically 20-60
 
 5. **Indore has good recent coverage**: 2020 record-breaking event (263.4mm) and 2023 rescue event (8,718 rescued) are well-documented anchor points.
 
+### Revised Scope Decision (2026-03-07)
+
+**Part B requires SAR** — without it, temporal features (precipitation, soil moisture) just confirm "it floods when it rains" (circular). SAR captures actual surface water presence, the only non-tautological temporal feature.
+
+**Part B runs for Bangalore + Yogyakarta only** (strongest post-2014 date coverage + SAR viability). Indore is a stretch goal. Delhi and Singapore are Part A only.
+
+**Singapore deferred to independent study** using PUB's 208 water level sensors, which provide ground-truth temporal data far richer than SAR. Different methodology, separate design doc.
+
 ### Recommendations for Next Steps
 
-1. **Search for Delhi 2025 monsoon events** to bring post-2014 count closer to 8+
+1. **Begin GEE feature extraction trial** (Phase 0) with Bangalore first (strongest data, 16 events)
 2. **Pin exact dates for LOW-confidence Yogyakarta events** by checking Indonesian news archives
-3. **Accept Singapore limitation**: SAR temporal may not work; rely on static profiling (Part A)
-4. **Begin GEE feature extraction trial** (Phase 0) with Bangalore first (strongest data)
-5. **Define "dry reference dates"** for each city: same month, no rain events in 7-day window
+3. **Define "dry reference dates"** for Part B cities: same month, no rain events in 7-day window
+4. **Check Sentinel-1 availability** on GEE for anchor dates (Bangalore 2022-09-04, Yogyakarta 2019-03-18)
+5. **Future: Singapore PUB study** — design separate methodology using water level sensor data
 
 ---
 

@@ -11,10 +11,34 @@
 
 Build a two-part analysis pipeline for FloodSafe's 499 hotspots across 5 cities:
 
-1. **Part A -- Static Feature Profiling**: Extract GEE physical features, statistically compare hotspots against city background to understand what physical characteristics flood-prone locations share.
-2. **Part B -- Temporal Contrast Analysis**: Compare satellite/weather conditions at the same hotspot locations during confirmed flood events vs dry periods. Method scales with data: descriptive analysis for few dates, mixed-effects model for moderate dates, constrained XGBoost for 15+ dates.
+1. **Part A -- Static Feature Profiling** (all 5 cities): Extract GEE physical features, statistically compare hotspots against city background to understand what physical characteristics flood-prone locations share. This is the **core deliverable**.
+2. **Part B -- SAR Temporal Contrast Analysis** (Bangalore + Yogyakarta only): Compare Sentinel-1 SAR imagery at known hotspot locations during confirmed flood events vs dry periods. SAR captures physical surface water extent -- the only temporal feature that isn't circular. Method scales with data: descriptive analysis for few dates, mixed-effects model for moderate dates, constrained XGBoost for 15+ dates.
 
 Surface results in the frontend ("Why this location floods") and a public methodology page.
+
+### Why Part B Requires SAR (Not Just Weather Features)
+
+Without SAR, the only temporal features are precipitation and soil moisture from ERA5. Comparing weather during floods vs dry spells proves "it floods when it rains" -- a tautology that produces no insight. SAR captures actual surface water presence/absence, which is independent of the weather input and genuinely informative.
+
+### Why Part B Is Limited to Bangalore + Yogyakarta
+
+| City | Post-2014 flood dates | SAR viability | Part B status |
+|------|----------------------|---------------|---------------|
+| Delhi | 6 | Too few dates for meaningful analysis | Part A only |
+| **Bangalore** | **16** | **Strong -- multi-source verified** | **Part B candidate** |
+| **Yogyakarta** | **34** (~15-18 effective) | **Strong -- dense event history** | **Part B candidate** |
+| Singapore | 8 | Floods subside in 20-60 min; Sentinel-1's 6-12 day revisit will miss them | Part A only (future: PUB sensor study) |
+| Indore | 15 (~13 effective) | Borderline -- proceed if Bangalore/Yogyakarta succeed | Part A first, Part B stretch goal |
+
+### Singapore: Independent Study (Future)
+
+Singapore has uniquely rich government data not available in other cities:
+- 208 PUB water level sensors (real-time + historical archives)
+- PUB flood-prone area reduction records (3,200ha in 1970s -> 28ha today)
+- Chow et al. 2016: 30 years of station rainfall + flood correlation analysis
+- Insurance claims data (868 claims, S$23M for 2010-2011 Orchard Road events)
+
+This enables a fundamentally different study: using actual ground-truth water level readings instead of satellite imagery. Deferred to a separate design document as it requires different methodology, data pipeline, and PUB data access.
 
 ### Design Principles (from CLAUDE.md)
 
@@ -169,18 +193,22 @@ If the same feature is significant in 4-5 cities independently, that's strong ev
 
 ---
 
-## Part B: Temporal Contrast Analysis
+## Part B: SAR Temporal Contrast Analysis (Bangalore + Yogyakarta)
 
 ### Goal
 
-Compare satellite/weather features at known hotspot locations during confirmed flood events vs confirmed dry periods. Understand what CONDITIONS trigger flooding at vulnerable locations.
+Compare Sentinel-1 SAR imagery at known hotspot locations during confirmed flood events vs confirmed dry periods. SAR captures physical surface water extent -- the only temporal feature that isn't simply restating "it rained."
 
 ### Key Framing
 
 This is NOT "does this place flood?" (spatial prediction).
-This IS "under what CONDITIONS does this known flood-prone place actually flood?" (temporal classification).
+This IS "can we detect actual surface water at this known flood-prone place during flood events?" (temporal classification using physical remote sensing).
 
 The "negative" isn't a different location -- it's the SAME location on a dry day. This is the cleanest possible contrast.
+
+**Why SAR is required**: Without SAR, temporal features reduce to precipitation and soil moisture from ERA5. Comparing weather during floods vs dry spells is circular -- it proves "flooding correlates with rain," which is a tautology. SAR measures actual water on the ground surface, independent of the weather input.
+
+**Scope**: Part B runs for Bangalore (16 post-2014 dates) and Yogyakarta (34 dates, ~15-18 effective). Indore is a stretch goal if the first two cities succeed. Delhi (only 6 post-2014 dates) and Singapore (floods too brief for SAR capture) are excluded.
 
 ### Phase 0: Flood Event Date Collection
 
@@ -197,15 +225,15 @@ For each city, collect verified flood event dates with source attribution.
 | 3 | News archives with specific dates | Dated, named locations |
 | 4 | FloodSafe community reports | Dated, geolocated, sparse |
 
-**Existing flood date sources in project:**
+**Flood date sources (research completed -- see `docs/plans/flood-event-dates-research.md`):**
 
-| City | Source File | Estimated Dates |
-|------|-----------|-----------------|
-| Delhi | `apps/backend/data/delhi_historical_floods.json` (GeoJSON, IFI-Impacts) | 10+ events (1969-present) |
-| Yogyakarta | `34 latest floods in Yogyakarta.md` (34 verified events, 2017-2026) | 34 events with news URLs |
-| Singapore | `Singapore-Flood-Data-Sources 2.docx.md` (academic + PUB + news) | 8-10 post-2000 events identifiable |
-| Bangalore | To be researched | Expected 10-15+ (BBMP, Deccan Herald) |
-| Indore | To be researched | Expected 8-12+ (Free Press Journal, IMC) |
+| City | Source Files | Post-2014 Dates | HIGH Confidence | Part B Scope |
+|------|------------|-----------------|-----------------|-------------|
+| Delhi | `delhi_historical_floods.json` + web search | 6 | 6 | Excluded (too few) |
+| Bangalore | Web research (FloodList, Deccan Herald, The Watchers, ORF) | 16 | 12 | **Primary** |
+| Yogyakarta | `34 latest floods in Yogyakarta.md` + news archives | 34 (~15-18 effective) | ~15 | **Primary** |
+| Singapore | `Singapore-Flood-Data-Sources 2.docx.md` + Mothership/PUB | 8 | 5 | Excluded (too brief for SAR) |
+| Indore | Web research (Free Press Journal, Knocksense, Skymet, ANI) | 15 (~13 effective) | 10 | Stretch goal |
 
 **Format per city** (`{city}_event_dates.json`):
 ```json
@@ -278,15 +306,17 @@ For all hotspots in cities that passed Phase 0 + Phase 1:
 - Label: 1 (flood date), 0 (dry date)
 - Log which actual satellite acquisition dates were used per sample
 
-**Estimated sample sizes:**
+**Estimated sample sizes (Part B scope: Bangalore + Yogyakarta, Indore stretch):**
 
 | City | Hotspots | Flood dates | Dry dates | Apparent n | Effective n (dates) |
 |------|----------|-------------|-----------|------------|-------------------|
-| Delhi | 90 | 10-15 | 5-7 | 1350-1980 | 15-22 |
-| Bangalore | 200 | 10-15 | 5 | 3000 | 15-20 |
-| Yogyakarta | 76 | 15-20 | 5-8 | 1520-2128 | 20-28 |
-| Singapore | 60 | 8-10 | 5 | 780-900 | 13-15 |
-| Indore | 73 | 8-12 | 5 | 949-1241 | 13-17 |
+| Bangalore | 200 | 13-16 | 5-7 | 3600 | 18-23 |
+| Yogyakarta | 76 | 15-18 | 5-8 | 1520-1976 | 20-26 |
+| Indore (stretch) | 73 | 10-13 | 5 | 1095-1314 | 15-18 |
+
+**Excluded from Part B:**
+- Delhi: Only 6 post-2014 flood dates (insufficient for SAR temporal analysis)
+- Singapore: Flash floods subside in 20-60 minutes; Sentinel-1's 6-12 day revisit will miss the flood window entirely. Future independent study using PUB water level sensor data instead.
 
 **IMPORTANT: Effective n = number of independent temporal observations (dates), NOT hotspot-date pairs.** All hotspots on the same date share weather conditions and often the same satellite image. The design reports both "apparent n" and "effective n" in all documentation.
 
@@ -561,7 +591,9 @@ apps/frontend/public/methodology/
 5. **Severity labels are hand-assigned** -- Cannot be used as ML targets.
 6. **Selection bias** -- Government hotspot lists overrepresent reported/commercial areas.
 7. **No confirmed "non-flood" locations** -- Background points are "city average", not "safe".
-8. **Singapore has no dry season** -- Requires special handling for dry period dates.
+8. **Singapore excluded from Part B** -- Flash floods subside in 20-60 minutes, far too brief for Sentinel-1's 6-12 day revisit to capture. Future independent study using PUB's 208 water level sensors could provide ground-truth temporal data instead.
+9. **Part B without SAR is circular** -- ERA5 precipitation/soil moisture during floods vs dry periods just confirms "it floods when it rains." Only SAR captures physical surface water presence, making it the only non-tautological temporal feature.
+10. **Delhi excluded from Part B** -- Only 6 post-2014 flood dates in Sentinel-1 era. Rich pre-2014 history (45 events from IFI-Impacts) is unusable for SAR analysis.
 
 ---
 
@@ -610,13 +642,15 @@ apps/frontend/public/methodology/
 
 ### Project Flood Date Sources
 
-| City | File | Events |
-|------|------|--------|
-| Delhi | `apps/backend/data/delhi_historical_floods.json` | IFI-Impacts GeoJSON, 10+ events |
-| Yogyakarta | `34 latest floods in Yogyakarta.md` | 34 verified events (2017-2026) with news URLs |
-| Singapore | `Singapore-Flood-Data-Sources 2.docx.md` | Academic + PUB + news analysis |
-| Bangalore | To be researched | BBMP, Deccan Herald, The News Minute |
-| Indore | To be researched | Free Press Journal, IMC, Daily Pioneer |
+Full research compilation: `docs/plans/flood-event-dates-research.md`
+
+| City | File | Events | Key Sources |
+|------|------|--------|-------------|
+| Delhi | `apps/backend/data/delhi_historical_floods.json` + web | 45 total (6 post-2014) | IFI-Impacts, CNN, SANDRP, ReliefWeb |
+| Bangalore | `docs/plans/flood-event-dates-research.md` | 16 post-2014 | FloodList, Deccan Herald, The Watchers, ORF |
+| Yogyakarta | `34 latest floods in Yogyakarta.md` | 34 (2017-2026) | detikJogja, Kompas, ANTARA, CNN Indonesia |
+| Singapore | `Singapore-Flood-Data-Sources 2.docx.md` + web | 8 post-2014 | Lin et al. 2021, Mothership.sg, PUB, FloodList |
+| Indore | `docs/plans/flood-event-dates-research.md` | 15 post-2014 | Free Press Journal, Knocksense, Skymet, ANI |
 
 ---
 
@@ -628,3 +662,4 @@ apps/frontend/public/methodology/
 4. **Natural experiment tracking** -- Before/after drainage improvements at specific hotspots.
 5. **Migrate hotspots from JSON to DB** -- Enables dynamic hotspot management and proper FK relationships.
 6. **Pillar 2 (Community Discovery)** -- Unchanged from 2026-03-05 design. Deferred to post-v1.
+7. **Singapore PUB sensor study** -- Independent study using 208 water level sensors, drainage capacity records, and insurance claims data. Different methodology from SAR-based Part B. Requires PUB data access and separate design doc.
