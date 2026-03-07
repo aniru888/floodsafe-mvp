@@ -15,6 +15,7 @@ import { isWithinCityBounds, getAvailableCities, getCityConfig, getCityKeyFromCo
 import { RouteOption, MetroStation } from '../types';
 import { toast } from 'sonner';
 import { parseReportDescription, generateTagHtml } from '../lib/tagParser';
+import { MethodologyModal } from './MethodologyModal';
 
 interface MapComponentProps {
     className?: string;
@@ -89,6 +90,7 @@ export default function MapComponent({
     });
     const [_mapBounds, setMapBounds] = useState<MapBounds | null>(null);
     const [showHistoricalPanel, setShowHistoricalPanel] = useState(false);
+    const [showMethodology, setShowMethodology] = useState(false);
 
     // User location tracking state
     const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
@@ -100,6 +102,13 @@ export default function MapComponent({
     // Cities with hotspot data available
     const HOTSPOT_CITIES = ['delhi', 'bangalore', 'yogyakarta', 'singapore', 'indore'];
     const hasHotspots = HOTSPOT_CITIES.includes(city);
+    // Listen for methodology modal trigger from raw HTML popup
+    useEffect(() => {
+        const handler = () => setShowMethodology(true);
+        window.addEventListener('open-methodology', handler);
+        return () => window.removeEventListener('open-methodology', handler);
+    }, []);
+
     // ML predictions (ensemble) are Delhi-only and currently disabled
     const isDelhiCity = city === 'delhi';
 
@@ -945,9 +954,7 @@ export default function MapComponent({
                     const coordinates = (feature.geometry as GeoJSON.Point).coordinates.slice() as [number, number];
                     const props = feature.properties;
 
-                    // Parse risk probability for display (ML Risk)
-                    const riskPct = Math.round((props.risk_probability || 0) * 100);
-                    const riskLevel = props.risk_level || 'Unknown';
+                    // Risk color for fallback display
                     const riskColor = props.risk_color || '#94a3b8';
 
                     // Parse FHI (Flood Hazard Index - Live)
@@ -1003,42 +1010,15 @@ export default function MapComponent({
                             </div>
                             ` : ''}
 
-                            <!-- ML Risk Score Section (Secondary - Static) -->
-                            <div class="text-xs space-y-1 text-muted-foreground ${fhiScore !== null ? 'mt-2 pt-2 border-t border-border' : 'pt-2'}">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-muted-foreground/60">Base Risk (ML)</span>
-                                    <span class="px-1.5 py-0.5 rounded text-[10px] font-medium" style="background-color: ${riskColor}15; color: ${riskColor}">${riskLevel.toUpperCase()}</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <div class="flex-1 bg-muted rounded-full h-1.5">
-                                        <div class="h-1.5 rounded-full transition-all" style="width: ${riskPct}%; background-color: ${riskColor}"></div>
-                                    </div>
-                                    <span class="text-xs" style="color: ${riskColor}">${riskPct}%</span>
-                                </div>
-                                <p class="text-muted-foreground/60 text-[9px] italic">Terrain & land cover baseline</p>
+                            <!-- Known Hotspot Badge + Methodology Link -->
+                            <div class="flex items-center gap-2 text-xs text-muted-foreground ${fhiScore !== null ? 'mt-2 pt-2 border-t border-border' : 'pt-2'}">
+                                <span class="w-2 h-2 rounded-full bg-blue-500 shrink-0"></span>
+                                <span>Known Flood Hotspot</span>
+                                <a href="#" onclick="window.dispatchEvent(new Event('open-methodology')); return false;"
+                                   class="ml-auto text-blue-500 hover:underline text-[10px] whitespace-nowrap">
+                                   How we predict risk &rarr;
+                                </a>
                             </div>
-
-                            <!-- Why this location floods (XGBoost feature importance) -->
-                            ${(() => {
-                                try {
-                                    const topFeatures = typeof props.top_features === 'string'
-                                        ? JSON.parse(props.top_features)
-                                        : props.top_features;
-                                    if (topFeatures && Array.isArray(topFeatures) && topFeatures.length > 0) {
-                                        return `
-                                        <div class="text-xs text-muted-foreground mt-2 pt-2 border-t border-border">
-                                            <div class="text-muted-foreground/60 mb-1 font-medium">Why this location floods</div>
-                                            ${topFeatures.slice(0, 3).map((f: {label: string; contribution: number}) =>
-                                                `<div class="flex justify-between items-center py-0.5">
-                                                    <span>${f.label}</span>
-                                                    <span class="text-muted-foreground/50 ml-2">${Math.round(f.contribution * 100)}%</span>
-                                                </div>`
-                                            ).join('')}
-                                        </div>`;
-                                    }
-                                    return '';
-                                } catch { return ''; }
-                            })()}
 
                             <!-- Zone Info -->
                             ${props.zone ? `
@@ -2074,6 +2054,8 @@ export default function MapComponent({
                 cityName={currentCityConfig.displayName}
                 comingSoonMessage={historicalFloods?.metadata?.message}
             />
+
+            <MethodologyModal open={showMethodology} onOpenChange={setShowMethodology} />
         </div>
     );
 }

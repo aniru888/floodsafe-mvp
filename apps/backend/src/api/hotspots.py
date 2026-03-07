@@ -1,7 +1,8 @@
 """
 Backend API for waterlogging hotspot predictions.
 
-Uses embedded ML models (XGBoost + FHI) for real-time risk calculation.
+Uses FHI (Flood Hazard Index) for real-time risk calculation.
+XGBoost model retired 2026-03-08 (urban-vs-rural artifact).
 Falls back to static data when ML is disabled.
 """
 

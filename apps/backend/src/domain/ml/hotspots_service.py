@@ -1,15 +1,15 @@
 """
-Hotspots Service - Unified service for waterlogging hotspot predictions.
+Hotspots Service - Unified service for waterlogging hotspot data.
 
 Combines:
-- Static hotspot data (from JSON)
-- XGBoost model predictions (weather-sensitive)
+- Static hotspot data (from JSON, government-verified locations)
 - FHI calculations (real-time weather from Open-Meteo)
 
-Provides GeoJSON FeatureCollection for map rendering with:
-- Risk probability from ML model
-- FHI (Flood Hazard Index) from weather data
-- Color-coded risk levels
+Note: XGBoost model retired (2026-03-08). AUC 0.98 was a rural-vs-urban
+artifact — model learned "is this urban?" not "will this flood?"
+See docs/plans/2026-03-07-ml-methodology-postmortem.md for full analysis.
+
+FHI (Flood Hazard Index) is the sole differentiating risk signal.
 """
 
 import json
@@ -21,8 +21,8 @@ from typing import Dict, List, Optional, Tuple, Any
 
 import numpy as np
 
-from .xgboost_hotspot import XGBoostHotspotModel, get_risk_level, load_trained_model
-from .fhi_calculator import calculate_fhi_for_location, get_fhi_calculator
+from .xgboost_hotspot import get_risk_level
+from .fhi_calculator import calculate_fhi_for_location
 
 logger = logging.getLogger(__name__)
 
@@ -40,30 +40,23 @@ class HotspotsService:
     # Response cache (5 minute TTL)
     CACHE_TTL = timedelta(minutes=5)
 
-    def __init__(self, data_dir: Optional[Path] = None, models_dir: Optional[Path] = None, city: str = "delhi"):
+    def __init__(self, data_dir: Optional[Path] = None, city: str = "delhi"):
         """
         Initialize hotspots service.
 
         Args:
             data_dir: Path to data directory containing hotspots JSON
-            models_dir: Path to models directory containing XGBoost model
-            city: City key (delhi, bangalore, yogyakarta)
+            city: City key (delhi, bangalore, yogyakarta, singapore, indore)
         """
         # Resolve directories relative to backend root
         if data_dir is None:
             data_dir = Path(__file__).resolve().parent.parent.parent.parent / "data"
-        if models_dir is None:
-            models_dir = Path(__file__).resolve().parent.parent.parent.parent / "models"
 
         self.data_dir = data_dir
-        self.models_dir = models_dir
         self.city = city
 
         # Data storage
         self.hotspots_data: List[Dict] = []
-        self.predictions_cache: Dict[str, Dict] = {}  # Pre-computed ML predictions
-        self.top_city_predictors: List[Dict] = []  # City-level XGBoost feature importance
-        self.hotspot_model: Optional[XGBoostHotspotModel] = None
 
         # Response cache
         self._response_cache: Dict[str, Any] = {}
@@ -74,7 +67,7 @@ class HotspotsService:
 
     def initialize(self) -> bool:
         """
-        Initialize service by loading data and models.
+        Initialize service by loading hotspot data.
 
         Returns:
             True if initialization successful, False otherwise
@@ -108,45 +101,6 @@ class HotspotsService:
             logger.warning(f"Hotspots file not found: {hotspots_file}")
             self.hotspots_data = []
             success = False
-
-        # Load pre-computed predictions cache (per-city XGBoost models)
-        # Try city-specific cache first, fall back to default (Delhi) cache
-        cache_file = self.data_dir / f"{self.city}_predictions_cache.json"
-        if not cache_file.exists():
-            # Fall back to original Delhi cache for backward compatibility
-            if self.city == "delhi":
-                cache_file = self.data_dir / "hotspot_predictions_cache.json"
-
-        if cache_file.exists():
-            try:
-                with open(cache_file, "r", encoding="utf-8") as f:
-                    cache_data = json.load(f)
-                    self.predictions_cache = cache_data.get("predictions", {})
-                    self.top_city_predictors = cache_data.get("top_city_predictors", [])
-                logger.info(f"Loaded pre-computed predictions for {len(self.predictions_cache)} hotspots from {cache_file.name}")
-            except Exception as e:
-                logger.warning(f"Failed to load predictions cache: {e}")
-                self.predictions_cache = {}
-        else:
-            logger.info(f"No predictions cache found for {self.city} - will use severity-based fallback")
-            self.predictions_cache = {}
-
-        # Load trained XGBoost model (Delhi-only — model trained on Delhi data)
-        if self.city == "delhi":
-            model_path = self.models_dir / "xgboost_hotspot"
-            if model_path.exists():
-                try:
-                    self.hotspot_model = load_trained_model(model_path)
-                    logger.info("XGBoost hotspot model loaded")
-                except Exception as e:
-                    logger.warning(f"Failed to load hotspot model: {e}")
-                    self.hotspot_model = None
-            else:
-                logger.info("No trained hotspot model found - using severity-based risk estimation")
-                self.hotspot_model = None
-        else:
-            logger.info(f"Skipping XGBoost model for {self.city} (Delhi-only) — using severity-based FHI")
-            self.hotspot_model = None
 
         self._initialized = success or len(self.hotspots_data) > 0
         return self._initialized
@@ -248,23 +202,18 @@ class HotspotsService:
         # Build GeoJSON features
         features = []
         for idx, hotspot in enumerate(self.hotspots_data):
-            # Get base susceptibility from cache or severity fallback
-            hotspot_id_str = str(hotspot.get("id", idx))
-
-            if hotspot_id_str in self.predictions_cache:
-                base_susceptibility = self.predictions_cache[hotspot_id_str].get("base_susceptibility", 0.5)
-            else:
-                # Fallback to historical severity
-                severity_map = {
-                    "extreme": 0.85, "critical": 0.85,
-                    "high": 0.65, "severe": 0.65,
-                    "moderate": 0.45,
-                    "low": 0.25,
-                }
-                severity = hotspot.get("severity_history") or hotspot.get("historical_severity", "moderate")
-                if severity:
-                    severity = severity.lower()
-                base_susceptibility = severity_map.get(severity, 0.5)
+            # Base susceptibility from historical severity
+            # NOTE: 3/5 cities have uniform "high" severity — FHI is the actual differentiator
+            severity_map = {
+                "extreme": 0.85, "critical": 0.85,
+                "high": 0.65, "severe": 0.65,
+                "moderate": 0.45,
+                "low": 0.25,
+            }
+            severity = hotspot.get("severity_history") or hotspot.get("historical_severity", "moderate")
+            if severity:
+                severity = severity.lower()
+            base_susceptibility = severity_map.get(severity, 0.5)
 
             risk_level, risk_color = get_risk_level(base_susceptibility)
 
@@ -318,13 +267,6 @@ class HotspotsService:
                 "osm_id": hotspot.get("osm_id"),
             }
 
-            # Add per-hotspot XGBoost feature importance (if available in predictions cache)
-            if hotspot_id_str in self.predictions_cache:
-                cached = self.predictions_cache[hotspot_id_str]
-                top_features = cached.get("top_features")
-                if top_features:
-                    properties["top_features"] = top_features
-
             # Add FHI data if calculated
             properties.update(fhi_data)
 
@@ -354,9 +296,8 @@ class HotspotsService:
                 "verified_count": verified_count,
                 "unverified_count": unverified_count,
                 "composition": source_counts,
-                "predictions_source": "ml_cache" if self.predictions_cache else "severity_fallback",
-                "cached_predictions_count": len(self.predictions_cache),
-                "model_available": self.hotspot_model is not None and self.hotspot_model.is_trained,
+                "predictions_source": "severity_fallback",
+                "model_available": False,
                 "fhi_enabled": include_fhi,
                 "fhi_parallel": True,
                 "test_mode": test_fhi_override.lower() if test_fhi_override else None,
@@ -366,7 +307,6 @@ class HotspotsService:
                     "high": "0.50-0.75",
                     "extreme": "0.75-1.0",
                 },
-                "top_city_predictors": self.top_city_predictors,
             },
         }
 
@@ -406,14 +346,10 @@ class HotspotsService:
         if hotspot is None:
             return None
 
-        # Get base susceptibility
-        hotspot_id_str = str(hotspot_id)
-        if hotspot_id_str in self.predictions_cache:
-            base_susceptibility = self.predictions_cache[hotspot_id_str].get("base_susceptibility", 0.5)
-        else:
-            severity_map = {"extreme": 0.85, "high": 0.65, "moderate": 0.45, "low": 0.25}
-            severity = hotspot.get("severity_history", "moderate")
-            base_susceptibility = severity_map.get(severity.lower() if severity else "moderate", 0.5)
+        # Base susceptibility from severity (FHI is the actual differentiator)
+        severity_map = {"extreme": 0.85, "critical": 0.85, "high": 0.65, "severe": 0.65, "moderate": 0.45, "low": 0.25}
+        severity = hotspot.get("severity_history") or hotspot.get("historical_severity", "moderate")
+        base_susceptibility = severity_map.get(severity.lower() if severity else "moderate", 0.5)
 
         risk_level, risk_color = get_risk_level(base_susceptibility)
 
@@ -500,10 +436,10 @@ class HotspotsService:
             "status": "healthy" if self._initialized else "initializing",
             "hotspots_loaded": len(self.hotspots_data) > 0,
             "total_hotspots": len(self.hotspots_data),
-            "model_loaded": self.hotspot_model is not None,
-            "model_trained": self.hotspot_model.is_trained if self.hotspot_model else False,
-            "predictions_cached": len(self.predictions_cache) > 0,
-            "cached_predictions_count": len(self.predictions_cache),
+            "model_loaded": False,
+            "model_trained": False,
+            "predictions_cached": False,
+            "cached_predictions_count": 0,
         }
 
     @staticmethod
