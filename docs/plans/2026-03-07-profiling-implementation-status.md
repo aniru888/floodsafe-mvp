@@ -143,30 +143,44 @@ Zero batch failures. Binary-split fallback never triggered. All NPZ files verifi
 
 **Script**: `apps/ml-pipeline/scripts/03_statistical_analysis.py`
 
-### Cross-City Results (Bradford Hill Consistency)
+### Cross-City Results — Full Background (INFLATED)
 
 | Feature | Strong Evidence? | Mean Delta | Direction | Cities Meaningful |
 |---------|:---:|--------|-----------|:---:|
 | built_up_pct | YES | +0.806 | higher | 5/5 |
 | cropland_pct | YES | -0.759 | lower | 4/4 |
 | grass_pct | YES | -0.293 | mixed | 5/5 |
-| slope | moderate | +0.104 | mixed | 3/5 |
-| twi | moderate | -0.105 | mixed | 3/5 |
-| vegetation_pct | moderate | +0.010 | mixed | 3/5 |
 
-### Per-City Meaningful Features
+**⚠️ WARNING**: These results compare urban hotspots against ALL background (including farmland, forests). The `built_up_pct` effect is inflated by rural-vs-urban confound.
 
-| City | # Meaningful | Features |
-|------|:---:|----------|
-| Delhi | 4 | built_up_pct, vegetation_pct, cropland_pct, grass_pct |
-| Bangalore | 4 | tpi, built_up_pct, cropland_pct, grass_pct |
-| Yogyakarta | 6 | slope, twi, built_up_pct, vegetation_pct, cropland_pct, grass_pct |
-| Singapore | 9 | elevation, slope, aspect, twi, built_up_pct, vegetation_pct, water_pct, bare_pct, grass_pct |
-| Indore | 5 | slope, twi, built_up_pct, cropland_pct, grass_pct |
+### Cross-City Results — Urban-Only Background (HONEST)
 
-### Key Findings
-- **built_up_pct is THE universal signal** — large effect in all 5 cities (delta +0.533 to +0.961)
-- **Terrain features are city-dependent** — crucial for hilly Yogyakarta, irrelevant for flat Delhi
+| Feature | Mean Delta | Cities Meaningful (of tested) |
+|---------|--------|:---:|
+| cropland_pct | -0.410 | 2/4 |
+| grass_pct | -0.266 | 2/5 |
+| built_up_pct | +0.245 | 1/5 (only Yogyakarta) |
+| tpi | -0.161 | 1/5 (only Bangalore) |
+
+**No feature shows strong universal evidence after urban-only filtering.**
+
+### Per-City Meaningful Features (Urban-Only)
+
+| City | Full BG | Urban BG | Inflated | Surviving Features |
+|------|:---:|:---:|---------|-----------|
+| Delhi | 4 | **1** | built_up_pct, cropland_pct, grass_pct | vegetation_pct only |
+| Bangalore | 4 | **2** | built_up_pct, cropland_pct | **tpi** (depressions!), grass_pct |
+| Yogyakarta | 6 | **5** | grass_pct | slope, twi, built_up_pct, vegetation_pct, cropland_pct |
+| Singapore | 9 | **0** | ALL NINE features | Nothing discriminates within urban areas |
+| Indore | 5 | **2** | built_up_pct, slope, twi | cropland_pct, grass_pct |
+
+### Key Findings (Corrected)
+- **No universal static signal** — after controlling for rural-vs-urban bias, no feature is meaningful in ≥3 cities
+- **Yogyakarta is the exception** — terrain genuinely matters (5 urban-only features). South-north slope from Merapi creates real topographic flood risk
+- **Bangalore TPI is genuine** — hotspots sit in topographic depressions (delta -0.47). Physical cause: water pools in low spots
+- **Delhi has essentially NO static discriminator** — urban flooding is infrastructure-driven (drainage capacity, road design), not terrain-driven
+- **Singapore: ALL features were artifacts** — 9→0 after urban filtering. Flash flooding is entirely infrastructure/drainage dependent
+- **Terrain features are city-dependent** — crucial for hilly Yogyakarta, irrelevant for flat Delhi/Singapore
 - **Spatial autocorrelation ubiquitous** — Moran's I significant for most features in most cities
 - **VIF reveals multicollinearity** — land cover features are highly correlated (expected: they sum to ~100%)
 
@@ -361,7 +375,13 @@ apps/ml-pipeline/
 - 0 per-hotspot summaries (most hotspots lost all dry samples after filtering)
 
 ### Key Finding
-**SAR change_magnitude is the dominant temporal signal** — the difference between flood-date backscatter and the 90-day baseline captures surface water changes with 76.9% feature importance. This confirms the design doc hypothesis that SAR temporal contrast is physically meaningful for urban flood detection.
+**SAR change_magnitude is the dominant temporal signal** — the difference between flood-date backscatter and the 90-day baseline captures surface water changes with 76.9% feature importance.
+
+### Honest Interpretation (⚠️ IMPORTANT)
+- **AUC 0.926 is DATE-LEVEL detection**, not spatial prediction. ANOVA F-stat=1,320 (between-date >> within-date variance). The model learns "was this a flood date?" not "which hotspots flood more."
+- Within a single date, all 200 Bangalore hotspots get similar SAR values (std ≈ 0.15-0.64). The SAR composite is a city-wide image — hotspot-level variation is minimal.
+- **Genuine value**: SAR reliably detects active flooding at city scale. Given a Sentinel-1 image of Bangalore, we can tell if flooding is occurring (AUC 0.926). This is useful for flood event confirmation, not spatial prediction.
+- **Not useful for**: Predicting which specific locations will flood. That requires infrastructure data (drainage, road design) which GEE static features can't capture.
 
 ### CV Bug Fix
 Leave-one-date-out CV initially returned AUC=0.000 because each date is entirely flood or dry → per-fold AUC undefined. Fixed by accumulating all out-of-fold predictions and computing a single global AUC.
