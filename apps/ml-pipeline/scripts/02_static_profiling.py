@@ -8,14 +8,15 @@ For each city:
   3. Extract whitelisted GEE features for all hotspot + background points
   4. Save to .npz files with metadata
 
-The extraction reuses authenticate_gee() and extract_static_features() from
-01_feature_trial.py to avoid duplication.
+Batched extraction: Uses GEE reduceRegions() to process ~100 points per API
+call (2 calls per batch: terrain at 30m, land cover at 10m). This gives
+~650x fewer API calls vs per-point extraction.
 
-Checkpointing: saves progress every 25 points to a JSON file. If interrupted,
-rerun with --resume to continue from the last checkpoint.
+Fallback: If a batch fails (GEE timeout/memory), it splits in half
+recursively until reaching single-point extraction with retries. This
+ensures per-point error tracking while maximizing throughput.
 
-Estimated runtime: ~10s/point x (499 hotspots + 2500 background) = ~8 hours.
-Can parallelize by running single cities: --city bangalore
+Estimated runtime: ~15-30 minutes for all 5 cities (vs ~8 hours per-point).
 
 Usage:
     python scripts/02_static_profiling.py                    # All cities
@@ -29,7 +30,6 @@ Output:
 """
 
 import argparse
-import importlib.util
 import json
 import logging
 import math
@@ -39,6 +39,7 @@ import time
 from pathlib import Path
 from typing import Dict, List, Optional
 
+import ee
 import numpy as np
 
 logging.basicConfig(
@@ -56,42 +57,377 @@ OUTPUT_DIR = SCRIPT_DIR.parent / "output" / "profiles"
 CHECKPOINT_DIR = SCRIPT_DIR.parent / "output" / "profiles" / "checkpoints"
 PROJECT_ROOT = SCRIPT_DIR.parent.parent.parent
 BACKEND_DATA = PROJECT_ROOT / "apps" / "backend" / "data"
+CREDENTIALS = PROJECT_ROOT / "apps" / "ml-service" / "credentials" / "gee-service-account.json"
+
+# GEE datasets
+SRTM = "USGS/SRTMGL1_003"
+WORLDCOVER = "ESA/WorldCover/v200"
+
+# WorldCover class values
+WC_TREE = 10
+WC_GRASS = 30
+WC_CROP = 40
+WC_BUILT = 50
+WC_BARE = 60
+WC_WATER = 80
+WC_WETLAND = 90
 
 # Extraction parameters
-DELAY_BETWEEN_CALLS_S = 2.0  # Avoid GEE rate limits
+BUFFER_M = 250  # Buffer radius for feature extraction (meters)
+BATCH_SIZE = 100  # Points per GEE reduceRegions call
 MAX_RETRIES = 3
 RETRY_BACKOFF_S = 5.0  # Multiplied by retry number
-CHECKPOINT_EVERY = 25
 BACKGROUND_POINTS_PER_CITY = 500
 MIN_DISTANCE_FROM_HOTSPOT_KM = 0.5  # 500 meters
 MAX_ATTEMPTS_PER_POINT = 1000  # Max random samples before giving up
 
 ALL_CITIES = ["delhi", "bangalore", "yogyakarta", "singapore", "indore"]
 
+# Feature group membership (for routing to correct image stack)
+TERRAIN_FEATURES = {"elevation", "slope", "aspect", "tpi", "twi"}
+LANDCOVER_FEATURES = {
+    "built_up_pct", "vegetation_pct", "cropland_pct",
+    "water_pct", "bare_pct", "grass_pct", "wetland_pct",
+}
+
 
 # ---------------------------------------------------------------------------
-# Import from Phase 1 (01_feature_trial.py)
+# GEE Authentication
 # ---------------------------------------------------------------------------
-# The filename starts with a digit, so standard import doesn't work.
-# Use importlib to load the module and extract the functions we need.
 
-def _import_phase1():
-    """Import authenticate_gee and extract_static_features from Phase 1."""
-    phase1_path = SCRIPT_DIR / "01_feature_trial.py"
-    if not phase1_path.exists():
-        logger.error(f"Phase 1 script not found: {phase1_path}")
-        sys.exit(1)
+def authenticate_gee() -> bool:
+    """Authenticate with GEE using service account credentials."""
+    if not CREDENTIALS.exists():
+        logger.error(f"Service account key not found: {CREDENTIALS}")
+        return False
 
-    spec = importlib.util.spec_from_file_location("feature_trial", phase1_path)
-    if spec is None or spec.loader is None:
-        logger.error(f"Could not load module spec from: {phase1_path}")
-        sys.exit(1)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod.authenticate_gee, mod.extract_static_features
+    try:
+        credentials = ee.ServiceAccountCredentials(
+            email=None,
+            key_file=str(CREDENTIALS),
+        )
+        ee.Initialize(credentials=credentials, project="gen-lang-client-0669818939")
+        logger.info("GEE authenticated successfully")
+        return True
+    except Exception as e:
+        logger.error(f"GEE authentication failed: {e}")
+        return False
 
 
-authenticate_gee, extract_static_features = _import_phase1()
+# ---------------------------------------------------------------------------
+# GEE Image Stacks (built once, reused across batches)
+# ---------------------------------------------------------------------------
+
+def build_terrain_stack() -> ee.Image:
+    """
+    Build a 5-band terrain image stack from SRTM.
+
+    Bands: elevation, slope, aspect, tpi, twi
+    All at native 30m resolution.
+    """
+    srtm = ee.Image(SRTM)
+    elevation = srtm.select("elevation")
+    terrain = ee.Terrain.products(srtm)
+
+    # TPI: elevation minus focal mean (300m radius neighborhood)
+    focal_mean = elevation.focalMean(radius=300, units="meters")
+    tpi = elevation.subtract(focal_mean).rename("tpi")
+
+    # TWI: ln(contributing_area / tan(slope))
+    # Using pixel area (900 m^2) as proxy for contributing area
+    slope_rad = ee.Terrain.slope(srtm).multiply(math.pi).divide(180)
+    tan_slope = slope_rad.tan().max(0.001)  # Clamp to avoid div-by-zero
+    twi = ee.Image.constant(900).divide(tan_slope).log().rename("twi")
+
+    return ee.Image.cat([
+        elevation,                        # band: 'elevation'
+        terrain.select("slope"),          # band: 'slope'
+        terrain.select("aspect"),         # band: 'aspect'
+        tpi,                              # band: 'tpi'
+        twi,                              # band: 'twi'
+    ])
+
+
+def build_landcover_stack() -> ee.Image:
+    """
+    Build a 7-band land cover binary mask stack from ESA WorldCover.
+
+    Each band is a binary mask (0 or 1) for one land cover class.
+    When reduced with mean(), the result IS the fraction (0.0-1.0).
+    Multiply by 100 to get percentage.
+
+    Bands: built_up_pct, vegetation_pct, cropland_pct, water_pct,
+           bare_pct, grass_pct, wetland_pct
+    All at native 10m resolution.
+    """
+    wc = ee.ImageCollection(WORLDCOVER).mosaic().select("Map")
+
+    return ee.Image.cat([
+        wc.eq(WC_BUILT).rename("built_up_pct"),
+        wc.eq(WC_TREE).rename("vegetation_pct"),
+        wc.eq(WC_CROP).rename("cropland_pct"),
+        wc.eq(WC_WATER).rename("water_pct"),
+        wc.eq(WC_BARE).rename("bare_pct"),
+        wc.eq(WC_GRASS).rename("grass_pct"),
+        wc.eq(WC_WETLAND).rename("wetland_pct"),
+    ])
+
+
+# ---------------------------------------------------------------------------
+# Batched GEE Extraction
+# ---------------------------------------------------------------------------
+
+def _extract_batch_gee(
+    points: List[Dict],
+    terrain_stack: ee.Image,
+    lc_stack: ee.Image,
+    whitelist: List[str],
+) -> List[Dict]:
+    """
+    Extract features for a batch of points using 2 reduceRegions calls.
+
+    Args:
+        points: List of dicts with 'lat', 'lng' keys
+        terrain_stack: 5-band terrain image (from build_terrain_stack)
+        lc_stack: 7-band land cover image (from build_landcover_stack)
+        whitelist: Feature names to include in results
+
+    Returns:
+        List of per-point feature dicts (whitelisted only).
+        Each dict maps feature_name -> value (or None if missing).
+
+    Raises:
+        Exception on GEE error (caller handles fallback).
+    """
+    # Build FeatureCollection with 250m buffer geometries
+    ee_features = []
+    for i, p in enumerate(points):
+        pt = ee.Geometry.Point([p["lng"], p["lat"]])
+        buf = pt.buffer(BUFFER_M)
+        ee_features.append(ee.Feature(buf, {"_idx": i}))
+    fc = ee.FeatureCollection(ee_features)
+
+    # Determine which image groups this whitelist needs
+    need_terrain = bool(TERRAIN_FEATURES & set(whitelist))
+    need_lc = bool(LANDCOVER_FEATURES & set(whitelist))
+
+    # Extract terrain features (scale=30m, SRTM native resolution)
+    terrain_by_idx: Dict[int, Dict] = {}
+    if need_terrain:
+        result = terrain_stack.reduceRegions(
+            collection=fc,
+            reducer=ee.Reducer.mean(),
+            scale=30,
+        ).getInfo()
+        for f in result["features"]:
+            idx = f["properties"]["_idx"]
+            terrain_by_idx[idx] = f["properties"]
+
+    # Extract land cover features (scale=10m, WorldCover native resolution)
+    lc_by_idx: Dict[int, Dict] = {}
+    if need_lc:
+        result = lc_stack.reduceRegions(
+            collection=fc,
+            reducer=ee.Reducer.mean(),
+            scale=10,
+        ).getInfo()
+        for f in result["features"]:
+            idx = f["properties"]["_idx"]
+            lc_by_idx[idx] = f["properties"]
+
+    # Assemble per-point results in input order
+    results = []
+    for i in range(len(points)):
+        t_props = terrain_by_idx.get(i, {})
+        l_props = lc_by_idx.get(i, {})
+        features: Dict[str, Optional[float]] = {}
+
+        for key in whitelist:
+            if key in TERRAIN_FEATURES:
+                features[key] = t_props.get(key)
+            elif key in LANDCOVER_FEATURES:
+                val = l_props.get(key)
+                # mean of binary mask gives fraction (0-1), convert to %
+                features[key] = round(val * 100, 2) if val is not None else None
+            else:
+                features[key] = None
+
+        results.append(features)
+
+    return results
+
+
+def _extract_with_fallback(
+    points: List[Dict],
+    terrain_stack: ee.Image,
+    lc_stack: ee.Image,
+    whitelist: List[str],
+    depth: int = 0,
+) -> List[Dict]:
+    """
+    Adaptive batched extraction with binary split fallback.
+
+    Strategy:
+      1. Try extracting all points in one batch
+      2. On failure: split in half, recurse on each half
+      3. At single-point level: retry up to MAX_RETRIES times
+      4. If single point still fails: record null features
+
+    This guarantees per-point results regardless of batch failures.
+    Max recursion depth for batch of 100: log2(100) ~ 7 levels.
+
+    Args:
+        points: Points to extract (subset being processed)
+        terrain_stack: Pre-built terrain image stack
+        lc_stack: Pre-built land cover image stack
+        whitelist: Feature names to extract
+        depth: Current recursion depth (for logging indentation)
+
+    Returns:
+        List of per-point feature dicts, same length as points.
+    """
+    indent = "  " * (depth + 1)
+    n = len(points)
+
+    if n == 0:
+        return []
+
+    # --- Single point: final fallback with retries ---
+    if n == 1:
+        point_name = points[0].get("name", f"({points[0]['lat']:.4f}, {points[0]['lng']:.4f})")
+        for attempt in range(1, MAX_RETRIES + 1):
+            try:
+                result = _extract_batch_gee(points, terrain_stack, lc_stack, whitelist)
+                return result
+            except Exception as e:
+                if attempt < MAX_RETRIES:
+                    wait = RETRY_BACKOFF_S * attempt
+                    logger.warning(
+                        f"{indent}Point {point_name} attempt {attempt}/{MAX_RETRIES} "
+                        f"failed: {e}. Retrying in {wait:.0f}s..."
+                    )
+                    time.sleep(wait)
+                else:
+                    logger.error(
+                        f"{indent}FAILED: {point_name} after {MAX_RETRIES} attempts. "
+                        f"Recording nulls."
+                    )
+                    return [{k: None for k in whitelist}]
+
+    # --- Batch extraction with split-on-failure ---
+    try:
+        result = _extract_batch_gee(points, terrain_stack, lc_stack, whitelist)
+        return result
+    except Exception as e:
+        logger.warning(
+            f"{indent}Batch of {n} failed: {e}. Splitting into two halves..."
+        )
+        mid = n // 2
+        left = _extract_with_fallback(
+            points[:mid], terrain_stack, lc_stack, whitelist, depth + 1
+        )
+        right = _extract_with_fallback(
+            points[mid:], terrain_stack, lc_stack, whitelist, depth + 1
+        )
+        return left + right
+
+    # Unreachable, but makes the return type explicit
+    return []  # type: ignore[unreachable]
+
+
+def extract_features_batched(
+    points: List[Dict],
+    whitelist: List[str],
+    city: str,
+    point_type: str,
+    terrain_stack: ee.Image,
+    lc_stack: ee.Image,
+    resume: bool = False,
+) -> List[Dict]:
+    """
+    Main extraction entry point. Processes points in batches with checkpointing.
+
+    Splits points into BATCH_SIZE chunks, extracts each chunk via GEE
+    reduceRegions, and saves checkpoints after each batch completes.
+
+    Args:
+        points: All points to extract (hotspots or background)
+        whitelist: Feature names to extract
+        city: City name (for checkpoint filenames)
+        point_type: 'hotspot' or 'background'
+        terrain_stack: Pre-built terrain GEE image
+        lc_stack: Pre-built land cover GEE image
+        resume: Whether to resume from checkpoint
+
+    Returns:
+        List of dicts with 'name', 'lat', 'lng', 'features' keys.
+    """
+    results: List[Dict] = []
+    start_idx = 0
+
+    # Resume from checkpoint if requested
+    if resume:
+        ckpt = load_checkpoint(city, point_type)
+        if ckpt and ckpt["whitelist"] == whitelist:
+            results = ckpt["results"]
+            start_idx = ckpt["completed"]
+            logger.info(f"  Resuming from point {start_idx}/{len(points)}")
+        elif ckpt:
+            logger.warning(
+                "  Checkpoint exists but whitelist changed. Starting fresh."
+            )
+
+    total = len(points)
+    remaining_points = points[start_idx:]
+
+    # Process in batches
+    for batch_start in range(0, len(remaining_points), BATCH_SIZE):
+        batch_end = min(batch_start + BATCH_SIZE, len(remaining_points))
+        batch = remaining_points[batch_start:batch_end]
+        absolute_start = start_idx + batch_start
+        absolute_end = start_idx + batch_end
+
+        logger.info(
+            f"  Batch [{absolute_start + 1}-{absolute_end}/{total}] "
+            f"({len(batch)} {point_type} points)"
+        )
+
+        t0 = time.time()
+        batch_features = _extract_with_fallback(
+            batch, terrain_stack, lc_stack, whitelist
+        )
+        elapsed = time.time() - t0
+
+        # Combine batch results with point metadata
+        for i, features in enumerate(batch_features):
+            point = batch[i]
+            results.append({
+                "name": point.get("name", f"point_{absolute_start + i}"),
+                "lat": point["lat"],
+                "lng": point["lng"],
+                "features": features,
+            })
+
+        # Per-batch quality report
+        n_null = sum(
+            1 for f in batch_features
+            for v in f.values()
+            if v is None
+        )
+        n_total_vals = sum(len(f) for f in batch_features)
+        pct_valid = (1 - n_null / n_total_vals) * 100 if n_total_vals > 0 else 0
+
+        logger.info(
+            f"    Completed in {elapsed:.1f}s "
+            f"({elapsed/len(batch):.1f}s/point avg). "
+            f"{pct_valid:.0f}% valid values."
+        )
+
+        # Checkpoint after each batch
+        save_checkpoint(city, point_type, whitelist, results, total)
+        logger.info(f"    Checkpoint: {len(results)}/{total} complete")
+
+    return results
 
 
 # ---------------------------------------------------------------------------
@@ -292,103 +628,6 @@ def save_checkpoint(
 
 
 # ---------------------------------------------------------------------------
-# Batched feature extraction
-# ---------------------------------------------------------------------------
-
-def extract_features_batch(
-    points: List[Dict],
-    whitelist: List[str],
-    city: str,
-    point_type: str,
-    resume: bool = False,
-) -> List[Dict]:
-    """
-    Extract features for a list of points with batching, retries, and checkpointing.
-
-    Args:
-        points: List of dicts with 'lat', 'lng', 'name' keys
-        whitelist: List of feature names to keep
-        city: City name (for checkpointing)
-        point_type: 'hotspot' or 'background' (for checkpointing)
-        resume: If True, load from checkpoint and continue
-
-    Returns:
-        List of dicts with 'name', 'lat', 'lng', 'features' keys.
-        features is a dict of whitelisted feature_name -> value.
-    """
-    results = []
-    start_idx = 0
-
-    # Resume from checkpoint if requested
-    if resume:
-        ckpt = load_checkpoint(city, point_type)
-        if ckpt and ckpt["whitelist"] == whitelist:
-            results = ckpt["results"]
-            start_idx = ckpt["completed"]
-            logger.info(f"  Resuming from point {start_idx}/{len(points)}")
-        elif ckpt:
-            logger.warning(
-                "  Checkpoint exists but whitelist changed. Starting fresh."
-            )
-
-    total = len(points)
-
-    for i in range(start_idx, total):
-        point = points[i]
-        name = point.get("name", f"point_{i}")
-        lat, lng = point["lat"], point["lng"]
-
-        logger.info(
-            f"  [{i + 1}/{total}] {point_type}: {name} ({lat:.4f}, {lng:.4f})"
-        )
-
-        # Extract with retries
-        features = None
-        for attempt in range(1, MAX_RETRIES + 1):
-            try:
-                all_features = extract_static_features(lat, lng)
-                # Filter to whitelist only
-                features = {
-                    k: v for k, v in all_features.items() if k in whitelist
-                }
-                break
-            except Exception as e:
-                wait = RETRY_BACKOFF_S * attempt
-                logger.warning(
-                    f"    Attempt {attempt}/{MAX_RETRIES} failed: {e}. "
-                    f"Retrying in {wait:.0f}s..."
-                )
-                if attempt < MAX_RETRIES:
-                    time.sleep(wait)
-                else:
-                    logger.error(
-                        f"    FAILED after {MAX_RETRIES} attempts. "
-                        f"Recording nulls for {name}."
-                    )
-                    features = {k: None for k in whitelist}
-
-        results.append({
-            "name": name,
-            "lat": lat,
-            "lng": lng,
-            "features": features,
-        })
-
-        # Checkpoint
-        if (i + 1) % CHECKPOINT_EVERY == 0 or (i + 1) == total:
-            save_checkpoint(city, point_type, whitelist, results, total)
-            logger.info(
-                f"    Checkpoint saved: {len(results)}/{total} complete"
-            )
-
-        # Rate limiting (skip delay after last point)
-        if i < total - 1:
-            time.sleep(DELAY_BETWEEN_CALLS_S)
-
-    return results
-
-
-# ---------------------------------------------------------------------------
 # Save to NPZ
 # ---------------------------------------------------------------------------
 
@@ -450,15 +689,21 @@ def results_to_npz(
 # Process a single city
 # ---------------------------------------------------------------------------
 
-def process_city(city: str, resume: bool = False, bg_only: bool = False) -> None:
+def process_city(
+    city: str,
+    terrain_stack: ee.Image,
+    lc_stack: ee.Image,
+    resume: bool = False,
+    bg_only: bool = False,
+) -> None:
     """
     Full extraction pipeline for one city.
 
     Steps:
       1. Load hotspots and feature whitelist
-      2. Generate background points
-      3. Extract features for hotspots (if not bg_only)
-      4. Extract features for background points (if not bg_only)
+      2. Generate (or load cached) background points
+      3. Extract features for hotspots using batched GEE
+      4. Extract features for background points
       5. Save .npz files
     """
     logger.info(f"\n{'=' * 60}")
@@ -490,11 +735,15 @@ def process_city(city: str, resume: bool = False, bg_only: bool = False) -> None
 
     # Extract hotspot features
     logger.info(f"\n--- Extracting features for {len(hotspots)} hotspots ---")
-    hotspot_results = extract_features_batch(
+    city_t0 = time.time()
+
+    hotspot_results = extract_features_batched(
         points=hotspots,
         whitelist=whitelist,
         city=city,
         point_type="hotspot",
+        terrain_stack=terrain_stack,
+        lc_stack=lc_stack,
         resume=resume,
     )
 
@@ -503,18 +752,21 @@ def process_city(city: str, resume: bool = False, bg_only: bool = False) -> None
 
     # Extract background features
     logger.info(f"\n--- Extracting features for {len(bg_points)} background points ---")
-    bg_results = extract_features_batch(
+    bg_results = extract_features_batched(
         points=bg_points,
         whitelist=whitelist,
         city=city,
         point_type="background",
+        terrain_stack=terrain_stack,
+        lc_stack=lc_stack,
         resume=resume,
     )
 
     bg_npz = OUTPUT_DIR / f"{city}_background_features.npz"
     results_to_npz(bg_results, whitelist, bg_npz)
 
-    logger.info(f"\n  {city.upper()} COMPLETE")
+    city_elapsed = time.time() - city_t0
+    logger.info(f"\n  {city.upper()} COMPLETE in {city_elapsed:.0f}s")
     logger.info(f"    Hotspots:   {hotspot_npz}")
     logger.info(f"    Background: {bg_npz}")
 
@@ -544,19 +796,34 @@ def main():
     )
     args = parser.parse_args()
 
-    # Authenticate GEE (unless bg-only mode)
+    # Authenticate GEE and build image stacks (unless bg-only mode)
+    terrain_stack = None
+    lc_stack = None
+
     if not args.bg_only:
         logger.info("Authenticating with Google Earth Engine...")
         if not authenticate_gee():
             logger.error("FATAL: GEE authentication failed. Cannot proceed.")
             sys.exit(1)
 
+        logger.info("Building GEE image stacks (reused across all batches)...")
+        terrain_stack = build_terrain_stack()
+        lc_stack = build_landcover_stack()
+        logger.info("  Terrain stack: 5 bands (elevation, slope, aspect, tpi, twi)")
+        logger.info("  Land cover stack: 7 bands (built_up, vegetation, cropland, water, bare, grass, wetland)")
+
     # Process cities
     cities = [args.city] if args.city else ALL_CITIES
 
     for city in cities:
         try:
-            process_city(city, resume=args.resume, bg_only=args.bg_only)
+            process_city(
+                city,
+                terrain_stack=terrain_stack,
+                lc_stack=lc_stack,
+                resume=args.resume,
+                bg_only=args.bg_only,
+            )
         except Exception as e:
             logger.error(f"FAILED processing {city}: {e}")
             if len(cities) > 1:
