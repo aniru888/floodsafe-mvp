@@ -2,837 +2,761 @@
   {
     "name": "Jalan Kusumanegara",
     "zscores": {
-      "slope": -0.668,
-      "twi": 1.078,
-      "built_up_pct": 2.619,
-      "vegetation_pct": -1.548,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.669,
+      "twi": 1.681,
+      "built_up_pct": 2.072,
+      "vegetation_pct": -1.754,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Gejayan",
     "zscores": {
-      "slope": -0.689,
-      "twi": 1.223,
-      "built_up_pct": 2.695,
-      "vegetation_pct": -1.655,
-      "cropland_pct": -0.85,
-      "grass_pct": -0.417
+      "slope": -1.864,
+      "twi": 2.209,
+      "built_up_pct": 2.225,
+      "vegetation_pct": -2.059,
+      "cropland_pct": -0.807
     }
   },
   {
     "name": "Jalan Ringroad Utara",
     "zscores": {
-      "slope": -0.457,
-      "twi": 0.661,
-      "built_up_pct": 1.706,
-      "vegetation_pct": -0.762,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.305
+      "slope": 0.341,
+      "twi": 0.162,
+      "built_up_pct": 0.231,
+      "vegetation_pct": 0.488,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Klitren",
     "zscores": {
-      "slope": -0.582,
-      "twi": 0.762,
-      "built_up_pct": 2.838,
-      "vegetation_pct": -1.744,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -0.852,
+      "twi": 0.532,
+      "built_up_pct": 2.514,
+      "vegetation_pct": -2.315,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Balirejo",
     "zscores": {
-      "slope": -0.601,
-      "twi": 0.954,
-      "built_up_pct": 2.549,
-      "vegetation_pct": -1.485,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.032,
+      "twi": 1.23,
+      "built_up_pct": 1.93,
+      "vegetation_pct": -1.574,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Ipda Tut Harsono",
     "zscores": {
-      "slope": -0.531,
-      "twi": 0.727,
-      "built_up_pct": 2.596,
-      "vegetation_pct": -1.527,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -0.363,
+      "twi": 0.403,
+      "built_up_pct": 2.026,
+      "vegetation_pct": -1.696,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Terban",
     "zscores": {
-      "slope": -0.572,
-      "twi": 0.803,
-      "built_up_pct": 2.497,
-      "vegetation_pct": -1.469,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.315
+      "slope": -0.757,
+      "twi": 0.679,
+      "built_up_pct": 1.825,
+      "vegetation_pct": -1.528,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Bintaran",
     "zscores": {
-      "slope": -0.569,
-      "twi": 0.858,
-      "built_up_pct": 2.799,
-      "vegetation_pct": -1.713,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.438
+      "slope": -0.721,
+      "twi": 0.882,
+      "built_up_pct": 2.435,
+      "vegetation_pct": -2.225,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Babarsari",
     "zscores": {
-      "slope": -0.257,
-      "twi": 0.16,
-      "built_up_pct": 1.401,
-      "vegetation_pct": -0.885,
-      "cropland_pct": -0.719,
-      "grass_pct": 0.87
+      "slope": 2.243,
+      "twi": -1.661,
+      "built_up_pct": -0.383,
+      "vegetation_pct": 0.138,
+      "cropland_pct": -0.426
     }
   },
   {
     "name": "Jalan Seturan",
     "zscores": {
-      "slope": -0.538,
-      "twi": 0.768,
-      "built_up_pct": 1.984,
-      "vegetation_pct": -1.062,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.074
+      "slope": -0.432,
+      "twi": 0.552,
+      "built_up_pct": 0.791,
+      "vegetation_pct": -0.37,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Perumnas Seturan",
     "zscores": {
-      "slope": -0.502,
-      "twi": 0.612,
-      "built_up_pct": 2.429,
-      "vegetation_pct": -1.384,
-      "cropland_pct": -0.886,
-      "grass_pct": -0.434
+      "slope": -0.085,
+      "twi": -0.016,
+      "built_up_pct": 1.689,
+      "vegetation_pct": -1.288,
+      "cropland_pct": -0.913
     }
   },
   {
     "name": "Selokan Mataram",
     "zscores": {
-      "slope": -0.548,
-      "twi": 0.894,
-      "built_up_pct": 2.184,
-      "vegetation_pct": -1.157,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -0.522,
+      "twi": 1.012,
+      "built_up_pct": 1.195,
+      "vegetation_pct": -0.641,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Affandi",
     "zscores": {
-      "slope": -0.687,
-      "twi": 1.197,
-      "built_up_pct": 2.687,
-      "vegetation_pct": -1.65,
-      "cropland_pct": -0.848,
-      "grass_pct": -0.413
+      "slope": -1.85,
+      "twi": 2.115,
+      "built_up_pct": 2.209,
+      "vegetation_pct": -2.045,
+      "cropland_pct": -0.802
     }
   },
   {
     "name": "Jalan Urip Sumoharjo",
     "zscores": {
-      "slope": -0.597,
-      "twi": 0.818,
-      "built_up_pct": 2.85,
-      "vegetation_pct": -1.755,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -0.988,
+      "twi": 0.736,
+      "built_up_pct": 2.538,
+      "vegetation_pct": -2.346,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Laksda Adisucipto",
     "zscores": {
-      "slope": -0.469,
-      "twi": 0.457,
-      "built_up_pct": 2.817,
-      "vegetation_pct": -1.725,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": 0.228,
+      "twi": -0.581,
+      "built_up_pct": 2.471,
+      "vegetation_pct": -2.259,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Jendral Sudirman (Tugu Yogyakarta)",
     "zscores": {
-      "slope": -0.385,
-      "twi": 0.397,
-      "built_up_pct": 2.706,
-      "vegetation_pct": -1.629,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.436
+      "slope": 1.024,
+      "twi": -0.797,
+      "built_up_pct": 2.247,
+      "vegetation_pct": -1.987,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Majapahit",
     "zscores": {
-      "slope": -0.467,
-      "twi": 0.443,
-      "built_up_pct": 1.974,
-      "vegetation_pct": -0.971,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.446
+      "slope": 0.245,
+      "twi": -0.63,
+      "built_up_pct": 0.772,
+      "vegetation_pct": -0.11,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Gedongkuning - Wonocatur",
     "zscores": {
-      "slope": -0.613,
-      "twi": 0.934,
-      "built_up_pct": 2.762,
-      "vegetation_pct": -1.678,
-      "cropland_pct": -0.887,
-      "grass_pct": -0.454
+      "slope": -1.147,
+      "twi": 1.16,
+      "built_up_pct": 2.361,
+      "vegetation_pct": -2.124,
+      "cropland_pct": -0.917
     }
   },
   {
     "name": "Underpass Kentungan",
     "zscores": {
-      "slope": -0.499,
-      "twi": 0.63,
-      "built_up_pct": 1.413,
-      "vegetation_pct": -0.894,
-      "cropland_pct": -0.889,
-      "grass_pct": 1.463
+      "slope": -0.06,
+      "twi": 0.052,
+      "built_up_pct": -0.36,
+      "vegetation_pct": 0.112,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Gondokusuman (Sungai Code)",
     "zscores": {
-      "slope": -0.683,
-      "twi": 1.162,
-      "built_up_pct": 2.458,
-      "vegetation_pct": -1.429,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.808,
+      "twi": 1.988,
+      "built_up_pct": 1.747,
+      "vegetation_pct": -1.415,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jetis (Sungai Code)",
     "zscores": {
-      "slope": -0.677,
-      "twi": 1.154,
-      "built_up_pct": 2.85,
-      "vegetation_pct": -1.762,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.421
+      "slope": -1.749,
+      "twi": 1.961,
+      "built_up_pct": 2.538,
+      "vegetation_pct": -2.366,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Gedongtengen (Sungai Code)",
     "zscores": {
-      "slope": -0.764,
-      "twi": 1.702,
-      "built_up_pct": 2.687,
-      "vegetation_pct": -1.644,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.297
+      "slope": -2.58,
+      "twi": 3.955,
+      "built_up_pct": 2.21,
+      "vegetation_pct": -2.028,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Cokrodiningratan",
     "zscores": {
-      "slope": -0.625,
-      "twi": 1.181,
-      "built_up_pct": 2.834,
-      "vegetation_pct": -1.741,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.258,
+      "twi": 2.057,
+      "built_up_pct": 2.506,
+      "vegetation_pct": -2.305,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Kota Baru (Sungai Code)",
     "zscores": {
-      "slope": -0.61,
-      "twi": 0.991,
-      "built_up_pct": 2.35,
-      "vegetation_pct": -1.629,
-      "cropland_pct": -0.889,
-      "grass_pct": 0.994
+      "slope": -1.116,
+      "twi": 1.366,
+      "built_up_pct": 1.528,
+      "vegetation_pct": -1.986,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Demangan",
     "zscores": {
-      "slope": -0.545,
-      "twi": 0.701,
-      "built_up_pct": 2.784,
-      "vegetation_pct": -1.696,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -0.494,
+      "twi": 0.311,
+      "built_up_pct": 2.404,
+      "vegetation_pct": -2.175,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Kampung Code Utara",
     "zscores": {
-      "slope": -0.462,
-      "twi": 0.601,
-      "built_up_pct": 1.882,
-      "vegetation_pct": -1.584,
-      "cropland_pct": -0.341,
-      "grass_pct": 0.745
+      "slope": 0.29,
+      "twi": -0.055,
+      "built_up_pct": 0.586,
+      "vegetation_pct": -1.858,
+      "cropland_pct": 0.675
     }
   },
   {
     "name": "Sayidan",
     "zscores": {
-      "slope": -0.509,
-      "twi": 0.64,
-      "built_up_pct": 2.763,
-      "vegetation_pct": -1.68,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.438
+      "slope": -0.151,
+      "twi": 0.088,
+      "built_up_pct": 2.362,
+      "vegetation_pct": -2.132,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Prawirodirjan",
     "zscores": {
-      "slope": -0.627,
-      "twi": 1.06,
-      "built_up_pct": 2.485,
-      "vegetation_pct": -1.429,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.446
+      "slope": -1.275,
+      "twi": 1.615,
+      "built_up_pct": 1.802,
+      "vegetation_pct": -1.416,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Tegalrejo (Sungai Winongo)",
     "zscores": {
-      "slope": -0.513,
-      "twi": 0.733,
-      "built_up_pct": 2.372,
-      "vegetation_pct": -1.386,
-      "cropland_pct": -0.868,
-      "grass_pct": -0.257
+      "slope": -0.196,
+      "twi": 0.426,
+      "built_up_pct": 1.574,
+      "vegetation_pct": -1.293,
+      "cropland_pct": -0.862
     }
   },
   {
     "name": "Ngampilan (Sungai Winongo)",
     "zscores": {
-      "slope": -0.654,
-      "twi": 0.983,
-      "built_up_pct": 2.767,
-      "vegetation_pct": -1.68,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.534,
+      "twi": 1.336,
+      "built_up_pct": 2.37,
+      "vegetation_pct": -2.132,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Mantrijeron",
     "zscores": {
-      "slope": -0.737,
-      "twi": 1.419,
-      "built_up_pct": 2.634,
-      "vegetation_pct": -1.561,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -2.328,
+      "twi": 2.923,
+      "built_up_pct": 2.101,
+      "vegetation_pct": -1.791,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Notoprajan",
     "zscores": {
-      "slope": -0.358,
-      "twi": 0.207,
-      "built_up_pct": 2.527,
-      "vegetation_pct": -1.465,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": 1.281,
+      "twi": -1.489,
+      "built_up_pct": 1.887,
+      "vegetation_pct": -1.519,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Patangpuluhan",
     "zscores": {
-      "slope": -0.626,
-      "twi": 1.053,
-      "built_up_pct": 2.814,
-      "vegetation_pct": -1.733,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.405
+      "slope": -1.264,
+      "twi": 1.593,
+      "built_up_pct": 2.464,
+      "vegetation_pct": -2.282,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Kricak (Sungai Winongo)",
     "zscores": {
-      "slope": -0.633,
-      "twi": 1.042,
-      "built_up_pct": 2.598,
-      "vegetation_pct": -1.545,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.38
+      "slope": -1.336,
+      "twi": 1.553,
+      "built_up_pct": 2.029,
+      "vegetation_pct": -1.747,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Wirobrajan",
     "zscores": {
-      "slope": -0.747,
-      "twi": 1.415,
-      "built_up_pct": 2.638,
-      "vegetation_pct": -1.564,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -2.422,
+      "twi": 2.91,
+      "built_up_pct": 2.109,
+      "vegetation_pct": -1.801,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Umbulharjo (Sungai Gajah Wong)",
     "zscores": {
-      "slope": -0.675,
-      "twi": 1.042,
-      "built_up_pct": 2.782,
-      "vegetation_pct": -1.693,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.73,
+      "twi": 1.549,
+      "built_up_pct": 2.399,
+      "vegetation_pct": -2.169,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Kotagede",
     "zscores": {
-      "slope": -0.601,
-      "twi": 1.045,
-      "built_up_pct": 2.472,
-      "vegetation_pct": -1.418,
-      "cropland_pct": -0.887,
-      "grass_pct": -0.454
+      "slope": -1.028,
+      "twi": 1.563,
+      "built_up_pct": 1.776,
+      "vegetation_pct": -1.383,
+      "cropland_pct": -0.916
     }
   },
   {
     "name": "Banguntapan",
     "zscores": {
-      "slope": -0.456,
-      "twi": 0.399,
-      "built_up_pct": 0.541,
-      "vegetation_pct": -0.988,
-      "cropland_pct": 0.121,
-      "grass_pct": 1.845
+      "slope": 0.353,
+      "twi": -0.791,
+      "built_up_pct": -2.119,
+      "vegetation_pct": -0.158,
+      "cropland_pct": 2.018
     }
   },
   {
     "name": "Muja Muju",
     "zscores": {
-      "slope": -0.572,
-      "twi": 0.768,
-      "built_up_pct": 2.316,
-      "vegetation_pct": -1.276,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -0.75,
+      "twi": 0.552,
+      "built_up_pct": 1.461,
+      "vegetation_pct": -0.978,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Warungboto",
     "zscores": {
-      "slope": -0.685,
-      "twi": 1.141,
-      "built_up_pct": 2.693,
-      "vegetation_pct": -1.614,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.831,
+      "twi": 1.912,
+      "built_up_pct": 2.221,
+      "vegetation_pct": -1.943,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Giwangan",
     "zscores": {
-      "slope": -0.402,
-      "twi": 0.486,
-      "built_up_pct": 2.427,
-      "vegetation_pct": -1.385,
-      "cropland_pct": -0.882,
-      "grass_pct": -0.438
+      "slope": 0.863,
+      "twi": -0.474,
+      "built_up_pct": 1.685,
+      "vegetation_pct": -1.289,
+      "cropland_pct": -0.902
     }
   },
   {
     "name": "Iromejan (Klitren - Sungai Belik)",
     "zscores": {
-      "slope": -0.633,
-      "twi": 1.025,
-      "built_up_pct": 2.806,
-      "vegetation_pct": -1.715,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.335,
+      "twi": 1.491,
+      "built_up_pct": 2.448,
+      "vegetation_pct": -2.231,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Baciro (Sungai Belik)",
     "zscores": {
-      "slope": -0.62,
-      "twi": 0.96,
-      "built_up_pct": 2.784,
-      "vegetation_pct": -1.698,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.441
+      "slope": -1.214,
+      "twi": 1.251,
+      "built_up_pct": 2.403,
+      "vegetation_pct": -2.183,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Pakualaman (Sungai Tekik)",
     "zscores": {
-      "slope": -0.644,
-      "twi": 1.073,
-      "built_up_pct": 2.711,
-      "vegetation_pct": -1.63,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.442,
+      "twi": 1.662,
+      "built_up_pct": 2.258,
+      "vegetation_pct": -1.99,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Purwokinanti",
     "zscores": {
-      "slope": -0.669,
-      "twi": 1.137,
-      "built_up_pct": 2.832,
-      "vegetation_pct": -1.743,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.438
+      "slope": -1.674,
+      "twi": 1.898,
+      "built_up_pct": 2.502,
+      "vegetation_pct": -2.31,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Underpass Janti",
     "zscores": {
-      "slope": -0.358,
-      "twi": 0.308,
-      "built_up_pct": 1.619,
-      "vegetation_pct": -0.927,
-      "cropland_pct": -0.638,
-      "grass_pct": -0.099
+      "slope": 1.285,
+      "twi": -1.124,
+      "built_up_pct": 0.056,
+      "vegetation_pct": 0.016,
+      "cropland_pct": -0.19
     }
   },
   {
     "name": "Underpass Monjali",
     "zscores": {
-      "slope": -0.71,
-      "twi": 1.273,
-      "built_up_pct": 2.689,
-      "vegetation_pct": -1.61,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -2.068,
+      "twi": 2.392,
+      "built_up_pct": 2.212,
+      "vegetation_pct": -1.931,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Godean",
     "zscores": {
-      "slope": -0.568,
-      "twi": 0.846,
-      "built_up_pct": 2.389,
-      "vegetation_pct": -1.395,
-      "cropland_pct": -0.832,
-      "grass_pct": -0.413
+      "slope": -0.715,
+      "twi": 0.836,
+      "built_up_pct": 1.608,
+      "vegetation_pct": -1.317,
+      "cropland_pct": -0.757
     }
   },
   {
     "name": "Jalan Kaliurang",
     "zscores": {
-      "slope": -0.589,
-      "twi": 0.828,
-      "built_up_pct": 2.744,
-      "vegetation_pct": -1.66,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -0.919,
+      "twi": 0.773,
+      "built_up_pct": 2.323,
+      "vegetation_pct": -2.073,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Bantul",
     "zscores": {
-      "slope": -0.574,
-      "twi": 0.865,
-      "built_up_pct": 2.414,
-      "vegetation_pct": -1.371,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.421
+      "slope": -0.777,
+      "twi": 0.906,
+      "built_up_pct": 1.659,
+      "vegetation_pct": -1.251,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Parangtritis",
     "zscores": {
-      "slope": -0.623,
-      "twi": 0.835,
-      "built_up_pct": 2.703,
-      "vegetation_pct": -1.623,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.235,
+      "twi": 0.799,
+      "built_up_pct": 2.24,
+      "vegetation_pct": -1.967,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Solo (Adisucipto - Ring Road)",
     "zscores": {
-      "slope": -0.611,
-      "twi": 1.075,
-      "built_up_pct": 1.318,
-      "vegetation_pct": -0.785,
-      "cropland_pct": -0.49,
-      "grass_pct": -0.048
+      "slope": -1.124,
+      "twi": 1.673,
+      "built_up_pct": -0.551,
+      "vegetation_pct": 0.423,
+      "cropland_pct": 0.241
     }
   },
   {
     "name": "Mergangsan",
     "zscores": {
-      "slope": -0.606,
-      "twi": 0.834,
-      "built_up_pct": 2.689,
-      "vegetation_pct": -1.61,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.081,
+      "twi": 0.793,
+      "built_up_pct": 2.212,
+      "vegetation_pct": -1.931,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Pandeyan",
     "zscores": {
-      "slope": -0.641,
-      "twi": 0.917,
-      "built_up_pct": 2.256,
-      "vegetation_pct": -1.422,
-      "cropland_pct": -0.637,
-      "grass_pct": -0.446
+      "slope": -1.407,
+      "twi": 1.095,
+      "built_up_pct": 1.339,
+      "vegetation_pct": -1.395,
+      "cropland_pct": -0.187
     }
   },
   {
     "name": "Sorosutan",
     "zscores": {
-      "slope": -0.659,
-      "twi": 0.988,
-      "built_up_pct": 2.724,
-      "vegetation_pct": -1.651,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.413
+      "slope": -1.581,
+      "twi": 1.355,
+      "built_up_pct": 2.283,
+      "vegetation_pct": -2.047,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Tahunan",
     "zscores": {
-      "slope": -0.65,
-      "twi": 0.985,
-      "built_up_pct": 2.381,
-      "vegetation_pct": -1.476,
-      "cropland_pct": -0.828,
-      "grass_pct": -0.03
+      "slope": -1.499,
+      "twi": 1.342,
+      "built_up_pct": 1.591,
+      "vegetation_pct": -1.549,
+      "cropland_pct": -0.745
     }
   },
   {
     "name": "Semaki",
     "zscores": {
-      "slope": -0.587,
-      "twi": 0.979,
-      "built_up_pct": 2.674,
-      "vegetation_pct": -1.724,
-      "cropland_pct": -0.877,
-      "grass_pct": 0.071
+      "slope": -0.893,
+      "twi": 1.323,
+      "built_up_pct": 2.183,
+      "vegetation_pct": -2.257,
+      "cropland_pct": -0.886
     }
   },
   {
     "name": "Kadipaten",
     "zscores": {
-      "slope": -0.664,
-      "twi": 1.168,
-      "built_up_pct": 2.829,
-      "vegetation_pct": -1.736,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.627,
+      "twi": 2.012,
+      "built_up_pct": 2.495,
+      "vegetation_pct": -2.29,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Purbayan (Kotagede)",
     "zscores": {
-      "slope": -0.739,
-      "twi": 1.455,
-      "built_up_pct": 2.699,
-      "vegetation_pct": -1.619,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -2.342,
+      "twi": 3.056,
+      "built_up_pct": 2.233,
+      "vegetation_pct": -1.958,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Rejowinangun",
     "zscores": {
-      "slope": -0.631,
-      "twi": 1.101,
-      "built_up_pct": 2.517,
-      "vegetation_pct": -1.456,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.314,
+      "twi": 1.764,
+      "built_up_pct": 1.865,
+      "vegetation_pct": -1.492,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Caturtunggal (Depok)",
     "zscores": {
-      "slope": -0.51,
-      "twi": 0.612,
-      "built_up_pct": 2.015,
-      "vegetation_pct": -1.071,
-      "cropland_pct": -0.812,
-      "grass_pct": -0.429
+      "slope": -0.162,
+      "twi": -0.015,
+      "built_up_pct": 0.854,
+      "vegetation_pct": -0.396,
+      "cropland_pct": -0.698
     }
   },
   {
     "name": "Condongcatur",
     "zscores": {
-      "slope": -0.43,
-      "twi": 0.379,
-      "built_up_pct": 2.623,
-      "vegetation_pct": -1.551,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": 0.6,
+      "twi": -0.862,
+      "built_up_pct": 2.079,
+      "vegetation_pct": -1.763,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Taman Siswa",
     "zscores": {
-      "slope": -0.661,
-      "twi": 1.151,
-      "built_up_pct": 2.679,
-      "vegetation_pct": -1.601,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.602,
+      "twi": 1.947,
+      "built_up_pct": 2.193,
+      "vegetation_pct": -1.907,
+      "cropland_pct": -0.921
     }
   },
   {
     "name": "Keparakan",
     "zscores": {
-      "slope": -0.678,
-      "twi": 1.026,
-      "built_up_pct": 2.781,
-      "vegetation_pct": -1.693,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.762,
+      "twi": 1.492,
+      "built_up_pct": 2.398,
+      "vegetation_pct": -2.167,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Brontokusuman",
     "zscores": {
-      "slope": -0.676,
-      "twi": 1.211,
-      "built_up_pct": 2.722,
-      "vegetation_pct": -1.64,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.745,
+      "twi": 2.165,
+      "built_up_pct": 2.28,
+      "vegetation_pct": -2.018,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Imogiri Timur",
     "zscores": {
-      "slope": -0.609,
-      "twi": 0.913,
-      "built_up_pct": 2.219,
-      "vegetation_pct": -1.285,
-      "cropland_pct": -0.789,
-      "grass_pct": -0.372
+      "slope": -1.11,
+      "twi": 1.082,
+      "built_up_pct": 1.264,
+      "vegetation_pct": -1.006,
+      "cropland_pct": -0.63
     }
   },
   {
     "name": "Panembahan",
     "zscores": {
-      "slope": -0.691,
-      "twi": 1.263,
-      "built_up_pct": 2.795,
-      "vegetation_pct": -1.705,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.889,
+      "twi": 2.357,
+      "built_up_pct": 2.426,
+      "vegetation_pct": -2.203,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Ngupasan",
     "zscores": {
-      "slope": -0.547,
-      "twi": 0.718,
-      "built_up_pct": 2.855,
-      "vegetation_pct": -1.759,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -0.517,
+      "twi": 0.372,
+      "built_up_pct": 2.547,
+      "vegetation_pct": -2.357,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Prenggan (Kotagede)",
     "zscores": {
-      "slope": -0.603,
-      "twi": 0.931,
-      "built_up_pct": 2.419,
-      "vegetation_pct": -1.368,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.047,
+      "twi": 1.147,
+      "built_up_pct": 1.668,
+      "vegetation_pct": -1.241,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Batikan",
     "zscores": {
-      "slope": -0.602,
-      "twi": 0.827,
-      "built_up_pct": 2.169,
-      "vegetation_pct": -1.146,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.446
+      "slope": -1.041,
+      "twi": 0.768,
+      "built_up_pct": 1.165,
+      "vegetation_pct": -0.608,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Atmosukarto",
     "zscores": {
-      "slope": -0.587,
-      "twi": 0.863,
-      "built_up_pct": 2.351,
-      "vegetation_pct": -1.628,
-      "cropland_pct": -0.889,
-      "grass_pct": 0.983
+      "slope": -0.895,
+      "twi": 0.898,
+      "built_up_pct": 1.532,
+      "vegetation_pct": -1.983,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Jalan Parangtritis Selatan (Jogokariyan)",
     "zscores": {
-      "slope": -0.643,
-      "twi": 1.005,
-      "built_up_pct": 2.647,
-      "vegetation_pct": -1.573,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -1.433,
+      "twi": 1.416,
+      "built_up_pct": 2.128,
+      "vegetation_pct": -1.825,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Tegalpanggung (Sungai Code)",
     "zscores": {
-      "slope": -0.497,
-      "twi": 0.693,
-      "built_up_pct": 2.873,
-      "vegetation_pct": -1.776,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.454
+      "slope": -0.036,
+      "twi": 0.282,
+      "built_up_pct": 2.584,
+      "vegetation_pct": -2.404,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Bener (Sungai Winongo)",
     "zscores": {
-      "slope": -0.588,
-      "twi": 0.842,
-      "built_up_pct": 1.847,
-      "vegetation_pct": -0.947,
-      "cropland_pct": -0.772,
-      "grass_pct": -0.454
+      "slope": -0.908,
+      "twi": 0.822,
+      "built_up_pct": 0.515,
+      "vegetation_pct": -0.04,
+      "cropland_pct": -0.582
     }
   },
   {
     "name": "Pakuncen (Sungai Winongo)",
     "zscores": {
-      "slope": -0.678,
-      "twi": 1.316,
-      "built_up_pct": 2.687,
-      "vegetation_pct": -1.623,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.389
+      "slope": -1.762,
+      "twi": 2.549,
+      "built_up_pct": 2.209,
+      "vegetation_pct": -1.967,
+      "cropland_pct": -0.922
     }
   },
   {
     "name": "Tegalgendu (Sungai Gajah Wong)",
     "zscores": {
-      "slope": -0.601,
-      "twi": 0.993,
-      "built_up_pct": 2.526,
-      "vegetation_pct": -1.477,
-      "cropland_pct": -0.889,
-      "grass_pct": -0.396
+      "slope": -1.034,
+      "twi": 1.374,
+      "built_up_pct": 1.884,
+      "vegetation_pct": -1.552,
+      "cropland_pct": -0.922
     }
   }
 ]

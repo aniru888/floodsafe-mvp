@@ -630,6 +630,22 @@ def process_city(city: str) -> Optional[Dict]:
         "default_rate": default_rate,
         "analysis": analysis_result,
         "hotspot_summaries": hotspot_summaries[:10],  # Top 10 for JSON size
+        "methodology_caveats": {
+            "scope": "DATE-LEVEL detection, not spatial prediction",
+            "what_auc_means": (
+                "AUC measures whether SAR can distinguish flood DATES from dry DATES "
+                "across the city. It does NOT measure per-hotspot discrimination."
+            ),
+            "between_date_dominance": (
+                "ANOVA F-stat between dates >> within dates. The model learns "
+                "temporal (date-level) patterns, not spatial (hotspot-level) patterns."
+            ),
+            "genuine_value": (
+                "SAR temporal contrast confirms that satellite radar reliably "
+                "detects active flooding at city scale. change_magnitude is the "
+                "key feature (backscatter change vs 90-day baseline)."
+            ),
+        },
     }
 
     # Save analysis JSON

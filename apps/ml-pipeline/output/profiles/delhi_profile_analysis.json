@@ -2,6 +2,7 @@
   "city": "delhi",
   "n_hotspots": 90,
   "n_background": 500,
+  "n_urban_background": 178,
   "features_analyzed": [
     "elevation",
     "slope",
@@ -298,7 +299,7 @@
         "morans_i": 0.6168,
         "expected_i": -0.0112,
         "p_value": 0.001,
-        "z_score": 13.8736,
+        "z_score": 13.0547,
         "significant": true
       },
       "bh_corrected_p": 0.35178956,
@@ -320,8 +321,8 @@
       "morans_i": {
         "morans_i": 0.14,
         "expected_i": -0.0112,
-        "p_value": 0.007,
-        "z_score": 3.3203,
+        "p_value": 0.004,
+        "z_score": 3.26,
         "significant": true
       },
       "bh_corrected_p": 0.18830301,
@@ -343,8 +344,8 @@
       "morans_i": {
         "morans_i": 0.0766,
         "expected_i": -0.0112,
-        "p_value": 0.043,
-        "z_score": 1.8712,
+        "p_value": 0.04,
+        "z_score": 1.876,
         "significant": true
       },
       "bh_corrected_p": 0.83163856,
@@ -366,8 +367,8 @@
       "morans_i": {
         "morans_i": -0.0572,
         "expected_i": -0.0112,
-        "p_value": 0.16,
-        "z_score": -1.0053,
+        "p_value": 0.136,
+        "z_score": -1.0752,
         "significant": false
       },
       "bh_corrected_p": 0.25948573,
@@ -390,7 +391,7 @@
         "morans_i": 0.1614,
         "expected_i": -0.0112,
         "p_value": 0.003,
-        "z_score": 3.776,
+        "z_score": 3.5997,
         "significant": true
       },
       "bh_corrected_p": 0.11664845,
@@ -412,8 +413,8 @@
       "morans_i": {
         "morans_i": 0.0523,
         "expected_i": -0.0112,
-        "p_value": 0.08,
-        "z_score": 1.364,
+        "p_value": 0.1,
+        "z_score": 1.3517,
         "significant": false
       },
       "bh_corrected_p": 0.0,
@@ -436,7 +437,7 @@
         "morans_i": 0.1451,
         "expected_i": -0.0112,
         "p_value": 0.005,
-        "z_score": 3.3233,
+        "z_score": 3.3986,
         "significant": true
       },
       "bh_corrected_p": 9.97e-06,
@@ -459,7 +460,7 @@
         "morans_i": 0.1204,
         "expected_i": -0.0112,
         "p_value": 0.01,
-        "z_score": 3.2722,
+        "z_score": 3.4312,
         "significant": true
       },
       "bh_corrected_p": 0.0,
@@ -481,8 +482,8 @@
       "morans_i": {
         "morans_i": 0.0219,
         "expected_i": -0.0112,
-        "p_value": 0.066,
-        "z_score": 1.5764,
+        "p_value": 0.071,
+        "z_score": 1.5674,
         "significant": false
       },
       "bh_corrected_p": 0.76387787,
@@ -504,8 +505,8 @@
       "morans_i": {
         "morans_i": 0.0413,
         "expected_i": -0.0112,
-        "p_value": 0.101,
-        "z_score": 1.3136,
+        "p_value": 0.103,
+        "z_score": 1.3259,
         "significant": false
       },
       "bh_corrected_p": 1.1e-07,
@@ -519,6 +520,247 @@
     "cropland_pct",
     "grass_pct"
   ],
+  "urban_only_associations": {
+    "elevation": {
+      "hotspot_median": 216.355,
+      "background_median": 216.018,
+      "hotspot_mean": 220.6456,
+      "background_mean": 216.894,
+      "direction": "higher",
+      "mann_whitney_u": 8960.0,
+      "mann_whitney_p": 0.11309164,
+      "ks_statistic": 0.182,
+      "ks_p": 0.03242577,
+      "cliffs_delta": 0.1186,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": 0.6168,
+        "expected_i": -0.0112,
+        "p_value": 0.001,
+        "z_score": 13.241,
+        "significant": true
+      },
+      "bh_corrected_p": 0.16155948,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "slope": {
+      "hotspot_median": 3.1875,
+      "background_median": 3.0695,
+      "hotspot_mean": 3.3309,
+      "background_mean": 3.2589,
+      "direction": "higher",
+      "mann_whitney_u": 8877.0,
+      "mann_whitney_p": 0.14819261,
+      "ks_statistic": 0.1579,
+      "ks_p": 0.08857382,
+      "cliffs_delta": 0.1082,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": 0.14,
+        "expected_i": -0.0112,
+        "p_value": 0.006,
+        "z_score": 3.3953,
+        "significant": true
+      },
+      "bh_corrected_p": 0.18524076,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "aspect": {
+      "hotspot_median": 162.181,
+      "background_median": 163.0784,
+      "hotspot_mean": 163.4667,
+      "background_mean": 162.0155,
+      "direction": "lower",
+      "mann_whitney_u": 8222.0,
+      "mann_whitney_p": 0.72413786,
+      "ks_statistic": 0.0604,
+      "ks_p": 0.96751045,
+      "cliffs_delta": 0.0265,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": 0.0766,
+        "expected_i": -0.0112,
+        "p_value": 0.038,
+        "z_score": 1.9555,
+        "significant": true
+      },
+      "bh_corrected_p": 0.72538928,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "tpi": {
+      "hotspot_median": 0.008,
+      "background_median": -0.0039,
+      "hotspot_mean": 0.0227,
+      "background_mean": 0.0162,
+      "direction": "higher",
+      "mann_whitney_u": 8221.0,
+      "mann_whitney_p": 0.72538928,
+      "ks_statistic": 0.099,
+      "ks_p": 0.55406606,
+      "cliffs_delta": 0.0263,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": -0.0572,
+        "expected_i": -0.0112,
+        "p_value": 0.141,
+        "z_score": -1.0282,
+        "significant": false
+      },
+      "bh_corrected_p": 0.72538928,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "twi": {
+      "hotspot_median": 9.8986,
+      "background_median": 9.9583,
+      "hotspot_mean": 9.8841,
+      "background_mean": 9.9339,
+      "direction": "lower",
+      "mann_whitney_u": 6854.0,
+      "mann_whitney_p": 0.05382965,
+      "ks_statistic": 0.1828,
+      "ks_p": 0.03145628,
+      "cliffs_delta": -0.1443,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": 0.1614,
+        "expected_i": -0.0112,
+        "p_value": 0.003,
+        "z_score": 3.6376,
+        "significant": true
+      },
+      "bh_corrected_p": 0.08971608,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "built_up_pct": {
+      "hotspot_median": 82.43,
+      "background_median": 82.675,
+      "hotspot_mean": 72.1128,
+      "background_mean": 80.6979,
+      "direction": "lower",
+      "mann_whitney_u": 6817.5,
+      "mann_whitney_p": 0.04668834,
+      "ks_statistic": 0.1769,
+      "ks_p": 0.04065487,
+      "cliffs_delta": -0.1489,
+      "cliffs_magnitude": "small",
+      "morans_i": {
+        "morans_i": 0.0523,
+        "expected_i": -0.0112,
+        "p_value": 0.072,
+        "z_score": 1.4832,
+        "significant": false
+      },
+      "bh_corrected_p": 0.08971608,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "vegetation_pct": {
+      "hotspot_median": 14.15,
+      "background_median": 6.53,
+      "hotspot_mean": 21.5417,
+      "background_mean": 10.0334,
+      "direction": "higher",
+      "mann_whitney_u": 10845.0,
+      "mann_whitney_p": 2.24e-06,
+      "ks_statistic": 0.2879,
+      "ks_p": 7.075e-05,
+      "cliffs_delta": 0.3539,
+      "cliffs_magnitude": "medium",
+      "morans_i": {
+        "morans_i": 0.1451,
+        "expected_i": -0.0112,
+        "p_value": 0.004,
+        "z_score": 3.4229,
+        "significant": true
+      },
+      "bh_corrected_p": 2.239e-05,
+      "bh_significant": true,
+      "meaningful": "True"
+    },
+    "cropland_pct": {
+      "hotspot_median": 0.055,
+      "background_median": 0.545,
+      "hotspot_mean": 3.2929,
+      "background_mean": 4.4504,
+      "direction": "lower",
+      "mann_whitney_u": 6167.0,
+      "mann_whitney_p": 0.00163114,
+      "ks_statistic": 0.212,
+      "ks_p": 0.00761645,
+      "cliffs_delta": -0.2301,
+      "cliffs_magnitude": "small",
+      "morans_i": {
+        "morans_i": 0.1204,
+        "expected_i": -0.0112,
+        "p_value": 0.008,
+        "z_score": 3.4329,
+        "significant": true
+      },
+      "bh_corrected_p": 0.00815571,
+      "bh_significant": true,
+      "meaningful": "False"
+    },
+    "bare_pct": {
+      "hotspot_median": 0.18,
+      "background_median": 0.45,
+      "hotspot_mean": 0.7332,
+      "background_mean": 1.5463,
+      "direction": "lower",
+      "mann_whitney_u": 6651.5,
+      "mann_whitney_p": 0.02238155,
+      "ks_statistic": 0.2169,
+      "ks_p": 0.00596115,
+      "cliffs_delta": -0.1696,
+      "cliffs_magnitude": "small",
+      "morans_i": {
+        "morans_i": 0.0219,
+        "expected_i": -0.0112,
+        "p_value": 0.056,
+        "z_score": 1.6531,
+        "significant": false
+      },
+      "bh_corrected_p": 0.05595387,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "grass_pct": {
+      "hotspot_median": 0.115,
+      "background_median": 0.67,
+      "hotspot_mean": 1.1909,
+      "background_mean": 2.6361,
+      "direction": "lower",
+      "mann_whitney_u": 6308.0,
+      "mann_whitney_p": 0.00396307,
+      "ks_statistic": 0.2119,
+      "ks_p": 0.00768245,
+      "cliffs_delta": -0.2125,
+      "cliffs_magnitude": "small",
+      "morans_i": {
+        "morans_i": 0.0413,
+        "expected_i": -0.0112,
+        "p_value": 0.1,
+        "z_score": 1.2616,
+        "significant": false
+      },
+      "bh_corrected_p": 0.01321023,
+      "bh_significant": true,
+      "meaningful": "False"
+    }
+  },
+  "urban_meaningful_features": [
+    "vegetation_pct"
+  ],
+  "inflated_features": [
+    "grass_pct",
+    "cropland_pct",
+    "built_up_pct"
+  ],
+  "zscore_source": "urban-only",
   "vif": {
     "features": {
       "elevation": {

@@ -2,6 +2,7 @@
   "city": "singapore",
   "n_hotspots": 60,
   "n_background": 500,
+  "n_urban_background": 91,
   "features_analyzed": [
     "elevation",
     "slope",
@@ -297,8 +298,8 @@
       "morans_i": {
         "morans_i": 0.2194,
         "expected_i": -0.0169,
-        "p_value": 0.003,
-        "z_score": 4.2439,
+        "p_value": 0.001,
+        "z_score": 4.2166,
         "significant": true
       },
       "bh_corrected_p": 0.0,
@@ -321,7 +322,7 @@
         "morans_i": 0.4586,
         "expected_i": -0.0169,
         "p_value": 0.001,
-        "z_score": 8.5829,
+        "z_score": 9.0124,
         "significant": true
       },
       "bh_corrected_p": 0.0,
@@ -343,8 +344,8 @@
       "morans_i": {
         "morans_i": 0.0522,
         "expected_i": -0.0169,
-        "p_value": 0.105,
-        "z_score": 1.2619,
+        "p_value": 0.126,
+        "z_score": 1.1424,
         "significant": false
       },
       "bh_corrected_p": 0.0,
@@ -366,8 +367,8 @@
       "morans_i": {
         "morans_i": -0.036,
         "expected_i": -0.0169,
-        "p_value": 0.398,
-        "z_score": -0.3578,
+        "p_value": 0.412,
+        "z_score": -0.3423,
         "significant": false
       },
       "bh_corrected_p": 0.00463211,
@@ -390,7 +391,7 @@
         "morans_i": 0.4476,
         "expected_i": -0.0169,
         "p_value": 0.001,
-        "z_score": 8.699,
+        "z_score": 8.4061,
         "significant": true
       },
       "bh_corrected_p": 0.0,
@@ -412,8 +413,8 @@
       "morans_i": {
         "morans_i": 0.0559,
         "expected_i": -0.0169,
-        "p_value": 0.097,
-        "z_score": 1.2974,
+        "p_value": 0.118,
+        "z_score": 1.2897,
         "significant": false
       },
       "bh_corrected_p": 0.0,
@@ -435,8 +436,8 @@
       "morans_i": {
         "morans_i": 0.1902,
         "expected_i": -0.0169,
-        "p_value": 0.001,
-        "z_score": 4.0179,
+        "p_value": 0.002,
+        "z_score": 4.1328,
         "significant": true
       },
       "bh_corrected_p": 1.02e-06,
@@ -458,8 +459,8 @@
       "morans_i": {
         "morans_i": 0.0022,
         "expected_i": -0.0169,
-        "p_value": 0.246,
-        "z_score": 0.4629,
+        "p_value": 0.233,
+        "z_score": 0.4286,
         "significant": false
       },
       "bh_corrected_p": 0.0,
@@ -481,8 +482,8 @@
       "morans_i": {
         "morans_i": 0.0465,
         "expected_i": -0.0169,
-        "p_value": 0.119,
-        "z_score": 1.1873,
+        "p_value": 0.115,
+        "z_score": 1.1832,
         "significant": false
       },
       "bh_corrected_p": 8.77e-06,
@@ -504,8 +505,8 @@
       "morans_i": {
         "morans_i": -0.0079,
         "expected_i": -0.0169,
-        "p_value": 0.341,
-        "z_score": 0.2561,
+        "p_value": 0.36,
+        "z_score": 0.1939,
         "significant": false
       },
       "bh_corrected_p": 1.094e-05,
@@ -524,6 +525,251 @@
     "bare_pct",
     "grass_pct"
   ],
+  "urban_only_associations": {
+    "elevation": {
+      "hotspot_median": 14.7832,
+      "background_median": 14.084,
+      "hotspot_mean": 16.0575,
+      "background_mean": 16.2902,
+      "direction": "higher",
+      "mann_whitney_u": 2835.0,
+      "mann_whitney_p": 0.69109887,
+      "ks_statistic": 0.1808,
+      "ks_p": 0.16067593,
+      "cliffs_delta": 0.0385,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": 0.2194,
+        "expected_i": -0.0169,
+        "p_value": 0.003,
+        "z_score": 4.5184,
+        "significant": true
+      },
+      "bh_corrected_p": 0.69109887,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "slope": {
+      "hotspot_median": 5.1958,
+      "background_median": 4.3836,
+      "hotspot_mean": 5.8181,
+      "background_mean": 5.0546,
+      "direction": "higher",
+      "mann_whitney_u": 3277.0,
+      "mann_whitney_p": 0.03770181,
+      "ks_statistic": 0.1956,
+      "ks_p": 0.10667844,
+      "cliffs_delta": 0.2004,
+      "cliffs_magnitude": "small",
+      "morans_i": {
+        "morans_i": 0.4586,
+        "expected_i": -0.0169,
+        "p_value": 0.001,
+        "z_score": 8.7567,
+        "significant": true
+      },
+      "bh_corrected_p": 0.1256727,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "aspect": {
+      "hotspot_median": 171.6509,
+      "background_median": 167.1169,
+      "hotspot_mean": 171.3171,
+      "background_mean": 163.3309,
+      "direction": "higher",
+      "mann_whitney_u": 3100.0,
+      "mann_whitney_p": 0.16001106,
+      "ks_statistic": 0.1495,
+      "ks_p": 0.35030075,
+      "cliffs_delta": 0.1355,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": 0.0522,
+        "expected_i": -0.0169,
+        "p_value": 0.118,
+        "z_score": 1.2054,
+        "significant": false
+      },
+      "bh_corrected_p": 0.40002764,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "tpi": {
+      "hotspot_median": -0.3909,
+      "background_median": 0.0,
+      "hotspot_mean": -0.3169,
+      "background_mean": 0.1622,
+      "direction": "lower",
+      "mann_whitney_u": 2115.0,
+      "mann_whitney_p": 0.01945719,
+      "ks_statistic": 0.2647,
+      "ks_p": 0.00992035,
+      "cliffs_delta": -0.2253,
+      "cliffs_magnitude": "small",
+      "morans_i": {
+        "morans_i": -0.036,
+        "expected_i": -0.0169,
+        "p_value": 0.404,
+        "z_score": -0.339,
+        "significant": false
+      },
+      "bh_corrected_p": 0.09928239,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "twi": {
+      "hotspot_median": 9.4142,
+      "background_median": 9.6415,
+      "hotspot_mean": 9.3894,
+      "background_mean": 9.6408,
+      "direction": "lower",
+      "mann_whitney_u": 2117.0,
+      "mann_whitney_p": 0.01985648,
+      "ks_statistic": 0.2452,
+      "ks_p": 0.02051574,
+      "cliffs_delta": -0.2245,
+      "cliffs_magnitude": "small",
+      "morans_i": {
+        "morans_i": 0.4476,
+        "expected_i": -0.0169,
+        "p_value": 0.001,
+        "z_score": 8.7581,
+        "significant": true
+      },
+      "bh_corrected_p": 0.09928239,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "built_up_pct": {
+      "hotspot_median": 79.3,
+      "background_median": 73.45,
+      "hotspot_mean": 74.1165,
+      "background_mean": 74.0989,
+      "direction": "higher",
+      "mann_whitney_u": 3012.0,
+      "mann_whitney_p": 0.28443397,
+      "ks_statistic": 0.1559,
+      "ks_p": 0.30422815,
+      "cliffs_delta": 0.1033,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": 0.0559,
+        "expected_i": -0.0169,
+        "p_value": 0.091,
+        "z_score": 1.4119,
+        "significant": false
+      },
+      "bh_corrected_p": 0.42122136,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "vegetation_pct": {
+      "hotspot_median": 15.775,
+      "background_median": 13.1,
+      "hotspot_mean": 19.2972,
+      "background_mean": 16.338,
+      "direction": "higher",
+      "mann_whitney_u": 2983.0,
+      "mann_whitney_p": 0.33697709,
+      "ks_statistic": 0.1535,
+      "ks_p": 0.31714595,
+      "cliffs_delta": 0.0927,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": 0.1902,
+        "expected_i": -0.0169,
+        "p_value": 0.002,
+        "z_score": 4.0445,
+        "significant": true
+      },
+      "bh_corrected_p": 0.42122136,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "water_pct": {
+      "hotspot_median": 0.0,
+      "background_median": 0.0,
+      "hotspot_mean": 0.624,
+      "background_mean": 1.9737,
+      "direction": "equal",
+      "mann_whitney_u": 2967.5,
+      "mann_whitney_p": 0.29036894,
+      "ks_statistic": 0.1366,
+      "ks_p": 0.45554737,
+      "cliffs_delta": 0.087,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": 0.0022,
+        "expected_i": -0.0169,
+        "p_value": 0.264,
+        "z_score": 0.406,
+        "significant": false
+      },
+      "bh_corrected_p": 0.42122136,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "bare_pct": {
+      "hotspot_median": 0.285,
+      "background_median": 0.68,
+      "hotspot_mean": 1.3017,
+      "background_mean": 1.899,
+      "direction": "lower",
+      "mann_whitney_u": 2465.5,
+      "mann_whitney_p": 0.31281465,
+      "ks_statistic": 0.1711,
+      "ks_p": 0.20870145,
+      "cliffs_delta": -0.0969,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": 0.0465,
+        "expected_i": -0.0169,
+        "p_value": 0.12,
+        "z_score": 1.1964,
+        "significant": false
+      },
+      "bh_corrected_p": 0.42122136,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "grass_pct": {
+      "hotspot_median": 1.37,
+      "background_median": 1.44,
+      "hotspot_mean": 4.6523,
+      "background_mean": 5.5691,
+      "direction": "lower",
+      "mann_whitney_u": 2540.0,
+      "mann_whitney_p": 0.47092367,
+      "ks_statistic": 0.1092,
+      "ks_p": 0.72642814,
+      "cliffs_delta": -0.0696,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": -0.0079,
+        "expected_i": -0.0169,
+        "p_value": 0.357,
+        "z_score": 0.2249,
+        "significant": false
+      },
+      "bh_corrected_p": 0.52324852,
+      "bh_significant": false,
+      "meaningful": false
+    }
+  },
+  "urban_meaningful_features": [],
+  "inflated_features": [
+    "water_pct",
+    "twi",
+    "grass_pct",
+    "bare_pct",
+    "aspect",
+    "vegetation_pct",
+    "elevation",
+    "built_up_pct",
+    "slope"
+  ],
+  "zscore_source": "urban-only",
   "vif": {
     "features": {
       "elevation": {

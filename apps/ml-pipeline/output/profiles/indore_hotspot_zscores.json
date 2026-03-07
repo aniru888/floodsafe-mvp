@@ -2,731 +2,512 @@
   {
     "name": "Khajrana Square",
     "zscores": {
-      "slope": -0.137,
-      "twi": -0.063,
-      "built_up_pct": 2.782,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.686
+      "cropland_pct": -0.94,
+      "grass_pct": -0.917
     }
   },
   {
     "name": "Musakhedi Square",
     "zscores": {
-      "slope": -0.125,
-      "twi": 0.068,
-      "built_up_pct": 2.608,
-      "cropland_pct": -1.631,
-      "grass_pct": -0.323
+      "cropland_pct": 0.25,
+      "grass_pct": -0.02
     }
   },
   {
     "name": "Pipliyahana Square",
     "zscores": {
-      "slope": 0.002,
-      "twi": -0.242,
-      "built_up_pct": 3.083,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.671
+      "cropland_pct": -0.94,
+      "grass_pct": -0.879
     }
   },
   {
     "name": "IT Park Square",
     "zscores": {
-      "slope": 0.008,
-      "twi": -0.422,
-      "built_up_pct": 1.098,
-      "cropland_pct": -1.599,
-      "grass_pct": -0.194
+      "cropland_pct": 0.36,
+      "grass_pct": 0.3
     }
   },
   {
     "name": "Robot Square",
     "zscores": {
-      "slope": -0.285,
-      "twi": 0.388,
-      "built_up_pct": 3.27,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.739
+      "cropland_pct": -0.94,
+      "grass_pct": -1.048
     }
   },
   {
     "name": "Vijay Nagar Square",
     "zscores": {
-      "slope": -0.256,
-      "twi": 0.208,
-      "built_up_pct": 3.301,
-      "cropland_pct": -1.972,
-      "grass_pct": -0.651
+      "cropland_pct": -0.919,
+      "grass_pct": -0.831
     }
   },
   {
     "name": "Satya Sai Square",
     "zscores": {
-      "slope": -0.473,
-      "twi": 1.236,
-      "built_up_pct": 3.356,
-      "cropland_pct": -1.967,
-      "grass_pct": -0.733
+      "cropland_pct": -0.901,
+      "grass_pct": -1.033
     }
   },
   {
     "name": "Robert Square",
     "zscores": {
-      "slope": 0.203,
-      "twi": -0.662,
-      "built_up_pct": 2.629,
-      "cropland_pct": -1.976,
-      "grass_pct": -0.694
+      "cropland_pct": -0.93,
+      "grass_pct": -0.937
     }
   },
   {
     "name": "Sayaji Square",
     "zscores": {
-      "slope": 0.201,
-      "twi": -0.588,
-      "built_up_pct": 3.305,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.739
+      "cropland_pct": -0.94,
+      "grass_pct": -1.048
     }
   },
   {
     "name": "Industry House Square",
     "zscores": {
-      "slope": -0.059,
-      "twi": -0.256,
-      "built_up_pct": 2.294,
-      "cropland_pct": -1.871,
-      "grass_pct": -0.693
+      "cropland_pct": -0.572,
+      "grass_pct": -0.933
     }
   },
   {
     "name": "LIG Square",
     "zscores": {
-      "slope": 0.482,
-      "twi": -1.004,
-      "built_up_pct": 2.519,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.697
+      "cropland_pct": -0.94,
+      "grass_pct": -0.944
     }
   },
   {
     "name": "Teen Imli Square",
     "zscores": {
-      "slope": -0.14,
-      "twi": 0.201,
-      "built_up_pct": 3.187,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.678
+      "cropland_pct": -0.94,
+      "grass_pct": -0.896
     }
   },
   {
     "name": "Palasikar Square",
     "zscores": {
-      "slope": 0.315,
-      "twi": -0.995,
-      "built_up_pct": 3.002,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.711
+      "cropland_pct": -0.94,
+      "grass_pct": -0.977
     }
   },
   {
     "name": "Madhu Milan Square",
     "zscores": {
-      "slope": 0.355,
-      "twi": -1.057,
-      "built_up_pct": 2.455,
-      "cropland_pct": -1.973,
-      "grass_pct": 0.256
+      "cropland_pct": -0.92,
+      "grass_pct": 1.412
     }
   },
   {
     "name": "Chandan Nagar Square",
     "zscores": {
-      "slope": -0.22,
-      "twi": 0.489,
-      "built_up_pct": 2.582,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.728
+      "cropland_pct": -0.94,
+      "grass_pct": -1.021
     }
   },
   {
     "name": "Nyay Nagar",
     "zscores": {
-      "slope": 0.229,
-      "twi": -0.727,
-      "built_up_pct": 1.923,
-      "cropland_pct": -1.824,
-      "grass_pct": -0.545
+      "cropland_pct": -0.411,
+      "grass_pct": -0.568
     }
   },
   {
     "name": "Radisson Square",
     "zscores": {
-      "slope": -0.259,
-      "twi": 0.166,
-      "built_up_pct": 3.141,
-      "cropland_pct": -1.917,
-      "grass_pct": -0.739
+      "cropland_pct": -0.727,
+      "grass_pct": -1.048
     }
   },
   {
     "name": "Luv Kush Square",
     "zscores": {
-      "slope": -0.028,
-      "twi": -0.139,
-      "built_up_pct": 3.218,
-      "cropland_pct": -1.972,
-      "grass_pct": -0.548
+      "cropland_pct": -0.917,
+      "grass_pct": -0.576
     }
   },
   {
     "name": "Collectorate Square",
     "zscores": {
-      "slope": 0.33,
-      "twi": -1.088,
-      "built_up_pct": 3.059,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.691
+      "cropland_pct": -0.94,
+      "grass_pct": -0.928
     }
   },
   {
     "name": "Chhawani",
     "zscores": {
-      "slope": -0.112,
-      "twi": -0.052,
-      "built_up_pct": 3.256,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.613
+      "cropland_pct": -0.94,
+      "grass_pct": -0.736
     }
   },
   {
     "name": "Krishnapura Chhatri",
     "zscores": {
-      "slope": 0.16,
-      "twi": -0.782,
-      "built_up_pct": 3.42,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.736
+      "cropland_pct": -0.94,
+      "grass_pct": -1.04
     }
   },
   {
     "name": "Juni Indore",
     "zscores": {
-      "slope": 0.218,
-      "twi": -0.675,
-      "built_up_pct": 3.11,
-      "cropland_pct": -1.974,
-      "grass_pct": -0.684
+      "cropland_pct": -0.925,
+      "grass_pct": -0.911
     }
   },
   {
     "name": "Kulkarni ka Bhatti",
     "zscores": {
-      "slope": 0.137,
-      "twi": -0.603,
-      "built_up_pct": 2.508,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.688
+      "cropland_pct": -0.94,
+      "grass_pct": -0.92
     }
   },
   {
     "name": "Scheme 54",
     "zscores": {
-      "slope": 0.055,
-      "twi": -0.583,
-      "built_up_pct": 3.043,
-      "cropland_pct": -1.97,
-      "grass_pct": -0.716
+      "cropland_pct": -0.909,
+      "grass_pct": -0.991
     }
   },
   {
     "name": "Dwarkapuri",
     "zscores": {
-      "slope": -0.365,
-      "twi": 0.576,
-      "built_up_pct": 3.299,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.736
+      "cropland_pct": -0.94,
+      "grass_pct": -1.04
     }
   },
   {
     "name": "Bicholi",
     "zscores": {
-      "slope": -0.156,
-      "twi": 0.044,
-      "built_up_pct": 1.228,
-      "cropland_pct": -1.076,
-      "grass_pct": 0.632
+      "cropland_pct": 2.148,
+      "grass_pct": 2.341
     }
   },
   {
     "name": "Palda",
     "zscores": {
-      "slope": 0.209,
-      "twi": -0.922,
-      "built_up_pct": 1.969,
-      "cropland_pct": -1.044,
-      "grass_pct": -0.582
+      "cropland_pct": 2.255,
+      "grass_pct": -0.659
     }
   },
   {
     "name": "Nayta Mundla",
     "zscores": {
-      "slope": -0.317,
-      "twi": 0.45,
-      "built_up_pct": 1.304,
-      "cropland_pct": -1.612,
-      "grass_pct": 0.894
+      "cropland_pct": 0.314,
+      "grass_pct": 2.99
     }
   },
   {
     "name": "Ralamandal",
     "zscores": {
-      "slope": -0.097,
-      "twi": -0.22,
-      "built_up_pct": 0.232,
-      "cropland_pct": 0.198,
-      "grass_pct": -0.461
+      "cropland_pct": 6.504,
+      "grass_pct": -0.36
     }
   },
   {
     "name": "Tejaji Nagar",
     "zscores": {
-      "slope": 0.417,
-      "twi": -1.053,
-      "built_up_pct": 2.826,
-      "cropland_pct": -1.977,
-      "grass_pct": -0.733
+      "cropland_pct": -0.935,
+      "grass_pct": -1.033
     }
   },
   {
     "name": "Phoenix Mall to Radisson stretch",
     "zscores": {
-      "slope": -0.109,
-      "twi": -0.139,
-      "built_up_pct": 3.329,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.739
+      "cropland_pct": -0.94,
+      "grass_pct": -1.048
     }
   },
   {
     "name": "IIT Indore to IT Park stretch",
     "zscores": {
-      "slope": -0.432,
-      "twi": 1.26,
-      "built_up_pct": 1.38,
-      "cropland_pct": -0.793,
-      "grass_pct": -0.194
+      "cropland_pct": 3.114,
+      "grass_pct": 0.3
     }
   },
   {
     "name": "Old Palasia Square (AB Road)",
     "zscores": {
-      "slope": -0.052,
-      "twi": -0.156,
-      "built_up_pct": 2.384,
-      "cropland_pct": -1.82,
-      "grass_pct": -0.366
+      "cropland_pct": -0.396,
+      "grass_pct": -0.126
     }
   },
   {
     "name": "BRTS Corridor / AB Road",
     "zscores": {
-      "slope": 0.286,
-      "twi": -0.839,
-      "built_up_pct": 1.382,
-      "cropland_pct": -1.973,
-      "grass_pct": -0.417
+      "cropland_pct": -0.921,
+      "grass_pct": -0.251
     }
   },
   {
     "name": "MR-9 Square",
     "zscores": {
-      "slope": 0.032,
-      "twi": -0.29,
-      "built_up_pct": 2.409,
-      "cropland_pct": -1.927,
-      "grass_pct": -0.694
+      "cropland_pct": -0.764,
+      "grass_pct": -0.937
     }
   },
   {
     "name": "Gangwal Bus Stand",
     "zscores": {
-      "slope": 0.043,
-      "twi": -0.31,
-      "built_up_pct": 3.391,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.736
+      "cropland_pct": -0.94,
+      "grass_pct": -1.04
     }
   },
   {
     "name": "Badigwaltoli",
     "zscores": {
-      "slope": 0.315,
-      "twi": -0.921,
-      "built_up_pct": 3.16,
-      "cropland_pct": -1.974,
-      "grass_pct": -0.705
+      "cropland_pct": -0.925,
+      "grass_pct": -0.964
     }
   },
   {
     "name": "Annapurna Road",
     "zscores": {
-      "slope": 0.077,
-      "twi": -0.621,
-      "built_up_pct": 2.377,
-      "cropland_pct": -1.958,
-      "grass_pct": 0.283
+      "cropland_pct": -0.87,
+      "grass_pct": 1.48
     }
   },
   {
     "name": "Rajendra Nagar",
     "zscores": {
-      "slope": -0.235,
-      "twi": 0.337,
-      "built_up_pct": 3.057,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.72
+      "cropland_pct": -0.94,
+      "grass_pct": -1.001
     }
   },
   {
     "name": "Vaishali Nagar",
     "zscores": {
-      "slope": -0.181,
-      "twi": 0.291,
-      "built_up_pct": 3.166,
-      "cropland_pct": -1.899,
-      "grass_pct": -0.703
+      "cropland_pct": -0.667,
+      "grass_pct": -0.957
     }
   },
   {
     "name": "Sadar Bazar",
     "zscores": {
-      "slope": 0.289,
-      "twi": -1.08,
-      "built_up_pct": 3.066,
-      "cropland_pct": -1.974,
-      "grass_pct": -0.711
+      "cropland_pct": -0.925,
+      "grass_pct": -0.977
     }
   },
   {
     "name": "Juna Risala",
     "zscores": {
-      "slope": 0.194,
-      "twi": -0.833,
-      "built_up_pct": 2.971,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.739
+      "cropland_pct": -0.94,
+      "grass_pct": -1.048
     }
   },
   {
     "name": "Badwali Chowki",
     "zscores": {
-      "slope": -0.327,
-      "twi": 0.433,
-      "built_up_pct": 3.267,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.739
+      "cropland_pct": -0.94,
+      "grass_pct": -1.048
     }
   },
   {
     "name": "Moti Tabela",
     "zscores": {
-      "slope": 0.09,
-      "twi": -0.59,
-      "built_up_pct": 2.868,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.726
+      "cropland_pct": -0.94,
+      "grass_pct": -1.016
     }
   },
   {
     "name": "Harsiddhi",
     "zscores": {
-      "slope": 0.457,
-      "twi": -1.254,
-      "built_up_pct": 2.58,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.341
+      "cropland_pct": -0.94,
+      "grass_pct": -0.064
     }
   },
   {
     "name": "Malviya Nagar",
     "zscores": {
-      "slope": -0.311,
-      "twi": 0.404,
-      "built_up_pct": 3.388,
-      "cropland_pct": -1.958,
-      "grass_pct": -0.697
+      "cropland_pct": -0.87,
+      "grass_pct": -0.944
     }
   },
   {
     "name": "Siyaganj",
     "zscores": {
-      "slope": 0.207,
-      "twi": -0.865,
-      "built_up_pct": 3.344,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.739
+      "cropland_pct": -0.94,
+      "grass_pct": -1.048
     }
   },
   {
     "name": "Nanda Nagar",
     "zscores": {
-      "slope": -0.138,
-      "twi": 0.395,
-      "built_up_pct": 2.089,
-      "cropland_pct": -1.756,
-      "grass_pct": -0.248
+      "cropland_pct": -0.179,
+      "grass_pct": 0.167
     }
   },
   {
     "name": "Sudama Nagar",
     "zscores": {
-      "slope": -0.358,
-      "twi": 0.493,
-      "built_up_pct": 3.46,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.739
+      "cropland_pct": -0.94,
+      "grass_pct": -1.048
     }
   },
   {
     "name": "Geeta Bhawan Square",
     "zscores": {
-      "slope": -0.087,
-      "twi": -0.141,
-      "built_up_pct": 2.964,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.694
+      "cropland_pct": -0.94,
+      "grass_pct": -0.937
     }
   },
   {
     "name": "Nehru Nagar",
     "zscores": {
-      "slope": 0.209,
-      "twi": -0.809,
-      "built_up_pct": 1.961,
-      "cropland_pct": -1.951,
-      "grass_pct": -0.6
+      "cropland_pct": -0.846,
+      "grass_pct": -0.704
     }
   },
   {
     "name": "Scheme 78",
     "zscores": {
-      "slope": 0.025,
-      "twi": -0.373,
-      "built_up_pct": 2.504,
-      "cropland_pct": -1.684,
-      "grass_pct": -0.617
+      "cropland_pct": 0.067,
+      "grass_pct": -0.745
     }
   },
   {
     "name": "Tilak Nagar",
     "zscores": {
-      "slope": -0.218,
-      "twi": 0.228,
-      "built_up_pct": 1.129,
-      "cropland_pct": -0.583,
-      "grass_pct": -0.455
+      "cropland_pct": 3.833,
+      "grass_pct": -0.345
     }
   },
   {
     "name": "GPO Square",
     "zscores": {
-      "slope": 0.364,
-      "twi": -1.011,
-      "built_up_pct": 2.766,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.739
+      "cropland_pct": -0.94,
+      "grass_pct": -1.048
     }
   },
   {
     "name": "Bhagirathpura",
     "zscores": {
-      "slope": -0.256,
-      "twi": 0.328,
-      "built_up_pct": 3.036,
-      "cropland_pct": -1.973,
-      "grass_pct": -0.681
+      "cropland_pct": -0.92,
+      "grass_pct": -0.905
     }
   },
   {
     "name": "Navlakha Square",
     "zscores": {
-      "slope": 0.194,
-      "twi": -0.43,
-      "built_up_pct": 2.557,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.739
+      "cropland_pct": -0.94,
+      "grass_pct": -1.048
     }
   },
   {
     "name": "Raj Mahal Colony",
     "zscores": {
-      "slope": -0.272,
-      "twi": 0.381,
-      "built_up_pct": 3.314,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.739
+      "cropland_pct": -0.94,
+      "grass_pct": -1.048
     }
   },
   {
     "name": "Palhar Nagar",
     "zscores": {
-      "slope": -0.095,
-      "twi": -0.003,
-      "built_up_pct": 3.063,
-      "cropland_pct": -1.931,
-      "grass_pct": -0.366
+      "cropland_pct": -0.778,
+      "grass_pct": -0.125
     }
   },
   {
     "name": "Sapna Sangeeta Road",
     "zscores": {
-      "slope": -0.343,
-      "twi": 0.633,
-      "built_up_pct": 3.091,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.739
+      "cropland_pct": -0.94,
+      "grass_pct": -1.048
     }
   },
   {
     "name": "Palasia Square",
     "zscores": {
-      "slope": 0.362,
-      "twi": -1.007,
-      "built_up_pct": 2.645,
-      "cropland_pct": -1.976,
-      "grass_pct": -0.739
+      "cropland_pct": -0.93,
+      "grass_pct": -1.048
     }
   },
   {
     "name": "Sneh Nagar",
     "zscores": {
-      "slope": -0.21,
-      "twi": 0.185,
-      "built_up_pct": 2.989,
-      "cropland_pct": -1.844,
-      "grass_pct": -0.378
+      "cropland_pct": -0.481,
+      "grass_pct": -0.155
     }
   },
   {
     "name": "Aerodrome Road",
     "zscores": {
-      "slope": 0.426,
-      "twi": -1.092,
-      "built_up_pct": 0.831,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.726
+      "cropland_pct": -0.94,
+      "grass_pct": -1.016
     }
   },
   {
     "name": "Banganga (Khan River Bridge)",
     "zscores": {
-      "slope": -0.151,
-      "twi": 0.244,
-      "built_up_pct": 3.292,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.739
+      "cropland_pct": -0.94,
+      "grass_pct": -1.048
     }
   },
   {
     "name": "Bada Ganpati",
     "zscores": {
-      "slope": 0.09,
-      "twi": -0.724,
-      "built_up_pct": 2.804,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.661
+      "cropland_pct": -0.94,
+      "grass_pct": -0.854
     }
   },
   {
     "name": "Chappan Dukan",
     "zscores": {
-      "slope": -0.024,
-      "twi": -0.414,
-      "built_up_pct": 3.119,
-      "cropland_pct": -1.963,
-      "grass_pct": -0.707
+      "cropland_pct": -0.886,
+      "grass_pct": -0.969
     }
   },
   {
     "name": "Rau (AB Road South)",
     "zscores": {
-      "slope": -0.076,
-      "twi": -0.182,
-      "built_up_pct": 1.589,
-      "cropland_pct": -1.406,
-      "grass_pct": 0.322
+      "cropland_pct": 1.017,
+      "grass_pct": 1.576
     }
   },
   {
     "name": "Dewas Naka",
     "zscores": {
-      "slope": 0.03,
-      "twi": -0.309,
-      "built_up_pct": 2.694,
-      "cropland_pct": -1.966,
-      "grass_pct": -0.635
+      "cropland_pct": -0.895,
+      "grass_pct": -0.79
     }
   },
   {
     "name": "Manik Bagh Road",
     "zscores": {
-      "slope": -0.119,
-      "twi": 0.022,
-      "built_up_pct": 3.361,
-      "cropland_pct": -1.967,
-      "grass_pct": -0.739
+      "cropland_pct": -0.901,
+      "grass_pct": -1.048
     }
   },
   {
     "name": "Shivaji Nagar",
     "zscores": {
-      "slope": 0.513,
-      "twi": -1.269,
-      "built_up_pct": 1.983,
-      "cropland_pct": -1.969,
-      "grass_pct": 0.394
+      "cropland_pct": -0.908,
+      "grass_pct": 1.753
     }
   },
   {
     "name": "Super Corridor",
     "zscores": {
-      "slope": -0.329,
-      "twi": 0.353,
-      "built_up_pct": -0.063,
-      "cropland_pct": -0.551,
-      "grass_pct": 0.989
+      "cropland_pct": 3.942,
+      "grass_pct": 3.224
     }
   },
   {
     "name": "Peeliya Khal",
     "zscores": {
-      "slope": -0.075,
-      "twi": 0.06,
-      "built_up_pct": 2.944,
-      "cropland_pct": -1.971,
-      "grass_pct": -0.148
+      "cropland_pct": -0.912,
+      "grass_pct": 0.413
     }
   },
   {
     "name": "Tulsi Nagar",
     "zscores": {
-      "slope": -0.213,
-      "twi": 0.362,
-      "built_up_pct": 2.664,
-      "cropland_pct": -1.724,
-      "grass_pct": -0.469
+      "cropland_pct": -0.068,
+      "grass_pct": -0.381
     }
   },
   {
     "name": "South Toda",
     "zscores": {
-      "slope": 0.328,
-      "twi": -0.951,
-      "built_up_pct": 2.81,
-      "cropland_pct": -1.979,
-      "grass_pct": -0.736
+      "cropland_pct": -0.94,
+      "grass_pct": -1.04
     }
   }
 ]

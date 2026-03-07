@@ -454,40 +454,76 @@ def process_city(city: str) -> Optional[Dict]:
         b_features = b_features[:, keep_idx]
 
     # 2. Association tests (Mann-Whitney U, KS, Cliff's Delta, Moran's I)
-    logger.info("\n  --- Association Tests ---")
+    # ---- Full background (includes rural) ----
+    logger.info("\n  --- Association Tests (full background) ---")
     associations = run_association_tests(
         h_features, b_features, feature_names, h_lats, h_lngs
     )
 
-    # Report results
     meaningful_features = []
     for fname, result in associations.items():
         if result.get("skipped"):
             continue
-
         sig = "***" if result.get("meaningful") else ("*" if result.get("bh_significant") else "")
         delta = result["cliffs_delta"]
         direction = result["direction"]
         p_str = f"p={result.get('bh_corrected_p', result['mann_whitney_p']):.6f}"
-
         logger.info(
             f"    {fname:20s}: delta={delta:+.3f} ({result['cliffs_magnitude']:10s}) "
             f"{direction:7s} {p_str} {sig}"
         )
-
         if result.get("meaningful"):
             meaningful_features.append(fname)
-
-        # Report Moran's I if computed
         if result.get("morans_i") and result["morans_i"].get("significant"):
             mi = result["morans_i"]
             logger.info(
                 f"      Moran's I: {mi['morans_i']:.3f} (p={mi['p_value']:.4f}) "
                 f"-- SPATIAL AUTOCORRELATION DETECTED"
             )
+    logger.info(f"\n  Meaningful features (full BG): {meaningful_features or 'NONE'}")
 
-    logger.info(f"\n  Meaningful features (BH sig + |delta| >= {CLIFF_DELTA_THRESHOLD}): "
-                f"{meaningful_features or 'NONE'}")
+    # ---- Urban-only background (built_up_pct > 50%) ----
+    # This controls for the rural-vs-urban confound that inflates built_up_pct
+    urban_associations = None
+    urban_meaningful = []
+    bu_idx = feature_names.index("built_up_pct") if "built_up_pct" in feature_names else None
+    n_urban_bg = 0
+
+    if bu_idx is not None:
+        urban_mask = b_features[:, bu_idx] > 50
+        n_urban_bg = int(urban_mask.sum())
+
+        if n_urban_bg >= 20:
+            logger.info(f"\n  --- Association Tests (URBAN-ONLY background, n={n_urban_bg}) ---")
+            logger.info(f"  NOTE: This controls for rural-vs-urban bias. More honest comparison.")
+            b_urban = b_features[urban_mask]
+
+            urban_associations = run_association_tests(
+                h_features, b_urban, feature_names, h_lats, h_lngs
+            )
+
+            for fname, result in urban_associations.items():
+                if result.get("skipped"):
+                    continue
+                sig = "***" if result.get("meaningful") else ("*" if result.get("bh_significant") else "")
+                delta = result["cliffs_delta"]
+                direction = result["direction"]
+                p_str = f"p={result.get('bh_corrected_p', result['mann_whitney_p']):.6f}"
+                logger.info(
+                    f"    {fname:20s}: delta={delta:+.3f} ({result['cliffs_magnitude']:10s}) "
+                    f"{direction:7s} {p_str} {sig}"
+                )
+                if result.get("meaningful"):
+                    urban_meaningful.append(fname)
+
+            logger.info(f"\n  Meaningful features (urban-only BG): {urban_meaningful or 'NONE'}")
+
+            # Log features that LOST significance after urban filtering
+            lost = set(meaningful_features) - set(urban_meaningful)
+            if lost:
+                logger.warning(f"  INFLATED (lost significance after urban filtering): {lost}")
+        else:
+            logger.warning(f"  Only {n_urban_bg} urban BG points — skipping urban-only analysis")
 
     # 3. VIF multicollinearity check
     logger.info("\n  --- VIF Multicollinearity ---")
@@ -499,10 +535,15 @@ def process_city(city: str) -> Optional[Dict]:
             flag = " *** PROBLEMATIC ***" if vif_info.get("problematic") else ""
             logger.info(f"    {fname:20s}: VIF={vif_info['vif']:.1f}{flag}")
 
-    # 4. Per-hotspot z-scores
+    # 4. Per-hotspot z-scores (using urban-only background when available)
     logger.info("\n  --- Hotspot Z-Scores ---")
+    # Use urban-only meaningful features and background for z-scores (more honest)
+    zscore_features = urban_meaningful if urban_meaningful else meaningful_features
+    zscore_bg = b_features[b_features[:, bu_idx] > 50] if (bu_idx is not None and n_urban_bg >= 20) else b_features
+    zscore_source = "urban-only" if (bu_idx is not None and n_urban_bg >= 20) else "full"
+    logger.info(f"  Z-score background: {zscore_source} ({len(zscore_bg)} points)")
     zscores = compute_hotspot_zscores(
-        h_features, b_features, feature_names, h_names, meaningful_features
+        h_features, zscore_bg, feature_names, h_names, zscore_features
     )
 
     if zscores:
@@ -520,6 +561,7 @@ def process_city(city: str) -> Optional[Dict]:
         "city": city,
         "n_hotspots": int(h_features.shape[0]),
         "n_background": int(b_features.shape[0]),
+        "n_urban_background": n_urban_bg,
         "features_analyzed": feature_names,
         "features_dropped": list(drop_set) if drop_set else [],
         "data_quality": {
@@ -528,6 +570,10 @@ def process_city(city: str) -> Optional[Dict]:
         },
         "associations": associations,
         "meaningful_features": meaningful_features,
+        "urban_only_associations": urban_associations,
+        "urban_meaningful_features": urban_meaningful,
+        "inflated_features": list(set(meaningful_features) - set(urban_meaningful)) if urban_associations else [],
+        "zscore_source": zscore_source,
         "vif": vif_results,
         "thresholds": {
             "cliff_delta_min": CLIFF_DELTA_THRESHOLD,
@@ -627,10 +673,51 @@ def cross_city_analysis(all_analyses: Dict[str, Dict]) -> Dict:
             f"mean delta={mean_delta:+.3f}, direction={dir_str}{flag}"
         )
 
+    # Also run urban-only cross-city consistency
+    logger.info(f"\n{'=' * 60}")
+    logger.info("CROSS-CITY CONSISTENCY (URBAN-ONLY BACKGROUND)")
+    logger.info(f"{'=' * 60}")
+
+    urban_feature_effects = {}
+    for city, analysis in all_analyses.items():
+        for fname, result in (analysis.get("urban_only_associations") or {}).items():
+            if result.get("skipped"):
+                continue
+            if fname not in urban_feature_effects:
+                urban_feature_effects[fname] = []
+            urban_feature_effects[fname].append({
+                "city": city,
+                "cliffs_delta": result["cliffs_delta"],
+                "direction": result["direction"],
+                "bh_significant": result.get("bh_significant", False),
+                "meaningful": result.get("meaningful", False),
+            })
+
+    urban_consistency = {}
+    for fname, effects in urban_feature_effects.items():
+        n_cities = len(effects)
+        n_meaningful = sum(1 for e in effects if e["meaningful"])
+        deltas = [e["cliffs_delta"] for e in effects]
+        mean_delta = float(np.mean(deltas))
+
+        urban_consistency[fname] = {
+            "n_cities_tested": n_cities,
+            "n_cities_meaningful": n_meaningful,
+            "mean_cliffs_delta": round(mean_delta, 4),
+            "per_city": effects,
+        }
+
+        flag = " *** GENUINE ***" if n_meaningful >= 3 else ""
+        logger.info(
+            f"  {fname:20s}: {n_meaningful}/{n_cities} meaningful, "
+            f"mean delta={mean_delta:+.3f}{flag}"
+        )
+
     return {
         "n_cities_analyzed": len(all_analyses),
         "cities": list(all_analyses.keys()),
         "feature_consistency": consistency,
+        "urban_only_consistency": urban_consistency,
     }
 
 
@@ -772,9 +859,18 @@ def main():
             json.dump(cross_city, f, indent=2, default=str)
         logger.info(f"\n  Saved: {summary_path.name}")
 
-        # Generate forest plot
+        # Generate forest plots (full background + urban-only)
         plot_path = OUTPUT_DIR / "forest_plot.png"
         generate_forest_plot(all_analyses, plot_path)
+
+        # Urban-only forest plot
+        urban_analyses = {}
+        for city, a in all_analyses.items():
+            if a.get("urban_only_associations"):
+                urban_analyses[city] = {**a, "associations": a["urban_only_associations"]}
+        if urban_analyses:
+            urban_plot_path = OUTPUT_DIR / "forest_plot_urban_only.png"
+            generate_forest_plot(urban_analyses, urban_plot_path)
 
     # Final summary
     logger.info(f"\n{'=' * 60}")
@@ -782,12 +878,19 @@ def main():
     logger.info(f"{'=' * 60}")
     logger.info(f"Output directory: {OUTPUT_DIR}")
 
-    # Report meaningful features per city
+    # Report meaningful features per city — both full and urban-only
     for city, analysis in all_analyses.items():
         mf = analysis.get("meaningful_features", [])
-        logger.info(f"  {city}: {len(mf)} meaningful features: {mf}")
+        umf = analysis.get("urban_meaningful_features", [])
+        inflated = analysis.get("inflated_features", [])
+        logger.info(f"  {city}:")
+        logger.info(f"    Full BG: {len(mf)} meaningful: {mf}")
+        logger.info(f"    Urban BG: {len(umf)} meaningful: {umf}")
+        if inflated:
+            logger.info(f"    INFLATED (lost after urban filter): {inflated}")
 
-    logger.info("Next step: Phase 5 (04_temporal_extraction.py) or Phase 6 (05_temporal_analysis.py)")
+    logger.info("\nNOTE: Urban-only results are the honest comparison. Full-BG results are")
+    logger.info("inflated by rural-vs-urban confound (hotspots are urban by definition).")
 
 
 if __name__ == "__main__":
