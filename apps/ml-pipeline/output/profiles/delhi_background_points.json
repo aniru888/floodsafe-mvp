@@ -1,0 +1,3002 @@
+[
+  {
+    "lat": 28.793462,
+    "lng": 76.846378,
+    "name": "bg_delhi_NW_001",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.706007,
+    "lng": 76.896919,
+    "name": "bg_delhi_NW_002",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.816753,
+    "lng": 77.012558,
+    "name": "bg_delhi_NW_003",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.854123,
+    "lng": 76.862169,
+    "name": "bg_delhi_NW_004",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.741261,
+    "lng": 76.847598,
+    "name": "bg_delhi_NW_005",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.692473,
+    "lng": 76.968866,
+    "name": "bg_delhi_NW_006",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.646369,
+    "lng": 76.890704,
+    "name": "bg_delhi_NW_007",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.795972,
+    "lng": 76.97896,
+    "name": "bg_delhi_NW_008",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.692906,
+    "lng": 76.990263,
+    "name": "bg_delhi_NW_009",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.834263,
+    "lng": 76.841657,
+    "name": "bg_delhi_NW_010",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.833397,
+    "lng": 77.018026,
+    "name": "bg_delhi_NW_011",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.72166,
+    "lng": 76.879647,
+    "name": "bg_delhi_NW_012",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.869731,
+    "lng": 76.925832,
+    "name": "bg_delhi_NW_013",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.662259,
+    "lng": 76.864663,
+    "name": "bg_delhi_NW_014",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.843399,
+    "lng": 76.99395,
+    "name": "bg_delhi_NW_015",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.833711,
+    "lng": 77.026082,
+    "name": "bg_delhi_NW_016",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.768695,
+    "lng": 77.088145,
+    "name": "bg_delhi_NW_017",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.730848,
+    "lng": 76.98077,
+    "name": "bg_delhi_NW_018",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.839057,
+    "lng": 76.997723,
+    "name": "bg_delhi_NW_019",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.84681,
+    "lng": 76.987225,
+    "name": "bg_delhi_NW_020",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.809097,
+    "lng": 76.851685,
+    "name": "bg_delhi_NW_021",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.694696,
+    "lng": 76.913794,
+    "name": "bg_delhi_NW_022",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.65915,
+    "lng": 76.899362,
+    "name": "bg_delhi_NW_023",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.66424,
+    "lng": 76.910883,
+    "name": "bg_delhi_NW_024",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.792564,
+    "lng": 76.933032,
+    "name": "bg_delhi_NW_025",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.728843,
+    "lng": 76.893424,
+    "name": "bg_delhi_NW_026",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.704075,
+    "lng": 77.078847,
+    "name": "bg_delhi_NW_027",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.795528,
+    "lng": 76.995328,
+    "name": "bg_delhi_NW_028",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.681073,
+    "lng": 77.025927,
+    "name": "bg_delhi_NW_029",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.679217,
+    "lng": 76.936761,
+    "name": "bg_delhi_NW_030",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.877486,
+    "lng": 77.0032,
+    "name": "bg_delhi_NW_031",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.773668,
+    "lng": 77.014577,
+    "name": "bg_delhi_NW_032",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.842284,
+    "lng": 77.03788,
+    "name": "bg_delhi_NW_033",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.694972,
+    "lng": 76.848186,
+    "name": "bg_delhi_NW_034",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.715709,
+    "lng": 76.908274,
+    "name": "bg_delhi_NW_035",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.690636,
+    "lng": 77.080442,
+    "name": "bg_delhi_NW_036",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.850328,
+    "lng": 76.920243,
+    "name": "bg_delhi_NW_037",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.797305,
+    "lng": 76.940886,
+    "name": "bg_delhi_NW_038",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.859491,
+    "lng": 76.957007,
+    "name": "bg_delhi_NW_039",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.703571,
+    "lng": 76.90289,
+    "name": "bg_delhi_NW_040",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.774728,
+    "lng": 76.906999,
+    "name": "bg_delhi_NW_041",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.780301,
+    "lng": 77.068945,
+    "name": "bg_delhi_NW_042",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.735856,
+    "lng": 76.895927,
+    "name": "bg_delhi_NW_043",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.879409,
+    "lng": 76.969929,
+    "name": "bg_delhi_NW_044",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.661818,
+    "lng": 76.852015,
+    "name": "bg_delhi_NW_045",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.666316,
+    "lng": 76.999999,
+    "name": "bg_delhi_NW_046",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.830099,
+    "lng": 76.947651,
+    "name": "bg_delhi_NW_047",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.655247,
+    "lng": 76.937313,
+    "name": "bg_delhi_NW_048",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.879069,
+    "lng": 76.974924,
+    "name": "bg_delhi_NW_049",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.873059,
+    "lng": 77.059499,
+    "name": "bg_delhi_NW_050",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.642755,
+    "lng": 77.023784,
+    "name": "bg_delhi_NW_051",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.80361,
+    "lng": 76.976927,
+    "name": "bg_delhi_NW_052",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.704038,
+    "lng": 77.003445,
+    "name": "bg_delhi_NW_053",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.666773,
+    "lng": 76.950865,
+    "name": "bg_delhi_NW_054",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.748894,
+    "lng": 77.083223,
+    "name": "bg_delhi_NW_055",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.850205,
+    "lng": 76.907164,
+    "name": "bg_delhi_NW_056",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.760141,
+    "lng": 76.885556,
+    "name": "bg_delhi_NW_057",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.859031,
+    "lng": 77.061982,
+    "name": "bg_delhi_NW_058",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.711627,
+    "lng": 77.002932,
+    "name": "bg_delhi_NW_059",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.786153,
+    "lng": 76.878974,
+    "name": "bg_delhi_NW_060",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.823003,
+    "lng": 76.977542,
+    "name": "bg_delhi_NW_061",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.82687,
+    "lng": 76.97524,
+    "name": "bg_delhi_NW_062",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.640137,
+    "lng": 76.92266,
+    "name": "bg_delhi_NW_063",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.644674,
+    "lng": 77.07692,
+    "name": "bg_delhi_NW_064",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.850893,
+    "lng": 77.052075,
+    "name": "bg_delhi_NW_065",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.713803,
+    "lng": 76.854771,
+    "name": "bg_delhi_NW_066",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.850722,
+    "lng": 77.081472,
+    "name": "bg_delhi_NW_067",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.660557,
+    "lng": 76.963928,
+    "name": "bg_delhi_NW_068",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.656611,
+    "lng": 77.033954,
+    "name": "bg_delhi_NW_069",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.8238,
+    "lng": 76.87274,
+    "name": "bg_delhi_NW_070",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.754068,
+    "lng": 76.9802,
+    "name": "bg_delhi_NW_071",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.703614,
+    "lng": 77.06247,
+    "name": "bg_delhi_NW_072",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.741553,
+    "lng": 76.894009,
+    "name": "bg_delhi_NW_073",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.769431,
+    "lng": 77.026132,
+    "name": "bg_delhi_NW_074",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.688276,
+    "lng": 76.919488,
+    "name": "bg_delhi_NW_075",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.878836,
+    "lng": 77.005719,
+    "name": "bg_delhi_NW_076",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.745144,
+    "lng": 76.971982,
+    "name": "bg_delhi_NW_077",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.669041,
+    "lng": 76.897298,
+    "name": "bg_delhi_NW_078",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.721141,
+    "lng": 76.990019,
+    "name": "bg_delhi_NW_079",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.695228,
+    "lng": 76.896155,
+    "name": "bg_delhi_NW_080",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.657038,
+    "lng": 77.000931,
+    "name": "bg_delhi_NW_081",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.694946,
+    "lng": 77.070882,
+    "name": "bg_delhi_NW_082",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.846312,
+    "lng": 76.858069,
+    "name": "bg_delhi_NW_083",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.697121,
+    "lng": 77.010589,
+    "name": "bg_delhi_NW_084",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.691417,
+    "lng": 76.87374,
+    "name": "bg_delhi_NW_085",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.864523,
+    "lng": 76.985616,
+    "name": "bg_delhi_NW_086",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.753441,
+    "lng": 77.040078,
+    "name": "bg_delhi_NW_087",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.833799,
+    "lng": 76.888555,
+    "name": "bg_delhi_NW_088",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.663263,
+    "lng": 76.949918,
+    "name": "bg_delhi_NW_089",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.741659,
+    "lng": 76.959091,
+    "name": "bg_delhi_NW_090",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.814978,
+    "lng": 77.011708,
+    "name": "bg_delhi_NW_091",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.8762,
+    "lng": 76.865097,
+    "name": "bg_delhi_NW_092",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.736629,
+    "lng": 76.926522,
+    "name": "bg_delhi_NW_093",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.846801,
+    "lng": 76.903407,
+    "name": "bg_delhi_NW_094",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.68565,
+    "lng": 76.954396,
+    "name": "bg_delhi_NW_095",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.741252,
+    "lng": 76.911029,
+    "name": "bg_delhi_NW_096",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.699954,
+    "lng": 77.075433,
+    "name": "bg_delhi_NW_097",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.746351,
+    "lng": 77.059644,
+    "name": "bg_delhi_NW_098",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.772078,
+    "lng": 76.8529,
+    "name": "bg_delhi_NW_099",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.879828,
+    "lng": 77.053187,
+    "name": "bg_delhi_NW_100",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.872559,
+    "lng": 77.076224,
+    "name": "bg_delhi_NW_101",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.843687,
+    "lng": 76.882409,
+    "name": "bg_delhi_NW_102",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.756554,
+    "lng": 76.894506,
+    "name": "bg_delhi_NW_103",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.73625,
+    "lng": 76.854952,
+    "name": "bg_delhi_NW_104",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.730954,
+    "lng": 77.091254,
+    "name": "bg_delhi_NW_105",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.703649,
+    "lng": 77.039938,
+    "name": "bg_delhi_NW_106",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.749202,
+    "lng": 76.947867,
+    "name": "bg_delhi_NW_107",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.869756,
+    "lng": 77.093833,
+    "name": "bg_delhi_NW_108",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.773384,
+    "lng": 77.023194,
+    "name": "bg_delhi_NW_109",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.677151,
+    "lng": 76.91566,
+    "name": "bg_delhi_NW_110",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.87249,
+    "lng": 76.987691,
+    "name": "bg_delhi_NW_111",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.770127,
+    "lng": 77.030734,
+    "name": "bg_delhi_NW_112",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.65372,
+    "lng": 76.988965,
+    "name": "bg_delhi_NW_113",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.760684,
+    "lng": 77.057444,
+    "name": "bg_delhi_NW_114",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.659227,
+    "lng": 76.887385,
+    "name": "bg_delhi_NW_115",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.782808,
+    "lng": 77.012179,
+    "name": "bg_delhi_NW_116",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.696449,
+    "lng": 76.870571,
+    "name": "bg_delhi_NW_117",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.853669,
+    "lng": 76.902785,
+    "name": "bg_delhi_NW_118",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.782685,
+    "lng": 76.997942,
+    "name": "bg_delhi_NW_119",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.740614,
+    "lng": 76.988836,
+    "name": "bg_delhi_NW_120",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.765468,
+    "lng": 77.07835,
+    "name": "bg_delhi_NW_121",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.689022,
+    "lng": 77.022629,
+    "name": "bg_delhi_NW_122",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.697285,
+    "lng": 76.940925,
+    "name": "bg_delhi_NW_123",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.801206,
+    "lng": 76.916499,
+    "name": "bg_delhi_NW_124",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.715883,
+    "lng": 77.031725,
+    "name": "bg_delhi_NW_125",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 28.65741,
+    "lng": 77.211863,
+    "name": "bg_delhi_NE_001",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.879629,
+    "lng": 77.349005,
+    "name": "bg_delhi_NE_002",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.657583,
+    "lng": 77.149354,
+    "name": "bg_delhi_NE_003",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.703648,
+    "lng": 77.332981,
+    "name": "bg_delhi_NE_004",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.851407,
+    "lng": 77.319214,
+    "name": "bg_delhi_NE_005",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.728687,
+    "lng": 77.135225,
+    "name": "bg_delhi_NE_006",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.840099,
+    "lng": 77.274403,
+    "name": "bg_delhi_NE_007",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.786803,
+    "lng": 77.346744,
+    "name": "bg_delhi_NE_008",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.796954,
+    "lng": 77.096995,
+    "name": "bg_delhi_NE_009",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.836105,
+    "lng": 77.171342,
+    "name": "bg_delhi_NE_010",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.799213,
+    "lng": 77.334427,
+    "name": "bg_delhi_NE_011",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.67223,
+    "lng": 77.124434,
+    "name": "bg_delhi_NE_012",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.665689,
+    "lng": 77.236072,
+    "name": "bg_delhi_NE_013",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.705364,
+    "lng": 77.249232,
+    "name": "bg_delhi_NE_014",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.812227,
+    "lng": 77.146917,
+    "name": "bg_delhi_NE_015",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.792217,
+    "lng": 77.162316,
+    "name": "bg_delhi_NE_016",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.757248,
+    "lng": 77.325861,
+    "name": "bg_delhi_NE_017",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.843065,
+    "lng": 77.118536,
+    "name": "bg_delhi_NE_018",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.741658,
+    "lng": 77.165553,
+    "name": "bg_delhi_NE_019",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.792907,
+    "lng": 77.161799,
+    "name": "bg_delhi_NE_020",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.817895,
+    "lng": 77.235679,
+    "name": "bg_delhi_NE_021",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.742645,
+    "lng": 77.097466,
+    "name": "bg_delhi_NE_022",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.658059,
+    "lng": 77.320192,
+    "name": "bg_delhi_NE_023",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.856943,
+    "lng": 77.234126,
+    "name": "bg_delhi_NE_024",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.840303,
+    "lng": 77.24354,
+    "name": "bg_delhi_NE_025",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.675543,
+    "lng": 77.127499,
+    "name": "bg_delhi_NE_026",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.713982,
+    "lng": 77.32424,
+    "name": "bg_delhi_NE_027",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.831069,
+    "lng": 77.314479,
+    "name": "bg_delhi_NE_028",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.855742,
+    "lng": 77.14857,
+    "name": "bg_delhi_NE_029",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.699887,
+    "lng": 77.121212,
+    "name": "bg_delhi_NE_030",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.827228,
+    "lng": 77.320454,
+    "name": "bg_delhi_NE_031",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.737531,
+    "lng": 77.253269,
+    "name": "bg_delhi_NE_032",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.677093,
+    "lng": 77.33212,
+    "name": "bg_delhi_NE_033",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.847505,
+    "lng": 77.343933,
+    "name": "bg_delhi_NE_034",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.834585,
+    "lng": 77.319761,
+    "name": "bg_delhi_NE_035",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.645949,
+    "lng": 77.282824,
+    "name": "bg_delhi_NE_036",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.719725,
+    "lng": 77.332358,
+    "name": "bg_delhi_NE_037",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.832536,
+    "lng": 77.315336,
+    "name": "bg_delhi_NE_038",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.83458,
+    "lng": 77.163035,
+    "name": "bg_delhi_NE_039",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.82897,
+    "lng": 77.122564,
+    "name": "bg_delhi_NE_040",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.84932,
+    "lng": 77.313941,
+    "name": "bg_delhi_NE_041",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.693384,
+    "lng": 77.30323,
+    "name": "bg_delhi_NE_042",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.750473,
+    "lng": 77.172824,
+    "name": "bg_delhi_NE_043",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.830883,
+    "lng": 77.153037,
+    "name": "bg_delhi_NE_044",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.645679,
+    "lng": 77.144248,
+    "name": "bg_delhi_NE_045",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.718783,
+    "lng": 77.31541,
+    "name": "bg_delhi_NE_046",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.872053,
+    "lng": 77.166177,
+    "name": "bg_delhi_NE_047",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.793956,
+    "lng": 77.196918,
+    "name": "bg_delhi_NE_048",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.875476,
+    "lng": 77.231735,
+    "name": "bg_delhi_NE_049",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.865417,
+    "lng": 77.124412,
+    "name": "bg_delhi_NE_050",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.872896,
+    "lng": 77.140535,
+    "name": "bg_delhi_NE_051",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.871008,
+    "lng": 77.162694,
+    "name": "bg_delhi_NE_052",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.814851,
+    "lng": 77.174988,
+    "name": "bg_delhi_NE_053",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.78549,
+    "lng": 77.225413,
+    "name": "bg_delhi_NE_054",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.732447,
+    "lng": 77.24203,
+    "name": "bg_delhi_NE_055",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.701133,
+    "lng": 77.27574,
+    "name": "bg_delhi_NE_056",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.640406,
+    "lng": 77.331022,
+    "name": "bg_delhi_NE_057",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.769228,
+    "lng": 77.278455,
+    "name": "bg_delhi_NE_058",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.818068,
+    "lng": 77.26601,
+    "name": "bg_delhi_NE_059",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.727413,
+    "lng": 77.112843,
+    "name": "bg_delhi_NE_060",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.799417,
+    "lng": 77.179201,
+    "name": "bg_delhi_NE_061",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.71534,
+    "lng": 77.311244,
+    "name": "bg_delhi_NE_062",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.812741,
+    "lng": 77.171582,
+    "name": "bg_delhi_NE_063",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.714228,
+    "lng": 77.19914,
+    "name": "bg_delhi_NE_064",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.736576,
+    "lng": 77.170392,
+    "name": "bg_delhi_NE_065",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.670549,
+    "lng": 77.202214,
+    "name": "bg_delhi_NE_066",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.865687,
+    "lng": 77.267716,
+    "name": "bg_delhi_NE_067",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.856673,
+    "lng": 77.251956,
+    "name": "bg_delhi_NE_068",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.712228,
+    "lng": 77.234724,
+    "name": "bg_delhi_NE_069",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.640097,
+    "lng": 77.168163,
+    "name": "bg_delhi_NE_070",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.743173,
+    "lng": 77.242896,
+    "name": "bg_delhi_NE_071",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.797129,
+    "lng": 77.213572,
+    "name": "bg_delhi_NE_072",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.746118,
+    "lng": 77.149494,
+    "name": "bg_delhi_NE_073",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.753565,
+    "lng": 77.324801,
+    "name": "bg_delhi_NE_074",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.831046,
+    "lng": 77.138271,
+    "name": "bg_delhi_NE_075",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.660351,
+    "lng": 77.22644,
+    "name": "bg_delhi_NE_076",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.791906,
+    "lng": 77.180473,
+    "name": "bg_delhi_NE_077",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.836422,
+    "lng": 77.28654,
+    "name": "bg_delhi_NE_078",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.801471,
+    "lng": 77.152283,
+    "name": "bg_delhi_NE_079",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.687791,
+    "lng": 77.101228,
+    "name": "bg_delhi_NE_080",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.698762,
+    "lng": 77.21616,
+    "name": "bg_delhi_NE_081",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.843937,
+    "lng": 77.113571,
+    "name": "bg_delhi_NE_082",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.739466,
+    "lng": 77.25559,
+    "name": "bg_delhi_NE_083",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.686664,
+    "lng": 77.27257,
+    "name": "bg_delhi_NE_084",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.758651,
+    "lng": 77.157216,
+    "name": "bg_delhi_NE_085",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.797454,
+    "lng": 77.096414,
+    "name": "bg_delhi_NE_086",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.820231,
+    "lng": 77.291362,
+    "name": "bg_delhi_NE_087",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.682213,
+    "lng": 77.339281,
+    "name": "bg_delhi_NE_088",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.76431,
+    "lng": 77.107806,
+    "name": "bg_delhi_NE_089",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.699808,
+    "lng": 77.311326,
+    "name": "bg_delhi_NE_090",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.749551,
+    "lng": 77.299361,
+    "name": "bg_delhi_NE_091",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.800219,
+    "lng": 77.346913,
+    "name": "bg_delhi_NE_092",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.782909,
+    "lng": 77.33726,
+    "name": "bg_delhi_NE_093",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.853942,
+    "lng": 77.251226,
+    "name": "bg_delhi_NE_094",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.812626,
+    "lng": 77.223718,
+    "name": "bg_delhi_NE_095",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.839337,
+    "lng": 77.234707,
+    "name": "bg_delhi_NE_096",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.85533,
+    "lng": 77.284632,
+    "name": "bg_delhi_NE_097",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.753922,
+    "lng": 77.161094,
+    "name": "bg_delhi_NE_098",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.699338,
+    "lng": 77.257604,
+    "name": "bg_delhi_NE_099",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.823795,
+    "lng": 77.227931,
+    "name": "bg_delhi_NE_100",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.79042,
+    "lng": 77.165022,
+    "name": "bg_delhi_NE_101",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.658596,
+    "lng": 77.167861,
+    "name": "bg_delhi_NE_102",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.705212,
+    "lng": 77.176526,
+    "name": "bg_delhi_NE_103",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.769637,
+    "lng": 77.130285,
+    "name": "bg_delhi_NE_104",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.695503,
+    "lng": 77.271957,
+    "name": "bg_delhi_NE_105",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.809541,
+    "lng": 77.111378,
+    "name": "bg_delhi_NE_106",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.737824,
+    "lng": 77.233366,
+    "name": "bg_delhi_NE_107",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.739786,
+    "lng": 77.147743,
+    "name": "bg_delhi_NE_108",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.740834,
+    "lng": 77.325734,
+    "name": "bg_delhi_NE_109",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.780179,
+    "lng": 77.272358,
+    "name": "bg_delhi_NE_110",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.845616,
+    "lng": 77.290227,
+    "name": "bg_delhi_NE_111",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.731291,
+    "lng": 77.096504,
+    "name": "bg_delhi_NE_112",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.724422,
+    "lng": 77.287136,
+    "name": "bg_delhi_NE_113",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.844828,
+    "lng": 77.338125,
+    "name": "bg_delhi_NE_114",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.740565,
+    "lng": 77.285616,
+    "name": "bg_delhi_NE_115",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.771072,
+    "lng": 77.248829,
+    "name": "bg_delhi_NE_116",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.692929,
+    "lng": 77.150953,
+    "name": "bg_delhi_NE_117",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.744601,
+    "lng": 77.102401,
+    "name": "bg_delhi_NE_118",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.720671,
+    "lng": 77.268181,
+    "name": "bg_delhi_NE_119",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.737036,
+    "lng": 77.137086,
+    "name": "bg_delhi_NE_120",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.752174,
+    "lng": 77.127545,
+    "name": "bg_delhi_NE_121",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.789342,
+    "lng": 77.101876,
+    "name": "bg_delhi_NE_122",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.734565,
+    "lng": 77.23892,
+    "name": "bg_delhi_NE_123",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.646504,
+    "lng": 77.258901,
+    "name": "bg_delhi_NE_124",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.672568,
+    "lng": 77.212733,
+    "name": "bg_delhi_NE_125",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 28.412068,
+    "lng": 76.936671,
+    "name": "bg_delhi_SW_001",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.450798,
+    "lng": 76.923346,
+    "name": "bg_delhi_SW_002",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.582695,
+    "lng": 76.936677,
+    "name": "bg_delhi_SW_003",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.580482,
+    "lng": 77.052141,
+    "name": "bg_delhi_SW_004",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.460545,
+    "lng": 76.860886,
+    "name": "bg_delhi_SW_005",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.404652,
+    "lng": 76.977552,
+    "name": "bg_delhi_SW_006",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.639978,
+    "lng": 76.92924,
+    "name": "bg_delhi_SW_007",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.556035,
+    "lng": 77.039214,
+    "name": "bg_delhi_SW_008",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.556421,
+    "lng": 77.032329,
+    "name": "bg_delhi_SW_009",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.627907,
+    "lng": 76.890837,
+    "name": "bg_delhi_SW_010",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.404891,
+    "lng": 76.878857,
+    "name": "bg_delhi_SW_011",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.430293,
+    "lng": 77.010712,
+    "name": "bg_delhi_SW_012",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.535353,
+    "lng": 76.895581,
+    "name": "bg_delhi_SW_013",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.567872,
+    "lng": 77.035559,
+    "name": "bg_delhi_SW_014",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.440269,
+    "lng": 76.994848,
+    "name": "bg_delhi_SW_015",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.579502,
+    "lng": 76.869206,
+    "name": "bg_delhi_SW_016",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.596632,
+    "lng": 77.086004,
+    "name": "bg_delhi_SW_017",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.425944,
+    "lng": 76.846548,
+    "name": "bg_delhi_SW_018",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.47487,
+    "lng": 77.012724,
+    "name": "bg_delhi_SW_019",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.629961,
+    "lng": 76.941147,
+    "name": "bg_delhi_SW_020",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.571604,
+    "lng": 76.859379,
+    "name": "bg_delhi_SW_021",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.565747,
+    "lng": 76.999947,
+    "name": "bg_delhi_SW_022",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.424456,
+    "lng": 77.036983,
+    "name": "bg_delhi_SW_023",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.60407,
+    "lng": 76.993105,
+    "name": "bg_delhi_SW_024",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.429053,
+    "lng": 77.09088,
+    "name": "bg_delhi_SW_025",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.587832,
+    "lng": 76.928537,
+    "name": "bg_delhi_SW_026",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.502811,
+    "lng": 76.934496,
+    "name": "bg_delhi_SW_027",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.521431,
+    "lng": 76.927014,
+    "name": "bg_delhi_SW_028",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.603898,
+    "lng": 77.049694,
+    "name": "bg_delhi_SW_029",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.425329,
+    "lng": 77.085001,
+    "name": "bg_delhi_SW_030",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.55254,
+    "lng": 77.05132,
+    "name": "bg_delhi_SW_031",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.569754,
+    "lng": 76.951049,
+    "name": "bg_delhi_SW_032",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.576111,
+    "lng": 77.086196,
+    "name": "bg_delhi_SW_033",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.46482,
+    "lng": 77.046091,
+    "name": "bg_delhi_SW_034",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.529161,
+    "lng": 76.963292,
+    "name": "bg_delhi_SW_035",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.504538,
+    "lng": 77.026412,
+    "name": "bg_delhi_SW_036",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.464415,
+    "lng": 77.057187,
+    "name": "bg_delhi_SW_037",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.599375,
+    "lng": 76.862099,
+    "name": "bg_delhi_SW_038",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.611591,
+    "lng": 76.902185,
+    "name": "bg_delhi_SW_039",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.51153,
+    "lng": 76.995635,
+    "name": "bg_delhi_SW_040",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.490957,
+    "lng": 76.847318,
+    "name": "bg_delhi_SW_041",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.604229,
+    "lng": 76.886369,
+    "name": "bg_delhi_SW_042",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.450909,
+    "lng": 77.043447,
+    "name": "bg_delhi_SW_043",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.481681,
+    "lng": 77.064482,
+    "name": "bg_delhi_SW_044",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.568284,
+    "lng": 76.910448,
+    "name": "bg_delhi_SW_045",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.402436,
+    "lng": 77.081756,
+    "name": "bg_delhi_SW_046",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.420547,
+    "lng": 77.023619,
+    "name": "bg_delhi_SW_047",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.517259,
+    "lng": 77.033332,
+    "name": "bg_delhi_SW_048",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.565746,
+    "lng": 77.004705,
+    "name": "bg_delhi_SW_049",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.517797,
+    "lng": 77.042198,
+    "name": "bg_delhi_SW_050",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.422333,
+    "lng": 76.896507,
+    "name": "bg_delhi_SW_051",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.566029,
+    "lng": 76.918083,
+    "name": "bg_delhi_SW_052",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.539573,
+    "lng": 76.960681,
+    "name": "bg_delhi_SW_053",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.527421,
+    "lng": 76.948503,
+    "name": "bg_delhi_SW_054",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.579025,
+    "lng": 76.924352,
+    "name": "bg_delhi_SW_055",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.568685,
+    "lng": 76.909084,
+    "name": "bg_delhi_SW_056",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.460337,
+    "lng": 76.870767,
+    "name": "bg_delhi_SW_057",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.44622,
+    "lng": 76.870486,
+    "name": "bg_delhi_SW_058",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.528607,
+    "lng": 77.034358,
+    "name": "bg_delhi_SW_059",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.444436,
+    "lng": 76.895178,
+    "name": "bg_delhi_SW_060",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.516208,
+    "lng": 77.024769,
+    "name": "bg_delhi_SW_061",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.634386,
+    "lng": 76.973782,
+    "name": "bg_delhi_SW_062",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.46792,
+    "lng": 76.865634,
+    "name": "bg_delhi_SW_063",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.446588,
+    "lng": 76.898008,
+    "name": "bg_delhi_SW_064",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.443066,
+    "lng": 76.843608,
+    "name": "bg_delhi_SW_065",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.528192,
+    "lng": 76.909949,
+    "name": "bg_delhi_SW_066",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.633831,
+    "lng": 76.981107,
+    "name": "bg_delhi_SW_067",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.56738,
+    "lng": 76.872201,
+    "name": "bg_delhi_SW_068",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.608431,
+    "lng": 76.965174,
+    "name": "bg_delhi_SW_069",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.609453,
+    "lng": 76.986386,
+    "name": "bg_delhi_SW_070",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.512655,
+    "lng": 76.95232,
+    "name": "bg_delhi_SW_071",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.444247,
+    "lng": 76.853101,
+    "name": "bg_delhi_SW_072",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.625855,
+    "lng": 76.961821,
+    "name": "bg_delhi_SW_073",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.597308,
+    "lng": 76.94218,
+    "name": "bg_delhi_SW_074",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.41778,
+    "lng": 77.000509,
+    "name": "bg_delhi_SW_075",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.412866,
+    "lng": 76.878045,
+    "name": "bg_delhi_SW_076",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.535082,
+    "lng": 76.917478,
+    "name": "bg_delhi_SW_077",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.63854,
+    "lng": 76.870205,
+    "name": "bg_delhi_SW_078",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.583466,
+    "lng": 76.994611,
+    "name": "bg_delhi_SW_079",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.589778,
+    "lng": 76.89755,
+    "name": "bg_delhi_SW_080",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.525417,
+    "lng": 76.954881,
+    "name": "bg_delhi_SW_081",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.506253,
+    "lng": 77.059342,
+    "name": "bg_delhi_SW_082",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.637608,
+    "lng": 76.917872,
+    "name": "bg_delhi_SW_083",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.549047,
+    "lng": 76.995456,
+    "name": "bg_delhi_SW_084",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.577621,
+    "lng": 77.081636,
+    "name": "bg_delhi_SW_085",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.449869,
+    "lng": 76.893811,
+    "name": "bg_delhi_SW_086",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.558503,
+    "lng": 76.88005,
+    "name": "bg_delhi_SW_087",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.441715,
+    "lng": 76.859142,
+    "name": "bg_delhi_SW_088",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.400642,
+    "lng": 76.954878,
+    "name": "bg_delhi_SW_089",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.542515,
+    "lng": 76.914271,
+    "name": "bg_delhi_SW_090",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.455554,
+    "lng": 77.020274,
+    "name": "bg_delhi_SW_091",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.568717,
+    "lng": 76.955778,
+    "name": "bg_delhi_SW_092",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.564972,
+    "lng": 77.075597,
+    "name": "bg_delhi_SW_093",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.589079,
+    "lng": 76.99939,
+    "name": "bg_delhi_SW_094",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.558684,
+    "lng": 77.078085,
+    "name": "bg_delhi_SW_095",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.502033,
+    "lng": 76.978863,
+    "name": "bg_delhi_SW_096",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.555432,
+    "lng": 77.071645,
+    "name": "bg_delhi_SW_097",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.598391,
+    "lng": 76.85821,
+    "name": "bg_delhi_SW_098",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.439821,
+    "lng": 76.918441,
+    "name": "bg_delhi_SW_099",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.57975,
+    "lng": 76.985148,
+    "name": "bg_delhi_SW_100",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.469267,
+    "lng": 76.87171,
+    "name": "bg_delhi_SW_101",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.565283,
+    "lng": 77.018432,
+    "name": "bg_delhi_SW_102",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.626242,
+    "lng": 76.96762,
+    "name": "bg_delhi_SW_103",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.518511,
+    "lng": 76.860513,
+    "name": "bg_delhi_SW_104",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.409567,
+    "lng": 76.950167,
+    "name": "bg_delhi_SW_105",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.477357,
+    "lng": 76.903844,
+    "name": "bg_delhi_SW_106",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.421918,
+    "lng": 77.085287,
+    "name": "bg_delhi_SW_107",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.60063,
+    "lng": 76.986676,
+    "name": "bg_delhi_SW_108",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.628189,
+    "lng": 77.094891,
+    "name": "bg_delhi_SW_109",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.561348,
+    "lng": 76.908725,
+    "name": "bg_delhi_SW_110",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.409656,
+    "lng": 77.032849,
+    "name": "bg_delhi_SW_111",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.51292,
+    "lng": 77.006135,
+    "name": "bg_delhi_SW_112",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.619857,
+    "lng": 76.88628,
+    "name": "bg_delhi_SW_113",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.540479,
+    "lng": 77.00187,
+    "name": "bg_delhi_SW_114",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.518014,
+    "lng": 76.863267,
+    "name": "bg_delhi_SW_115",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.483511,
+    "lng": 76.924994,
+    "name": "bg_delhi_SW_116",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.560832,
+    "lng": 77.058722,
+    "name": "bg_delhi_SW_117",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.479153,
+    "lng": 77.016887,
+    "name": "bg_delhi_SW_118",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.469172,
+    "lng": 77.081024,
+    "name": "bg_delhi_SW_119",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.595256,
+    "lng": 76.980275,
+    "name": "bg_delhi_SW_120",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.509158,
+    "lng": 76.920202,
+    "name": "bg_delhi_SW_121",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.477586,
+    "lng": 77.087397,
+    "name": "bg_delhi_SW_122",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.497002,
+    "lng": 76.971222,
+    "name": "bg_delhi_SW_123",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.637149,
+    "lng": 77.007703,
+    "name": "bg_delhi_SW_124",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.530222,
+    "lng": 76.945378,
+    "name": "bg_delhi_SW_125",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 28.44502,
+    "lng": 77.187254,
+    "name": "bg_delhi_SE_001",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.581546,
+    "lng": 77.254479,
+    "name": "bg_delhi_SE_002",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.531813,
+    "lng": 77.331557,
+    "name": "bg_delhi_SE_003",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.505148,
+    "lng": 77.273054,
+    "name": "bg_delhi_SE_004",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.429142,
+    "lng": 77.343152,
+    "name": "bg_delhi_SE_005",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.546129,
+    "lng": 77.156021,
+    "name": "bg_delhi_SE_006",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.438011,
+    "lng": 77.235464,
+    "name": "bg_delhi_SE_007",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.53254,
+    "lng": 77.118768,
+    "name": "bg_delhi_SE_008",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.638142,
+    "lng": 77.327797,
+    "name": "bg_delhi_SE_009",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.510747,
+    "lng": 77.124954,
+    "name": "bg_delhi_SE_010",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.599714,
+    "lng": 77.222086,
+    "name": "bg_delhi_SE_011",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.571985,
+    "lng": 77.224762,
+    "name": "bg_delhi_SE_012",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.465622,
+    "lng": 77.307855,
+    "name": "bg_delhi_SE_013",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.635259,
+    "lng": 77.157151,
+    "name": "bg_delhi_SE_014",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.532304,
+    "lng": 77.192814,
+    "name": "bg_delhi_SE_015",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.621248,
+    "lng": 77.224601,
+    "name": "bg_delhi_SE_016",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.611038,
+    "lng": 77.315327,
+    "name": "bg_delhi_SE_017",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.466299,
+    "lng": 77.296452,
+    "name": "bg_delhi_SE_018",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.499586,
+    "lng": 77.333233,
+    "name": "bg_delhi_SE_019",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.521857,
+    "lng": 77.30424,
+    "name": "bg_delhi_SE_020",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.467881,
+    "lng": 77.171132,
+    "name": "bg_delhi_SE_021",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.540865,
+    "lng": 77.34972,
+    "name": "bg_delhi_SE_022",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.517514,
+    "lng": 77.132892,
+    "name": "bg_delhi_SE_023",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.529259,
+    "lng": 77.183007,
+    "name": "bg_delhi_SE_024",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.53246,
+    "lng": 77.233575,
+    "name": "bg_delhi_SE_025",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.509283,
+    "lng": 77.177053,
+    "name": "bg_delhi_SE_026",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.445277,
+    "lng": 77.272862,
+    "name": "bg_delhi_SE_027",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.537231,
+    "lng": 77.154558,
+    "name": "bg_delhi_SE_028",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.586131,
+    "lng": 77.10613,
+    "name": "bg_delhi_SE_029",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.578729,
+    "lng": 77.274833,
+    "name": "bg_delhi_SE_030",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.594738,
+    "lng": 77.19345,
+    "name": "bg_delhi_SE_031",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.559285,
+    "lng": 77.304291,
+    "name": "bg_delhi_SE_032",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.408885,
+    "lng": 77.223084,
+    "name": "bg_delhi_SE_033",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.541643,
+    "lng": 77.316774,
+    "name": "bg_delhi_SE_034",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.609806,
+    "lng": 77.207278,
+    "name": "bg_delhi_SE_035",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.557148,
+    "lng": 77.134362,
+    "name": "bg_delhi_SE_036",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.512678,
+    "lng": 77.342147,
+    "name": "bg_delhi_SE_037",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.481255,
+    "lng": 77.27164,
+    "name": "bg_delhi_SE_038",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.555961,
+    "lng": 77.3122,
+    "name": "bg_delhi_SE_039",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.604562,
+    "lng": 77.314132,
+    "name": "bg_delhi_SE_040",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.491202,
+    "lng": 77.175749,
+    "name": "bg_delhi_SE_041",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.572492,
+    "lng": 77.288647,
+    "name": "bg_delhi_SE_042",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.609372,
+    "lng": 77.104154,
+    "name": "bg_delhi_SE_043",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.416421,
+    "lng": 77.255946,
+    "name": "bg_delhi_SE_044",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.621023,
+    "lng": 77.349344,
+    "name": "bg_delhi_SE_045",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.579224,
+    "lng": 77.205663,
+    "name": "bg_delhi_SE_046",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.423626,
+    "lng": 77.256606,
+    "name": "bg_delhi_SE_047",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.609419,
+    "lng": 77.208138,
+    "name": "bg_delhi_SE_048",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.56656,
+    "lng": 77.325373,
+    "name": "bg_delhi_SE_049",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.411038,
+    "lng": 77.298017,
+    "name": "bg_delhi_SE_050",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.470408,
+    "lng": 77.190584,
+    "name": "bg_delhi_SE_051",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.434937,
+    "lng": 77.230447,
+    "name": "bg_delhi_SE_052",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.535823,
+    "lng": 77.297092,
+    "name": "bg_delhi_SE_053",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.440796,
+    "lng": 77.115137,
+    "name": "bg_delhi_SE_054",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.609002,
+    "lng": 77.253026,
+    "name": "bg_delhi_SE_055",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.457799,
+    "lng": 77.327771,
+    "name": "bg_delhi_SE_056",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.434348,
+    "lng": 77.212593,
+    "name": "bg_delhi_SE_057",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.460955,
+    "lng": 77.160108,
+    "name": "bg_delhi_SE_058",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.402255,
+    "lng": 77.300181,
+    "name": "bg_delhi_SE_059",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.61629,
+    "lng": 77.267791,
+    "name": "bg_delhi_SE_060",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.437914,
+    "lng": 77.207641,
+    "name": "bg_delhi_SE_061",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.482936,
+    "lng": 77.244831,
+    "name": "bg_delhi_SE_062",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.553345,
+    "lng": 77.203199,
+    "name": "bg_delhi_SE_063",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.460024,
+    "lng": 77.310553,
+    "name": "bg_delhi_SE_064",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.447812,
+    "lng": 77.193097,
+    "name": "bg_delhi_SE_065",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.51597,
+    "lng": 77.155487,
+    "name": "bg_delhi_SE_066",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.537261,
+    "lng": 77.241577,
+    "name": "bg_delhi_SE_067",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.638246,
+    "lng": 77.170284,
+    "name": "bg_delhi_SE_068",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.634707,
+    "lng": 77.262849,
+    "name": "bg_delhi_SE_069",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.465875,
+    "lng": 77.239312,
+    "name": "bg_delhi_SE_070",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.564592,
+    "lng": 77.284891,
+    "name": "bg_delhi_SE_071",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.411771,
+    "lng": 77.249634,
+    "name": "bg_delhi_SE_072",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.519215,
+    "lng": 77.32556,
+    "name": "bg_delhi_SE_073",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.468687,
+    "lng": 77.298709,
+    "name": "bg_delhi_SE_074",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.545696,
+    "lng": 77.184842,
+    "name": "bg_delhi_SE_075",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.562663,
+    "lng": 77.278837,
+    "name": "bg_delhi_SE_076",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.558204,
+    "lng": 77.308776,
+    "name": "bg_delhi_SE_077",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.55078,
+    "lng": 77.325368,
+    "name": "bg_delhi_SE_078",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.555122,
+    "lng": 77.173778,
+    "name": "bg_delhi_SE_079",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.505798,
+    "lng": 77.242791,
+    "name": "bg_delhi_SE_080",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.575766,
+    "lng": 77.117984,
+    "name": "bg_delhi_SE_081",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.470827,
+    "lng": 77.285608,
+    "name": "bg_delhi_SE_082",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.442154,
+    "lng": 77.128701,
+    "name": "bg_delhi_SE_083",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.529458,
+    "lng": 77.34273,
+    "name": "bg_delhi_SE_084",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.527405,
+    "lng": 77.327939,
+    "name": "bg_delhi_SE_085",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.599313,
+    "lng": 77.160527,
+    "name": "bg_delhi_SE_086",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.597926,
+    "lng": 77.217871,
+    "name": "bg_delhi_SE_087",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.593557,
+    "lng": 77.285373,
+    "name": "bg_delhi_SE_088",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.481292,
+    "lng": 77.124368,
+    "name": "bg_delhi_SE_089",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.631094,
+    "lng": 77.130893,
+    "name": "bg_delhi_SE_090",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.63196,
+    "lng": 77.314336,
+    "name": "bg_delhi_SE_091",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.573812,
+    "lng": 77.344885,
+    "name": "bg_delhi_SE_092",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.632145,
+    "lng": 77.30017,
+    "name": "bg_delhi_SE_093",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.487786,
+    "lng": 77.296624,
+    "name": "bg_delhi_SE_094",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.40334,
+    "lng": 77.231826,
+    "name": "bg_delhi_SE_095",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.509149,
+    "lng": 77.266571,
+    "name": "bg_delhi_SE_096",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.561362,
+    "lng": 77.244063,
+    "name": "bg_delhi_SE_097",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.59738,
+    "lng": 77.334774,
+    "name": "bg_delhi_SE_098",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.426003,
+    "lng": 77.154625,
+    "name": "bg_delhi_SE_099",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.406006,
+    "lng": 77.32048,
+    "name": "bg_delhi_SE_100",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.534738,
+    "lng": 77.32839,
+    "name": "bg_delhi_SE_101",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.453128,
+    "lng": 77.11112,
+    "name": "bg_delhi_SE_102",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.597725,
+    "lng": 77.326894,
+    "name": "bg_delhi_SE_103",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.472526,
+    "lng": 77.199115,
+    "name": "bg_delhi_SE_104",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.433546,
+    "lng": 77.336297,
+    "name": "bg_delhi_SE_105",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.473048,
+    "lng": 77.220619,
+    "name": "bg_delhi_SE_106",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.423326,
+    "lng": 77.321251,
+    "name": "bg_delhi_SE_107",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.432559,
+    "lng": 77.210679,
+    "name": "bg_delhi_SE_108",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.560917,
+    "lng": 77.284501,
+    "name": "bg_delhi_SE_109",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.627034,
+    "lng": 77.201877,
+    "name": "bg_delhi_SE_110",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.578145,
+    "lng": 77.134403,
+    "name": "bg_delhi_SE_111",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.499572,
+    "lng": 77.120251,
+    "name": "bg_delhi_SE_112",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.517443,
+    "lng": 77.19907,
+    "name": "bg_delhi_SE_113",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.628365,
+    "lng": 77.103343,
+    "name": "bg_delhi_SE_114",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.488927,
+    "lng": 77.208063,
+    "name": "bg_delhi_SE_115",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.628133,
+    "lng": 77.31314,
+    "name": "bg_delhi_SE_116",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.423845,
+    "lng": 77.269848,
+    "name": "bg_delhi_SE_117",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.530672,
+    "lng": 77.34435,
+    "name": "bg_delhi_SE_118",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.486082,
+    "lng": 77.196526,
+    "name": "bg_delhi_SE_119",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.445554,
+    "lng": 77.126151,
+    "name": "bg_delhi_SE_120",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.603528,
+    "lng": 77.210953,
+    "name": "bg_delhi_SE_121",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.559064,
+    "lng": 77.258635,
+    "name": "bg_delhi_SE_122",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.543315,
+    "lng": 77.100446,
+    "name": "bg_delhi_SE_123",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.430222,
+    "lng": 77.238967,
+    "name": "bg_delhi_SE_124",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 28.416466,
+    "lng": 77.290115,
+    "name": "bg_delhi_SE_125",
+    "quadrant": "SE"
+  }
+]

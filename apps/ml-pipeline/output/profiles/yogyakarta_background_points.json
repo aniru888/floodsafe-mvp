@@ -1,0 +1,3002 @@
+[
+  {
+    "lat": -7.704086,
+    "lng": 110.302501,
+    "name": "bg_yogyakarta_NW_001",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.758746,
+    "lng": 110.322321,
+    "name": "bg_yogyakarta_NW_002",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.689529,
+    "lng": 110.36767,
+    "name": "bg_yogyakarta_NW_003",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.666173,
+    "lng": 110.308694,
+    "name": "bg_yogyakarta_NW_004",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.736712,
+    "lng": 110.30298,
+    "name": "bg_yogyakarta_NW_005",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.767204,
+    "lng": 110.350536,
+    "name": "bg_yogyakarta_NW_006",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.79602,
+    "lng": 110.319884,
+    "name": "bg_yogyakarta_NW_007",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.702517,
+    "lng": 110.354494,
+    "name": "bg_yogyakarta_NW_008",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.766934,
+    "lng": 110.358927,
+    "name": "bg_yogyakarta_NW_009",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.678585,
+    "lng": 110.30065,
+    "name": "bg_yogyakarta_NW_010",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.679127,
+    "lng": 110.369814,
+    "name": "bg_yogyakarta_NW_011",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.748962,
+    "lng": 110.315548,
+    "name": "bg_yogyakarta_NW_012",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.656418,
+    "lng": 110.333659,
+    "name": "bg_yogyakarta_NW_013",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.786088,
+    "lng": 110.309672,
+    "name": "bg_yogyakarta_NW_014",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.672876,
+    "lng": 110.360373,
+    "name": "bg_yogyakarta_NW_015",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.678931,
+    "lng": 110.372973,
+    "name": "bg_yogyakarta_NW_016",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.719566,
+    "lng": 110.397312,
+    "name": "bg_yogyakarta_NW_017",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.74322,
+    "lng": 110.355204,
+    "name": "bg_yogyakarta_NW_018",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.675589,
+    "lng": 110.361852,
+    "name": "bg_yogyakarta_NW_019",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.670744,
+    "lng": 110.357735,
+    "name": "bg_yogyakarta_NW_020",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.694314,
+    "lng": 110.304582,
+    "name": "bg_yogyakarta_NW_021",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.765815,
+    "lng": 110.328939,
+    "name": "bg_yogyakarta_NW_022",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.788031,
+    "lng": 110.323279,
+    "name": "bg_yogyakarta_NW_023",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.78485,
+    "lng": 110.327797,
+    "name": "bg_yogyakarta_NW_024",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.704647,
+    "lng": 110.336483,
+    "name": "bg_yogyakarta_NW_025",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.744473,
+    "lng": 110.320951,
+    "name": "bg_yogyakarta_NW_026",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.759953,
+    "lng": 110.393665,
+    "name": "bg_yogyakarta_NW_027",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.702795,
+    "lng": 110.360913,
+    "name": "bg_yogyakarta_NW_028",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.774329,
+    "lng": 110.372913,
+    "name": "bg_yogyakarta_NW_029",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.77549,
+    "lng": 110.337946,
+    "name": "bg_yogyakarta_NW_030",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.651571,
+    "lng": 110.364,
+    "name": "bg_yogyakarta_NW_031",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.716458,
+    "lng": 110.368461,
+    "name": "bg_yogyakarta_NW_032",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.673572,
+    "lng": 110.3776,
+    "name": "bg_yogyakarta_NW_033",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.765643,
+    "lng": 110.30321,
+    "name": "bg_yogyakarta_NW_034",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.752682,
+    "lng": 110.326774,
+    "name": "bg_yogyakarta_NW_035",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.668545,
+    "lng": 110.331468,
+    "name": "bg_yogyakarta_NW_036",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.701684,
+    "lng": 110.339563,
+    "name": "bg_yogyakarta_NW_037",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.662818,
+    "lng": 110.345885,
+    "name": "bg_yogyakarta_NW_038",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.760268,
+    "lng": 110.324663,
+    "name": "bg_yogyakarta_NW_039",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.715795,
+    "lng": 110.326274,
+    "name": "bg_yogyakarta_NW_040",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.712312,
+    "lng": 110.389782,
+    "name": "bg_yogyakarta_NW_041",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.74009,
+    "lng": 110.321932,
+    "name": "bg_yogyakarta_NW_042",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.650369,
+    "lng": 110.350953,
+    "name": "bg_yogyakarta_NW_043",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.786364,
+    "lng": 110.304712,
+    "name": "bg_yogyakarta_NW_044",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.681188,
+    "lng": 110.342216,
+    "name": "bg_yogyakarta_NW_045",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.790471,
+    "lng": 110.338162,
+    "name": "bg_yogyakarta_NW_046",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.650582,
+    "lng": 110.352911,
+    "name": "bg_yogyakarta_NW_047",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.654338,
+    "lng": 110.386078,
+    "name": "bg_yogyakarta_NW_048",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.697743,
+    "lng": 110.353697,
+    "name": "bg_yogyakarta_NW_049",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.759976,
+    "lng": 110.364096,
+    "name": "bg_yogyakarta_NW_050",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.783267,
+    "lng": 110.343477,
+    "name": "bg_yogyakarta_NW_051",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.731941,
+    "lng": 110.395382,
+    "name": "bg_yogyakarta_NW_052",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.668622,
+    "lng": 110.326339,
+    "name": "bg_yogyakarta_NW_053",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.724912,
+    "lng": 110.317865,
+    "name": "bg_yogyakarta_NW_054",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.663106,
+    "lng": 110.387052,
+    "name": "bg_yogyakarta_NW_055",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.755233,
+    "lng": 110.363895,
+    "name": "bg_yogyakarta_NW_056",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.708654,
+    "lng": 110.315284,
+    "name": "bg_yogyakarta_NW_057",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.685623,
+    "lng": 110.353938,
+    "name": "bg_yogyakarta_NW_058",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.683206,
+    "lng": 110.353035,
+    "name": "bg_yogyakarta_NW_059",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.799914,
+    "lng": 110.332416,
+    "name": "bg_yogyakarta_NW_060",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.668192,
+    "lng": 110.383167,
+    "name": "bg_yogyakarta_NW_061",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.753873,
+    "lng": 110.305793,
+    "name": "bg_yogyakarta_NW_062",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.668299,
+    "lng": 110.394695,
+    "name": "bg_yogyakarta_NW_063",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.787152,
+    "lng": 110.348599,
+    "name": "bg_yogyakarta_NW_064",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.685125,
+    "lng": 110.312839,
+    "name": "bg_yogyakarta_NW_065",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.728708,
+    "lng": 110.35498,
+    "name": "bg_yogyakarta_NW_066",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.760242,
+    "lng": 110.387243,
+    "name": "bg_yogyakarta_NW_067",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.736529,
+    "lng": 110.32118,
+    "name": "bg_yogyakarta_NW_068",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.719106,
+    "lng": 110.372993,
+    "name": "bg_yogyakarta_NW_069",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.769827,
+    "lng": 110.331172,
+    "name": "bg_yogyakarta_NW_070",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.650728,
+    "lng": 110.364988,
+    "name": "bg_yogyakarta_NW_071",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.734285,
+    "lng": 110.351758,
+    "name": "bg_yogyakarta_NW_072",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.781849,
+    "lng": 110.32247,
+    "name": "bg_yogyakarta_NW_073",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.749287,
+    "lng": 110.358831,
+    "name": "bg_yogyakarta_NW_074",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.765483,
+    "lng": 110.322022,
+    "name": "bg_yogyakarta_NW_075",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.671055,
+    "lng": 110.307086,
+    "name": "bg_yogyakarta_NW_076",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.764299,
+    "lng": 110.366898,
+    "name": "bg_yogyakarta_NW_077",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.767864,
+    "lng": 110.313231,
+    "name": "bg_yogyakarta_NW_078",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.659673,
+    "lng": 110.357104,
+    "name": "bg_yogyakarta_NW_079",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.729099,
+    "lng": 110.378462,
+    "name": "bg_yogyakarta_NW_080",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.678875,
+    "lng": 110.319041,
+    "name": "bg_yogyakarta_NW_081",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.78546,
+    "lng": 110.343105,
+    "name": "bg_yogyakarta_NW_082",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.736463,
+    "lng": 110.346702,
+    "name": "bg_yogyakarta_NW_083",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.690639,
+    "lng": 110.367336,
+    "name": "bg_yogyakarta_NW_084",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.652375,
+    "lng": 110.309842,
+    "name": "bg_yogyakarta_NW_085",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.739607,
+    "lng": 110.33393,
+    "name": "bg_yogyakarta_NW_086",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.670749,
+    "lng": 110.324866,
+    "name": "bg_yogyakarta_NW_087",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.771469,
+    "lng": 110.344861,
+    "name": "bg_yogyakarta_NW_088",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.736718,
+    "lng": 110.327855,
+    "name": "bg_yogyakarta_NW_089",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.762529,
+    "lng": 110.392327,
+    "name": "bg_yogyakarta_NW_090",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.73353,
+    "lng": 110.386135,
+    "name": "bg_yogyakarta_NW_091",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.717451,
+    "lng": 110.305059,
+    "name": "bg_yogyakarta_NW_092",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.650108,
+    "lng": 110.383603,
+    "name": "bg_yogyakarta_NW_093",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.654651,
+    "lng": 110.392637,
+    "name": "bg_yogyakarta_NW_094",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.672696,
+    "lng": 110.316631,
+    "name": "bg_yogyakarta_NW_095",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.727154,
+    "lng": 110.321375,
+    "name": "bg_yogyakarta_NW_096",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.739844,
+    "lng": 110.305864,
+    "name": "bg_yogyakarta_NW_097",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.743154,
+    "lng": 110.398531,
+    "name": "bg_yogyakarta_NW_098",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.731749,
+    "lng": 110.342301,
+    "name": "bg_yogyakarta_NW_099",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.656402,
+    "lng": 110.399542,
+    "name": "bg_yogyakarta_NW_100",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.716635,
+    "lng": 110.371841,
+    "name": "bg_yogyakarta_NW_101",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.77678,
+    "lng": 110.329671,
+    "name": "bg_yogyakarta_NW_102",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.654694,
+    "lng": 110.357918,
+    "name": "bg_yogyakarta_NW_103",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.718671,
+    "lng": 110.374798,
+    "name": "bg_yogyakarta_NW_104",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.724572,
+    "lng": 110.385272,
+    "name": "bg_yogyakarta_NW_105",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.776385,
+    "lng": 110.396078,
+    "name": "bg_yogyakarta_NW_106",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.787983,
+    "lng": 110.318582,
+    "name": "bg_yogyakarta_NW_107",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.710745,
+    "lng": 110.367521,
+    "name": "bg_yogyakarta_NW_108",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.764719,
+    "lng": 110.311989,
+    "name": "bg_yogyakarta_NW_109",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.666457,
+    "lng": 110.324622,
+    "name": "bg_yogyakarta_NW_110",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.710822,
+    "lng": 110.361938,
+    "name": "bg_yogyakarta_NW_111",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.737116,
+    "lng": 110.358367,
+    "name": "bg_yogyakarta_NW_112",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.721583,
+    "lng": 110.393471,
+    "name": "bg_yogyakarta_NW_113",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.769361,
+    "lng": 110.371619,
+    "name": "bg_yogyakarta_NW_114",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.764197,
+    "lng": 110.339579,
+    "name": "bg_yogyakarta_NW_115",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.699246,
+    "lng": 110.33,
+    "name": "bg_yogyakarta_NW_116",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.752573,
+    "lng": 110.375186,
+    "name": "bg_yogyakarta_NW_117",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.789119,
+    "lng": 110.345829,
+    "name": "bg_yogyakarta_NW_118",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.650232,
+    "lng": 110.39961,
+    "name": "bg_yogyakarta_NW_119",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.789011,
+    "lng": 110.321315,
+    "name": "bg_yogyakarta_NW_120",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.76022,
+    "lng": 110.393326,
+    "name": "bg_yogyakarta_NW_121",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.66787,
+    "lng": 110.387927,
+    "name": "bg_yogyakarta_NW_122",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.744571,
+    "lng": 110.315775,
+    "name": "bg_yogyakarta_NW_123",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.674938,
+    "lng": 110.370354,
+    "name": "bg_yogyakarta_NW_124",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.708248,
+    "lng": 110.398723,
+    "name": "bg_yogyakarta_NW_125",
+    "quadrant": "NW"
+  },
+  {
+    "lat": -7.701904,
+    "lng": 110.400782,
+    "name": "bg_yogyakarta_NE_001",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.677434,
+    "lng": 110.429938,
+    "name": "bg_yogyakarta_NE_002",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.700492,
+    "lng": 110.493893,
+    "name": "bg_yogyakarta_NE_003",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.779856,
+    "lng": 110.411543,
+    "name": "bg_yogyakarta_NE_004",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.783945,
+    "lng": 110.455322,
+    "name": "bg_yogyakarta_NE_005",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.759148,
+    "lng": 110.460483,
+    "name": "bg_yogyakarta_NE_006",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.692358,
+    "lng": 110.42036,
+    "name": "bg_yogyakarta_NE_007",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.704864,
+    "lng": 110.426398,
+    "name": "bg_yogyakarta_NE_008",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.72672,
+    "lng": 110.490534,
+    "name": "bg_yogyakarta_NE_009",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.673084,
+    "lng": 110.40923,
+    "name": "bg_yogyakarta_NE_010",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.736464,
+    "lng": 110.427668,
+    "name": "bg_yogyakarta_NE_011",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.799468,
+    "lng": 110.477112,
+    "name": "bg_yogyakarta_NE_012",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.704433,
+    "lng": 110.426196,
+    "name": "bg_yogyakarta_NE_013",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.688815,
+    "lng": 110.455168,
+    "name": "bg_yogyakarta_NE_014",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.735847,
+    "lng": 110.400967,
+    "name": "bg_yogyakarta_NE_015",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.788713,
+    "lng": 110.488311,
+    "name": "bg_yogyakarta_NE_016",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.664411,
+    "lng": 110.454559,
+    "name": "bg_yogyakarta_NE_017",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.674811,
+    "lng": 110.458251,
+    "name": "bg_yogyakarta_NE_018",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.777786,
+    "lng": 110.412745,
+    "name": "bg_yogyakarta_NE_019",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.753761,
+    "lng": 110.489898,
+    "name": "bg_yogyakarta_NE_020",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.680582,
+    "lng": 110.48607,
+    "name": "bg_yogyakarta_NE_021",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.665161,
+    "lng": 110.421008,
+    "name": "bg_yogyakarta_NE_022",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.682983,
+    "lng": 110.488413,
+    "name": "bg_yogyakarta_NE_023",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.739043,
+    "lng": 110.462066,
+    "name": "bg_yogyakarta_NE_024",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.776817,
+    "lng": 110.492988,
+    "name": "bg_yogyakarta_NE_025",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.670309,
+    "lng": 110.497621,
+    "name": "bg_yogyakarta_NE_026",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.678384,
+    "lng": 110.488142,
+    "name": "bg_yogyakarta_NE_027",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.796282,
+    "lng": 110.473656,
+    "name": "bg_yogyakarta_NE_028",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.750172,
+    "lng": 110.493082,
+    "name": "bg_yogyakarta_NE_029",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.679665,
+    "lng": 110.486406,
+    "name": "bg_yogyakarta_NE_030",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.678388,
+    "lng": 110.426681,
+    "name": "bg_yogyakarta_NE_031",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.681894,
+    "lng": 110.41081,
+    "name": "bg_yogyakarta_NE_032",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.669175,
+    "lng": 110.485859,
+    "name": "bg_yogyakarta_NE_033",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.766635,
+    "lng": 110.481659,
+    "name": "bg_yogyakarta_NE_034",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.730955,
+    "lng": 110.430519,
+    "name": "bg_yogyakarta_NE_035",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.680698,
+    "lng": 110.42276,
+    "name": "bg_yogyakarta_NE_036",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.79645,
+    "lng": 110.419313,
+    "name": "bg_yogyakarta_NE_037",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.750761,
+    "lng": 110.486435,
+    "name": "bg_yogyakarta_NE_038",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.654967,
+    "lng": 110.427912,
+    "name": "bg_yogyakarta_NE_039",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.703778,
+    "lng": 110.439968,
+    "name": "bg_yogyakarta_NE_040",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.652828,
+    "lng": 110.453622,
+    "name": "bg_yogyakarta_NE_041",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.659114,
+    "lng": 110.411534,
+    "name": "bg_yogyakarta_NE_042",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.65444,
+    "lng": 110.417857,
+    "name": "bg_yogyakarta_NE_043",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.65562,
+    "lng": 110.426547,
+    "name": "bg_yogyakarta_NE_044",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.78374,
+    "lng": 110.443456,
+    "name": "bg_yogyakarta_NE_045",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.690718,
+    "lng": 110.431368,
+    "name": "bg_yogyakarta_NE_046",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.709069,
+    "lng": 110.451142,
+    "name": "bg_yogyakarta_NE_047",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.742221,
+    "lng": 110.457659,
+    "name": "bg_yogyakarta_NE_048",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.761792,
+    "lng": 110.470879,
+    "name": "bg_yogyakarta_NE_049",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.799746,
+    "lng": 110.492558,
+    "name": "bg_yogyakarta_NE_050",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.719232,
+    "lng": 110.471943,
+    "name": "bg_yogyakarta_NE_051",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.688707,
+    "lng": 110.467063,
+    "name": "bg_yogyakarta_NE_052",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.745367,
+    "lng": 110.406997,
+    "name": "bg_yogyakarta_NE_053",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.700364,
+    "lng": 110.43302,
+    "name": "bg_yogyakarta_NE_054",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.752913,
+    "lng": 110.484802,
+    "name": "bg_yogyakarta_NE_055",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.692037,
+    "lng": 110.430032,
+    "name": "bg_yogyakarta_NE_056",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.753607,
+    "lng": 110.440839,
+    "name": "bg_yogyakarta_NE_057",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.73964,
+    "lng": 110.429566,
+    "name": "bg_yogyakarta_NE_058",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.780907,
+    "lng": 110.442045,
+    "name": "bg_yogyakarta_NE_059",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.658945,
+    "lng": 110.467732,
+    "name": "bg_yogyakarta_NE_060",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.664579,
+    "lng": 110.461551,
+    "name": "bg_yogyakarta_NE_061",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.754858,
+    "lng": 110.454794,
+    "name": "bg_yogyakarta_NE_062",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.799939,
+    "lng": 110.428691,
+    "name": "bg_yogyakarta_NE_063",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.735517,
+    "lng": 110.457998,
+    "name": "bg_yogyakarta_NE_064",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.701794,
+    "lng": 110.446499,
+    "name": "bg_yogyakarta_NE_065",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.733676,
+    "lng": 110.42137,
+    "name": "bg_yogyakarta_NE_066",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.729022,
+    "lng": 110.490118,
+    "name": "bg_yogyakarta_NE_067",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.680596,
+    "lng": 110.416969,
+    "name": "bg_yogyakarta_NE_068",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.787281,
+    "lng": 110.451545,
+    "name": "bg_yogyakarta_NE_069",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.705059,
+    "lng": 110.433519,
+    "name": "bg_yogyakarta_NE_070",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.677236,
+    "lng": 110.475114,
+    "name": "bg_yogyakarta_NE_071",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.699081,
+    "lng": 110.422464,
+    "name": "bg_yogyakarta_NE_072",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.770131,
+    "lng": 110.402443,
+    "name": "bg_yogyakarta_NE_073",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.763274,
+    "lng": 110.447514,
+    "name": "bg_yogyakarta_NE_074",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.672539,
+    "lng": 110.407283,
+    "name": "bg_yogyakarta_NE_075",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.737834,
+    "lng": 110.462977,
+    "name": "bg_yogyakarta_NE_076",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.770835,
+    "lng": 110.469635,
+    "name": "bg_yogyakarta_NE_077",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.725843,
+    "lng": 110.424398,
+    "name": "bg_yogyakarta_NE_078",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.701591,
+    "lng": 110.400554,
+    "name": "bg_yogyakarta_NE_079",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.687355,
+    "lng": 110.477005,
+    "name": "bg_yogyakarta_NE_080",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.784012,
+    "lng": 110.442515,
+    "name": "bg_yogyakarta_NE_081",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.773617,
+    "lng": 110.495797,
+    "name": "bg_yogyakarta_NE_082",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.722306,
+    "lng": 110.405022,
+    "name": "bg_yogyakarta_NE_083",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.76262,
+    "lng": 110.484834,
+    "name": "bg_yogyakarta_NE_084",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.731531,
+    "lng": 110.480142,
+    "name": "bg_yogyakarta_NE_085",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.699863,
+    "lng": 110.498789,
+    "name": "bg_yogyakarta_NE_086",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.710682,
+    "lng": 110.495004,
+    "name": "bg_yogyakarta_NE_087",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.666286,
+    "lng": 110.461265,
+    "name": "bg_yogyakarta_NE_088",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.692109,
+    "lng": 110.450478,
+    "name": "bg_yogyakarta_NE_089",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.675415,
+    "lng": 110.454787,
+    "name": "bg_yogyakarta_NE_090",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.665419,
+    "lng": 110.474366,
+    "name": "bg_yogyakarta_NE_091",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.728799,
+    "lng": 110.425919,
+    "name": "bg_yogyakarta_NE_092",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.762914,
+    "lng": 110.463766,
+    "name": "bg_yogyakarta_NE_093",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.685128,
+    "lng": 110.45213,
+    "name": "bg_yogyakarta_NE_094",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.705988,
+    "lng": 110.42746,
+    "name": "bg_yogyakarta_NE_095",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.788377,
+    "lng": 110.428573,
+    "name": "bg_yogyakarta_NE_096",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.759243,
+    "lng": 110.431971,
+    "name": "bg_yogyakarta_NE_097",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.718977,
+    "lng": 110.413837,
+    "name": "bg_yogyakarta_NE_098",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.765311,
+    "lng": 110.469395,
+    "name": "bg_yogyakarta_NE_099",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.694037,
+    "lng": 110.406423,
+    "name": "bg_yogyakarta_NE_100",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.73886,
+    "lng": 110.454261,
+    "name": "bg_yogyakarta_NE_101",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.737634,
+    "lng": 110.420683,
+    "name": "bg_yogyakarta_NE_102",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.736978,
+    "lng": 110.490484,
+    "name": "bg_yogyakarta_NE_103",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.712388,
+    "lng": 110.469552,
+    "name": "bg_yogyakarta_NE_104",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.67149,
+    "lng": 110.476559,
+    "name": "bg_yogyakarta_NE_105",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.742943,
+    "lng": 110.40059,
+    "name": "bg_yogyakarta_NE_106",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.747236,
+    "lng": 110.475348,
+    "name": "bg_yogyakarta_NE_107",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.671983,
+    "lng": 110.495343,
+    "name": "bg_yogyakarta_NE_108",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.737147,
+    "lng": 110.474752,
+    "name": "bg_yogyakarta_NE_109",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.71808,
+    "lng": 110.460325,
+    "name": "bg_yogyakarta_NE_110",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.766919,
+    "lng": 110.421942,
+    "name": "bg_yogyakarta_NE_111",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.734625,
+    "lng": 110.402902,
+    "name": "bg_yogyakarta_NE_112",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.749581,
+    "lng": 110.467914,
+    "name": "bg_yogyakarta_NE_113",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.739352,
+    "lng": 110.416504,
+    "name": "bg_yogyakarta_NE_114",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.729891,
+    "lng": 110.412763,
+    "name": "bg_yogyakarta_NE_115",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.706661,
+    "lng": 110.402697,
+    "name": "bg_yogyakarta_NE_116",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.740897,
+    "lng": 110.456439,
+    "name": "bg_yogyakarta_NE_117",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.795935,
+    "lng": 110.464275,
+    "name": "bg_yogyakarta_NE_118",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.779645,
+    "lng": 110.44617,
+    "name": "bg_yogyakarta_NE_119",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.792457,
+    "lng": 110.43791,
+    "name": "bg_yogyakarta_NE_120",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.768251,
+    "lng": 110.432685,
+    "name": "bg_yogyakarta_NE_121",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.685816,
+    "lng": 110.437913,
+    "name": "bg_yogyakarta_NE_122",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.687199,
+    "lng": 110.483192,
+    "name": "bg_yogyakarta_NE_123",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.797093,
+    "lng": 110.453942,
+    "name": "bg_yogyakarta_NE_124",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.650014,
+    "lng": 110.434996,
+    "name": "bg_yogyakarta_NE_125",
+    "quadrant": "NE"
+  },
+  {
+    "lat": -7.852478,
+    "lng": 110.378123,
+    "name": "bg_yogyakarta_SW_001",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.852237,
+    "lng": 110.375423,
+    "name": "bg_yogyakarta_SW_002",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.807558,
+    "lng": 110.319936,
+    "name": "bg_yogyakarta_SW_003",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.946943,
+    "lng": 110.315238,
+    "name": "bg_yogyakarta_SW_004",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.931067,
+    "lng": 110.366946,
+    "name": "bg_yogyakarta_SW_005",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.865405,
+    "lng": 110.321796,
+    "name": "bg_yogyakarta_SW_006",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.84508,
+    "lng": 110.37669,
+    "name": "bg_yogyakarta_SW_007",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.924832,
+    "lng": 110.360725,
+    "name": "bg_yogyakarta_SW_008",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.837811,
+    "lng": 110.311453,
+    "name": "bg_yogyakarta_SW_009",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.933785,
+    "lng": 110.302568,
+    "name": "bg_yogyakarta_SW_010",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.903206,
+    "lng": 110.367735,
+    "name": "bg_yogyakarta_SW_011",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.806274,
+    "lng": 110.339665,
+    "name": "bg_yogyakarta_SW_012",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.842748,
+    "lng": 110.3076,
+    "name": "bg_yogyakarta_SW_013",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.846408,
+    "lng": 110.362724,
+    "name": "bg_yogyakarta_SW_014",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.934715,
+    "lng": 110.377248,
+    "name": "bg_yogyakarta_SW_015",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.931842,
+    "lng": 110.398384,
+    "name": "bg_yogyakarta_SW_016",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.832605,
+    "lng": 110.33472,
+    "name": "bg_yogyakarta_SW_017",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.885743,
+    "lng": 110.337057,
+    "name": "bg_yogyakarta_SW_018",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.874106,
+    "lng": 110.334123,
+    "name": "bg_yogyakarta_SW_019",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.934169,
+    "lng": 110.396079,
+    "name": "bg_yogyakarta_SW_020",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.854662,
+    "lng": 110.382871,
+    "name": "bg_yogyakarta_SW_021",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.843904,
+    "lng": 110.343549,
+    "name": "bg_yogyakarta_SW_022",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.839931,
+    "lng": 110.396547,
+    "name": "bg_yogyakarta_SW_023",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.909488,
+    "lng": 110.38082,
+    "name": "bg_yogyakarta_SW_024",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.869274,
+    "lng": 110.34835,
+    "name": "bg_yogyakarta_SW_025",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.884664,
+    "lng": 110.373103,
+    "name": "bg_yogyakarta_SW_026",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.909741,
+    "lng": 110.385171,
+    "name": "bg_yogyakarta_SW_027",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.82539,
+    "lng": 110.308666,
+    "name": "bg_yogyakarta_SW_028",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.817755,
+    "lng": 110.324386,
+    "name": "bg_yogyakarta_SW_029",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.880294,
+    "lng": 110.361033,
+    "name": "bg_yogyakarta_SW_030",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.893152,
+    "lng": 110.30287,
+    "name": "bg_yogyakarta_SW_031",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.822357,
+    "lng": 110.318184,
+    "name": "bg_yogyakarta_SW_032",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.918182,
+    "lng": 110.379783,
+    "name": "bg_yogyakarta_SW_033",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.898949,
+    "lng": 110.388032,
+    "name": "bg_yogyakarta_SW_034",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.844822,
+    "lng": 110.327627,
+    "name": "bg_yogyakarta_SW_035",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.948477,
+    "lng": 110.394806,
+    "name": "bg_yogyakarta_SW_036",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.937158,
+    "lng": 110.372007,
+    "name": "bg_yogyakarta_SW_037",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.876713,
+    "lng": 110.375816,
+    "name": "bg_yogyakarta_SW_038",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.846409,
+    "lng": 110.36459,
+    "name": "bg_yogyakarta_SW_039",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.876377,
+    "lng": 110.379293,
+    "name": "bg_yogyakarta_SW_040",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.936042,
+    "lng": 110.32216,
+    "name": "bg_yogyakarta_SW_041",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.846232,
+    "lng": 110.330621,
+    "name": "bg_yogyakarta_SW_042",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.862767,
+    "lng": 110.347326,
+    "name": "bg_yogyakarta_SW_043",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.870362,
+    "lng": 110.34255,
+    "name": "bg_yogyakarta_SW_044",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.83811,
+    "lng": 110.333079,
+    "name": "bg_yogyakarta_SW_045",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.844572,
+    "lng": 110.327092,
+    "name": "bg_yogyakarta_SW_046",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.912289,
+    "lng": 110.312066,
+    "name": "bg_yogyakarta_SW_047",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.921112,
+    "lng": 110.311955,
+    "name": "bg_yogyakarta_SW_048",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.86962,
+    "lng": 110.376219,
+    "name": "bg_yogyakarta_SW_049",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.922228,
+    "lng": 110.321638,
+    "name": "bg_yogyakarta_SW_050",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.87737,
+    "lng": 110.372459,
+    "name": "bg_yogyakarta_SW_051",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.90755,
+    "lng": 110.310053,
+    "name": "bg_yogyakarta_SW_052",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.920882,
+    "lng": 110.322748,
+    "name": "bg_yogyakarta_SW_053",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.923084,
+    "lng": 110.301415,
+    "name": "bg_yogyakarta_SW_054",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.86988,
+    "lng": 110.327431,
+    "name": "bg_yogyakarta_SW_055",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.845387,
+    "lng": 110.312628,
+    "name": "bg_yogyakarta_SW_056",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.819731,
+    "lng": 110.349088,
+    "name": "bg_yogyakarta_SW_057",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.87959,
+    "lng": 110.344047,
+    "name": "bg_yogyakarta_SW_058",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.922345,
+    "lng": 110.305138,
+    "name": "bg_yogyakarta_SW_059",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.826683,
+    "lng": 110.340071,
+    "name": "bg_yogyakarta_SW_060",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.938888,
+    "lng": 110.362945,
+    "name": "bg_yogyakarta_SW_061",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.941959,
+    "lng": 110.31492,
+    "name": "bg_yogyakarta_SW_062",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.865574,
+    "lng": 110.330384,
+    "name": "bg_yogyakarta_SW_063",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.800912,
+    "lng": 110.311845,
+    "name": "bg_yogyakarta_SW_064",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.835333,
+    "lng": 110.360632,
+    "name": "bg_yogyakarta_SW_065",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.831389,
+    "lng": 110.322569,
+    "name": "bg_yogyakarta_SW_066",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.871614,
+    "lng": 110.345051,
+    "name": "bg_yogyakarta_SW_067",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.883592,
+    "lng": 110.386017,
+    "name": "bg_yogyakarta_SW_068",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.801495,
+    "lng": 110.330538,
+    "name": "bg_yogyakarta_SW_069",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.856846,
+    "lng": 110.360963,
+    "name": "bg_yogyakarta_SW_070",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.838987,
+    "lng": 110.394759,
+    "name": "bg_yogyakarta_SW_071",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.918832,
+    "lng": 110.321103,
+    "name": "bg_yogyakarta_SW_072",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.850936,
+    "lng": 110.315706,
+    "name": "bg_yogyakarta_SW_073",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.923928,
+    "lng": 110.307506,
+    "name": "bg_yogyakarta_SW_074",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.949599,
+    "lng": 110.34505,
+    "name": "bg_yogyakarta_SW_075",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.860928,
+    "lng": 110.329126,
+    "name": "bg_yogyakarta_SW_076",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.915279,
+    "lng": 110.370696,
+    "name": "bg_yogyakarta_SW_077",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.844552,
+    "lng": 110.345403,
+    "name": "bg_yogyakarta_SW_078",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.846892,
+    "lng": 110.392391,
+    "name": "bg_yogyakarta_SW_079",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.831826,
+    "lng": 110.362506,
+    "name": "bg_yogyakarta_SW_080",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.850823,
+    "lng": 110.393367,
+    "name": "bg_yogyakarta_SW_081",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.886229,
+    "lng": 110.354456,
+    "name": "bg_yogyakarta_SW_082",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.852855,
+    "lng": 110.390841,
+    "name": "bg_yogyakarta_SW_083",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.826005,
+    "lng": 110.307141,
+    "name": "bg_yogyakarta_SW_084",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.925112,
+    "lng": 110.330761,
+    "name": "bg_yogyakarta_SW_085",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.837656,
+    "lng": 110.356921,
+    "name": "bg_yogyakarta_SW_086",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.906708,
+    "lng": 110.312435,
+    "name": "bg_yogyakarta_SW_087",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.846698,
+    "lng": 110.369973,
+    "name": "bg_yogyakarta_SW_088",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.875931,
+    "lng": 110.308044,
+    "name": "bg_yogyakarta_SW_089",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.944021,
+    "lng": 110.343203,
+    "name": "bg_yogyakarta_SW_090",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.901652,
+    "lng": 110.325037,
+    "name": "bg_yogyakarta_SW_091",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.936301,
+    "lng": 110.396191,
+    "name": "bg_yogyakarta_SW_092",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.824606,
+    "lng": 110.35752,
+    "name": "bg_yogyakarta_SW_093",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.849158,
+    "lng": 110.326951,
+    "name": "bg_yogyakarta_SW_094",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.943965,
+    "lng": 110.375627,
+    "name": "bg_yogyakarta_SW_095",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.879425,
+    "lng": 110.365151,
+    "name": "bg_yogyakarta_SW_096",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.812589,
+    "lng": 110.318149,
+    "name": "bg_yogyakarta_SW_097",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.862201,
+    "lng": 110.363478,
+    "name": "bg_yogyakarta_SW_098",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.876241,
+    "lng": 110.309124,
+    "name": "bg_yogyakarta_SW_099",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.897806,
+    "lng": 110.333331,
+    "name": "bg_yogyakarta_SW_100",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.84948,
+    "lng": 110.385773,
+    "name": "bg_yogyakarta_SW_101",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.900529,
+    "lng": 110.369367,
+    "name": "bg_yogyakarta_SW_102",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.906767,
+    "lng": 110.394519,
+    "name": "bg_yogyakarta_SW_103",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.827965,
+    "lng": 110.35501,
+    "name": "bg_yogyakarta_SW_104",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.881776,
+    "lng": 110.331452,
+    "name": "bg_yogyakarta_SW_105",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.901509,
+    "lng": 110.397018,
+    "name": "bg_yogyakarta_SW_106",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.889374,
+    "lng": 110.35146,
+    "name": "bg_yogyakarta_SW_107",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.868611,
+    "lng": 110.341325,
+    "name": "bg_yogyakarta_SW_108",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.921863,
+    "lng": 110.336178,
+    "name": "bg_yogyakarta_SW_109",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.836534,
+    "lng": 110.362541,
+    "name": "bg_yogyakarta_SW_110",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.836001,
+    "lng": 110.320356,
+    "name": "bg_yogyakarta_SW_111",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.867617,
+    "lng": 110.392767,
+    "name": "bg_yogyakarta_SW_112",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.884283,
+    "lng": 110.369825,
+    "name": "bg_yogyakarta_SW_113",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.931786,
+    "lng": 110.397315,
+    "name": "bg_yogyakarta_SW_114",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.858669,
+    "lng": 110.32393,
+    "name": "bg_yogyakarta_SW_115",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.926243,
+    "lng": 110.355084,
+    "name": "bg_yogyakarta_SW_116",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.867162,
+    "lng": 110.309321,
+    "name": "bg_yogyakarta_SW_117",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.880783,
+    "lng": 110.311747,
+    "name": "bg_yogyakarta_SW_118",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.825179,
+    "lng": 110.349838,
+    "name": "bg_yogyakarta_SW_119",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.84251,
+    "lng": 110.350887,
+    "name": "bg_yogyakarta_SW_120",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.908986,
+    "lng": 110.383472,
+    "name": "bg_yogyakarta_SW_121",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.802963,
+    "lng": 110.324373,
+    "name": "bg_yogyakarta_SW_122",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.86731,
+    "lng": 110.338359,
+    "name": "bg_yogyakarta_SW_123",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.908563,
+    "lng": 110.379001,
+    "name": "bg_yogyakarta_SW_124",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.887759,
+    "lng": 110.393425,
+    "name": "bg_yogyakarta_SW_125",
+    "quadrant": "SW"
+  },
+  {
+    "lat": -7.873839,
+    "lng": 110.482055,
+    "name": "bg_yogyakarta_SE_001",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.907574,
+    "lng": 110.429856,
+    "name": "bg_yogyakarta_SE_002",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.861959,
+    "lng": 110.49989,
+    "name": "bg_yogyakarta_SE_003",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.876554,
+    "lng": 110.41486,
+    "name": "bg_yogyakarta_SE_004",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.869213,
+    "lng": 110.434512,
+    "name": "bg_yogyakarta_SE_005",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.867212,
+    "lng": 110.454343,
+    "name": "bg_yogyakarta_SE_006",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.881698,
+    "lng": 110.432178,
+    "name": "bg_yogyakarta_SE_007",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.921702,
+    "lng": 110.46975,
+    "name": "bg_yogyakarta_SE_008",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.86423,
+    "lng": 110.423356,
+    "name": "bg_yogyakarta_SE_009",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.833668,
+    "lng": 110.404365,
+    "name": "bg_yogyakarta_SE_010",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.838294,
+    "lng": 110.470523,
+    "name": "bg_yogyakarta_SE_011",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.828289,
+    "lng": 110.438608,
+    "name": "bg_yogyakarta_SE_012",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.850447,
+    "lng": 110.482075,
+    "name": "bg_yogyakarta_SE_013",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.802877,
+    "lng": 110.449533,
+    "name": "bg_yogyakarta_SE_014",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.944447,
+    "lng": 110.450229,
+    "name": "bg_yogyakarta_SE_015",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.861473,
+    "lng": 110.48697,
+    "name": "bg_yogyakarta_SE_016",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.818871,
+    "lng": 110.444031,
+    "name": "bg_yogyakarta_SE_017",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.871107,
+    "lng": 110.445693,
+    "name": "bg_yogyakarta_SE_018",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.841633,
+    "lng": 110.440998,
+    "name": "bg_yogyakarta_SE_019",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.851783,
+    "lng": 110.415436,
+    "name": "bg_yogyakarta_SE_020",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.879576,
+    "lng": 110.49692,
+    "name": "bg_yogyakarta_SE_021",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.899216,
+    "lng": 110.46927,
+    "name": "bg_yogyakarta_SE_022",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.852525,
+    "lng": 110.485177,
+    "name": "bg_yogyakarta_SE_023",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.822149,
+    "lng": 110.485934,
+    "name": "bg_yogyakarta_SE_024",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.892999,
+    "lng": 110.431666,
+    "name": "bg_yogyakarta_SE_025",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.842192,
+    "lng": 110.47594,
+    "name": "bg_yogyakarta_SE_026",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.819143,
+    "lng": 110.40359,
+    "name": "bg_yogyakarta_SE_027",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.939737,
+    "lng": 110.463116,
+    "name": "bg_yogyakarta_SE_028",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.811861,
+    "lng": 110.499743,
+    "name": "bg_yogyakarta_SE_029",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.837985,
+    "lng": 110.443397,
+    "name": "bg_yogyakarta_SE_030",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.935234,
+    "lng": 110.463375,
+    "name": "bg_yogyakarta_SE_031",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.819113,
+    "lng": 110.444368,
+    "name": "bg_yogyakarta_SE_032",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.8459,
+    "lng": 110.490342,
+    "name": "bg_yogyakarta_SE_033",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.943101,
+    "lng": 110.479614,
+    "name": "bg_yogyakarta_SE_034",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.905995,
+    "lng": 110.437484,
+    "name": "bg_yogyakarta_SE_035",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.928165,
+    "lng": 110.453117,
+    "name": "bg_yogyakarta_SE_036",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.865111,
+    "lng": 110.479252,
+    "name": "bg_yogyakarta_SE_037",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.924502,
+    "lng": 110.407897,
+    "name": "bg_yogyakarta_SE_038",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.819374,
+    "lng": 110.461971,
+    "name": "bg_yogyakarta_SE_039",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.913876,
+    "lng": 110.491283,
+    "name": "bg_yogyakarta_SE_040",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.928532,
+    "lng": 110.446115,
+    "name": "bg_yogyakarta_SE_041",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.911903,
+    "lng": 110.425533,
+    "name": "bg_yogyakarta_SE_042",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.94859,
+    "lng": 110.480463,
+    "name": "bg_yogyakarta_SE_043",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.814819,
+    "lng": 110.467761,
+    "name": "bg_yogyakarta_SE_044",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.926304,
+    "lng": 110.444173,
+    "name": "bg_yogyakarta_SE_045",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.898165,
+    "lng": 110.458757,
+    "name": "bg_yogyakarta_SE_046",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.854159,
+    "lng": 110.442431,
+    "name": "bg_yogyakarta_SE_047",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.912485,
+    "lng": 110.48453,
+    "name": "bg_yogyakarta_SE_048",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.920117,
+    "lng": 110.438469,
+    "name": "bg_yogyakarta_SE_049",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.877519,
+    "lng": 110.423721,
+    "name": "bg_yogyakarta_SE_050",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.864212,
+    "lng": 110.457481,
+    "name": "bg_yogyakarta_SE_051",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.801096,
+    "lng": 110.429523,
+    "name": "bg_yogyakarta_SE_052",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.803308,
+    "lng": 110.465823,
+    "name": "bg_yogyakarta_SE_053",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.908828,
+    "lng": 110.456593,
+    "name": "bg_yogyakarta_SE_054",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.84713,
+    "lng": 110.474467,
+    "name": "bg_yogyakarta_SE_055",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.942643,
+    "lng": 110.460641,
+    "name": "bg_yogyakarta_SE_056",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.875491,
+    "lng": 110.490416,
+    "name": "bg_yogyakarta_SE_057",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.907071,
+    "lng": 110.479886,
+    "name": "bg_yogyakarta_SE_058",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.85894,
+    "lng": 110.435232,
+    "name": "bg_yogyakarta_SE_059",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.854507,
+    "lng": 110.462089,
+    "name": "bg_yogyakarta_SE_060",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.848335,
+    "lng": 110.472093,
+    "name": "bg_yogyakarta_SE_061",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.851123,
+    "lng": 110.483834,
+    "name": "bg_yogyakarta_SE_062",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.855763,
+    "lng": 110.49034,
+    "name": "bg_yogyakarta_SE_063",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.853049,
+    "lng": 110.430893,
+    "name": "bg_yogyakarta_SE_064",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.883877,
+    "lng": 110.457957,
+    "name": "bg_yogyakarta_SE_065",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.840146,
+    "lng": 110.409013,
+    "name": "bg_yogyakarta_SE_066",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.905733,
+    "lng": 110.474748,
+    "name": "bg_yogyakarta_SE_067",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.923654,
+    "lng": 110.413216,
+    "name": "bg_yogyakarta_SE_068",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.869089,
+    "lng": 110.497149,
+    "name": "bg_yogyakarta_SE_069",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.870372,
+    "lng": 110.491349,
+    "name": "bg_yogyakarta_SE_070",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.825429,
+    "lng": 110.425697,
+    "name": "bg_yogyakarta_SE_071",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.826297,
+    "lng": 110.448185,
+    "name": "bg_yogyakarta_SE_072",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.829027,
+    "lng": 110.474656,
+    "name": "bg_yogyakarta_SE_073",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.899193,
+    "lng": 110.411517,
+    "name": "bg_yogyakarta_SE_074",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.805566,
+    "lng": 110.414076,
+    "name": "bg_yogyakarta_SE_075",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.805025,
+    "lng": 110.486014,
+    "name": "bg_yogyakarta_SE_076",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.841367,
+    "lng": 110.497994,
+    "name": "bg_yogyakarta_SE_077",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.80491,
+    "lng": 110.480459,
+    "name": "bg_yogyakarta_SE_078",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.895134,
+    "lng": 110.479068,
+    "name": "bg_yogyakarta_SE_079",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.947912,
+    "lng": 110.453657,
+    "name": "bg_yogyakarta_SE_080",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.881782,
+    "lng": 110.467283,
+    "name": "bg_yogyakarta_SE_081",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.849149,
+    "lng": 110.458456,
+    "name": "bg_yogyakarta_SE_082",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.826637,
+    "lng": 110.494029,
+    "name": "bg_yogyakarta_SE_083",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.933748,
+    "lng": 110.423382,
+    "name": "bg_yogyakarta_SE_084",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.946246,
+    "lng": 110.488423,
+    "name": "bg_yogyakarta_SE_085",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.865789,
+    "lng": 110.491526,
+    "name": "bg_yogyakarta_SE_086",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.916795,
+    "lng": 110.406322,
+    "name": "bg_yogyakarta_SE_087",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.826422,
+    "lng": 110.490939,
+    "name": "bg_yogyakarta_SE_088",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.904671,
+    "lng": 110.44083,
+    "name": "bg_yogyakarta_SE_089",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.929033,
+    "lng": 110.494626,
+    "name": "bg_yogyakarta_SE_090",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.904345,
+    "lng": 110.449262,
+    "name": "bg_yogyakarta_SE_091",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.935421,
+    "lng": 110.488726,
+    "name": "bg_yogyakarta_SE_092",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.92965,
+    "lng": 110.445364,
+    "name": "bg_yogyakarta_SE_093",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.849427,
+    "lng": 110.474314,
+    "name": "bg_yogyakarta_SE_094",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.808104,
+    "lng": 110.441913,
+    "name": "bg_yogyakarta_SE_095",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.83866,
+    "lng": 110.415452,
+    "name": "bg_yogyakarta_SE_096",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.887767,
+    "lng": 110.409902,
+    "name": "bg_yogyakarta_SE_097",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.876598,
+    "lng": 110.440812,
+    "name": "bg_yogyakarta_SE_098",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.894421,
+    "lng": 110.444338,
+    "name": "bg_yogyakarta_SE_099",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.807417,
+    "lng": 110.485545,
+    "name": "bg_yogyakarta_SE_100",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.935097,
+    "lng": 110.468568,
+    "name": "bg_yogyakarta_SE_101",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.86833,
+    "lng": 110.497784,
+    "name": "bg_yogyakarta_SE_102",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.896199,
+    "lng": 110.439814,
+    "name": "bg_yogyakarta_SE_103",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.921529,
+    "lng": 110.412216,
+    "name": "bg_yogyakarta_SE_104",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.822795,
+    "lng": 110.445472,
+    "name": "bg_yogyakarta_SE_105",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.850585,
+    "lng": 110.46417,
+    "name": "bg_yogyakarta_SE_106",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.860428,
+    "lng": 110.402136,
+    "name": "bg_yogyakarta_SE_107",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.831981,
+    "lng": 110.424357,
+    "name": "bg_yogyakarta_SE_108",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.931111,
+    "lng": 110.456458,
+    "name": "bg_yogyakarta_SE_109",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.939708,
+    "lng": 110.476516,
+    "name": "bg_yogyakarta_SE_110",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.918926,
+    "lng": 110.421595,
+    "name": "bg_yogyakarta_SE_111",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.819546,
+    "lng": 110.432856,
+    "name": "bg_yogyakarta_SE_112",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.927867,
+    "lng": 110.490053,
+    "name": "bg_yogyakarta_SE_113",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.949575,
+    "lng": 110.485841,
+    "name": "bg_yogyakarta_SE_114",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.928297,
+    "lng": 110.412999,
+    "name": "bg_yogyakarta_SE_115",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.912402,
+    "lng": 110.41745,
+    "name": "bg_yogyakarta_SE_116",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.850841,
+    "lng": 110.402578,
+    "name": "bg_yogyakarta_SE_117",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.947771,
+    "lng": 110.478998,
+    "name": "bg_yogyakarta_SE_118",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.91431,
+    "lng": 110.432377,
+    "name": "bg_yogyakarta_SE_119",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.923863,
+    "lng": 110.40524,
+    "name": "bg_yogyakarta_SE_120",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.838742,
+    "lng": 110.452609,
+    "name": "bg_yogyakarta_SE_121",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.83815,
+    "lng": 110.447625,
+    "name": "bg_yogyakarta_SE_122",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.833297,
+    "lng": 110.451324,
+    "name": "bg_yogyakarta_SE_123",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.933642,
+    "lng": 110.450384,
+    "name": "bg_yogyakarta_SE_124",
+    "quadrant": "SE"
+  },
+  {
+    "lat": -7.832516,
+    "lng": 110.486698,
+    "name": "bg_yogyakarta_SE_125",
+    "quadrant": "SE"
+  }
+]

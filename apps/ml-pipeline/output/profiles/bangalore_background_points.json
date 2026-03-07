@@ -1,0 +1,3002 @@
+[
+  {
+    "lat": 13.118871,
+    "lng": 77.355627,
+    "name": "bg_bangalore_NW_001",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.036882,
+    "lng": 77.400222,
+    "name": "bg_bangalore_NW_002",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.140706,
+    "lng": 77.502257,
+    "name": "bg_bangalore_NW_003",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.17574,
+    "lng": 77.369561,
+    "name": "bg_bangalore_NW_004",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.069932,
+    "lng": 77.356704,
+    "name": "bg_bangalore_NW_005",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.024194,
+    "lng": 77.463705,
+    "name": "bg_bangalore_NW_006",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 12.980971,
+    "lng": 77.394738,
+    "name": "bg_bangalore_NW_007",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.121224,
+    "lng": 77.472612,
+    "name": "bg_bangalore_NW_008",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.024599,
+    "lng": 77.482585,
+    "name": "bg_bangalore_NW_009",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.157122,
+    "lng": 77.351462,
+    "name": "bg_bangalore_NW_010",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.156309,
+    "lng": 77.507081,
+    "name": "bg_bangalore_NW_011",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.051556,
+    "lng": 77.384983,
+    "name": "bg_bangalore_NW_012",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.190373,
+    "lng": 77.425734,
+    "name": "bg_bangalore_NW_013",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 12.995868,
+    "lng": 77.371761,
+    "name": "bg_bangalore_NW_014",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.165686,
+    "lng": 77.485838,
+    "name": "bg_bangalore_NW_015",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.156604,
+    "lng": 77.51419,
+    "name": "bg_bangalore_NW_016",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.095651,
+    "lng": 77.568951,
+    "name": "bg_bangalore_NW_017",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.06017,
+    "lng": 77.474209,
+    "name": "bg_bangalore_NW_018",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.161616,
+    "lng": 77.489167,
+    "name": "bg_bangalore_NW_019",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.168884,
+    "lng": 77.479904,
+    "name": "bg_bangalore_NW_020",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.133529,
+    "lng": 77.36031,
+    "name": "bg_bangalore_NW_021",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.026277,
+    "lng": 77.415112,
+    "name": "bg_bangalore_NW_022",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 12.992953,
+    "lng": 77.402378,
+    "name": "bg_bangalore_NW_023",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 12.997725,
+    "lng": 77.412544,
+    "name": "bg_bangalore_NW_024",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.118029,
+    "lng": 77.432087,
+    "name": "bg_bangalore_NW_025",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.058291,
+    "lng": 77.397139,
+    "name": "bg_bangalore_NW_026",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.120808,
+    "lng": 77.487054,
+    "name": "bg_bangalore_NW_027",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.011766,
+    "lng": 77.435377,
+    "name": "bg_bangalore_NW_028",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.197643,
+    "lng": 77.494,
+    "name": "bg_bangalore_NW_029",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.100314,
+    "lng": 77.504038,
+    "name": "bg_bangalore_NW_030",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.164642,
+    "lng": 77.5246,
+    "name": "bg_bangalore_NW_031",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.026536,
+    "lng": 77.357223,
+    "name": "bg_bangalore_NW_032",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.045977,
+    "lng": 77.410242,
+    "name": "bg_bangalore_NW_033",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.022471,
+    "lng": 77.562155,
+    "name": "bg_bangalore_NW_034",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.172183,
+    "lng": 77.420803,
+    "name": "bg_bangalore_NW_035",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.122474,
+    "lng": 77.439017,
+    "name": "bg_bangalore_NW_036",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.180773,
+    "lng": 77.453242,
+    "name": "bg_bangalore_NW_037",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.034598,
+    "lng": 77.405491,
+    "name": "bg_bangalore_NW_038",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.101308,
+    "lng": 77.409117,
+    "name": "bg_bangalore_NW_039",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.106532,
+    "lng": 77.55201,
+    "name": "bg_bangalore_NW_040",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.064865,
+    "lng": 77.399347,
+    "name": "bg_bangalore_NW_041",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.199446,
+    "lng": 77.464643,
+    "name": "bg_bangalore_NW_042",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 12.995455,
+    "lng": 77.360601,
+    "name": "bg_bangalore_NW_043",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.153218,
+    "lng": 77.444986,
+    "name": "bg_bangalore_NW_044",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 12.989294,
+    "lng": 77.435864,
+    "name": "bg_bangalore_NW_045",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.199127,
+    "lng": 77.469051,
+    "name": "bg_bangalore_NW_046",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.193493,
+    "lng": 77.543675,
+    "name": "bg_bangalore_NW_047",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 12.977583,
+    "lng": 77.512162,
+    "name": "bg_bangalore_NW_048",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.128385,
+    "lng": 77.470818,
+    "name": "bg_bangalore_NW_049",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.000099,
+    "lng": 77.447822,
+    "name": "bg_bangalore_NW_050",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.077088,
+    "lng": 77.564609,
+    "name": "bg_bangalore_NW_051",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.172067,
+    "lng": 77.409263,
+    "name": "bg_bangalore_NW_052",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.087632,
+    "lng": 77.390197,
+    "name": "bg_bangalore_NW_053",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.180341,
+    "lng": 77.545867,
+    "name": "bg_bangalore_NW_054",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.04215,
+    "lng": 77.493764,
+    "name": "bg_bangalore_NW_055",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.112018,
+    "lng": 77.384389,
+    "name": "bg_bangalore_NW_056",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.146565,
+    "lng": 77.47136,
+    "name": "bg_bangalore_NW_057",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.150191,
+    "lng": 77.46933,
+    "name": "bg_bangalore_NW_058",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 12.975129,
+    "lng": 77.422935,
+    "name": "bg_bangalore_NW_059",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.172712,
+    "lng": 77.537125,
+    "name": "bg_bangalore_NW_060",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.044191,
+    "lng": 77.363033,
+    "name": "bg_bangalore_NW_061",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.172552,
+    "lng": 77.563064,
+    "name": "bg_bangalore_NW_062",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 12.994272,
+    "lng": 77.459348,
+    "name": "bg_bangalore_NW_063",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.147313,
+    "lng": 77.378888,
+    "name": "bg_bangalore_NW_064",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.081939,
+    "lng": 77.473706,
+    "name": "bg_bangalore_NW_065",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.034638,
+    "lng": 77.546297,
+    "name": "bg_bangalore_NW_066",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.070206,
+    "lng": 77.397655,
+    "name": "bg_bangalore_NW_067",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.096342,
+    "lng": 77.514234,
+    "name": "bg_bangalore_NW_068",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.020259,
+    "lng": 77.420136,
+    "name": "bg_bangalore_NW_069",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.198909,
+    "lng": 77.496223,
+    "name": "bg_bangalore_NW_070",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.073573,
+    "lng": 77.466455,
+    "name": "bg_bangalore_NW_071",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.002226,
+    "lng": 77.400557,
+    "name": "bg_bangalore_NW_072",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.051069,
+    "lng": 77.482369,
+    "name": "bg_bangalore_NW_073",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.026776,
+    "lng": 77.399549,
+    "name": "bg_bangalore_NW_074",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 12.990973,
+    "lng": 77.491998,
+    "name": "bg_bangalore_NW_075",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.026512,
+    "lng": 77.55372,
+    "name": "bg_bangalore_NW_076",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.168418,
+    "lng": 77.365943,
+    "name": "bg_bangalore_NW_077",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.028551,
+    "lng": 77.50052,
+    "name": "bg_bangalore_NW_078",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.023203,
+    "lng": 77.37977,
+    "name": "bg_bangalore_NW_079",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.185491,
+    "lng": 77.478485,
+    "name": "bg_bangalore_NW_080",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.081351,
+    "lng": 77.526539,
+    "name": "bg_bangalore_NW_081",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.156687,
+    "lng": 77.392842,
+    "name": "bg_bangalore_NW_082",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 12.996809,
+    "lng": 77.446987,
+    "name": "bg_bangalore_NW_083",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.070305,
+    "lng": 77.455081,
+    "name": "bg_bangalore_NW_084",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.139042,
+    "lng": 77.501507,
+    "name": "bg_bangalore_NW_085",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.196437,
+    "lng": 77.372144,
+    "name": "bg_bangalore_NW_086",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.06559,
+    "lng": 77.426343,
+    "name": "bg_bangalore_NW_087",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.168876,
+    "lng": 77.405948,
+    "name": "bg_bangalore_NW_088",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.017797,
+    "lng": 77.450938,
+    "name": "bg_bangalore_NW_089",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.069923,
+    "lng": 77.412673,
+    "name": "bg_bangalore_NW_090",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.031206,
+    "lng": 77.557735,
+    "name": "bg_bangalore_NW_091",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.074704,
+    "lng": 77.543804,
+    "name": "bg_bangalore_NW_092",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.098823,
+    "lng": 77.361382,
+    "name": "bg_bangalore_NW_093",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.199839,
+    "lng": 77.538106,
+    "name": "bg_bangalore_NW_094",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.193024,
+    "lng": 77.558433,
+    "name": "bg_bangalore_NW_095",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.165957,
+    "lng": 77.38742,
+    "name": "bg_bangalore_NW_096",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.084269,
+    "lng": 77.398093,
+    "name": "bg_bangalore_NW_097",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.065234,
+    "lng": 77.363193,
+    "name": "bg_bangalore_NW_098",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.060269,
+    "lng": 77.571694,
+    "name": "bg_bangalore_NW_099",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.034671,
+    "lng": 77.526416,
+    "name": "bg_bangalore_NW_100",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.077377,
+    "lng": 77.445177,
+    "name": "bg_bangalore_NW_101",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.190396,
+    "lng": 77.57397,
+    "name": "bg_bangalore_NW_102",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.100048,
+    "lng": 77.511642,
+    "name": "bg_bangalore_NW_103",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.009829,
+    "lng": 77.416759,
+    "name": "bg_bangalore_NW_104",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.19296,
+    "lng": 77.480316,
+    "name": "bg_bangalore_NW_105",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.096994,
+    "lng": 77.518295,
+    "name": "bg_bangalore_NW_106",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 12.987862,
+    "lng": 77.48144,
+    "name": "bg_bangalore_NW_107",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.088141,
+    "lng": 77.541862,
+    "name": "bg_bangalore_NW_108",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.010422,
+    "lng": 77.566175,
+    "name": "bg_bangalore_NW_109",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 12.993025,
+    "lng": 77.391811,
+    "name": "bg_bangalore_NW_110",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.108883,
+    "lng": 77.501923,
+    "name": "bg_bangalore_NW_111",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.027921,
+    "lng": 77.376974,
+    "name": "bg_bangalore_NW_112",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.175315,
+    "lng": 77.405398,
+    "name": "bg_bangalore_NW_113",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.108767,
+    "lng": 77.489361,
+    "name": "bg_bangalore_NW_114",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.069326,
+    "lng": 77.481326,
+    "name": "bg_bangalore_NW_115",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.092626,
+    "lng": 77.560309,
+    "name": "bg_bangalore_NW_116",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.020958,
+    "lng": 77.511143,
+    "name": "bg_bangalore_NW_117",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.028704,
+    "lng": 77.439052,
+    "name": "bg_bangalore_NW_118",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.12613,
+    "lng": 77.417499,
+    "name": "bg_bangalore_NW_119",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.04614,
+    "lng": 77.51917,
+    "name": "bg_bangalore_NW_120",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 12.991322,
+    "lng": 77.453114,
+    "name": "bg_bangalore_NW_121",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.199652,
+    "lng": 77.574122,
+    "name": "bg_bangalore_NW_122",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 12.991484,
+    "lng": 77.39796,
+    "name": "bg_bangalore_NW_123",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.173194,
+    "lng": 77.547836,
+    "name": "bg_bangalore_NW_124",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.058144,
+    "lng": 77.385493,
+    "name": "bg_bangalore_NW_125",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 13.162593,
+    "lng": 77.733296,
+    "name": "bg_bangalore_NE_001",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.112627,
+    "lng": 77.797127,
+    "name": "bg_bangalore_NE_002",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.122145,
+    "lng": 77.57676,
+    "name": "bg_bangalore_NE_003",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.158848,
+    "lng": 77.64236,
+    "name": "bg_bangalore_NE_004",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.124262,
+    "lng": 77.786259,
+    "name": "bg_bangalore_NE_005",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.005216,
+    "lng": 77.600971,
+    "name": "bg_bangalore_NE_006",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 12.999083,
+    "lng": 77.699475,
+    "name": "bg_bangalore_NE_007",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.036278,
+    "lng": 77.711087,
+    "name": "bg_bangalore_NE_008",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.136463,
+    "lng": 77.620809,
+    "name": "bg_bangalore_NE_009",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.117704,
+    "lng": 77.634396,
+    "name": "bg_bangalore_NE_010",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.08492,
+    "lng": 77.778701,
+    "name": "bg_bangalore_NE_011",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.165373,
+    "lng": 77.595767,
+    "name": "bg_bangalore_NE_012",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.070305,
+    "lng": 77.637253,
+    "name": "bg_bangalore_NE_013",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 12.975798,
+    "lng": 77.748502,
+    "name": "bg_bangalore_NE_014",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.118351,
+    "lng": 77.63394,
+    "name": "bg_bangalore_NE_015",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.141777,
+    "lng": 77.699128,
+    "name": "bg_bangalore_NE_016",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.07123,
+    "lng": 77.577176,
+    "name": "bg_bangalore_NE_017",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 12.99193,
+    "lng": 77.773699,
+    "name": "bg_bangalore_NE_018",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.178384,
+    "lng": 77.697758,
+    "name": "bg_bangalore_NE_019",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.162784,
+    "lng": 77.706065,
+    "name": "bg_bangalore_NE_020",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.008321,
+    "lng": 77.603675,
+    "name": "bg_bangalore_NE_021",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.044358,
+    "lng": 77.777271,
+    "name": "bg_bangalore_NE_022",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.154128,
+    "lng": 77.768658,
+    "name": "bg_bangalore_NE_023",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.177258,
+    "lng": 77.622267,
+    "name": "bg_bangalore_NE_024",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.150526,
+    "lng": 77.77393,
+    "name": "bg_bangalore_NE_025",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.066435,
+    "lng": 77.714649,
+    "name": "bg_bangalore_NE_026",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.009775,
+    "lng": 77.784223,
+    "name": "bg_bangalore_NE_027",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.169536,
+    "lng": 77.794646,
+    "name": "bg_bangalore_NE_028",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.157424,
+    "lng": 77.773319,
+    "name": "bg_bangalore_NE_029",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 12.980577,
+    "lng": 77.740727,
+    "name": "bg_bangalore_NE_030",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.049742,
+    "lng": 77.784434,
+    "name": "bg_bangalore_NE_031",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.155503,
+    "lng": 77.769414,
+    "name": "bg_bangalore_NE_032",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.157419,
+    "lng": 77.635031,
+    "name": "bg_bangalore_NE_033",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.152159,
+    "lng": 77.599322,
+    "name": "bg_bangalore_NE_034",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.171238,
+    "lng": 77.768183,
+    "name": "bg_bangalore_NE_035",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.025048,
+    "lng": 77.758732,
+    "name": "bg_bangalore_NE_036",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.078568,
+    "lng": 77.643668,
+    "name": "bg_bangalore_NE_037",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.153953,
+    "lng": 77.626209,
+    "name": "bg_bangalore_NE_038",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 12.980324,
+    "lng": 77.618454,
+    "name": "bg_bangalore_NE_039",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.048859,
+    "lng": 77.769479,
+    "name": "bg_bangalore_NE_040",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.19255,
+    "lng": 77.637803,
+    "name": "bg_bangalore_NE_041",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.119333,
+    "lng": 77.664928,
+    "name": "bg_bangalore_NE_042",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.195759,
+    "lng": 77.695649,
+    "name": "bg_bangalore_NE_043",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.186328,
+    "lng": 77.600952,
+    "name": "bg_bangalore_NE_044",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.19334,
+    "lng": 77.615178,
+    "name": "bg_bangalore_NE_045",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.19157,
+    "lng": 77.63473,
+    "name": "bg_bangalore_NE_046",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 12.999391,
+    "lng": 77.672777,
+    "name": "bg_bangalore_NE_047",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.138923,
+    "lng": 77.645577,
+    "name": "bg_bangalore_NE_048",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.111397,
+    "lng": 77.69007,
+    "name": "bg_bangalore_NE_049",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.061669,
+    "lng": 77.704732,
+    "name": "bg_bangalore_NE_050",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.032313,
+    "lng": 77.734477,
+    "name": "bg_bangalore_NE_051",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 12.975381,
+    "lng": 77.783254,
+    "name": "bg_bangalore_NE_052",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.096152,
+    "lng": 77.736872,
+    "name": "bg_bangalore_NE_053",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.141939,
+    "lng": 77.725891,
+    "name": "bg_bangalore_NE_054",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.05695,
+    "lng": 77.590744,
+    "name": "bg_bangalore_NE_055",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.124453,
+    "lng": 77.649295,
+    "name": "bg_bangalore_NE_056",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.045631,
+    "lng": 77.765803,
+    "name": "bg_bangalore_NE_057",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.136945,
+    "lng": 77.642573,
+    "name": "bg_bangalore_NE_058",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.044589,
+    "lng": 77.666888,
+    "name": "bg_bangalore_NE_059",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.06554,
+    "lng": 77.641522,
+    "name": "bg_bangalore_NE_060",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.186582,
+    "lng": 77.727397,
+    "name": "bg_bangalore_NE_061",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.178131,
+    "lng": 77.713491,
+    "name": "bg_bangalore_NE_062",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.042714,
+    "lng": 77.698286,
+    "name": "bg_bangalore_NE_063",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 12.975091,
+    "lng": 77.639556,
+    "name": "bg_bangalore_NE_064",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.071725,
+    "lng": 77.705497,
+    "name": "bg_bangalore_NE_065",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.122309,
+    "lng": 77.679622,
+    "name": "bg_bangalore_NE_066",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.074486,
+    "lng": 77.623083,
+    "name": "bg_bangalore_NE_067",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.081467,
+    "lng": 77.777766,
+    "name": "bg_bangalore_NE_068",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.154106,
+    "lng": 77.613181,
+    "name": "bg_bangalore_NE_069",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.117412,
+    "lng": 77.650417,
+    "name": "bg_bangalore_NE_070",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.159145,
+    "lng": 77.744006,
+    "name": "bg_bangalore_NE_071",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.126379,
+    "lng": 77.625544,
+    "name": "bg_bangalore_NE_072",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.019804,
+    "lng": 77.580496,
+    "name": "bg_bangalore_NE_073",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.03009,
+    "lng": 77.681906,
+    "name": "bg_bangalore_NE_074",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.166191,
+    "lng": 77.591386,
+    "name": "bg_bangalore_NE_075",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.068249,
+    "lng": 77.716697,
+    "name": "bg_bangalore_NE_076",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.018748,
+    "lng": 77.73168,
+    "name": "bg_bangalore_NE_077",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.086235,
+    "lng": 77.629896,
+    "name": "bg_bangalore_NE_078",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.122613,
+    "lng": 77.576248,
+    "name": "bg_bangalore_NE_079",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.143967,
+    "lng": 77.74826,
+    "name": "bg_bangalore_NE_080",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 12.998982,
+    "lng": 77.670658,
+    "name": "bg_bangalore_NE_081",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.014575,
+    "lng": 77.790542,
+    "name": "bg_bangalore_NE_082",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.09154,
+    "lng": 77.586299,
+    "name": "bg_bangalore_NE_083",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.03107,
+    "lng": 77.765876,
+    "name": "bg_bangalore_NE_084",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.077704,
+    "lng": 77.755319,
+    "name": "bg_bangalore_NE_085",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.125205,
+    "lng": 77.797276,
+    "name": "bg_bangalore_NE_086",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.108977,
+    "lng": 77.788759,
+    "name": "bg_bangalore_NE_087",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.175571,
+    "lng": 77.712847,
+    "name": "bg_bangalore_NE_088",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.136837,
+    "lng": 77.688575,
+    "name": "bg_bangalore_NE_089",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.161878,
+    "lng": 77.698271,
+    "name": "bg_bangalore_NE_090",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.176872,
+    "lng": 77.742322,
+    "name": "bg_bangalore_NE_091",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.081802,
+    "lng": 77.633318,
+    "name": "bg_bangalore_NE_092",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.030629,
+    "lng": 77.718474,
+    "name": "bg_bangalore_NE_093",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.147308,
+    "lng": 77.692292,
+    "name": "bg_bangalore_NE_094",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.116018,
+    "lng": 77.636784,
+    "name": "bg_bangalore_NE_095",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 12.992434,
+    "lng": 77.639289,
+    "name": "bg_bangalore_NE_096",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.036136,
+    "lng": 77.646935,
+    "name": "bg_bangalore_NE_097",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.096534,
+    "lng": 77.606134,
+    "name": "bg_bangalore_NE_098",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.027034,
+    "lng": 77.731139,
+    "name": "bg_bangalore_NE_099",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.133944,
+    "lng": 77.589451,
+    "name": "bg_bangalore_NE_100",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.06671,
+    "lng": 77.697088,
+    "name": "bg_bangalore_NE_101",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.068549,
+    "lng": 77.621538,
+    "name": "bg_bangalore_NE_102",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.069532,
+    "lng": 77.778589,
+    "name": "bg_bangalore_NE_103",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.106418,
+    "lng": 77.731493,
+    "name": "bg_bangalore_NE_104",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.167765,
+    "lng": 77.747259,
+    "name": "bg_bangalore_NE_105",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.060586,
+    "lng": 77.576327,
+    "name": "bg_bangalore_NE_106",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.054146,
+    "lng": 77.744532,
+    "name": "bg_bangalore_NE_107",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.167026,
+    "lng": 77.789522,
+    "name": "bg_bangalore_NE_108",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.06928,
+    "lng": 77.743191,
+    "name": "bg_bangalore_NE_109",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.09788,
+    "lng": 77.710732,
+    "name": "bg_bangalore_NE_110",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.024621,
+    "lng": 77.62437,
+    "name": "bg_bangalore_NE_111",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.073063,
+    "lng": 77.581531,
+    "name": "bg_bangalore_NE_112",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.050629,
+    "lng": 77.727807,
+    "name": "bg_bangalore_NE_113",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.065971,
+    "lng": 77.612135,
+    "name": "bg_bangalore_NE_114",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.080163,
+    "lng": 77.603716,
+    "name": "bg_bangalore_NE_115",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.115008,
+    "lng": 77.581067,
+    "name": "bg_bangalore_NE_116",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.063655,
+    "lng": 77.701988,
+    "name": "bg_bangalore_NE_117",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 12.981098,
+    "lng": 77.719619,
+    "name": "bg_bangalore_NE_118",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.005532,
+    "lng": 77.678882,
+    "name": "bg_bangalore_NE_119",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 12.986314,
+    "lng": 77.660298,
+    "name": "bg_bangalore_NE_120",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.022624,
+    "lng": 77.64854,
+    "name": "bg_bangalore_NE_121",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.146277,
+    "lng": 77.660303,
+    "name": "bg_bangalore_NE_122",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.144202,
+    "lng": 77.762183,
+    "name": "bg_bangalore_NE_123",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 12.979361,
+    "lng": 77.696369,
+    "name": "bg_bangalore_NE_124",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 13.199979,
+    "lng": 77.653741,
+    "name": "bg_bangalore_NE_125",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 12.896282,
+    "lng": 77.525777,
+    "name": "bg_bangalore_SW_001",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.896645,
+    "lng": 77.519702,
+    "name": "bg_bangalore_SW_002",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.963663,
+    "lng": 77.394856,
+    "name": "bg_bangalore_SW_003",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.754586,
+    "lng": 77.384286,
+    "name": "bg_bangalore_SW_004",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.7784,
+    "lng": 77.500628,
+    "name": "bg_bangalore_SW_005",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.876893,
+    "lng": 77.399042,
+    "name": "bg_bangalore_SW_006",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.90738,
+    "lng": 77.522552,
+    "name": "bg_bangalore_SW_007",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.787753,
+    "lng": 77.486631,
+    "name": "bg_bangalore_SW_008",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.918283,
+    "lng": 77.37577,
+    "name": "bg_bangalore_SW_009",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.934343,
+    "lng": 77.567062,
+    "name": "bg_bangalore_SW_010",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.774322,
+    "lng": 77.355778,
+    "name": "bg_bangalore_SW_011",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.82019,
+    "lng": 77.502403,
+    "name": "bg_bangalore_SW_012",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.965589,
+    "lng": 77.439247,
+    "name": "bg_bangalore_SW_013",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.910878,
+    "lng": 77.367099,
+    "name": "bg_bangalore_SW_014",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.905388,
+    "lng": 77.49113,
+    "name": "bg_bangalore_SW_015",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.772928,
+    "lng": 77.523808,
+    "name": "bg_bangalore_SW_016",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.777237,
+    "lng": 77.571365,
+    "name": "bg_bangalore_SW_017",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.926093,
+    "lng": 77.428121,
+    "name": "bg_bangalore_SW_018",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.846385,
+    "lng": 77.433378,
+    "name": "bg_bangalore_SW_019",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.863841,
+    "lng": 77.426777,
+    "name": "bg_bangalore_SW_020",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.773746,
+    "lng": 77.566177,
+    "name": "bg_bangalore_SW_021",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.893007,
+    "lng": 77.536459,
+    "name": "bg_bangalore_SW_022",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.909144,
+    "lng": 77.447985,
+    "name": "bg_bangalore_SW_023",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.915104,
+    "lng": 77.567232,
+    "name": "bg_bangalore_SW_024",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.810769,
+    "lng": 77.531845,
+    "name": "bg_bangalore_SW_025",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.871089,
+    "lng": 77.458787,
+    "name": "bg_bangalore_SW_026",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.848004,
+    "lng": 77.514481,
+    "name": "bg_bangalore_SW_027",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.810389,
+    "lng": 77.541635,
+    "name": "bg_bangalore_SW_028",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.936914,
+    "lng": 77.369499,
+    "name": "bg_bangalore_SW_029",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.948367,
+    "lng": 77.404869,
+    "name": "bg_bangalore_SW_030",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.854559,
+    "lng": 77.487325,
+    "name": "bg_bangalore_SW_031",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.835273,
+    "lng": 77.356457,
+    "name": "bg_bangalore_SW_032",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.941464,
+    "lng": 77.390914,
+    "name": "bg_bangalore_SW_033",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.797727,
+    "lng": 77.529512,
+    "name": "bg_bangalore_SW_034",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.826576,
+    "lng": 77.548072,
+    "name": "bg_bangalore_SW_035",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.907766,
+    "lng": 77.41216,
+    "name": "bg_bangalore_SW_036",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.752284,
+    "lng": 77.563314,
+    "name": "bg_bangalore_SW_037",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.769263,
+    "lng": 77.512017,
+    "name": "bg_bangalore_SW_038",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.85993,
+    "lng": 77.520587,
+    "name": "bg_bangalore_SW_039",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.905387,
+    "lng": 77.495328,
+    "name": "bg_bangalore_SW_040",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.860435,
+    "lng": 77.52841,
+    "name": "bg_bangalore_SW_041",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.770937,
+    "lng": 77.399859,
+    "name": "bg_bangalore_SW_042",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.905652,
+    "lng": 77.418896,
+    "name": "bg_bangalore_SW_043",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.88085,
+    "lng": 77.456484,
+    "name": "bg_bangalore_SW_044",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.869457,
+    "lng": 77.445738,
+    "name": "bg_bangalore_SW_045",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.917835,
+    "lng": 77.424428,
+    "name": "bg_bangalore_SW_046",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.908142,
+    "lng": 77.410956,
+    "name": "bg_bangalore_SW_047",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.806566,
+    "lng": 77.377148,
+    "name": "bg_bangalore_SW_048",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.793331,
+    "lng": 77.3769,
+    "name": "bg_bangalore_SW_049",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.870569,
+    "lng": 77.521493,
+    "name": "bg_bangalore_SW_050",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.791659,
+    "lng": 77.398687,
+    "name": "bg_bangalore_SW_051",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.858945,
+    "lng": 77.513032,
+    "name": "bg_bangalore_SW_052",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.969737,
+    "lng": 77.468043,
+    "name": "bg_bangalore_SW_053",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.813675,
+    "lng": 77.372618,
+    "name": "bg_bangalore_SW_054",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.793676,
+    "lng": 77.401184,
+    "name": "bg_bangalore_SW_055",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.790374,
+    "lng": 77.353183,
+    "name": "bg_bangalore_SW_056",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.87018,
+    "lng": 77.41172,
+    "name": "bg_bangalore_SW_057",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.969216,
+    "lng": 77.474506,
+    "name": "bg_bangalore_SW_058",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.906919,
+    "lng": 77.378413,
+    "name": "bg_bangalore_SW_059",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.945404,
+    "lng": 77.460448,
+    "name": "bg_bangalore_SW_060",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.946362,
+    "lng": 77.479164,
+    "name": "bg_bangalore_SW_061",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.855614,
+    "lng": 77.449105,
+    "name": "bg_bangalore_SW_062",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.791482,
+    "lng": 77.36156,
+    "name": "bg_bangalore_SW_063",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.961739,
+    "lng": 77.457489,
+    "name": "bg_bangalore_SW_064",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.934976,
+    "lng": 77.440159,
+    "name": "bg_bangalore_SW_065",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.766668,
+    "lng": 77.491625,
+    "name": "bg_bangalore_SW_066",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.762062,
+    "lng": 77.383569,
+    "name": "bg_bangalore_SW_067",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.876639,
+    "lng": 77.418363,
+    "name": "bg_bangalore_SW_068",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.973632,
+    "lng": 77.376652,
+    "name": "bg_bangalore_SW_069",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.922,
+    "lng": 77.486421,
+    "name": "bg_bangalore_SW_070",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.927917,
+    "lng": 77.40078,
+    "name": "bg_bangalore_SW_071",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.867579,
+    "lng": 77.451366,
+    "name": "bg_bangalore_SW_072",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.849612,
+    "lng": 77.543537,
+    "name": "bg_bangalore_SW_073",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.972757,
+    "lng": 77.418711,
+    "name": "bg_bangalore_SW_074",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.889731,
+    "lng": 77.487167,
+    "name": "bg_bangalore_SW_075",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.91652,
+    "lng": 77.563208,
+    "name": "bg_bangalore_SW_076",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.796752,
+    "lng": 77.397481,
+    "name": "bg_bangalore_SW_077",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.898596,
+    "lng": 77.385338,
+    "name": "bg_bangalore_SW_078",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.789108,
+    "lng": 77.36689,
+    "name": "bg_bangalore_SW_079",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.750602,
+    "lng": 77.451363,
+    "name": "bg_bangalore_SW_080",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.883608,
+    "lng": 77.415533,
+    "name": "bg_bangalore_SW_081",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.802082,
+    "lng": 77.509065,
+    "name": "bg_bangalore_SW_082",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.908172,
+    "lng": 77.452157,
+    "name": "bg_bangalore_SW_083",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.904662,
+    "lng": 77.55788,
+    "name": "bg_bangalore_SW_084",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.927261,
+    "lng": 77.490638,
+    "name": "bg_bangalore_SW_085",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.898766,
+    "lng": 77.560075,
+    "name": "bg_bangalore_SW_086",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.845656,
+    "lng": 77.472527,
+    "name": "bg_bangalore_SW_087",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.895718,
+    "lng": 77.554393,
+    "name": "bg_bangalore_SW_088",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.935992,
+    "lng": 77.366067,
+    "name": "bg_bangalore_SW_089",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.787333,
+    "lng": 77.419213,
+    "name": "bg_bangalore_SW_090",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.918515,
+    "lng": 77.478072,
+    "name": "bg_bangalore_SW_091",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.814937,
+    "lng": 77.37798,
+    "name": "bg_bangalore_SW_092",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.904953,
+    "lng": 77.50744,
+    "name": "bg_bangalore_SW_093",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.962102,
+    "lng": 77.462606,
+    "name": "bg_bangalore_SW_094",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.861104,
+    "lng": 77.368099,
+    "name": "bg_bangalore_SW_095",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.758969,
+    "lng": 77.447206,
+    "name": "bg_bangalore_SW_096",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.822522,
+    "lng": 77.406333,
+    "name": "bg_bangalore_SW_097",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.770549,
+    "lng": 77.56643,
+    "name": "bg_bangalore_SW_098",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.938091,
+    "lng": 77.47942,
+    "name": "bg_bangalore_SW_099",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.963927,
+    "lng": 77.574904,
+    "name": "bg_bangalore_SW_100",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.901263,
+    "lng": 77.41064,
+    "name": "bg_bangalore_SW_101",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.759052,
+    "lng": 77.52016,
+    "name": "bg_bangalore_SW_102",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.855863,
+    "lng": 77.49659,
+    "name": "bg_bangalore_SW_103",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.956116,
+    "lng": 77.390835,
+    "name": "bg_bangalore_SW_104",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.881699,
+    "lng": 77.492827,
+    "name": "bg_bangalore_SW_105",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.860638,
+    "lng": 77.37053,
+    "name": "bg_bangalore_SW_106",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.828291,
+    "lng": 77.424994,
+    "name": "bg_bangalore_SW_107",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.90078,
+    "lng": 77.54299,
+    "name": "bg_bangalore_SW_108",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.824206,
+    "lng": 77.506077,
+    "name": "bg_bangalore_SW_109",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.814849,
+    "lng": 77.562669,
+    "name": "bg_bangalore_SW_110",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.933052,
+    "lng": 77.473772,
+    "name": "bg_bangalore_SW_111",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.852336,
+    "lng": 77.420766,
+    "name": "bg_bangalore_SW_112",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.822737,
+    "lng": 77.568292,
+    "name": "bg_bangalore_SW_113",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.840939,
+    "lng": 77.465784,
+    "name": "bg_bangalore_SW_114",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.972327,
+    "lng": 77.497974,
+    "name": "bg_bangalore_SW_115",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.872084,
+    "lng": 77.442981,
+    "name": "bg_bangalore_SW_116",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.792206,
+    "lng": 77.4314,
+    "name": "bg_bangalore_SW_117",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.9202,
+    "lng": 77.490717,
+    "name": "bg_bangalore_SW_118",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.920998,
+    "lng": 77.395801,
+    "name": "bg_bangalore_SW_119",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.873574,
+    "lng": 77.558726,
+    "name": "bg_bangalore_SW_120",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.848576,
+    "lng": 77.507106,
+    "name": "bg_bangalore_SW_121",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.777321,
+    "lng": 77.568958,
+    "name": "bg_bangalore_SW_122",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.886996,
+    "lng": 77.403842,
+    "name": "bg_bangalore_SW_123",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.785635,
+    "lng": 77.473939,
+    "name": "bg_bangalore_SW_124",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.874257,
+    "lng": 77.370972,
+    "name": "bg_bangalore_SW_125",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 12.973258,
+    "lng": 77.780409,
+    "name": "bg_bangalore_SE_001",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.853826,
+    "lng": 77.60143,
+    "name": "bg_bangalore_SE_002",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.937232,
+    "lng": 77.687134,
+    "name": "bg_bangalore_SE_003",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.911236,
+    "lng": 77.689496,
+    "name": "bg_bangalore_SE_004",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.811521,
+    "lng": 77.762813,
+    "name": "bg_bangalore_SE_005",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.874035,
+    "lng": 77.661307,
+    "name": "bg_bangalore_SE_006",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.947848,
+    "lng": 77.769406,
+    "name": "bg_bangalore_SE_007",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.812156,
+    "lng": 77.752751,
+    "name": "bg_bangalore_SE_008",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.843362,
+    "lng": 77.785206,
+    "name": "bg_bangalore_SE_009",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.864241,
+    "lng": 77.759624,
+    "name": "bg_bangalore_SE_010",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.813639,
+    "lng": 77.642175,
+    "name": "bg_bangalore_SE_011",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.882061,
+    "lng": 77.799753,
+    "name": "bg_bangalore_SE_012",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.860169,
+    "lng": 77.608434,
+    "name": "bg_bangalore_SE_013",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.871181,
+    "lng": 77.652653,
+    "name": "bg_bangalore_SE_014",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.874181,
+    "lng": 77.697272,
+    "name": "bg_bangalore_SE_015",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.852453,
+    "lng": 77.6474,
+    "name": "bg_bangalore_SE_016",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.792447,
+    "lng": 77.731937,
+    "name": "bg_bangalore_SE_017",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.878654,
+    "lng": 77.627552,
+    "name": "bg_bangalore_SE_018",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.924498,
+    "lng": 77.584821,
+    "name": "bg_bangalore_SE_019",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.932567,
+    "lng": 77.661868,
+    "name": "bg_bangalore_SE_020",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.89933,
+    "lng": 77.759668,
+    "name": "bg_bangalore_SE_021",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.970684,
+    "lng": 77.686449,
+    "name": "bg_bangalore_SE_022",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.758329,
+    "lng": 77.688016,
+    "name": "bg_bangalore_SE_023",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.882791,
+    "lng": 77.770683,
+    "name": "bg_bangalore_SE_024",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.946693,
+    "lng": 77.674069,
+    "name": "bg_bangalore_SE_025",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.868339,
+    "lng": 77.677809,
+    "name": "bg_bangalore_SE_026",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.91255,
+    "lng": 77.667245,
+    "name": "bg_bangalore_SE_027",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.855635,
+    "lng": 77.793071,
+    "name": "bg_bangalore_SE_028",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.826176,
+    "lng": 77.730859,
+    "name": "bg_bangalore_SE_029",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.896213,
+    "lng": 77.766647,
+    "name": "bg_bangalore_SE_030",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.941777,
+    "lng": 77.768352,
+    "name": "bg_bangalore_SE_031",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.835502,
+    "lng": 77.646249,
+    "name": "bg_bangalore_SE_032",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.911711,
+    "lng": 77.745865,
+    "name": "bg_bangalore_SE_033",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.765395,
+    "lng": 77.717011,
+    "name": "bg_bangalore_SE_034",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.957209,
+    "lng": 77.799421,
+    "name": "bg_bangalore_SE_035",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.918022,
+    "lng": 77.672644,
+    "name": "bg_bangalore_SE_036",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.77215,
+    "lng": 77.717593,
+    "name": "bg_bangalore_SE_037",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.94633,
+    "lng": 77.674828,
+    "name": "bg_bangalore_SE_038",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.90615,
+    "lng": 77.77827,
+    "name": "bg_bangalore_SE_039",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.760348,
+    "lng": 77.754132,
+    "name": "bg_bangalore_SE_040",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.816008,
+    "lng": 77.659339,
+    "name": "bg_bangalore_SE_041",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.782753,
+    "lng": 77.694512,
+    "name": "bg_bangalore_SE_042",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.877334,
+    "lng": 77.753317,
+    "name": "bg_bangalore_SE_043",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.788246,
+    "lng": 77.592768,
+    "name": "bg_bangalore_SE_044",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.945939,
+    "lng": 77.714435,
+    "name": "bg_bangalore_SE_045",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.804187,
+    "lng": 77.780387,
+    "name": "bg_bangalore_SE_046",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.782201,
+    "lng": 77.678759,
+    "name": "bg_bangalore_SE_047",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.807145,
+    "lng": 77.632449,
+    "name": "bg_bangalore_SE_048",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.752114,
+    "lng": 77.756042,
+    "name": "bg_bangalore_SE_049",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.952772,
+    "lng": 77.727462,
+    "name": "bg_bangalore_SE_050",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.785545,
+    "lng": 77.674389,
+    "name": "bg_bangalore_SE_051",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.827752,
+    "lng": 77.707204,
+    "name": "bg_bangalore_SE_052",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.893761,
+    "lng": 77.67047,
+    "name": "bg_bangalore_SE_053",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.806272,
+    "lng": 77.765193,
+    "name": "bg_bangalore_SE_054",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.794824,
+    "lng": 77.661556,
+    "name": "bg_bangalore_SE_055",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.858722,
+    "lng": 77.628371,
+    "name": "bg_bangalore_SE_056",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.878683,
+    "lng": 77.704333,
+    "name": "bg_bangalore_SE_057",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.973356,
+    "lng": 77.641427,
+    "name": "bg_bangalore_SE_058",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.970038,
+    "lng": 77.723102,
+    "name": "bg_bangalore_SE_059",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.811758,
+    "lng": 77.702334,
+    "name": "bg_bangalore_SE_060",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.904305,
+    "lng": 77.74255,
+    "name": "bg_bangalore_SE_061",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.761035,
+    "lng": 77.711441,
+    "name": "bg_bangalore_SE_062",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.861764,
+    "lng": 77.778435,
+    "name": "bg_bangalore_SE_063",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.814394,
+    "lng": 77.754744,
+    "name": "bg_bangalore_SE_064",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.88659,
+    "lng": 77.654272,
+    "name": "bg_bangalore_SE_065",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.893239,
+    "lng": 77.714701,
+    "name": "bg_bangalore_SE_066",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.902497,
+    "lng": 77.737209,
+    "name": "bg_bangalore_SE_067",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.898316,
+    "lng": 77.763626,
+    "name": "bg_bangalore_SE_068",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.891356,
+    "lng": 77.778266,
+    "name": "bg_bangalore_SE_069",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.895427,
+    "lng": 77.64451,
+    "name": "bg_bangalore_SE_070",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.849185,
+    "lng": 77.705404,
+    "name": "bg_bangalore_SE_071",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.914781,
+    "lng": 77.59528,
+    "name": "bg_bangalore_SE_072",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.8164,
+    "lng": 77.743183,
+    "name": "bg_bangalore_SE_073",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.789519,
+    "lng": 77.604736,
+    "name": "bg_bangalore_SE_074",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.871367,
+    "lng": 77.793585,
+    "name": "bg_bangalore_SE_075",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.869442,
+    "lng": 77.780535,
+    "name": "bg_bangalore_SE_076",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.935555,
+    "lng": 77.683416,
+    "name": "bg_bangalore_SE_077",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.93146,
+    "lng": 77.742976,
+    "name": "bg_bangalore_SE_078",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.826211,
+    "lng": 77.600913,
+    "name": "bg_bangalore_SE_079",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.966651,
+    "lng": 77.60667,
+    "name": "bg_bangalore_SE_080",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.967463,
+    "lng": 77.768532,
+    "name": "bg_bangalore_SE_081",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.912949,
+    "lng": 77.795487,
+    "name": "bg_bangalore_SE_082",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.967636,
+    "lng": 77.756032,
+    "name": "bg_bangalore_SE_083",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.832299,
+    "lng": 77.752903,
+    "name": "bg_bangalore_SE_084",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.753132,
+    "lng": 77.695729,
+    "name": "bg_bangalore_SE_085",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.852327,
+    "lng": 77.726386,
+    "name": "bg_bangalore_SE_086",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.901277,
+    "lng": 77.706526,
+    "name": "bg_bangalore_SE_087",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.935044,
+    "lng": 77.786566,
+    "name": "bg_bangalore_SE_088",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.774378,
+    "lng": 77.62761,
+    "name": "bg_bangalore_SE_089",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.755631,
+    "lng": 77.773953,
+    "name": "bg_bangalore_SE_090",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.876317,
+    "lng": 77.780933,
+    "name": "bg_bangalore_SE_091",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.799808,
+    "lng": 77.589224,
+    "name": "bg_bangalore_SE_092",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.935367,
+    "lng": 77.779612,
+    "name": "bg_bangalore_SE_093",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.817993,
+    "lng": 77.666867,
+    "name": "bg_bangalore_SE_094",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.78145,
+    "lng": 77.787909,
+    "name": "bg_bangalore_SE_095",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.818482,
+    "lng": 77.685841,
+    "name": "bg_bangalore_SE_096",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.771868,
+    "lng": 77.774633,
+    "name": "bg_bangalore_SE_097",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.780524,
+    "lng": 77.67707,
+    "name": "bg_bangalore_SE_098",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.900859,
+    "lng": 77.742207,
+    "name": "bg_bangalore_SE_099",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.962844,
+    "lng": 77.669304,
+    "name": "bg_bangalore_SE_100",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.917011,
+    "lng": 77.609768,
+    "name": "bg_bangalore_SE_101",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.843349,
+    "lng": 77.59728,
+    "name": "bg_bangalore_SE_102",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.860103,
+    "lng": 77.666826,
+    "name": "bg_bangalore_SE_103",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.833369,
+    "lng": 77.674761,
+    "name": "bg_bangalore_SE_104",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.963875,
+    "lng": 77.767476,
+    "name": "bg_bangalore_SE_105",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.772355,
+    "lng": 77.729278,
+    "name": "bg_bangalore_SE_106",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.872505,
+    "lng": 77.795015,
+    "name": "bg_bangalore_SE_107",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.830702,
+    "lng": 77.664581,
+    "name": "bg_bangalore_SE_108",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.792707,
+    "lng": 77.602486,
+    "name": "bg_bangalore_SE_109",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.940807,
+    "lng": 77.677311,
+    "name": "bg_bangalore_SE_110",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.899123,
+    "lng": 77.719384,
+    "name": "bg_bangalore_SE_111",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.884358,
+    "lng": 77.579805,
+    "name": "bg_bangalore_SE_112",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.927029,
+    "lng": 77.629803,
+    "name": "bg_bangalore_SE_113",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.778333,
+    "lng": 77.70203,
+    "name": "bg_bangalore_SE_114",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.765437,
+    "lng": 77.74716,
+    "name": "bg_bangalore_SE_115",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.79661,
+    "lng": 77.623589,
+    "name": "bg_bangalore_SE_116",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.945681,
+    "lng": 77.648926,
+    "name": "bg_bangalore_SE_117",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.7832,
+    "lng": 77.777619,
+    "name": "bg_bangalore_SE_118",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.750638,
+    "lng": 77.768141,
+    "name": "bg_bangalore_SE_119",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.782555,
+    "lng": 77.604248,
+    "name": "bg_bangalore_SE_120",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.806397,
+    "lng": 77.614262,
+    "name": "bg_bangalore_SE_121",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.898738,
+    "lng": 77.580801,
+    "name": "bg_bangalore_SE_122",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.753344,
+    "lng": 77.752747,
+    "name": "bg_bangalore_SE_123",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.803535,
+    "lng": 77.647849,
+    "name": "bg_bangalore_SE_124",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 12.789205,
+    "lng": 77.58679,
+    "name": "bg_bangalore_SE_125",
+    "quadrant": "SE"
+  }
+]

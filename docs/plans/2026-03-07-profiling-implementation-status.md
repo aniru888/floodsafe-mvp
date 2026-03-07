@@ -64,13 +64,13 @@ ESA WorldCover (`ESA/WorldCover/v200`) is an **ImageCollection**, not a single I
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| #7 | Phase 2: Full static extraction (all hotspots + 500 background/city) | pending | — |
+| #7 | Phase 2: Full static extraction (all hotspots + 500 background/city) | **SCRIPT READY** (needs GEE run) | — |
 | #8 | Phase 3: Statistical analysis (Cliff's Delta, Moran's I, BH) | pending | #7 |
-| #9 | Phase 4: Create flood event date JSONs (Bangalore + Yogyakarta) | pending | — |
+| #9 | Phase 4: Create flood event date JSONs (Bangalore + Yogyakarta) | **COMPLETE** | — |
 | #10 | Phase 5: Part B SAR temporal extraction | pending | #9 |
 | #11 | Phase 6: Tiered analysis + generate output files | pending | #8, #10 |
 
-**#7 and #9 can run in parallel** (independent).
+**#9 COMPLETE.** #7 script written + background points generated, awaiting GEE extraction run (~8h).
 
 ---
 
@@ -121,6 +121,63 @@ ESA WorldCover (`ESA/WorldCover/v200`) is an **ImageCollection**, not a single I
 
 ---
 
+## Phase 2: Static Extraction Script — READY (awaiting GEE run)
+
+**Script**: `apps/ml-pipeline/scripts/02_static_profiling.py`
+
+### Background Point Generation — VERIFIED
+- 500 points per city, quadrant-stratified (125 per NW/NE/SW/SE)
+- Min distance from any hotspot: >= 500m (haversine verified)
+- Reproducible via `random.Random(42)` seed
+- Cached to `output/profiles/{city}_background_points.json`
+
+### Validation Results
+
+| City | Hotspots | BG Points | Whitelisted Features | Min Hotspot Dist |
+|------|----------|-----------|---------------------|-----------------|
+| Delhi | 90 | 500 | 10 | 0.53km |
+| Bangalore | 200 | 500 | 11 | 0.52km |
+| Yogyakarta | 76 | 500 | 9 | 0.53km |
+| Singapore | 60 | 500 | 10 | 0.53km |
+| Indore | 73 | 500 | 11 | 0.51km |
+
+### How to Run
+```bash
+# All cities (sequential, ~8 hours)
+python apps/ml-pipeline/scripts/02_static_profiling.py
+
+# Single city (~1.5 hours)
+python apps/ml-pipeline/scripts/02_static_profiling.py --city bangalore
+
+# Resume after interruption
+python apps/ml-pipeline/scripts/02_static_profiling.py --city bangalore --resume
+```
+
+### Features
+- Checkpoints every 25 points to `output/profiles/checkpoints/`
+- 2s delay between GEE calls (rate limit avoidance)
+- 3 retries with exponential backoff on GEE errors
+- Imports `extract_static_features()` from Phase 1 via importlib
+
+---
+
+## Phase 4: Event Date JSONs — COMPLETE
+
+**Script**: `apps/ml-pipeline/scripts/03_create_event_dates.py`
+
+### Output Files
+- `output/temporal/bangalore_event_dates.json`: 15 flood dates (13 independent storms), 7 dry dates
+- `output/temporal/yogyakarta_event_dates.json`: 12 flood dates (10 independent storms), 7 dry dates
+
+### Curation Decisions
+- **Included**: Only HIGH + MEDIUM confidence events with exact dates
+- **Excluded**: LOW confidence (month-level only) — SAR needs exact dates
+- **Merged**: Same-date entries (e.g., 2019-03-18 Yogyakarta: 3 locations, 1 storm)
+- **Storm clusters**: Tagged multi-day events (2022-08-29/30 Bangalore, 2024-10-21/22 Bangalore, 2019-03-06/18 Yogyakarta, 2025-03-29/30 Yogyakarta)
+- **Dry dates**: Spread across flood-event years for temporal balance. Will cross-check against Open-Meteo in Phase 5.
+
+---
+
 ## File Structure (Current)
 
 ```
@@ -128,6 +185,8 @@ apps/ml-pipeline/
   scripts/
     __init__.py
     01_feature_trial.py          # DONE - Phase 0+1
+    02_static_profiling.py       # DONE - Phase 2 (awaiting GEE run)
+    03_create_event_dates.py     # DONE - Phase 4
     extract_city_features.py     # Legacy (from community pipeline design)
     train_city_xgboost.py        # Legacy
     cluster_reports.py           # Legacy (community pipeline)
@@ -142,8 +201,12 @@ apps/ml-pipeline/
     singapore_feature_trial.json # DONE
     indore_feature_trial.json    # DONE
   output/
-    profiles/.gitkeep            # DONE - empty, awaiting Phase 2
-    temporal/.gitkeep            # DONE - empty, awaiting Phase 4-5
+    profiles/
+      {city}_background_points.json  # DONE - 500 per city, quadrant-stratified
+      checkpoints/                   # DONE - for GEE extraction resume
+    temporal/
+      bangalore_event_dates.json     # DONE - 15 flood + 7 dry dates
+      yogyakarta_event_dates.json    # DONE - 12 flood + 7 dry dates
   requirements.txt               # DONE - includes scipy, libpysal, esda, statsmodels, shap, etc.
   README.md                      # Exists but minimal
 ```

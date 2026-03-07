@@ -1,0 +1,218 @@
+{
+  "city": "yogyakarta",
+  "flood_dates": [
+    {
+      "date": "2019-03-06",
+      "source": "Kompas",
+      "url": "https://regional.kompas.com/read/2019/03/06/22590481/banjir-dan-tanah-longsor-terjang-gunungkidul-belasan-orang-mengungsi",
+      "affected_areas": [
+        "Gedangsari, Gunungkidul"
+      ],
+      "severity": "School flooded, bridge severed",
+      "tier": 3,
+      "confidence": "HIGH",
+      "storm_cluster": "2019-mar"
+    },
+    {
+      "date": "2019-03-18",
+      "source": "detikNews, Kompas (multiple articles)",
+      "url": "https://news.detik.com/berita-jawa-tengah/d-4476423/dampak-banjir-dan-longsor-bantul-5-orang-meninggal-dunia",
+      "affected_areas": [
+        "Imogiri, Bantul",
+        "Purwosari, Gunungkidul",
+        "Semanu, Gunungkidul",
+        "Pantai Baron, Gunungkidul"
+      ],
+      "severity": "5 fatalities, 4000 evacuees. 2m deep in 13 sub-districts. Underground river overflow at Baron",
+      "tier": 3,
+      "confidence": "HIGH",
+      "storm_cluster": "2019-mar"
+    },
+    {
+      "date": "2020-02-22",
+      "source": "Kompas",
+      "url": "https://regional.kompas.com/read/2020/02/22/07281041/detik-detik-banjir-bandang-sapu-siswa-peserta-susur-sungai-di-sleman",
+      "affected_areas": [
+        "Sempor River, Sleman"
+      ],
+      "severity": "Flash flood during school trip, fatalities",
+      "tier": 3,
+      "confidence": "HIGH"
+    },
+    {
+      "date": "2020-03-08",
+      "source": "Kompas",
+      "url": "https://regional.kompas.com/read/2020/03/08/23515521/diguyur-hujan-deras-puluhan-rumah-di-gunungkidul-terendam-banjir",
+      "affected_areas": [
+        "Nglindur Kulon, Gunungkidul"
+      ],
+      "severity": "Lake overflow, dozens of homes flooded",
+      "tier": 3,
+      "confidence": "HIGH"
+    },
+    {
+      "date": "2021-01-31",
+      "source": "Kompas",
+      "url": "https://regional.kompas.com/read/2021/01/31/13444301/banjir-di-gunungkidul-putus-jembatan-warga-harus-memutar-ke-jateng",
+      "affected_areas": [
+        "Girisubo, Gunungkidul"
+      ],
+      "severity": "Bridge destroyed, homes flooded",
+      "tier": 3,
+      "confidence": "HIGH"
+    },
+    {
+      "date": "2022-10-13",
+      "source": "Kompas",
+      "url": "https://yogyakarta.kompas.com/read/2022/10/13/230508878/banjir-di-kulon-progo-puluhan-rumah-terendam-20-hektar-tanaman-palawija",
+      "affected_areas": [
+        "Agricultural areas, Kulon Progo"
+      ],
+      "severity": "Dozens of homes flooded, 20+ hectares crops destroyed",
+      "tier": 3,
+      "confidence": "HIGH"
+    },
+    {
+      "date": "2022-12-05",
+      "source": "Kompas",
+      "url": "https://yogyakarta.kompas.com/read/2022/12/05/225458478/banjir-di-jalan-nasional-menuju-bandara-yia-kendaraan-memadat-dan-sempat",
+      "affected_areas": [
+        "Jalan Nasional to YIA Airport, Kulon Progo"
+      ],
+      "severity": "National road flooded, traffic jam",
+      "tier": 3,
+      "confidence": "HIGH"
+    },
+    {
+      "date": "2023-01-26",
+      "source": "Kompas",
+      "url": "https://yogyakarta.kompas.com/read/2023/01/26/202837878/terdampak-banjir-3-sekolah-di-kulon-progo-diliburkan",
+      "affected_areas": [
+        "3 schools in Kulon Progo"
+      ],
+      "severity": "Schools closed due to flooding",
+      "tier": 3,
+      "confidence": "HIGH"
+    },
+    {
+      "date": "2025-03-29",
+      "source": "Kompas",
+      "url": "https://yogyakarta.kompas.com/read/2025/03/29/143540978/banjir-dan-tanah-longsor-terjang-kulon-progo-19-lokasi-terdampak-mana",
+      "affected_areas": [
+        "19 locations in Kulon Progo"
+      ],
+      "severity": "Simultaneous flash floods + landslides at 19 locations",
+      "tier": 3,
+      "confidence": "HIGH",
+      "storm_cluster": "2025-mar-late"
+    },
+    {
+      "date": "2025-03-30",
+      "source": "CNN Indonesia",
+      "url": "https://www.cnnindonesia.com/nasional/20250330130928-20-1214578/fakta-banjir-dan-longsor-di-yogyakarta-rendam-4-wilayah",
+      "affected_areas": [
+        "Umbulharjo, Yogyakarta City",
+        "Wirobrajan, Yogyakarta City"
+      ],
+      "severity": "Urban flooding, roads cut off. 4 districts affected",
+      "tier": 3,
+      "confidence": "HIGH",
+      "storm_cluster": "2025-mar-late"
+    },
+    {
+      "date": "2025-11-10",
+      "source": "Kompas",
+      "url": "https://yogyakarta.kompas.com/read/2025/11/10/170805578/masuk-musim-hujan-yogyakarta-tetapkan-siaga-darurat-banjir-talud-longsor",
+      "affected_areas": [
+        "Yogyakarta City (city-wide)"
+      ],
+      "severity": "City-wide emergency status declared",
+      "tier": 3,
+      "confidence": "HIGH"
+    },
+    {
+      "date": "2026-02-25",
+      "source": "Kompas",
+      "url": "https://yogyakarta.kompas.com/read/2026/02/25/165941678/hujan-deras-kulon-progo-tanah-ambles-di-kalibawang-muncul-lagi",
+      "affected_areas": [
+        "Kokap, Kulon Progo",
+        "Sentolo, Kulon Progo"
+      ],
+      "severity": "Landslides, sinkholes from heavy rain",
+      "tier": 3,
+      "confidence": "HIGH"
+    }
+  ],
+  "dry_dates": [
+    {
+      "date": "2019-07-15",
+      "source": "BMKG Yogyakarta climatological data",
+      "verification": "July avg rainfall 25mm. Peak dry season"
+    },
+    {
+      "date": "2020-07-20",
+      "source": "BMKG Yogyakarta climatological data",
+      "verification": "July avg rainfall 25mm. Peak dry season"
+    },
+    {
+      "date": "2021-06-15",
+      "source": "BMKG Yogyakarta climatological data",
+      "verification": "June avg rainfall 45mm. Early dry season"
+    },
+    {
+      "date": "2022-08-01",
+      "source": "BMKG Yogyakarta climatological data",
+      "verification": "August avg rainfall 15mm. Late dry season"
+    },
+    {
+      "date": "2023-07-10",
+      "source": "BMKG Yogyakarta climatological data",
+      "verification": "July avg rainfall 25mm. Peak dry season"
+    },
+    {
+      "date": "2024-06-25",
+      "source": "BMKG Yogyakarta climatological data",
+      "verification": "June avg rainfall 45mm. Early dry season"
+    },
+    {
+      "date": "2025-07-15",
+      "source": "BMKG Yogyakarta climatological data",
+      "verification": "July avg rainfall 25mm. Peak dry season"
+    }
+  ],
+  "excluded": false,
+  "exclusion_reason": null,
+  "notes": {
+    "total_flood_dates": 12,
+    "storm_clusters": {
+      "2019-mar": [
+        "2019-03-06",
+        "2019-03-18"
+      ],
+      "2025-mar-late": [
+        "2025-03-29",
+        "2025-03-30"
+      ]
+    },
+    "independent_storms": 10,
+    "skipped_low_confidence": [
+      "2017-11 (two events, month-level only)",
+      "2021-11 (month-level only)",
+      "2021-12 (month-level only, cold lava flood -- different phenomenon)",
+      "2022-05 (month-level only)",
+      "2022-11 (month-level only)",
+      "2022-12 (second event, month-level only)",
+      "2023-05 (two events, month-level only)",
+      "2024-11 (month-level only)",
+      "2024-12 (two events, month-level only)",
+      "2025-03 (three MEDIUM events without exact dates, subsumed by 2025-03-29/30)",
+      "2025-05 (month-level only)",
+      "2025-08 (month-level only)",
+      "2026-03 (month-level only)"
+    ],
+    "merged_entries": {
+      "2019-03-18": "Merged 3 research doc entries (#28, #29, #30) -- same date, different locations"
+    },
+    "tier_explanation": "Mixed-effects model (8-14 dates) or borderline constrained XGBoost"
+  }
+}

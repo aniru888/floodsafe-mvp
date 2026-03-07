@@ -1,0 +1,262 @@
+{
+  "city": "bangalore",
+  "flood_dates": [
+    {
+      "date": "2014-09-26",
+      "source": "Tandfonline research paper",
+      "url": "https://www.tandfonline.com/doi/full/10.1080/19475683.2016.1144649",
+      "affected_areas": [
+        "Widespread"
+      ],
+      "severity": "Cloudburst, 89.6mm in ~70 minutes",
+      "tier": 3,
+      "confidence": "HIGH"
+    },
+    {
+      "date": "2017-08-15",
+      "source": "Scroll.in",
+      "url": "https://scroll.in/latest/847311/in-photos-overnight-rain-wreaks-havoc-in-bengaluru-inundates-several-parts-of-the-city",
+      "affected_areas": [
+        "Koramangala",
+        "HSR Layout",
+        "Shantinagar",
+        "Wilson Garden",
+        "KR Puram"
+      ],
+      "severity": "HAL: 144mm, City: 129mm in 24h",
+      "tier": 3,
+      "confidence": "HIGH"
+    },
+    {
+      "date": "2018-08-14",
+      "source": "FloodList",
+      "url": "https://floodlist.com/asia/india-floods-landslides-karnataka-august-2018",
+      "affected_areas": [
+        "Karnataka-wide including Bengaluru"
+      ],
+      "severity": "Severe flooding and landslides, state-level",
+      "tier": 3,
+      "confidence": "MEDIUM"
+    },
+    {
+      "date": "2019-08-08",
+      "source": "FloodList",
+      "url": "https://floodlist.com/asia/india-floods-karnataka-august-2019",
+      "affected_areas": [
+        "Statewide"
+      ],
+      "severity": "658mm cumulative Aug 1-14. 40+ dead, 400K displaced",
+      "tier": 3,
+      "confidence": "MEDIUM"
+    },
+    {
+      "date": "2019-10-19",
+      "source": "FloodList",
+      "url": "https://floodlist.com/asia/india-karnataka-floods-october-2019",
+      "affected_areas": [
+        "Karnataka-wide including Bengaluru"
+      ],
+      "severity": "140mm/24h at some gauges",
+      "tier": 3,
+      "confidence": "MEDIUM"
+    },
+    {
+      "date": "2020-10-23",
+      "source": "FloodList",
+      "url": "https://floodlist.com/asia/india-bangalore-floods-october-2020",
+      "affected_areas": [
+        "Koramangala",
+        "HSR Layout",
+        "Bommanahalli",
+        "Ejipura"
+      ],
+      "severity": "80mm+ in 24h. 700 houses damaged, NDRF deployed",
+      "tier": 3,
+      "confidence": "HIGH"
+    },
+    {
+      "date": "2021-11-22",
+      "source": "Phys.org",
+      "url": "https://phys.org/news/2021-11-india-bangalore-heavy.html",
+      "affected_areas": [
+        "Widespread (lakes overflowed)"
+      ],
+      "severity": "131.6mm in 12h. Knee-to-waist-deep water",
+      "tier": 3,
+      "confidence": "HIGH"
+    },
+    {
+      "date": "2022-08-29",
+      "source": "ORF, Sigma Earth",
+      "url": "https://www.orfonline.org/expert-speak/the-bengaluru-floods",
+      "affected_areas": [
+        "ORR",
+        "Mahadevapura",
+        "Bellandur",
+        "SE Bangalore"
+      ],
+      "severity": "City underwater for 2 days. Aug total: 370mm",
+      "tier": 3,
+      "confidence": "HIGH",
+      "storm_cluster": "2022-aug-late"
+    },
+    {
+      "date": "2022-08-30",
+      "source": "ORF",
+      "url": "https://www.orfonline.org/expert-speak/the-bengaluru-floods",
+      "affected_areas": [
+        "ORR (massive flooding, thousands stranded)"
+      ],
+      "severity": "Continuation of Aug 29 event",
+      "tier": 3,
+      "confidence": "HIGH",
+      "storm_cluster": "2022-aug-late"
+    },
+    {
+      "date": "2022-09-04",
+      "source": "India.com",
+      "url": "https://www.india.com/karnataka/bengaluru-rain-live-updates-bellandur-sarjapura-road-whitefield-outer-ring-road-and-beml-flooded-check-latest-rain-photos-videos-bangalore-rain-5601313/",
+      "affected_areas": [
+        "Bellandur",
+        "Sarjapur Road",
+        "Whitefield",
+        "ORR",
+        "BEML Layout"
+      ],
+      "severity": "131.6mm in 24h (highest Sep daily since 2014)",
+      "tier": 3,
+      "confidence": "HIGH"
+    },
+    {
+      "date": "2024-08-12",
+      "source": "The South First",
+      "url": "https://thesouthfirst.com/karnataka/overnight-rains-cause-widespread-waterlogging-in-bengaluru-traffic-advisory-issued/",
+      "affected_areas": [
+        "KR Market",
+        "Jakkur underpass",
+        "ORR (Nagawara-Hebbal)",
+        "Yelahanka"
+      ],
+      "severity": "Doddabommasandra Lake overflowed, 6ft flooding",
+      "tier": 3,
+      "confidence": "HIGH"
+    },
+    {
+      "date": "2024-09-19",
+      "source": "National Herald",
+      "url": "https://www.nationalheraldindia.com/amp/story/national/overnight-rain-leaves-bengaluru-waterlogged-imd-predicts-more-showers",
+      "affected_areas": [
+        "Low-lying areas citywide"
+      ],
+      "severity": "Heavy overnight rain, widespread waterlogging",
+      "tier": 3,
+      "confidence": "MEDIUM"
+    },
+    {
+      "date": "2024-10-21",
+      "source": "Deccan Herald",
+      "url": "https://www.deccanherald.com/india/karnataka/bengaluru/bengaluru-rains-live-updates-traffic-jam-death-toll-karnataka-flood-bangalore-rain-news-imd-weather-waterlogging-imd-3548824",
+      "affected_areas": [
+        "Yelahanka",
+        "Kodigehalli",
+        "Kendriya Vihar",
+        "Bellandur",
+        "Manyata Tech Park"
+      ],
+      "severity": "Start of 3-day event",
+      "tier": 3,
+      "confidence": "HIGH",
+      "storm_cluster": "2024-oct-late"
+    },
+    {
+      "date": "2024-10-22",
+      "source": "The Watchers",
+      "url": "https://watchers.news/2024/10/22/5-reported-dead-after-widespread-floods-hit-bengaluru-india/",
+      "affected_areas": [
+        "Yelahanka",
+        "Kodigehalli",
+        "Kendriya Vihar",
+        "Bellandur",
+        "Manyata Tech Park"
+      ],
+      "severity": "157mm in 6h at Yelahanka. 5-7 dead, 1000+ homes flooded",
+      "tier": 3,
+      "confidence": "HIGH",
+      "storm_cluster": "2024-oct-late"
+    },
+    {
+      "date": "2025-05-18",
+      "source": "The Watchers",
+      "url": "https://watchers.news/2025/05/21/bengaluru-flooding-three-dead-500-homes-damaged/",
+      "affected_areas": [
+        "Koramangala",
+        "Indiranagar",
+        "Silk Board",
+        "HSR Layout",
+        "BTM Layout",
+        "Electronic City"
+      ],
+      "severity": "130mm in 12h (pre-monsoon). 3 dead, 500+ homes flooded",
+      "tier": 3,
+      "confidence": "HIGH"
+    }
+  ],
+  "dry_dates": [
+    {
+      "date": "2017-01-15",
+      "source": "IMD Bangalore climatological data",
+      "verification": "January avg rainfall 4mm. Peak winter dry season"
+    },
+    {
+      "date": "2019-02-10",
+      "source": "IMD Bangalore climatological data",
+      "verification": "February avg rainfall 7mm. Winter dry season"
+    },
+    {
+      "date": "2020-01-20",
+      "source": "IMD Bangalore climatological data",
+      "verification": "January avg rainfall 4mm. Peak winter dry season"
+    },
+    {
+      "date": "2021-02-01",
+      "source": "IMD Bangalore climatological data",
+      "verification": "February avg rainfall 7mm. Winter dry season"
+    },
+    {
+      "date": "2022-01-15",
+      "source": "IMD Bangalore climatological data",
+      "verification": "January avg rainfall 4mm. Peak winter dry season"
+    },
+    {
+      "date": "2024-02-10",
+      "source": "IMD Bangalore climatological data",
+      "verification": "February avg rainfall 7mm. Winter dry season"
+    },
+    {
+      "date": "2025-01-20",
+      "source": "IMD Bangalore climatological data",
+      "verification": "January avg rainfall 4mm. Peak winter dry season"
+    }
+  ],
+  "excluded": false,
+  "exclusion_reason": null,
+  "notes": {
+    "total_flood_dates": 15,
+    "storm_clusters": {
+      "2022-aug-late": [
+        "2022-08-29",
+        "2022-08-30"
+      ],
+      "2024-oct-late": [
+        "2024-10-21",
+        "2024-10-22"
+      ]
+    },
+    "independent_storms": 13,
+    "skipped_low_confidence": [
+      "2022-06-18 (month-level only)"
+    ],
+    "tier_explanation": "Constrained XGBoost viable (15+ dates)",
+    "wettest_years": "2022 (1957mm, wettest in 122 years), 2017 (1696mm, wettest in 127 years)"
+  }
+}

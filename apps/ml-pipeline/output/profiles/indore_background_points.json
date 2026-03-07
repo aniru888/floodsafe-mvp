@@ -1,0 +1,3002 @@
+[
+  {
+    "lat": 22.790505,
+    "lng": 75.723126,
+    "name": "bg_indore_NW_001",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.73038,
+    "lng": 75.747901,
+    "name": "bg_indore_NW_002",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.806518,
+    "lng": 75.804587,
+    "name": "bg_indore_NW_003",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.83221,
+    "lng": 75.730867,
+    "name": "bg_indore_NW_004",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.754617,
+    "lng": 75.723725,
+    "name": "bg_indore_NW_005",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.721075,
+    "lng": 75.783169,
+    "name": "bg_indore_NW_006",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.689378,
+    "lng": 75.744855,
+    "name": "bg_indore_NW_007",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.792231,
+    "lng": 75.788118,
+    "name": "bg_indore_NW_008",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.721373,
+    "lng": 75.793658,
+    "name": "bg_indore_NW_009",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.818556,
+    "lng": 75.720812,
+    "name": "bg_indore_NW_010",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.81796,
+    "lng": 75.807267,
+    "name": "bg_indore_NW_011",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.741141,
+    "lng": 75.739435,
+    "name": "bg_indore_NW_012",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.84294,
+    "lng": 75.762074,
+    "name": "bg_indore_NW_013",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.700303,
+    "lng": 75.73209,
+    "name": "bg_indore_NW_014",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.824837,
+    "lng": 75.795466,
+    "name": "bg_indore_NW_015",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.818176,
+    "lng": 75.811216,
+    "name": "bg_indore_NW_016",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.773478,
+    "lng": 75.841639,
+    "name": "bg_indore_NW_017",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.747458,
+    "lng": 75.789005,
+    "name": "bg_indore_NW_018",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.821852,
+    "lng": 75.797315,
+    "name": "bg_indore_NW_019",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.827182,
+    "lng": 75.792169,
+    "name": "bg_indore_NW_020",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.801254,
+    "lng": 75.725728,
+    "name": "bg_indore_NW_021",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.722603,
+    "lng": 75.756173,
+    "name": "bg_indore_NW_022",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.698166,
+    "lng": 75.749099,
+    "name": "bg_indore_NW_023",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.701665,
+    "lng": 75.754747,
+    "name": "bg_indore_NW_024",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.789888,
+    "lng": 75.765604,
+    "name": "bg_indore_NW_025",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.74608,
+    "lng": 75.746188,
+    "name": "bg_indore_NW_026",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.791926,
+    "lng": 75.796141,
+    "name": "bg_indore_NW_027",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.713238,
+    "lng": 75.811141,
+    "name": "bg_indore_NW_028",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.711961,
+    "lng": 75.767432,
+    "name": "bg_indore_NW_029",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.848271,
+    "lng": 75.8,
+    "name": "bg_indore_NW_030",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.776897,
+    "lng": 75.805577,
+    "name": "bg_indore_NW_031",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.824071,
+    "lng": 75.817,
+    "name": "bg_indore_NW_032",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.722793,
+    "lng": 75.724013,
+    "name": "bg_indore_NW_033",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.73705,
+    "lng": 75.753468,
+    "name": "bg_indore_NW_034",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.829601,
+    "lng": 75.759335,
+    "name": "bg_indore_NW_035",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.793147,
+    "lng": 75.769454,
+    "name": "bg_indore_NW_036",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.8359,
+    "lng": 75.777356,
+    "name": "bg_indore_NW_037",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.728705,
+    "lng": 75.750828,
+    "name": "bg_indore_NW_038",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.777626,
+    "lng": 75.752843,
+    "name": "bg_indore_NW_039",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.781457,
+    "lng": 75.832228,
+    "name": "bg_indore_NW_040",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.750901,
+    "lng": 75.747415,
+    "name": "bg_indore_NW_041",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.849594,
+    "lng": 75.783691,
+    "name": "bg_indore_NW_042",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.7,
+    "lng": 75.72589,
+    "name": "bg_indore_NW_043",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.703092,
+    "lng": 75.798431,
+    "name": "bg_indore_NW_044",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.815693,
+    "lng": 75.77277,
+    "name": "bg_indore_NW_045",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.695482,
+    "lng": 75.767702,
+    "name": "bg_indore_NW_046",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.84936,
+    "lng": 75.786139,
+    "name": "bg_indore_NW_047",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.845228,
+    "lng": 75.827597,
+    "name": "bg_indore_NW_048",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.686894,
+    "lng": 75.81009,
+    "name": "bg_indore_NW_049",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.797482,
+    "lng": 75.787121,
+    "name": "bg_indore_NW_050",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.729026,
+    "lng": 75.80012,
+    "name": "bg_indore_NW_051",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.703406,
+    "lng": 75.774346,
+    "name": "bg_indore_NW_052",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.759864,
+    "lng": 75.839227,
+    "name": "bg_indore_NW_053",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.829516,
+    "lng": 75.752924,
+    "name": "bg_indore_NW_054",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.767597,
+    "lng": 75.742331,
+    "name": "bg_indore_NW_055",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.835584,
+    "lng": 75.828815,
+    "name": "bg_indore_NW_056",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.734243,
+    "lng": 75.799869,
+    "name": "bg_indore_NW_057",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.78548,
+    "lng": 75.739105,
+    "name": "bg_indore_NW_058",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.810814,
+    "lng": 75.787422,
+    "name": "bg_indore_NW_059",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.813473,
+    "lng": 75.786294,
+    "name": "bg_indore_NW_060",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.685094,
+    "lng": 75.76052,
+    "name": "bg_indore_NW_061",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.829989,
+    "lng": 75.823958,
+    "name": "bg_indore_NW_062",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.73574,
+    "lng": 75.727241,
+    "name": "bg_indore_NW_063",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.829872,
+    "lng": 75.838369,
+    "name": "bg_indore_NW_064",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.699133,
+    "lng": 75.780749,
+    "name": "bg_indore_NW_065",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.69642,
+    "lng": 75.815075,
+    "name": "bg_indore_NW_066",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.811363,
+    "lng": 75.736049,
+    "name": "bg_indore_NW_067",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.763422,
+    "lng": 75.788725,
+    "name": "bg_indore_NW_068",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.754818,
+    "lng": 75.746475,
+    "name": "bg_indore_NW_069",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.773984,
+    "lng": 75.811241,
+    "name": "bg_indore_NW_070",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.71819,
+    "lng": 75.758965,
+    "name": "bg_indore_NW_071",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.8492,
+    "lng": 75.801235,
+    "name": "bg_indore_NW_072",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.757287,
+    "lng": 75.784697,
+    "name": "bg_indore_NW_073",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.704966,
+    "lng": 75.748087,
+    "name": "bg_indore_NW_074",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.740784,
+    "lng": 75.793539,
+    "name": "bg_indore_NW_075",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.722969,
+    "lng": 75.747527,
+    "name": "bg_indore_NW_076",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.696714,
+    "lng": 75.798888,
+    "name": "bg_indore_NW_077",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.722775,
+    "lng": 75.833178,
+    "name": "bg_indore_NW_078",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.82684,
+    "lng": 75.728857,
+    "name": "bg_indore_NW_079",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.724271,
+    "lng": 75.803622,
+    "name": "bg_indore_NW_080",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.720349,
+    "lng": 75.736539,
+    "name": "bg_indore_NW_081",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.83936,
+    "lng": 75.79138,
+    "name": "bg_indore_NW_082",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.762991,
+    "lng": 75.818077,
+    "name": "bg_indore_NW_083",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.818237,
+    "lng": 75.743801,
+    "name": "bg_indore_NW_084",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.700994,
+    "lng": 75.773881,
+    "name": "bg_indore_NW_085",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.75489,
+    "lng": 75.778378,
+    "name": "bg_indore_NW_086",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.805298,
+    "lng": 75.804171,
+    "name": "bg_indore_NW_087",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.847387,
+    "lng": 75.732302,
+    "name": "bg_indore_NW_088",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.751433,
+    "lng": 75.762413,
+    "name": "bg_indore_NW_089",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.827176,
+    "lng": 75.751082,
+    "name": "bg_indore_NW_090",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.716384,
+    "lng": 75.776077,
+    "name": "bg_indore_NW_091",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.75461,
+    "lng": 75.754818,
+    "name": "bg_indore_NW_092",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.726218,
+    "lng": 75.835408,
+    "name": "bg_indore_NW_093",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.758117,
+    "lng": 75.827669,
+    "name": "bg_indore_NW_094",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.775804,
+    "lng": 75.726324,
+    "name": "bg_indore_NW_095",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.849882,
+    "lng": 75.824503,
+    "name": "bg_indore_NW_096",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.844884,
+    "lng": 75.835796,
+    "name": "bg_indore_NW_097",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.825035,
+    "lng": 75.740789,
+    "name": "bg_indore_NW_098",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.765131,
+    "lng": 75.746718,
+    "name": "bg_indore_NW_099",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.751172,
+    "lng": 75.727329,
+    "name": "bg_indore_NW_100",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.747531,
+    "lng": 75.843164,
+    "name": "bg_indore_NW_101",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.728759,
+    "lng": 75.818009,
+    "name": "bg_indore_NW_102",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.760076,
+    "lng": 75.772876,
+    "name": "bg_indore_NW_103",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.842957,
+    "lng": 75.844428,
+    "name": "bg_indore_NW_104",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.776702,
+    "lng": 75.809801,
+    "name": "bg_indore_NW_105",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.710541,
+    "lng": 75.757088,
+    "name": "bg_indore_NW_106",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.844837,
+    "lng": 75.792398,
+    "name": "bg_indore_NW_107",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.774462,
+    "lng": 75.813497,
+    "name": "bg_indore_NW_108",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.694432,
+    "lng": 75.793022,
+    "name": "bg_indore_NW_109",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.76797,
+    "lng": 75.82659,
+    "name": "bg_indore_NW_110",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.710976,
+    "lng": 75.840097,
+    "name": "bg_indore_NW_111",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.698218,
+    "lng": 75.743228,
+    "name": "bg_indore_NW_112",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.783181,
+    "lng": 75.804402,
+    "name": "bg_indore_NW_113",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.723809,
+    "lng": 75.734986,
+    "name": "bg_indore_NW_114",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.831897,
+    "lng": 75.750777,
+    "name": "bg_indore_NW_115",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.783096,
+    "lng": 75.797423,
+    "name": "bg_indore_NW_116",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.754172,
+    "lng": 75.792959,
+    "name": "bg_indore_NW_117",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.771259,
+    "lng": 75.836838,
+    "name": "bg_indore_NW_118",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.718703,
+    "lng": 75.809524,
+    "name": "bg_indore_NW_119",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.724383,
+    "lng": 75.769473,
+    "name": "bg_indore_NW_120",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.795829,
+    "lng": 75.7575,
+    "name": "bg_indore_NW_121",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.737169,
+    "lng": 75.813983,
+    "name": "bg_indore_NW_122",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.69697,
+    "lng": 75.777286,
+    "name": "bg_indore_NW_123",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.849745,
+    "lng": 75.844512,
+    "name": "bg_indore_NW_124",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.697088,
+    "lng": 75.746644,
+    "name": "bg_indore_NW_125",
+    "quadrant": "NW"
+  },
+  {
+    "lat": 22.728758,
+    "lng": 75.961657,
+    "name": "bg_indore_NE_001",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.830343,
+    "lng": 75.954909,
+    "name": "bg_indore_NE_002",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.745972,
+    "lng": 75.864718,
+    "name": "bg_indore_NE_003",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.822568,
+    "lng": 75.932942,
+    "name": "bg_indore_NE_004",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.785927,
+    "lng": 75.968404,
+    "name": "bg_indore_NE_005",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.792906,
+    "lng": 75.845978,
+    "name": "bg_indore_NE_006",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.819822,
+    "lng": 75.882422,
+    "name": "bg_indore_NE_007",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.794459,
+    "lng": 75.962366,
+    "name": "bg_indore_NE_008",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.702661,
+    "lng": 75.914153,
+    "name": "bg_indore_NE_009",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.729937,
+    "lng": 75.920604,
+    "name": "bg_indore_NE_010",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.803406,
+    "lng": 75.87045,
+    "name": "bg_indore_NE_011",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.789649,
+    "lng": 75.877998,
+    "name": "bg_indore_NE_012",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.765608,
+    "lng": 75.958167,
+    "name": "bg_indore_NE_013",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.824607,
+    "lng": 75.856537,
+    "name": "bg_indore_NE_014",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.75489,
+    "lng": 75.879585,
+    "name": "bg_indore_NE_015",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.685585,
+    "lng": 75.94139,
+    "name": "bg_indore_NE_016",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.790124,
+    "lng": 75.877744,
+    "name": "bg_indore_NE_017",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.807303,
+    "lng": 75.91396,
+    "name": "bg_indore_NE_018",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.755568,
+    "lng": 75.846209,
+    "name": "bg_indore_NE_019",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.697415,
+    "lng": 75.955388,
+    "name": "bg_indore_NE_020",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.834148,
+    "lng": 75.913199,
+    "name": "bg_indore_NE_021",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.822708,
+    "lng": 75.917814,
+    "name": "bg_indore_NE_022",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.735863,
+    "lng": 75.957373,
+    "name": "bg_indore_NE_023",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.81636,
+    "lng": 75.952588,
+    "name": "bg_indore_NE_024",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.833323,
+    "lng": 75.87126,
+    "name": "bg_indore_NE_025",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.813719,
+    "lng": 75.955517,
+    "name": "bg_indore_NE_026",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.752052,
+    "lng": 75.922583,
+    "name": "bg_indore_NE_027",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.710501,
+    "lng": 75.961235,
+    "name": "bg_indore_NE_028",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.82766,
+    "lng": 75.967026,
+    "name": "bg_indore_NE_029",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.818777,
+    "lng": 75.955177,
+    "name": "bg_indore_NE_030",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.68909,
+    "lng": 75.937071,
+    "name": "bg_indore_NE_031",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.739811,
+    "lng": 75.961352,
+    "name": "bg_indore_NE_032",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.817369,
+    "lng": 75.953008,
+    "name": "bg_indore_NE_033",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.818774,
+    "lng": 75.878351,
+    "name": "bg_indore_NE_034",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.814917,
+    "lng": 75.858512,
+    "name": "bg_indore_NE_035",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.828908,
+    "lng": 75.952324,
+    "name": "bg_indore_NE_036",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.721702,
+    "lng": 75.947073,
+    "name": "bg_indore_NE_037",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.76095,
+    "lng": 75.883149,
+    "name": "bg_indore_NE_038",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.816232,
+    "lng": 75.873449,
+    "name": "bg_indore_NE_039",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.739163,
+    "lng": 75.953044,
+    "name": "bg_indore_NE_040",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.844537,
+    "lng": 75.879891,
+    "name": "bg_indore_NE_041",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.790844,
+    "lng": 75.89496,
+    "name": "bg_indore_NE_042",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.84689,
+    "lng": 75.912027,
+    "name": "bg_indore_NE_043",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.839974,
+    "lng": 75.859418,
+    "name": "bg_indore_NE_044",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.845116,
+    "lng": 75.867321,
+    "name": "bg_indore_NE_045",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.843818,
+    "lng": 75.878183,
+    "name": "bg_indore_NE_046",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.702886,
+    "lng": 75.89932,
+    "name": "bg_indore_NE_047",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.80521,
+    "lng": 75.88421,
+    "name": "bg_indore_NE_048",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.785024,
+    "lng": 75.908928,
+    "name": "bg_indore_NE_049",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.748557,
+    "lng": 75.917074,
+    "name": "bg_indore_NE_050",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.727029,
+    "lng": 75.933598,
+    "name": "bg_indore_NE_051",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.685279,
+    "lng": 75.960697,
+    "name": "bg_indore_NE_052",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.773845,
+    "lng": 75.934929,
+    "name": "bg_indore_NE_053",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.807422,
+    "lng": 75.928829,
+    "name": "bg_indore_NE_054",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.745097,
+    "lng": 75.853747,
+    "name": "bg_indore_NE_055",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.794599,
+    "lng": 75.886275,
+    "name": "bg_indore_NE_056",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.736796,
+    "lng": 75.951002,
+    "name": "bg_indore_NE_057",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.803759,
+    "lng": 75.88254,
+    "name": "bg_indore_NE_058",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.736032,
+    "lng": 75.896049,
+    "name": "bg_indore_NE_059",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.706002,
+    "lng": 75.897556,
+    "name": "bg_indore_NE_060",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.84016,
+    "lng": 75.929665,
+    "name": "bg_indore_NE_061",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.833963,
+    "lng": 75.921939,
+    "name": "bg_indore_NE_062",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.734657,
+    "lng": 75.913492,
+    "name": "bg_indore_NE_063",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.685067,
+    "lng": 75.880864,
+    "name": "bg_indore_NE_064",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.793026,
+    "lng": 75.903124,
+    "name": "bg_indore_NE_065",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.757956,
+    "lng": 75.871713,
+    "name": "bg_indore_NE_066",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.763076,
+    "lng": 75.957648,
+    "name": "bg_indore_NE_067",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.816344,
+    "lng": 75.866211,
+    "name": "bg_indore_NE_068",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.698991,
+    "lng": 75.909432,
+    "name": "bg_indore_NE_069",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.789435,
+    "lng": 75.886899,
+    "name": "bg_indore_NE_070",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.82004,
+    "lng": 75.938892,
+    "name": "bg_indore_NE_071",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.796011,
+    "lng": 75.87308,
+    "name": "bg_indore_NE_072",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.717856,
+    "lng": 75.848053,
+    "name": "bg_indore_NE_073",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.725399,
+    "lng": 75.904392,
+    "name": "bg_indore_NE_074",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.825207,
+    "lng": 75.854104,
+    "name": "bg_indore_NE_075",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.753383,
+    "lng": 75.923721,
+    "name": "bg_indore_NE_076",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.717082,
+    "lng": 75.932044,
+    "name": "bg_indore_NE_077",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.766572,
+    "lng": 75.875498,
+    "name": "bg_indore_NE_078",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.79325,
+    "lng": 75.845693,
+    "name": "bg_indore_NE_079",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.808909,
+    "lng": 75.941256,
+    "name": "bg_indore_NE_080",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.702587,
+    "lng": 75.898143,
+    "name": "bg_indore_NE_081",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.714021,
+    "lng": 75.964746,
+    "name": "bg_indore_NE_082",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.770463,
+    "lng": 75.851277,
+    "name": "bg_indore_NE_083",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.726118,
+    "lng": 75.951042,
+    "name": "bg_indore_NE_084",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.760316,
+    "lng": 75.945177,
+    "name": "bg_indore_NE_085",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.79515,
+    "lng": 75.968487,
+    "name": "bg_indore_NE_086",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.78325,
+    "lng": 75.963755,
+    "name": "bg_indore_NE_087",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.832085,
+    "lng": 75.921582,
+    "name": "bg_indore_NE_088",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.80368,
+    "lng": 75.908097,
+    "name": "bg_indore_NE_089",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.822044,
+    "lng": 75.913484,
+    "name": "bg_indore_NE_090",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.833039,
+    "lng": 75.937957,
+    "name": "bg_indore_NE_091",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.763321,
+    "lng": 75.877399,
+    "name": "bg_indore_NE_092",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.725795,
+    "lng": 75.924708,
+    "name": "bg_indore_NE_093",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.811359,
+    "lng": 75.910162,
+    "name": "bg_indore_NE_094",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.788413,
+    "lng": 75.879325,
+    "name": "bg_indore_NE_095",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.729833,
+    "lng": 75.884964,
+    "name": "bg_indore_NE_096",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.774125,
+    "lng": 75.862297,
+    "name": "bg_indore_NE_097",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.723158,
+    "lng": 75.931744,
+    "name": "bg_indore_NE_098",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.801559,
+    "lng": 75.853029,
+    "name": "bg_indore_NE_099",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.752254,
+    "lng": 75.912826,
+    "name": "bg_indore_NE_100",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.753603,
+    "lng": 75.870854,
+    "name": "bg_indore_NE_101",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.754324,
+    "lng": 75.958105,
+    "name": "bg_indore_NE_102",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.781373,
+    "lng": 75.93194,
+    "name": "bg_indore_NE_103",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.826361,
+    "lng": 75.940699,
+    "name": "bg_indore_NE_104",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.747763,
+    "lng": 75.845737,
+    "name": "bg_indore_NE_105",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.74304,
+    "lng": 75.939184,
+    "name": "bg_indore_NE_106",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.825819,
+    "lng": 75.964179,
+    "name": "bg_indore_NE_107",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.754139,
+    "lng": 75.938439,
+    "name": "bg_indore_NE_108",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.775112,
+    "lng": 75.920407,
+    "name": "bg_indore_NE_109",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.756913,
+    "lng": 75.848628,
+    "name": "bg_indore_NE_110",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.740461,
+    "lng": 75.929893,
+    "name": "bg_indore_NE_111",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.751712,
+    "lng": 75.865631,
+    "name": "bg_indore_NE_112",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.762119,
+    "lng": 75.860953,
+    "name": "bg_indore_NE_113",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.787672,
+    "lng": 75.848371,
+    "name": "bg_indore_NE_114",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.750013,
+    "lng": 75.915549,
+    "name": "bg_indore_NE_115",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.689472,
+    "lng": 75.925344,
+    "name": "bg_indore_NE_116",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.693297,
+    "lng": 75.892388,
+    "name": "bg_indore_NE_117",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.810603,
+    "lng": 75.892391,
+    "name": "bg_indore_NE_118",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.809082,
+    "lng": 75.948991,
+    "name": "bg_indore_NE_119",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.688198,
+    "lng": 75.912427,
+    "name": "bg_indore_NE_120",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.849985,
+    "lng": 75.888745,
+    "name": "bg_indore_NE_121",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.792274,
+    "lng": 75.942654,
+    "name": "bg_indore_NE_122",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.79254,
+    "lng": 75.939279,
+    "name": "bg_indore_NE_123",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.841686,
+    "lng": 75.86992,
+    "name": "bg_indore_NE_124",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.688363,
+    "lng": 75.864048,
+    "name": "bg_indore_NE_125",
+    "quadrant": "NE"
+  },
+  {
+    "lat": 22.540826,
+    "lng": 75.803682,
+    "name": "bg_indore_SW_001",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.613055,
+    "lng": 75.747246,
+    "name": "bg_indore_SW_002",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.635412,
+    "lng": 75.815862,
+    "name": "bg_indore_SW_003",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.547685,
+    "lng": 75.795906,
+    "name": "bg_indore_SW_004",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.643408,
+    "lng": 75.734317,
+    "name": "bg_indore_SW_005",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.655185,
+    "lng": 75.84059,
+    "name": "bg_indore_SW_006",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.537836,
+    "lng": 75.72321,
+    "name": "bg_indore_SW_007",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.571473,
+    "lng": 75.804668,
+    "name": "bg_indore_SW_008",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.678099,
+    "lng": 75.769582,
+    "name": "bg_indore_SW_009",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.637977,
+    "lng": 75.7295,
+    "name": "bg_indore_SW_010",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.633951,
+    "lng": 75.798405,
+    "name": "bg_indore_SW_011",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.536814,
+    "lng": 75.81656,
+    "name": "bg_indore_SW_012",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.660298,
+    "lng": 75.795051,
+    "name": "bg_indore_SW_013",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.539974,
+    "lng": 75.842981,
+    "name": "bg_indore_SW_014",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.649135,
+    "lng": 75.7634,
+    "name": "bg_indore_SW_015",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.590682,
+    "lng": 75.766321,
+    "name": "bg_indore_SW_016",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.603484,
+    "lng": 75.762654,
+    "name": "bg_indore_SW_017",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.66018,
+    "lng": 75.822791,
+    "name": "bg_indore_SW_018",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.537414,
+    "lng": 75.840098,
+    "name": "bg_indore_SW_019",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.624872,
+    "lng": 75.823588,
+    "name": "bg_indore_SW_020",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.636706,
+    "lng": 75.774436,
+    "name": "bg_indore_SW_021",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.641076,
+    "lng": 75.840684,
+    "name": "bg_indore_SW_022",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.564564,
+    "lng": 75.821025,
+    "name": "bg_indore_SW_023",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.608799,
+    "lng": 75.780437,
+    "name": "bg_indore_SW_024",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.59187,
+    "lng": 75.811378,
+    "name": "bg_indore_SW_025",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.564285,
+    "lng": 75.826464,
+    "name": "bg_indore_SW_026",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.657071,
+    "lng": 75.730833,
+    "name": "bg_indore_SW_027",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.665469,
+    "lng": 75.750483,
+    "name": "bg_indore_SW_028",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.596677,
+    "lng": 75.796291,
+    "name": "bg_indore_SW_029",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.582533,
+    "lng": 75.723587,
+    "name": "bg_indore_SW_030",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.660407,
+    "lng": 75.74273,
+    "name": "bg_indore_SW_031",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.555,
+    "lng": 75.819729,
+    "name": "bg_indore_SW_032",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.576156,
+    "lng": 75.83004,
+    "name": "bg_indore_SW_033",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.635695,
+    "lng": 75.754534,
+    "name": "bg_indore_SW_034",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.521675,
+    "lng": 75.838508,
+    "name": "bg_indore_SW_035",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.534126,
+    "lng": 75.810009,
+    "name": "bg_indore_SW_036",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.600615,
+    "lng": 75.814771,
+    "name": "bg_indore_SW_037",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.633951,
+    "lng": 75.800738,
+    "name": "bg_indore_SW_038",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.600986,
+    "lng": 75.819117,
+    "name": "bg_indore_SW_039",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.535354,
+    "lng": 75.7477,
+    "name": "bg_indore_SW_040",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.634145,
+    "lng": 75.758276,
+    "name": "bg_indore_SW_041",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.615957,
+    "lng": 75.779158,
+    "name": "bg_indore_SW_042",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.607602,
+    "lng": 75.773188,
+    "name": "bg_indore_SW_043",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.643079,
+    "lng": 75.761349,
+    "name": "bg_indore_SW_044",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.635971,
+    "lng": 75.753865,
+    "name": "bg_indore_SW_045",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.561482,
+    "lng": 75.735082,
+    "name": "bg_indore_SW_046",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.551776,
+    "lng": 75.734944,
+    "name": "bg_indore_SW_047",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.608418,
+    "lng": 75.815274,
+    "name": "bg_indore_SW_048",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.55055,
+    "lng": 75.747048,
+    "name": "bg_indore_SW_049",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.599893,
+    "lng": 75.810573,
+    "name": "bg_indore_SW_050",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.68114,
+    "lng": 75.78558,
+    "name": "bg_indore_SW_051",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.566695,
+    "lng": 75.732566,
+    "name": "bg_indore_SW_052",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.552029,
+    "lng": 75.748435,
+    "name": "bg_indore_SW_053",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.549608,
+    "lng": 75.721769,
+    "name": "bg_indore_SW_054",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.608132,
+    "lng": 75.754289,
+    "name": "bg_indore_SW_055",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.680759,
+    "lng": 75.78917,
+    "name": "bg_indore_SW_056",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.635074,
+    "lng": 75.735785,
+    "name": "bg_indore_SW_057",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.663296,
+    "lng": 75.78136,
+    "name": "bg_indore_SW_058",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.663999,
+    "lng": 75.791758,
+    "name": "bg_indore_SW_059",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.59745,
+    "lng": 75.775059,
+    "name": "bg_indore_SW_060",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.55042,
+    "lng": 75.726422,
+    "name": "bg_indore_SW_061",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.675275,
+    "lng": 75.779716,
+    "name": "bg_indore_SW_062",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.655649,
+    "lng": 75.770088,
+    "name": "bg_indore_SW_063",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.532224,
+    "lng": 75.798681,
+    "name": "bg_indore_SW_064",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.528845,
+    "lng": 75.73865,
+    "name": "bg_indore_SW_065",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.612869,
+    "lng": 75.757979,
+    "name": "bg_indore_SW_066",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.683996,
+    "lng": 75.734806,
+    "name": "bg_indore_SW_067",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.646133,
+    "lng": 75.79579,
+    "name": "bg_indore_SW_068",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.650472,
+    "lng": 75.748211,
+    "name": "bg_indore_SW_069",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.606224,
+    "lng": 75.776314,
+    "name": "bg_indore_SW_070",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.593049,
+    "lng": 75.827521,
+    "name": "bg_indore_SW_071",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.683355,
+    "lng": 75.758173,
+    "name": "bg_indore_SW_072",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.62247,
+    "lng": 75.796204,
+    "name": "bg_indore_SW_073",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.642115,
+    "lng": 75.838449,
+    "name": "bg_indore_SW_074",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.554285,
+    "lng": 75.746378,
+    "name": "bg_indore_SW_075",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.628971,
+    "lng": 75.739632,
+    "name": "bg_indore_SW_076",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.548679,
+    "lng": 75.729383,
+    "name": "bg_indore_SW_077",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.520441,
+    "lng": 75.776313,
+    "name": "bg_indore_SW_078",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.617979,
+    "lng": 75.756407,
+    "name": "bg_indore_SW_079",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.558194,
+    "lng": 75.808369,
+    "name": "bg_indore_SW_080",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.635993,
+    "lng": 75.776754,
+    "name": "bg_indore_SW_081",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.633419,
+    "lng": 75.835489,
+    "name": "bg_indore_SW_082",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.649992,
+    "lng": 75.798132,
+    "name": "bg_indore_SW_083",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.629095,
+    "lng": 75.836709,
+    "name": "bg_indore_SW_084",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.590148,
+    "lng": 75.78807,
+    "name": "bg_indore_SW_085",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.62686,
+    "lng": 75.833551,
+    "name": "bg_indore_SW_086",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.656394,
+    "lng": 75.728926,
+    "name": "bg_indore_SW_087",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.547377,
+    "lng": 75.758451,
+    "name": "bg_indore_SW_088",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.643578,
+    "lng": 75.791151,
+    "name": "bg_indore_SW_089",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.567621,
+    "lng": 75.735544,
+    "name": "bg_indore_SW_090",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.633632,
+    "lng": 75.807467,
+    "name": "bg_indore_SW_091",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.675542,
+    "lng": 75.782559,
+    "name": "bg_indore_SW_092",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.601476,
+    "lng": 75.730055,
+    "name": "bg_indore_SW_093",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.526577,
+    "lng": 75.774004,
+    "name": "bg_indore_SW_094",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.573183,
+    "lng": 75.751296,
+    "name": "bg_indore_SW_095",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.535069,
+    "lng": 75.840239,
+    "name": "bg_indore_SW_096",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.657933,
+    "lng": 75.7919,
+    "name": "bg_indore_SW_097",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.67688,
+    "lng": 75.844947,
+    "name": "bg_indore_SW_098",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.630926,
+    "lng": 75.753689,
+    "name": "bg_indore_SW_099",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.526638,
+    "lng": 75.814534,
+    "name": "bg_indore_SW_100",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.597633,
+    "lng": 75.801439,
+    "name": "bg_indore_SW_101",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.671152,
+    "lng": 75.742686,
+    "name": "bg_indore_SW_102",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.616579,
+    "lng": 75.799348,
+    "name": "bg_indore_SW_103",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.601135,
+    "lng": 75.731405,
+    "name": "bg_indore_SW_104",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.577414,
+    "lng": 75.761664,
+    "name": "bg_indore_SW_105",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.630572,
+    "lng": 75.827217,
+    "name": "bg_indore_SW_106",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.574418,
+    "lng": 75.806709,
+    "name": "bg_indore_SW_107",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.567556,
+    "lng": 75.838149,
+    "name": "bg_indore_SW_108",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.654238,
+    "lng": 75.788762,
+    "name": "bg_indore_SW_109",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.595046,
+    "lng": 75.759315,
+    "name": "bg_indore_SW_110",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.57334,
+    "lng": 75.841273,
+    "name": "bg_indore_SW_111",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.586689,
+    "lng": 75.784325,
+    "name": "bg_indore_SW_112",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.609528,
+    "lng": 75.771656,
+    "name": "bg_indore_SW_113",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.550951,
+    "lng": 75.765222,
+    "name": "bg_indore_SW_114",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.644813,
+    "lng": 75.798176,
+    "name": "bg_indore_SW_115",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.645398,
+    "lng": 75.745445,
+    "name": "bg_indore_SW_116",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.610621,
+    "lng": 75.835959,
+    "name": "bg_indore_SW_117",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.592289,
+    "lng": 75.807281,
+    "name": "bg_indore_SW_118",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.540035,
+    "lng": 75.841643,
+    "name": "bg_indore_SW_119",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.620464,
+    "lng": 75.749912,
+    "name": "bg_indore_SW_120",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.546132,
+    "lng": 75.788855,
+    "name": "bg_indore_SW_121",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.611121,
+    "lng": 75.731651,
+    "name": "bg_indore_SW_122",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.596139,
+    "lng": 75.734683,
+    "name": "bg_indore_SW_123",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.657304,
+    "lng": 75.782297,
+    "name": "bg_indore_SW_124",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.63824,
+    "lng": 75.783609,
+    "name": "bg_indore_SW_125",
+    "quadrant": "SW"
+  },
+  {
+    "lat": 22.565115,
+    "lng": 75.94934,
+    "name": "bg_indore_SE_001",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.68174,
+    "lng": 75.875466,
+    "name": "bg_indore_SE_002",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.610959,
+    "lng": 75.892948,
+    "name": "bg_indore_SE_003",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.672108,
+    "lng": 75.90853,
+    "name": "bg_indore_SE_004",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.665089,
+    "lng": 75.953003,
+    "name": "bg_indore_SE_005",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.565581,
+    "lng": 75.943751,
+    "name": "bg_indore_SE_006",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.588465,
+    "lng": 75.961781,
+    "name": "bg_indore_SE_007",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.603777,
+    "lng": 75.947569,
+    "name": "bg_indore_SE_008",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.566668,
+    "lng": 75.882319,
+    "name": "bg_indore_SE_009",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.616845,
+    "lng": 75.969863,
+    "name": "bg_indore_SE_010",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.600791,
+    "lng": 75.863574,
+    "name": "bg_indore_SE_011",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.608866,
+    "lng": 75.88814,
+    "name": "bg_indore_SE_012",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.611066,
+    "lng": 75.912929,
+    "name": "bg_indore_SE_013",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.595132,
+    "lng": 75.885222,
+    "name": "bg_indore_SE_014",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.551128,
+    "lng": 75.932187,
+    "name": "bg_indore_SE_015",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.614347,
+    "lng": 75.874195,
+    "name": "bg_indore_SE_016",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.647965,
+    "lng": 75.850456,
+    "name": "bg_indore_SE_017",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.642876,
+    "lng": 75.933153,
+    "name": "bg_indore_SE_018",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.653882,
+    "lng": 75.89326,
+    "name": "bg_indore_SE_019",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.629509,
+    "lng": 75.947593,
+    "name": "bg_indore_SE_020",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.681835,
+    "lng": 75.906916,
+    "name": "bg_indore_SE_021",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.526108,
+    "lng": 75.907786,
+    "name": "bg_indore_SE_022",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.61738,
+    "lng": 75.953713,
+    "name": "bg_indore_SE_023",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.664241,
+    "lng": 75.900038,
+    "name": "bg_indore_SE_024",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.606782,
+    "lng": 75.902116,
+    "name": "bg_indore_SE_025",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.639203,
+    "lng": 75.896247,
+    "name": "bg_indore_SE_026",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.628039,
+    "lng": 75.864295,
+    "name": "bg_indore_SE_027",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.597466,
+    "lng": 75.96615,
+    "name": "bg_indore_SE_028",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.575863,
+    "lng": 75.931588,
+    "name": "bg_indore_SE_029",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.627223,
+    "lng": 75.951471,
+    "name": "bg_indore_SE_030",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.660636,
+    "lng": 75.952418,
+    "name": "bg_indore_SE_031",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.582702,
+    "lng": 75.884583,
+    "name": "bg_indore_SE_032",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.638588,
+    "lng": 75.939925,
+    "name": "bg_indore_SE_033",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.663943,
+    "lng": 75.849487,
+    "name": "bg_indore_SE_034",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.531289,
+    "lng": 75.923895,
+    "name": "bg_indore_SE_035",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.671953,
+    "lng": 75.969678,
+    "name": "bg_indore_SE_036",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.643216,
+    "lng": 75.899246,
+    "name": "bg_indore_SE_037",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.536243,
+    "lng": 75.924218,
+    "name": "bg_indore_SE_038",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.663976,
+    "lng": 75.90046,
+    "name": "bg_indore_SE_039",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.63451,
+    "lng": 75.957928,
+    "name": "bg_indore_SE_040",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.527589,
+    "lng": 75.944518,
+    "name": "bg_indore_SE_041",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.568406,
+    "lng": 75.891855,
+    "name": "bg_indore_SE_042",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.544019,
+    "lng": 75.911396,
+    "name": "bg_indore_SE_043",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.613378,
+    "lng": 75.944065,
+    "name": "bg_indore_SE_044",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.548047,
+    "lng": 75.854871,
+    "name": "bg_indore_SE_045",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.663689,
+    "lng": 75.922464,
+    "name": "bg_indore_SE_046",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.559737,
+    "lng": 75.959104,
+    "name": "bg_indore_SE_047",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.543614,
+    "lng": 75.902644,
+    "name": "bg_indore_SE_048",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.561906,
+    "lng": 75.876916,
+    "name": "bg_indore_SE_049",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.521551,
+    "lng": 75.945579,
+    "name": "bg_indore_SE_050",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.6687,
+    "lng": 75.929701,
+    "name": "bg_indore_SE_051",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.546066,
+    "lng": 75.900216,
+    "name": "bg_indore_SE_052",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.577018,
+    "lng": 75.918446,
+    "name": "bg_indore_SE_053",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.625425,
+    "lng": 75.898039,
+    "name": "bg_indore_SE_054",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.561266,
+    "lng": 75.950663,
+    "name": "bg_indore_SE_055",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.552871,
+    "lng": 75.893087,
+    "name": "bg_indore_SE_056",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.599729,
+    "lng": 75.874651,
+    "name": "bg_indore_SE_057",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.614367,
+    "lng": 75.916851,
+    "name": "bg_indore_SE_058",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.683794,
+    "lng": 75.881904,
+    "name": "bg_indore_SE_059",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.681361,
+    "lng": 75.927279,
+    "name": "bg_indore_SE_060",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.565289,
+    "lng": 75.915741,
+    "name": "bg_indore_SE_061",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.633157,
+    "lng": 75.938084,
+    "name": "bg_indore_SE_062",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.528092,
+    "lng": 75.920801,
+    "name": "bg_indore_SE_063",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.60196,
+    "lng": 75.958019,
+    "name": "bg_indore_SE_064",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.567222,
+    "lng": 75.944858,
+    "name": "bg_indore_SE_065",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.620166,
+    "lng": 75.88904,
+    "name": "bg_indore_SE_066",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.625042,
+    "lng": 75.922611,
+    "name": "bg_indore_SE_067",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.631831,
+    "lng": 75.935116,
+    "name": "bg_indore_SE_068",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.628765,
+    "lng": 75.949792,
+    "name": "bg_indore_SE_069",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.623661,
+    "lng": 75.957925,
+    "name": "bg_indore_SE_070",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.626646,
+    "lng": 75.883617,
+    "name": "bg_indore_SE_071",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.592736,
+    "lng": 75.917447,
+    "name": "bg_indore_SE_072",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.640839,
+    "lng": 75.856267,
+    "name": "bg_indore_SE_073",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.568693,
+    "lng": 75.938435,
+    "name": "bg_indore_SE_074",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.548981,
+    "lng": 75.86152,
+    "name": "bg_indore_SE_075",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.609002,
+    "lng": 75.966436,
+    "name": "bg_indore_SE_076",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.607591,
+    "lng": 75.959186,
+    "name": "bg_indore_SE_077",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.657028,
+    "lng": 75.877121,
+    "name": "bg_indore_SE_078",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.656074,
+    "lng": 75.905231,
+    "name": "bg_indore_SE_079",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.653071,
+    "lng": 75.93832,
+    "name": "bg_indore_SE_080",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.575888,
+    "lng": 75.859396,
+    "name": "bg_indore_SE_081",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.678877,
+    "lng": 75.862595,
+    "name": "bg_indore_SE_082",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.679473,
+    "lng": 75.952518,
+    "name": "bg_indore_SE_083",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.639496,
+    "lng": 75.967493,
+    "name": "bg_indore_SE_084",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.6796,
+    "lng": 75.945573,
+    "name": "bg_indore_SE_085",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.580353,
+    "lng": 75.943835,
+    "name": "bg_indore_SE_086",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.522297,
+    "lng": 75.912072,
+    "name": "bg_indore_SE_087",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.59504,
+    "lng": 75.929104,
+    "name": "bg_indore_SE_088",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.630936,
+    "lng": 75.91807,
+    "name": "bg_indore_SE_089",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.655699,
+    "lng": 75.962536,
+    "name": "bg_indore_SE_090",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.537877,
+    "lng": 75.874228,
+    "name": "bg_indore_SE_091",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.524129,
+    "lng": 75.955529,
+    "name": "bg_indore_SE_092",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.612632,
+    "lng": 75.959407,
+    "name": "bg_indore_SE_093",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.556526,
+    "lng": 75.852902,
+    "name": "bg_indore_SE_094",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.655936,
+    "lng": 75.958673,
+    "name": "bg_indore_SE_095",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.569861,
+    "lng": 75.896037,
+    "name": "bg_indore_SE_096",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.543063,
+    "lng": 75.963283,
+    "name": "bg_indore_SE_097",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.57022,
+    "lng": 75.906578,
+    "name": "bg_indore_SE_098",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.536037,
+    "lng": 75.955907,
+    "name": "bg_indore_SE_099",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.542385,
+    "lng": 75.901705,
+    "name": "bg_indore_SE_100",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.63063,
+    "lng": 75.937893,
+    "name": "bg_indore_SE_101",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.676086,
+    "lng": 75.897391,
+    "name": "bg_indore_SE_102",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.642474,
+    "lng": 75.864315,
+    "name": "bg_indore_SE_103",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.588456,
+    "lng": 75.857378,
+    "name": "bg_indore_SE_104",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.600742,
+    "lng": 75.896014,
+    "name": "bg_indore_SE_105",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.677001,
+    "lng": 75.84909,
+    "name": "bg_indore_SE_106",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.581137,
+    "lng": 75.900423,
+    "name": "bg_indore_SE_107",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.676842,
+    "lng": 75.951931,
+    "name": "bg_indore_SE_108",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.536394,
+    "lng": 75.93071,
+    "name": "bg_indore_SE_109",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.609837,
+    "lng": 75.96723,
+    "name": "bg_indore_SE_110",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.579181,
+    "lng": 75.894767,
+    "name": "bg_indore_SE_111",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.551318,
+    "lng": 75.86027,
+    "name": "bg_indore_SE_112",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.659925,
+    "lng": 75.90184,
+    "name": "bg_indore_SE_113",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.629357,
+    "lng": 75.925213,
+    "name": "bg_indore_SE_114",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.618529,
+    "lng": 75.84767,
+    "name": "bg_indore_SE_115",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.649821,
+    "lng": 75.875446,
+    "name": "bg_indore_SE_116",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.540777,
+    "lng": 75.915572,
+    "name": "bg_indore_SE_117",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.531321,
+    "lng": 75.940645,
+    "name": "bg_indore_SE_118",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.554181,
+    "lng": 75.871994,
+    "name": "bg_indore_SE_119",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.6635,
+    "lng": 75.88607,
+    "name": "bg_indore_SE_120",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.544346,
+    "lng": 75.957566,
+    "name": "bg_indore_SE_121",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.520468,
+    "lng": 75.952301,
+    "name": "bg_indore_SE_122",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.543874,
+    "lng": 75.861249,
+    "name": "bg_indore_SE_123",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.561358,
+    "lng": 75.866812,
+    "name": "bg_indore_SE_124",
+    "quadrant": "SE"
+  },
+  {
+    "lat": 22.629075,
+    "lng": 75.848223,
+    "name": "bg_indore_SE_125",
+    "quadrant": "SE"
+  }
+]
