@@ -508,21 +508,23 @@ New analysis coexists with existing Delhi XGBoost predictions cache:
 
 ```
 apps/ml-pipeline/
-  notebooks/
-    01_feature_trial.ipynb               # Phase 0+1: GEE connectivity + feature availability
-    02_static_profiling.ipynb            # Part A: extraction + statistical analysis
-    03_event_date_collection.ipynb       # Flood date research + verification
-    04_temporal_extraction.ipynb         # Part B: temporal feature extraction
-    05_temporal_analysis.ipynb           # Part B: tiered analysis (descriptive/mixed/XGBoost)
-    06_generate_outputs.ipynb            # Compile JSON + PNG outputs
   scripts/
-    extract_city_features.py            # GEE extraction (called from notebooks)
-    validate_features.py                # Phase 1 trial validation + SAR default detection
+    01_feature_trial.py                 # Phase 0+1: GEE connectivity + feature availability
+    02_static_profiling.py              # Part A: full extraction + statistical analysis
+    03_create_event_dates.py            # Flood date JSON creation from research
+    04_temporal_extraction.py           # Part B: SAR temporal feature extraction
+    05_temporal_analysis.py             # Part B: tiered analysis (descriptive/mixed/XGBoost)
+    06_generate_outputs.py             # Compile JSON + PNG outputs for frontend
+    extract_city_features.py            # GEE extraction (legacy, from community pipeline)
     statistical_tests.py                # Mann-Whitney, KS, Cliff's Delta, Moran's I, VIF, BH
     generate_methodology.py             # Compile per-city results into methodology.md
   config/
     city_bounds.json                    # Bounding boxes per city
     feature_registry.json               # Master feature list with source, resolution, known issues
+    {city}_feature_trial.json           # Phase 0+1 trial results per city
+  output/
+    profiles/                           # Part A outputs
+    temporal/                           # Part B outputs
   requirements.txt                      # scipy, scikit-learn, xgboost, shap, pysal, statsmodels, earthengine-api
   README.md
 ```
@@ -555,24 +557,31 @@ apps/ml-pipeline/
 ## Output Files
 
 ```
-apps/ml-service/data/profiles/
-  {city}_feature_trial.json             # Phase 0+1 results
-  {city}_background_features.npz        # Background point features
-  {city}_hotspot_features.npz           # Hotspot features
-  {city}_profile_analysis.json          # Statistical results (Part A)
-  {city}_hotspot_zscores.json           # Per-hotspot z-scores
+apps/ml-pipeline/
+  config/
+    {city}_feature_trial.json           # Phase 0+1 trial results
+  output/
+    profiles/
+      {city}_background_features.npz    # Background point features
+      {city}_hotspot_features.npz       # Hotspot features
+      {city}_profile_analysis.json      # Statistical results (Part A)
+      {city}_hotspot_zscores.json       # Per-hotspot z-scores
+    temporal/
+      {city}_event_dates.json           # Verified flood/dry dates with sources
+      {city}_temporal_trial.json        # Phase 1 temporal trial
+      {city}_temporal_features.npz      # All temporal features
+      {city}_temporal_model/
+        model.json OR excluded.json     # Tier 3 model or exclusion doc
+        metadata.json                   # CV results, tier, performance
+        shap_global.json                # City-level importance (Tier 2-3)
+        shap_per_hotspot.json           # Per-hotspot top features
+        failure_report.json             # What failed and why (always present)
+      {city}_temporal_analysis.md       # Human-readable narrative
 
-apps/ml-service/data/temporal/
-  {city}_event_dates.json               # Verified flood/dry dates with sources
-  {city}_temporal_trial.json            # Phase 1 temporal trial
-  {city}_temporal_features.npz          # All temporal features
-  {city}_temporal_model/
-    model.json OR excluded.json         # Tier 3 model or exclusion doc
-    metadata.json                       # CV results, tier, performance
-    shap_global.json                    # City-level importance (Tier 2-3)
-    shap_per_hotspot.json               # Per-hotspot top features
-    failure_report.json                 # What failed and why (always present)
-  {city}_temporal_analysis.md           # Human-readable narrative
+# Final outputs copied to serving locations:
+apps/backend/data/
+  {city}_hotspot_zscores.json           # Served by hotspots API
+  {city}_shap_per_hotspot.json          # Served by hotspots API (if Part B passed)
 
 apps/frontend/public/methodology/
   methodology.md                        # Full methodology document

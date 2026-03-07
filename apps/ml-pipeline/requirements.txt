@@ -13,3 +13,4 @@ libpysal
 esda
 statsmodels
 matplotlib
+shap
