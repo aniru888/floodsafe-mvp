@@ -115,10 +115,11 @@ files:
   - apps/ml-service/src/api/hotspots.py - HotspotsService (singleton per city)
   - apps/ml-service/src/data/fhi_calculator.py - FHI calculation (Delhi-tuned)
   - apps/ml-service/data/delhi_waterlogging_hotspots.json - 90 Delhi hotspots (62 MCD + 28 OSM)
-  - apps/ml-service/data/yogyakarta_waterlogging_hotspots.json - 19 Yogyakarta hotspots
+  - apps/ml-service/data/yogyakarta_waterlogging_hotspots.json - 76 Yogyakarta hotspots
   Backend:
   - apps/backend/data/bangalore_waterlogging_hotspots.json - 200 Bangalore BBMP hotspots
   - apps/backend/data/singapore_waterlogging_hotspots.json - 60 Singapore PUB hotspots
+  - apps/backend/data/indore_waterlogging_hotspots.json - 73 Indore hotspots (IMC + news)
   - apps/backend/src/api/hotspots.py - API proxy with caching + risk-summary endpoint
   - apps/backend/src/api/rainfall.py - Per-city FHI calibration (lines 36-38)
   - apps/backend/src/domain/ml/hotspots_service.py - City-aware HotspotsService loader
@@ -126,9 +127,10 @@ files:
 hotspot_counts:
   delhi: 90 (62 MCD + 28 OSM underpasses)
   bangalore: 200 (BBMP official flood-vulnerable locations, 8 zones via OpenCity.in KML)
-  yogyakarta: 19 (river confluences, low-elevation areas)
+  yogyakarta: 76 (BPBD, DPUPKP, PetaBencana, news — research-verified)
   singapore: 60 (24 PUB hotspots + 36 flood-prone areas, geocoded from PUB Nov 2025 PDFs)
-  total: 369
+  indore: 73 (IMC reports, Free Press Journal, Smart City data — research-verified)
+  total: 499
 
 FHI_formula: |
   FHI = (0.35×P + 0.18×I + 0.12×S + 0.12×A + 0.08×R + 0.15×E) × T
@@ -143,6 +145,7 @@ city_calibration:
   bangalore:  { elev: 800-1000m, wet_months: Jun-Oct, urban: 65%, rain_gate: 5mm  }
   yogyakarta: { elev: 75-200m, wet_months: Oct-Mar,  urban: 55%, rain_gate: 15mm }
   singapore:  { elev: 0-50m,   wet_months: Nov-Feb,  urban: 95%, rain_gate: 10mm }
+  indore:     { elev: 440-650m, wet_months: Jun-Sep, urban: 60%, rain_gate: 5mm  }
 
 pipeline: |
   Load hotspots (city-specific JSON) → XGBoost scoring (Delhi only) or severity fallback
@@ -336,6 +339,7 @@ city_specific_calibration:
   bangalore:  { elev: 800-1000m, wet_months: Jun-Oct, urban_fraction: 0.65, rain_gate: 5mm  }
   yogyakarta: { elev: 75-200m, wet_months: Oct-Mar,  urban_fraction: 0.55, rain_gate: 15mm }
   singapore:  { elev: 0-50m,   wet_months: Nov-Feb,  urban_fraction: 0.95, rain_gate: 10mm }
+  indore:     { elev: 440-650m, wet_months: Jun-Sep, urban_fraction: 0.60, rain_gate: 5mm  }
 
 rain_gate: Per-city threshold. Below threshold = FHI capped at 0.15 (prevents false alarms in dry conditions)
 cache: 1-hour TTL, in-memory
@@ -441,12 +445,22 @@ geocoding: |
   - User-Agent header: "FloodSafe-MVP/1.0" sent with Photon requests (good API citizenship)
 
 typo_tolerance: |
-  Photon uses OpenSearch fuzzy matching — handles misspellings automatically:
-  - "conuaght plce" → Connaught Place
-  - "banglaore" → Bangalore locations
-  - "nehru palce" → Nehru Place
-  - Limitation: extreme abbreviations (e.g. "karol bgh" for "Karol Bagh") may not match —
-    Photon needs enough character overlap for fuzzy matching to work
+  Three-layer fuzzy matching:
+  1. Photon OpenSearch fuzzy matching (server-side):
+     - "conuaght plce" → Connaught Place
+     - "banglaore" → Bangalore locations
+  2. Backend difflib matching (location aliases):
+     - difflib.get_close_matches for typo correction on 281+ aliases
+     - Prefix-of-alias matching for partial typing ("khajr" → "Khajrana")
+  3. Frontend subsequence matching:
+     - _fuzzyMatch with 70% character overlap threshold
+     - Instant hotspot name matching from TanStack Query cache (zero-latency)
+
+performance_optimizations: |
+  - Debounce: 30ms → 300ms (80% fewer API calls)
+  - Cache TTL: 30min → 60min
+  - Photon timeout: 8s → 5s
+  - keepPreviousData: true (shows previous results while loading)
 
 intent_detection:
   - Location keywords (road, sector, colony) → prioritize locations
@@ -680,6 +694,169 @@ gps: Extract EXIF → compare to location → set location_verified if >100m
 ml: MobileNet (224x224) → flood/no_flood, threshold 0.3 (safety-first)
 storage: MOCKED - uses mock URLs, no real S3/Blob storage
 missing: Depth estimation, fake detection, real storage
+```
+
+### @admin (COMPLETE)
+```yaml
+files:
+  Backend:
+  - apps/backend/src/api/admin.py - Admin API (645 lines, 19 endpoints)
+  - apps/backend/src/domain/services/admin_service.py - AdminService (887 lines)
+
+  Frontend:
+  - apps/frontend/src/components/screens/AdminDashboard.tsx - Admin dashboard (1099 lines)
+  - apps/frontend/src/components/screens/AdminLoginScreen.tsx - Admin login
+  - apps/frontend/src/components/screens/AdminRegisterScreen.tsx - Invite-based registration
+
+models:
+  AdminInvite: code (8-char unique), created_by, role, used_by, used_at, expires_at (48h default)
+  RoleHistory: user_id, old_role, new_role, changed_by, reason
+
+features:
+  - Admin authentication separate from regular auth
+  - Invite code system (48-hour expiry) for multi-admin onboarding
+  - User role management: user → verified_reporter → moderator → admin → banned
+  - Report verification queue with approve/reject + notes
+  - Badge creation and manual awarding
+  - Ambassador promotion
+  - Analytics endpoints (user counts, report stats)
+  - Audit logging (all admin actions tracked via RoleHistory)
+  - System health check endpoint
+
+endpoints:
+  Auth (3):
+  - POST /api/admin/login - Admin login
+  - POST /api/admin/register - Register via invite code
+  - POST /api/admin/invites - Create invite code
+
+  User Management (5):
+  - GET /api/admin/users - List users (paginated)
+  - GET /api/admin/users/{id} - User detail
+  - PATCH /api/admin/users/{id}/role - Change role
+  - POST /api/admin/users/{id}/verify-reporter - Verify reporter
+  - POST /api/admin/users/{id}/ambassador - Promote to ambassador
+
+  Reports (3):
+  - GET /api/admin/reports - Report verification queue
+  - PATCH /api/admin/reports/{id}/verify - Approve/reject report
+  - GET /api/admin/reports/stats - Report statistics
+
+  Badges (3):
+  - POST /api/admin/badges - Create badge
+  - POST /api/admin/badges/{id}/award - Award badge to user
+  - GET /api/admin/badges - List all badges
+
+  System (5):
+  - GET /api/admin/analytics - Dashboard analytics
+  - GET /api/admin/health - System health
+  - GET /api/admin/invites - List invites
+  - DELETE /api/admin/invites/{id} - Revoke invite
+  - GET /api/admin/audit-log - Audit trail
+
+migration: python -m apps.backend.src.scripts.migrate_add_admin_invites
+```
+
+### @ml-pipeline (IN PROGRESS)
+```yaml
+files:
+  Profiling Scripts:
+  - apps/ml-pipeline/scripts/01_feature_trial.py - GEE connectivity + feature availability trial
+  - apps/ml-pipeline/scripts/02_static_profiling.py - Batched GEE extraction (reduceRegions, ~650x fewer API calls)
+  - apps/ml-pipeline/scripts/03_create_event_dates.py - Flood event date curation (Bangalore + Yogyakarta)
+  - apps/ml-pipeline/scripts/04_temporal_extraction.py - SAR temporal extraction (planned)
+  - apps/ml-pipeline/scripts/05_temporal_analysis.py - Tiered analysis (planned)
+  - apps/ml-pipeline/scripts/06_generate_outputs.py - Frontend output generation (planned)
+
+  Community Pipeline Scripts:
+  - apps/ml-pipeline/scripts/extract_city_features.py - Per-city GEE 18-feature extraction
+  - apps/ml-pipeline/scripts/train_city_xgboost.py - Per-city XGBoost training
+  - apps/ml-pipeline/scripts/cluster_reports.py - Road-segment report clustering for discovery
+  - apps/ml-pipeline/scripts/import_city_roads.py - OSM road network import via Geofabrik PBF
+  - apps/ml-pipeline/scripts/backfill_weather.py - Weather snapshot backfill for old reports
+
+  Config:
+  - apps/ml-pipeline/config/city_bounds.json - 5 city bounding boxes
+  - apps/ml-pipeline/config/feature_registry.json - Feature metadata (source, resolution, issues)
+  - apps/ml-pipeline/config/{city}_feature_trial.json - Per-city trial results (passed_features list)
+
+  Output:
+  - apps/ml-pipeline/output/profiles/ - Static feature NPZ + background points JSON
+  - apps/ml-pipeline/output/temporal/ - Event date JSONs + temporal feature NPZ
+
+two_part_design: |
+  PART A — Static Feature Profiling (all 5 cities):
+    Extract GEE physical features (terrain + land cover) for all hotspots + 500
+    stratified background points per city. Statistically compare distributions.
+    Tests: Mann-Whitney U, Cliff's Delta (primary effect size), Moran's I
+    (spatial autocorrelation), Benjamini-Hochberg correction.
+    Output: per-hotspot z-scores, per-city feature significance, cross-city
+    Bradford Hill consistency check.
+
+  PART B — SAR Temporal Contrast (Bangalore + Yogyakarta only):
+    Compare Sentinel-1 SAR at known hotspots during confirmed flood events
+    vs dry periods. SAR-only because weather features are tautological
+    ("it floods when it rains").
+    Tiered analysis: <8 dates = descriptive, 8-14 = mixed-effects model,
+    15+ = constrained XGBoost (depth=2, 30 trees, Leave-One-Date-Out CV).
+    Excluded: Delhi (6 dates too few), Singapore (flash floods too brief for SAR).
+
+community_learning_loop: |
+  PILLAR 1 — Per-City XGBoost Training:
+    Train Delhi's 18-feature XGBoost model for all 5 cities.
+    Surface per-city and per-hotspot feature importance in frontend
+    ("Why this location floods": top 3 contributing features).
+
+  PILLAR 2 — Community Report Discovery:
+    A) Report Enrichment (at creation): weather snapshot (Open-Meteo, 9 fields)
+       + road snapping (nearest OSM road within 200m via PostGIS).
+    B) Road Network: city_roads table from Geofabrik PBF (all road types,
+       underpass/bridge tagged). ~15MB across 5 cities.
+    C) Hotspot Discovery: Group verified reports by road_segment_id.
+       3+ verified reports on same segment = candidate hotspot.
+       3-tier promotion: threshold → context review → admin approval.
+       Approved candidates get GEE feature extraction + added to city data.
+
+features_extracted:
+  terrain (30m SRTM): elevation, slope, aspect, TPI, TWI
+  land_cover (10m ESA WorldCover): built_up_pct, vegetation_pct, cropland_pct,
+    water_pct, bare_pct, grass_pct
+  temporal (Sentinel-1 SAR): VV, VH, VV/VH ratio, change magnitude
+
+per_city_whitelisted_features:
+  delhi: 10 | bangalore: 11 | yogyakarta: 9 | singapore: 10 | indore: 11
+
+background_points: 500/city, quadrant-stratified (125 per NW/NE/SW/SE), min 500m from hotspots
+
+phase_status:
+  Phase 0+1 (GEE gate + feature trial): COMPLETE
+  Phase 2 (static extraction): SCRIPT READY (batched reduceRegions)
+  Phase 3 (statistical analysis): PENDING
+  Phase 4 (flood event dates): COMPLETE (Bangalore 15 flood + 7 dry, Yogyakarta 12 flood + 7 dry)
+  Phase 5 (SAR temporal): PENDING
+  Phase 6 (output generation): PENDING
+
+key_design_decisions:
+  - Cliff's Delta over Cohen's d (no normality assumption for geospatial data)
+  - p-values secondary to effect sizes (n=500 makes everything statistically significant)
+  - SAR-only temporal features (weather is circular/tautological)
+  - Per-city feature whitelists (hilly Yogyakarta ≠ flat Delhi)
+  - Batched reduceRegions (~650x fewer GEE API calls, ~23x faster)
+  - Storm cluster tagging for honest effective-n counting
+
+new_db_models:
+  CityRoad: city, osm_id, name, road_type, is_underpass, is_bridge, geometry, elevation_avg
+  CandidateHotspot: city, road_segment_id, centroid, report_count, report_ids[], avg_weather,
+    status (candidate/approved/rejected), reviewed_by, promoted_to_hotspot_name
+
+frontend_integration: |
+  Planned: "Flood Risk Profile" section in hotspot detail panel (z-scores + top features)
+  Planned: /methodology route with public methodology.md + charts
+  All analysis is offline; backend serves pre-computed JSONs
+
+design_docs:
+  - docs/plans/2026-03-07-city-xgboost-profiling-design.md (Part A+B profiling)
+  - docs/plans/2026-03-05-community-ml-pipeline-design.md (community learning loop)
+  - docs/plans/2026-03-07-profiling-implementation-status.md (progress tracker)
 ```
 
 ### @e2e-testing (COMPLETE)
@@ -1047,6 +1224,9 @@ next: Install native Capacitor plugins for push, geolocation, camera
 | Privacy Policy | `PrivacyPolicyScreen.tsx` | ✅ |
 | Terms | `TermsScreen.tsx` | ✅ |
 | Placeholders | `Placeholders.tsx` | ✅ |
+| Admin Dashboard | `AdminDashboard.tsx` | ✅ |
+| Admin Login | `AdminLoginScreen.tsx` | ✅ |
+| Admin Register | `AdminRegisterScreen.tsx` | ✅ |
 
 ## Frontend Contexts (8)
 
@@ -1061,7 +1241,7 @@ next: Install native Capacitor plugins for push, geolocation, camera
 | Install Prompt | `InstallPromptContext.tsx` | PWA install state |
 | Onboarding Bot | `OnboardingBotContext.tsx` | Tour state, language, phase management |
 
-## Backend API Files (29)
+## Backend API Files (30)
 
 | File | Domain | Endpoints |
 |------|--------|-----------|
@@ -1093,9 +1273,10 @@ next: Install native Capacitor plugins for push, geolocation, camera
 | `whatsapp_meta.py` | @whatsapp | WhatsApp webhook (Meta Cloud API) |
 | `push.py` | @push-notifications | FCM token registration |
 | `sos.py` | @sos | Emergency SOS fanout |
+| `admin.py` | @admin | Admin dashboard, invites, role management (19 endpoints) |
 | `deps.py` | (shared) | auth dependencies, role checks |
 
-## Database Models (23)
+## Database Models (27)
 
 | Model | Table | Key Fields |
 |-------|-------|------------|
@@ -1122,6 +1303,10 @@ next: Install native Capacitor plugins for push, geolocation, camera
 | SOSMessage | sos_messages | user_id, circle_ids, message, location, recipients_json, status (sent/partial/failed) |
 | RefreshToken | refresh_tokens | user_id, token_hash, expires_at |
 | EmailVerificationToken | email_verification_tokens | user_id, token, expires_at |
+| AdminInvite | admin_invites | code (8-char unique), created_by, role, used_by, expires_at (48h) |
+| CityRoad | city_roads | city, osm_id, name, road_type, is_underpass, is_bridge, geometry (PostGIS) |
+| CandidateHotspot | candidate_hotspots | city, road_segment_id, centroid, report_count, status, reviewed_by |
+| Invite | invites | code, role, created_by, max_uses, used_count, expires_at |
 
 ---
 
@@ -1130,8 +1315,8 @@ next: Install native Capacitor plugins for push, geolocation, camera
 ### Tier 1: Community Intelligence ✅ COMPLETE
 Reports, map, alerts, onboarding, auth (Email/Google/Phone), E2E tests, community voting/comments
 
-### Tier 2: ML/AI Foundation ✅ MOSTLY COMPLETE
-- [x] XGBoost for 406 known hotspots (90 Delhi + 200 Bangalore + 19 Yogyakarta + 60 Singapore + 37 Indore, AUC 0.98)
+### Tier 2: ML/AI Foundation ✅ MOSTLY COMPLETE (profiling pipeline in progress)
+- [x] XGBoost for 499 known hotspots (90 Delhi + 200 Bangalore + 76 Yogyakarta + 60 Singapore + 73 Indore, AUC 0.98)
 - [x] FHI formula + rainfall forecasts (Open-Meteo, per-city calibration)
 - [x] Historical Floods Panel (45 Delhi events, 1969-2023)
 - [x] Photo classification (embedded TFLite MobileNet)
@@ -1171,7 +1356,7 @@ Reports, map, alerts, onboarding, auth (Email/Google/Phone), E2E tests, communit
 - [ ] Play Store release (app signing, listing)
 
 ### Tier 7: Scale ✅ PARTIALLY COMPLETE
-- [x] City expansion: Yogyakarta added as 3rd city (19 hotspots, GDACS, FHI, search)
+- [x] City expansion: Yogyakarta added as 3rd city (76 hotspots, GDACS, FHI, search)
 - [x] Singapore added as 4th city (60 PUB hotspots, MRT, NEA weather, Telegram alerts)
 - [x] Bangalore BBMP hotspots (200 official flood-vulnerable locations, 8 zones)
 - [x] Per-city FHI weather sources (NEA for Singapore, OWM for Yogyakarta)
@@ -1186,6 +1371,12 @@ Reports, map, alerts, onboarding, auth (Email/Google/Phone), E2E tests, communit
 - [x] SOS emergency with offline queue (IndexedDB + Background Sync + Twilio fanout)
 - [x] Meta WhatsApp Cloud API (parallel transport alongside Twilio)
 - [x] Capacitor Android wrapper (BridgeActivity, WebView, platform detection)
+- [x] Indore added as 5th city (73 hotspots, FHI calibration, 30 aliases, 8 emergency contacts)
+- [x] Hotspot expansion: Yogyakarta 19→76, Indore 37→73 (total: 499 across 5 cities)
+- [x] Multi-admin invite system (19 endpoints, admin dashboard, role management, audit logging)
+- [x] City-specific flood hotspot profiling pipeline (GEE + SAR, 6 phases — in progress)
+- [x] Community learning loop: report enrichment + road snapping + hotspot discovery
+- [x] Fuzzy search with backend difflib matching + instant hotspot cache results
 - [ ] Multi-language UI (Hindi, Kannada, Indonesian — onboarding bot covers 3 languages, WhatsApp Hindi done)
 - [ ] GNN for flood propagation modeling
 - [ ] Real photo storage (S3/Blob, currently mocked)

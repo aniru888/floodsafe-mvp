@@ -23,7 +23,7 @@ Every monsoon and wet season, cities across Asia face devastating urban flooding
 
 - **Community Intelligence** — Citizens report flooding in real-time with GPS-verified photos, building a crowd-sourced flood map that helps everyone navigate safely.
 
-- **AI-Powered Prediction** — Machine learning models (XGBoost, AUC 0.98) predict waterlogging risk at 369 known hotspots across 4 cities using live weather data, giving people advance warning before they step outside.
+- **AI-Powered Prediction** — Machine learning models (XGBoost, AUC 0.98) predict waterlogging risk at 499 known hotspots across 5 cities using live weather data, giving people advance warning before they step outside.
 
 - **Safe Routing** — A route planner that avoids high-risk flood zones with 300-meter safety buffers, with live turn-by-turn voice navigation to guide you through safer paths.
 
@@ -40,8 +40,8 @@ FloodSafe is a nonprofit project built for social good.
 | Feature | Description |
 |---------|-------------|
 | **Flood Hazard Index (FHI)** | Live risk score (0–1) from 6 weather components: `0.35×P + 0.18×I + 0.12×S + 0.12×A + 0.08×R + 0.15×E`. 14-day exponential API decay for soil saturation, ceiling-only P95 percentiles from ERA5, per-city calibration (k: 0.80–0.92). Sources: Open-Meteo, NEA, OpenWeatherMap |
-| **Waterlogging Hotspots** | 369 locations across 4 cities (90 Delhi, 200 Bangalore, 19 Yogyakarta, 60 Singapore) with live FHI-based color coding. Per-city weather sources: NEA (Singapore), OpenWeatherMap (Yogyakarta), Open-Meteo (Delhi/Bangalore) |
-| **XGBoost Risk Model** | 18-feature binary classifier (AUC 0.98) for weather-responsive risk prediction at 369 known hotspots |
+| **Waterlogging Hotspots** | 499 locations across 5 cities (90 Delhi, 200 Bangalore, 76 Yogyakarta, 60 Singapore, 73 Indore) with live FHI-based color coding. Per-city weather sources: NEA (Singapore), OpenWeatherMap (Yogyakarta), Open-Meteo (Delhi/Bangalore/Indore) |
+| **XGBoost Risk Model** | 18-feature binary classifier (AUC 0.98) for weather-responsive risk prediction at 499 known hotspots |
 | **Flood Photo Classifier** | MobileNet v1 via TFLite, threshold 0.3 (safety-first to minimize false negatives) |
 | **Historical Floods** | 45 Delhi NCR events (1969–2023) from the IFI-Impacts dataset, grouped by decade |
 | **Google Flood Forecasting** | Live Google Flood Forecasting API — 1 Delhi gauge (CWC_015-UYDDEL, Yamuna), 28-hour forecasts, 3-tier thresholds (warning/danger/extreme), significant events with population impact, KML→GeoJSON inundation maps |
@@ -111,7 +111,7 @@ ESP32-based water level monitoring with dual sensor fusion (capacitive strips + 
 |-------|-------------|
 | **Frontend** | React 18, TypeScript 5, Vite, Tailwind CSS v4, Radix UI, MapLibre GL JS, TanStack Query, Workbox, Capacitor 8 (Android) |
 | **Backend** | FastAPI, SQLAlchemy 2.0, Pydantic v2, Alembic, PostGIS |
-| **ML / AI** | XGBoost, TensorFlow / MobileNet (TFLite), Google Flood Forecasting API, Google Earth Engine, CHIRPS, Open-Meteo, NEA (Singapore weather), OpenWeatherMap |
+| **ML / AI** | XGBoost, TensorFlow / MobileNet (TFLite), Google Flood Forecasting API, Google Earth Engine, Sentinel-1 SAR, SHAP, CHIRPS, Open-Meteo, NEA (Singapore weather), OpenWeatherMap |
 | **Database** | PostgreSQL 15 + PostGIS (SRID 4326) |
 | **Auth** | Email/Password (bcrypt), Google OAuth, Phone OTP (Firebase) |
 | **Maps** | MapLibre GL JS, PMTiles (offline tiles), OpenStreetMap, Photon + Nominatim geocoding |
@@ -133,37 +133,43 @@ ESP32-based water level monitoring with dual sensor fusion (capacitive strips + 
                             │      Frontend        │
                             │  React 18 + MapLibre │
                             │  PWA + Workbox       │
-                            │  12 screens          │
+                            │  14 screens          │
                             └──────────┬──────────┘
                                        │
                          ┌─────────────▼──────────────┐
                          │        Backend API          │
                          │   FastAPI + SQLAlchemy      │
-                         │  32 routers, 100+ endpoints │
+                         │  33 routers, 120+ endpoints │
                          │     Clean Architecture      │
                          └─┬───────┬──────────┬────┬──┘
                            │       │          │    │
               ┌────────────▼──┐ ┌──▼─────┐ ┌──▼──┐ ┌▼─────────────┐
               │ PostgreSQL    │ │   ML   │ │ IoT │ │ External APIs │
               │ + PostGIS     │ │ Service│ │Ingest│ │───────────────│
-              │  23 tables    │ │ XGBoost│ │(8001)│ │ Google Flood  │
+              │  27 tables    │ │ XGBoost│ │(8001)│ │ Google Flood  │
               │ (Supabase)    │ │MbilNet │ │Paused│ │ Forecasting   │
               └───────────────┘ │FHI Calc│ └─────┘ │ Meta/Wit.ai   │
-                                └────────┘         │ Twilio + FCM  │
-                                                   └───────────────┘
+                                └──┬─────┘         │ Twilio + FCM  │
+                                   │               └───────────────┘
+                            ┌──────▼───────┐
+                            │  ML Pipeline │
+                            │  GEE + SAR   │
+                            │  (offline)   │
+                            └──────────────┘
 ```
 
-- **Frontend** — 12 screens, 8 React contexts, full PWA with offline support. Hosted on Vercel.
-- **Backend API** — 32 router modules following Clean Architecture (`api/` → `domain/services/` → `infrastructure/`). Hosted on Koyeb.
+- **Frontend** — 14 screens, 8 React contexts, full PWA with offline support. Hosted on Vercel.
+- **Backend API** — 33 router modules following Clean Architecture (`api/` → `domain/services/` → `infrastructure/`). Hosted on Koyeb.
 - **ML Service** — XGBoost hotspot risk model, FHI calculator, MobileNet flood classifier. Hosted on Koyeb.
+- **ML Pipeline** — Offline city-specific profiling: GEE terrain/land cover extraction, Sentinel-1 SAR temporal contrast, statistical analysis (Cliff's Delta, Moran's I). 6-phase pipeline for 499 hotspots across 5 cities.
 - **External APIs** — Google Flood Forecasting (gauge forecasts, inundation maps), NEA (Singapore weather), Wit.ai (NLU for WhatsApp), Meta Llama (AI risk summaries with Groq fallback), Twilio + Meta WhatsApp Cloud API (dual transport), Firebase Cloud Messaging (push notifications).
-- **Database** — PostgreSQL 15 with PostGIS extensions, 23 tables, UUID primary keys. Hosted on Supabase.
+- **Database** — PostgreSQL 15 with PostGIS extensions, 27 tables, UUID primary keys. Hosted on Supabase.
 
 ---
 
 ## Screenshots
 
-> Screenshots coming soon. Try the live app at **[frontend-lime-psi-83.vercel.app](https://frontend-lime-psi-83.vercel.app)**.
+> Screenshots coming soon. Try the live app at **[floodsafe.live](https://floodsafe.live)**.
 
 <!--
 | Home | Flood Atlas | Safe Routing |
@@ -242,7 +248,7 @@ Each service has a `.env.example` file. Key variables:
 
 ## API Overview
 
-The backend exposes 32 router modules with 100+ endpoints. Full Swagger docs available at `/docs`.
+The backend exposes 33 router modules with 120+ endpoints. Full Swagger docs available at `/docs`.
 
 | Group | Routers | Endpoints | Description |
 |-------|---------|:---------:|-------------|
@@ -268,7 +274,7 @@ FloodSafe/
 ├── apps/
 │   ├── backend/                 # FastAPI backend
 │   │   └── src/
-│   │       ├── api/             # 32 router modules
+│   │       ├── api/             # 33 router modules
 │   │       ├── domain/services/ # Business logic (auth, routing, alerts, circles...)
 │   │       ├── infrastructure/  # SQLAlchemy models, database
 │   │       └── core/            # Config, dependencies
@@ -276,7 +282,7 @@ FloodSafe/
 │   │   ├── android/             # Capacitor Android wrapper (BridgeActivity)
 │   │   └── src/
 │   │       ├── components/
-│   │       │   ├── screens/     # 12 screen components
+│   │       │   ├── screens/     # 14 screen components
 │   │       │   ├── ui/          # Radix UI primitives
 │   │       │   ├── floodhub/    # FloodHub tab
 │   │       │   ├── circles/     # Safety Circles
@@ -289,6 +295,10 @@ FloodSafe/
 │   │       ├── models/          # XGBoost, MobileNet, FHI
 │   │       ├── features/        # Feature engineering
 │   │       └── data/            # Data loading & processing
+│   ├── ml-pipeline/             # Offline profiling pipeline (GEE + SAR)
+│   │   ├── scripts/             # 6-phase pipeline scripts
+│   │   ├── config/              # City bounds, feature registry
+│   │   └── output/              # Profiles, temporal features
 │   ├── iot-ingestion/           # Sensor ingestion (paused)
 │   └── esp32-firmware/          # Arduino firmware (paused)
 ├── docker-compose.yml
@@ -304,10 +314,11 @@ FloodSafe/
 |------|--------|:--------:|:-----------------:|:--------:|:-------------:|:-------------:|
 | **Delhi NCR** | Full | 90 (62 MCD + 28 OSM) | 45 (1969–2023) | 1 CWC gauge | Open-Meteo | All 8 + IMD |
 | **Bangalore** | Active | 200 (BBMP official) | — | — | Open-Meteo | GDACS + IMD |
-| **Yogyakarta** | Active | 19 | — | — | OWM / Open-Meteo | GDACS + bilingual ID |
+| **Yogyakarta** | Active | 76 (BPBD + PetaBencana + news) | — | — | OWM / Open-Meteo | GDACS + bilingual ID |
 | **Singapore** | Active | 60 (PUB official) | — | — | NEA (5min) | PUB + GDACS + Telegram |
+| **Indore** | Active | 73 (IMC + news) | — | — | Open-Meteo | GDACS + IMD |
 
-FloodSafe supports 4 cities across 3 countries with 369 total hotspots. Delhi has the deepest integration (FloodHub gauge forecasts, 45 historical events, 90 hotspots). Bangalore has 200 official BBMP flood-vulnerable locations across 8 zones. Singapore uses NEA for real-time weather with 5-minute updates. Yogyakarta uses OpenWeatherMap when an API key is configured. Each city has per-city FHI calibration tuned to local elevation, wet season, and urban density — including 14-day exponential decay for soil saturation.
+FloodSafe supports 5 cities across 3 countries with 499 total hotspots. Delhi has the deepest integration (FloodHub gauge forecasts, 45 historical events, 90 hotspots). Bangalore has 200 official BBMP flood-vulnerable locations across 8 zones. Singapore uses NEA for real-time weather with 5-minute updates. Yogyakarta has 76 hotspots from BPBD, PetaBencana, and news sources. Indore has 73 hotspots from IMC reports and local news with FHI calibration for its 440-650m elevation range. Each city has per-city FHI calibration tuned to local elevation, wet season, and urban density — including 14-day exponential decay for soil saturation.
 
 ---
 
@@ -316,7 +327,7 @@ FloodSafe supports 4 cities across 3 countries with 369 total hotspots. Delhi ha
 | Tier | Name | Status |
 |:----:|------|--------|
 | 1 | **Community Intelligence** | Complete — Reports, auth, alerts, onboarding, voting, comments, E2E tests |
-| 2 | **ML/AI Foundation** | Complete — XGBoost (AUC 0.98), FHI calculator, MobileNet, external alerts, Google Flood Forecasting API (live), historical floods |
+| 2 | **ML/AI Foundation** | Complete — XGBoost (AUC 0.98), FHI calculator, MobileNet, external alerts, Google Flood Forecasting API (live), historical floods, city-specific profiling pipeline (GEE + SAR, in progress) |
 | 3 | **Smart Sensors** | Mostly complete — ESP32 firmware and ingestion built; edge ML not yet implemented. IoT paused |
 | 4 | **Smart Features** | Complete — Gamification, safe routing, saved routes, smart search, live navigation |
 | 5 | **Messaging** | Complete — WhatsApp dual transport (Twilio + Meta Cloud API), Wit.ai NLU, Meta Llama risk summaries, FCM push notifications, SOS emergency fanout |
@@ -334,6 +345,11 @@ FloodSafe supports 4 cities across 3 countries with 369 total hotspots. Delhi ha
 - [x] SOS emergency with offline queue (IndexedDB + Background Sync)
 - [x] Meta WhatsApp Cloud API (parallel transport alongside Twilio)
 - [x] Capacitor Android wrapper (BridgeActivity, WebView)
+- [x] Indore added as 5th city (73 hotspots, FHI calibration, 30 aliases, 8 emergency contacts)
+- [x] Hotspot expansion: Yogyakarta 19→76, Indore 37→73 (total: 499)
+- [x] Multi-admin invite system (19 endpoints, admin dashboard, role management)
+- [x] City-specific flood hotspot profiling pipeline (GEE + SAR, 6 phases — in progress)
+- [x] Fuzzy search with backend difflib matching + instant hotspot cache results
 - [ ] Native Capacitor plugins (push, geolocation, camera)
 - [ ] Play Store release
 - [ ] Multi-language UI (Hindi, Kannada, Indonesian)
