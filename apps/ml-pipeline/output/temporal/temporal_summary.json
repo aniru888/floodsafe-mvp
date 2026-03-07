@@ -1,0 +1,24 @@
+{
+  "cities_analyzed": [
+    "bangalore",
+    "yogyakarta"
+  ],
+  "per_city": {
+    "bangalore": {
+      "tier": "xgboost",
+      "effective_n": 20,
+      "n_valid_samples": 3800,
+      "default_rate": 0.13636363636363635,
+      "global_auc": 0.9256,
+      "quality": "strong"
+    },
+    "yogyakarta": {
+      "tier": "descriptive",
+      "effective_n": 17,
+      "n_valid_samples": 608,
+      "default_rate": 0.5789473684210527,
+      "global_auc": null,
+      "quality": null
+    }
+  }
+}

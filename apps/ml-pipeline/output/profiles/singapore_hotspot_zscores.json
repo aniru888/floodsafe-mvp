@@ -1,0 +1,842 @@
+[
+  {
+    "name": "Junction of Ang Mo Kio Avenue 3 and Ang Mo Kio Avenue 8",
+    "zscores": {
+      "elevation": 0.816,
+      "slope": 0.974,
+      "aspect": 1.369,
+      "twi": -1.224,
+      "built_up_pct": 2.486,
+      "vegetation_pct": -0.417,
+      "water_pct": -1.155,
+      "bare_pct": -0.292,
+      "grass_pct": -0.207
+    }
+  },
+  {
+    "name": "Junction of Bedok North Avenue 4 and Upper Changi Road",
+    "zscores": {
+      "elevation": 0.145,
+      "slope": 1.282,
+      "aspect": 0.969,
+      "twi": -1.287,
+      "built_up_pct": 2.213,
+      "vegetation_pct": -0.414,
+      "water_pct": -1.087,
+      "bare_pct": 0.07,
+      "grass_pct": -0.082
+    }
+  },
+  {
+    "name": "Bukit Timah Road (Wilby Road to Blackmore Drive)",
+    "zscores": {
+      "elevation": 0.67,
+      "slope": 0.924,
+      "aspect": 1.023,
+      "twi": -1.179,
+      "built_up_pct": 1.232,
+      "vegetation_pct": 0.405,
+      "water_pct": -1.154,
+      "bare_pct": -0.292,
+      "grass_pct": 0.761
+    }
+  },
+  {
+    "name": "Junction of Cavenagh Road and Kramat Lane",
+    "zscores": {
+      "elevation": 0.292,
+      "slope": 1.192,
+      "aspect": 1.363,
+      "twi": -1.266,
+      "built_up_pct": 1.856,
+      "vegetation_pct": 0.137,
+      "water_pct": -1.15,
+      "bare_pct": 0.404,
+      "grass_pct": -0.42
+    }
+  },
+  {
+    "name": "Junction of Craig Road and Tanjong Pagar Road",
+    "zscores": {
+      "elevation": 0.86,
+      "slope": 3.197,
+      "aspect": 1.311,
+      "twi": -1.604,
+      "built_up_pct": 2.215,
+      "vegetation_pct": -0.031,
+      "water_pct": -1.151,
+      "bare_pct": -0.28,
+      "grass_pct": -0.43
+    }
+  },
+  {
+    "name": "Dunearn Road (Rifle Range to Binjai Park)",
+    "zscores": {
+      "elevation": 1.045,
+      "slope": 1.004,
+      "aspect": 1.041,
+      "twi": -1.213,
+      "built_up_pct": 2.233,
+      "vegetation_pct": -0.075,
+      "water_pct": -1.155,
+      "bare_pct": -0.175,
+      "grass_pct": -0.43
+    }
+  },
+  {
+    "name": "Dunearn Road (Hillcrest Road to Watten Estate Road)",
+    "zscores": {
+      "elevation": 0.57,
+      "slope": 0.591,
+      "aspect": 1.15,
+      "twi": -1.079,
+      "built_up_pct": 1.403,
+      "vegetation_pct": 0.609,
+      "water_pct": -1.155,
+      "bare_pct": 0.023,
+      "grass_pct": -0.179
+    }
+  },
+  {
+    "name": "Eng Neo Avenue (Vanda Link to Dunearn Road)",
+    "zscores": {
+      "elevation": 1.813,
+      "slope": 0.96,
+      "aspect": 1.117,
+      "twi": -1.256,
+      "built_up_pct": -0.558,
+      "vegetation_pct": 2.857,
+      "water_pct": -1.155,
+      "bare_pct": -0.292,
+      "grass_pct": -0.384
+    }
+  },
+  {
+    "name": "Enterprise Road (Wan Lee Road to Jalan Boon Lay)",
+    "zscores": {
+      "elevation": 0.17,
+      "slope": 0.551,
+      "aspect": 1.196,
+      "twi": -1.099,
+      "built_up_pct": 2.021,
+      "vegetation_pct": 0.052,
+      "water_pct": -1.153,
+      "bare_pct": -0.086,
+      "grass_pct": -0.302
+    }
+  },
+  {
+    "name": "Hougang Avenue 8 (Hougang Street 52 to Hougang Avenue 6)",
+    "zscores": {
+      "elevation": 0.441,
+      "slope": 1.323,
+      "aspect": 1.344,
+      "twi": -1.329,
+      "built_up_pct": 2.142,
+      "vegetation_pct": -0.05,
+      "water_pct": -1.154,
+      "bare_pct": -0.274,
+      "grass_pct": -0.237
+    }
+  },
+  {
+    "name": "Jalan Boon Lay (International Road to Enterprise Road)",
+    "zscores": {
+      "elevation": 0.774,
+      "slope": 0.507,
+      "aspect": 1.006,
+      "twi": -1.046,
+      "built_up_pct": 1.694,
+      "vegetation_pct": -0.106,
+      "water_pct": -1.153,
+      "bare_pct": 0.329,
+      "grass_pct": 0.45
+    }
+  },
+  {
+    "name": "Jalan Nipah",
+    "zscores": {
+      "elevation": 0.095,
+      "slope": 0.491,
+      "aspect": 0.876,
+      "twi": -1.058,
+      "built_up_pct": 2.409,
+      "vegetation_pct": -0.557,
+      "water_pct": -1.078,
+      "bare_pct": 0.249,
+      "grass_pct": -0.345
+    }
+  },
+  {
+    "name": "Jurong East Street 32",
+    "zscores": {
+      "elevation": 0.671,
+      "slope": 1.142,
+      "aspect": 1.214,
+      "twi": -1.275,
+      "built_up_pct": 2.56,
+      "vegetation_pct": -0.386,
+      "water_pct": -1.155,
+      "bare_pct": -0.292,
+      "grass_pct": -0.423
+    }
+  },
+  {
+    "name": "Junction of Kampong Ampat and Macpherson Road",
+    "zscores": {
+      "elevation": 1.122,
+      "slope": 1.785,
+      "aspect": 1.086,
+      "twi": -1.398,
+      "built_up_pct": 2.387,
+      "vegetation_pct": -0.211,
+      "water_pct": -1.155,
+      "bare_pct": -0.292,
+      "grass_pct": -0.412
+    }
+  },
+  {
+    "name": "Junction of Lorong 1 and Lorong 2 Toa Payoh",
+    "zscores": {
+      "elevation": 1.105,
+      "slope": 1.703,
+      "aspect": 1.058,
+      "twi": -1.393,
+      "built_up_pct": 2.312,
+      "vegetation_pct": -0.123,
+      "water_pct": -1.155,
+      "bare_pct": -0.292,
+      "grass_pct": -0.43
+    }
+  },
+  {
+    "name": "Lorong Gambir (Lorong Penchalak to Gambir Walk)",
+    "zscores": {
+      "elevation": 0.684,
+      "slope": 0.593,
+      "aspect": 0.98,
+      "twi": -1.078,
+      "built_up_pct": 2.572,
+      "vegetation_pct": -0.479,
+      "water_pct": -1.155,
+      "bare_pct": -0.015,
+      "grass_pct": -0.427
+    }
+  },
+  {
+    "name": "Junction of Lorong Kismis and Kismis Place",
+    "zscores": {
+      "elevation": 2.196,
+      "slope": 0.896,
+      "aspect": 1.324,
+      "twi": -1.187,
+      "built_up_pct": 2.481,
+      "vegetation_pct": -0.316,
+      "water_pct": -1.155,
+      "bare_pct": -0.292,
+      "grass_pct": -0.396
+    }
+  },
+  {
+    "name": "Punggol Way (slip road to TPE)",
+    "zscores": {
+      "elevation": 0.512,
+      "slope": 0.867,
+      "aspect": 0.916,
+      "twi": -1.221,
+      "built_up_pct": 2.14,
+      "vegetation_pct": -0.232,
+      "water_pct": -1.155,
+      "bare_pct": -0.286,
+      "grass_pct": 0.14
+    }
+  },
+  {
+    "name": "Seletar North Link (Punggol Barat Island)",
+    "zscores": {
+      "elevation": 0.028,
+      "slope": 0.045,
+      "aspect": 1.388,
+      "twi": -0.858,
+      "built_up_pct": 0.104,
+      "vegetation_pct": 1.026,
+      "water_pct": -1.155,
+      "bare_pct": 0.418,
+      "grass_pct": 1.452
+    }
+  },
+  {
+    "name": "Upper Changi Road East (Bedok Road to Simei Avenue)",
+    "zscores": {
+      "elevation": 0.176,
+      "slope": 0.48,
+      "aspect": 1.202,
+      "twi": -1.059,
+      "built_up_pct": 2.473,
+      "vegetation_pct": -0.357,
+      "water_pct": -1.155,
+      "bare_pct": -0.103,
+      "grass_pct": -0.41
+    }
+  },
+  {
+    "name": "Service Road off Upper Paya Lebar Road (near Lim Teck Boo Road)",
+    "zscores": {
+      "elevation": 0.103,
+      "slope": 0.565,
+      "aspect": 0.88,
+      "twi": -1.08,
+      "built_up_pct": 2.191,
+      "vegetation_pct": -0.246,
+      "water_pct": -1.153,
+      "bare_pct": -0.11,
+      "grass_pct": -0.05
+    }
+  },
+  {
+    "name": "Yishun Avenue 5 (slip road to Yishun Avenue 2)",
+    "zscores": {
+      "elevation": 0.886,
+      "slope": 0.879,
+      "aspect": 1.287,
+      "twi": -1.157,
+      "built_up_pct": 2.604,
+      "vegetation_pct": -0.432,
+      "water_pct": -1.155,
+      "bare_pct": -0.286,
+      "grass_pct": -0.427
+    }
+  },
+  {
+    "name": "Junction of Yishun Avenue 7 and Yishun Street 22",
+    "zscores": {
+      "elevation": 0.315,
+      "slope": 0.815,
+      "aspect": 1.574,
+      "twi": -1.16,
+      "built_up_pct": 1.422,
+      "vegetation_pct": 0.473,
+      "water_pct": -1.155,
+      "bare_pct": -0.292,
+      "grass_pct": 0.236
+    }
+  },
+  {
+    "name": "Kings Road (Prince Road to Lutheran Road)",
+    "zscores": {
+      "elevation": 0.49,
+      "slope": 1.585,
+      "aspect": 0.947,
+      "twi": -1.37,
+      "built_up_pct": 1.513,
+      "vegetation_pct": 0.659,
+      "water_pct": -1.143,
+      "bare_pct": -0.18,
+      "grass_pct": -0.43
+    }
+  },
+  {
+    "name": "Prince Philip Avenue / Jervois Road",
+    "zscores": {
+      "elevation": 0.394,
+      "slope": 2.341,
+      "aspect": 1.313,
+      "twi": -1.482,
+      "built_up_pct": 1.487,
+      "vegetation_pct": 0.581,
+      "water_pct": -1.084,
+      "bare_pct": -0.26,
+      "grass_pct": -0.368
+    }
+  },
+  {
+    "name": "Admiralty Road West (Sembawang Drive to Dock Road West)",
+    "zscores": {
+      "elevation": 0.114,
+      "slope": 2.293,
+      "aspect": 1.146,
+      "twi": -1.5,
+      "built_up_pct": 1.994,
+      "vegetation_pct": -0.032,
+      "water_pct": -1.131,
+      "bare_pct": 0.151,
+      "grass_pct": -0.289
+    }
+  },
+  {
+    "name": "Beach Road / Java Road (St Johns HQ)",
+    "zscores": {
+      "elevation": 0.874,
+      "slope": 2.828,
+      "aspect": 1.395,
+      "twi": -1.512,
+      "built_up_pct": 2.093,
+      "vegetation_pct": -0.129,
+      "water_pct": -1.155,
+      "bare_pct": -0.248,
+      "grass_pct": 0.01
+    }
+  },
+  {
+    "name": "Bedok South Road (slip road to Bedok South Avenue 1)",
+    "zscores": {
+      "elevation": 0.257,
+      "slope": 0.416,
+      "aspect": 1.478,
+      "twi": -1.057,
+      "built_up_pct": 2.308,
+      "vegetation_pct": -0.391,
+      "water_pct": -1.154,
+      "bare_pct": 0.496,
+      "grass_pct": -0.351
+    }
+  },
+  {
+    "name": "Service road off Changi Road (near Chin Cheng Avenue)",
+    "zscores": {
+      "elevation": 0.093,
+      "slope": 0.164,
+      "aspect": 1.234,
+      "twi": -0.909,
+      "built_up_pct": 2.6,
+      "vegetation_pct": -0.463,
+      "water_pct": -1.146,
+      "bare_pct": -0.274,
+      "grass_pct": -0.395
+    }
+  },
+  {
+    "name": "Junction of Commonwealth Drive and Commonwealth Avenue",
+    "zscores": {
+      "elevation": 0.888,
+      "slope": 0.94,
+      "aspect": 0.794,
+      "twi": -1.227,
+      "built_up_pct": 1.239,
+      "vegetation_pct": 0.899,
+      "water_pct": -1.155,
+      "bare_pct": -0.248,
+      "grass_pct": -0.256
+    }
+  },
+  {
+    "name": "CTE (slip road to Moulmein Road)",
+    "zscores": {
+      "elevation": 0.535,
+      "slope": 1.075,
+      "aspect": 1.108,
+      "twi": -1.234,
+      "built_up_pct": 1.8,
+      "vegetation_pct": 0.406,
+      "water_pct": -1.155,
+      "bare_pct": -0.269,
+      "grass_pct": -0.43
+    }
+  },
+  {
+    "name": "Derbyshire Road / Cambridge Road / Farrer Park Field",
+    "zscores": {
+      "elevation": 0.405,
+      "slope": 1.711,
+      "aspect": 1.104,
+      "twi": -1.373,
+      "built_up_pct": 1.802,
+      "vegetation_pct": 0.218,
+      "water_pct": -1.153,
+      "bare_pct": -0.067,
+      "grass_pct": -0.188
+    }
+  },
+  {
+    "name": "Hong Kah Area",
+    "zscores": {
+      "elevation": 0.661,
+      "slope": 1.543,
+      "aspect": 1.231,
+      "twi": -1.368,
+      "built_up_pct": 1.826,
+      "vegetation_pct": 0.29,
+      "water_pct": -1.155,
+      "bare_pct": -0.292,
+      "grass_pct": -0.24
+    }
+  },
+  {
+    "name": "Indus Road (Havelock Road to Ganges Avenue)",
+    "zscores": {
+      "elevation": 0.497,
+      "slope": 1.623,
+      "aspect": 1.185,
+      "twi": -1.37,
+      "built_up_pct": 1.151,
+      "vegetation_pct": 0.679,
+      "water_pct": -1.14,
+      "bare_pct": -0.253,
+      "grass_pct": 0.318
+    }
+  },
+  {
+    "name": "Jalan Benaan Kapal",
+    "zscores": {
+      "elevation": -0.119,
+      "slope": 0.337,
+      "aspect": 1.435,
+      "twi": -0.99,
+      "built_up_pct": 0.797,
+      "vegetation_pct": 0.394,
+      "water_pct": -0.906,
+      "bare_pct": 0.614,
+      "grass_pct": 0.328
+    }
+  },
+  {
+    "name": "Jalan Besar Area",
+    "zscores": {
+      "elevation": 0.225,
+      "slope": 1.546,
+      "aspect": 1.447,
+      "twi": -1.358,
+      "built_up_pct": 2.219,
+      "vegetation_pct": -0.46,
+      "water_pct": -1.147,
+      "bare_pct": -0.231,
+      "grass_pct": 0.369
+    }
+  },
+  {
+    "name": "Jalan Mashor",
+    "zscores": {
+      "elevation": 0.466,
+      "slope": 0.537,
+      "aspect": 0.919,
+      "twi": -1.064,
+      "built_up_pct": 2.596,
+      "vegetation_pct": -0.463,
+      "water_pct": -1.155,
+      "bare_pct": -0.285,
+      "grass_pct": -0.351
+    }
+  },
+  {
+    "name": "Jalan Mat Jambol",
+    "zscores": {
+      "elevation": 0.857,
+      "slope": 2.258,
+      "aspect": 1.426,
+      "twi": -1.426,
+      "built_up_pct": 1.768,
+      "vegetation_pct": 0.446,
+      "water_pct": -1.155,
+      "bare_pct": -0.292,
+      "grass_pct": -0.43
+    }
+  },
+  {
+    "name": "Jalan Taman",
+    "zscores": {
+      "elevation": 0.123,
+      "slope": 0.751,
+      "aspect": 1.228,
+      "twi": -1.104,
+      "built_up_pct": 1.779,
+      "vegetation_pct": -0.002,
+      "water_pct": -0.942,
+      "bare_pct": -0.136,
+      "grass_pct": -0.364
+    }
+  },
+  {
+    "name": "King Georges Avenue (PA HQ)",
+    "zscores": {
+      "elevation": 0.289,
+      "slope": 1.513,
+      "aspect": 1.478,
+      "twi": -1.358,
+      "built_up_pct": 1.764,
+      "vegetation_pct": 0.072,
+      "water_pct": -1.14,
+      "bare_pct": -0.268,
+      "grass_pct": 0.258
+    }
+  },
+  {
+    "name": "Langsat Road Area (Lorong 102 to Lorong 106 Changi)",
+    "zscores": {
+      "elevation": 0.099,
+      "slope": 0.429,
+      "aspect": 1.056,
+      "twi": -0.975,
+      "built_up_pct": 2.662,
+      "vegetation_pct": -0.532,
+      "water_pct": -1.155,
+      "bare_pct": -0.223,
+      "grass_pct": -0.386
+    }
+  },
+  {
+    "name": "Lorong Buangkok Area",
+    "zscores": {
+      "elevation": 0.09,
+      "slope": 0.518,
+      "aspect": 1.361,
+      "twi": -1.05,
+      "built_up_pct": 1.382,
+      "vegetation_pct": 0.503,
+      "water_pct": -1.151,
+      "bare_pct": -0.286,
+      "grass_pct": 0.244
+    }
+  },
+  {
+    "name": "Lorong H Telok Kurau (near canal)",
+    "zscores": {
+      "elevation": 0.084,
+      "slope": 0.199,
+      "aspect": 1.284,
+      "twi": -0.934,
+      "built_up_pct": 2.632,
+      "vegetation_pct": -0.49,
+      "water_pct": -1.155,
+      "bare_pct": -0.286,
+      "grass_pct": -0.368
+    }
+  },
+  {
+    "name": "Alexandra Road / Lower Delta Road",
+    "zscores": {
+      "elevation": 1.388,
+      "slope": 1.974,
+      "aspect": 1.282,
+      "twi": -1.427,
+      "built_up_pct": 2.267,
+      "vegetation_pct": -0.087,
+      "water_pct": -1.155,
+      "bare_pct": -0.267,
+      "grass_pct": -0.423
+    }
+  },
+  {
+    "name": "Margaret Drive / Tanglin Road",
+    "zscores": {
+      "elevation": 0.643,
+      "slope": 1.716,
+      "aspect": 1.144,
+      "twi": -1.385,
+      "built_up_pct": 0.806,
+      "vegetation_pct": 1.393,
+      "water_pct": -1.155,
+      "bare_pct": -0.28,
+      "grass_pct": -0.321
+    }
+  },
+  {
+    "name": "Meyer Road Area (Fort Road to Broadrick Road)",
+    "zscores": {
+      "elevation": 0.304,
+      "slope": 1.245,
+      "aspect": 1.165,
+      "twi": -1.252,
+      "built_up_pct": 1.872,
+      "vegetation_pct": 0.325,
+      "water_pct": -1.151,
+      "bare_pct": -0.292,
+      "grass_pct": -0.418
+    }
+  },
+  {
+    "name": "Mimosa Walk (near canal)",
+    "zscores": {
+      "elevation": 0.795,
+      "slope": 0.287,
+      "aspect": 1.588,
+      "twi": -0.98,
+      "built_up_pct": 1.544,
+      "vegetation_pct": 0.055,
+      "water_pct": -1.155,
+      "bare_pct": -0.19,
+      "grass_pct": 0.736
+    }
+  },
+  {
+    "name": "Changi Camp (Changi Village Road / Farnborough Road)",
+    "zscores": {
+      "elevation": 0.355,
+      "slope": 0.387,
+      "aspect": 0.856,
+      "twi": -1.002,
+      "built_up_pct": 1.196,
+      "vegetation_pct": 0.753,
+      "water_pct": -1.155,
+      "bare_pct": -0.292,
+      "grass_pct": 0.148
+    }
+  },
+  {
+    "name": "Service road off Mountbatten Road (near Jalan Seaview)",
+    "zscores": {
+      "elevation": 0.067,
+      "slope": 0.808,
+      "aspect": 1.344,
+      "twi": -1.157,
+      "built_up_pct": 1.947,
+      "vegetation_pct": 0.144,
+      "water_pct": -1.15,
+      "bare_pct": -0.291,
+      "grass_pct": -0.217
+    }
+  },
+  {
+    "name": "Junction of Neo Pee Teck Lane and Pasir Panjang Road",
+    "zscores": {
+      "elevation": 0.141,
+      "slope": 0.609,
+      "aspect": 1.499,
+      "twi": -1.114,
+      "built_up_pct": 2.077,
+      "vegetation_pct": 0.091,
+      "water_pct": -1.155,
+      "bare_pct": -0.286,
+      "grass_pct": -0.372
+    }
+  },
+  {
+    "name": "New Upper Changi Road / Tanah Merah Kechil Avenue",
+    "zscores": {
+      "elevation": 0.263,
+      "slope": 0.539,
+      "aspect": 1.263,
+      "twi": -1.073,
+      "built_up_pct": 2.43,
+      "vegetation_pct": -0.297,
+      "water_pct": -1.155,
+      "bare_pct": -0.129,
+      "grass_pct": -0.424
+    }
+  },
+  {
+    "name": "Rose Lane",
+    "zscores": {
+      "elevation": -0.066,
+      "slope": 0.194,
+      "aspect": 1.052,
+      "twi": -0.924,
+      "built_up_pct": 2.181,
+      "vegetation_pct": -0.311,
+      "water_pct": -1.155,
+      "bare_pct": 0.232,
+      "grass_pct": -0.091
+    }
+  },
+  {
+    "name": "Second Chin Bee Road",
+    "zscores": {
+      "elevation": 0.091,
+      "slope": 0.287,
+      "aspect": 1.084,
+      "twi": -0.957,
+      "built_up_pct": 2.469,
+      "vegetation_pct": -0.288,
+      "water_pct": -1.155,
+      "bare_pct": -0.292,
+      "grass_pct": -0.43
+    }
+  },
+  {
+    "name": "Sennett Estate (Siang Kuang / Puay Hee / Wan Tho area)",
+    "zscores": {
+      "elevation": 0.26,
+      "slope": 0.6,
+      "aspect": 1.337,
+      "twi": -1.07,
+      "built_up_pct": 2.288,
+      "vegetation_pct": -0.296,
+      "water_pct": -1.155,
+      "bare_pct": -0.267,
+      "grass_pct": -0.063
+    }
+  },
+  {
+    "name": "Service road off Tampines Road (near Jalan Teliti)",
+    "zscores": {
+      "elevation": 0.54,
+      "slope": 0.304,
+      "aspect": 1.195,
+      "twi": -0.962,
+      "built_up_pct": 0.233,
+      "vegetation_pct": -0.311,
+      "water_pct": -1.148,
+      "bare_pct": 0.081,
+      "grass_pct": 4.018
+    }
+  },
+  {
+    "name": "Junction of Stevens Road and Balmoral Road",
+    "zscores": {
+      "elevation": 0.305,
+      "slope": 0.917,
+      "aspect": 1.286,
+      "twi": -1.203,
+      "built_up_pct": 2.211,
+      "vegetation_pct": -0.02,
+      "water_pct": -1.155,
+      "bare_pct": -0.29,
+      "grass_pct": -0.427
+    }
+  },
+  {
+    "name": "South Bridge Road / Upper Hokien Street / Upper Pickering Street",
+    "zscores": {
+      "elevation": 0.303,
+      "slope": 2.064,
+      "aspect": 1.293,
+      "twi": -1.446,
+      "built_up_pct": 2.378,
+      "vegetation_pct": -0.274,
+      "water_pct": -1.155,
+      "bare_pct": -0.254,
+      "grass_pct": -0.291
+    }
+  },
+  {
+    "name": "Upper East Coast Road (near Parbury Avenue)",
+    "zscores": {
+      "elevation": 0.411,
+      "slope": 0.331,
+      "aspect": 0.938,
+      "twi": -1.015,
+      "built_up_pct": 2.064,
+      "vegetation_pct": -0.163,
+      "water_pct": -1.155,
+      "bare_pct": 0.462,
+      "grass_pct": -0.275
+    }
+  },
+  {
+    "name": "Waterloo Street / Bencoolen Street / Prinsep Street",
+    "zscores": {
+      "elevation": 0.78,
+      "slope": 3.557,
+      "aspect": 1.48,
+      "twi": -1.68,
+      "built_up_pct": 2.604,
+      "vegetation_pct": -0.496,
+      "water_pct": -1.149,
+      "bare_pct": -0.128,
+      "grass_pct": -0.412
+    }
+  },
+  {
+    "name": "Zion Road (Former Boys Brigade HQ)",
+    "zscores": {
+      "elevation": 0.59,
+      "slope": 3.514,
+      "aspect": 1.179,
+      "twi": -1.646,
+      "built_up_pct": 1.849,
+      "vegetation_pct": 0.317,
+      "water_pct": -1.154,
+      "bare_pct": -0.224,
+      "grass_pct": -0.386
+    }
+  }
+]

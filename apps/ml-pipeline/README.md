@@ -28,11 +28,11 @@ Requires:
 | # | Script | Phase | Status |
 |---|--------|-------|--------|
 | 01 | `01_feature_trial.py` | GEE connectivity gate + feature availability trial | COMPLETE |
-| 02 | `02_static_profiling.py` | Batched GEE extraction (reduceRegions) | SCRIPT READY |
-| 03 | `03_create_event_dates.py` | Flood event date curation (Bangalore + Yogyakarta) | COMPLETE |
-| 04 | `04_temporal_extraction.py` | SAR temporal feature extraction | Planned |
-| 05 | `05_temporal_analysis.py` | Tiered analysis (descriptive/mixed-effects/XGBoost) | Planned |
-| 06 | `06_generate_outputs.py` | Frontend output generation (JSONs + PNGs) | Planned |
+| 02 | `02_static_profiling.py` | Batched GEE extraction (reduceRegions) | COMPLETE (7.4 min, 5 cities) |
+| 03a | `03_statistical_analysis.py` | Static feature analysis (Cliff's Delta, Moran's I) | COMPLETE (5 cities) |
+| 03b | `03_create_event_dates.py` | Flood event date curation (Bangalore + Yogyakarta) | COMPLETE |
+| 04 | `04_temporal_extraction.py` | SAR temporal feature extraction | COMPLETE (Bangalore + Yogyakarta) |
+| 05 | `05_temporal_analysis.py` | Tiered analysis (descriptive/XGBoost) | COMPLETE (AUC 0.926 Bangalore) |
 
 ### Usage
 

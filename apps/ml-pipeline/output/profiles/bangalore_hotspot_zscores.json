@@ -1,0 +1,1802 @@
+[
+  {
+    "name": "Mantri Lake view Appartment Next to Talagattapura Lake",
+    "zscores": {
+      "tpi": -1.119,
+      "built_up_pct": 0.314,
+      "cropland_pct": 0.174,
+      "grass_pct": -0.166
+    }
+  },
+  {
+    "name": "Kendriya nagara",
+    "zscores": {
+      "tpi": -0.598,
+      "built_up_pct": 0.264,
+      "cropland_pct": -0.804,
+      "grass_pct": -0.256
+    }
+  },
+  {
+    "name": "Raghuvanahalli",
+    "zscores": {
+      "tpi": -0.763,
+      "built_up_pct": 2.324,
+      "cropland_pct": -1.22,
+      "grass_pct": -0.681
+    }
+  },
+  {
+    "name": "Balaji Layout, Kanakapura Road",
+    "zscores": {
+      "tpi": -1.386,
+      "built_up_pct": 2.018,
+      "cropland_pct": -1.172,
+      "grass_pct": -0.45
+    }
+  },
+  {
+    "name": "Singasandra Country club road",
+    "zscores": {
+      "tpi": 0.963,
+      "built_up_pct": 1.77,
+      "cropland_pct": -0.962,
+      "grass_pct": -0.187
+    }
+  },
+  {
+    "name": "Someshwara layout Arekere",
+    "zscores": {
+      "tpi": 0.182,
+      "built_up_pct": 2.447,
+      "cropland_pct": -1.291,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "BDA layout Hulimavu",
+    "zscores": {
+      "tpi": 0.05,
+      "built_up_pct": 2.423,
+      "cropland_pct": -1.291,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Kempamma layout RSD Arekere",
+    "zscores": {
+      "tpi": -0.144,
+      "built_up_pct": 2.367,
+      "cropland_pct": -1.291,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Hulimavu Sri Lanka colony",
+    "zscores": {
+      "tpi": -0.357,
+      "built_up_pct": 2.059,
+      "cropland_pct": -1.202,
+      "grass_pct": -0.599
+    }
+  },
+  {
+    "name": "Hosur road near Royal Enfield show room",
+    "zscores": {
+      "tpi": -0.643,
+      "built_up_pct": 1.613,
+      "cropland_pct": -1.134,
+      "grass_pct": -0.302
+    }
+  },
+  {
+    "name": "Anugraha layout Billekahalli",
+    "zscores": {
+      "tpi": -0.509,
+      "built_up_pct": 2.047,
+      "cropland_pct": -1.295,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Doddakannelli",
+    "zscores": {
+      "tpi": -0.81,
+      "built_up_pct": -0.46,
+      "cropland_pct": -0.634,
+      "grass_pct": -0.312
+    }
+  },
+  {
+    "name": "Garebhavipalya NH  service road junction",
+    "zscores": {
+      "tpi": -0.517,
+      "built_up_pct": 2.544,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Oxford college NH Junction",
+    "zscores": {
+      "tpi": -0.396,
+      "built_up_pct": 2.329,
+      "cropland_pct": -1.297,
+      "grass_pct": -0.751
+    }
+  },
+  {
+    "name": "Anugraha layout RSD phase 1",
+    "zscores": {
+      "tpi": -0.18,
+      "built_up_pct": 0.634,
+      "cropland_pct": -0.957,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Dollars Colony JP Nagar",
+    "zscores": {
+      "tpi": -1.265,
+      "built_up_pct": 2.045,
+      "cropland_pct": -1.182,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Dollars Colony NS palya (BTM 2nd stage)",
+    "zscores": {
+      "tpi": -0.57,
+      "built_up_pct": 2.368,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.73
+    }
+  },
+  {
+    "name": "Hongasandara Ambedkar Nagar",
+    "zscores": {
+      "tpi": 0.556,
+      "built_up_pct": 2.517,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "NS palya RSD",
+    "zscores": {
+      "tpi": -0.491,
+      "built_up_pct": 2.376,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.74
+    }
+  },
+  {
+    "name": "HSR sector 2 Garden layout",
+    "zscores": {
+      "tpi": 0.78,
+      "built_up_pct": 2.049,
+      "cropland_pct": -1.288,
+      "grass_pct": -0.496
+    }
+  },
+  {
+    "name": "HSR 3rd sector lead off drains",
+    "zscores": {
+      "tpi": -0.749,
+      "built_up_pct": 1.953,
+      "cropland_pct": -1.015,
+      "grass_pct": -0.653
+    }
+  },
+  {
+    "name": "BEML layout",
+    "zscores": {
+      "tpi": 1.553,
+      "built_up_pct": 1.727,
+      "cropland_pct": -1.202,
+      "grass_pct": -0.584
+    }
+  },
+  {
+    "name": "Sector 6 lead off drains surrounding 5th and 9th main",
+    "zscores": {
+      "tpi": -0.295,
+      "built_up_pct": 2.194,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "HSR layout 9th and 5th main",
+    "zscores": {
+      "tpi": -0.295,
+      "built_up_pct": 2.194,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Navodaya Layout",
+    "zscores": {
+      "tpi": -0.498,
+      "built_up_pct": 2.442,
+      "cropland_pct": -1.273,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "BTM layout",
+    "zscores": {
+      "tpi": -0.249,
+      "built_up_pct": 2.192,
+      "cropland_pct": -1.297,
+      "grass_pct": -0.737
+    }
+  },
+  {
+    "name": "Near Kapi Katte hotel, BEML Layout, 3rd Stage",
+    "zscores": {
+      "tpi": -1.489,
+      "built_up_pct": 2.009,
+      "cropland_pct": -1.297,
+      "grass_pct": -0.751
+    }
+  },
+  {
+    "name": "Shankarappa Layout to BEML gate",
+    "zscores": {
+      "tpi": -1.147,
+      "built_up_pct": 1.468,
+      "cropland_pct": -1.097,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "RR nagar BEML 5th stage near Kapi katte hotel",
+    "zscores": {
+      "tpi": -1.3,
+      "built_up_pct": 1.952,
+      "cropland_pct": -1.295,
+      "grass_pct": -0.751
+    }
+  },
+  {
+    "name": "Hosur road Jayadeva flyover to Udupi Garden Signal",
+    "zscores": {
+      "tpi": 0.319,
+      "built_up_pct": 2.289,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Silk Board junction",
+    "zscores": {
+      "tpi": -0.374,
+      "built_up_pct": 1.754,
+      "cropland_pct": -1.236,
+      "grass_pct": -0.626
+    }
+  },
+  {
+    "name": "Global Village Joining V Valley at Global Village Property",
+    "zscores": {
+      "tpi": 0.047,
+      "built_up_pct": 1.416,
+      "cropland_pct": -1.285,
+      "grass_pct": -0.749
+    }
+  },
+  {
+    "name": "Silk Board",
+    "zscores": {
+      "tpi": -0.222,
+      "built_up_pct": 1.686,
+      "cropland_pct": -1.256,
+      "grass_pct": -0.626
+    }
+  },
+  {
+    "name": "Gunjur",
+    "zscores": {
+      "tpi": 0.299,
+      "built_up_pct": 0.733,
+      "cropland_pct": 0.322,
+      "grass_pct": -0.53
+    }
+  },
+  {
+    "name": "Bannerghatta road near Oakyard Apartment",
+    "zscores": {
+      "tpi": -1.011,
+      "built_up_pct": 2.274,
+      "cropland_pct": -1.281,
+      "grass_pct": -0.49
+    }
+  },
+  {
+    "name": "Heorhalli, Mahadeshwara Nagara",
+    "zscores": {
+      "tpi": -0.642,
+      "built_up_pct": 1.955,
+      "cropland_pct": -1.259,
+      "grass_pct": -0.73
+    }
+  },
+  {
+    "name": "Basaveshwara Circle BEML 3rd stage",
+    "zscores": {
+      "tpi": -0.844,
+      "built_up_pct": 1.878,
+      "cropland_pct": -1.288,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Gurappanapalya Banneragatta main road",
+    "zscores": {
+      "tpi": -0.963,
+      "built_up_pct": 2.176,
+      "cropland_pct": -1.257,
+      "grass_pct": -0.492
+    }
+  },
+  {
+    "name": "Gurudutta Layout to Sapthagiri Layout",
+    "zscores": {
+      "tpi": -1.541,
+      "built_up_pct": 2.346,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.646
+    }
+  },
+  {
+    "name": "Pattanagere main road beside RV college",
+    "zscores": {
+      "tpi": -0.625,
+      "built_up_pct": 1.145,
+      "cropland_pct": -1.157,
+      "grass_pct": -0.385
+    }
+  },
+  {
+    "name": "Near Dattarthraya Temple, Hosakerehalli",
+    "zscores": {
+      "tpi": -2.004,
+      "built_up_pct": 2.487,
+      "cropland_pct": -1.291,
+      "grass_pct": -0.694
+    }
+  },
+  {
+    "name": "Halagevadeyarahalli lake to Kenchenahalli  lake",
+    "zscores": {
+      "tpi": -1.422,
+      "built_up_pct": 1.37,
+      "cropland_pct": -1.288,
+      "grass_pct": -0.73
+    }
+  },
+  {
+    "name": "Tavarekere Main road",
+    "zscores": {
+      "tpi": -0.812,
+      "built_up_pct": 2.494,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Bellandur",
+    "zscores": {
+      "tpi": 0.288,
+      "built_up_pct": 1.865,
+      "cropland_pct": -1.109,
+      "grass_pct": -0.761
+    }
+  },
+  {
+    "name": "Jawaregowdana Doddi, Bangarappa Nagara",
+    "zscores": {
+      "tpi": -0.927,
+      "built_up_pct": 1.532,
+      "cropland_pct": -1.282,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Sarjapura road",
+    "zscores": {
+      "tpi": -0.275,
+      "built_up_pct": -0.849,
+      "cropland_pct": -0.588,
+      "grass_pct": -0.314
+    }
+  },
+  {
+    "name": "Bannerghatta Road near spar super market",
+    "zscores": {
+      "tpi": -1.061,
+      "built_up_pct": 1.887,
+      "cropland_pct": -1.266,
+      "grass_pct": -0.761
+    }
+  },
+  {
+    "name": "Near DIAT college",
+    "zscores": {
+      "tpi": -0.667,
+      "built_up_pct": 1.595,
+      "cropland_pct": -1.297,
+      "grass_pct": -0.582
+    }
+  },
+  {
+    "name": "Gulbarga Calony RBI extension",
+    "zscores": {
+      "tpi": -0.372,
+      "built_up_pct": 1.479,
+      "cropland_pct": -1.232,
+      "grass_pct": -0.686
+    }
+  },
+  {
+    "name": "Hosakerehalli, near D'souza Nagara",
+    "zscores": {
+      "tpi": -0.195,
+      "built_up_pct": 2.46,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Ideal Homes beside Akkamahadevi choultry",
+    "zscores": {
+      "tpi": -0.038,
+      "built_up_pct": 1.377,
+      "cropland_pct": -1.242,
+      "grass_pct": -0.561
+    }
+  },
+  {
+    "name": "Byrasandara Fire station",
+    "zscores": {
+      "tpi": -1.11,
+      "built_up_pct": 2.13,
+      "cropland_pct": -1.293,
+      "grass_pct": -0.761
+    }
+  },
+  {
+    "name": "Koramangala 4 th block",
+    "zscores": {
+      "tpi": -0.473,
+      "built_up_pct": 2.419,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "ST Bed Koramangala",
+    "zscores": {
+      "tpi": -0.544,
+      "built_up_pct": 2.488,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Panathur",
+    "zscores": {
+      "tpi": 0.09,
+      "built_up_pct": 2.182,
+      "cropland_pct": -1.198,
+      "grass_pct": -0.695
+    }
+  },
+  {
+    "name": "Sony Signal to Maharaja signal in Koramangala",
+    "zscores": {
+      "tpi": 0.003,
+      "built_up_pct": 2.318,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Varthur police station",
+    "zscores": {
+      "tpi": -0.136,
+      "built_up_pct": 2.129,
+      "cropland_pct": -1.117,
+      "grass_pct": -0.479
+    }
+  },
+  {
+    "name": "Ejipura Ashwini layout",
+    "zscores": {
+      "tpi": -0.439,
+      "built_up_pct": 2.49,
+      "cropland_pct": -1.295,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Balagere",
+    "zscores": {
+      "tpi": 0.262,
+      "built_up_pct": 1.141,
+      "cropland_pct": -1.168,
+      "grass_pct": -0.634
+    }
+  },
+  {
+    "name": "Sonnenahalli Bridge Upstream  Gollarahatti",
+    "zscores": {
+      "tpi": -0.846,
+      "built_up_pct": 1.075,
+      "cropland_pct": -0.665,
+      "grass_pct": -0.725
+    }
+  },
+  {
+    "name": "RV Teachers College",
+    "zscores": {
+      "tpi": -0.862,
+      "built_up_pct": 1.023,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.761
+    }
+  },
+  {
+    "name": "Nayandahalli and near Railway track",
+    "zscores": {
+      "tpi": 0.611,
+      "built_up_pct": 2.49,
+      "cropland_pct": -1.297,
+      "grass_pct": -0.751
+    }
+  },
+  {
+    "name": "Ranganatha Colony",
+    "zscores": {
+      "tpi": -1.819,
+      "built_up_pct": 1.143,
+      "cropland_pct": -0.605,
+      "grass_pct": -0.387
+    }
+  },
+  {
+    "name": "Nayandahalli Junction, Mysore road",
+    "zscores": {
+      "tpi": -1.898,
+      "built_up_pct": 2.227,
+      "cropland_pct": -1.151,
+      "grass_pct": -0.746
+    }
+  },
+  {
+    "name": "Siddpapura gate",
+    "zscores": {
+      "tpi": 0.213,
+      "built_up_pct": 1.067,
+      "cropland_pct": -0.966,
+      "grass_pct": -0.682
+    }
+  },
+  {
+    "name": "Kempegowda Nagar",
+    "zscores": {
+      "tpi": 1.078,
+      "built_up_pct": 1.585,
+      "cropland_pct": -1.286,
+      "grass_pct": -0.761
+    }
+  },
+  {
+    "name": "Anjanappa Layout to Kempegowda Nagara",
+    "zscores": {
+      "tpi": 1.0,
+      "built_up_pct": 1.57,
+      "cropland_pct": -1.282,
+      "grass_pct": -0.761
+    }
+  },
+  {
+    "name": "Rajendra Nagar slum opp KPWD quarters",
+    "zscores": {
+      "tpi": -0.333,
+      "built_up_pct": 2.235,
+      "cropland_pct": -1.214,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Vinayaka layout",
+    "zscores": {
+      "tpi": 1.136,
+      "built_up_pct": 2.03,
+      "cropland_pct": -1.173,
+      "grass_pct": -0.718
+    }
+  },
+  {
+    "name": "S G R Dental college",
+    "zscores": {
+      "tpi": -0.357,
+      "built_up_pct": 2.313,
+      "cropland_pct": -1.112,
+      "grass_pct": -0.717
+    }
+  },
+  {
+    "name": "Ejipura opp army land",
+    "zscores": {
+      "tpi": -0.506,
+      "built_up_pct": 1.385,
+      "cropland_pct": -0.842,
+      "grass_pct": 0.174
+    }
+  },
+  {
+    "name": "Kavika Bridge to Nice road bridge",
+    "zscores": {
+      "tpi": -0.915,
+      "built_up_pct": 2.002,
+      "cropland_pct": -1.161,
+      "grass_pct": -0.74
+    }
+  },
+  {
+    "name": "Anepalya junction",
+    "zscores": {
+      "tpi": -0.677,
+      "built_up_pct": 1.685,
+      "cropland_pct": -1.286,
+      "grass_pct": -0.746
+    }
+  },
+  {
+    "name": "JK Pura",
+    "zscores": {
+      "tpi": -0.638,
+      "built_up_pct": 2.243,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Anepalya Gajendranagar SWD surroundings",
+    "zscores": {
+      "tpi": -0.721,
+      "built_up_pct": 0.983,
+      "cropland_pct": -1.203,
+      "grass_pct": -0.648
+    }
+  },
+  {
+    "name": "Wilson garden PWD quarters",
+    "zscores": {
+      "tpi": -0.876,
+      "built_up_pct": 1.831,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Sri Galianjaneya  swamy temple, Mysore road",
+    "zscores": {
+      "tpi": -0.98,
+      "built_up_pct": 2.404,
+      "cropland_pct": -1.294,
+      "grass_pct": -0.756
+    }
+  },
+  {
+    "name": "VV Puram Law College to Mallathhali tank",
+    "zscores": {
+      "tpi": 0.309,
+      "built_up_pct": 2.241,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.761
+    }
+  },
+  {
+    "name": "Deepa nursing home",
+    "zscores": {
+      "tpi": -0.713,
+      "built_up_pct": 1.468,
+      "cropland_pct": -1.155,
+      "grass_pct": -0.084
+    }
+  },
+  {
+    "name": "BDA Layout Konena Agrahara",
+    "zscores": {
+      "tpi": 0.028,
+      "built_up_pct": 1.944,
+      "cropland_pct": -1.236,
+      "grass_pct": -0.591
+    }
+  },
+  {
+    "name": "Thubarahalli",
+    "zscores": {
+      "tpi": 0.017,
+      "built_up_pct": 2.207,
+      "cropland_pct": -1.182,
+      "grass_pct": -0.642
+    }
+  },
+  {
+    "name": "Micheal church",
+    "zscores": {
+      "tpi": -0.329,
+      "built_up_pct": 2.237,
+      "cropland_pct": -1.295,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Ramagondanahalli",
+    "zscores": {
+      "tpi": 0.616,
+      "built_up_pct": 2.158,
+      "cropland_pct": -1.273,
+      "grass_pct": -0.378
+    }
+  },
+  {
+    "name": "Hosaguddadahalli, Bapujinagara",
+    "zscores": {
+      "tpi": -1.006,
+      "built_up_pct": 2.487,
+      "cropland_pct": -1.272,
+      "grass_pct": -0.761
+    }
+  },
+  {
+    "name": "Varthur",
+    "zscores": {
+      "tpi": -0.018,
+      "built_up_pct": 0.385,
+      "cropland_pct": -0.771,
+      "grass_pct": -0.678
+    }
+  },
+  {
+    "name": "Chamarajapet",
+    "zscores": {
+      "tpi": 0.928,
+      "built_up_pct": 2.341,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Nari Halla",
+    "zscores": {
+      "tpi": -0.451,
+      "built_up_pct": 2.205,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "NGEF layout",
+    "zscores": {
+      "tpi": 0.615,
+      "built_up_pct": 2.123,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.73
+    }
+  },
+  {
+    "name": "Varthur Columbia Asia hospital",
+    "zscores": {
+      "tpi": -0.757,
+      "built_up_pct": 1.3,
+      "cropland_pct": -1.136,
+      "grass_pct": -0.744
+    }
+  },
+  {
+    "name": "Backside Fortis Hospital NGEF Layout",
+    "zscores": {
+      "tpi": -1.601,
+      "built_up_pct": 1.83,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.756
+    }
+  },
+  {
+    "name": "Munnekolalu",
+    "zscores": {
+      "tpi": -1.319,
+      "built_up_pct": 1.101,
+      "cropland_pct": -0.995,
+      "grass_pct": -0.638
+    }
+  },
+  {
+    "name": "Nandhini hotel backside on 100 feet road Indiranagar",
+    "zscores": {
+      "tpi": 0.053,
+      "built_up_pct": 2.276,
+      "cropland_pct": -1.286,
+      "grass_pct": -0.751
+    }
+  },
+  {
+    "name": "Kumbaragundi",
+    "zscores": {
+      "tpi": -0.876,
+      "built_up_pct": 2.225,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Mallathahalli lake inlet Muddaiahna palya road",
+    "zscores": {
+      "tpi": 0.16,
+      "built_up_pct": 1.199,
+      "cropland_pct": -0.772,
+      "grass_pct": -0.587
+    }
+  },
+  {
+    "name": "Kumbargundi lead off drains",
+    "zscores": {
+      "tpi": -0.486,
+      "built_up_pct": 1.948,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Osaman Khan  road near KR Market",
+    "zscores": {
+      "tpi": -0.858,
+      "built_up_pct": 2.215,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Palm grove road",
+    "zscores": {
+      "tpi": -1.158,
+      "built_up_pct": 1.956,
+      "cropland_pct": -1.289,
+      "grass_pct": -0.683
+    }
+  },
+  {
+    "name": "Cheluvadipalya Near by  Good Shed Road",
+    "zscores": {
+      "tpi": -1.066,
+      "built_up_pct": 2.122,
+      "cropland_pct": -1.131,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Siddartha Nagar, Cheluvadipalya",
+    "zscores": {
+      "tpi": -1.066,
+      "built_up_pct": 2.122,
+      "cropland_pct": -1.131,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Bande Maramma Temple behind Nagarabhavi 10th cross Bus Stop",
+    "zscores": {
+      "tpi": -2.025,
+      "built_up_pct": 1.787,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.756
+    }
+  },
+  {
+    "name": "Rayapuram near Govt. Maternity Hospital",
+    "zscores": {
+      "tpi": 0.947,
+      "built_up_pct": 2.534,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Malagala main road to Vrishabhavathi Valley",
+    "zscores": {
+      "tpi": -2.14,
+      "built_up_pct": 1.808,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.758
+    }
+  },
+  {
+    "name": "Talakaveri layout",
+    "zscores": {
+      "tpi": -0.615,
+      "built_up_pct": 2.117,
+      "cropland_pct": -1.269,
+      "grass_pct": -0.761
+    }
+  },
+  {
+    "name": "Vrishabhavthi main valley near Cholurapalya",
+    "zscores": {
+      "tpi": -0.973,
+      "built_up_pct": 2.529,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Doddenakundi near Gururaja layout",
+    "zscores": {
+      "tpi": -0.251,
+      "built_up_pct": 2.031,
+      "cropland_pct": -1.264,
+      "grass_pct": -0.746
+    }
+  },
+  {
+    "name": "Nellurahalli",
+    "zscores": {
+      "tpi": 0.188,
+      "built_up_pct": 1.942,
+      "cropland_pct": -1.144,
+      "grass_pct": -0.746
+    }
+  },
+  {
+    "name": "Magrath road and brigade road junction",
+    "zscores": {
+      "tpi": -1.301,
+      "built_up_pct": 1.947,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.679
+    }
+  },
+  {
+    "name": "Cambridge layout near Jogupalya",
+    "zscores": {
+      "tpi": -0.394,
+      "built_up_pct": 2.032,
+      "cropland_pct": -1.297,
+      "grass_pct": -0.751
+    }
+  },
+  {
+    "name": "Kalyannagar, Moodalapalya",
+    "zscores": {
+      "tpi": -1.994,
+      "built_up_pct": 2.042,
+      "cropland_pct": -1.264,
+      "grass_pct": -0.291
+    }
+  },
+  {
+    "name": "Jogupalya in Ulsoor",
+    "zscores": {
+      "tpi": -0.695,
+      "built_up_pct": 2.178,
+      "cropland_pct": -1.297,
+      "grass_pct": -0.709
+    }
+  },
+  {
+    "name": "Kempapura Agrahara Secondary Drain, Magadi road",
+    "zscores": {
+      "tpi": -0.843,
+      "built_up_pct": 2.532,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "K P Agrahara 7th Cross  Road",
+    "zscores": {
+      "tpi": -0.374,
+      "built_up_pct": 1.919,
+      "cropland_pct": -1.247,
+      "grass_pct": -0.761
+    }
+  },
+  {
+    "name": "Manuvana, Pipeline road",
+    "zscores": {
+      "tpi": -1.248,
+      "built_up_pct": 2.269,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Gopalpura area",
+    "zscores": {
+      "tpi": 0.922,
+      "built_up_pct": 2.451,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Gopalpura",
+    "zscores": {
+      "tpi": 0.922,
+      "built_up_pct": 2.451,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Netaji Nagara in  KP Agrahara",
+    "zscores": {
+      "tpi": 1.377,
+      "built_up_pct": 1.776,
+      "cropland_pct": -1.231,
+      "grass_pct": -0.756
+    }
+  },
+  {
+    "name": "Binnymill Road  near Belimath",
+    "zscores": {
+      "tpi": -0.277,
+      "built_up_pct": 1.896,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.761
+    }
+  },
+  {
+    "name": "MV garden & Murphy market",
+    "zscores": {
+      "tpi": -0.831,
+      "built_up_pct": 2.319,
+      "cropland_pct": -1.296,
+      "grass_pct": -0.714
+    }
+  },
+  {
+    "name": "Pattandur agrahara",
+    "zscores": {
+      "tpi": -0.265,
+      "built_up_pct": 2.058,
+      "cropland_pct": -1.172,
+      "grass_pct": -0.637
+    }
+  },
+  {
+    "name": "Nagamma nagara Near Binny mill road",
+    "zscores": {
+      "tpi": 0.081,
+      "built_up_pct": 2.124,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Gandi Statue, Oklipuram.",
+    "zscores": {
+      "tpi": -0.256,
+      "built_up_pct": 1.76,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.699
+    }
+  },
+  {
+    "name": "Rajajinagar  Industrial  Area ,1st Cross Road",
+    "zscores": {
+      "tpi": -0.503,
+      "built_up_pct": 2.199,
+      "cropland_pct": -1.29,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Broadway road junction",
+    "zscores": {
+      "tpi": -1.109,
+      "built_up_pct": 2.469,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Armstrong road junction in Shivajinagar",
+    "zscores": {
+      "tpi": -0.524,
+      "built_up_pct": 2.568,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Herohalli lake inlet Handrahalli main road",
+    "zscores": {
+      "tpi": -0.299,
+      "built_up_pct": 1.337,
+      "cropland_pct": -1.229,
+      "grass_pct": -0.738
+    }
+  },
+  {
+    "name": "Sri Rammandir, Gubbanna Industrial Estate",
+    "zscores": {
+      "tpi": 0.869,
+      "built_up_pct": 2.305,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Shivaganga layout",
+    "zscores": {
+      "tpi": -0.682,
+      "built_up_pct": 1.627,
+      "cropland_pct": -1.04,
+      "grass_pct": -0.627
+    }
+  },
+  {
+    "name": "Pai Layout",
+    "zscores": {
+      "tpi": -0.729,
+      "built_up_pct": 2.077,
+      "cropland_pct": -1.24,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Netaji ground & Saneguruvanalli",
+    "zscores": {
+      "tpi": -1.566,
+      "built_up_pct": 1.897,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.688
+    }
+  },
+  {
+    "name": "Near summanahalli bridge (up stream)",
+    "zscores": {
+      "tpi": -2.701,
+      "built_up_pct": 1.559,
+      "cropland_pct": -1.278,
+      "grass_pct": -0.657
+    }
+  },
+  {
+    "name": "Near Mantri Mall bridge",
+    "zscores": {
+      "tpi": -0.073,
+      "built_up_pct": 1.946,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.542
+    }
+  },
+  {
+    "name": "Hoodi",
+    "zscores": {
+      "tpi": 0.347,
+      "built_up_pct": 2.222,
+      "cropland_pct": -1.175,
+      "grass_pct": -0.723
+    }
+  },
+  {
+    "name": "Prakashnagar Near Mudalayar Choultry",
+    "zscores": {
+      "tpi": -0.976,
+      "built_up_pct": 2.322,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Railway parallel road Sadanadanagar",
+    "zscores": {
+      "tpi": 0.252,
+      "built_up_pct": 1.797,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Maheshwari nagar",
+    "zscores": {
+      "tpi": 0.471,
+      "built_up_pct": 2.516,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.761
+    }
+  },
+  {
+    "name": "Link Road, Malleshwaram",
+    "zscores": {
+      "tpi": -0.755,
+      "built_up_pct": 2.283,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.761
+    }
+  },
+  {
+    "name": "Syndicate Layout beside park",
+    "zscores": {
+      "tpi": 0.799,
+      "built_up_pct": 1.758,
+      "cropland_pct": -1.093,
+      "grass_pct": -0.759
+    }
+  },
+  {
+    "name": "Guttahalli Circle, Malleshwaram",
+    "zscores": {
+      "tpi": -0.14,
+      "built_up_pct": 2.54,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Near by 2nd Cross Ring Road",
+    "zscores": {
+      "tpi": -0.725,
+      "built_up_pct": 2.393,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Pillappanakatte valley (KTG Roads to DWCC)",
+    "zscores": {
+      "tpi": -1.324,
+      "built_up_pct": 0.283,
+      "cropland_pct": -0.46,
+      "grass_pct": -0.621
+    }
+  },
+  {
+    "name": "1st main road bridge down stream",
+    "zscores": {
+      "tpi": -2.711,
+      "built_up_pct": 2.519,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.746
+    }
+  },
+  {
+    "name": "Lavakushanagara to Vrishabhavathi Valley",
+    "zscores": {
+      "tpi": -1.291,
+      "built_up_pct": 2.341,
+      "cropland_pct": -1.234,
+      "grass_pct": -0.616
+    }
+  },
+  {
+    "name": "Jai Maruthi nagar and Nandini layout bridge ( up and down stream)",
+    "zscores": {
+      "tpi": 1.152,
+      "built_up_pct": 2.48,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Munikrishnappa layout area of Kaveripura",
+    "zscores": {
+      "tpi": 0.188,
+      "built_up_pct": 1.949,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Sandeep bar",
+    "zscores": {
+      "tpi": -2.402,
+      "built_up_pct": 2.545,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Kemegowda bridge",
+    "zscores": {
+      "tpi": -2.695,
+      "built_up_pct": 2.55,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "17th and 19th main in Kamalanagar",
+    "zscores": {
+      "tpi": -2.562,
+      "built_up_pct": 2.551,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Laggere 40-vent Bridge",
+    "zscores": {
+      "tpi": -2.278,
+      "built_up_pct": 2.551,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Nandini Layout Junction",
+    "zscores": {
+      "tpi": -1.95,
+      "built_up_pct": 2.551,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "RR layout & Ambedkar Nagar",
+    "zscores": {
+      "tpi": -0.868,
+      "built_up_pct": 2.473,
+      "cropland_pct": -1.279,
+      "grass_pct": -0.761
+    }
+  },
+  {
+    "name": "Devasandra (Nethravathi Badavane)",
+    "zscores": {
+      "tpi": -1.001,
+      "built_up_pct": 2.309,
+      "cropland_pct": -1.272,
+      "grass_pct": -0.709
+    }
+  },
+  {
+    "name": "Kalyananagar",
+    "zscores": {
+      "tpi": -0.542,
+      "built_up_pct": 2.492,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Near ward office ( circular road)",
+    "zscores": {
+      "tpi": -0.904,
+      "built_up_pct": 1.548,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.522
+    }
+  },
+  {
+    "name": "Back of Presidency school",
+    "zscores": {
+      "tpi": -0.904,
+      "built_up_pct": 1.548,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.522
+    }
+  },
+  {
+    "name": "3rd circular road Nandini layout",
+    "zscores": {
+      "tpi": -0.904,
+      "built_up_pct": 1.548,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.522
+    }
+  },
+  {
+    "name": "ITI Layout",
+    "zscores": {
+      "tpi": -0.731,
+      "built_up_pct": 1.468,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.74
+    }
+  },
+  {
+    "name": "Ambedkar Nagar near Ramamurthy Nagar",
+    "zscores": {
+      "tpi": -0.421,
+      "built_up_pct": 1.069,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.751
+    }
+  },
+  {
+    "name": "Down stream of Aggere bridge (Sakamma badavane)",
+    "zscores": {
+      "tpi": -1.96,
+      "built_up_pct": 2.272,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.761
+    }
+  },
+  {
+    "name": "Koudenahalli (Ramamurthy Nagar main road)",
+    "zscores": {
+      "tpi": -0.674,
+      "built_up_pct": 2.328,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Government School & Durgalamma Temple",
+    "zscores": {
+      "tpi": -0.603,
+      "built_up_pct": 2.488,
+      "cropland_pct": -1.23,
+      "grass_pct": -0.74
+    }
+  },
+  {
+    "name": "NRI layout",
+    "zscores": {
+      "tpi": -0.033,
+      "built_up_pct": 2.549,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Near Yashavanthpur TTMC",
+    "zscores": {
+      "tpi": 0.423,
+      "built_up_pct": 0.932,
+      "cropland_pct": -1.291,
+      "grass_pct": -0.403
+    }
+  },
+  {
+    "name": "Hoysala nagar in Hormavu",
+    "zscores": {
+      "tpi": -0.537,
+      "built_up_pct": 2.254,
+      "cropland_pct": -1.296,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "HRBR Lyt",
+    "zscores": {
+      "tpi": 0.819,
+      "built_up_pct": 2.423,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Jala Dharshani Layout of Hebbal",
+    "zscores": {
+      "tpi": 0.856,
+      "built_up_pct": 0.399,
+      "cropland_pct": -1.112,
+      "grass_pct": -0.567
+    }
+  },
+  {
+    "name": "Vasanthappa block  Hebbal",
+    "zscores": {
+      "tpi": 1.142,
+      "built_up_pct": 0.354,
+      "cropland_pct": -1.238,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Peenya industrial  area 3rd phase 1st  main road",
+    "zscores": {
+      "tpi": -0.898,
+      "built_up_pct": 2.213,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Bhavani nagara Doddabidarakallu",
+    "zscores": {
+      "tpi": 0.26,
+      "built_up_pct": 2.33,
+      "cropland_pct": -1.166,
+      "grass_pct": -0.747
+    }
+  },
+  {
+    "name": "A Block of  Hebbal",
+    "zscores": {
+      "tpi": 0.751,
+      "built_up_pct": 1.396,
+      "cropland_pct": -1.138,
+      "grass_pct": -0.746
+    }
+  },
+  {
+    "name": "Low Laying areas of Chamundi nagar of Hebbal",
+    "zscores": {
+      "tpi": -0.342,
+      "built_up_pct": 2.532,
+      "cropland_pct": -1.298,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Sun Rise colony of Hebbal",
+    "zscores": {
+      "tpi": -0.043,
+      "built_up_pct": 2.442,
+      "cropland_pct": -1.293,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Richi's Garden",
+    "zscores": {
+      "tpi": 0.599,
+      "built_up_pct": 1.888,
+      "cropland_pct": -1.133,
+      "grass_pct": -0.485
+    }
+  },
+  {
+    "name": "Andanappa layout Doddabidarakallu",
+    "zscores": {
+      "tpi": -0.6,
+      "built_up_pct": 1.065,
+      "cropland_pct": -0.725,
+      "grass_pct": -0.039
+    }
+  },
+  {
+    "name": "Near bescom office Mattikere",
+    "zscores": {
+      "tpi": -0.527,
+      "built_up_pct": 2.218,
+      "cropland_pct": -1.2,
+      "grass_pct": -0.755
+    }
+  },
+  {
+    "name": "HBR Layout",
+    "zscores": {
+      "tpi": -0.604,
+      "built_up_pct": 1.337,
+      "cropland_pct": -0.445,
+      "grass_pct": -0.475
+    }
+  },
+  {
+    "name": "Near Jalahalli Metro station",
+    "zscores": {
+      "tpi": -0.889,
+      "built_up_pct": 1.643,
+      "cropland_pct": -1.238,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Veerannapalya",
+    "zscores": {
+      "tpi": 0.069,
+      "built_up_pct": 2.207,
+      "cropland_pct": -1.238,
+      "grass_pct": -0.755
+    }
+  },
+  {
+    "name": "Shambhavinagar",
+    "zscores": {
+      "tpi": -0.282,
+      "built_up_pct": -0.149,
+      "cropland_pct": 0.513,
+      "grass_pct": 0.694
+    }
+  },
+  {
+    "name": "Veerannapalya drain near Manpho convention center",
+    "zscores": {
+      "tpi": 0.007,
+      "built_up_pct": 1.685,
+      "cropland_pct": -1.005,
+      "grass_pct": -0.642
+    }
+  },
+  {
+    "name": "Near Shani mahathma temple beside Hebbal Flyover",
+    "zscores": {
+      "tpi": -0.314,
+      "built_up_pct": 1.315,
+      "cropland_pct": -1.2,
+      "grass_pct": -0.751
+    }
+  },
+  {
+    "name": "Vaddera Palya (Railway track)",
+    "zscores": {
+      "tpi": -0.715,
+      "built_up_pct": 0.243,
+      "cropland_pct": -0.536,
+      "grass_pct": -0.561
+    }
+  },
+  {
+    "name": "Kariyannapalya outer ring road, near Varun motors",
+    "zscores": {
+      "tpi": -0.386,
+      "built_up_pct": 0.899,
+      "cropland_pct": -0.857,
+      "grass_pct": 0.138
+    }
+  },
+  {
+    "name": "Nanda gokula",
+    "zscores": {
+      "tpi": -0.127,
+      "built_up_pct": 1.713,
+      "cropland_pct": -0.624,
+      "grass_pct": -0.569
+    }
+  },
+  {
+    "name": "Kariyannapalya Bridge over flowed ORR",
+    "zscores": {
+      "tpi": -0.113,
+      "built_up_pct": 0.851,
+      "cropland_pct": -0.942,
+      "grass_pct": -0.353
+    }
+  },
+  {
+    "name": "Upstreams of Devinagar (junction of Ring road and railway track)  of Hebbal",
+    "zscores": {
+      "tpi": -0.494,
+      "built_up_pct": 1.626,
+      "cropland_pct": -1.295,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Gundappa Layout & Belmar Layout",
+    "zscores": {
+      "tpi": -0.41,
+      "built_up_pct": 2.076,
+      "cropland_pct": -1.28,
+      "grass_pct": -0.759
+    }
+  },
+  {
+    "name": "Manyata tech park, MS Ramaiah north city To element mall",
+    "zscores": {
+      "tpi": -0.295,
+      "built_up_pct": 2.156,
+      "cropland_pct": -1.204,
+      "grass_pct": -0.717
+    }
+  },
+  {
+    "name": "From Esteem mall beside Dhobi Ghat to Yogesh nagar bridge",
+    "zscores": {
+      "tpi": -0.177,
+      "built_up_pct": 0.582,
+      "cropland_pct": -1.157,
+      "grass_pct": -0.629
+    }
+  },
+  {
+    "name": "TATA nagar 8th cross",
+    "zscores": {
+      "tpi": -0.575,
+      "built_up_pct": 1.858,
+      "cropland_pct": -0.997,
+      "grass_pct": -0.699
+    }
+  },
+  {
+    "name": "Near Rachanahalli lake inlet",
+    "zscores": {
+      "tpi": -0.451,
+      "built_up_pct": -0.159,
+      "cropland_pct": -0.449,
+      "grass_pct": -0.574
+    }
+  },
+  {
+    "name": "Aaimatha layout, Mallasandra",
+    "zscores": {
+      "tpi": -0.381,
+      "built_up_pct": 1.946,
+      "cropland_pct": -1.096,
+      "grass_pct": 0.028
+    }
+  },
+  {
+    "name": "MEI layout",
+    "zscores": {
+      "tpi": -0.946,
+      "built_up_pct": 2.02,
+      "cropland_pct": -1.23,
+      "grass_pct": -0.702
+    }
+  },
+  {
+    "name": "Kammagondanahalli near MNTI Polytechnic",
+    "zscores": {
+      "tpi": -0.701,
+      "built_up_pct": 0.486,
+      "cropland_pct": -1.168,
+      "grass_pct": -0.75
+    }
+  },
+  {
+    "name": "Shettihalli & Chikkasandra Village",
+    "zscores": {
+      "tpi": -1.362,
+      "built_up_pct": 1.651,
+      "cropland_pct": -1.075,
+      "grass_pct": -0.708
+    }
+  },
+  {
+    "name": "Siddeswara Layout",
+    "zscores": {
+      "tpi": -0.481,
+      "built_up_pct": 2.307,
+      "cropland_pct": -1.294,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Shivapura tank",
+    "zscores": {
+      "tpi": -0.481,
+      "built_up_pct": 2.307,
+      "cropland_pct": -1.294,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "Thindlu  to Doddabommasandra tank",
+    "zscores": {
+      "tpi": -0.51,
+      "built_up_pct": 1.261,
+      "cropland_pct": -1.25,
+      "grass_pct": -0.766
+    }
+  },
+  {
+    "name": "LBSnagar Yelahanka",
+    "zscores": {
+      "tpi": -0.277,
+      "built_up_pct": 0.835,
+      "cropland_pct": -0.442,
+      "grass_pct": -0.668
+    }
+  },
+  {
+    "name": "Kogilu cross behind Udupi Grand hotel",
+    "zscores": {
+      "tpi": -1.048,
+      "built_up_pct": 1.03,
+      "cropland_pct": -0.309,
+      "grass_pct": -0.463
+    }
+  },
+  {
+    "name": "Kondappa layout",
+    "zscores": {
+      "tpi": -0.143,
+      "built_up_pct": 0.366,
+      "cropland_pct": -1.237,
+      "grass_pct": -0.101
+    }
+  }
+]

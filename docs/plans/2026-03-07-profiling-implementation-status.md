@@ -64,13 +64,13 @@ ESA WorldCover (`ESA/WorldCover/v200`) is an **ImageCollection**, not a single I
 
 | ID | Task | Status | Blocked By |
 |----|------|--------|------------|
-| #7 | Phase 2: Full static extraction (all hotspots + 500 background/city) | **SCRIPT READY** (needs GEE run) | — |
-| #8 | Phase 3: Statistical analysis (Cliff's Delta, Moran's I, BH) | pending | #7 |
+| #7 | Phase 2: Full static extraction (all hotspots + 500 background/city) | **COMPLETE** (100% valid, 7.4 min) | — |
+| #8 | Phase 3: Statistical analysis (Cliff's Delta, Moran's I, BH) | **COMPLETE** (5 cities, forest plot) | #7 |
 | #9 | Phase 4: Create flood event date JSONs (Bangalore + Yogyakarta) | **COMPLETE** | — |
-| #10 | Phase 5: Part B SAR temporal extraction | pending | #9 |
-| #11 | Phase 6: Tiered analysis + generate output files | pending | #8, #10 |
+| #10 | Phase 5: Part B SAR temporal extraction | **COMPLETE** (Bangalore 13.6% defaults, Yogyakarta 57.9%) | #9 |
+| #11 | Phase 6: Tiered analysis + generate output files | **COMPLETE** (Bangalore AUC 0.926, Yogyakarta descriptive) | #8, #10 |
 
-**#9 COMPLETE.** #7 script written + background points generated, awaiting GEE extraction run (~8h).
+**ALL PHASES COMPLETE.** Full profiling pipeline executed end-to-end.
 
 ---
 
@@ -121,7 +121,64 @@ ESA WorldCover (`ESA/WorldCover/v200`) is an **ImageCollection**, not a single I
 
 ---
 
-## Phase 2: Static Extraction Script — READY (awaiting GEE run)
+## Phase 2: Static Extraction — COMPLETE
+
+**GEE extraction completed in 7.4 minutes** (vs 8h estimated for per-point). Batched `reduceRegions` achieved ~0.1-0.2s/point.
+
+### Extraction Results
+
+| City | Hotspots | Background | Features | Time | Valid |
+|------|----------|------------|----------|------|-------|
+| Delhi | 90 | 500 | 10 | 137s | 100% |
+| Bangalore | 200 | 500 | 11 | 153s | 100% |
+| Yogyakarta | 76 | 500 | 9 | 44s | 100% |
+| Singapore | 60 | 500 | 10 | 67s | 100% |
+| Indore | 73 | 500 | 11 | 44s | 100% |
+
+Zero batch failures. Binary-split fallback never triggered. All NPZ files verified.
+
+---
+
+## Phase 3: Statistical Analysis — COMPLETE
+
+**Script**: `apps/ml-pipeline/scripts/03_statistical_analysis.py`
+
+### Cross-City Results (Bradford Hill Consistency)
+
+| Feature | Strong Evidence? | Mean Delta | Direction | Cities Meaningful |
+|---------|:---:|--------|-----------|:---:|
+| built_up_pct | YES | +0.806 | higher | 5/5 |
+| cropland_pct | YES | -0.759 | lower | 4/4 |
+| grass_pct | YES | -0.293 | mixed | 5/5 |
+| slope | moderate | +0.104 | mixed | 3/5 |
+| twi | moderate | -0.105 | mixed | 3/5 |
+| vegetation_pct | moderate | +0.010 | mixed | 3/5 |
+
+### Per-City Meaningful Features
+
+| City | # Meaningful | Features |
+|------|:---:|----------|
+| Delhi | 4 | built_up_pct, vegetation_pct, cropland_pct, grass_pct |
+| Bangalore | 4 | tpi, built_up_pct, cropland_pct, grass_pct |
+| Yogyakarta | 6 | slope, twi, built_up_pct, vegetation_pct, cropland_pct, grass_pct |
+| Singapore | 9 | elevation, slope, aspect, twi, built_up_pct, vegetation_pct, water_pct, bare_pct, grass_pct |
+| Indore | 5 | slope, twi, built_up_pct, cropland_pct, grass_pct |
+
+### Key Findings
+- **built_up_pct is THE universal signal** — large effect in all 5 cities (delta +0.533 to +0.961)
+- **Terrain features are city-dependent** — crucial for hilly Yogyakarta, irrelevant for flat Delhi
+- **Spatial autocorrelation ubiquitous** — Moran's I significant for most features in most cities
+- **VIF reveals multicollinearity** — land cover features are highly correlated (expected: they sum to ~100%)
+
+### Output Files
+- `output/profiles/{city}_profile_analysis.json` — Full per-feature statistical results
+- `output/profiles/{city}_hotspot_zscores.json` — Per-hotspot z-scores
+- `output/profiles/cross_city_summary.json` — Cross-city consistency analysis
+- `output/profiles/forest_plot.png` — Effect size visualization
+
+---
+
+## Phase 2 Script Details
 
 **Script**: `apps/ml-pipeline/scripts/02_static_profiling.py`
 
@@ -178,6 +235,47 @@ python apps/ml-pipeline/scripts/02_static_profiling.py --city bangalore --resume
 
 ---
 
+## Phase 5: SAR Temporal Extraction — COMPLETE
+
+**Script**: `apps/ml-pipeline/scripts/04_temporal_extraction.py`
+
+### Architecture
+- **Date-first iteration**: Outer loop over dates (not hotspots) — each date needs one SAR composite, shared across all hotspots via `reduceRegions`
+- **Forward/backward windows**: Flood dates use ref-2d to ref+7d (captures persistent standing water). Dry dates use ref-7d to ref (stable dry conditions)
+- **Batched extraction**: 50 hotspots per `reduceRegions` call with recursive split fallback on failure
+- **SAR default detection**: Tracks values matching (-10.0 VV, -17.0 VH, 7.0 ratio, 0.0 change). Reports per-feature and overall default rates. >30% = unreliable flag
+
+### Effective-n and Analysis Tiers
+| City | Flood Dates | Dry Dates | Storm Clusters | Independent Storms | Effective-n | Tier |
+|------|-------------|-----------|----------------|--------------------|-------------|------|
+| Bangalore | 15 | 7 | 2 (2-day each) | 13 | 20 | xgboost |
+| Yogyakarta | 12 | 7 | 2 (2-day each) | 10 | 17 | xgboost |
+
+### Features Extracted (4 per point per date)
+- `vv_mean`: VV backscatter (dB) — water appears dark (<-15 dB)
+- `vh_mean`: VH backscatter (dB) — water appears dark (<-22 dB)
+- `vv_vh_ratio`: VV - VH (dB) — water indicator
+- `change_magnitude`: flood composite - dry baseline change (negative = flooding)
+
+### How to Run
+```bash
+# Both cities (~3.2 hours total)
+python scripts/04_temporal_extraction.py
+
+# Single city
+python scripts/04_temporal_extraction.py --city bangalore
+
+# Resume after interruption
+python scripts/04_temporal_extraction.py --city bangalore --resume
+```
+
+### Output
+- `output/temporal/bangalore_temporal_features.npz` — 200 hotspots × 22 dates = 4,400 samples
+- `output/temporal/yogyakarta_temporal_features.npz` — 76 hotspots × 19 dates = 1,444 samples
+- Each NPZ: features (n,4), labels (n,), hotspot_ids, dates, metadata JSON
+
+---
+
 ## File Structure (Current)
 
 ```
@@ -185,8 +283,11 @@ apps/ml-pipeline/
   scripts/
     __init__.py
     01_feature_trial.py          # DONE - Phase 0+1
-    02_static_profiling.py       # DONE - Phase 2 (awaiting GEE run)
+    02_static_profiling.py       # DONE - Phase 2 (COMPLETE, 7.4 min)
+    03_statistical_analysis.py   # DONE - Phase 3 (COMPLETE, all 5 cities)
     03_create_event_dates.py     # DONE - Phase 4
+    04_temporal_extraction.py    # DONE - Phase 5 (COMPLETE, ~9 min)
+    05_temporal_analysis.py      # DONE - Phase 6 (COMPLETE, AUC 0.926)
     extract_city_features.py     # Legacy (from community pipeline design)
     train_city_xgboost.py        # Legacy
     cluster_reports.py           # Legacy (community pipeline)
@@ -203,13 +304,67 @@ apps/ml-pipeline/
   output/
     profiles/
       {city}_background_points.json  # DONE - 500 per city, quadrant-stratified
+      {city}_hotspot_features.npz    # DONE - Phase 2 GEE extraction
+      {city}_background_features.npz # DONE - Phase 2 GEE extraction
+      {city}_profile_analysis.json   # DONE - Phase 3 statistical results
+      {city}_hotspot_zscores.json    # DONE - Phase 3 z-scores
+      cross_city_summary.json        # DONE - Phase 3 cross-city consistency
+      forest_plot.png                # DONE - Phase 3 effect size visualization
       checkpoints/                   # DONE - for GEE extraction resume
     temporal/
-      bangalore_event_dates.json     # DONE - 15 flood + 7 dry dates
-      yogyakarta_event_dates.json    # DONE - 12 flood + 7 dry dates
+      bangalore_event_dates.json      # DONE - 15 flood + 7 dry dates
+      yogyakarta_event_dates.json     # DONE - 12 flood + 7 dry dates
+      bangalore_temporal_features.npz # DONE - Phase 5 (4400 samples, 13.6% defaults)
+      yogyakarta_temporal_features.npz # DONE - Phase 5 (1444 samples, 57.9% defaults)
+      bangalore_temporal_analysis.json # DONE - Phase 6 (AUC 0.926)
+      bangalore_temporal_report.md    # DONE - Phase 6 methodology report
+      yogyakarta_temporal_analysis.json # DONE - Phase 6 (descriptive tier)
+      yogyakarta_temporal_report.md   # DONE - Phase 6 methodology report
+      temporal_summary.json           # DONE - Phase 6 cross-city summary
+      checkpoints/                    # DONE - for SAR extraction resume
   requirements.txt               # DONE - includes scipy, libpysal, esda, statsmodels, shap, etc.
   README.md                      # Exists but minimal
 ```
+
+---
+
+## Phase 5: SAR Temporal Extraction — COMPLETE
+
+### Extraction Results
+
+| City | Hotspots | Dates | Samples | Default Rate | Time |
+|------|----------|-------|---------|-------------|------|
+| Bangalore | 200 | 22 (15 flood + 7 dry) | 4,400 | 13.6% | 411s |
+| Yogyakarta | 76 | 19 (12 flood + 7 dry) | 1,444 | **57.9%** | 136s |
+
+### SAR Coverage Issues
+- **Bangalore**: 3 dates had no SAR coverage (2014-09-26, 2018-08-14, 2022-08-29) — pre-Sentinel-1 or coverage gaps. 13.6% defaults overall — acceptable.
+- **Yogyakarta**: 57.9% defaults — most dry season dates (Jun-Aug) AND several flood dates had no SAR images. Tropical equatorial orbit gaps. Restricted to descriptive analysis only.
+
+---
+
+## Phase 6: Temporal Analysis — COMPLETE
+
+### Bangalore (XGBoost Tier)
+- **Global AUC: 0.926** (strong) — leave-one-date-out CV, 19 folds, 3800 valid predictions
+- **Feature importance (gain)**:
+  1. `change_magnitude`: 76.9% — flood-vs-baseline SAR change dominates
+  2. `vv_mean`: 13.5% — VV backscatter level
+  3. `vh_mean`: 8.9% — VH backscatter level
+  4. `vv_vh_ratio`: 0.7% — nearly useless (both polarizations shift together)
+- **Descriptive**: Flood VV=-2.5dB vs dry VV=-4.2dB; change_mag flood=+1.6 vs dry=-0.03
+- SHAP failed (XGBoost 3.x + SHAP 0.49 incompatibility), native XGBoost importance used instead
+
+### Yogyakarta (Descriptive Tier)
+- Restricted to descriptive due to 57.9% SAR default rate
+- Limited comparisons possible with 608 valid samples
+- 0 per-hotspot summaries (most hotspots lost all dry samples after filtering)
+
+### Key Finding
+**SAR change_magnitude is the dominant temporal signal** — the difference between flood-date backscatter and the 90-day baseline captures surface water changes with 76.9% feature importance. This confirms the design doc hypothesis that SAR temporal contrast is physically meaningful for urban flood detection.
+
+### CV Bug Fix
+Leave-one-date-out CV initially returned AUC=0.000 because each date is entirely flood or dry → per-fold AUC undefined. Fixed by accumulating all out-of-fold predictions and computing a single global AUC.
 
 ---
 

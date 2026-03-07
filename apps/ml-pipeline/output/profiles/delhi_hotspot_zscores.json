@@ -1,0 +1,812 @@
+[
+  {
+    "name": "Modi Mill Underpass",
+    "zscores": {
+      "built_up_pct": 1.571,
+      "vegetation_pct": -0.44,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.455
+    }
+  },
+  {
+    "name": "Minto Bridge",
+    "zscores": {
+      "built_up_pct": 1.07,
+      "vegetation_pct": 0.593,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Dhaula Kuan Underpass",
+    "zscores": {
+      "built_up_pct": 0.217,
+      "vegetation_pct": 1.915,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.07
+    }
+  },
+  {
+    "name": "IP Flyover",
+    "zscores": {
+      "built_up_pct": 1.361,
+      "vegetation_pct": -0.098,
+      "cropland_pct": -0.999,
+      "grass_pct": -0.606
+    }
+  },
+  {
+    "name": "Majnu Ka Tila",
+    "zscores": {
+      "built_up_pct": 0.387,
+      "vegetation_pct": 0.217,
+      "cropland_pct": -0.832,
+      "grass_pct": -0.138
+    }
+  },
+  {
+    "name": "Zakhira Flyover",
+    "zscores": {
+      "built_up_pct": 1.454,
+      "vegetation_pct": -0.279,
+      "cropland_pct": -0.959,
+      "grass_pct": -0.566
+    }
+  },
+  {
+    "name": "Mundka",
+    "zscores": {
+      "built_up_pct": 1.759,
+      "vegetation_pct": -0.714,
+      "cropland_pct": -1.005,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Peeragarhi Chowk",
+    "zscores": {
+      "built_up_pct": 1.464,
+      "vegetation_pct": -0.178,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.561
+    }
+  },
+  {
+    "name": "Punjabi Bagh Underpass",
+    "zscores": {
+      "built_up_pct": 1.633,
+      "vegetation_pct": -0.608,
+      "cropland_pct": -0.969,
+      "grass_pct": -0.484
+    }
+  },
+  {
+    "name": "Ashram Chowk",
+    "zscores": {
+      "built_up_pct": 0.789,
+      "vegetation_pct": 0.9,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.129
+    }
+  },
+  {
+    "name": "Pul Prahladpur",
+    "zscores": {
+      "built_up_pct": 0.994,
+      "vegetation_pct": 0.64,
+      "cropland_pct": -1.002,
+      "grass_pct": -0.591
+    }
+  },
+  {
+    "name": "Nehru Place",
+    "zscores": {
+      "built_up_pct": 0.51,
+      "vegetation_pct": 1.595,
+      "cropland_pct": -0.999,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "GK-1 Underpass",
+    "zscores": {
+      "built_up_pct": -0.891,
+      "vegetation_pct": 4.286,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Dwarka Underpass (Sector 8)",
+    "zscores": {
+      "built_up_pct": 1.252,
+      "vegetation_pct": 0.201,
+      "cropland_pct": -0.999,
+      "grass_pct": -0.606
+    }
+  },
+  {
+    "name": "Najafgarh Drain Area",
+    "zscores": {
+      "built_up_pct": 1.596,
+      "vegetation_pct": -0.569,
+      "cropland_pct": -0.924,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Singhu Border",
+    "zscores": {
+      "built_up_pct": -0.962,
+      "vegetation_pct": -0.534,
+      "cropland_pct": 1.035,
+      "grass_pct": 1.226
+    }
+  },
+  {
+    "name": "Tilak Bridge",
+    "zscores": {
+      "built_up_pct": 1.031,
+      "vegetation_pct": 0.606,
+      "cropland_pct": -0.987,
+      "grass_pct": -0.569
+    }
+  },
+  {
+    "name": "Azad Market",
+    "zscores": {
+      "built_up_pct": 1.695,
+      "vegetation_pct": -0.592,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Model Town",
+    "zscores": {
+      "built_up_pct": -0.981,
+      "vegetation_pct": 3.091,
+      "cropland_pct": -0.471,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Ghazipur",
+    "zscores": {
+      "built_up_pct": 0.993,
+      "vegetation_pct": -0.408,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.526
+    }
+  },
+  {
+    "name": "ITO Underpass",
+    "zscores": {
+      "built_up_pct": 0.682,
+      "vegetation_pct": 1.271,
+      "cropland_pct": -0.98,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Kashmere Gate ISBT",
+    "zscores": {
+      "built_up_pct": 1.431,
+      "vegetation_pct": -0.142,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Anand Vihar",
+    "zscores": {
+      "built_up_pct": 1.504,
+      "vegetation_pct": -0.267,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Lajpat Nagar",
+    "zscores": {
+      "built_up_pct": 1.593,
+      "vegetation_pct": -0.397,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Defence Colony Underpass",
+    "zscores": {
+      "built_up_pct": 0.846,
+      "vegetation_pct": 1.002,
+      "cropland_pct": -0.999,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Sarai Kale Khan",
+    "zscores": {
+      "built_up_pct": -0.69,
+      "vegetation_pct": 2.138,
+      "cropland_pct": -0.294,
+      "grass_pct": -0.15
+    }
+  },
+  {
+    "name": "Okhla Underpass",
+    "zscores": {
+      "built_up_pct": 0.801,
+      "vegetation_pct": 1.053,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.541
+    }
+  },
+  {
+    "name": "Badarpur Border",
+    "zscores": {
+      "built_up_pct": 1.294,
+      "vegetation_pct": 0.092,
+      "cropland_pct": -0.985,
+      "grass_pct": -0.563
+    }
+  },
+  {
+    "name": "Vikaspuri",
+    "zscores": {
+      "built_up_pct": -0.063,
+      "vegetation_pct": 2.08,
+      "cropland_pct": -0.793,
+      "grass_pct": -0.404
+    }
+  },
+  {
+    "name": "Uttam Nagar",
+    "zscores": {
+      "built_up_pct": 1.758,
+      "vegetation_pct": -0.705,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Janakpuri District Centre",
+    "zscores": {
+      "built_up_pct": 0.911,
+      "vegetation_pct": 0.778,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.382
+    }
+  },
+  {
+    "name": "Rohini Sector 3",
+    "zscores": {
+      "built_up_pct": 0.659,
+      "vegetation_pct": -0.294,
+      "cropland_pct": -0.29,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Pitampura TV Tower",
+    "zscores": {
+      "built_up_pct": 1.269,
+      "vegetation_pct": 0.209,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Wazirabad",
+    "zscores": {
+      "built_up_pct": -0.981,
+      "vegetation_pct": -0.582,
+      "cropland_pct": 0.16,
+      "grass_pct": -0.606
+    }
+  },
+  {
+    "name": "AIIMS Flyover",
+    "zscores": {
+      "built_up_pct": 1.498,
+      "vegetation_pct": -0.366,
+      "cropland_pct": -1.0,
+      "grass_pct": -0.353
+    }
+  },
+  {
+    "name": "Hauz Khas",
+    "zscores": {
+      "built_up_pct": 0.722,
+      "vegetation_pct": 1.237,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.586
+    }
+  },
+  {
+    "name": "Mehrauli",
+    "zscores": {
+      "built_up_pct": -0.751,
+      "vegetation_pct": 4.01,
+      "cropland_pct": -1.004,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Vasant Kunj",
+    "zscores": {
+      "built_up_pct": 0.713,
+      "vegetation_pct": 1.11,
+      "cropland_pct": -0.984,
+      "grass_pct": -0.41
+    }
+  },
+  {
+    "name": "Kapashera Border",
+    "zscores": {
+      "built_up_pct": 1.309,
+      "vegetation_pct": -0.417,
+      "cropland_pct": -0.868,
+      "grass_pct": -0.174
+    }
+  },
+  {
+    "name": "Narela",
+    "zscores": {
+      "built_up_pct": 1.472,
+      "vegetation_pct": -0.64,
+      "cropland_pct": -0.938,
+      "grass_pct": 0.066
+    }
+  },
+  {
+    "name": "Bawana Industrial Area",
+    "zscores": {
+      "built_up_pct": 1.754,
+      "vegetation_pct": -0.696,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "RK Puram Sector 12",
+    "zscores": {
+      "built_up_pct": -0.058,
+      "vegetation_pct": 2.714,
+      "cropland_pct": -1.005,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Sarojini Nagar",
+    "zscores": {
+      "built_up_pct": 0.446,
+      "vegetation_pct": 1.767,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Pragati Maidan Underpass",
+    "zscores": {
+      "built_up_pct": 0.531,
+      "vegetation_pct": 1.174,
+      "cropland_pct": -0.839,
+      "grass_pct": -0.581
+    }
+  },
+  {
+    "name": "Connaught Place Inner Circle",
+    "zscores": {
+      "built_up_pct": 1.327,
+      "vegetation_pct": 0.062,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.549
+    }
+  },
+  {
+    "name": "Rajiv Chowk",
+    "zscores": {
+      "built_up_pct": 1.318,
+      "vegetation_pct": 0.02,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.46
+    }
+  },
+  {
+    "name": "Moolchand Underpass",
+    "zscores": {
+      "built_up_pct": 1.377,
+      "vegetation_pct": 0.014,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Chirag Delhi",
+    "zscores": {
+      "built_up_pct": 1.547,
+      "vegetation_pct": -0.335,
+      "cropland_pct": -1.002,
+      "grass_pct": -0.566
+    }
+  },
+  {
+    "name": "Malviya Nagar",
+    "zscores": {
+      "built_up_pct": 1.377,
+      "vegetation_pct": 0.015,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Saket Metro Station",
+    "zscores": {
+      "built_up_pct": 0.36,
+      "vegetation_pct": 1.798,
+      "cropland_pct": -1.004,
+      "grass_pct": -0.334
+    }
+  },
+  {
+    "name": "Kalkaji",
+    "zscores": {
+      "built_up_pct": 1.318,
+      "vegetation_pct": -0.019,
+      "cropland_pct": -0.99,
+      "grass_pct": -0.363
+    }
+  },
+  {
+    "name": "Govindpuri",
+    "zscores": {
+      "built_up_pct": 0.597,
+      "vegetation_pct": 1.351,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.439
+    }
+  },
+  {
+    "name": "Tughlaqabad",
+    "zscores": {
+      "built_up_pct": 0.323,
+      "vegetation_pct": 1.802,
+      "cropland_pct": -0.956,
+      "grass_pct": -0.515
+    }
+  },
+  {
+    "name": "Sangam Vihar",
+    "zscores": {
+      "built_up_pct": 1.752,
+      "vegetation_pct": -0.714,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Palam",
+    "zscores": {
+      "built_up_pct": 0.329,
+      "vegetation_pct": 1.542,
+      "cropland_pct": -0.85,
+      "grass_pct": -0.445
+    }
+  },
+  {
+    "name": "Dwarka Sector 21",
+    "zscores": {
+      "built_up_pct": -0.094,
+      "vegetation_pct": 1.159,
+      "cropland_pct": -0.268,
+      "grass_pct": -0.475
+    }
+  },
+  {
+    "name": "Najafgarh Road",
+    "zscores": {
+      "built_up_pct": 0.553,
+      "vegetation_pct": 1.327,
+      "cropland_pct": -0.964,
+      "grass_pct": -0.271
+    }
+  },
+  {
+    "name": "Mayur Vihar Phase 1",
+    "zscores": {
+      "built_up_pct": 1.302,
+      "vegetation_pct": 0.137,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.602
+    }
+  },
+  {
+    "name": "Patparganj",
+    "zscores": {
+      "built_up_pct": 1.303,
+      "vegetation_pct": -0.049,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.432
+    }
+  },
+  {
+    "name": "Preet Vihar",
+    "zscores": {
+      "built_up_pct": 1.642,
+      "vegetation_pct": -0.485,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Laxmi Nagar",
+    "zscores": {
+      "built_up_pct": 1.735,
+      "vegetation_pct": -0.714,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Shahdara",
+    "zscores": {
+      "built_up_pct": 1.76,
+      "vegetation_pct": -0.709,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Panjabi baug Underpass",
+    "zscores": {
+      "built_up_pct": 1.534,
+      "vegetation_pct": -0.389,
+      "cropland_pct": -0.997,
+      "grass_pct": -0.596
+    }
+  },
+  {
+    "name": "Jhilmil Railway Underpass",
+    "zscores": {
+      "built_up_pct": 1.653,
+      "vegetation_pct": -0.515,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Mathura Road",
+    "zscores": {
+      "built_up_pct": 1.642,
+      "vegetation_pct": -0.641,
+      "cropland_pct": -0.93,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Mathura Road",
+    "zscores": {
+      "built_up_pct": 1.456,
+      "vegetation_pct": -0.211,
+      "cropland_pct": -0.974,
+      "grass_pct": -0.602
+    }
+  },
+  {
+    "name": "Benito Juarez Marg Underpass",
+    "zscores": {
+      "built_up_pct": 0.566,
+      "vegetation_pct": 1.518,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.606
+    }
+  },
+  {
+    "name": "Underpass",
+    "zscores": {
+      "built_up_pct": 0.435,
+      "vegetation_pct": 1.729,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.608
+    }
+  },
+  {
+    "name": "Rajnigandha Underpass",
+    "zscores": {
+      "built_up_pct": 1.581,
+      "vegetation_pct": -0.404,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Benito Juarez Marg Underpass",
+    "zscores": {
+      "built_up_pct": 0.978,
+      "vegetation_pct": 0.61,
+      "cropland_pct": -1.004,
+      "grass_pct": -0.324
+    }
+  },
+  {
+    "name": "Azadpur Underpass",
+    "zscores": {
+      "built_up_pct": 1.658,
+      "vegetation_pct": -0.539,
+      "cropland_pct": -1.005,
+      "grass_pct": -0.602
+    }
+  },
+  {
+    "name": "Hindon Underpass",
+    "zscores": {
+      "built_up_pct": 0.388,
+      "vegetation_pct": 0.856,
+      "cropland_pct": -0.796,
+      "grass_pct": -0.138
+    }
+  },
+  {
+    "name": "Vishwakarma Road Underpass",
+    "zscores": {
+      "built_up_pct": 1.568,
+      "vegetation_pct": -0.406,
+      "cropland_pct": -0.993,
+      "grass_pct": -0.606
+    }
+  },
+  {
+    "name": "Benito Juarez Marg Underpass",
+    "zscores": {
+      "built_up_pct": 0.911,
+      "vegetation_pct": 0.698,
+      "cropland_pct": -1.001,
+      "grass_pct": -0.214
+    }
+  },
+  {
+    "name": "Vinay Marg Underpass",
+    "zscores": {
+      "built_up_pct": 0.818,
+      "vegetation_pct": 1.01,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Ashram Underpass",
+    "zscores": {
+      "built_up_pct": 1.305,
+      "vegetation_pct": 0.147,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Moolchand Underpass",
+    "zscores": {
+      "built_up_pct": 1.143,
+      "vegetation_pct": 0.448,
+      "cropland_pct": -1.005,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Hero Honda Underpass",
+    "zscores": {
+      "built_up_pct": 1.575,
+      "vegetation_pct": -0.372,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.607
+    }
+  },
+  {
+    "name": "Benito Juarez Marg Underpass",
+    "zscores": {
+      "built_up_pct": 0.416,
+      "vegetation_pct": 1.797,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.561
+    }
+  },
+  {
+    "name": "Golf Course Road Underpass",
+    "zscores": {
+      "built_up_pct": 1.193,
+      "vegetation_pct": 0.162,
+      "cropland_pct": -0.912,
+      "grass_pct": -0.607
+    }
+  },
+  {
+    "name": "Parade Road",
+    "zscores": {
+      "built_up_pct": 0.54,
+      "vegetation_pct": 0.956,
+      "cropland_pct": -0.962,
+      "grass_pct": 0.516
+    }
+  },
+  {
+    "name": "Keshav Chowk Underpass",
+    "zscores": {
+      "built_up_pct": 1.21,
+      "vegetation_pct": -0.197,
+      "cropland_pct": -0.972,
+      "grass_pct": 0.09
+    }
+  },
+  {
+    "name": "Dadri Road",
+    "zscores": {
+      "built_up_pct": 1.702,
+      "vegetation_pct": -0.714,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.596
+    }
+  },
+  {
+    "name": "Golf Course Road Underpass",
+    "zscores": {
+      "built_up_pct": 1.384,
+      "vegetation_pct": -0.261,
+      "cropland_pct": -0.947,
+      "grass_pct": -0.346
+    }
+  },
+  {
+    "name": "Sikandarpur Underpass",
+    "zscores": {
+      "built_up_pct": 1.595,
+      "vegetation_pct": -0.4,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.602
+    }
+  },
+  {
+    "name": "Gali Number 1",
+    "zscores": {
+      "built_up_pct": 1.606,
+      "vegetation_pct": -0.527,
+      "cropland_pct": -0.997,
+      "grass_pct": -0.571
+    }
+  },
+  {
+    "name": "MG Road Underpass",
+    "zscores": {
+      "built_up_pct": 1.388,
+      "vegetation_pct": -0.221,
+      "cropland_pct": -0.972,
+      "grass_pct": -0.449
+    }
+  },
+  {
+    "name": "Maharaja Agrasen Marg Underpass",
+    "zscores": {
+      "built_up_pct": 1.269,
+      "vegetation_pct": 0.216,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Ashram Underpass",
+    "zscores": {
+      "built_up_pct": 1.539,
+      "vegetation_pct": -0.294,
+      "cropland_pct": -1.006,
+      "grass_pct": -0.612
+    }
+  },
+  {
+    "name": "Badarpur Railway Underpass",
+    "zscores": {
+      "built_up_pct": 1.392,
+      "vegetation_pct": -0.056,
+      "cropland_pct": -1.0,
+      "grass_pct": -0.578
+    }
+  }
+]

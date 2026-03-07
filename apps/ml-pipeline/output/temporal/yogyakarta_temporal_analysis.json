@@ -1,0 +1,65 @@
+{
+  "city": "yogyakarta",
+  "effective_n": 17,
+  "n_samples_original": 1444,
+  "n_samples_valid": 608,
+  "n_defaults_removed": 836,
+  "default_rate": 0.5789473684210527,
+  "analysis": {
+    "descriptive": {
+      "tier": "descriptive",
+      "features": {
+        "vv_mean": {
+          "flood_median": -1.9433,
+          "flood_mean": -1.8737,
+          "flood_std": 0.8864,
+          "flood_iqr": 1.1924,
+          "dry_median": null,
+          "dry_mean": null,
+          "dry_std": null,
+          "dry_iqr": null,
+          "median_diff": null,
+          "direction": null
+        },
+        "vh_mean": {
+          "flood_median": -13.1113,
+          "flood_mean": -13.036,
+          "flood_std": 0.7047,
+          "flood_iqr": 0.9956,
+          "dry_median": null,
+          "dry_mean": null,
+          "dry_std": null,
+          "dry_iqr": null,
+          "median_diff": null,
+          "direction": null
+        },
+        "vv_vh_ratio": {
+          "flood_median": 11.0787,
+          "flood_mean": 11.1622,
+          "flood_std": 1.0527,
+          "flood_iqr": 1.6271,
+          "dry_median": null,
+          "dry_mean": null,
+          "dry_std": null,
+          "dry_iqr": null,
+          "median_diff": null,
+          "direction": null
+        },
+        "change_magnitude": {
+          "flood_median": 0.3919,
+          "flood_mean": 0.431,
+          "flood_std": 0.415,
+          "flood_iqr": 0.5675,
+          "dry_median": null,
+          "dry_mean": null,
+          "dry_std": null,
+          "dry_iqr": null,
+          "median_diff": null,
+          "direction": null
+        }
+      }
+    },
+    "tier": "descriptive"
+  },
+  "hotspot_summaries": []
+}

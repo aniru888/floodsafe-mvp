@@ -1,0 +1,582 @@
+{
+  "city": "delhi",
+  "n_hotspots": 90,
+  "n_background": 500,
+  "features_analyzed": [
+    "elevation",
+    "slope",
+    "aspect",
+    "tpi",
+    "twi",
+    "built_up_pct",
+    "vegetation_pct",
+    "cropland_pct",
+    "bare_pct",
+    "grass_pct"
+  ],
+  "features_dropped": [],
+  "data_quality": {
+    "hotspot": {
+      "elevation": {
+        "n_total": 90,
+        "n_valid": 90,
+        "null_rate": 0.0,
+        "mean": 220.6456,
+        "std": 14.0166,
+        "median": 216.355,
+        "min": 199.8784,
+        "max": 274.8891,
+        "shapiro_w": 0.8991,
+        "shapiro_p": 4e-06,
+        "is_normal": "False"
+      },
+      "slope": {
+        "n_total": 90,
+        "n_valid": 90,
+        "null_rate": 0.0,
+        "mean": 3.3309,
+        "std": 0.7246,
+        "median": 3.1875,
+        "min": 2.1569,
+        "max": 6.2588,
+        "shapiro_w": 0.9144,
+        "shapiro_p": 1.9e-05,
+        "is_normal": "False"
+      },
+      "aspect": {
+        "n_total": 90,
+        "n_valid": 90,
+        "null_rate": 0.0,
+        "mean": 163.4667,
+        "std": 13.8208,
+        "median": 162.181,
+        "min": 130.2992,
+        "max": 207.6563,
+        "shapiro_w": 0.9866,
+        "shapiro_p": 0.49116,
+        "is_normal": "True"
+      },
+      "tpi": {
+        "n_total": 90,
+        "n_valid": 90,
+        "null_rate": 0.0,
+        "mean": 0.0227,
+        "std": 0.4608,
+        "median": 0.008,
+        "min": -1.6752,
+        "max": 1.2063,
+        "shapiro_w": 0.9697,
+        "shapiro_p": 0.033537,
+        "is_normal": "False"
+      },
+      "twi": {
+        "n_total": 90,
+        "n_valid": 90,
+        "null_rate": 0.0,
+        "mean": 9.8841,
+        "std": 0.193,
+        "median": 9.8986,
+        "min": 9.372,
+        "max": 10.3141,
+        "shapiro_w": 0.9907,
+        "shapiro_p": 0.781451,
+        "is_normal": "True"
+      },
+      "built_up_pct": {
+        "n_total": 90,
+        "n_valid": 90,
+        "null_rate": 0.0,
+        "mean": 72.1128,
+        "std": 25.3622,
+        "median": 82.43,
+        "min": 0.0,
+        "max": 99.84,
+        "shapiro_w": 0.8579,
+        "shapiro_p": 0.0,
+        "is_normal": "False"
+      },
+      "vegetation_pct": {
+        "n_total": 90,
+        "n_valid": 90,
+        "null_rate": 0.0,
+        "mean": 21.5417,
+        "std": 20.5243,
+        "median": 14.15,
+        "min": 0.0,
+        "max": 96.72,
+        "shapiro_w": 0.8613,
+        "shapiro_p": 0.0,
+        "is_normal": "False"
+      },
+      "cropland_pct": {
+        "n_total": 90,
+        "n_valid": 90,
+        "null_rate": 0.0,
+        "mean": 3.2929,
+        "std": 10.4599,
+        "median": 0.055,
+        "min": 0.0,
+        "max": 76.95,
+        "shapiro_w": 0.3467,
+        "shapiro_p": 0.0,
+        "is_normal": "False"
+      },
+      "bare_pct": {
+        "n_total": 90,
+        "n_valid": 90,
+        "null_rate": 0.0,
+        "mean": 0.7332,
+        "std": 2.3103,
+        "median": 0.18,
+        "min": 0.0,
+        "max": 21.41,
+        "shapiro_w": 0.2684,
+        "shapiro_p": 0.0,
+        "is_normal": "False"
+      },
+      "grass_pct": {
+        "n_total": 90,
+        "n_valid": 90,
+        "null_rate": 0.0,
+        "mean": 1.1909,
+        "std": 2.3686,
+        "median": 0.115,
+        "min": 0.0,
+        "max": 16.35,
+        "shapiro_w": 0.5478,
+        "shapiro_p": 0.0,
+        "is_normal": "False"
+      }
+    },
+    "background": {
+      "elevation": {
+        "n_total": 500,
+        "n_valid": 500,
+        "null_rate": 0.0,
+        "mean": 219.8333,
+        "std": 16.4894,
+        "median": 215.5865,
+        "min": 197.2407,
+        "max": 293.8701,
+        "shapiro_w": 0.7105,
+        "shapiro_p": 0.0,
+        "is_normal": "False"
+      },
+      "slope": {
+        "n_total": 500,
+        "n_valid": 500,
+        "null_rate": 0.0,
+        "mean": 3.2767,
+        "std": 1.0392,
+        "median": 3.059,
+        "min": 0.5482,
+        "max": 11.5764,
+        "shapiro_w": 0.8821,
+        "shapiro_p": 0.0,
+        "is_normal": "False"
+      },
+      "aspect": {
+        "n_total": 500,
+        "n_valid": 500,
+        "null_rate": 0.0,
+        "mean": 161.7491,
+        "std": 17.4626,
+        "median": 162.9984,
+        "min": 32.1109,
+        "max": 215.4006,
+        "shapiro_w": 0.8515,
+        "shapiro_p": 0.0,
+        "is_normal": "False"
+      },
+      "tpi": {
+        "n_total": 500,
+        "n_valid": 500,
+        "null_rate": 0.0,
+        "mean": -0.0507,
+        "std": 0.5239,
+        "median": -0.0386,
+        "min": -3.7587,
+        "max": 2.6716,
+        "shapiro_w": 0.8674,
+        "shapiro_p": 0.0,
+        "is_normal": "False"
+      },
+      "twi": {
+        "n_total": 500,
+        "n_valid": 500,
+        "null_rate": 0.0,
+        "mean": 9.9419,
+        "std": 0.3713,
+        "median": 9.9573,
+        "min": 8.6788,
+        "max": 12.9669,
+        "shapiro_w": 0.8219,
+        "shapiro_p": 0.0,
+        "is_normal": "False"
+      },
+      "built_up_pct": {
+        "n_total": 500,
+        "n_valid": 500,
+        "null_rate": 0.0,
+        "mean": 35.7374,
+        "std": 36.4309,
+        "median": 20.135,
+        "min": 0.0,
+        "max": 100.0,
+        "shapiro_w": 0.8303,
+        "shapiro_p": 0.0,
+        "is_normal": "False"
+      },
+      "vegetation_pct": {
+        "n_total": 500,
+        "n_valid": 500,
+        "null_rate": 0.0,
+        "mean": 13.8142,
+        "std": 19.3425,
+        "median": 6.045,
+        "min": 0.0,
+        "max": 99.17,
+        "shapiro_w": 0.712,
+        "shapiro_p": 0.0,
+        "is_normal": "False"
+      },
+      "cropland_pct": {
+        "n_total": 500,
+        "n_valid": 500,
+        "null_rate": 0.0,
+        "mean": 37.9315,
+        "std": 37.7095,
+        "median": 22.86,
+        "min": 0.0,
+        "max": 100.0,
+        "shapiro_w": 0.83,
+        "shapiro_p": 0.0,
+        "is_normal": "False"
+      },
+      "bare_pct": {
+        "n_total": 500,
+        "n_valid": 500,
+        "null_rate": 0.0,
+        "mean": 1.5938,
+        "std": 3.9708,
+        "median": 0.14,
+        "min": 0.0,
+        "max": 42.16,
+        "shapiro_w": 0.4327,
+        "shapiro_p": 0.0,
+        "is_normal": "False"
+      },
+      "grass_pct": {
+        "n_total": 500,
+        "n_valid": 500,
+        "null_rate": 0.0,
+        "mean": 5.4417,
+        "std": 8.8968,
+        "median": 1.645,
+        "min": 0.0,
+        "max": 62.38,
+        "shapiro_w": 0.6446,
+        "shapiro_p": 0.0,
+        "is_normal": "False"
+      }
+    }
+  },
+  "associations": {
+    "elevation": {
+      "hotspot_median": 216.355,
+      "background_median": 215.5865,
+      "hotspot_mean": 220.6456,
+      "background_mean": 219.8333,
+      "direction": "higher",
+      "mann_whitney_u": 24104.0,
+      "mann_whitney_p": 0.28143164,
+      "ks_statistic": 0.1482,
+      "ks_p": 0.06263038,
+      "cliffs_delta": 0.0713,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": 0.6168,
+        "expected_i": -0.0112,
+        "p_value": 0.001,
+        "z_score": 13.8736,
+        "significant": true
+      },
+      "bh_corrected_p": 0.35178956,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "slope": {
+      "hotspot_median": 3.1875,
+      "background_median": 3.059,
+      "hotspot_mean": 3.3309,
+      "background_mean": 3.2767,
+      "direction": "higher",
+      "mann_whitney_u": 24860.0,
+      "mann_whitney_p": 0.11298181,
+      "ks_statistic": 0.1764,
+      "ks_p": 0.01500642,
+      "cliffs_delta": 0.1049,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": 0.14,
+        "expected_i": -0.0112,
+        "p_value": 0.007,
+        "z_score": 3.3203,
+        "significant": true
+      },
+      "bh_corrected_p": 0.18830301,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "aspect": {
+      "hotspot_median": 162.181,
+      "background_median": 162.9984,
+      "hotspot_mean": 163.4667,
+      "background_mean": 161.7491,
+      "direction": "lower",
+      "mann_whitney_u": 22817.0,
+      "mann_whitney_p": 0.83163856,
+      "ks_statistic": 0.0564,
+      "ks_p": 0.95561079,
+      "cliffs_delta": 0.0141,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": 0.0766,
+        "expected_i": -0.0112,
+        "p_value": 0.043,
+        "z_score": 1.8712,
+        "significant": true
+      },
+      "bh_corrected_p": 0.83163856,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "tpi": {
+      "hotspot_median": 0.008,
+      "background_median": -0.0386,
+      "hotspot_mean": 0.0227,
+      "background_mean": -0.0507,
+      "direction": "higher",
+      "mann_whitney_u": 24489.0,
+      "mann_whitney_p": 0.18164001,
+      "ks_statistic": 0.1029,
+      "ks_p": 0.36742626,
+      "cliffs_delta": 0.0884,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": -0.0572,
+        "expected_i": -0.0112,
+        "p_value": 0.16,
+        "z_score": -1.0053,
+        "significant": false
+      },
+      "bh_corrected_p": 0.25948573,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "twi": {
+      "hotspot_median": 9.8986,
+      "background_median": 9.9573,
+      "hotspot_mean": 9.8841,
+      "background_mean": 9.9419,
+      "direction": "lower",
+      "mann_whitney_u": 19681.0,
+      "mann_whitney_p": 0.05832423,
+      "ks_statistic": 0.1873,
+      "ks_p": 0.0080861,
+      "cliffs_delta": -0.1253,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": 0.1614,
+        "expected_i": -0.0112,
+        "p_value": 0.003,
+        "z_score": 3.776,
+        "significant": true
+      },
+      "bh_corrected_p": 0.11664845,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "built_up_pct": {
+      "hotspot_median": 82.43,
+      "background_median": 20.135,
+      "hotspot_mean": 72.1128,
+      "background_mean": 35.7374,
+      "direction": "higher",
+      "mann_whitney_u": 34498.5,
+      "mann_whitney_p": 0.0,
+      "ks_statistic": 0.5229,
+      "ks_p": 0.0,
+      "cliffs_delta": 0.5333,
+      "cliffs_magnitude": "large",
+      "morans_i": {
+        "morans_i": 0.0523,
+        "expected_i": -0.0112,
+        "p_value": 0.08,
+        "z_score": 1.364,
+        "significant": false
+      },
+      "bh_corrected_p": 0.0,
+      "bh_significant": true,
+      "meaningful": "True"
+    },
+    "vegetation_pct": {
+      "hotspot_median": 14.15,
+      "background_median": 6.045,
+      "hotspot_mean": 21.5417,
+      "background_mean": 13.8142,
+      "direction": "higher",
+      "mann_whitney_u": 29364.0,
+      "mann_whitney_p": 3.99e-06,
+      "ks_statistic": 0.282,
+      "ks_p": 7.49e-06,
+      "cliffs_delta": 0.3051,
+      "cliffs_magnitude": "small",
+      "morans_i": {
+        "morans_i": 0.1451,
+        "expected_i": -0.0112,
+        "p_value": 0.005,
+        "z_score": 3.3233,
+        "significant": true
+      },
+      "bh_corrected_p": 9.97e-06,
+      "bh_significant": true,
+      "meaningful": "True"
+    },
+    "cropland_pct": {
+      "hotspot_median": 0.055,
+      "background_median": 22.86,
+      "hotspot_mean": 3.2929,
+      "background_mean": 37.9315,
+      "direction": "lower",
+      "mann_whitney_u": 7993.5,
+      "mann_whitney_p": 0.0,
+      "ks_statistic": 0.5607,
+      "ks_p": 0.0,
+      "cliffs_delta": -0.6447,
+      "cliffs_magnitude": "large",
+      "morans_i": {
+        "morans_i": 0.1204,
+        "expected_i": -0.0112,
+        "p_value": 0.01,
+        "z_score": 3.2722,
+        "significant": true
+      },
+      "bh_corrected_p": 0.0,
+      "bh_significant": true,
+      "meaningful": "True"
+    },
+    "bare_pct": {
+      "hotspot_median": 0.18,
+      "background_median": 0.14,
+      "hotspot_mean": 0.7332,
+      "background_mean": 1.5938,
+      "direction": "higher",
+      "mann_whitney_u": 23082.0,
+      "mann_whitney_p": 0.68749008,
+      "ks_statistic": 0.1947,
+      "ks_p": 0.00522019,
+      "cliffs_delta": 0.0259,
+      "cliffs_magnitude": "negligible",
+      "morans_i": {
+        "morans_i": 0.0219,
+        "expected_i": -0.0112,
+        "p_value": 0.066,
+        "z_score": 1.5764,
+        "significant": false
+      },
+      "bh_corrected_p": 0.76387787,
+      "bh_significant": false,
+      "meaningful": false
+    },
+    "grass_pct": {
+      "hotspot_median": 0.115,
+      "background_median": 1.645,
+      "hotspot_mean": 1.1909,
+      "background_mean": 5.4417,
+      "direction": "lower",
+      "mann_whitney_u": 14339.0,
+      "mann_whitney_p": 3e-08,
+      "ks_statistic": 0.2987,
+      "ks_p": 1.61e-06,
+      "cliffs_delta": -0.3627,
+      "cliffs_magnitude": "medium",
+      "morans_i": {
+        "morans_i": 0.0413,
+        "expected_i": -0.0112,
+        "p_value": 0.101,
+        "z_score": 1.3136,
+        "significant": false
+      },
+      "bh_corrected_p": 1.1e-07,
+      "bh_significant": true,
+      "meaningful": "True"
+    }
+  },
+  "meaningful_features": [
+    "built_up_pct",
+    "vegetation_pct",
+    "cropland_pct",
+    "grass_pct"
+  ],
+  "vif": {
+    "features": {
+      "elevation": {
+        "vif": 1.55,
+        "problematic": false,
+        "severe": false
+      },
+      "slope": {
+        "vif": 4.19,
+        "problematic": false,
+        "severe": false
+      },
+      "aspect": {
+        "vif": 1.74,
+        "problematic": false,
+        "severe": false
+      },
+      "tpi": {
+        "vif": 1.09,
+        "problematic": false,
+        "severe": false
+      },
+      "twi": {
+        "vif": 5.41,
+        "problematic": true,
+        "severe": false
+      },
+      "built_up_pct": {
+        "vif": 9.86,
+        "problematic": true,
+        "severe": false
+      },
+      "vegetation_pct": {
+        "vif": 3.44,
+        "problematic": false,
+        "severe": false
+      },
+      "cropland_pct": {
+        "vif": 10.63,
+        "problematic": true,
+        "severe": true
+      },
+      "bare_pct": {
+        "vif": 1.27,
+        "problematic": false,
+        "severe": false
+      },
+      "grass_pct": {
+        "vif": 1.63,
+        "problematic": false,
+        "severe": false
+      }
+    }
+  },
+  "thresholds": {
+    "cliff_delta_min": 0.3,
+    "bh_alpha": 0.05,
+    "vif_max": 5.0,
+    "null_max": 0.2
+  }
+}

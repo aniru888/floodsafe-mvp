@@ -1,0 +1,468 @@
+{
+  "n_cities_analyzed": 5,
+  "cities": [
+    "delhi",
+    "bangalore",
+    "yogyakarta",
+    "singapore",
+    "indore"
+  ],
+  "feature_consistency": {
+    "elevation": {
+      "n_cities_tested": 5,
+      "n_cities_significant": 3,
+      "n_cities_meaningful": 1,
+      "direction_consistent": false,
+      "mean_cliffs_delta": 0.0614,
+      "per_city": [
+        {
+          "city": "delhi",
+          "cliffs_delta": 0.0713,
+          "direction": "higher",
+          "bh_significant": false,
+          "meaningful": false
+        },
+        {
+          "city": "bangalore",
+          "cliffs_delta": 0.1212,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "False"
+        },
+        {
+          "city": "yogyakarta",
+          "cliffs_delta": -0.252,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "False"
+        },
+        {
+          "city": "singapore",
+          "cliffs_delta": 0.5091,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "indore",
+          "cliffs_delta": -0.1426,
+          "direction": "lower",
+          "bh_significant": false,
+          "meaningful": false
+        }
+      ]
+    },
+    "slope": {
+      "n_cities_tested": 5,
+      "n_cities_significant": 4,
+      "n_cities_meaningful": 3,
+      "direction_consistent": false,
+      "mean_cliffs_delta": 0.1043,
+      "per_city": [
+        {
+          "city": "delhi",
+          "cliffs_delta": 0.1049,
+          "direction": "higher",
+          "bh_significant": false,
+          "meaningful": false
+        },
+        {
+          "city": "bangalore",
+          "cliffs_delta": 0.1844,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "False"
+        },
+        {
+          "city": "yogyakarta",
+          "cliffs_delta": -0.7534,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "singapore",
+          "cliffs_delta": 0.6255,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "indore",
+          "cliffs_delta": 0.3601,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "True"
+        }
+      ]
+    },
+    "aspect": {
+      "n_cities_tested": 5,
+      "n_cities_significant": 2,
+      "n_cities_meaningful": 1,
+      "direction_consistent": false,
+      "mean_cliffs_delta": 0.0956,
+      "per_city": [
+        {
+          "city": "delhi",
+          "cliffs_delta": 0.0141,
+          "direction": "lower",
+          "bh_significant": false,
+          "meaningful": false
+        },
+        {
+          "city": "bangalore",
+          "cliffs_delta": 0.0392,
+          "direction": "higher",
+          "bh_significant": false,
+          "meaningful": false
+        },
+        {
+          "city": "yogyakarta",
+          "cliffs_delta": -0.2933,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "False"
+        },
+        {
+          "city": "singapore",
+          "cliffs_delta": 0.6466,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "indore",
+          "cliffs_delta": 0.0713,
+          "direction": "higher",
+          "bh_significant": false,
+          "meaningful": false
+        }
+      ]
+    },
+    "tpi": {
+      "n_cities_tested": 5,
+      "n_cities_significant": 2,
+      "n_cities_meaningful": 1,
+      "direction_consistent": true,
+      "mean_cliffs_delta": -0.0584,
+      "per_city": [
+        {
+          "city": "delhi",
+          "cliffs_delta": 0.0884,
+          "direction": "higher",
+          "bh_significant": false,
+          "meaningful": false
+        },
+        {
+          "city": "bangalore",
+          "cliffs_delta": -0.3336,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "yogyakarta",
+          "cliffs_delta": 0.1294,
+          "direction": "higher",
+          "bh_significant": false,
+          "meaningful": false
+        },
+        {
+          "city": "singapore",
+          "cliffs_delta": -0.2182,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "False"
+        },
+        {
+          "city": "indore",
+          "cliffs_delta": 0.042,
+          "direction": "higher",
+          "bh_significant": false,
+          "meaningful": false
+        }
+      ]
+    },
+    "twi": {
+      "n_cities_tested": 5,
+      "n_cities_significant": 4,
+      "n_cities_meaningful": 3,
+      "direction_consistent": false,
+      "mean_cliffs_delta": -0.1047,
+      "per_city": [
+        {
+          "city": "delhi",
+          "cliffs_delta": -0.1253,
+          "direction": "lower",
+          "bh_significant": false,
+          "meaningful": false
+        },
+        {
+          "city": "bangalore",
+          "cliffs_delta": -0.1624,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "False"
+        },
+        {
+          "city": "yogyakarta",
+          "cliffs_delta": 0.7555,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "singapore",
+          "cliffs_delta": -0.6582,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "indore",
+          "cliffs_delta": -0.3332,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "True"
+        }
+      ]
+    },
+    "built_up_pct": {
+      "n_cities_tested": 5,
+      "n_cities_significant": 5,
+      "n_cities_meaningful": 5,
+      "direction_consistent": true,
+      "mean_cliffs_delta": 0.8062,
+      "per_city": [
+        {
+          "city": "delhi",
+          "cliffs_delta": 0.5333,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "bangalore",
+          "cliffs_delta": 0.8142,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "yogyakarta",
+          "cliffs_delta": 0.9609,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "singapore",
+          "cliffs_delta": 0.8201,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "indore",
+          "cliffs_delta": 0.9027,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "True"
+        }
+      ]
+    },
+    "vegetation_pct": {
+      "n_cities_tested": 5,
+      "n_cities_significant": 4,
+      "n_cities_meaningful": 3,
+      "direction_consistent": false,
+      "mean_cliffs_delta": 0.0098,
+      "per_city": [
+        {
+          "city": "delhi",
+          "cliffs_delta": 0.3051,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "bangalore",
+          "cliffs_delta": -0.026,
+          "direction": "lower",
+          "bh_significant": false,
+          "meaningful": false
+        },
+        {
+          "city": "yogyakarta",
+          "cliffs_delta": -0.904,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "singapore",
+          "cliffs_delta": 0.3753,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "indore",
+          "cliffs_delta": 0.2988,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "False"
+        }
+      ]
+    },
+    "cropland_pct": {
+      "n_cities_tested": 4,
+      "n_cities_significant": 4,
+      "n_cities_meaningful": 4,
+      "direction_consistent": true,
+      "mean_cliffs_delta": -0.7593,
+      "per_city": [
+        {
+          "city": "delhi",
+          "cliffs_delta": -0.6447,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "bangalore",
+          "cliffs_delta": -0.747,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "yogyakarta",
+          "cliffs_delta": -0.7526,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "indore",
+          "cliffs_delta": -0.8927,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "True"
+        }
+      ]
+    },
+    "bare_pct": {
+      "n_cities_tested": 4,
+      "n_cities_significant": 2,
+      "n_cities_meaningful": 1,
+      "direction_consistent": true,
+      "mean_cliffs_delta": 0.121,
+      "per_city": [
+        {
+          "city": "delhi",
+          "cliffs_delta": 0.0259,
+          "direction": "higher",
+          "bh_significant": false,
+          "meaningful": false
+        },
+        {
+          "city": "bangalore",
+          "cliffs_delta": -0.031,
+          "direction": "lower",
+          "bh_significant": false,
+          "meaningful": false
+        },
+        {
+          "city": "singapore",
+          "cliffs_delta": 0.3189,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "indore",
+          "cliffs_delta": 0.1703,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "False"
+        }
+      ]
+    },
+    "grass_pct": {
+      "n_cities_tested": 5,
+      "n_cities_significant": 5,
+      "n_cities_meaningful": 5,
+      "direction_consistent": false,
+      "mean_cliffs_delta": -0.2934,
+      "per_city": [
+        {
+          "city": "delhi",
+          "cliffs_delta": -0.3627,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "bangalore",
+          "cliffs_delta": -0.6508,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "yogyakarta",
+          "cliffs_delta": -0.3949,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "singapore",
+          "cliffs_delta": 0.326,
+          "direction": "higher",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "indore",
+          "cliffs_delta": -0.3844,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "True"
+        }
+      ]
+    },
+    "water_pct": {
+      "n_cities_tested": 3,
+      "n_cities_significant": 1,
+      "n_cities_meaningful": 1,
+      "direction_consistent": true,
+      "mean_cliffs_delta": -0.1645,
+      "per_city": [
+        {
+          "city": "bangalore",
+          "cliffs_delta": 0.0132,
+          "direction": "equal",
+          "bh_significant": false,
+          "meaningful": false
+        },
+        {
+          "city": "singapore",
+          "cliffs_delta": -0.5625,
+          "direction": "lower",
+          "bh_significant": true,
+          "meaningful": "True"
+        },
+        {
+          "city": "indore",
+          "cliffs_delta": 0.0559,
+          "direction": "equal",
+          "bh_significant": false,
+          "meaningful": false
+        }
+      ]
+    }
+  }
+}
