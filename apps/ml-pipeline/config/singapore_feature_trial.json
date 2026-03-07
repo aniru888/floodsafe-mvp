@@ -1,0 +1,377 @@
+{
+  "city": "singapore",
+  "n_hotspots_total": 60,
+  "n_sample": 5,
+  "passed_features": [
+    "elevation",
+    "slope",
+    "aspect",
+    "tpi",
+    "twi",
+    "built_up_pct",
+    "vegetation_pct",
+    "water_pct",
+    "bare_pct",
+    "grass_pct"
+  ],
+  "failed_features": [
+    "cropland_pct",
+    "wetland_pct"
+  ],
+  "assessment": {
+    "elevation": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        30,
+        29,
+        9,
+        10,
+        15
+      ],
+      "stats": {
+        "min": 9.0,
+        "max": 30.0,
+        "mean": 18.6,
+        "std": 9.1345,
+        "range": 21.0
+      }
+    },
+    "slope": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        12.126529426714594,
+        11.010020331106594,
+        5.22768934787738,
+        3.32356891357218,
+        7.123640983755327
+      ],
+      "stats": {
+        "min": 3.3236,
+        "max": 12.1265,
+        "mean": 7.7623,
+        "std": 3.3505,
+        "range": 8.803
+      }
+    },
+    "aspect": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        179.92990959590463,
+        186.7350058088876,
+        177.91373396010678,
+        161.66831826926565,
+        173.5101188855612
+      ],
+      "stats": {
+        "min": 161.6683,
+        "max": 186.735,
+        "mean": 175.9514,
+        "std": 8.3178,
+        "range": 25.0667
+      }
+    },
+    "tpi": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        1.1063370255239555,
+        2.511274934008655,
+        -1.8012385269019957,
+        -0.3990275772460725,
+        0.5541693255383654
+      ],
+      "stats": {
+        "min": -1.8012,
+        "max": 2.5113,
+        "mean": 0.3943,
+        "std": 1.4466,
+        "range": 4.3125
+      }
+    },
+    "twi": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        8.58949722534549,
+        8.775099771032338,
+        9.398211928656652,
+        9.895609663077614,
+        9.064798653940077
+      ],
+      "stats": {
+        "min": 8.5895,
+        "max": 9.8956,
+        "mean": 9.1446,
+        "std": 0.4646,
+        "range": 1.3061
+      }
+    },
+    "built_up_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        82.86,
+        79.55,
+        83.0,
+        90.25,
+        71.59
+      ],
+      "stats": {
+        "min": 71.59,
+        "max": 90.25,
+        "mean": 81.45,
+        "std": 6.0442,
+        "range": 18.66
+      }
+    },
+    "vegetation_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        16.62,
+        13.94,
+        16.97,
+        9.47,
+        25.53
+      ],
+      "stats": {
+        "min": 9.47,
+        "max": 25.53,
+        "mean": 16.506,
+        "std": 5.2488,
+        "range": 16.06
+      }
+    },
+    "cropland_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": true,
+      "passed": false,
+      "fail_reason": "All values identical (0.0)",
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "std": 0.0,
+        "range": 0.0
+      }
+    },
+    "water_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        0.15,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 0.15,
+        "mean": 0.03,
+        "std": 0.06,
+        "range": 0.15
+      }
+    },
+    "bare_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        0.1,
+        0.36,
+        0.02,
+        0.0,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 0.36,
+        "mean": 0.096,
+        "std": 0.1371,
+        "range": 0.36
+      }
+    },
+    "grass_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        0.0,
+        6.18,
+        0.05,
+        0.01,
+        2.66
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 6.18,
+        "mean": 1.78,
+        "std": 2.4261,
+        "range": 6.18
+      }
+    },
+    "wetland_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": true,
+      "passed": false,
+      "fail_reason": "All values identical (0.0)",
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "std": 0.0,
+        "range": 0.0
+      }
+    }
+  },
+  "hotspot_results": [
+    {
+      "name": "Junction of Craig Road and Tanjong Pagar Road",
+      "lat": 1.2785,
+      "lng": 103.8421,
+      "features": {
+        "elevation": 30,
+        "slope": 12.126529426714594,
+        "aspect": 179.92990959590463,
+        "tpi": 1.1063370255239555,
+        "twi": 8.58949722534549,
+        "built_up_pct": 82.86,
+        "vegetation_pct": 16.62,
+        "cropland_pct": 0.0,
+        "water_pct": 0.15,
+        "bare_pct": 0.1,
+        "grass_pct": 0.0,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 11.6
+    },
+    {
+      "name": "Beach Road / Java Road (St Johns HQ)",
+      "lat": 1.3012,
+      "lng": 103.8619,
+      "features": {
+        "elevation": 29,
+        "slope": 11.010020331106594,
+        "aspect": 186.7350058088876,
+        "tpi": 2.511274934008655,
+        "twi": 8.775099771032338,
+        "built_up_pct": 79.55,
+        "vegetation_pct": 13.94,
+        "cropland_pct": 0.0,
+        "water_pct": 0.0,
+        "bare_pct": 0.36,
+        "grass_pct": 6.18,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 13.6
+    },
+    {
+      "name": "Junction of Stevens Road and Balmoral Road",
+      "lat": 1.3179,
+      "lng": 103.8259,
+      "features": {
+        "elevation": 9,
+        "slope": 5.22768934787738,
+        "aspect": 177.91373396010678,
+        "tpi": -1.8012385269019957,
+        "twi": 9.398211928656652,
+        "built_up_pct": 83.0,
+        "vegetation_pct": 16.97,
+        "cropland_pct": 0.0,
+        "water_pct": 0.0,
+        "bare_pct": 0.02,
+        "grass_pct": 0.05,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 10.4
+    },
+    {
+      "name": "Second Chin Bee Road",
+      "lat": 1.3306,
+      "lng": 103.7148,
+      "features": {
+        "elevation": 10,
+        "slope": 3.32356891357218,
+        "aspect": 161.66831826926565,
+        "tpi": -0.3990275772460725,
+        "twi": 9.895609663077614,
+        "built_up_pct": 90.25,
+        "vegetation_pct": 9.47,
+        "cropland_pct": 0.0,
+        "water_pct": 0.0,
+        "bare_pct": 0.0,
+        "grass_pct": 0.01,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 10.1
+    },
+    {
+      "name": "Hong Kah Area",
+      "lat": 1.3499,
+      "lng": 103.7211,
+      "features": {
+        "elevation": 15,
+        "slope": 7.123640983755327,
+        "aspect": 173.5101188855612,
+        "tpi": 0.5541693255383654,
+        "twi": 9.064798653940077,
+        "built_up_pct": 71.59,
+        "vegetation_pct": 25.53,
+        "cropland_pct": 0.0,
+        "water_pct": 0.0,
+        "bare_pct": 0.0,
+        "grass_pct": 2.66,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 11.7
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "delhi": {
+    "min_lat": 28.40, "max_lat": 28.88,
+    "min_lng": 76.84, "max_lng": 77.35,
+    "known_elevation_check": {
+      "lat": 28.6139, "lng": 77.2090,
+      "expected_m": 215, "tolerance_m": 10
+    }
+  },
+  "bangalore": {
+    "min_lat": 12.75, "max_lat": 13.20,
+    "min_lng": 77.35, "max_lng": 77.80
+  },
+  "yogyakarta": {
+    "min_lat": -7.95, "max_lat": -7.65,
+    "min_lng": 110.30, "max_lng": 110.50
+  },
+  "singapore": {
+    "min_lat": 1.15, "max_lat": 1.47,
+    "min_lng": 103.60, "max_lng": 104.05
+  },
+  "indore": {
+    "min_lat": 22.52, "max_lat": 22.85,
+    "min_lng": 75.72, "max_lng": 75.97
+  }
+}

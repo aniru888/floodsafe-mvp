@@ -1,0 +1,377 @@
+{
+  "city": "delhi",
+  "n_hotspots_total": 90,
+  "n_sample": 5,
+  "passed_features": [
+    "elevation",
+    "slope",
+    "aspect",
+    "tpi",
+    "twi",
+    "built_up_pct",
+    "vegetation_pct",
+    "cropland_pct",
+    "bare_pct",
+    "grass_pct"
+  ],
+  "failed_features": [
+    "water_pct",
+    "wetland_pct"
+  ],
+  "assessment": {
+    "elevation": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        222,
+        225,
+        218,
+        217,
+        214
+      ],
+      "stats": {
+        "min": 214.0,
+        "max": 225.0,
+        "mean": 219.2,
+        "std": 3.8678,
+        "range": 11.0
+      }
+    },
+    "slope": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        4.0214739598301215,
+        3.298138726295475,
+        3.238356426487237,
+        2.6330677290836664,
+        3.9122342968227177
+      ],
+      "stats": {
+        "min": 2.6331,
+        "max": 4.0215,
+        "mean": 3.4207,
+        "std": 0.5042,
+        "range": 1.3884
+      }
+    },
+    "aspect": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        191.68442060222873,
+        147.11028884033234,
+        174.17928153451226,
+        162.67788047808764,
+        169.47340578093633
+      ],
+      "stats": {
+        "min": 147.1103,
+        "max": 191.6844,
+        "mean": 169.0251,
+        "std": 14.5654,
+        "range": 44.5741
+      }
+    },
+    "tpi": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        0.26490384426515123,
+        0.2723741487230834,
+        0.06500740470097238,
+        0.1872536604371159,
+        -0.5875879636997277
+      ],
+      "stats": {
+        "min": -0.5876,
+        "max": 0.2724,
+        "mean": 0.0404,
+        "std": 0.3227,
+        "range": 0.86
+      }
+    },
+    "twi": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        9.736531945182103,
+        9.818382693122917,
+        9.967509883888082,
+        10.055699193529707,
+        9.760117763690573
+      ],
+      "stats": {
+        "min": 9.7365,
+        "max": 10.0557,
+        "mean": 9.8676,
+        "std": 0.1237,
+        "range": 0.3192
+      }
+    },
+    "built_up_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        93.08,
+        91.83,
+        93.13,
+        93.8,
+        87.81
+      ],
+      "stats": {
+        "min": 87.81,
+        "max": 93.8,
+        "mean": 91.93,
+        "std": 2.1561,
+        "range": 5.99
+      }
+    },
+    "vegetation_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        6.62,
+        7.31,
+        5.32,
+        2.79,
+        11.05
+      ],
+      "stats": {
+        "min": 2.79,
+        "max": 11.05,
+        "mean": 6.618,
+        "std": 2.7004,
+        "range": 8.26
+      }
+    },
+    "cropland_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        0.0,
+        0.14,
+        0.0,
+        3.08,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 3.08,
+        "mean": 0.644,
+        "std": 1.2192,
+        "range": 3.08
+      }
+    },
+    "water_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": true,
+      "passed": false,
+      "fail_reason": "All values identical (0.0)",
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "std": 0.0,
+        "range": 0.0
+      }
+    },
+    "bare_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        0.14,
+        0.05,
+        0.34,
+        0.22,
+        1.08
+      ],
+      "stats": {
+        "min": 0.05,
+        "max": 1.08,
+        "mean": 0.366,
+        "std": 0.3695,
+        "range": 1.03
+      }
+    },
+    "grass_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        0.04,
+        0.41,
+        1.39,
+        0.0,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 1.39,
+        "mean": 0.368,
+        "std": 0.5338,
+        "range": 1.39
+      }
+    },
+    "wetland_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": true,
+      "passed": false,
+      "fail_reason": "All values identical (0.0)",
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "std": 0.0,
+        "range": 0.0
+      }
+    }
+  },
+  "hotspot_results": [
+    {
+      "name": "Hero Honda Underpass",
+      "lat": 28.4359713,
+      "lng": 77.0101761,
+      "features": {
+        "elevation": 222,
+        "slope": 4.0214739598301215,
+        "aspect": 191.68442060222873,
+        "tpi": 0.26490384426515123,
+        "twi": 9.736531945182103,
+        "built_up_pct": 93.08,
+        "vegetation_pct": 6.62,
+        "cropland_pct": 0.0,
+        "water_pct": 0.0,
+        "bare_pct": 0.14,
+        "grass_pct": 0.04,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 11.0
+    },
+    {
+      "name": "Chirag Delhi",
+      "lat": 28.5356,
+      "lng": 77.2167,
+      "features": {
+        "elevation": 225,
+        "slope": 3.298138726295475,
+        "aspect": 147.11028884033234,
+        "tpi": 0.2723741487230834,
+        "twi": 9.818382693122917,
+        "built_up_pct": 91.83,
+        "vegetation_pct": 7.31,
+        "cropland_pct": 0.14,
+        "water_pct": 0.0,
+        "bare_pct": 0.05,
+        "grass_pct": 0.41,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 17.9
+    },
+    {
+      "name": "Modi Mill Underpass",
+      "lat": 28.5758,
+      "lng": 77.2206,
+      "features": {
+        "elevation": 218,
+        "slope": 3.238356426487237,
+        "aspect": 174.17928153451226,
+        "tpi": 0.06500740470097238,
+        "twi": 9.967509883888082,
+        "built_up_pct": 93.13,
+        "vegetation_pct": 5.32,
+        "cropland_pct": 0.0,
+        "water_pct": 0.0,
+        "bare_pct": 0.34,
+        "grass_pct": 1.39,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 6.9
+    },
+    {
+      "name": "Najafgarh Drain Area",
+      "lat": 28.6178,
+      "lng": 76.9825,
+      "features": {
+        "elevation": 217,
+        "slope": 2.6330677290836664,
+        "aspect": 162.67788047808764,
+        "tpi": 0.1872536604371159,
+        "twi": 10.055699193529707,
+        "built_up_pct": 93.8,
+        "vegetation_pct": 2.79,
+        "cropland_pct": 3.08,
+        "water_pct": 0.0,
+        "bare_pct": 0.22,
+        "grass_pct": 0.0,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 9.3
+    },
+    {
+      "name": "Kashmere Gate ISBT",
+      "lat": 28.6667,
+      "lng": 77.2283,
+      "features": {
+        "elevation": 214,
+        "slope": 3.9122342968227177,
+        "aspect": 169.47340578093633,
+        "tpi": -0.5875879636997277,
+        "twi": 9.760117763690573,
+        "built_up_pct": 87.81,
+        "vegetation_pct": 11.05,
+        "cropland_pct": 0.0,
+        "water_pct": 0.0,
+        "bare_pct": 1.08,
+        "grass_pct": 0.0,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 10.6
+    }
+  ]
+}

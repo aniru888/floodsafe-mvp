@@ -8,3 +8,8 @@ xgboost
 scikit-learn
 numpy
 httpx
+scipy
+libpysal
+esda
+statsmodels
+matplotlib

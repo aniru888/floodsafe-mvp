@@ -1,0 +1,377 @@
+{
+  "city": "indore",
+  "n_hotspots_total": 73,
+  "n_sample": 5,
+  "passed_features": [
+    "elevation",
+    "slope",
+    "aspect",
+    "tpi",
+    "twi",
+    "built_up_pct",
+    "vegetation_pct",
+    "cropland_pct",
+    "water_pct",
+    "bare_pct",
+    "grass_pct"
+  ],
+  "failed_features": [
+    "wetland_pct"
+  ],
+  "assessment": {
+    "elevation": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        570,
+        554,
+        549,
+        566,
+        548
+      ],
+      "stats": {
+        "min": 548.0,
+        "max": 570.0,
+        "mean": 557.4,
+        "std": 8.98,
+        "range": 22.0
+      }
+    },
+    "slope": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        1.3384040610497745,
+        1.8852711620272669,
+        2.6445490485124634,
+        2.0517218276832363,
+        1.709444639777655
+      ],
+      "stats": {
+        "min": 1.3384,
+        "max": 2.6445,
+        "mean": 1.9259,
+        "std": 0.4303,
+        "range": 1.3061
+      }
+    },
+    "aspect": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        116.57345574561481,
+        138.89322681137574,
+        156.2556117662825,
+        164.88381012997453,
+        170.9886650928392
+      ],
+      "stats": {
+        "min": 116.5735,
+        "max": 170.9887,
+        "mean": 149.519,
+        "std": 19.7014,
+        "range": 54.4152
+      }
+    },
+    "tpi": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        -0.16526149500568402,
+        0.11742110473814005,
+        -0.759678004729748,
+        0.3659495678153159,
+        0.1768672063567447
+      ],
+      "stats": {
+        "min": -0.7597,
+        "max": 0.3659,
+        "mean": -0.0529,
+        "std": 0.3923,
+        "range": 1.1256
+      }
+    },
+    "twi": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        10.969398234483371,
+        10.477856409848961,
+        10.103411185972409,
+        10.30491685477504,
+        10.663409912147811
+      ],
+      "stats": {
+        "min": 10.1034,
+        "max": 10.9694,
+        "mean": 10.5038,
+        "std": 0.2976,
+        "range": 0.866
+      }
+    },
+    "built_up_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        48.92,
+        97.9,
+        92.6,
+        91.62,
+        78.48
+      ],
+      "stats": {
+        "min": 48.92,
+        "max": 97.9,
+        "mean": 81.904,
+        "std": 17.6881,
+        "range": 48.98
+      }
+    },
+    "vegetation_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        4.64,
+        2.05,
+        5.89,
+        5.25,
+        21.35
+      ],
+      "stats": {
+        "min": 2.05,
+        "max": 21.35,
+        "mean": 7.836,
+        "std": 6.8818,
+        "range": 19.3
+      }
+    },
+    "cropland_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        38.07,
+        0.37,
+        0.14,
+        0.51,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 38.07,
+        "mean": 7.818,
+        "std": 15.127,
+        "range": 38.07
+      }
+    },
+    "water_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        0.0,
+        0.0,
+        0.47,
+        0.0,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 0.47,
+        "mean": 0.094,
+        "std": 0.188,
+        "range": 0.47
+      }
+    },
+    "bare_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        0.19,
+        0.0,
+        0.33,
+        2.13,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 2.13,
+        "mean": 0.53,
+        "std": 0.8096,
+        "range": 2.13
+      }
+    },
+    "grass_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        7.98,
+        0.0,
+        0.5,
+        0.47,
+        0.16
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 7.98,
+        "mean": 1.822,
+        "std": 3.0848,
+        "range": 7.98
+      }
+    },
+    "wetland_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": true,
+      "passed": false,
+      "fail_reason": "All values identical (0.0)",
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "std": 0.0,
+        "range": 0.0
+      }
+    }
+  },
+  "hotspot_results": [
+    {
+      "name": "IIT Indore to IT Park stretch",
+      "lat": 22.6558,
+      "lng": 75.8348,
+      "features": {
+        "elevation": 570,
+        "slope": 1.3384040610497745,
+        "aspect": 116.57345574561481,
+        "tpi": -0.16526149500568402,
+        "twi": 10.969398234483371,
+        "built_up_pct": 48.92,
+        "vegetation_pct": 4.64,
+        "cropland_pct": 38.07,
+        "water_pct": 0.0,
+        "bare_pct": 0.19,
+        "grass_pct": 7.98,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 12.8
+    },
+    {
+      "name": "Manik Bagh Road",
+      "lat": 22.7036,
+      "lng": 75.8555,
+      "features": {
+        "elevation": 554,
+        "slope": 1.8852711620272669,
+        "aspect": 138.89322681137574,
+        "tpi": 0.11742110473814005,
+        "twi": 10.477856409848961,
+        "built_up_pct": 97.9,
+        "vegetation_pct": 2.05,
+        "cropland_pct": 0.37,
+        "water_pct": 0.0,
+        "bare_pct": 0.0,
+        "grass_pct": 0.0,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 12.1
+    },
+    {
+      "name": "Badigwaltoli",
+      "lat": 22.7138,
+      "lng": 75.8522,
+      "features": {
+        "elevation": 549,
+        "slope": 2.6445490485124634,
+        "aspect": 156.2556117662825,
+        "tpi": -0.759678004729748,
+        "twi": 10.103411185972409,
+        "built_up_pct": 92.6,
+        "vegetation_pct": 5.89,
+        "cropland_pct": 0.14,
+        "water_pct": 0.47,
+        "bare_pct": 0.33,
+        "grass_pct": 0.5,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 8.9
+    },
+    {
+      "name": "Chappan Dukan",
+      "lat": 22.7203,
+      "lng": 75.9051,
+      "features": {
+        "elevation": 566,
+        "slope": 2.0517218276832363,
+        "aspect": 164.88381012997453,
+        "tpi": 0.3659495678153159,
+        "twi": 10.30491685477504,
+        "built_up_pct": 91.62,
+        "vegetation_pct": 5.25,
+        "cropland_pct": 0.51,
+        "water_pct": 0.0,
+        "bare_pct": 2.13,
+        "grass_pct": 0.47,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 17.6
+    },
+    {
+      "name": "Chandan Nagar Square",
+      "lat": 22.7352,
+      "lng": 75.8522,
+      "features": {
+        "elevation": 548,
+        "slope": 1.709444639777655,
+        "aspect": 170.9886650928392,
+        "tpi": 0.1768672063567447,
+        "twi": 10.663409912147811,
+        "built_up_pct": 78.48,
+        "vegetation_pct": 21.35,
+        "cropland_pct": 0.0,
+        "water_pct": 0.0,
+        "bare_pct": 0.0,
+        "grass_pct": 0.16,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 10.5
+    }
+  ]
+}

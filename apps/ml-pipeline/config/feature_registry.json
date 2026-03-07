@@ -1,0 +1,109 @@
+{
+  "_comment": "Master feature list for Part A static profiling. Each feature documents its GEE source, resolution, and known issues.",
+  "static_features": {
+    "elevation": {
+      "source": "USGS/SRTMGL1_003",
+      "band": "elevation",
+      "resolution_m": 30,
+      "unit": "meters",
+      "expected_reliability": "high",
+      "notes": "Static, global coverage. Primary terrain feature."
+    },
+    "slope": {
+      "source": "derived from USGS/SRTMGL1_003",
+      "band": null,
+      "resolution_m": 30,
+      "unit": "degrees",
+      "expected_reliability": "high",
+      "notes": "Computed via ee.Terrain.slope(). Static."
+    },
+    "aspect": {
+      "source": "derived from USGS/SRTMGL1_003",
+      "band": null,
+      "resolution_m": 30,
+      "unit": "degrees",
+      "expected_reliability": "medium",
+      "notes": "Compass direction of slope face. May not be relevant for flat urban areas."
+    },
+    "twi": {
+      "source": "derived from USGS/SRTMGL1_003",
+      "band": null,
+      "resolution_m": 30,
+      "unit": "index",
+      "expected_reliability": "low_for_flat_urban",
+      "notes": "Topographic Wetness Index = ln(contributing_area / tan(slope)). Unreliable when slope approaches zero (flat cities)."
+    },
+    "tpi": {
+      "source": "derived from USGS/SRTMGL1_003",
+      "band": null,
+      "resolution_m": 30,
+      "unit": "meters",
+      "expected_reliability": "low_for_flat_urban",
+      "notes": "Topographic Position Index = elevation - mean(neighbors). Negative = depression."
+    },
+    "built_up_pct": {
+      "source": "ESA/WorldCover/v200",
+      "band": "Map",
+      "class_value": 50,
+      "resolution_m": 10,
+      "unit": "percent",
+      "expected_reliability": "high",
+      "notes": "ESA WorldCover 2021. Class 50 = Built-up. Computed as % pixels within buffer."
+    },
+    "vegetation_pct": {
+      "source": "ESA/WorldCover/v200",
+      "band": "Map",
+      "class_value": 10,
+      "resolution_m": 10,
+      "unit": "percent",
+      "expected_reliability": "high",
+      "notes": "Class 10 = Tree cover. Proxy for permeable surface area."
+    },
+    "cropland_pct": {
+      "source": "ESA/WorldCover/v200",
+      "band": "Map",
+      "class_value": 40,
+      "resolution_m": 10,
+      "unit": "percent",
+      "expected_reliability": "high",
+      "notes": "Class 40 = Cropland. Relevant for peri-urban areas (Indore, Yogyakarta outskirts)."
+    },
+    "water_pct": {
+      "source": "ESA/WorldCover/v200",
+      "band": "Map",
+      "class_value": 80,
+      "resolution_m": 10,
+      "unit": "percent",
+      "expected_reliability": "medium",
+      "notes": "Class 80 = Permanent water. Proximity to water bodies may matter."
+    },
+    "bare_pct": {
+      "source": "ESA/WorldCover/v200",
+      "band": "Map",
+      "class_value": 60,
+      "resolution_m": 10,
+      "unit": "percent",
+      "expected_reliability": "medium",
+      "notes": "Class 60 = Bare/sparse vegetation."
+    }
+  },
+  "worldcover_classes": {
+    "10": "Tree cover",
+    "20": "Shrubland",
+    "30": "Grassland",
+    "40": "Cropland",
+    "50": "Built-up",
+    "60": "Bare / sparse vegetation",
+    "70": "Snow and ice",
+    "80": "Permanent water bodies",
+    "90": "Herbaceous wetland",
+    "95": "Mangroves",
+    "100": "Moss and lichen"
+  },
+  "pass_criteria": {
+    "min_valid_samples": 4,
+    "out_of": 5,
+    "fail_if_same_value_all_5": true,
+    "fail_if_null_or_zero_pct_above": 20
+  }
+}

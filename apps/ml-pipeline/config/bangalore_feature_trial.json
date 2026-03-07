@@ -1,0 +1,377 @@
+{
+  "city": "bangalore",
+  "n_hotspots_total": 200,
+  "n_sample": 5,
+  "passed_features": [
+    "elevation",
+    "slope",
+    "aspect",
+    "tpi",
+    "twi",
+    "built_up_pct",
+    "vegetation_pct",
+    "cropland_pct",
+    "water_pct",
+    "bare_pct",
+    "grass_pct"
+  ],
+  "failed_features": [
+    "wetland_pct"
+  ],
+  "assessment": {
+    "elevation": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        875,
+        849,
+        884,
+        893,
+        895
+      ],
+      "stats": {
+        "min": 849.0,
+        "max": 895.0,
+        "mean": 879.2,
+        "std": 16.6901,
+        "range": 46.0
+      }
+    },
+    "slope": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        3.395638629283489,
+        5.514652273933815,
+        2.0891188959660294,
+        3.4482978271639873,
+        2.243455034316847
+      ],
+      "stats": {
+        "min": 2.0891,
+        "max": 5.5147,
+        "mean": 3.3382,
+        "std": 1.2256,
+        "range": 3.4255
+      }
+    },
+    "aspect": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        208.7642664967431,
+        202.39430189347016,
+        137.40697098372257,
+        184.8253238021091,
+        146.93182622231654
+      ],
+      "stats": {
+        "min": 137.407,
+        "max": 208.7643,
+        "mean": 176.0645,
+        "std": 28.922,
+        "range": 71.3573
+      }
+    },
+    "tpi": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        -1.7859459300097285,
+        -3.279959885383621,
+        0.13393249032753846,
+        -0.3279769130452546,
+        0.048999522561799215
+      ],
+      "stats": {
+        "min": -3.28,
+        "max": 0.1339,
+        "mean": -1.0422,
+        "std": 1.3149,
+        "range": 3.4139
+      }
+    },
+    "twi": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        9.777527919611268,
+        9.360497150608829,
+        10.2997525348065,
+        9.81248540067886,
+        10.3167251995161
+      ],
+      "stats": {
+        "min": 9.3605,
+        "max": 10.3167,
+        "mean": 9.9134,
+        "std": 0.3595,
+        "range": 0.9562
+      }
+    },
+    "built_up_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        34.34,
+        97.38,
+        89.52,
+        76.39,
+        99.57
+      ],
+      "stats": {
+        "min": 34.34,
+        "max": 99.57,
+        "mean": 79.44,
+        "std": 23.9666,
+        "range": 65.23
+      }
+    },
+    "vegetation_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        6.76,
+        0.81,
+        4.81,
+        21.56,
+        0.55
+      ],
+      "stats": {
+        "min": 0.55,
+        "max": 21.56,
+        "mean": 6.898,
+        "std": 7.7034,
+        "range": 21.01
+      }
+    },
+    "cropland_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        41.28,
+        0.2,
+        3.26,
+        0.0,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 41.28,
+        "mean": 8.948,
+        "std": 16.2134,
+        "range": 41.28
+      }
+    },
+    "water_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        0.15,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 0.15,
+        "mean": 0.03,
+        "std": 0.06,
+        "range": 0.15
+      }
+    },
+    "bare_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        0.8,
+        0.1,
+        1.25,
+        1.3,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 1.3,
+        "mean": 0.69,
+        "std": 0.5517,
+        "range": 1.3
+      }
+    },
+    "grass_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        5.79,
+        0.69,
+        1.2,
+        0.65,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 5.79,
+        "mean": 1.666,
+        "std": 2.0969,
+        "range": 5.79
+      }
+    },
+    "wetland_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": true,
+      "passed": false,
+      "fail_reason": "All values identical (0.0)",
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "std": 0.0,
+        "range": 0.0
+      }
+    }
+  },
+  "hotspot_results": [
+    {
+      "name": "Mantri Lake view Appartment Next to Talagattapura Lake",
+      "lat": 12.867499,
+      "lng": 77.532435,
+      "features": {
+        "elevation": 875,
+        "slope": 3.395638629283489,
+        "aspect": 208.7642664967431,
+        "tpi": -1.7859459300097285,
+        "twi": 9.777527919611268,
+        "built_up_pct": 34.34,
+        "vegetation_pct": 6.76,
+        "cropland_pct": 41.28,
+        "water_pct": 0.15,
+        "bare_pct": 0.8,
+        "grass_pct": 5.79,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 10.3
+    },
+    {
+      "name": "Near Dattarthraya Temple, Hosakerehalli",
+      "lat": 12.924696,
+      "lng": 77.539133,
+      "features": {
+        "elevation": 849,
+        "slope": 5.514652273933815,
+        "aspect": 202.39430189347016,
+        "tpi": -3.279959885383621,
+        "twi": 9.360497150608829,
+        "built_up_pct": 97.38,
+        "vegetation_pct": 0.81,
+        "cropland_pct": 0.2,
+        "water_pct": 0.0,
+        "bare_pct": 0.1,
+        "grass_pct": 0.69,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 13.0
+    },
+    {
+      "name": "Thubarahalli",
+      "lat": 12.955652,
+      "lng": 77.720545,
+      "features": {
+        "elevation": 884,
+        "slope": 2.0891188959660294,
+        "aspect": 137.40697098372257,
+        "tpi": 0.13393249032753846,
+        "twi": 10.2997525348065,
+        "built_up_pct": 89.52,
+        "vegetation_pct": 4.81,
+        "cropland_pct": 3.26,
+        "water_pct": 0.0,
+        "bare_pct": 1.25,
+        "grass_pct": 1.2,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 15.2
+    },
+    {
+      "name": "Gandi Statue, Oklipuram.",
+      "lat": 12.98345,
+      "lng": 77.565525,
+      "features": {
+        "elevation": 893,
+        "slope": 3.4482978271639873,
+        "aspect": 184.8253238021091,
+        "tpi": -0.3279769130452546,
+        "twi": 9.81248540067886,
+        "built_up_pct": 76.39,
+        "vegetation_pct": 21.56,
+        "cropland_pct": 0.0,
+        "water_pct": 0.0,
+        "bare_pct": 1.3,
+        "grass_pct": 0.65,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 7.2
+    },
+    {
+      "name": "NRI layout",
+      "lat": 13.012778,
+      "lng": 77.678889,
+      "features": {
+        "elevation": 895,
+        "slope": 2.243455034316847,
+        "aspect": 146.93182622231654,
+        "tpi": 0.048999522561799215,
+        "twi": 10.3167251995161,
+        "built_up_pct": 99.57,
+        "vegetation_pct": 0.55,
+        "cropland_pct": 0.0,
+        "water_pct": 0.0,
+        "bare_pct": 0.0,
+        "grass_pct": 0.0,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 12.7
+    }
+  ]
+}

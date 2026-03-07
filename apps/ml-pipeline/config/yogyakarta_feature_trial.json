@@ -1,0 +1,377 @@
+{
+  "city": "yogyakarta",
+  "n_hotspots_total": 76,
+  "n_sample": 5,
+  "passed_features": [
+    "elevation",
+    "slope",
+    "aspect",
+    "tpi",
+    "twi",
+    "built_up_pct",
+    "vegetation_pct",
+    "cropland_pct",
+    "grass_pct"
+  ],
+  "failed_features": [
+    "water_pct",
+    "bare_pct",
+    "wetland_pct"
+  ],
+  "assessment": {
+    "elevation": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        84,
+        94,
+        102,
+        114,
+        133
+      ],
+      "stats": {
+        "min": 84.0,
+        "max": 133.0,
+        "mean": 105.4,
+        "std": 16.9423,
+        "range": 49.0
+      }
+    },
+    "slope": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        2.930205785005038,
+        1.8224968074965382,
+        2.6854819851420135,
+        1.4595280066194187,
+        1.7653610176505516
+      ],
+      "stats": {
+        "min": 1.4595,
+        "max": 2.9302,
+        "mean": 2.1326,
+        "std": 0.5702,
+        "range": 1.4707
+      }
+    },
+    "aspect": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        178.87077277306082,
+        160.35340563679196,
+        178.53395211627358,
+        175.55425045868256,
+        160.23300167329393
+      ],
+      "stats": {
+        "min": 160.233,
+        "max": 178.8708,
+        "mean": 170.7091,
+        "std": 8.5826,
+        "range": 18.6378
+      }
+    },
+    "tpi": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        0.515161158381049,
+        -0.1308350245502342,
+        -0.6744606942491745,
+        -0.3101622068695655,
+        0.7501543118520078
+      ],
+      "stats": {
+        "min": -0.6745,
+        "max": 0.7502,
+        "mean": 0.03,
+        "std": 0.5276,
+        "range": 1.4246
+      }
+    },
+    "twi": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        10.076194897099498,
+        10.430935050921889,
+        10.149552886308241,
+        10.85287962278003,
+        10.546627701795103
+      ],
+      "stats": {
+        "min": 10.0762,
+        "max": 10.8529,
+        "mean": 10.4112,
+        "std": 0.2809,
+        "range": 0.7767
+      }
+    },
+    "built_up_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        88.7,
+        97.83,
+        75.03,
+        95.03,
+        95.42
+      ],
+      "stats": {
+        "min": 75.03,
+        "max": 97.83,
+        "mean": 90.402,
+        "std": 8.258,
+        "range": 22.8
+      }
+    },
+    "vegetation_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        10.97,
+        2.39,
+        5.42,
+        3.76,
+        3.46
+      ],
+      "stats": {
+        "min": 2.39,
+        "max": 10.97,
+        "mean": 5.2,
+        "std": 3.0443,
+        "range": 8.58
+      }
+    },
+    "cropland_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        0.15,
+        0.0,
+        11.95,
+        0.0,
+        0.86
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 11.95,
+        "mean": 2.592,
+        "std": 4.6898,
+        "range": 11.95
+      }
+    },
+    "water_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": true,
+      "passed": false,
+      "fail_reason": "All values identical (0.0)",
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "std": 0.0,
+        "range": 0.0
+      }
+    },
+    "bare_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": true,
+      "passed": false,
+      "fail_reason": "All values identical (0.0)",
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "std": 0.0,
+        "range": 0.0
+      }
+    },
+    "grass_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": false,
+      "passed": true,
+      "fail_reason": null,
+      "values": [
+        0.1,
+        0.0,
+        7.43,
+        0.97,
+        0.22
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 7.43,
+        "mean": 1.744,
+        "std": 2.8634,
+        "range": 7.43
+      }
+    },
+    "wetland_pct": {
+      "n_valid": 5,
+      "n_null": 0,
+      "all_same": true,
+      "passed": false,
+      "fail_reason": "All values identical (0.0)",
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stats": {
+        "min": 0.0,
+        "max": 0.0,
+        "mean": 0.0,
+        "std": 0.0,
+        "range": 0.0
+      }
+    }
+  },
+  "hotspot_results": [
+    {
+      "name": "Giwangan",
+      "lat": -7.831,
+      "lng": 110.3895,
+      "features": {
+        "elevation": 84,
+        "slope": 2.930205785005038,
+        "aspect": 178.87077277306082,
+        "tpi": 0.515161158381049,
+        "twi": 10.076194897099498,
+        "built_up_pct": 88.7,
+        "vegetation_pct": 10.97,
+        "cropland_pct": 0.15,
+        "water_pct": 0.0,
+        "bare_pct": 0.0,
+        "grass_pct": 0.1,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 15.0
+    },
+    {
+      "name": "Umbulharjo (Sungai Gajah Wong)",
+      "lat": -7.8144,
+      "lng": 110.3874,
+      "features": {
+        "elevation": 94,
+        "slope": 1.8224968074965382,
+        "aspect": 160.35340563679196,
+        "tpi": -0.1308350245502342,
+        "twi": 10.430935050921889,
+        "built_up_pct": 97.83,
+        "vegetation_pct": 2.39,
+        "cropland_pct": 0.0,
+        "water_pct": 0.0,
+        "bare_pct": 0.0,
+        "grass_pct": 0.0,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 14.6
+    },
+    {
+      "name": "Kampung Code Utara",
+      "lat": -7.8042,
+      "lng": 110.3655,
+      "features": {
+        "elevation": 102,
+        "slope": 2.6854819851420135,
+        "aspect": 178.53395211627358,
+        "tpi": -0.6744606942491745,
+        "twi": 10.149552886308241,
+        "built_up_pct": 75.03,
+        "vegetation_pct": 5.42,
+        "cropland_pct": 11.95,
+        "water_pct": 0.0,
+        "bare_pct": 0.0,
+        "grass_pct": 7.43,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 10.8
+    },
+    {
+      "name": "Gedongtengen (Sungai Code)",
+      "lat": -7.7918,
+      "lng": 110.3608,
+      "features": {
+        "elevation": 114,
+        "slope": 1.4595280066194187,
+        "aspect": 175.55425045868256,
+        "tpi": -0.3101622068695655,
+        "twi": 10.85287962278003,
+        "built_up_pct": 95.03,
+        "vegetation_pct": 3.76,
+        "cropland_pct": 0.0,
+        "water_pct": 0.0,
+        "bare_pct": 0.0,
+        "grass_pct": 0.97,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 12.1
+    },
+    {
+      "name": "Jalan Gejayan",
+      "lat": -7.780424,
+      "lng": 110.388247,
+      "features": {
+        "elevation": 133,
+        "slope": 1.7653610176505516,
+        "aspect": 160.23300167329393,
+        "tpi": 0.7501543118520078,
+        "twi": 10.546627701795103,
+        "built_up_pct": 95.42,
+        "vegetation_pct": 3.46,
+        "cropland_pct": 0.86,
+        "water_pct": 0.0,
+        "bare_pct": 0.0,
+        "grass_pct": 0.22,
+        "wetland_pct": 0.0
+      },
+      "extraction_time_s": 10.7
+    }
+  ]
+}
