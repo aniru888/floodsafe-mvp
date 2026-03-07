@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Dialog,
@@ -53,7 +53,7 @@ const ActiveCard = ({ icon: Icon, title, status, children, color = 'blue' }: {
         emerald: 'bg-emerald-50 text-emerald-600 border-emerald-100',
     };
     return (
-        <motion.div variants={fadeUp} className="rounded-2xl border border-slate-200 p-5 bg-white hover:border-blue-200 hover:shadow-md transition-all duration-200">
+        <motion.div variants={fadeUp} className="rounded-2xl border border-slate-200 p-5 bg-white hover:border-blue-200 hover:shadow-md transition-all duration-200 overflow-hidden">
             <div className="flex items-start justify-between mb-3">
                 <div className={`w-9 h-9 rounded-xl flex items-center justify-center border ${colorMap[color] || colorMap.blue}`}>
                     <Icon size={18} />
@@ -192,7 +192,7 @@ export const MethodologyModal = ({ open, onOpenChange }: MethodologyModalProps) 
                         </ActiveCard>
 
                         <ActiveCard icon={BarChart3} title="Historical Severity" status="static" color="amber">
-                            <p>Government-reported severity levels (extreme/high/moderate/low) from official flood records.</p>
+                            <p>Government-reported severity levels from official flood records.</p>
                             <p className="mt-1.5 italic text-slate-400">3 of 5 cities have all hotspots as "high" — no differentiation.</p>
                         </ActiveCard>
                     </motion.div>
@@ -305,21 +305,21 @@ export const MethodologyModal = ({ open, onOpenChange }: MethodologyModalProps) 
                         </div>
 
                         {/* Step flow */}
-                        <div className="flex flex-wrap items-center gap-2 mb-4">
+                        <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-center gap-1.5 mb-4">
                             {[
-                                { emoji: '📱', label: 'Report', sub: 'photo + GPS + weather' },
-                                { emoji: '🛣️', label: 'Road Snap', sub: 'OSM road matching' },
-                                { emoji: '📊', label: 'Cluster', sub: '3+ reports = candidate' },
+                                { emoji: '📱', label: 'Report', sub: 'photo + GPS' },
+                                { emoji: '🛣️', label: 'Road Snap', sub: 'OSM matching' },
+                                { emoji: '📊', label: 'Cluster', sub: '3+ = candidate' },
                                 { emoji: '✅', label: 'Verify', sub: 'human review' },
                             ].map((step, i) => (
-                                <div key={step.label} className="flex items-center gap-2">
-                                    <div className="bg-white rounded-xl px-3 py-2 border border-emerald-100 text-center min-w-[80px]">
+                                <Fragment key={step.label}>
+                                    <div className="bg-white rounded-xl px-2 py-2 border border-emerald-100 text-center">
                                         <div className="text-base">{step.emoji}</div>
                                         <div className="text-[10px] font-semibold text-slate-700 mt-0.5">{step.label}</div>
-                                        <div className="text-[9px] text-slate-400">{step.sub}</div>
+                                        <div className="text-[9px] text-slate-400 leading-tight">{step.sub}</div>
                                     </div>
-                                    {i < 3 && <ArrowRight size={12} className="text-emerald-300 shrink-0" />}
-                                </div>
+                                    {i < 3 && <ArrowRight size={12} className="text-emerald-300 shrink-0 mx-0.5" />}
+                                </Fragment>
                             ))}
                         </div>
 
