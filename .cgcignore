@@ -1,0 +1,67 @@
+# Dependencies & build
+node_modules/
+dist/
+build/
+__pycache__/
+*.pyc
+.venv*/
+venv/
+coverage/
+
+# Git, IDE, MCP caches
+.git/
+.vscode/
+.idea/
+.serena/cache/
+.serena/memories/
+.claude/
+
+# ML data & model binaries (26GB+)
+apps/ml-service/data/
+apps/ml-service/models/
+apps/ml-pipeline/output/
+*.npz
+*.h5
+*.pt
+*.onnx
+*.tflite
+*.csv
+
+# Binary/media files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+*.pdf
+*.zip
+*.tif
+*.tiff
+*.pbf
+*.pmtiles
+*.geojson
+*.shp
+*.dbf
+
+# Frontend non-source
+apps/frontend/data/
+apps/frontend/android/
+apps/frontend/ios/
+apps/frontend/test-results/
+
+# Generated/lock files
+pnpm-lock.yaml
+package-lock.json
+*.log
+*.lock
+
+# Root one-off files
+forecast.json
+gauges.json
+tmp_*.json
+*.docx.md
+Google_Flood_Forecasting_API_Usage_Example.ipynb
+koyeb-cli-extracted/
+demos/
+docs/

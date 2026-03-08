@@ -212,6 +212,7 @@ MCP servers extend Claude's capabilities with external tools and integrations. T
 | **Firebase** | Firebase Auth/Config management | Auth configuration, SDK config | Always |
 | **Serena** | Code intelligence, symbol analysis | Refactoring, symbol navigation | Always |
 | **Koyeb** | Backend deployment management | Deploy/redeploy backend services | Always |
+| **CGC** | Code graph analysis (callers, dead-code, deps) | Graph queries, impact analysis | Deferred |
 | **Chrome DevTools** | Low-level browser debugging | Network requests, performance | Deferred |
 | **Claude-in-Chrome** | Browser automation | E2E testing, visual verification | Deferred |
 
@@ -259,9 +260,48 @@ search_for_pattern    # Regex search across codebase
 **Workflow**: `get_symbols_overview` → `find_symbol(include_body=True)` → `find_referencing_symbols` → `replace_symbol_body` or `replace_content`
 **Prefer over grep/read** for: understanding files, refactoring, tracing dependencies, editing code
 
-### MCP Status (Feb 2026)
+#### CGC (Code Graph — CodeGraphContext)
 
-✅ **Working**: Serena, Context7, Chrome DevTools
+**Backend**: Neo4j Community (Docker container `cgc-neo4j` on port 7687)
+**Index**: `cgc index .` (respects `.cgcignore`). Must index subdirectories explicitly (root index skips due to .cgcignore).
+**Re-index**: After major refactors or new files. Indexed dirs: `apps/backend/src`, `apps/frontend/src`, `apps/ml-service/src`, `apps/iot-ingestion`
+
+**IMPORTANT**: Project `.env` overrides CGC config. Always pass env vars and `-db neo4j` flag:
+```bash
+source .venv-cgc/Scripts/activate
+PYTHONIOENCODING=utf-8 NEO4J_URI=bolt://localhost:7687 NEO4J_USERNAME=neo4j NEO4J_PASSWORD=floodsafe123 cgc -db neo4j <command>
+```
+
+| Command | Purpose |
+|---------|---------|
+| `cgc analyze callers <func>` | Transitive caller chain |
+| `cgc analyze calls <func>` | What a function calls (callees) |
+| `cgc analyze chain <a> <b>` | Shortest call path between symbols |
+| `cgc analyze dead-code` | Unreferenced symbols |
+| `cgc analyze complexity --threshold 10` | Cyclomatic complexity |
+| `cgc analyze tree <class>` | Class inheritance hierarchy |
+| `cgc analyze deps <module>` | Module dependencies/imports |
+| `cgc find pattern "Auth"` | Pattern search in graph |
+| `cgc stats` | Indexing statistics |
+| `cgc index <dir>` | Re-index a directory |
+
+**CGC vs Serena Decision Matrix**:
+
+| Task | Tool | Why |
+|------|------|-----|
+| Symbol definition lookup | **Serena** | Precise, includes body |
+| Direct references | **Serena** | Language-server powered |
+| Transitive call chains (N-hop) | **CGC** | Graph traversal |
+| Dead code detection | **CGC** | Cross-language, whole-repo |
+| Dependency graph / visualization | **CGC** | `--viz` flag generates HTML |
+| Safe refactoring | **Serena** | Rename/replace with LSP |
+| Impact analysis before refactoring | **CGC then Serena** | CGC for scope, Serena for execution |
+
+**Skill**: `/graph` — callers, callees, dead-code, complexity, reindex
+
+### MCP Status (Mar 2026)
+
+✅ **Working**: Serena, Context7, Chrome DevTools, CGC
 ❌ **Not connected**: Claude-in-Chrome (needs browser extension)
 🔲 **Untested**: Supabase, Firebase, Koyeb (deferred plugins)
 ❌ **Removed**: LSP/Pyright (use Serena instead)
@@ -287,6 +327,8 @@ search_for_pattern    # Regex search across codebase
 3. **E2E Testing**: Use Claude-in-Chrome for browser automation
 4. **Refactoring**: Use Serena for safe symbol renaming across codebase
 5. **Deployment**: Use `/deploy` skill for gated deployments
+6. **Impact Analysis**: Use CGC for transitive callers/callees before refactoring, then Serena for execution
+7. **Dead Code**: Use `/graph dead-code` periodically to find unreferenced symbols
 
 ### Installed Plugins
 
@@ -362,6 +404,7 @@ search_for_pattern    # Regex search across codebase
 | `/code-reference-finder` | Find code examples and patterns | User-only |
 | `/sync-docs` | Scan code for real counts, diff against docs, report/fix drift | User-only |
 | `/health` | Check all production services + per-city integrations | User-only |
+| `/graph` | CGC code graph queries (callers, dead-code, deps, complexity) | User-only |
 
 Legacy commands in `.claude/commands/` also still work (e.g., `/test`, `/data`, `/explore`).
 

@@ -77,6 +77,8 @@ apps/ml-service/venv_tf214/
 apps/backend/venv/
 venv/
 .venv/
+.venv-cgc/
+.cgc/
 pip-log.txt
 pip-delete-this-directory.txt
 
