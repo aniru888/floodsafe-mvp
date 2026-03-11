@@ -20,7 +20,7 @@ interface CityProviderProps {
 }
 
 export function CityProvider({ children }: CityProviderProps) {
-    const { user } = useAuth();
+    const { user, refreshUser } = useAuth();
 
     // Initialize from user preference > localStorage > default
     const [city, setCityState] = useState<CityKey>(() => {
@@ -81,6 +81,8 @@ export function CityProvider({ children }: CityProviderProps) {
 
             // Update local state after successful API call
             setCityState(newCity);
+            // Refresh AuthContext user so user.city_preference stays in sync
+            await refreshUser();
         } catch (error) {
             console.error('Error syncing city to user:', error);
             throw error;

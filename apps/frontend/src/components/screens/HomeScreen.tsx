@@ -70,21 +70,16 @@ export function HomeScreen({
     const { city: currentCity, setCity, syncCityToUser } = useCityContext();
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [refreshInterval, setRefreshInterval] = useState<RefreshInterval>('10m'); // Default 10 minutes
-    const [cityFilter, setCityFilter] = useState<CityFilter>(() => {
-        // Initialize with user's city preference, fallback to 'all'
-        return (user?.city_preference as CityFilter) || 'all';
-    });
+    const [cityFilter, setCityFilter] = useState<CityFilter>(currentCity);
     const [selectedLocation, setSelectedLocation] = useState<{ lat: number; lng: number } | null>(null);
     const [mapTargetLocation, setMapTargetLocation] = useState<{ lat: number; lng: number } | null>(null);
     const [selectedReport, setSelectedReport] = useState<Report | null>(null);
     const [emergencyModalOpen, setEmergencyModalOpen] = useState(false);
 
-    // Update city filter when user's city preference changes
+    // Update city filter when CityContext city changes
     useEffect(() => {
-        if (user?.city_preference) {
-            setCityFilter(user.city_preference as CityFilter);
-        }
-    }, [user?.city_preference]);
+        setCityFilter(currentCity);
+    }, [currentCity]);
 
     // User's current location from geolocation API
     const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
