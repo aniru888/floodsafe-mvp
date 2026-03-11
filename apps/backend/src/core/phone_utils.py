@@ -15,6 +15,32 @@ COUNTRY_CODES = {
 
 E164_PATTERN = re.compile(r"^\+[1-9]\d{6,14}$")
 
+# City → country code mapping for WhatsApp (determines phone normalization)
+CITY_TO_COUNTRY = {
+    "delhi": "IN",
+    "bangalore": "IN",
+    "indore": "IN",
+    "yogyakarta": "ID",
+    "singapore": "SG",
+}
+
+
+def detect_country_from_phone(phone: str) -> str:
+    """Detect country from phone prefix. Returns ISO alpha-2 code."""
+    phone = phone.strip().replace(" ", "").replace("-", "")
+    if phone.startswith("+62") or phone.startswith("62"):
+        return "ID"
+    if phone.startswith("+65") or phone.startswith("65"):
+        return "SG"
+    if phone.startswith("+91") or phone.startswith("91"):
+        return "IN"
+    return "IN"  # Default fallback
+
+
+def city_to_country(city: str) -> str:
+    """Get country code from city name. Returns ISO alpha-2 code."""
+    return CITY_TO_COUNTRY.get(city.lower(), "IN")
+
 
 def normalize_phone(phone: str, default_country: str = "IN") -> str:
     """Normalize phone number to E.164 format.

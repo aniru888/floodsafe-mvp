@@ -6,6 +6,7 @@ Verifies that:
 - media_url is None when no photo is provided
 - media_metadata contains ML classification fields when a classification is present
 """
+import json
 import uuid
 from unittest.mock import MagicMock
 
@@ -158,11 +159,12 @@ class TestReportHasMediaMetadataWithClassification:
         )
 
         assert report.media_metadata is not None, "media_metadata should not be None when classification is provided"
-        assert report.media_metadata["ml_classification"] == "flood"
-        assert report.media_metadata["ml_confidence"] == 0.92
-        assert report.media_metadata["is_flood"] is True
-        assert report.media_metadata["needs_review"] is False
-        assert report.media_metadata["media_url"] == media_url
+        metadata = json.loads(report.media_metadata) if isinstance(report.media_metadata, str) else report.media_metadata
+        assert metadata["ml_classification"] == "flood"
+        assert metadata["ml_confidence"] == 0.92
+        assert metadata["is_flood"] is True
+        assert metadata["needs_review"] is False
+        assert metadata["media_url"] == media_url
 
     def test_no_flood_classification_stored_in_media_metadata(self):
         """media_metadata should reflect is_flood=False when classifier returns no flood."""
@@ -181,8 +183,9 @@ class TestReportHasMediaMetadataWithClassification:
         )
 
         assert report.media_metadata is not None
-        assert report.media_metadata["is_flood"] is False
-        assert report.media_metadata["needs_review"] is True
+        metadata = json.loads(report.media_metadata) if isinstance(report.media_metadata, str) else report.media_metadata
+        assert metadata["is_flood"] is False
+        assert metadata["needs_review"] is True
 
     def test_media_metadata_none_when_no_photo_no_classification(self):
         """media_metadata should be None for a pure location-only report."""
@@ -218,5 +221,6 @@ class TestReportHasMediaMetadataWithClassification:
         )
 
         assert report.media_metadata is not None
-        assert report.media_metadata.get("ml_unavailable") is True
-        assert report.media_metadata["media_url"] == media_url
+        metadata = json.loads(report.media_metadata) if isinstance(report.media_metadata, str) else report.media_metadata
+        assert metadata.get("ml_unavailable") is True
+        assert metadata["media_url"] == media_url

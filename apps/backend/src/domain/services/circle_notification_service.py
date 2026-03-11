@@ -26,6 +26,7 @@ from .notification_service import get_twilio_client
 from .circle_service import CircleService
 from ...core.config import settings
 from .whatsapp.meta_client import send_text_message_sync, is_meta_whatsapp_enabled
+from .whatsapp.message_templates import get_message, get_user_language, TemplateKey
 
 logger = logging.getLogger(__name__)
 
@@ -150,19 +151,28 @@ class CircleNotificationService:
 
         external_sent_count = 0  # Track per-circle for throttle (D3)
 
-        # Build message
-        message = (
-            f"\U0001f6a8 {reporter_name} reported flooding near your area.\n"
-            f"Circle: {circle.name}\n"
-            f"Details: {description[:100]}\n"
-            f"Open FloodSafe for more details."
-        )
-
         for member in members:
             # Skip muted members
             if member.is_muted:
                 result.skipped_muted += 1
                 continue
+
+            # E2: Resolve language per member (not reporter's language)
+            member_user = (
+                self.db.query(User).filter(User.id == member.user_id).first()
+                if member.user_id else None
+            )
+            city = getattr(member_user, 'city_preference', None) if member_user else None
+            member_language = get_user_language(member_user, city=city, phone=member.phone)
+
+            # Build message in member's language using template
+            message = get_message(
+                TemplateKey.CIRCLE_FLOOD_ALERT,
+                member_language,
+                reporter_name=reporter_name,
+                circle_name=circle.name,
+                description=description[:100],
+            )
 
             # ALWAYS create CircleAlert record (in-app display)
             alert_record = CircleAlert(

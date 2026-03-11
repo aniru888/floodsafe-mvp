@@ -156,6 +156,13 @@ async def admin_login(request: AdminLoginRequest, req: Request, db: Session = De
 
     check_rate_limit(f"admin_login:{req.client.host}", max_requests=5, window_seconds=300)
 
+    # Reject empty credentials immediately
+    if not request.email or not request.password:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid admin credentials",
+        )
+
     admin_user = None
 
     # Tier 1: DB-based admin auth

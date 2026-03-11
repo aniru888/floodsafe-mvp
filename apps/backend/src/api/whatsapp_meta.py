@@ -15,10 +15,14 @@ Endpoint: /api/whatsapp-meta
 """
 import hashlib
 import hmac
+import json
 import logging
+import time
+from collections import OrderedDict
 from datetime import datetime, timedelta
 from typing import Optional
 
+import httpx
 from fastapi import APIRouter, Request, HTTPException, Depends, Query
 from sqlalchemy.orm import Session
 
@@ -38,6 +42,10 @@ from ..domain.services.whatsapp.meta_client import (
     send_risk_result_buttons,
     send_account_choice_buttons,
     send_menu_buttons,
+    send_onboarding_city_buttons,
+    send_onboarding_city_2_buttons,
+    send_extended_menu,
+    send_circles_menu_buttons,
 )
 from ..domain.services.whatsapp import (
     TemplateKey, get_message, get_user_language,
@@ -56,15 +64,27 @@ SESSION_TIMEOUT_MINUTES = 30
 # Rate limiting (shared format with Twilio webhook)
 RATE_LIMIT_MESSAGES = 10
 RATE_LIMIT_WINDOW_SECONDS = 60
-_rate_limit_cache: dict[str, list[datetime]] = {}
+RATE_LIMIT_CACHE_MAX = 10_000
+_rate_limit_cache: OrderedDict[str, list[datetime]] = OrderedDict()
+
+# Message deduplication (prevents duplicate processing on Meta retries)
+DEDUP_TTL_SECONDS = 300  # 5 minutes
+DEDUP_MAX_ENTRIES = 5_000
+_dedup_cache: OrderedDict[str, float] = OrderedDict()  # wamid -> timestamp
 
 
 def _check_rate_limit(phone: str) -> bool:
-    """Check rate limit for phone number."""
+    """Check rate limit for phone number. LRU-evicts at 10K entries."""
     now = datetime.utcnow()
     window_start = now - timedelta(seconds=RATE_LIMIT_WINDOW_SECONDS)
     if phone not in _rate_limit_cache:
         _rate_limit_cache[phone] = []
+        # Evict oldest entries when cache exceeds cap
+        while len(_rate_limit_cache) > RATE_LIMIT_CACHE_MAX:
+            _rate_limit_cache.popitem(last=False)
+    else:
+        # Move to end (most recently used)
+        _rate_limit_cache.move_to_end(phone)
     _rate_limit_cache[phone] = [t for t in _rate_limit_cache[phone] if t > window_start]
     if len(_rate_limit_cache[phone]) >= RATE_LIMIT_MESSAGES:
         return False
@@ -110,6 +130,62 @@ def _get_or_create_session(db: Session, phone: str) -> WhatsAppSession:
     db.add(session)
     db.commit()
     return session
+
+
+def _is_duplicate_message(message_id: str) -> bool:
+    """Check if message was already processed (dedup on wamid). Returns True if duplicate."""
+    if not message_id:
+        return False
+    now = time.time()
+    # Evict expired entries (older than TTL)
+    while _dedup_cache:
+        oldest_key, oldest_ts = next(iter(_dedup_cache.items()))
+        if now - oldest_ts > DEDUP_TTL_SECONDS:
+            _dedup_cache.popitem(last=False)
+        else:
+            break
+    # Cap entries
+    while len(_dedup_cache) > DEDUP_MAX_ENTRIES:
+        _dedup_cache.popitem(last=False)
+    if message_id in _dedup_cache:
+        return True
+    _dedup_cache[message_id] = now
+    return False
+
+
+# City detection from coordinates (reuses CITY_BOUNDS from search.py)
+CITY_BOUNDS = {
+    "delhi": {"min_lat": 28.40, "max_lat": 28.88, "min_lng": 76.84, "max_lng": 77.35},
+    "bangalore": {"min_lat": 12.75, "max_lat": 13.20, "min_lng": 77.35, "max_lng": 77.80},
+    "yogyakarta": {"min_lat": -7.95, "max_lat": -7.65, "min_lng": 110.30, "max_lng": 110.50},
+    "singapore": {"min_lat": 1.15, "max_lat": 1.47, "min_lng": 103.60, "max_lng": 104.05},
+    "indore": {"min_lat": 22.52, "max_lat": 22.85, "min_lng": 75.72, "max_lng": 75.97},
+}
+
+
+def _detect_city_from_coords(lat: float, lng: float) -> Optional[str]:
+    """Detect city from GPS coordinates using bounding boxes. Returns city name or None."""
+    for city, bounds in CITY_BOUNDS.items():
+        if (bounds["min_lat"] <= lat <= bounds["max_lat"]
+                and bounds["min_lng"] <= lng <= bounds["max_lng"]):
+            return city
+    return None
+
+
+def _get_session_data(session: WhatsAppSession, key: str, default=None):
+    """
+    Safely get a value from session.data with validation.
+
+    Logs warning if session.data is corrupted and resets to empty dict.
+    """
+    if session.data is None:
+        session.data = {}
+        return default
+    if not isinstance(session.data, dict):
+        logger.warning(f"Session data corrupted (type={type(session.data).__name__}), resetting")
+        session.data = {}
+        return default
+    return session.data.get(key, default)
 
 
 def _find_user_by_phone(db: Session, phone: str) -> Optional[User]:
@@ -220,19 +296,23 @@ async def handle_meta_webhook(
     if data.get("object") != "whatsapp_business_account":
         return {"status": "ok"}
 
-    # Process each entry
-    for entry in data.get("entry", []):
-        for change in entry.get("changes", []):
-            if change.get("field") != "messages":
-                continue
+    # Process each entry — wrapped in try-except to prevent Meta retry storms on 500s
+    try:
+        for entry in data.get("entry", []):
+            for change in entry.get("changes", []):
+                if change.get("field") != "messages":
+                    continue
 
-            value = change.get("value", {})
-            messages = value.get("messages", [])
-            contacts = value.get("contacts", [])
+                value = change.get("value", {})
+                messages = value.get("messages", [])
+                contacts = value.get("contacts", [])
 
-            for message in messages:
-                await _process_message(db, message, contacts)
+                for message in messages:
+                    await _process_message(db, message, contacts)
+    except Exception as e:
+        logger.error(f"Webhook processing error: {e}", exc_info=True)
 
+    # Always return 200 to acknowledge receipt (prevents Meta retry storms)
     return {"status": "ok"}
 
 
@@ -252,6 +332,16 @@ async def _process_message(
     timestamp = message.get("timestamp", "")
 
     if not phone:
+        return
+
+    # Dedup: skip if we already processed this message (Meta retries)
+    if _is_duplicate_message(message_id):
+        logger.debug(f"Skipping duplicate message: {message_id}")
+        return
+
+    # Skip group messages (only handle 1:1 conversations)
+    if message.get("context", {}).get("group_id") or message.get("group_id"):
+        logger.debug("Skipping group message")
         return
 
     # Format phone with + prefix for consistency
@@ -325,14 +415,20 @@ async def _process_message(
             session.data["pending_media_id"] = media_id
             session.updated_at = datetime.utcnow()
             db.commit()
-            await meta_send_text(
-                phone,
-                get_message(TemplateKey.RISK_NO_LOCATION, language) if language == 'hi' else
-                "Photo received! Now please share your location:\n\n"
-                "1. Tap the + icon\n"
-                "2. Select 'Location'\n"
-                "3. Send your current location"
-            )
+            photo_prompt = {
+                "hi": "फोटो मिल गई! अब कृपया अपना स्थान भेजें:\n\n"
+                      "1. + आइकन पर टैप करें\n"
+                      "2. 'Location' चुनें\n"
+                      "3. अपना स्थान भेजें",
+                "id": "Foto diterima! Sekarang kirim lokasi Anda:\n\n"
+                      "1. Ketuk ikon +\n"
+                      "2. Pilih 'Lokasi'\n"
+                      "3. Kirim lokasi Anda saat ini",
+            }.get(language, "Photo received! Now please share your location:\n\n"
+                           "1. Tap the + icon\n"
+                           "2. Select 'Location'\n"
+                           "3. Send your current location")
+            await meta_send_text(phone, photo_prompt)
         return
 
     if msg_type == "text":
@@ -374,6 +470,31 @@ async def _handle_text(
             )
         return
 
+    if session.state == "onboarding_location":
+        # User typed a place name during onboarding — fuzzy search
+        await _handle_onboarding_location_text(db, session, phone, user, text, language)
+        return
+
+    if session.state == "search_results":
+        # User is selecting from fuzzy search results (1, 2, 3)
+        await _handle_search_result_selection(db, session, phone, user, text, language)
+        return
+
+    if session.state == "adding_watch_area":
+        # User typed a place name for watch area
+        await _handle_watch_area_text(db, session, phone, user, text, language)
+        return
+
+    if session.state == "creating_circle":
+        # User typed a circle name
+        await _handle_create_circle_name(db, session, phone, user, text, language)
+        return
+
+    if session.state == "joining_circle":
+        # User typed an invite code
+        await _handle_join_circle_code(db, session, phone, user, text, language)
+        return
+
     # Wit.ai NLU (for natural language — skip for known keywords)
     if is_wit_enabled() and not text_lower.startswith(("risk", "warnings", "alerts", "help", "menu", "status")):
         wit_result = await classify_message(text)
@@ -411,12 +532,14 @@ async def _handle_text(
         if session.data and "last_lat" in session.data:
             last_loc = (session.data["last_lat"], session.data["last_lng"])
         response = await handle_risk_command(db, user, place_name, last_loc)
-        await meta_send_text(phone, response)
+        if not await meta_send_text(phone, response):
+            logger.error(f"SEND FAILED risk result to ***{phone[-4:]}")
         return
 
     if text_lower in ("warnings", "alerts", "alert", "warning"):
         response = await handle_warnings_command(db, user)
-        await meta_send_text(phone, response)
+        if not await meta_send_text(phone, response):
+            logger.error(f"SEND FAILED warnings to ***{phone[-4:]}")
         return
 
     if text_lower in ("my areas", "myareas", "areas", "my area", "watch areas"):
@@ -490,9 +613,48 @@ async def _handle_text(
             await send_welcome_buttons(phone, language)
         return
 
-    # Default: welcome message with interactive buttons
-    await meta_send_text(phone, get_message(TemplateKey.WELCOME, language))
-    await send_welcome_buttons(phone, language)
+    # E4: Circle management commands
+    if text_lower in ("circles", "my circles", "mycircles"):
+        await _handle_circles_command(db, phone, user, language)
+        return
+
+    if text_lower.startswith("create"):
+        circle_name = text[6:].strip()
+        if not user:
+            await meta_send_text(phone, get_message(TemplateKey.CIRCLE_NOT_LINKED, language))
+            return
+        if circle_name:
+            await _handle_create_circle_name(db, session, phone, user, circle_name, language)
+        else:
+            session.state = "creating_circle"
+            session.updated_at = datetime.utcnow()
+            db.commit()
+            prompt = {"hi": "अपनी सर्कल का नाम बताएं:", "id": "Masukkan nama lingkaran Anda:"}.get(language, "What name for your circle?")
+            await meta_send_text(phone, prompt)
+        return
+
+    if text_lower.startswith("join"):
+        invite_code = text[4:].strip()
+        if not user:
+            await meta_send_text(phone, get_message(TemplateKey.CIRCLE_NOT_LINKED, language))
+            return
+        if invite_code:
+            await _handle_join_circle_code(db, session, phone, user, invite_code, language)
+        else:
+            session.state = "joining_circle"
+            session.updated_at = datetime.utcnow()
+            db.commit()
+            prompt = {"hi": "आमंत्रण कोड दर्ज करें:", "id": "Masukkan kode undangan:"}.get(language, "Enter the invite code:")
+            await meta_send_text(phone, prompt)
+        return
+
+    # E7: Invite command
+    if text_lower.startswith("invite"):
+        await _handle_invite_command(db, phone, user, text, language)
+        return
+
+    # Default: welcome/onboarding flow
+    await _handle_welcome(db, session, phone, user, language)
 
 
 async def _handle_location(
@@ -508,6 +670,22 @@ async def _handle_location(
     session.data = session.data or {}
     session.data["last_lat"] = latitude
     session.data["last_lng"] = longitude
+
+    # Onboarding: user shared location during city/location step
+    if session.state in ("onboarding_city", "onboarding_location"):
+        detected_city = _detect_city_from_coords(latitude, longitude)
+        city = detected_city or _get_session_data(session, "onboarding_city", "delhi")
+        location_name = get_readable_location(latitude, longitude)
+        await _complete_onboarding(db, session, phone, user, latitude, longitude,
+                                   location_name, city, language)
+        return
+
+    # Adding watch area: user shared GPS
+    if session.state == "adding_watch_area":
+        location_name = get_readable_location(latitude, longitude)
+        await _complete_watch_area(db, session, phone, user, latitude, longitude,
+                                   location_name, language)
+        return
 
     # Check for pending media (user sent photo first)
     pending_media_id = session.data.get("pending_media_id")
@@ -556,9 +734,18 @@ async def _handle_photo_for_pending_location(
             db, session, phone, user, lat, lng, photo_bytes, language
         )
     else:
+        phone_masked = f"***{phone[-4:]}" if len(phone) >= 4 else "***"
+        logger.warning(f"Photo download failed for {phone_masked}, resetting session")
+        session.state = "idle"
+        if session.data:
+            session.data.pop("pending_lat", None)
+            session.data.pop("pending_lng", None)
+        session.updated_at = datetime.utcnow()
+        db.commit()
         await meta_send_text(
             phone,
-            "Failed to download your photo. Please try sending it again."
+            "Failed to download your photo. Please try sending it again, "
+            "along with your location."
         )
 
 
@@ -575,6 +762,7 @@ async def _create_report_with_photo(
     """Create a flood report with photo and ML classification."""
     from ..infrastructure.models import Report
     from ..domain.services.alert_service import AlertService
+    from ..infrastructure.storage import get_storage_service, StorageError
 
     # Classify photo with ML (process_sos_with_photo expects a URL, but
     # for Meta we have raw bytes — we need to use the classifier directly)
@@ -584,6 +772,25 @@ async def _create_report_with_photo(
         classification = await classify_flood_image(photo_bytes)
     except Exception as e:
         logger.warning(f"ML classification failed: {e}")
+
+    # Upload photo to Supabase Storage for permanent URL
+    media_url = None
+    storage_path = None
+    try:
+        storage = get_storage_service()
+        user_id_str = str(user.id) if user else f"anonymous_{phone[-4:]}"
+        media_url, storage_path = await storage.upload_image(
+            content=photo_bytes,
+            filename=f"whatsapp_report_{int(time.time())}.jpg",
+            content_type="image/jpeg",
+            user_id=user_id_str,
+        )
+        logger.info(f"Uploaded WhatsApp photo to storage: {storage_path}")
+    except StorageError as e:
+        logger.error(f"Photo storage upload failed: {e}")
+        # Continue without media_url — report still has ML classification + location
+    except Exception as e:
+        logger.error(f"Unexpected storage error: {e}")
 
     # Build description
     if classification and classification.is_flood:
@@ -606,6 +813,10 @@ async def _create_report_with_photo(
             "is_flood": classification.is_flood,
             "needs_review": classification.needs_review,
         }
+        if media_url:
+            media_metadata["media_url"] = media_url
+        if storage_path:
+            media_metadata["storage_path"] = storage_path
 
     report = Report(
         location=f"POINT({longitude} {latitude})",
@@ -615,17 +826,22 @@ async def _create_report_with_photo(
         water_depth="impassable" if (classification and classification.is_flood) else "unknown",
         user_id=user.id if user else None,
         phone_number=phone,
-        media_metadata=media_metadata,
+        media_url=media_url,
+        media_metadata=json.dumps(media_metadata) if media_metadata else None,
     )
     db.add(report)
     db.commit()
     db.refresh(report)
 
     # Trigger alerts
-    alert_service = AlertService(db)
-    alerts_count = alert_service.check_watch_areas_for_report(
-        report.id, latitude, longitude, user.id if user else None
-    )
+    alerts_count = 0
+    try:
+        alert_service = AlertService(db)
+        alerts_count = alert_service.check_watch_areas_for_report(
+            report.id, latitude, longitude, user.id if user else None
+        )
+    except Exception as e:
+        logger.error(f"Alert creation failed for report {report.id}: {e}", exc_info=True)
 
     # Reset session
     session.state = "idle"
@@ -660,8 +876,12 @@ async def _create_report_with_photo(
             alerts_count=alerts_count,
         )
 
-    await meta_send_text(phone, response)
-    await send_after_report_buttons(phone, language)
+    phone_masked = f"***{phone[-4:]}" if len(phone) >= 4 else "***"
+    if not await meta_send_text(phone, response):
+        logger.error(f"SEND FAILED report confirmation to {phone_masked}: {response[:50]}")
+    if not await send_after_report_buttons(phone, language):
+        logger.warning(f"Button send failed to {phone_masked}, sending plain text fallback")
+        await meta_send_text(phone, "Reply: RISK to check risk, REPORT to report another, or HELP for menu.")
 
 
 async def _finalize_without_photo(
@@ -699,10 +919,14 @@ async def _finalize_without_photo(
     db.commit()
     db.refresh(report)
 
-    alert_service = AlertService(db)
-    alerts_count = alert_service.check_watch_areas_for_report(
-        report.id, lat, lng, user.id if user else None
-    )
+    alerts_count = 0
+    try:
+        alert_service = AlertService(db)
+        alerts_count = alert_service.check_watch_areas_for_report(
+            report.id, lat, lng, user.id if user else None
+        )
+    except Exception as e:
+        logger.error(f"Alert creation failed for report {report.id}: {e}", exc_info=True)
 
     session.state = "idle"
     session.data = {"last_lat": lat, "last_lng": lng}
@@ -715,7 +939,9 @@ async def _finalize_without_photo(
         location=location_name,
         alerts_count=alerts_count,
     )
-    await meta_send_text(phone, response)
+    if not await meta_send_text(phone, response):
+        phone_masked = f"***{phone[-4:]}" if len(phone) >= 4 else "***"
+        logger.error(f"SEND FAILED no-photo report confirmation to {phone_masked}")
 
 
 async def _handle_account_choice(
@@ -733,16 +959,17 @@ async def _handle_account_choice(
         session.state = "awaiting_email"
         session.updated_at = datetime.utcnow()
         db.commit()
-        await meta_send_text(
-            phone,
-            "Great! To link your account, please reply with your email address.\n\n"
-            "If you already have a FloodSafe account, use that email.\n"
-            "If not, we'll create a new account for you."
-            if language == "en" else
-            "बढ़िया! अपना अकाउंट लिंक करने के लिए अपना ईमेल भेजें।\n\n"
-            "अगर FloodSafe अकाउंट है तो वही ईमेल भेजें।\n"
-            "नहीं तो हम नया अकाउंट बना देंगे।"
-        )
+        link_msg = {
+            "hi": "बढ़िया! अपना अकाउंट लिंक करने के लिए अपना ईमेल भेजें।\n\n"
+                  "अगर FloodSafe अकाउंट है तो वही ईमेल भेजें।\n"
+                  "नहीं तो हम नया अकाउंट बना देंगे।",
+            "id": "Bagus! Kirim email Anda untuk menghubungkan akun.\n\n"
+                  "Jika sudah punya akun FloodSafe, gunakan email tersebut.\n"
+                  "Jika belum, kami akan membuat akun baru.",
+        }.get(language, "Great! To link your account, please reply with your email address.\n\n"
+                        "If you already have a FloodSafe account, use that email.\n"
+                        "If not, we'll create a new account for you.")
+        await meta_send_text(phone, link_msg)
         return
 
     if choice in ("2", "stay_anonymous"):
@@ -750,23 +977,22 @@ async def _handle_account_choice(
         session.data = {}
         session.updated_at = datetime.utcnow()
         db.commit()
-        await meta_send_text(
-            phone,
-            "Got it! Your reports will remain anonymous.\n\n"
-            "You can reply LINK anytime to connect your account."
-            if language == "en" else
-            "ठीक है! आपकी रिपोर्ट गुमनाम रहेगी।\n\n"
-            "कभी भी LINK भेजकर अकाउंट जोड़ सकते हैं।"
-        )
+        anon_msg = {
+            "hi": "ठीक है! आपकी रिपोर्ट गुमनाम रहेगी।\n\n"
+                  "कभी भी LINK भेजकर अकाउंट जोड़ सकते हैं।",
+            "id": "Baik! Laporan Anda akan tetap anonim.\n\n"
+                  "Balas LINK kapan saja untuk menghubungkan akun.",
+        }.get(language, "Got it! Your reports will remain anonymous.\n\n"
+                        "You can reply LINK anytime to connect your account.")
+        await meta_send_text(phone, anon_msg)
         return
 
     # Invalid choice — re-prompt
-    await meta_send_text(
-        phone,
-        "Please reply with:\n1 = Create/link account\n2 = Stay anonymous"
-        if language == "en" else
-        "कृपया भेजें:\n1 = अकाउंट बनाएं\n2 = गुमनाम रहें"
-    )
+    reprompt = {
+        "hi": "कृपया भेजें:\n1 = अकाउंट बनाएं\n2 = गुमनाम रहें",
+        "id": "Balas dengan:\n1 = Buat akun\n2 = Tetap anonim",
+    }.get(language, "Please reply with:\n1 = Create/link account\n2 = Stay anonymous")
+    await meta_send_text(phone, reprompt)
 
 
 async def _handle_email_input(
@@ -890,6 +1116,539 @@ async def _handle_email_input(
     await send_welcome_buttons(phone, language)
 
 
+# =============================================================================
+# B1: WELCOME / ONBOARDING FLOW
+# =============================================================================
+
+async def _handle_welcome(
+    db: Session,
+    session: WhatsAppSession,
+    phone: str,
+    user: Optional[User],
+    language: str,
+):
+    """Handle welcome — onboarding for new users, extended menu for returning users."""
+    if user and session.user_id:
+        # Returning user — extended menu
+        wb_msg = {
+            "hi": "वापसी पर स्वागत है! क्या करना चाहेंगे?",
+            "id": "Selamat datang kembali! Apa yang ingin Anda lakukan?",
+        }.get(language, "Welcome back! What would you like to do?")
+        await meta_send_text(phone, wb_msg)
+        await send_extended_menu(phone, language)
+    else:
+        # New user — onboarding
+        onb_msg = {
+            "hi": "FloodSafe में आपका स्वागत है!\n\n"
+                  "बाढ़ से सुरक्षित रहने में मदद करता हूं। सेटअप करते हैं:",
+            "id": "Selamat datang di FloodSafe!\n\n"
+                  "Saya membantu Anda tetap aman dari banjir. Mari kita siapkan:",
+        }.get(language, "Welcome to FloodSafe!\n\n"
+                        "I help you stay safe from floods. Let me set you up:")
+        await meta_send_text(phone, onb_msg)
+        session.state = "onboarding_city"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        await send_onboarding_city_buttons(phone, language)
+
+
+# =============================================================================
+# B6: FUZZY LOCATION SEARCH
+# =============================================================================
+
+async def _search_location(place_name: str, city: str = "delhi") -> list:
+    """Search for a location using the internal search API. Returns list of results."""
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                f"http://localhost:8000/api/search/locations/",
+                params={"q": place_name, "city": city, "limit": 3},
+                timeout=10.0,
+            )
+            if response.status_code == 200:
+                return response.json()
+    except Exception as e:
+        logger.warning(f"Location search failed: {e}")
+    return []
+
+
+async def _handle_onboarding_location_text(
+    db: Session,
+    session: WhatsAppSession,
+    phone: str,
+    user: Optional[User],
+    text: str,
+    language: str,
+):
+    """Handle text input during onboarding location step — fuzzy search."""
+    city = _get_session_data(session, "onboarding_city", "delhi")
+    results = await _search_location(text, city)
+
+    if len(results) == 1:
+        # Single confident result — use it
+        r = results[0]
+        lat, lng = r.get("latitude"), r.get("longitude")
+        name = r.get("name", text)
+        await _complete_onboarding(db, session, phone, user, lat, lng, name, city, language)
+    elif len(results) > 1:
+        # Multiple results — present choices
+        lines = ["I found these locations:\n"]
+        session.data = session.data or {}
+        session.data["search_results"] = []
+        for i, r in enumerate(results, 1):
+            name = r.get("name", "Unknown")
+            lines.append(f"{i}. {name}")
+            session.data["search_results"].append({
+                "name": name,
+                "lat": r.get("latitude"),
+                "lng": r.get("longitude"),
+            })
+        lines.append("\nReply with the number (1-3)")
+        session.data["search_return_state"] = "onboarding_location"
+        session.state = "search_results"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        await meta_send_text(phone, "\n".join(lines))
+    else:
+        # No results
+        nf_msg = {
+            "hi": f'स्थान नहीं मिला: "{text}"\n\n'
+                  "अधिक विशिष्ट नाम लिखें, या GPS location भेजें।",
+            "id": f'Lokasi tidak ditemukan: "{text}"\n\n'
+                  "Coba nama tempat lebih spesifik, atau kirim lokasi GPS.",
+        }.get(language, f'Location not found: "{text}"\n\n'
+                        "Try a more specific place name, or share your GPS location.")
+        await meta_send_text(phone, nf_msg)
+
+
+async def _handle_search_result_selection(
+    db: Session,
+    session: WhatsAppSession,
+    phone: str,
+    user: Optional[User],
+    text: str,
+    language: str,
+):
+    """Handle number selection from fuzzy search results."""
+    try:
+        choice = int(text.strip())
+    except ValueError:
+        await meta_send_text(phone, "Please reply with a number (1-3).")
+        return
+
+    results = _get_session_data(session, "search_results", [])
+    return_state = _get_session_data(session, "search_return_state", "idle")
+
+    if not results or choice < 1 or choice > len(results):
+        await meta_send_text(phone, f"Please reply with a number between 1 and {len(results)}.")
+        return
+
+    selected = results[choice - 1]
+    lat, lng, name = selected["lat"], selected["lng"], selected["name"]
+
+    if return_state == "onboarding_location":
+        city = _get_session_data(session, "onboarding_city", "delhi")
+        await _complete_onboarding(db, session, phone, user, lat, lng, name, city, language)
+    elif return_state == "adding_watch_area":
+        await _complete_watch_area(db, session, phone, user, lat, lng, name, language)
+    else:
+        # Fallback — use as risk check location
+        session.data = session.data or {}
+        session.data["last_lat"] = lat
+        session.data["last_lng"] = lng
+        session.state = "idle"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        await meta_send_text(phone, f"Location set: {name}")
+
+
+# =============================================================================
+# B4: ACCOUNT CREATION + ONBOARDING COMPLETION
+# =============================================================================
+
+async def _complete_onboarding(
+    db: Session,
+    session: WhatsAppSession,
+    phone: str,
+    user: Optional[User],
+    lat: float,
+    lng: float,
+    location_name: str,
+    city: str,
+    language: str,
+):
+    """Complete onboarding: create account + first watch area."""
+    from ..domain.services.auth_service import AuthService
+
+    # Create account if needed
+    if not user:
+        try:
+            auth_service = AuthService(db)
+            user = auth_service.get_or_create_phone_user(
+                phone=phone,
+                auth_provider="whatsapp",
+            )
+            # Set preferences
+            user.city_preference = city
+            user.notification_whatsapp = True
+            user.phone_verified = True
+            db.commit()
+        except Exception as e:
+            logger.error(f"Onboarding account creation failed: {e}")
+            session.state = "idle"
+            session.updated_at = datetime.utcnow()
+            db.commit()
+            await meta_send_text(phone, get_message(TemplateKey.SESSION_ERROR, language))
+            return
+
+    # Create first watch area
+    from ..infrastructure.models import WatchArea
+    try:
+        watch_area = WatchArea(
+            user_id=user.id,
+            name=location_name,
+            location=f"POINT({lng} {lat})",
+            radius=1000,
+        )
+        db.add(watch_area)
+        db.commit()
+    except Exception as e:
+        logger.warning(f"Watch area creation during onboarding failed: {e}")
+
+    # Update session
+    session.user_id = user.id
+    session.state = "idle"
+    session.data = {"last_lat": lat, "last_lng": lng, "city": city}
+    session.updated_at = datetime.utcnow()
+    db.commit()
+
+    done_msg = {
+        "hi": f"सब सेट! {location_name} के पास बाढ़ की रिपोर्ट होने पर अलर्ट मिलेगा।\n\n"
+              f"और watch spots जोड़ सकते हैं। HELP लिखें सभी commands के लिए।",
+        "id": f"Siap! Anda akan diberitahu saat banjir dilaporkan dekat {location_name}.\n\n"
+              f"Anda bisa menambah area pantauan kapan saja. Ketik HELP untuk semua perintah.",
+    }.get(language, f"All set! I'll alert you when flooding is reported near {location_name}.\n\n"
+                    f"You can add more watch spots anytime. Type HELP for all commands.")
+    await meta_send_text(phone, done_msg)
+    await send_menu_buttons(phone, language)
+
+
+# =============================================================================
+# C1: WATCH AREA MANAGEMENT
+# =============================================================================
+
+async def _handle_watch_area_text(
+    db: Session,
+    session: WhatsAppSession,
+    phone: str,
+    user: Optional[User],
+    text: str,
+    language: str,
+):
+    """Handle text input when adding a watch area — fuzzy search."""
+    city = _get_session_data(session, "city", "delhi")
+    if user and hasattr(user, "city_preference") and user.city_preference:
+        city = user.city_preference
+
+    results = await _search_location(text, city)
+
+    if len(results) == 1:
+        r = results[0]
+        await _complete_watch_area(db, session, phone, user,
+                                   r["latitude"], r["longitude"], r.get("name", text), language)
+    elif len(results) > 1:
+        lines = ["I found these locations:\n"]
+        session.data = session.data or {}
+        session.data["search_results"] = []
+        for i, r in enumerate(results, 1):
+            name = r.get("name", "Unknown")
+            lines.append(f"{i}. {name}")
+            session.data["search_results"].append({
+                "name": name, "lat": r.get("latitude"), "lng": r.get("longitude"),
+            })
+        lines.append("\nReply with the number (1-3)")
+        session.data["search_return_state"] = "adding_watch_area"
+        session.state = "search_results"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        await meta_send_text(phone, "\n".join(lines))
+    else:
+        await meta_send_text(
+            phone,
+            f'Location not found: "{text}"\n\nTry a more specific name or share GPS location.'
+        )
+
+
+async def _complete_watch_area(
+    db: Session,
+    session: WhatsAppSession,
+    phone: str,
+    user: Optional[User],
+    lat: float,
+    lng: float,
+    name: str,
+    language: str,
+):
+    """Create a watch area and confirm."""
+    if not user:
+        await meta_send_text(phone, "Please link your account first. Reply LINK.")
+        session.state = "idle"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        return
+
+    from ..infrastructure.models import WatchArea
+    try:
+        wa = WatchArea(user_id=user.id, name=name, location=f"POINT({lng} {lat})", radius=1000)
+        db.add(wa)
+        db.commit()
+    except Exception as e:
+        logger.error(f"Watch area creation failed: {e}")
+        await meta_send_text(phone, "Failed to create watch spot. Please try again.")
+        session.state = "idle"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        return
+
+    # Count user's watch areas
+    count = db.query(WatchArea).filter(WatchArea.user_id == user.id).count()
+
+    session.state = "idle"
+    session.updated_at = datetime.utcnow()
+    db.commit()
+
+    await meta_send_text(
+        phone,
+        f"Watch spot added: {name}\n"
+        f"I'll alert you when flooding is reported nearby.\n\n"
+        f"Total watch spots: {count}"
+    )
+
+
+# =============================================================================
+# E4/E7: CIRCLE LISTING & INVITE COMMANDS
+# =============================================================================
+
+async def _handle_circles_command(
+    db: Session,
+    phone: str,
+    user: Optional[User],
+    language: str,
+):
+    """E4: List user's safety circles with member counts and invite codes."""
+    if not user:
+        await meta_send_text(phone, get_message(TemplateKey.CIRCLE_NOT_LINKED, language))
+        return
+
+    from ..domain.services.circle_service import CircleService
+    try:
+        circle_service = CircleService(db)
+        circles_data = circle_service.get_user_circles(user.id)
+    except Exception as e:
+        logger.error(f"Failed to fetch circles: {e}")
+        await meta_send_text(phone, get_message(TemplateKey.ERROR, language))
+        return
+
+    if not circles_data:
+        no_circles = {
+            "hi": "अभी कोई सर्कल नहीं। नई सर्कल बनाएं या आमंत्रण कोड से जुड़ें।",
+            "id": "Belum ada lingkaran. Buat lingkaran baru atau bergabung dengan kode undangan.",
+        }.get(language, "No circles yet. Create one or join with an invite code.")
+        await meta_send_text(phone, no_circles)
+        await send_circles_menu_buttons(phone, language)
+        return
+
+    # Format circles list
+    lines = []
+    for i, entry in enumerate(circles_data[:10], 1):
+        circle = entry["circle"]
+        count = entry["member_count"]
+        role = "Creator" if circle.created_by == user.id else "Member"
+        if language == "hi":
+            role = "निर्माता" if circle.created_by == user.id else "सदस्य"
+        elif language == "id":
+            role = "Pembuat" if circle.created_by == user.id else "Anggota"
+
+        line = f"{i}. {circle.name} ({count} {'anggota' if language == 'id' else 'सदस्य' if language == 'hi' else 'members'}) — {role}"
+        if circle.created_by == user.id and circle.invite_code:
+            line += f"\n   {'Kode' if language == 'id' else 'कोड' if language == 'hi' else 'Code'}: {circle.invite_code}"
+        lines.append(line)
+
+    circles_list = "\n\n".join(lines)
+    msg = get_message(
+        TemplateKey.CIRCLES_LIST,
+        language,
+        count=len(circles_data),
+        circles_list=circles_list,
+    )
+    await meta_send_text(phone, msg)
+    await send_circles_menu_buttons(phone, language)
+
+
+async def _handle_invite_command(
+    db: Session,
+    phone: str,
+    user: Optional[User],
+    text: str,
+    language: str,
+):
+    """E7: Share a circle invite code as a forwardable WhatsApp message."""
+    if not user:
+        await meta_send_text(phone, get_message(TemplateKey.CIRCLE_NOT_LINKED, language))
+        return
+
+    from ..domain.services.circle_service import CircleService
+    try:
+        circle_service = CircleService(db)
+        circles_data = circle_service.get_user_circles(user.id)
+    except Exception as e:
+        logger.error(f"Failed to fetch circles for invite: {e}")
+        await meta_send_text(phone, get_message(TemplateKey.ERROR, language))
+        return
+
+    if not circles_data:
+        no_circles = {
+            "hi": "आपकी कोई सर्कल नहीं है। पहले एक बनाएं: CREATE [नाम]",
+            "id": "Anda belum punya lingkaran. Buat dulu: CREATE [nama]",
+        }.get(language, "You don't have any circles. Create one first: CREATE [name]")
+        await meta_send_text(phone, no_circles)
+        return
+
+    # Check if user specified a circle number: "INVITE 1" or "INVITE 2"
+    arg = text[6:].strip()
+    target_circle = None
+
+    if arg and arg.isdigit():
+        idx = int(arg) - 1
+        if 0 <= idx < len(circles_data):
+            target_circle = circles_data[idx]["circle"]
+    elif not arg:
+        # No number specified — use first circle user created
+        for entry in circles_data:
+            if entry["circle"].created_by == user.id:
+                target_circle = entry["circle"]
+                break
+        if not target_circle:
+            # User is not creator of any circle — show list
+            await _handle_circles_command(db, phone, user, language)
+            return
+
+    if not target_circle:
+        invalid = {
+            "hi": f"अमान्य नंबर। 1 से {len(circles_data)} के बीच चुनें।",
+            "id": f"Nomor tidak valid. Pilih antara 1 dan {len(circles_data)}.",
+        }.get(language, f"Invalid number. Choose between 1 and {len(circles_data)}.")
+        await meta_send_text(phone, invalid)
+        return
+
+    if not target_circle.invite_code:
+        no_code = {
+            "hi": "इस सर्कल में आमंत्रण कोड नहीं है।",
+            "id": "Lingkaran ini tidak memiliki kode undangan.",
+        }.get(language, "This circle doesn't have an invite code.")
+        await meta_send_text(phone, no_code)
+        return
+
+    # Send the forwardable invite message
+    msg = get_message(
+        TemplateKey.CIRCLE_INVITE_SHARE,
+        language,
+        name=target_circle.name,
+        code=target_circle.invite_code,
+    )
+    await meta_send_text(phone, msg)
+
+
+# =============================================================================
+# E5/E6: CIRCLE MANAGEMENT HANDLERS
+# =============================================================================
+
+async def _handle_create_circle_name(
+    db: Session,
+    session: WhatsAppSession,
+    phone: str,
+    user: Optional[User],
+    text: str,
+    language: str,
+):
+    """Handle circle name input for creation."""
+    if not user:
+        await meta_send_text(phone, get_message(TemplateKey.CIRCLE_NOT_LINKED, language))
+        session.state = "idle"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        return
+
+    from ..domain.services.circle_service import CircleService
+    try:
+        circle_service = CircleService(db)
+        circle = circle_service.create_circle(
+            user_id=user.id,
+            name=text.strip(),
+            description=None,
+            circle_type="custom",
+        )
+        session.state = "idle"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        await meta_send_text(
+            phone,
+            get_message(TemplateKey.CIRCLE_CREATED, language, name=circle.name, code=circle.invite_code),
+        )
+    except Exception as e:
+        logger.error(f"Circle creation failed: {e}")
+        session.state = "idle"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        await meta_send_text(phone, get_message(TemplateKey.ERROR, language))
+
+
+async def _handle_join_circle_code(
+    db: Session,
+    session: WhatsAppSession,
+    phone: str,
+    user: Optional[User],
+    text: str,
+    language: str,
+):
+    """Handle invite code input for joining a circle."""
+    if not user:
+        await meta_send_text(phone, get_message(TemplateKey.CIRCLE_NOT_LINKED, language))
+        session.state = "idle"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        return
+
+    invite_code = text.strip().upper()
+    from ..domain.services.circle_service import CircleService
+    try:
+        circle_service = CircleService(db)
+        result = circle_service.join_by_invite_code(invite_code, user.id)
+        session.state = "idle"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        if result:
+            circle_name = result.name if hasattr(result, "name") else "the circle"
+            await meta_send_text(
+                phone,
+                get_message(TemplateKey.CIRCLE_JOINED, language, name=circle_name),
+            )
+        else:
+            await meta_send_text(phone, get_message(TemplateKey.CIRCLE_INVALID_CODE, language))
+    except Exception as e:
+        error_msg = str(e).lower()
+        session.state = "idle"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        if "already" in error_msg:
+            await meta_send_text(phone, get_message(TemplateKey.CIRCLE_ALREADY_MEMBER, language))
+        elif "invalid" in error_msg or "not found" in error_msg:
+            await meta_send_text(phone, get_message(TemplateKey.CIRCLE_INVALID_CODE, language))
+        else:
+            logger.error(f"Circle join failed: {e}")
+            await meta_send_text(phone, get_message(TemplateKey.ERROR, language))
+
+
 async def _handle_button(
     db: Session,
     session: WhatsAppSession,
@@ -902,16 +1661,21 @@ async def _handle_button(
     if button_id == "report_flood":
         await meta_send_text(
             phone,
-            "To report flooding:\n\n"
-            "1. Take a photo of the flooding\n"
-            "2. Tap + > Location > Send current location\n"
-            "3. Send both together!\n\n"
-            "We'll verify with AI and alert nearby people."
-            if language == "en" else
-            "Flooding report karne ke liye:\n\n"
-            "1. Flooding ki photo lein\n"
-            "2. + > Location > Apna location bhejein\n"
-            "3. Dono ek saath bhejein!"
+            {
+                "hi": "Flooding report karne ke liye:\n\n"
+                      "1. Flooding ki photo lein\n"
+                      "2. + > Location > Apna location bhejein\n"
+                      "3. Dono ek saath bhejein!",
+                "id": "Untuk melaporkan banjir:\n\n"
+                      "1. Ambil foto banjir\n"
+                      "2. Ketuk + > Lokasi > Kirim lokasi saat ini\n"
+                      "3. Kirim keduanya bersamaan!\n\n"
+                      "Kami akan verifikasi dengan AI dan memberitahu orang sekitar.",
+            }.get(language, "To report flooding:\n\n"
+                           "1. Take a photo of the flooding\n"
+                           "2. Tap + > Location > Send current location\n"
+                           "3. Send both together!\n\n"
+                           "We'll verify with AI and alert nearby people.")
         )
     elif button_id == "check_risk":
         last_lat = session.data.get("last_lat") if session.data else None
@@ -959,6 +1723,93 @@ async def _handle_button(
         await _handle_account_choice(db, session, phone, user, "1", language)
     elif button_id == "stay_anonymous":
         await _handle_account_choice(db, session, phone, user, "2", language)
+    # Onboarding city buttons
+    elif button_id.startswith("city_"):
+        city_map = {
+            "city_delhi": "delhi", "city_bangalore": "bangalore",
+            "city_yogyakarta": "yogyakarta", "city_singapore": "singapore",
+            "city_indore": "indore",
+        }
+        if button_id == "city_more":
+            await send_onboarding_city_2_buttons(phone, language)
+        elif button_id in city_map:
+            city = city_map[button_id]
+            session.data = session.data or {}
+            session.data["onboarding_city"] = city
+            session.state = "onboarding_location"
+            session.updated_at = datetime.utcnow()
+            db.commit()
+            city_display = city.title()
+            city_msg = {
+                "hi": f"ठीक है! आप {city_display} में हैं।\n\n"
+                      f"अपना location भेजें ताकि मैं बाढ़-प्रवण क्षेत्र खोज सकूं।\n"
+                      f"या जगह का नाम लिखें",
+                "id": f"Oke! Anda di {city_display}.\n\n"
+                      f"Kirim lokasi Anda agar saya bisa menemukan area rawan banjir.\n"
+                      f"Atau ketik nama tempat (mis. \"Malioboro\")",
+            }.get(language, f"Got it! You're in {city_display}.\n\n"
+                            f"Share your location so I can find flood-prone areas near you.\n"
+                            f"Or type a place name (e.g., \"Connaught Place\")")
+            await meta_send_text(phone, city_msg)
+    # Extended menu buttons
+    elif button_id == "my_watch_spots":
+        if not user:
+            await meta_send_text(phone, "Link your account to manage watch spots. Reply LINK.")
+            return
+        response = await handle_my_areas_command(db, user)
+        await meta_send_text(phone, response)
+    elif button_id == "my_reports":
+        if not user:
+            await meta_send_text(phone, "Link your account to view your reports. Reply LINK.")
+            return
+        # Show user's reports count
+        from ..infrastructure.models import Report
+        count = db.query(Report).filter(Report.user_id == user.id).count()
+        await meta_send_text(
+            phone,
+            f"You have {count} reports.\n"
+            f"View details in the FloodSafe app."
+        )
+    elif button_id == "settings":
+        if not user:
+            await meta_send_text(phone, "Link your account to manage settings. Reply LINK.")
+            return
+        city = getattr(user, "city_preference", "Not set") or "Not set"
+        lang_display = {"hi": "Hindi", "id": "Indonesia"}.get(language, "English")
+        wa_alerts = "ON" if user.notification_whatsapp else "OFF"
+        from ..infrastructure.models import WatchArea as WA
+        spots = db.query(WA).filter(WA.user_id == user.id).count()
+        await meta_send_text(
+            phone,
+            f"YOUR SETTINGS\n\n"
+            f"City: {city.title() if city != 'Not set' else city}\n"
+            f"Language: {lang_display}\n"
+            f"WhatsApp Alerts: {wa_alerts}\n"
+            f"Watch Spots: {spots}\n\n"
+            f"Reply:\n"
+            f"- \"LANGUAGE hindi\" to change language\n"
+            f"- \"CITY bangalore\" to change city\n"
+            f"- \"ALERTS OFF\" to disable alerts"
+        )
+    # Circle buttons
+    elif button_id == "create_circle":
+        if not user:
+            await meta_send_text(phone, get_message(TemplateKey.CIRCLE_NOT_LINKED, language))
+            return
+        session.state = "creating_circle"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        prompt = {"hi": "अपनी सर्कल का नाम बताएं:", "id": "Masukkan nama lingkaran Anda:"}.get(language, "What name for your circle?")
+        await meta_send_text(phone, prompt)
+    elif button_id == "join_circle":
+        if not user:
+            await meta_send_text(phone, get_message(TemplateKey.CIRCLE_NOT_LINKED, language))
+            return
+        session.state = "joining_circle"
+        session.updated_at = datetime.utcnow()
+        db.commit()
+        prompt = {"hi": "आमंत्रण कोड दर्ज करें:", "id": "Masukkan kode undangan:"}.get(language, "Enter the invite code:")
+        await meta_send_text(phone, prompt)
     else:
         logger.warning(f"Unknown Meta button: {button_id}")
-        await meta_send_text(phone, get_message(TemplateKey.WELCOME, language))
+        await _handle_welcome(db, session, phone, user, language)

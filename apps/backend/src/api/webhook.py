@@ -26,6 +26,7 @@ Session States:
 """
 from fastapi import APIRouter, Request, Form, HTTPException, Depends, Response
 from typing import Optional
+import json
 import logging
 from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
@@ -283,7 +284,7 @@ def create_sos_report(
         user_id=user.id if user else None,
         phone_number=phone,
         media_url=media_url,
-        media_metadata=media_metadata
+        media_metadata=json.dumps(media_metadata) if media_metadata else None
     )
     db.add(report)
     db.commit()

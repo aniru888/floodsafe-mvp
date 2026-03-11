@@ -128,12 +128,12 @@ class TestNoSilentFallbacks:
     """Test D8 — every failure is tracked, nothing silently swallowed."""
 
     def test_twilio_not_configured_tracked_in_errors(self, db_session, test_user):
-        """When Twilio is not configured, it should appear in result.errors."""
+        """When no notification channel is configured, errors are tracked."""
         service = CircleService(db_session)
         circle = service.create_circle(
             user_id=test_user.id, name="Test", description=None, circle_type="custom"
         )
-        # Add phone member (non-registered)
+        # Add phone member (non-registered) — needs notify_sms=True for SMS fallback path
         service.add_member(
             circle_id=circle.id, adder_id=test_user.id,
             phone="9999999999", display_name="Contact"
@@ -141,17 +141,21 @@ class TestNoSilentFallbacks:
 
         report_id = create_test_report(db_session, test_user.id)
 
-        with patch("src.domain.services.circle_notification_service.get_twilio_client", return_value=None):
-            notif_service = CircleNotificationService(db_session)
-            result = notif_service.notify_circles_for_report(
-                report_id=report_id,
-                reporter_user_id=test_user.id,
-                latitude=28.63, longitude=77.22, description="Test",
-            )
+        # Disable Meta WhatsApp (primary channel) so SMS fallback is attempted
+        with patch("src.domain.services.circle_notification_service.is_meta_whatsapp_enabled", return_value=False):
+            with patch("src.domain.services.circle_notification_service.get_twilio_client", return_value=None):
+                notif_service = CircleNotificationService(db_session)
+                result = notif_service.notify_circles_for_report(
+                    report_id=report_id,
+                    reporter_user_id=test_user.id,
+                    latitude=28.63, longitude=77.22, description="Test",
+                )
 
         assert result.alerts_created == 1  # In-app alert still created
-        assert len(result.errors) > 0  # Twilio error recorded
-        assert "Twilio not configured" in result.errors[0]
+        assert len(result.errors) > 0  # Failures recorded
+        # Verify failures are tracked, not silently swallowed
+        error_text = " ".join(result.errors)
+        assert "cannot send" in error_text or "not configured" in error_text
 
     def test_notification_result_to_dict(self):
         """NotificationResult.to_dict() returns complete summary."""
@@ -213,7 +217,7 @@ class TestWhatsAppIntegration:
         assert alert.notification_channel == "whatsapp"
 
     def test_whatsapp_fails_falls_back_to_sms(self, db_session, test_user):
-        """If WhatsApp fails, fall back to SMS."""
+        """If WhatsApp (Meta) fails, fall back to SMS (Twilio)."""
         service = CircleService(db_session)
         circle = service.create_circle(
             user_id=test_user.id, name="Test", description=None, circle_type="custom"
@@ -225,28 +229,22 @@ class TestWhatsAppIntegration:
 
         report_id = create_test_report(db_session, test_user.id)
 
-        # WhatsApp fails, SMS succeeds
+        # Mock Meta WhatsApp to be enabled but send fails
+        # Mock Twilio for SMS success
         mock_client = MagicMock()
-        call_count = {"n": 0}
+        mock_client.messages.create.return_value = MagicMock(sid="SM456")
 
-        def side_effect(**kwargs):
-            call_count["n"] += 1
-            if call_count["n"] == 1:
-                raise Exception("WhatsApp delivery failed")
-            return MagicMock(sid="SM456")
-
-        mock_client.messages.create.side_effect = side_effect
-
-        with patch("src.domain.services.circle_notification_service.get_twilio_client", return_value=mock_client):
-            with patch("src.domain.services.circle_notification_service.settings") as mock_settings:
-                mock_settings.TWILIO_WHATSAPP_NUMBER = "whatsapp:+14155551234"
-                mock_settings.TWILIO_SMS_NUMBER = "+14155551234"
-                notif_service = CircleNotificationService(db_session)
-                result = notif_service.notify_circles_for_report(
-                    report_id=report_id,
-                    reporter_user_id=test_user.id,
-                    latitude=28.63, longitude=77.22, description="Test",
-                )
+        with patch("src.domain.services.circle_notification_service.is_meta_whatsapp_enabled", return_value=True):
+            with patch("src.domain.services.circle_notification_service.send_text_message_sync", return_value=False):
+                with patch("src.domain.services.circle_notification_service.get_twilio_client", return_value=mock_client):
+                    with patch("src.domain.services.circle_notification_service.settings") as mock_settings:
+                        mock_settings.TWILIO_SMS_NUMBER = "+14155551234"
+                        notif_service = CircleNotificationService(db_session)
+                        result = notif_service.notify_circles_for_report(
+                            report_id=report_id,
+                            reporter_user_id=test_user.id,
+                            latitude=28.63, longitude=77.22, description="Test",
+                        )
 
         assert result.whatsapp_failed == 1
         assert result.sms_sent == 1

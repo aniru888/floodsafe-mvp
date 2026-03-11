@@ -31,7 +31,7 @@ def _get_api_base() -> str:
 
 async def geocode_location(
     place_name: str,
-    city: str = "delhi"
+    city: str = "delhi",
 ) -> Optional[Tuple[float, float, str]]:
     """
     Geocode a place name to coordinates.
@@ -75,7 +75,8 @@ async def handle_risk_command(
     db: Session,
     user: Optional[User],
     place_name: Optional[str] = None,
-    last_location: Optional[Tuple[float, float]] = None
+    last_location: Optional[Tuple[float, float]] = None,
+    city: str = "delhi",
 ) -> str:
     """
     Handle RISK command - check flood risk at location.
@@ -85,18 +86,19 @@ async def handle_risk_command(
         user: Current user (may be None)
         place_name: Optional place name to geocode
         last_location: Last known location from session (lat, lng)
+        city: City slug for geocoding context and language detection
 
     Returns:
         Formatted response message
     """
-    language = get_user_language(user)
+    language = get_user_language(user, city=city)
 
     # Determine coordinates
     latitude, longitude, location_name = None, None, None
 
     if place_name:
-        # Geocode the place name
-        result = await geocode_location(place_name)
+        # Geocode the place name using the user's city context
+        result = await geocode_location(place_name, city=city)
         if not result:
             return get_message(
                 TemplateKey.LOCATION_NOT_FOUND,
@@ -121,22 +123,13 @@ async def handle_risk_command(
 
             if response.status_code != 200:
                 logger.warning(f"Risk API failed: {response.status_code}")
-                # Return a generic low risk response
-                return get_message(
-                    TemplateKey.RISK_LOW,
-                    language,
-                    location=location_name
-                )
+                return get_message(TemplateKey.RISK_UNAVAILABLE, language)
 
             data = response.json()
 
     except Exception as e:
         logger.error(f"Risk API error: {e}")
-        return get_message(
-            TemplateKey.RISK_LOW,
-            language,
-            location=location_name
-        )
+        return get_message(TemplateKey.RISK_UNAVAILABLE, language)
 
     # Parse risk level
     risk_level = data.get("risk_level", "low").lower()
@@ -184,7 +177,8 @@ async def handle_risk_command(
             if summary:
                 template_response += f"\n\n---\nAI Summary: {summary}"
         except Exception as e:
-            logger.debug(f"Llama summary generation failed: {e}")
+            logger.warning(f"Llama summary generation failed: {e}")
+            template_response += "\n\n(AI summary unavailable)"
 
     return template_response
 
@@ -192,7 +186,7 @@ async def handle_risk_command(
 async def handle_warnings_command(
     db: Session,
     user: Optional[User],
-    city: str = "Delhi NCR"
+    city: str = "delhi",
 ) -> str:
     """
     Handle WARNINGS command - get official flood alerts.
@@ -200,38 +194,33 @@ async def handle_warnings_command(
     Args:
         db: Database session
         user: Current user (may be None)
-        city: City name (default: Delhi NCR)
+        city: City slug (e.g. "delhi", "yogyakarta", "singapore")
 
     Returns:
         Formatted response message
     """
-    language = get_user_language(user)
+    language = get_user_language(user, city=city)
+
+    # Use the city parameter for the API call (was previously hardcoded to "delhi")
+    city_slug = city.lower().strip()
 
     try:
         async with httpx.AsyncClient() as client:
             response = await client.get(
                 f"{_get_api_base()}/alerts/unified",
-                params={"city": "delhi", "sources": "official", "limit": 5},
+                params={"city": city_slug, "sources": "official", "limit": 5},
                 timeout=15.0
             )
 
             if response.status_code != 200:
                 logger.warning(f"Alerts API failed: {response.status_code}")
-                return get_message(
-                    TemplateKey.WARNINGS_NONE,
-                    language,
-                    city=city
-                )
+                return get_message(TemplateKey.WARNINGS_UNAVAILABLE, language)
 
             data = response.json()
 
     except Exception as e:
         logger.error(f"Alerts API error: {e}")
-        return get_message(
-            TemplateKey.WARNINGS_NONE,
-            language,
-            city=city
-        )
+        return get_message(TemplateKey.WARNINGS_UNAVAILABLE, language)
 
     alerts = data.get("alerts", [])
 
@@ -257,7 +246,8 @@ async def handle_warnings_command(
 
 async def handle_my_areas_command(
     db: Session,
-    user: Optional[User]
+    user: Optional[User],
+    city: str = "delhi",
 ) -> str:
     """
     Handle MY AREAS command - show user's watch areas with risk levels.
@@ -265,11 +255,12 @@ async def handle_my_areas_command(
     Args:
         db: Database session
         user: Current user (must be linked)
+        city: City slug for language detection
 
     Returns:
         Formatted response message
     """
-    language = get_user_language(user)
+    language = get_user_language(user, city=city)
 
     if not user:
         return get_message(TemplateKey.ACCOUNT_NOT_LINKED, language)
@@ -309,25 +300,28 @@ async def handle_my_areas_command(
 
 
 async def handle_help_command(
-    user: Optional[User]
+    user: Optional[User],
+    city: str = "delhi",
 ) -> str:
     """
     Handle HELP command - show all available commands.
 
     Args:
         user: Current user (may be None)
+        city: City slug for language detection
 
     Returns:
         Formatted help message
     """
-    language = get_user_language(user)
+    language = get_user_language(user, city=city)
     return get_message(TemplateKey.HELP, language)
 
 
 async def handle_status_command(
     db: Session,
     user: Optional[User],
-    phone: str
+    phone: str,
+    city: str = "delhi",
 ) -> str:
     """
     Handle STATUS command - show user's account status.
@@ -336,11 +330,12 @@ async def handle_status_command(
         db: Database session
         user: Current user (may be None)
         phone: Phone number
+        city: City slug for language detection
 
     Returns:
         Formatted status message
     """
-    language = get_user_language(user)
+    language = get_user_language(user, city=city)
 
     if user:
         email = user.email or "Not set"

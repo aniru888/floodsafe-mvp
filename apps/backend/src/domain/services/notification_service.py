@@ -217,6 +217,11 @@ class TwilioNotificationService(INotificationService):
 
             if await self.send_alert(wa.user_id, message, channel="whatsapp"):
                 notified_count += 1
+            else:
+                logger.warning(
+                    f"Watch area notification failed: user_id={wa.user_id}, "
+                    f"watch_area={wa.id}"
+                )
 
         return notified_count
 
