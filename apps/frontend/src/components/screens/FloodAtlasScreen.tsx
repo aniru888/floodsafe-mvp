@@ -6,7 +6,7 @@ import { NavigationPanel } from '../NavigationPanel';
 import { LiveNavigationPanel } from '../LiveNavigationPanel';
 import { useCurrentCity } from '../../contexts/CityContext';
 import { useAuth } from '../../contexts/AuthContext';
-import { NavigationProvider, useNavigation } from '../../contexts/NavigationContext';
+import { useNavigation } from '../../contexts/NavigationContext';
 import type { RouteOption, MetroStation } from '../../types';
 import { toast } from 'sonner';
 import { getCityCenterOrDefault } from '../../lib/cityCoordinates';
@@ -230,11 +230,7 @@ function FloodAtlasContent({
     );
 }
 
-// Main component with providers
+// Main component — uses app-level NavigationProvider (App.tsx:347)
 export function FloodAtlasScreen(props: FloodAtlasScreenProps) {
-    return (
-        <NavigationProvider>
-            <FloodAtlasContent {...props} />
-        </NavigationProvider>
-    );
+    return <FloodAtlasContent {...props} />;
 }
