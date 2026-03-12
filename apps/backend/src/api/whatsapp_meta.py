@@ -1181,44 +1181,76 @@ async def _handle_onboarding_location_text(
     language: str,
 ):
     """Handle text input during onboarding location step — fuzzy search."""
-    city = _get_session_data(session, "onboarding_city", "delhi")
-    results = await _search_location(text, city)
+    try:
+        city = _get_session_data(session, "onboarding_city", "delhi")
 
-    if len(results) == 1:
-        # Single confident result — use it
-        r = results[0]
-        lat, lng = r.get("latitude"), r.get("longitude")
-        name = r.get("name", text)
-        await _complete_onboarding(db, session, phone, user, lat, lng, name, city, language)
-    elif len(results) > 1:
-        # Multiple results — present choices
-        lines = ["I found these locations:\n"]
-        session.data = session.data or {}
-        session.data["search_results"] = []
-        for i, r in enumerate(results, 1):
-            name = r.get("name", "Unknown")
-            lines.append(f"{i}. {name}")
-            session.data["search_results"].append({
-                "name": name,
-                "lat": r.get("latitude"),
-                "lng": r.get("longitude"),
-            })
-        lines.append("\nReply with the number (1-3)")
-        session.data["search_return_state"] = "onboarding_location"
-        session.state = "search_results"
+        # Bug #9: Parse Google Maps URLs to extract coordinates or place name
+        search_text = text
+        extracted_coords = None
+        if "google.com/maps" in text or "maps.google" in text or "goo.gl/maps" in text:
+            import re
+            # Try extracting coordinates (@lat,lng pattern)
+            coord_match = re.search(r'@(-?\d+\.\d+),(-?\d+\.\d+)', text)
+            if coord_match:
+                extracted_coords = (float(coord_match.group(1)), float(coord_match.group(2)))
+            else:
+                # Try extracting place name from /search/QUERY/ or /place/QUERY/
+                place_match = re.search(r'/(?:search|place)/([^/@]+)', text)
+                if place_match:
+                    from urllib.parse import unquote
+                    search_text = unquote(place_match.group(1)).replace('+', ' ')
+
+        if extracted_coords:
+            lat, lng = extracted_coords
+            await _complete_onboarding(db, session, phone, user, lat, lng, f"Location ({lat:.4f}, {lng:.4f})", city, language)
+            return
+
+        results = await _search_location(search_text, city)
+
+        if len(results) == 1:
+            # Single confident result — use it
+            r = results[0]
+            lat, lng = r.get("latitude"), r.get("longitude")
+            name = r.get("name", text)
+            await _complete_onboarding(db, session, phone, user, lat, lng, name, city, language)
+        elif len(results) > 1:
+            # Multiple results — present choices
+            lines = ["I found these locations:\n"]
+            session.data = session.data or {}
+            session.data["search_results"] = []
+            for i, r in enumerate(results, 1):
+                name = r.get("name", "Unknown")
+                lines.append(f"{i}. {name}")
+                session.data["search_results"].append({
+                    "name": name,
+                    "lat": r.get("latitude"),
+                    "lng": r.get("longitude"),
+                })
+            lines.append("\nReply with the number (1-3)")
+            session.data["search_return_state"] = "onboarding_location"
+            session.state = "search_results"
+            session.updated_at = datetime.utcnow()
+            db.commit()
+            await meta_send_text(phone, "\n".join(lines))
+        else:
+            # No results
+            nf_msg = {
+                "hi": f'स्थान नहीं मिला: "{search_text}"\n\n'
+                      "अधिक विशिष्ट नाम लिखें, या GPS location भेजें।",
+                "id": f'Lokasi tidak ditemukan: "{search_text}"\n\n'
+                      "Coba nama tempat lebih spesifik, atau kirim lokasi GPS.",
+            }.get(language, f'Location not found: "{search_text}"\n\n'
+                            "Try a more specific place name, or share your GPS location.")
+            await meta_send_text(phone, nf_msg)
+    except Exception as e:
+        logger.error(f"Onboarding location text handler failed: {e}")
+        session.state = "idle"
         session.updated_at = datetime.utcnow()
-        db.commit()
-        await meta_send_text(phone, "\n".join(lines))
-    else:
-        # No results
-        nf_msg = {
-            "hi": f'स्थान नहीं मिला: "{text}"\n\n'
-                  "अधिक विशिष्ट नाम लिखें, या GPS location भेजें।",
-            "id": f'Lokasi tidak ditemukan: "{text}"\n\n'
-                  "Coba nama tempat lebih spesifik, atau kirim lokasi GPS.",
-        }.get(language, f'Location not found: "{text}"\n\n'
-                        "Try a more specific place name, or share your GPS location.")
-        await meta_send_text(phone, nf_msg)
+        try:
+            db.commit()
+        except Exception:
+            db.rollback()
+        await meta_send_text(phone, get_message(TemplateKey.SESSION_ERROR, language))
 
 
 async def _handle_search_result_selection(
@@ -1283,12 +1315,11 @@ async def _complete_onboarding(
     # Create account if needed
     if not user:
         try:
-            auth_service = AuthService(db)
-            user = auth_service.get_or_create_phone_user(
-                phone=phone,
-                auth_provider="whatsapp",
-            )
+            auth_service = AuthService()
+            user = auth_service.get_or_create_phone_user(phone=phone, db=db)
             # Set preferences
+            if user.auth_provider == "phone":
+                user.auth_provider = "whatsapp"
             user.city_preference = city
             user.notification_whatsapp = True
             user.phone_verified = True
