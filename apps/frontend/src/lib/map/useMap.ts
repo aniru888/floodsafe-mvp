@@ -134,6 +134,12 @@ export function useMap(
             };
         }
 
+        // Add alias label source for all cities (static GeoJSON, like metro)
+        sources['alias-labels'] = {
+            type: 'geojson',
+            data: `/${cityKey}-alias-labels.geojson`
+        };
+
         // Build layers conditionally
         const layers: any[] = [
             ...mapStyle.layers.filter(l => l.id !== 'railway-transit' && l.id !== 'railway'),
@@ -192,6 +198,80 @@ export function useMap(
                 }
             );
         }
+
+        // Add alias label layers — area/neighborhood names on map (3 tiers by zoom)
+        layers.push(
+            {
+                id: 'alias-labels-tier1',
+                type: 'symbol',
+                source: 'alias-labels',
+                filter: ['==', ['get', 'tier'], 1],
+                minzoom: 12,
+                layout: {
+                    'text-field': ['get', 'name'],
+                    'text-font': ['Open Sans Regular'],
+                    'text-size': ['interpolate', ['linear'], ['zoom'], 12, 11, 15, 13],
+                    'text-allow-overlap': false,
+                    'text-padding': 8,
+                    'text-anchor': 'center',
+                    'text-max-width': 8,
+                    'text-letter-spacing': 0.05,
+                    'visibility': 'visible'
+                },
+                paint: {
+                    'text-color': '#6b7280',
+                    'text-halo-color': '#ffffff',
+                    'text-halo-width': 1.5,
+                    'text-opacity': 0.8
+                }
+            },
+            {
+                id: 'alias-labels-tier2',
+                type: 'symbol',
+                source: 'alias-labels',
+                filter: ['==', ['get', 'tier'], 2],
+                minzoom: 13,
+                layout: {
+                    'text-field': ['get', 'name'],
+                    'text-font': ['Open Sans Regular'],
+                    'text-size': ['interpolate', ['linear'], ['zoom'], 13, 10, 15, 12],
+                    'text-allow-overlap': false,
+                    'text-padding': 6,
+                    'text-anchor': 'center',
+                    'text-max-width': 8,
+                    'visibility': 'visible'
+                },
+                paint: {
+                    'text-color': '#9ca3af',
+                    'text-halo-color': '#ffffff',
+                    'text-halo-width': 1.2,
+                    'text-opacity': 0.75
+                }
+            },
+            {
+                id: 'alias-labels-tier3',
+                type: 'symbol',
+                source: 'alias-labels',
+                filter: ['==', ['get', 'tier'], 3],
+                minzoom: 14.5,
+                layout: {
+                    'text-field': ['get', 'name'],
+                    'text-font': ['Open Sans Regular'],
+                    'text-size': 9,
+                    'text-allow-overlap': false,
+                    'text-padding': 4,
+                    'text-anchor': 'center',
+                    'text-max-width': 7,
+                    'visibility': 'visible'
+                },
+                paint: {
+                    'text-color': '#9ca3af',
+                    'text-halo-color': '#ffffff',
+                    'text-halo-width': 1.0,
+                    'text-opacity': 0.7
+                }
+            }
+        );
 
         // Add flood layer only if flood tiles available
         if (cityConfig.pmtiles.flood) {

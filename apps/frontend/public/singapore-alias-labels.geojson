@@ -1,0 +1,7055 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848317,
+          1.296548
+        ]
+      },
+      "properties": {
+        "name": "National Museum of",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.851471,
+          1.290256
+        ]
+      },
+      "properties": {
+        "name": "National Gallery",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.732454,
+          1.342421
+        ]
+      },
+      "properties": {
+        "name": "Jurong East MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.765727,
+          1.352026
+        ]
+      },
+      "properties": {
+        "name": "Bukit Batok MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.751711,
+          1.35914
+        ]
+      },
+      "properties": {
+        "name": "Bukit Gombak MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.744959,
+          1.384615
+        ]
+      },
+      "properties": {
+        "name": "Choa Chu Kang MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.74655,
+          1.397148
+        ]
+      },
+      "properties": {
+        "name": "Yew Tee MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.734027,
+          1.439522
+        ]
+      },
+      "properties": {
+        "name": "Kranji MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.774538,
+          1.432039
+        ]
+      },
+      "properties": {
+        "name": "Marsiling MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Woodlands MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.801193,
+          1.440894
+        ]
+      },
+      "properties": {
+        "name": "Admiralty MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.830246,
+          1.443161
+        ]
+      },
+      "properties": {
+        "name": "Sembawang MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.830246,
+          1.443161
+        ]
+      },
+      "properties": {
+        "name": "Canberra MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.835106,
+          1.427779
+        ]
+      },
+      "properties": {
+        "name": "Yishun MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.8326,
+          1.416236
+        ]
+      },
+      "properties": {
+        "name": "Khatib MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.843986,
+          1.381347
+        ]
+      },
+      "properties": {
+        "name": "Yio Chu Kang MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.849439,
+          1.369827
+        ]
+      },
+      "properties": {
+        "name": "Ang Mo Kio MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.838658,
+          1.348265
+        ]
+      },
+      "properties": {
+        "name": "Bishan MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.846333,
+          1.341039
+        ]
+      },
+      "properties": {
+        "name": "Braddell MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.846785,
+          1.333142
+        ]
+      },
+      "properties": {
+        "name": "Toa Payoh MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.842251,
+          1.321085
+        ]
+      },
+      "properties": {
+        "name": "Novena MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.838786,
+          1.314034
+        ]
+      },
+      "properties": {
+        "name": "Newton MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.831376,
+          1.303121
+        ]
+      },
+      "properties": {
+        "name": "Orchard MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Somerset MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.845258,
+          1.299613
+        ]
+      },
+      "properties": {
+        "name": "Dhoby Ghaut MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.851749,
+          1.292788
+        ]
+      },
+      "properties": {
+        "name": "City Hall MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.85088,
+          1.282094
+        ]
+      },
+      "properties": {
+        "name": "Raffles Place MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.855575,
+          1.276691
+        ]
+      },
+      "properties": {
+        "name": "Marina Bay MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.86209,
+          1.270616
+        ]
+      },
+      "properties": {
+        "name": "Marina South Pier MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.94826,
+          1.37169
+        ]
+      },
+      "properties": {
+        "name": "Pasir Ris MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.945353,
+          1.35303
+        ]
+      },
+      "properties": {
+        "name": "Tampines MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Simei MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.816669,
+          1.289697
+        ]
+      },
+      "properties": {
+        "name": "Tanah Merah MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.956375,
+          1.31989
+        ]
+      },
+      "properties": {
+        "name": "Bedok MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.913626,
+          1.321768
+        ]
+      },
+      "properties": {
+        "name": "Kembangan MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.903445,
+          1.319851
+        ]
+      },
+      "properties": {
+        "name": "Eunos MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.892124,
+          1.316385
+        ]
+      },
+      "properties": {
+        "name": "Paya Lebar MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.881733,
+          1.316213
+        ]
+      },
+      "properties": {
+        "name": "Aljunied MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.871422,
+          1.31118
+        ]
+      },
+      "properties": {
+        "name": "Kallang MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.86267,
+          1.30751
+        ]
+      },
+      "properties": {
+        "name": "Lavender MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.855665,
+          1.301132
+        ]
+      },
+      "properties": {
+        "name": "Bugis MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.843525,
+          1.284166
+        ]
+      },
+      "properties": {
+        "name": "Tanjong Pagar MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.838689,
+          1.281629
+        ]
+      },
+      "properties": {
+        "name": "Outram Park MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.816669,
+          1.289697
+        ]
+      },
+      "properties": {
+        "name": "Tiong Bahru MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.816669,
+          1.289697
+        ]
+      },
+      "properties": {
+        "name": "Redhill MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Queenstown MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.797995,
+          1.302462
+        ]
+      },
+      "properties": {
+        "name": "Commonwealth MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.7905,
+          1.30662
+        ]
+      },
+      "properties": {
+        "name": "Buona Vista MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Dover MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.765047,
+          1.31539
+        ]
+      },
+      "properties": {
+        "name": "Clementi MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.732454,
+          1.342421
+        ]
+      },
+      "properties": {
+        "name": "Chinese Garden MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Lakeside MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.732454,
+          1.342421
+        ]
+      },
+      "properties": {
+        "name": "Boon Lay MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Pioneer MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.678129,
+          1.327529
+        ]
+      },
+      "properties": {
+        "name": "Joo Koon MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.660711,
+          1.319377
+        ]
+      },
+      "properties": {
+        "name": "Gul Circle MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.64907,
+          1.321365
+        ]
+      },
+      "properties": {
+        "name": "Tuas Crescent MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.63984,
+          1.330134
+        ]
+      },
+      "properties": {
+        "name": "Tuas West Road MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.830246,
+          1.443161
+        ]
+      },
+      "properties": {
+        "name": "Tuas Link MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.983199,
+          1.369881
+        ]
+      },
+      "properties": {
+        "name": "Changi Airport MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Expo MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.821573,
+          1.265499
+        ]
+      },
+      "properties": {
+        "name": "HarbourFront MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.843525,
+          1.284166
+        ]
+      },
+      "properties": {
+        "name": "Chinatown MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.847214,
+          1.289083
+        ]
+      },
+      "properties": {
+        "name": "Clarke Quay MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.849214,
+          1.306623
+        ]
+      },
+      "properties": {
+        "name": "Little India MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.854409,
+          1.312355
+        ]
+      },
+      "properties": {
+        "name": "Farrer Park MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.861879,
+          1.320103
+        ]
+      },
+      "properties": {
+        "name": "Boon Keng MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.868438,
+          1.332752
+        ]
+      },
+      "properties": {
+        "name": "Potong Pasir MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.870495,
+          1.338383
+        ]
+      },
+      "properties": {
+        "name": "Woodleigh MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.870821,
+          1.351139
+        ]
+      },
+      "properties": {
+        "name": "Serangoon MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.884683,
+          1.359613
+        ]
+      },
+      "properties": {
+        "name": "Kovan MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.891751,
+          1.372894
+        ]
+      },
+      "properties": {
+        "name": "Hougang MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.892775,
+          1.383307
+        ]
+      },
+      "properties": {
+        "name": "Buangkok MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.89478,
+          1.380133
+        ]
+      },
+      "properties": {
+        "name": "Sengkang MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Punggol MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.911277,
+          1.414675
+        ]
+      },
+      "properties": {
+        "name": "Punggol Coast MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.85148,
+          1.296474
+        ]
+      },
+      "properties": {
+        "name": "Bras Basah MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.855046,
+          1.294289
+        ]
+      },
+      "properties": {
+        "name": "Esplanade MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Promenade MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.862473,
+          1.300328
+        ]
+      },
+      "properties": {
+        "name": "Nicoll Highway MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Stadium MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.88261,
+          1.306878
+        ]
+      },
+      "properties": {
+        "name": "Mountbatten MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Dakota MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.8894,
+          1.326326
+        ]
+      },
+      "properties": {
+        "name": "MacPherson MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.888584,
+          1.335272
+        ]
+      },
+      "properties": {
+        "name": "Tai Seng MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.879685,
+          1.342964
+        ]
+      },
+      "properties": {
+        "name": "Bartley MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.863209,
+          1.351524
+        ]
+      },
+      "properties": {
+        "name": "Lorong Chuan MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.839477,
+          1.350148
+        ]
+      },
+      "properties": {
+        "name": "Marymount MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.83821,
+          1.337626
+        ]
+      },
+      "properties": {
+        "name": "Caldecott MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.816276,
+          1.323337
+        ]
+      },
+      "properties": {
+        "name": "Botanic Gardens MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.807666,
+          1.3177
+        ]
+      },
+      "properties": {
+        "name": "Farrer Road MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.79604,
+          1.31103
+        ]
+      },
+      "properties": {
+        "name": "Holland Village MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778368,
+          1.311569
+        ]
+      },
+      "properties": {
+        "name": "one-north MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.784602,
+          1.29499
+        ]
+      },
+      "properties": {
+        "name": "Kent Ridge MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.781591,
+          1.283057
+        ]
+      },
+      "properties": {
+        "name": "Haw Par Villa MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.798554,
+          1.270656
+        ]
+      },
+      "properties": {
+        "name": "Pasir Panjang MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.800634,
+          1.273348
+        ]
+      },
+      "properties": {
+        "name": "Labrador Park MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.821573,
+          1.265499
+        ]
+      },
+      "properties": {
+        "name": "Telok Blangah MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.855575,
+          1.276691
+        ]
+      },
+      "properties": {
+        "name": "Bayfront MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.824824,
+          1.264748
+        ]
+      },
+      "properties": {
+        "name": "Keppel MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Cantonment MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848889,
+          1.274716
+        ]
+      },
+      "properties": {
+        "name": "Prince Edward Road MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.762444,
+          1.378226
+        ]
+      },
+      "properties": {
+        "name": "Bukit Panjang MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.764104,
+          1.370327
+        ]
+      },
+      "properties": {
+        "name": "Cashew MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.767714,
+          1.362747
+        ]
+      },
+      "properties": {
+        "name": "Hillview MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Hume MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.775916,
+          1.341642
+        ]
+      },
+      "properties": {
+        "name": "Beauty World MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.782811,
+          1.336429
+        ]
+      },
+      "properties": {
+        "name": "King Albert Park MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.796851,
+          1.331613
+        ]
+      },
+      "properties": {
+        "name": "Sixth Avenue MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.808196,
+          1.326201
+        ]
+      },
+      "properties": {
+        "name": "Tan Kah Kee MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.826211,
+          1.322589
+        ]
+      },
+      "properties": {
+        "name": "Stevens MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.855665,
+          1.301132
+        ]
+      },
+      "properties": {
+        "name": "Rochor MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.855874,
+          1.301047
+        ]
+      },
+      "properties": {
+        "name": "Downtown MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848862,
+          1.281899
+        ]
+      },
+      "properties": {
+        "name": "Telok Ayer MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.844609,
+          1.292581
+        ]
+      },
+      "properties": {
+        "name": "Fort Canning MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.851058,
+          1.299665
+        ]
+      },
+      "properties": {
+        "name": "Bencoolen MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.854878,
+          1.304504
+        ]
+      },
+      "properties": {
+        "name": "Jalan Besar MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.863321,
+          1.313688
+        ]
+      },
+      "properties": {
+        "name": "Bendemeer MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.8708,
+          1.322111
+        ]
+      },
+      "properties": {
+        "name": "Geylang Bahru MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.883248,
+          1.327519
+        ]
+      },
+      "properties": {
+        "name": "Mattar MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Ubi MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.909892,
+          1.335486
+        ]
+      },
+      "properties": {
+        "name": "Kaki Bukit MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.956375,
+          1.31989
+        ]
+      },
+      "properties": {
+        "name": "Bedok North MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.932802,
+          1.33635
+        ]
+      },
+      "properties": {
+        "name": "Bedok Reservoir MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.945353,
+          1.35303
+        ]
+      },
+      "properties": {
+        "name": "Tampines West MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.945353,
+          1.35303
+        ]
+      },
+      "properties": {
+        "name": "Tampines East MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.961214,
+          1.341537
+        ]
+      },
+      "properties": {
+        "name": "Upper Changi MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778368,
+          1.311569
+        ]
+      },
+      "properties": {
+        "name": "Woodlands North MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.793386,
+          1.427298
+        ]
+      },
+      "properties": {
+        "name": "Woodlands South MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.818184,
+          1.397281
+        ]
+      },
+      "properties": {
+        "name": "Springleaf MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.836011,
+          1.382029
+        ]
+      },
+      "properties": {
+        "name": "Lentor MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.836553,
+          1.370475
+        ]
+      },
+      "properties": {
+        "name": "Mayflower MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.834009,
+          1.363571
+        ]
+      },
+      "properties": {
+        "name": "Bright Hill MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.832894,
+          1.354386
+        ]
+      },
+      "properties": {
+        "name": "Upper Thomson MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.819441,
+          1.306858
+        ]
+      },
+      "properties": {
+        "name": "Napier MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.831376,
+          1.303121
+        ]
+      },
+      "properties": {
+        "name": "Orchard Boulevard MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.833049,
+          1.296396
+        ]
+      },
+      "properties": {
+        "name": "Great World MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.833889,
+          1.289633
+        ]
+      },
+      "properties": {
+        "name": "Havelock MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Maxwell MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.850448,
+          1.277696
+        ]
+      },
+      "properties": {
+        "name": "Shenton Way MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.86209,
+          1.270616
+        ]
+      },
+      "properties": {
+        "name": "Marina South MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.869299,
+          1.279646
+        ]
+      },
+      "properties": {
+        "name": "Gardens by the Bay MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.873647,
+          1.297227
+        ]
+      },
+      "properties": {
+        "name": "Tanjong Rhu MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.885334,
+          1.299305
+        ]
+      },
+      "properties": {
+        "name": "Katong Park MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.897433,
+          1.300152
+        ]
+      },
+      "properties": {
+        "name": "Tanjong Katong MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.904508,
+          1.302366
+        ]
+      },
+      "properties": {
+        "name": "Marine Parade MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.917647,
+          1.307192
+        ]
+      },
+      "properties": {
+        "name": "Marine Terrace MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Siglap MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778518,
+          1.311718
+        ]
+      },
+      "properties": {
+        "name": "Bayshore MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.956375,
+          1.31989
+        ]
+      },
+      "properties": {
+        "name": "Bedok South MRT Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.846813,
+          1.37277
+        ]
+      },
+      "properties": {
+        "name": "Ang Mo Kio",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.928397,
+          1.32407
+        ]
+      },
+      "properties": {
+        "name": "Bedok",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848971,
+          1.351912
+        ]
+      },
+      "properties": {
+        "name": "Bishan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.758126,
+          1.34104
+        ]
+      },
+      "properties": {
+        "name": "Bukit Batok",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.81859,
+          1.282014
+        ]
+      },
+      "properties": {
+        "name": "Bukit Merah",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.776372,
+          1.35469
+        ]
+      },
+      "properties": {
+        "name": "Bukit Timah",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.801196,
+          1.376132
+        ]
+      },
+      "properties": {
+        "name": "Central Water Catchment",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.994982,
+          1.351092
+        ]
+      },
+      "properties": {
+        "name": "Changi",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.034361,
+          1.327988
+        ]
+      },
+      "properties": {
+        "name": "Changi Bay",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.855497,
+          1.286789
+        ]
+      },
+      "properties": {
+        "name": "Downtown Core",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.889522,
+          1.320896
+        ]
+      },
+      "properties": {
+        "name": "Geylang",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.866543,
+          1.311125
+        ]
+      },
+      "properties": {
+        "name": "Kallang",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.719476,
+          1.430967
+        ]
+      },
+      "properties": {
+        "name": "Lim Chu Kang",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.794037,
+          1.403708
+        ]
+      },
+      "properties": {
+        "name": "Mandai",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.855376,
+          1.274695
+        ]
+      },
+      "properties": {
+        "name": "Marina East",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.86563,
+          1.280894
+        ]
+      },
+      "properties": {
+        "name": "Marina South",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.896164,
+          1.300067
+        ]
+      },
+      "properties": {
+        "name": "Marine Parade",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.84758,
+          1.294609
+        ]
+      },
+      "properties": {
+        "name": "Museum Planning Area",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.83804,
+          1.313183
+        ]
+      },
+      "properties": {
+        "name": "Newton",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.037054,
+          1.401276
+        ]
+      },
+      "properties": {
+        "name": "North-Eastern Islands",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.835309,
+          1.326984
+        ]
+      },
+      "properties": {
+        "name": "Novena",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.831376,
+          1.303121
+        ]
+      },
+      "properties": {
+        "name": "Orchard",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.839786,
+          1.280677
+        ]
+      },
+      "properties": {
+        "name": "Outram",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.939812,
+          1.379286
+        ]
+      },
+      "properties": {
+        "name": "Pasir Ris",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.892353,
+          1.317479
+        ]
+      },
+      "properties": {
+        "name": "Paya Lebar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.776898,
+          1.296202
+        ]
+      },
+      "properties": {
+        "name": "Queenstown",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.835707,
+          1.298331
+        ]
+      },
+      "properties": {
+        "name": "River Valley",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.853285,
+          1.304139
+        ]
+      },
+      "properties": {
+        "name": "Rochor",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.823118,
+          1.393314
+        ]
+      },
+      "properties": {
+        "name": "Seletar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.830766,
+          1.374715
+        ]
+      },
+      "properties": {
+        "name": "Sembawang",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.887708,
+          1.391279
+        ]
+      },
+      "properties": {
+        "name": "Sengkang",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.870675,
+          1.352233
+        ]
+      },
+      "properties": {
+        "name": "Serangoon",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.844911,
+          1.378429
+        ]
+      },
+      "properties": {
+        "name": "Simpang",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.833051,
+          1.365914
+        ]
+      },
+      "properties": {
+        "name": "Singapore River",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.822667,
+          1.254201
+        ]
+      },
+      "properties": {
+        "name": "Southern Islands",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.858773,
+          1.271252
+        ]
+      },
+      "properties": {
+        "name": "Straits View",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.757467,
+          1.418119
+        ]
+      },
+      "properties": {
+        "name": "Sungei Kadut",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848843,
+          1.396333
+        ]
+      },
+      "properties": {
+        "name": "Tampines",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.817595,
+          1.308374
+        ]
+      },
+      "properties": {
+        "name": "Tanglin",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.728746,
+          1.363853
+        ]
+      },
+      "properties": {
+        "name": "Tengah",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848146,
+          1.335592
+        ]
+      },
+      "properties": {
+        "name": "Toa Payoh",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.651245,
+          1.326746
+        ]
+      },
+      "properties": {
+        "name": "Tuas",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.670495,
+          1.259584
+        ]
+      },
+      "properties": {
+        "name": "Western Islands",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.689825,
+          1.382162
+        ]
+      },
+      "properties": {
+        "name": "Western Water Catchment",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.786216,
+          1.436897
+        ]
+      },
+      "properties": {
+        "name": "Woodlands",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.835028,
+          1.429384
+        ]
+      },
+      "properties": {
+        "name": "Yishun",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.78113,
+          1.334268
+        ]
+      },
+      "properties": {
+        "name": "Bukit Timah Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.835916,
+          1.301908
+        ]
+      },
+      "properties": {
+        "name": "Orchard Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.827352,
+          1.314471
+        ]
+      },
+      "properties": {
+        "name": "Stevens Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.835214,
+          1.317314
+        ]
+      },
+      "properties": {
+        "name": "Balmoral Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.809819,
+          1.32432
+        ]
+      },
+      "properties": {
+        "name": "Coronation Walk",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.826128,
+          1.290562
+        ]
+      },
+      "properties": {
+        "name": "Lower Delta Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.801219,
+          1.273721
+        ]
+      },
+      "properties": {
+        "name": "Alexandra Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.816543,
+          1.296609
+        ]
+      },
+      "properties": {
+        "name": "Jervois Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.824319,
+          1.298419
+        ]
+      },
+      "properties": {
+        "name": "Bishopsgate",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.829581,
+          1.290466
+        ]
+      },
+      "properties": {
+        "name": "Indus Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.837365,
+          1.355873
+        ]
+      },
+      "properties": {
+        "name": "Zion Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.830821,
+          1.354545
+        ]
+      },
+      "properties": {
+        "name": "Thomson Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.845597,
+          1.316709
+        ]
+      },
+      "properties": {
+        "name": "Derbyshire Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.849428,
+          1.310124
+        ]
+      },
+      "properties": {
+        "name": "Farrer Park Field",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.767863,
+          1.325003
+        ]
+      },
+      "properties": {
+        "name": "Sunset Drive",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.808315,
+          1.336503
+        ]
+      },
+      "properties": {
+        "name": "Hillcrest Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.827574,
+          1.321071
+        ]
+      },
+      "properties": {
+        "name": "Dunearn Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.784706,
+          1.346397
+        ]
+      },
+      "properties": {
+        "name": "Rifle Range Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.811117,
+          1.323371
+        ]
+      },
+      "properties": {
+        "name": "Kings Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848156,
+          1.290083
+        ]
+      },
+      "properties": {
+        "name": "Eu Tong Sen Street",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778862,
+          1.337491
+        ]
+      },
+      "properties": {
+        "name": "Upper Bukit Timah Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.82419,
+          1.340949
+        ]
+      },
+      "properties": {
+        "name": "Lornie Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.815956,
+          1.330609
+        ]
+      },
+      "properties": {
+        "name": "Adam Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.798309,
+          1.302443
+        ]
+      },
+      "properties": {
+        "name": "Commonwealth Avenue",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.818472,
+          1.304205
+        ]
+      },
+      "properties": {
+        "name": "Tanglin Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.776619,
+          1.295985
+        ]
+      },
+      "properties": {
+        "name": "National University of",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.682933,
+          1.34841
+        ]
+      },
+      "properties": {
+        "name": "Nanyang Technological University",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.850044,
+          1.296168
+        ]
+      },
+      "properties": {
+        "name": "Singapore Management University",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.964305,
+          1.342244
+        ]
+      },
+      "properties": {
+        "name": "Singapore University of Technology and Design",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.779973,
+          1.300356
+        ]
+      },
+      "properties": {
+        "name": "Singapore Institute of Technology",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.776213,
+          1.329274
+        ]
+      },
+      "properties": {
+        "name": "Singapore University of Social Sciences",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.782963,
+          1.296832
+        ]
+      },
+      "properties": {
+        "name": "NUS Kent Ridge Campus",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.850488,
+          1.298682
+        ]
+      },
+      "properties": {
+        "name": "NTU Nanyang Campus",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.850044,
+          1.296168
+        ]
+      },
+      "properties": {
+        "name": "SMU Bras Basah Campus",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.791856,
+          1.345148
+        ]
+      },
+      "properties": {
+        "name": "NUS Bukit Timah Campus",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.860723,
+          1.283697
+        ]
+      },
+      "properties": {
+        "name": "Marina Bay Sands",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.86496,
+          1.281149
+        ]
+      },
+      "properties": {
+        "name": "Gardens by the Bay",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.86496,
+          1.281149
+        ]
+      },
+      "properties": {
+        "name": "Supertree Grove Gardens by the Bay",
+        "tier": 2,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.865431,
+          1.283836
+        ]
+      },
+      "properties": {
+        "name": "Cloud Forest Gardens by the Bay",
+        "tier": 2,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.864702,
+          1.284536
+        ]
+      },
+      "properties": {
+        "name": "Flower Dome Gardens by the Bay",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.854159,
+          1.285685
+        ]
+      },
+      "properties": {
+        "name": "Merlion Park",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.855954,
+          1.289644
+        ]
+      },
+      "properties": {
+        "name": "Esplanade Theatres on the Bay",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.824298,
+          1.253882
+        ]
+      },
+      "properties": {
+        "name": "Singapore Flyer",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.822667,
+          1.254201
+        ]
+      },
+      "properties": {
+        "name": "Sentosa Island",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.822667,
+          1.254201
+        ]
+      },
+      "properties": {
+        "name": "Universal Studios Singapore Sentosa",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.820939,
+          1.257752
+        ]
+      },
+      "properties": {
+        "name": "S.E.A. Aquarium Sentosa",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.820216,
+          1.255696
+        ]
+      },
+      "properties": {
+        "name": "Resorts World Sentosa",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.989675,
+          1.360224
+        ]
+      },
+      "properties": {
+        "name": "Jewel Changi Airport",
+        "tier": 1,
+        "category": "airport"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.994982,
+          1.351092
+        ]
+      },
+      "properties": {
+        "name": "Changi Airport",
+        "tier": 1,
+        "category": "airport"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.846008,
+          1.294016
+        ]
+      },
+      "properties": {
+        "name": "Fort Canning Park",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.85923,
+          1.286138
+        ]
+      },
+      "properties": {
+        "name": "ArtScience Museum",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.794037,
+          1.403708
+        ]
+      },
+      "properties": {
+        "name": "Singapore Zoo Mandai",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.789015,
+          1.401461
+        ]
+      },
+      "properties": {
+        "name": "Night Safari Singapore Mandai",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.791605,
+          1.402019
+        ]
+      },
+      "properties": {
+        "name": "River Wonders Singapore Mandai",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.781003,
+          1.405441
+        ]
+      },
+      "properties": {
+        "name": "Bird Paradise Singapore Mandai",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.815615,
+          1.314632
+        ]
+      },
+      "properties": {
+        "name": "Singapore Botanic Gardens",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.84375,
+          1.284686
+        ]
+      },
+      "properties": {
+        "name": "Chinatown",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.849274,
+          1.306843
+        ]
+      },
+      "properties": {
+        "name": "Little India",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.859691,
+          1.302263
+        ]
+      },
+      "properties": {
+        "name": "Kampong Glam",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.856475,
+          1.304009
+        ]
+      },
+      "properties": {
+        "name": "Arab Street",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.858734,
+          1.301227
+        ]
+      },
+      "properties": {
+        "name": "Haji Lane",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.846698,
+          1.288758
+        ]
+      },
+      "properties": {
+        "name": "Clarke Quay",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.8493,
+          1.288622
+        ]
+      },
+      "properties": {
+        "name": "Boat Quay",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.837064,
+          1.291286
+        ]
+      },
+      "properties": {
+        "name": "Robertson Quay",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.853073,
+          1.286202
+        ]
+      },
+      "properties": {
+        "name": "The Fullerton Hotel",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.854641,
+          1.294682
+        ]
+      },
+      "properties": {
+        "name": "Raffles Hotel",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.860618,
+          1.287522
+        ]
+      },
+      "properties": {
+        "name": "Helix Bridge Marina Bay",
+        "tier": 2,
+        "category": "infrastructure"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.815372,
+          1.276101
+        ]
+      },
+      "properties": {
+        "name": "Henderson Waves",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.81642,
+          1.275274
+        ]
+      },
+      "properties": {
+        "name": "Southern Ridges",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.788282,
+          1.434973
+        ]
+      },
+      "properties": {
+        "name": "East Coast Park",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.773281,
+          1.288353
+        ]
+      },
+      "properties": {
+        "name": "West Coast Park",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.823938,
+          1.344818
+        ]
+      },
+      "properties": {
+        "name": "MacRitchie Reservoir",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.77944,
+          1.354078
+        ]
+      },
+      "properties": {
+        "name": "Bukit Timah Nature Reserve",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.965943,
+          1.413448
+        ]
+      },
+      "properties": {
+        "name": "Pulau Ubin",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848634,
+          1.218671
+        ]
+      },
+      "properties": {
+        "name": "St John's Island",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.855299,
+          1.222193
+        ]
+      },
+      "properties": {
+        "name": "Lazarus Island",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.831905,
+          1.303948
+        ]
+      },
+      "properties": {
+        "name": "ION Orchard",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.822954,
+          1.264371
+        ]
+      },
+      "properties": {
+        "name": "VivoCity",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.859081,
+          1.295995
+        ]
+      },
+      "properties": {
+        "name": "Suntec City",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.844903,
+          1.300441
+        ]
+      },
+      "properties": {
+        "name": "Plaza Singapura",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.83552,
+          1.303737
+        ]
+      },
+      "properties": {
+        "name": "The Paragon Orchard",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.834834,
+          1.302926
+        ]
+      },
+      "properties": {
+        "name": "Ngee Ann City Orchard",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.83532,
+          1.302521
+        ]
+      },
+      "properties": {
+        "name": "Takashimaya Shopping Centre Orchard",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.833288,
+          1.303697
+        ]
+      },
+      "properties": {
+        "name": "Wisma Atria Orchard",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.838506,
+          1.301019
+        ]
+      },
+      "properties": {
+        "name": "313@somerset",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.855176,
+          1.298901
+        ]
+      },
+      "properties": {
+        "name": "Bugis Junction",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.854303,
+          1.299309
+        ]
+      },
+      "properties": {
+        "name": "Bugis+",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.853343,
+          1.293896
+        ]
+      },
+      "properties": {
+        "name": "Raffles City",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.769112,
+          1.453086
+        ]
+      },
+      "properties": {
+        "name": "Funan Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.858868,
+          1.284021
+        ]
+      },
+      "properties": {
+        "name": "The Shoppes at Marina Bay Sands",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.748001,
+          1.335136
+        ]
+      },
+      "properties": {
+        "name": "IMM Building Jurong East",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.742867,
+          1.334194
+        ]
+      },
+      "properties": {
+        "name": "Westgate Jurong East",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.743391,
+          1.333296
+        ]
+      },
+      "properties": {
+        "name": "JEM Jurong East",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.872253,
+          1.350519
+        ]
+      },
+      "properties": {
+        "name": "NEX Serangoon",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.894953,
+          1.392034
+        ]
+      },
+      "properties": {
+        "name": "Compass One Sengkang",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.90201,
+          1.406427
+        ]
+      },
+      "properties": {
+        "name": "Waterway Point Punggol",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.745017,
+          1.385074
+        ]
+      },
+      "properties": {
+        "name": "Lot One Choa Chu Kang",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.786023,
+          1.436039
+        ]
+      },
+      "properties": {
+        "name": "Causeway Point Woodlands",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.836245,
+          1.428133
+        ]
+      },
+      "properties": {
+        "name": "Northpoint City Yishun",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848745,
+          1.350589
+        ]
+      },
+      "properties": {
+        "name": "Junction 8 Bishan",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.944722,
+          1.352522
+        ]
+      },
+      "properties": {
+        "name": "Tampines Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.931478,
+          1.358623
+        ]
+      },
+      "properties": {
+        "name": "Tampines 1",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.943813,
+          1.352538
+        ]
+      },
+      "properties": {
+        "name": "Century Square Tampines",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.952854,
+          1.342468
+        ]
+      },
+      "properties": {
+        "name": "Eastpoint Mall Simei",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.929228,
+          1.324863
+        ]
+      },
+      "properties": {
+        "name": "Bedok Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.905178,
+          1.301373
+        ]
+      },
+      "properties": {
+        "name": "Parkway Parade Marine Parade",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.905036,
+          1.3052
+        ]
+      },
+      "properties": {
+        "name": "i12 Katong",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.831993,
+          1.293452
+        ]
+      },
+      "properties": {
+        "name": "Great World City",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.793588,
+          1.312327
+        ]
+      },
+      "properties": {
+        "name": "One Holland Village",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.788382,
+          1.308002
+        ]
+      },
+      "properties": {
+        "name": "The Star Vista Buona Vista",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.820245,
+          1.264224
+        ]
+      },
+      "properties": {
+        "name": "HarbourFront Centre",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.804927,
+          1.288443
+        ]
+      },
+      "properties": {
+        "name": "Anchorpoint Shopping Centre",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.831376,
+          1.303121
+        ]
+      },
+      "properties": {
+        "name": "Orchard Central",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.836642,
+          1.30203
+        ]
+      },
+      "properties": {
+        "name": "Mandarin Gallery Orchard",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.832933,
+          1.305834
+        ]
+      },
+      "properties": {
+        "name": "Scotts Square Orchard",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.833641,
+          1.307143
+        ]
+      },
+      "properties": {
+        "name": "Far East Plaza Orchard",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.833912,
+          1.304603
+        ]
+      },
+      "properties": {
+        "name": "Lucky Plaza Orchard",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.855323,
+          1.310117
+        ]
+      },
+      "properties": {
+        "name": "Mustafa Centre Little India",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.84384,
+          1.319958
+        ]
+      },
+      "properties": {
+        "name": "Square 2 Novena",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.844043,
+          1.319798
+        ]
+      },
+      "properties": {
+        "name": "Velocity@Novena Square",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.843174,
+          1.320544
+        ]
+      },
+      "properties": {
+        "name": "Novena Square",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.830821,
+          1.354545
+        ]
+      },
+      "properties": {
+        "name": "Thomson Plaza",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.79947,
+          1.329826
+        ]
+      },
+      "properties": {
+        "name": "Junction 10 Bukit Timah",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.776838,
+          1.343385
+        ]
+      },
+      "properties": {
+        "name": "Beauty World Centre",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.765047,
+          1.31539
+        ]
+      },
+      "properties": {
+        "name": "Clementi Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.749257,
+          1.350076
+        ]
+      },
+      "properties": {
+        "name": "West Mall Bukit Batok",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.763314,
+          1.378447
+        ]
+      },
+      "properties": {
+        "name": "Hillion Mall Bukit Panjang",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848047,
+          1.369114
+        ]
+      },
+      "properties": {
+        "name": "AMK Hub Ang Mo Kio",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.847658,
+          1.372834
+        ]
+      },
+      "properties": {
+        "name": "Djitsun Mall Ang Mo Kio",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.893788,
+          1.372573
+        ]
+      },
+      "properties": {
+        "name": "Hougang Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.885218,
+          1.359492
+        ]
+      },
+      "properties": {
+        "name": "Heartland Mall Kovan",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.904378,
+          1.392245
+        ]
+      },
+      "properties": {
+        "name": "Rivervale Mall Sengkang",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.949743,
+          1.372496
+        ]
+      },
+      "properties": {
+        "name": "White Sands Pasir Ris",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.941543,
+          1.378402
+        ]
+      },
+      "properties": {
+        "name": "Elias Mall Pasir Ris",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.962862,
+          1.33431
+        ]
+      },
+      "properties": {
+        "name": "Changi City Point",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.807237,
+          1.338638
+        ]
+      },
+      "properties": {
+        "name": "Pan Island Expressway",
+        "tier": 2,
+        "category": "expressway"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.808012,
+          1.337948
+        ]
+      },
+      "properties": {
+        "name": "Central Expressway",
+        "tier": 2,
+        "category": "expressway"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.86205,
+          1.292441
+        ]
+      },
+      "properties": {
+        "name": "East Coast Parkway",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.782753,
+          1.297729
+        ]
+      },
+      "properties": {
+        "name": "Ayer Rajah Expressway",
+        "tier": 2,
+        "category": "expressway"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.790836,
+          1.35042
+        ]
+      },
+      "properties": {
+        "name": "Bukit Timah Expressway",
+        "tier": 2,
+        "category": "expressway"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.823118,
+          1.393314
+        ]
+      },
+      "properties": {
+        "name": "Seletar Expressway",
+        "tier": 2,
+        "category": "expressway"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848843,
+          1.396333
+        ]
+      },
+      "properties": {
+        "name": "Tampines Expressway",
+        "tier": 2,
+        "category": "expressway"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.875394,
+          1.318918
+        ]
+      },
+      "properties": {
+        "name": "Kallang Paya Lebar Expressway",
+        "tier": 2,
+        "category": "expressway"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.765748,
+          1.390747
+        ]
+      },
+      "properties": {
+        "name": "Kranji Expressway",
+        "tier": 2,
+        "category": "expressway"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.875164,
+          1.291662
+        ]
+      },
+      "properties": {
+        "name": "Marina Coastal Expressway",
+        "tier": 2,
+        "category": "expressway"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.863799,
+          1.299831
+        ]
+      },
+      "properties": {
+        "name": "Nicoll Highway",
+        "tier": 2,
+        "category": "expressway"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.850044,
+          1.296168
+        ]
+      },
+      "properties": {
+        "name": "Victoria Street",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.783626,
+          1.407325
+        ]
+      },
+      "properties": {
+        "name": "North Bridge Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.849103,
+          1.288794
+        ]
+      },
+      "properties": {
+        "name": "South Bridge Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.841172,
+          1.288289
+        ]
+      },
+      "properties": {
+        "name": "Upper Cross Street",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848328,
+          1.290046
+        ]
+      },
+      "properties": {
+        "name": "New Bridge Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.874897,
+          1.356109
+        ]
+      },
+      "properties": {
+        "name": "Serangoon Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.870738,
+          1.344814
+        ]
+      },
+      "properties": {
+        "name": "Upper Serangoon Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.881845,
+          1.309924
+        ]
+      },
+      "properties": {
+        "name": "Geylang Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.870335,
+          1.310484
+        ]
+      },
+      "properties": {
+        "name": "Sims Avenue",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.818818,
+          1.305997
+        ]
+      },
+      "properties": {
+        "name": "East Coast Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.905559,
+          1.30292
+        ]
+      },
+      "properties": {
+        "name": "Marine Parade Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.830821,
+          1.354545
+        ]
+      },
+      "properties": {
+        "name": "Upper Thomson Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.849523,
+          1.37008
+        ]
+      },
+      "properties": {
+        "name": "Ang Mo Kio Avenue",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.835028,
+          1.429384
+        ]
+      },
+      "properties": {
+        "name": "Yishun Avenue",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.768801,
+          1.431619
+        ]
+      },
+      "properties": {
+        "name": "Woodlands Avenue",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.742294,
+          1.333108
+        ]
+      },
+      "properties": {
+        "name": "Jurong East Street",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.776213,
+          1.329274
+        ]
+      },
+      "properties": {
+        "name": "Clementi Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.783775,
+          1.327047
+        ]
+      },
+      "properties": {
+        "name": "Holland Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.807462,
+          1.317481
+        ]
+      },
+      "properties": {
+        "name": "Farrer Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.832291,
+          1.296305
+        ]
+      },
+      "properties": {
+        "name": "River Valley Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.83351,
+          1.288509
+        ]
+      },
+      "properties": {
+        "name": "Havelock Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.827225,
+          1.286179
+        ]
+      },
+      "properties": {
+        "name": "Tiong Bahru Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.809695,
+          1.27102
+        ]
+      },
+      "properties": {
+        "name": "Telok Blangah Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.791476,
+          1.276201
+        ]
+      },
+      "properties": {
+        "name": "Pasir Panjang Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.79775,
+          1.274348
+        ]
+      },
+      "properties": {
+        "name": "West Coast Highway",
+        "tier": 2,
+        "category": "expressway"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.850224,
+          1.298723
+        ]
+      },
+      "properties": {
+        "name": "Bencoolen Street",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.83281,
+          1.462659
+        ]
+      },
+      "properties": {
+        "name": "Middle Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.850803,
+          1.304913
+        ]
+      },
+      "properties": {
+        "name": "Selegie Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.852789,
+          1.303918
+        ]
+      },
+      "properties": {
+        "name": "Rochor Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.859748,
+          1.305837
+        ]
+      },
+      "properties": {
+        "name": "Jalan Sultan",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.864787,
+          1.304037
+        ]
+      },
+      "properties": {
+        "name": "Beach Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.857257,
+          1.29352
+        ]
+      },
+      "properties": {
+        "name": "Raffles Boulevard",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.860855,
+          1.287487
+        ]
+      },
+      "properties": {
+        "name": "Bayfront Avenue",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848479,
+          1.277796
+        ]
+      },
+      "properties": {
+        "name": "Robinson Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.84779,
+          1.285739
+        ]
+      },
+      "properties": {
+        "name": "Cecil Street",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.849341,
+          1.278695
+        ]
+      },
+      "properties": {
+        "name": "Shenton Way",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.845779,
+          1.276606
+        ]
+      },
+      "properties": {
+        "name": "Tanjong Pagar Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.84254,
+          1.279698
+        ]
+      },
+      "properties": {
+        "name": "Neil Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.839117,
+          1.278516
+        ]
+      },
+      "properties": {
+        "name": "Cantonment Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848557,
+          1.331769
+        ]
+      },
+      "properties": {
+        "name": "HDB Housing Development Board",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.819499,
+          1.357107
+        ]
+      },
+      "properties": {
+        "name": "Singapore",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.989526,
+          1.362714
+        ]
+      },
+      "properties": {
+        "name": "Changi Airport Terminal 1",
+        "tier": 2,
+        "category": "airport"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.988541,
+          1.355802
+        ]
+      },
+      "properties": {
+        "name": "Changi Airport Terminal 2",
+        "tier": 2,
+        "category": "airport"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.985405,
+          1.354575
+        ]
+      },
+      "properties": {
+        "name": "Changi Airport Terminal 3",
+        "tier": 2,
+        "category": "airport"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.982078,
+          1.33899
+        ]
+      },
+      "properties": {
+        "name": "Changi Airport Terminal 4",
+        "tier": 2,
+        "category": "airport"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.772998,
+          1.366822
+        ]
+      },
+      "properties": {
+        "name": "Bukit Panjang",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.744588,
+          1.385719
+        ]
+      },
+      "properties": {
+        "name": "Choa Chu Kang",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.83959,
+          1.338721
+        ]
+      },
+      "properties": {
+        "name": "Circle Line MRT",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.755428,
+          1.406545
+        ]
+      },
+      "properties": {
+        "name": "Downtown Line MRT",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.79672,
+          1.424847
+        ]
+      },
+      "properties": {
+        "name": "North South Line MRT",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.846982,
+          1.27772
+        ]
+      },
+      "properties": {
+        "name": "East West Line MRT",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.834322,
+          1.353395
+        ]
+      },
+      "properties": {
+        "name": "North East Line MRT",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.834322,
+          1.353395
+        ]
+      },
+      "properties": {
+        "name": "Thomson East Coast Line MRT",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.744635,
+          1.343899
+        ]
+      },
+      "properties": {
+        "name": "Jurong Region Line MRT",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.782355,
+          1.333885
+        ]
+      },
+      "properties": {
+        "name": "Cross Island Line MRT",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.827225,
+          1.286179
+        ]
+      },
+      "properties": {
+        "name": "Tiong Bahru",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.79608,
+          1.311722
+        ]
+      },
+      "properties": {
+        "name": "Holland Village",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.886416,
+          1.297889
+        ]
+      },
+      "properties": {
+        "name": "Katong",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.901122,
+          1.311274
+        ]
+      },
+      "properties": {
+        "name": "Joo Chiat",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.834322,
+          1.353395
+        ]
+      },
+      "properties": {
+        "name": "East Coast",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.784847,
+          1.450093
+        ]
+      },
+      "properties": {
+        "name": "West Coast",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.845779,
+          1.276606
+        ]
+      },
+      "properties": {
+        "name": "Tanjong Pagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.848291,
+          1.282336
+        ]
+      },
+      "properties": {
+        "name": "Telok Ayer",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.809695,
+          1.27102
+        ]
+      },
+      "properties": {
+        "name": "Telok Blangah",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.801219,
+          1.273721
+        ]
+      },
+      "properties": {
+        "name": "Alexandra",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.817163,
+          1.287634
+        ]
+      },
+      "properties": {
+        "name": "Redhill",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.830444,
+          1.289672
+        ]
+      },
+      "properties": {
+        "name": "Bukit Ho Swee",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.822383,
+          1.286986
+        ]
+      },
+      "properties": {
+        "name": "Henderson",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.855554,
+          1.352556
+        ]
+      },
+      "properties": {
+        "name": "Depot Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.802995,
+          1.272293
+        ]
+      },
+      "properties": {
+        "name": "Labrador",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.815166,
+          1.266554
+        ]
+      },
+      "properties": {
+        "name": "Keppel Bay",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.821552,
+          1.265362
+        ]
+      },
+      "properties": {
+        "name": "HarbourFront",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.822954,
+          1.264371
+        ]
+      },
+      "properties": {
+        "name": "VivoCity HarbourFront",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.810057,
+          1.304504
+        ]
+      },
+      "properties": {
+        "name": "Dempsey Hill",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.789124,
+          1.305474
+        ]
+      },
+      "properties": {
+        "name": "Rochester Park",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.776898,
+          1.296202
+        ]
+      },
+      "properties": {
+        "name": "one-north",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.790751,
+          1.30661
+        ]
+      },
+      "properties": {
+        "name": "Buona Vista",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.782753,
+          1.297729
+        ]
+      },
+      "properties": {
+        "name": "Ayer Rajah",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.778144,
+          1.309137
+        ]
+      },
+      "properties": {
+        "name": "Dover",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.765141,
+          1.316175
+        ]
+      },
+      "properties": {
+        "name": "Clementi",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.742294,
+          1.333108
+        ]
+      },
+      "properties": {
+        "name": "Jurong",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.742294,
+          1.333108
+        ]
+      },
+      "properties": {
+        "name": "Jurong West",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.749053,
+          1.341364
+        ]
+      },
+      "properties": {
+        "name": "Jurong Island",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.772046,
+          1.368432
+        ]
+      },
+      "properties": {
+        "name": "Dairy Farm",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.767435,
+          1.362389
+        ]
+      },
+      "properties": {
+        "name": "Hillview",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.775771,
+          1.34117
+        ]
+      },
+      "properties": {
+        "name": "Beauty World",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.784449,
+          1.355663
+        ]
+      },
+      "properties": {
+        "name": "Upper Bukit Timah",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.764715,
+          1.369291
+        ]
+      },
+      "properties": {
+        "name": "Cashew",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.800959,
+          1.440637
+        ]
+      },
+      "properties": {
+        "name": "Admiralty",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.774124,
+          1.43257
+        ]
+      },
+      "properties": {
+        "name": "Marsiling",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.829633,
+          1.443203
+        ]
+      },
+      "properties": {
+        "name": "Canberra",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.847315,
+          1.326226
+        ]
+      },
+      "properties": {
+        "name": "Balestier",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.862268,
+          1.330859
+        ]
+      },
+      "properties": {
+        "name": "Whampoa",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.869138,
+          1.331414
+        ]
+      },
+      "properties": {
+        "name": "Potong Pasir",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.889507,
+          1.326207
+        ]
+      },
+      "properties": {
+        "name": "MacPherson",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.882909,
+          1.316452
+        ]
+      },
+      "properties": {
+        "name": "Aljunied",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.902889,
+          1.319802
+        ]
+      },
+      "properties": {
+        "name": "Eunos",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.912927,
+          1.321032
+        ]
+      },
+      "properties": {
+        "name": "Kembangan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.953371,
+          1.343188
+        ]
+      },
+      "properties": {
+        "name": "Simei",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.994982,
+          1.351092
+        ]
+      },
+      "properties": {
+        "name": "Loyang",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.90199,
+          1.405339
+        ]
+      },
+      "properties": {
+        "name": "Punggol",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.89318,
+          1.382965
+        ]
+      },
+      "properties": {
+        "name": "Buangkok",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.8898,
+          1.363637
+        ]
+      },
+      "properties": {
+        "name": "Hougang",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.885112,
+          1.360176
+        ]
+      },
+      "properties": {
+        "name": "Kovan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.866663,
+          1.362738
+        ]
+      },
+      "properties": {
+        "name": "Serangoon Gardens",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.875228,
+          1.351682
+        ]
+      },
+      "properties": {
+        "name": "Upper Serangoon",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.888306,
+          1.335383
+        ]
+      },
+      "properties": {
+        "name": "Tai Seng",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.8798,
+          1.342823
+        ]
+      },
+      "properties": {
+        "name": "Bartley",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.846666,
+          1.279352
+        ]
+      },
+      "properties": {
+        "name": "Maxwell Food Centre",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.85048,
+          1.280617
+        ]
+      },
+      "properties": {
+        "name": "Lau Pa Sat",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.868591,
+          1.282334
+        ]
+      },
+      "properties": {
+        "name": "Satay by the Bay Gardens by the Bay",
+        "tier": 2,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.885865,
+          1.308311
+        ]
+      },
+      "properties": {
+        "name": "Old Airport Road Food Centre",
+        "tier": 3,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.83234,
+          1.285232
+        ]
+      },
+      "properties": {
+        "name": "Tiong Bahru Market",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.86655,
+          1.364223
+        ]
+      },
+      "properties": {
+        "name": "Chomp Chomp Food Centre Serangoon Gardens",
+        "tier": 3,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.839723,
+          1.312123
+        ]
+      },
+      "properties": {
+        "name": "Newton Food Centre",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.814114,
+          1.324084
+        ]
+      },
+      "properties": {
+        "name": "Adam Road Food Centre",
+        "tier": 3,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.934943,
+          1.306949
+        ]
+      },
+      "properties": {
+        "name": "East Coast Lagoon Food Village",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.788374,
+          1.311
+        ]
+      },
+      "properties": {
+        "name": "Ghim Moh Market",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.846657,
+          1.279302
+        ]
+      },
+      "properties": {
+        "name": "Amoy Street Food Centre",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.851062,
+          1.284298
+        ]
+      },
+      "properties": {
+        "name": "One Raffles Place",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.850788,
+          1.285678
+        ]
+      },
+      "properties": {
+        "name": "Raffles Quay",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.857184,
+          1.291274
+        ]
+      },
+      "properties": {
+        "name": "Marina Boulevard",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.84787,
+          1.281459
+        ]
+      },
+      "properties": {
+        "name": "Tanjong Pagar Centre",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.799263,
+          1.275429
+        ]
+      },
+      "properties": {
+        "name": "Mapletree Business City",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.787698,
+          1.302833
+        ]
+      },
+      "properties": {
+        "name": "one-north Business Park",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.965228,
+          1.335066
+        ]
+      },
+      "properties": {
+        "name": "Changi Business Park",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.788106,
+          1.290002
+        ]
+      },
+      "properties": {
+        "name": "Singapore Science Park",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.742294,
+          1.333108
+        ]
+      },
+      "properties": {
+        "name": "Jurong East Industrial",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    }
+  ]
+}

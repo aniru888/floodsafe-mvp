@@ -1,0 +1,4085 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.638862,
+          12.911623
+        ]
+      },
+      "properties": {
+        "name": "HSR Layout",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.611291,
+          12.919
+        ]
+      },
+      "properties": {
+        "name": "BTM Layout",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.590443,
+          12.987976
+        ]
+      },
+      "properties": {
+        "name": "JP Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.586898,
+          12.941849
+        ]
+      },
+      "properties": {
+        "name": "Jayanagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.57576,
+          12.962941
+        ]
+      },
+      "properties": {
+        "name": "KR Market",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.599521,
+          12.975209
+        ]
+      },
+      "properties": {
+        "name": "MG Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.596653,
+          12.967844
+        ]
+      },
+      "properties": {
+        "name": "Brigade Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572574,
+          12.975857
+        ]
+      },
+      "properties": {
+        "name": "Whitefield",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.602819,
+          12.976121
+        ]
+      },
+      "properties": {
+        "name": "Electronic City",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.624081,
+          12.935737
+        ]
+      },
+      "properties": {
+        "name": "Koramangala",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.644364,
+          12.981068
+        ]
+      },
+      "properties": {
+        "name": "Indiranagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.698416,
+          12.955257
+        ]
+      },
+      "properties": {
+        "name": "Marathahalli",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572876,
+          12.975708
+        ]
+      },
+      "properties": {
+        "name": "Majestic",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572876,
+          12.975708
+        ]
+      },
+      "properties": {
+        "name": "Majestic Bus Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.62376,
+          12.915976
+        ]
+      },
+      "properties": {
+        "name": "Silk Board Junction",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5919,
+          13.038218
+        ]
+      },
+      "properties": {
+        "name": "Hebbal",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.585333,
+          13.108505
+        ]
+      },
+      "properties": {
+        "name": "Yelahanka",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5497,
+          13.000536
+        ]
+      },
+      "properties": {
+        "name": "Rajajinagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.515522,
+          12.927441
+        ]
+      },
+      "properties": {
+        "name": "Rajarajeshwari Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.575502,
+          12.941726
+        ]
+      },
+      "properties": {
+        "name": "Basavanagudi",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.583504,
+          12.926574
+        ]
+      },
+      "properties": {
+        "name": "Jayanagar 4th Block",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.670618,
+          12.951466
+        ]
+      },
+      "properties": {
+        "name": "HAL Airport Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.620658,
+          12.966819
+        ]
+      },
+      "properties": {
+        "name": "Old Airport Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.639745,
+          12.923993
+        ]
+      },
+      "properties": {
+        "name": "Sarjapur Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.672023,
+          12.937145
+        ]
+      },
+      "properties": {
+        "name": "Bellandur",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.546166,
+          12.956151
+        ]
+      },
+      "properties": {
+        "name": "Hosa Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.574198,
+          12.955126
+        ]
+      },
+      "properties": {
+        "name": "KR Puram",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.669591,
+          12.997094
+        ]
+      },
+      "properties": {
+        "name": "Tin Factory",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.619167,
+          12.982389
+        ]
+      },
+      "properties": {
+        "name": "Ulsoor",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.638196,
+          12.962467
+        ]
+      },
+      "properties": {
+        "name": "Domlur",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.596934,
+          12.96495
+        ]
+      },
+      "properties": {
+        "name": "Richmond Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.6006,
+          12.968339
+        ]
+      },
+      "properties": {
+        "name": "Residency Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.598642,
+          12.98144
+        ]
+      },
+      "properties": {
+        "name": "Cunningham Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.602622,
+          12.895583
+        ]
+      },
+      "properties": {
+        "name": "Bannerghatta Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.576844,
+          12.942135
+        ]
+      },
+      "properties": {
+        "name": "Kanakapura Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.519054,
+          12.951235
+        ]
+      },
+      "properties": {
+        "name": "Nagarbhavi",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.537385,
+          12.970954
+        ]
+      },
+      "properties": {
+        "name": "Vijayanagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.56469,
+          13.007612
+        ]
+      },
+      "properties": {
+        "name": "Malleshwaram",
+        "tier": 1,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.580864,
+          13.011019
+        ]
+      },
+      "properties": {
+        "name": "Sadashivanagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.600356,
+          12.97009
+        ]
+      },
+      "properties": {
+        "name": "UB City",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.64546,
+          12.948739
+        ]
+      },
+      "properties": {
+        "name": "Embassy Golf Links",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.632607,
+          13.001075
+        ]
+      },
+      "properties": {
+        "name": "Orion Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.570756,
+          12.991529
+        ]
+      },
+      "properties": {
+        "name": "Mantri Square Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.553054,
+          13.009652
+        ]
+      },
+      "properties": {
+        "name": "Phoenix Marketcity",
+        "tier": 1,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.6211,
+          13.048289
+        ]
+      },
+      "properties": {
+        "name": "Manyata Tech Park",
+        "tier": 2,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.658857,
+          12.978774
+        ]
+      },
+      "properties": {
+        "name": "Bagmane Tech Park",
+        "tier": 2,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.599979,
+          12.916821
+        ]
+      },
+      "properties": {
+        "name": "Outer Ring Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.75388,
+          12.989272
+        ]
+      },
+      "properties": {
+        "name": "Whitefield Kadugodi Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572574,
+          12.975857
+        ]
+      },
+      "properties": {
+        "name": "Kadugodi",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.753803,
+          12.987343
+        ]
+      },
+      "properties": {
+        "name": "Hopefarm Channasandra",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572876,
+          12.975708
+        ]
+      },
+      "properties": {
+        "name": "Nallurhalli Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.715559,
+          12.977594
+        ]
+      },
+      "properties": {
+        "name": "Kundalahalli",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.589882,
+          12.990168
+        ]
+      },
+      "properties": {
+        "name": "Hoodi",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572876,
+          12.975708
+        ]
+      },
+      "properties": {
+        "name": "Garudacharpalya Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.6516,
+          12.991937
+        ]
+      },
+      "properties": {
+        "name": "Baiyappanahalli Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.625202,
+          12.975026
+        ]
+      },
+      "properties": {
+        "name": "Swami Vivekananda Road Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.586948,
+          12.9664
+        ]
+      },
+      "properties": {
+        "name": "Halasuru Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572876,
+          12.975708
+        ]
+      },
+      "properties": {
+        "name": "Trinity Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.619563,
+          12.970617
+        ]
+      },
+      "properties": {
+        "name": "Trinity Circle",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.598412,
+          12.980741
+        ]
+      },
+      "properties": {
+        "name": "Cubbon Park Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.588436,
+          12.977373
+        ]
+      },
+      "properties": {
+        "name": "Vidhana Soudha Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572876,
+          12.975708
+        ]
+      },
+      "properties": {
+        "name": "Central College Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.55125,
+          12.974486
+        ]
+      },
+      "properties": {
+        "name": "Magadi Road Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.544307,
+          12.97408
+        ]
+      },
+      "properties": {
+        "name": "Hosahalli Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572876,
+          12.975708
+        ]
+      },
+      "properties": {
+        "name": "Attiguppe Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572876,
+          12.975708
+        ]
+      },
+      "properties": {
+        "name": "Deepanjali Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.606495,
+          12.975388
+        ]
+      },
+      "properties": {
+        "name": "Mysuru Road Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.525527,
+          12.941635
+        ]
+      },
+      "properties": {
+        "name": "Nayandahalli Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572876,
+          12.975708
+        ]
+      },
+      "properties": {
+        "name": "Jnanabharathi Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.483757,
+          12.917657
+        ]
+      },
+      "properties": {
+        "name": "Kengeri",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.487861,
+          12.914665
+        ]
+      },
+      "properties": {
+        "name": "Kengeri Bus Terminal",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.461308,
+          12.897427
+        ]
+      },
+      "properties": {
+        "name": "Challaghatta Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.500512,
+          13.048043
+        ]
+      },
+      "properties": {
+        "name": "Nagasandra Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572876,
+          12.975708
+        ]
+      },
+      "properties": {
+        "name": "Dasarahalli Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.526905,
+          13.058031
+        ]
+      },
+      "properties": {
+        "name": "Jalahalli Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.525584,
+          13.035803
+        ]
+      },
+      "properties": {
+        "name": "Peenya Industry Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.533223,
+          13.033051
+        ]
+      },
+      "properties": {
+        "name": "Peenya",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.55526,
+          13.019445
+        ]
+      },
+      "properties": {
+        "name": "Yeshwanthpur",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572876,
+          12.975708
+        ]
+      },
+      "properties": {
+        "name": "Mahalakshmi Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.564933,
+          12.989987
+        ]
+      },
+      "properties": {
+        "name": "Srirampura Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.570385,
+          12.991598
+        ]
+      },
+      "properties": {
+        "name": "Sampige Road Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572876,
+          12.975708
+        ]
+      },
+      "properties": {
+        "name": "Chickpete Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.578266,
+          12.970408
+        ]
+      },
+      "properties": {
+        "name": "Chickpete",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.580056,
+          12.938257
+        ]
+      },
+      "properties": {
+        "name": "South End Circle",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.553982,
+          12.939333
+        ]
+      },
+      "properties": {
+        "name": "Banashankari",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572876,
+          12.975708
+        ]
+      },
+      "properties": {
+        "name": "Yelachenahalli Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.580345,
+          12.928771
+        ]
+      },
+      "properties": {
+        "name": "Konanakunte Cross Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.568388,
+          12.891445
+        ]
+      },
+      "properties": {
+        "name": "Konanakunte",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.53856,
+          12.871297
+        ]
+      },
+      "properties": {
+        "name": "Thalaghattapura Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.52994,
+          12.861981
+        ]
+      },
+      "properties": {
+        "name": "Silk Institute Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.6245,
+          12.940676
+        ]
+      },
+      "properties": {
+        "name": "Koramangala 1st Block",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.624243,
+          12.924369
+        ]
+      },
+      "properties": {
+        "name": "Koramangala 2nd Block",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.625403,
+          12.928292
+        ]
+      },
+      "properties": {
+        "name": "Koramangala 3rd Block",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.629405,
+          12.932778
+        ]
+      },
+      "properties": {
+        "name": "Koramangala 4th Block",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.618977,
+          12.934843
+        ]
+      },
+      "properties": {
+        "name": "Koramangala 5th Block",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.623848,
+          12.939025
+        ]
+      },
+      "properties": {
+        "name": "Koramangala 6th Block",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.613478,
+          12.936485
+        ]
+      },
+      "properties": {
+        "name": "Koramangala 7th Block",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.617338,
+          12.940869
+        ]
+      },
+      "properties": {
+        "name": "Koramangala 8th Block",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.579887,
+          12.911915
+        ]
+      },
+      "properties": {
+        "name": "JP Nagar 1st Phase",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.590567,
+          12.911841
+        ]
+      },
+      "properties": {
+        "name": "JP Nagar 2nd Phase",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.597619,
+          12.911785
+        ]
+      },
+      "properties": {
+        "name": "JP Nagar 3rd Phase",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.597643,
+          12.904637
+        ]
+      },
+      "properties": {
+        "name": "JP Nagar 4th Phase",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.59248,
+          12.9061
+        ]
+      },
+      "properties": {
+        "name": "JP Nagar 5th Phase",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.573369,
+          12.907492
+        ]
+      },
+      "properties": {
+        "name": "JP Nagar 6th Phase",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.587541,
+          12.911851
+        ]
+      },
+      "properties": {
+        "name": "JP Nagar 7th Phase",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.595057,
+          12.907462
+        ]
+      },
+      "properties": {
+        "name": "JP Nagar 8th Phase",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.562822,
+          12.868142
+        ]
+      },
+      "properties": {
+        "name": "JP Nagar 9th Phase",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.633717,
+          12.921796
+        ]
+      },
+      "properties": {
+        "name": "HSR Layout Sector 1",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.636582,
+          12.915561
+        ]
+      },
+      "properties": {
+        "name": "HSR Layout Sector 2",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.630577,
+          12.915111
+        ]
+      },
+      "properties": {
+        "name": "HSR Layout Sector 3",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.63804,
+          12.916823
+        ]
+      },
+      "properties": {
+        "name": "HSR Layout Sector 4",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.651685,
+          12.923169
+        ]
+      },
+      "properties": {
+        "name": "HSR Layout Sector 5",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.637462,
+          12.913742
+        ]
+      },
+      "properties": {
+        "name": "HSR Layout Sector 6",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.632448,
+          12.915567
+        ]
+      },
+      "properties": {
+        "name": "HSR Layout Sector 7",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.611291,
+          12.919
+        ]
+      },
+      "properties": {
+        "name": "BTM 1st Stage",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.607945,
+          12.914008
+        ]
+      },
+      "properties": {
+        "name": "BTM 2nd Stage",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.586898,
+          12.941849
+        ]
+      },
+      "properties": {
+        "name": "Jayanagar 1st Block",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.582638,
+          12.939904
+        ]
+      },
+      "properties": {
+        "name": "Jayanagar 2nd Block",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.583034,
+          12.933863
+        ]
+      },
+      "properties": {
+        "name": "Jayanagar 3rd Block",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.583381,
+          12.919604
+        ]
+      },
+      "properties": {
+        "name": "Jayanagar 5th Block",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.592127,
+          12.918999
+        ]
+      },
+      "properties": {
+        "name": "Jayanagar 9th Block",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.631615,
+          13.05225
+        ]
+      },
+      "properties": {
+        "name": "Thanisandra",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.61948,
+          13.003549
+        ]
+      },
+      "properties": {
+        "name": "Hennur",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.61948,
+          13.003549
+        ]
+      },
+      "properties": {
+        "name": "Hennur Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.640337,
+          13.022142
+        ]
+      },
+      "properties": {
+        "name": "Kalyan Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.628132,
+          13.005836
+        ]
+      },
+      "properties": {
+        "name": "Banaswadi",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.595715,
+          13.02272
+        ]
+      },
+      "properties": {
+        "name": "RT Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.633216,
+          13.008475
+        ]
+      },
+      "properties": {
+        "name": "Kammanahalli",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.677782,
+          13.012022
+        ]
+      },
+      "properties": {
+        "name": "Ramamurthy Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.62822,
+          13.027942
+        ]
+      },
+      "properties": {
+        "name": "HBR Layout",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.624164,
+          13.02047
+        ]
+      },
+      "properties": {
+        "name": "HRBR Layout",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.601969,
+          12.984043
+        ]
+      },
+      "properties": {
+        "name": "Nagawara",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.580061,
+          13.062147
+        ]
+      },
+      "properties": {
+        "name": "Sahakara Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.614309,
+          13.058726
+        ]
+      },
+      "properties": {
+        "name": "Jakkur",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.557179,
+          13.047335
+        ]
+      },
+      "properties": {
+        "name": "Vidyaranyapura",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.648784,
+          13.208905
+        ]
+      },
+      "properties": {
+        "name": "Devanahalli",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.581189,
+          13.097804
+        ]
+      },
+      "properties": {
+        "name": "Yelahanka New Town",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.685302,
+          12.987416
+        ]
+      },
+      "properties": {
+        "name": "Mahadevapura",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.717936,
+          12.965209
+        ]
+      },
+      "properties": {
+        "name": "Brookefield",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.680333,
+          12.954495
+        ]
+      },
+      "properties": {
+        "name": "Varthur",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.57576,
+          12.962941
+        ]
+      },
+      "properties": {
+        "name": "Harlur Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.668706,
+          12.918544
+        ]
+      },
+      "properties": {
+        "name": "Haralur Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.652993,
+          12.979224
+        ]
+      },
+      "properties": {
+        "name": "CV Raman Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.655592,
+          12.958941
+        ]
+      },
+      "properties": {
+        "name": "Murugeshpalya",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.623904,
+          12.908945
+        ]
+      },
+      "properties": {
+        "name": "Bommanahalli",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.596049,
+          12.887209
+        ]
+      },
+      "properties": {
+        "name": "Arekere",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.628821,
+          12.907159
+        ]
+      },
+      "properties": {
+        "name": "Begur",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.602803,
+          12.877349
+        ]
+      },
+      "properties": {
+        "name": "Hulimavu",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.639458,
+          12.889577
+        ]
+      },
+      "properties": {
+        "name": "Kudlu Gate",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.648706,
+          12.894502
+        ]
+      },
+      "properties": {
+        "name": "Kudlu",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.710186,
+          12.813259
+        ]
+      },
+      "properties": {
+        "name": "Chandapura",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.570434,
+          12.960066
+        ]
+      },
+      "properties": {
+        "name": "Anekal",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.617629,
+          12.923815
+        ]
+      },
+      "properties": {
+        "name": "Madiwala",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.596827,
+          12.948934
+        ]
+      },
+      "properties": {
+        "name": "Wilson Garden",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.610834,
+          12.920781
+        ]
+      },
+      "properties": {
+        "name": "Tavarekere",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.584919,
+          12.895078
+        ]
+      },
+      "properties": {
+        "name": "Puttenahalli",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.545544,
+          12.905568
+        ]
+      },
+      "properties": {
+        "name": "Uttarahalli",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.485002,
+          12.923916
+        ]
+      },
+      "properties": {
+        "name": "Kengeri Satellite Town",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.567888,
+          12.91504
+        ]
+      },
+      "properties": {
+        "name": "Kumaraswamy Layout",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.557664,
+          12.918102
+        ]
+      },
+      "properties": {
+        "name": "Padmanabhanagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.563719,
+          12.926867
+        ]
+      },
+      "properties": {
+        "name": "Banashankari 2nd Stage",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.547927,
+          12.931558
+        ]
+      },
+      "properties": {
+        "name": "Banashankari 3rd Stage",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5445,
+          12.940144
+        ]
+      },
+      "properties": {
+        "name": "Girinagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.664975,
+          12.849678
+        ]
+      },
+      "properties": {
+        "name": "Electronic City Phase 1",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.676927,
+          12.846854
+        ]
+      },
+      "properties": {
+        "name": "Electronic City Phase 2",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.591693,
+          12.979146
+        ]
+      },
+      "properties": {
+        "name": "Basaveshwara Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.544697,
+          13.011315
+        ]
+      },
+      "properties": {
+        "name": "Mahalakshmi Layout",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.558179,
+          13.033359
+        ]
+      },
+      "properties": {
+        "name": "Mathikere",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.600449,
+          12.988325
+        ]
+      },
+      "properties": {
+        "name": "Shivaji Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.613674,
+          12.997585
+        ]
+      },
+      "properties": {
+        "name": "Frazer Town",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.625108,
+          12.993486
+        ]
+      },
+      "properties": {
+        "name": "Cox Town",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.603731,
+          12.957998
+        ]
+      },
+      "properties": {
+        "name": "Langford Town",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.601759,
+          12.96339
+        ]
+      },
+      "properties": {
+        "name": "Richmond Town",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.594494,
+          12.956301
+        ]
+      },
+      "properties": {
+        "name": "Shantinagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.591459,
+          12.992174
+        ]
+      },
+      "properties": {
+        "name": "Vasanth Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.598658,
+          12.972518
+        ]
+      },
+      "properties": {
+        "name": "Lavelle Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.608317,
+          12.982537
+        ]
+      },
+      "properties": {
+        "name": "Commercial Street",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.627478,
+          12.945245
+        ]
+      },
+      "properties": {
+        "name": "Ejipura",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.625181,
+          13.0022
+        ]
+      },
+      "properties": {
+        "name": "Cooke Town",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.621671,
+          13.041353
+        ]
+      },
+      "properties": {
+        "name": "Manyata Embassy Business Park",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.691417,
+          12.930685
+        ]
+      },
+      "properties": {
+        "name": "Embassy Tech Village",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.741928,
+          12.956686
+        ]
+      },
+      "properties": {
+        "name": "International Tech Park",
+        "tier": 2,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.741928,
+          12.956686
+        ]
+      },
+      "properties": {
+        "name": "International Tech Park Whitefield",
+        "tier": 2,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.681132,
+          12.928014
+        ]
+      },
+      "properties": {
+        "name": "RMZ EcoSpace Outer Ring Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.681081,
+          12.924134
+        ]
+      },
+      "properties": {
+        "name": "RMZ EcoSpace",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.687172,
+          12.931007
+        ]
+      },
+      "properties": {
+        "name": "Prestige Tech Park Outer Ring Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.663322,
+          12.97856
+        ]
+      },
+      "properties": {
+        "name": "Bagmane Tech Park CV Raman Nagar",
+        "tier": 2,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.695088,
+          12.936938
+        ]
+      },
+      "properties": {
+        "name": "Cessna Business Park Outer Ring Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.631192,
+          12.8999
+        ]
+      },
+      "properties": {
+        "name": "Global Village Tech Park Mysore Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.682378,
+          12.923517
+        ]
+      },
+      "properties": {
+        "name": "Global Village Tech Park",
+        "tier": 2,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.714043,
+          12.985978
+        ]
+      },
+      "properties": {
+        "name": "EPIP Zone Whitefield",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.619167,
+          12.982389
+        ]
+      },
+      "properties": {
+        "name": "Ulsoor Lake",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.586715,
+          13.047202
+        ]
+      },
+      "properties": {
+        "name": "Hebbal Lake",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.672023,
+          12.937145
+        ]
+      },
+      "properties": {
+        "name": "Bellandur Lake",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.739263,
+          12.948353
+        ]
+      },
+      "properties": {
+        "name": "Varthur Lake",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.617725,
+          12.908227
+        ]
+      },
+      "properties": {
+        "name": "Madiwala Lake",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.573793,
+          13.009995
+        ]
+      },
+      "properties": {
+        "name": "Sankey Tank",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.641824,
+          12.920174
+        ]
+      },
+      "properties": {
+        "name": "Agara Lake HSR Layout",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.586888,
+          12.948849
+        ]
+      },
+      "properties": {
+        "name": "Lalbagh Lake",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.677425,
+          12.913944
+        ]
+      },
+      "properties": {
+        "name": "Kaikondrahalli Lake Sarjapur Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.582537,
+          12.886343
+        ]
+      },
+      "properties": {
+        "name": "Puttenahalli Lake JP Nagar",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.632255,
+          13.055969
+        ]
+      },
+      "properties": {
+        "name": "Rachenahalli Lake Thanisandra",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.590277,
+          12.968317
+        ]
+      },
+      "properties": {
+        "name": "Jakkur Lake",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.590277,
+          12.968317
+        ]
+      },
+      "properties": {
+        "name": "Yelahanka Lake",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.616417,
+          13.037261
+        ]
+      },
+      "properties": {
+        "name": "Nagavara Lake",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.587653,
+          13.079715
+        ]
+      },
+      "properties": {
+        "name": "Allalasandra Lake Yelahanka",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.577884,
+          12.933749
+        ]
+      },
+      "properties": {
+        "name": "Yediyur Lake Jayanagar",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.646466,
+          12.946619
+        ]
+      },
+      "properties": {
+        "name": "Koramangala Challaghatta Valley",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.63181,
+          13.028641
+        ]
+      },
+      "properties": {
+        "name": "Outer Ring Road Underpasses",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.637775,
+          12.93279
+        ]
+      },
+      "properties": {
+        "name": "Iblur",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.696477,
+          12.971319
+        ]
+      },
+      "properties": {
+        "name": "Doddanekundi",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.695062,
+          12.939397
+        ]
+      },
+      "properties": {
+        "name": "Kadubeesanahalli",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.66511,
+          12.92047
+        ]
+      },
+      "properties": {
+        "name": "Kasavanahalli Sarjapur Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.589326,
+          13.03657
+        ]
+      },
+      "properties": {
+        "name": "Hebbal Flyover Junction",
+        "tier": 2,
+        "category": "infrastructure"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.601494,
+          12.937452
+        ]
+      },
+      "properties": {
+        "name": "Dairy Circle Bannerghatta Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.611343,
+          12.934825
+        ]
+      },
+      "properties": {
+        "name": "Nexus Forum Mall Koramangala",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.563119,
+          12.981189
+        ]
+      },
+      "properties": {
+        "name": "Lulu Mall Rajajinagar",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.59558,
+          12.875684
+        ]
+      },
+      "properties": {
+        "name": "Royal Meenakshi Mall Hulimavu",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.609666,
+          12.970027
+        ]
+      },
+      "properties": {
+        "name": "Garuda Mall Magrath Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.620417,
+          12.973545
+        ]
+      },
+      "properties": {
+        "name": "1MG Lido Mall MG Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.621771,
+          12.973441
+        ]
+      },
+      "properties": {
+        "name": "1MG Lido Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.609666,
+          12.970027
+        ]
+      },
+      "properties": {
+        "name": "Central Mall JP Nagar",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.551698,
+          12.973519
+        ]
+      },
+      "properties": {
+        "name": "GT World Mall Magadi Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.621198,
+          12.921494
+        ]
+      },
+      "properties": {
+        "name": "Madiwala Market",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.570657,
+          12.945746
+        ]
+      },
+      "properties": {
+        "name": "Gandhi Bazaar Basavanagudi",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.617492,
+          12.922887
+        ]
+      },
+      "properties": {
+        "name": "Chickpet Wholesale Market",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.577471,
+          12.965528
+        ]
+      },
+      "properties": {
+        "name": "Avenue Road Market",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.583699,
+          12.964779
+        ]
+      },
+      "properties": {
+        "name": "SP Road Electronics Market",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.605847,
+          12.984993
+        ]
+      },
+      "properties": {
+        "name": "Russell Market Shivaji Nagar",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.606789,
+          12.965492
+        ]
+      },
+      "properties": {
+        "name": "Hosur Road NH44",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.584087,
+          13.003263
+        ]
+      },
+      "properties": {
+        "name": "Bellary Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.569714,
+          12.957424
+        ]
+      },
+      "properties": {
+        "name": "Tumkur Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.50918,
+          12.943934
+        ]
+      },
+      "properties": {
+        "name": "Mysore Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.472435,
+          12.989968
+        ]
+      },
+      "properties": {
+        "name": "NICE Ring Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.670618,
+          12.951466
+        ]
+      },
+      "properties": {
+        "name": "Airport Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.61948,
+          13.003549
+        ]
+      },
+      "properties": {
+        "name": "Hennur Main Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.588778,
+          12.986584
+        ]
+      },
+      "properties": {
+        "name": "Sankey Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.592009,
+          12.998595
+        ]
+      },
+      "properties": {
+        "name": "Palace Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.588173,
+          12.984399
+        ]
+      },
+      "properties": {
+        "name": "Race Course Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.641074,
+          12.975179
+        ]
+      },
+      "properties": {
+        "name": "100 Feet Road Indiranagar",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.622116,
+          12.942097
+        ]
+      },
+      "properties": {
+        "name": "80 Feet Road Koramangala",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.602112,
+          12.975687
+        ]
+      },
+      "properties": {
+        "name": "Church Street",
+        "tier": 2,
+        "category": "religious"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.472435,
+          12.989968
+        ]
+      },
+      "properties": {
+        "name": "Peripheral Ring Road PRR",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.472435,
+          12.989968
+        ]
+      },
+      "properties": {
+        "name": "Peripheral Ring Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.678198,
+          12.999911
+        ]
+      },
+      "properties": {
+        "name": "Whitefield Main Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.680333,
+          12.954495
+        ]
+      },
+      "properties": {
+        "name": "Varthur Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.567183,
+          13.022235
+        ]
+      },
+      "properties": {
+        "name": "Indian Institute of Science IISc",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.566281,
+          13.025565
+        ]
+      },
+      "properties": {
+        "name": "IISc",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.604427,
+          12.892123
+        ]
+      },
+      "properties": {
+        "name": "IIM",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5158,
+          12.952903
+        ]
+      },
+      "properties": {
+        "name": "National Law School NLSIU",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.605867,
+          12.935435
+        ]
+      },
+      "properties": {
+        "name": "Christ University Hosur Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.605161,
+          12.93378
+        ]
+      },
+      "properties": {
+        "name": "Christ University",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.534324,
+          12.934236
+        ]
+      },
+      "properties": {
+        "name": "PES University",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.498248,
+          12.924066
+        ]
+      },
+      "properties": {
+        "name": "RV College of Engineering",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.565989,
+          12.941559
+        ]
+      },
+      "properties": {
+        "name": "BMS College of Engineering",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.663804,
+          12.843248
+        ]
+      },
+      "properties": {
+        "name": "IIIT",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.591906,
+          12.918147
+        ]
+      },
+      "properties": {
+        "name": "Jain University Jayanagar",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.505853,
+          12.942265
+        ]
+      },
+      "properties": {
+        "name": "Bangalore University Jnanabharathi Campus",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.56592,
+          13.030919
+        ]
+      },
+      "properties": {
+        "name": "MS Ramaiah Institute of Technology",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.584774,
+          12.941768
+        ]
+      },
+      "properties": {
+        "name": "Dayananda Sagar Institutions",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.50918,
+          12.943934
+        ]
+      },
+      "properties": {
+        "name": "REVA University",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.595044,
+          12.968939
+        ]
+      },
+      "properties": {
+        "name": "St Joseph's College",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.587836,
+          12.993295
+        ]
+      },
+      "properties": {
+        "name": "Mount Carmel College",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.653312,
+          12.91183
+        ]
+      },
+      "properties": {
+        "name": "NIFT",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.590082,
+          12.976794
+        ]
+      },
+      "properties": {
+        "name": "Bangalore",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.625743,
+          13.156787
+        ]
+      },
+      "properties": {
+        "name": "Kempegowda International Airport",
+        "tier": 2,
+        "category": "airport"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.565379,
+          12.975858
+        ]
+      },
+      "properties": {
+        "name": "Bangalore City Railway Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.572876,
+          12.975708
+        ]
+      },
+      "properties": {
+        "name": "Kempegowda Bus Station Majestic",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.589713,
+          12.999319
+        ]
+      },
+      "properties": {
+        "name": "Palace Grounds",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.583904,
+          13.014526
+        ]
+      },
+      "properties": {
+        "name": "Mekhri Circle",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.59662,
+          12.903045
+        ]
+      },
+      "properties": {
+        "name": "Dollars Colony JP Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.652778,
+          13.008211
+        ]
+      },
+      "properties": {
+        "name": "OMBR Layout Banaswadi",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    }
+  ]
+}

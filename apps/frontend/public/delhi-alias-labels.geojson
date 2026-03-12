@@ -1,0 +1,7085 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.219379,
+          28.631402
+        ]
+      },
+      "properties": {
+        "name": "Connaught Place",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.219312,
+          28.632706
+        ]
+      },
+      "properties": {
+        "name": "Rajiv Chowk",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.241044,
+          28.628191
+        ]
+      },
+      "properties": {
+        "name": "ITO",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.175859,
+          28.574735
+        ]
+      },
+      "properties": {
+        "name": "RK Puram",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.220568,
+          28.568566
+        ]
+      },
+      "properties": {
+        "name": "South Extension",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.05856,
+          28.551922
+        ]
+      },
+      "properties": {
+        "name": "Dwarka",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.327215,
+          28.570633
+        ]
+      },
+      "properties": {
+        "name": "Noida Uttar Pradesh",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.323687,
+          28.557558
+        ]
+      },
+      "properties": {
+        "name": "Greater Noida Uttar Pradesh",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.072657,
+          28.459343
+        ]
+      },
+      "properties": {
+        "name": "Gurugram Haryana",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.088693,
+          28.497922
+        ]
+      },
+      "properties": {
+        "name": "Cyber City",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.088693,
+          28.497922
+        ]
+      },
+      "properties": {
+        "name": "DLF Cyber City",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.310556,
+          28.403148
+        ]
+      },
+      "properties": {
+        "name": "Faridabad Haryana",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.412036,
+          28.671153
+        ]
+      },
+      "properties": {
+        "name": "Ghaziabad Uttar Pradesh",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.252953,
+          28.549257
+        ]
+      },
+      "properties": {
+        "name": "Nehru Place",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.243285,
+          28.566092
+        ]
+      },
+      "properties": {
+        "name": "Lajpat Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.202224,
+          28.521168
+        ]
+      },
+      "properties": {
+        "name": "Saket",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.219493,
+          28.52796
+        ]
+      },
+      "properties": {
+        "name": "Select Citywalk",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.194814,
+          28.553602
+        ]
+      },
+      "properties": {
+        "name": "Hauz Khas",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.194849,
+          28.553367
+        ]
+      },
+      "properties": {
+        "name": "Hauz Khas Village",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.189023,
+          28.652998
+        ]
+      },
+      "properties": {
+        "name": "Karol Bagh",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.125997,
+          28.707577
+        ]
+      },
+      "properties": {
+        "name": "Rohini",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.150329,
+          28.697261
+        ]
+      },
+      "properties": {
+        "name": "Pitampura",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.077949,
+          28.628947
+        ]
+      },
+      "properties": {
+        "name": "Janakpuri",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.154134,
+          28.529249
+        ]
+      },
+      "properties": {
+        "name": "Vasant Kunj",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.161117,
+          28.557827
+        ]
+      },
+      "properties": {
+        "name": "Vasant Vihar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.238493,
+          28.541908
+        ]
+      },
+      "properties": {
+        "name": "Greater Kailash",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.226858,
+          28.586203
+        ]
+      },
+      "properties": {
+        "name": "Defence Colony",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.216334,
+          28.589736
+        ]
+      },
+      "properties": {
+        "name": "Lodhi Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.22014,
+          28.593619
+        ]
+      },
+      "properties": {
+        "name": "Lodhi Gardens",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.229493,
+          28.612933
+        ]
+      },
+      "properties": {
+        "name": "India Gate",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240796,
+          28.656081
+        ]
+      },
+      "properties": {
+        "name": "Red Fort",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.232194,
+          28.655983
+        ]
+      },
+      "properties": {
+        "name": "Chandni Chowk",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.214061,
+          28.641499
+        ]
+      },
+      "properties": {
+        "name": "Paharganj",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.225828,
+          28.660427
+        ]
+      },
+      "properties": {
+        "name": "Old Delhi Railway Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.22041,
+          28.640282
+        ]
+      },
+      "properties": {
+        "name": "New Delhi Railway Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.122657,
+          28.564835
+        ]
+      },
+      "properties": {
+        "name": "IGI Airport",
+        "tier": 1,
+        "category": "airport"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.084799,
+          28.555394
+        ]
+      },
+      "properties": {
+        "name": "Indira Gandhi International Airport",
+        "tier": 2,
+        "category": "airport"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.120795,
+          28.548779
+        ]
+      },
+      "properties": {
+        "name": "Aerocity",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.290932,
+          28.603642
+        ]
+      },
+      "properties": {
+        "name": "Mayur Vihar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.295282,
+          28.641418
+        ]
+      },
+      "properties": {
+        "name": "Preet Vihar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.277502,
+          28.630589
+        ]
+      },
+      "properties": {
+        "name": "Laxmi Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.286815,
+          28.636459
+        ]
+      },
+      "properties": {
+        "name": "Nirman Vihar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.12426,
+          28.65119
+        ]
+      },
+      "properties": {
+        "name": "Rajouri Garden",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.096482,
+          28.636526
+        ]
+      },
+      "properties": {
+        "name": "Tilak Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.065286,
+          28.624847
+        ]
+      },
+      "properties": {
+        "name": "Uttam Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.142429,
+          28.657859
+        ]
+      },
+      "properties": {
+        "name": "Moti Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.169282,
+          28.645013
+        ]
+      },
+      "properties": {
+        "name": "Patel Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.29604,
+          28.675976
+        ]
+      },
+      "properties": {
+        "name": "Shahdara",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.228819,
+          28.665567
+        ]
+      },
+      "properties": {
+        "name": "Kashmere Gate",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2226,
+          28.680686
+        ]
+      },
+      "properties": {
+        "name": "Civil Lines",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.251654,
+          28.537688
+        ]
+      },
+      "properties": {
+        "name": "Chittaranjan Park",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.238493,
+          28.541908
+        ]
+      },
+      "properties": {
+        "name": "Greater Kailash 1",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.239479,
+          28.542171
+        ]
+      },
+      "properties": {
+        "name": "Greater Kailash 2",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.16456,
+          28.540167
+        ]
+      },
+      "properties": {
+        "name": "Jawaharlal Nehru University",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.21411,
+          28.691026
+        ]
+      },
+      "properties": {
+        "name": "Delhi University North Campus",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.908743,
+          28.594537
+        ]
+      },
+      "properties": {
+        "name": "Delhi University South Campus",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.194555,
+          28.547012
+        ]
+      },
+      "properties": {
+        "name": "IIT Delhi Hauz Khas",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.206407,
+          28.56857
+        ]
+      },
+      "properties": {
+        "name": "AIIMS Hospital",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.116276,
+          28.750815
+        ]
+      },
+      "properties": {
+        "name": "Delhi Technological University Rohini",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.038456,
+          28.610948
+        ]
+      },
+      "properties": {
+        "name": "Netaji Subhas University of Technology Dwarka",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.018061,
+          28.594758
+        ]
+      },
+      "properties": {
+        "name": "Guru Gobind Singh Indraprastha University",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.281165,
+          28.55849
+        ]
+      },
+      "properties": {
+        "name": "Jamia Millia Islamia",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.230126,
+          28.665296
+        ]
+      },
+      "properties": {
+        "name": "Ambedkar University",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.273257,
+          28.546326
+        ]
+      },
+      "properties": {
+        "name": "IIIT Delhi Okhla",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.024269,
+          28.599618
+        ]
+      },
+      "properties": {
+        "name": "National Law University",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.205583,
+          28.690279
+        ]
+      },
+      "properties": {
+        "name": "Shri Ram College of Commerce",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.205583,
+          28.690279
+        ]
+      },
+      "properties": {
+        "name": "Lady Shri Ram College",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.210058,
+          28.692613
+        ]
+      },
+      "properties": {
+        "name": "Miranda House Delhi University",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.211186,
+          28.683807
+        ]
+      },
+      "properties": {
+        "name": "Hindu College Delhi University",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.211457,
+          28.686086
+        ]
+      },
+      "properties": {
+        "name": "St Stephens College Delhi University",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.157644,
+          28.6363
+        ]
+      },
+      "properties": {
+        "name": "Indian Agricultural Research Institute Pusa",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.137514,
+          28.745283
+        ]
+      },
+      "properties": {
+        "name": "Samaypur Badli Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.126205,
+          28.707787
+        ]
+      },
+      "properties": {
+        "name": "Rohini Sector 18 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.149632,
+          28.729924
+        ]
+      },
+      "properties": {
+        "name": "Haiderpur Badli Mor Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Jahangirpuri Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.23648,
+          28.570577
+        ]
+      },
+      "properties": {
+        "name": "Adarsh Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Azadpur Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.204689,
+          28.698215
+        ]
+      },
+      "properties": {
+        "name": "Model Town Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.204689,
+          28.698215
+        ]
+      },
+      "properties": {
+        "name": "GTB Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.214887,
+          28.694683
+        ]
+      },
+      "properties": {
+        "name": "Vishwavidyalaya Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.221752,
+          28.687825
+        ]
+      },
+      "properties": {
+        "name": "Vidhan Sabha Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.22629,
+          28.649234
+        ]
+      },
+      "properties": {
+        "name": "Chawri Bazar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.226823,
+          28.64983
+        ]
+      },
+      "properties": {
+        "name": "Patel Chowk Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.211966,
+          28.615099
+        ]
+      },
+      "properties": {
+        "name": "Central Secretariat Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.211989,
+          28.614939
+        ]
+      },
+      "properties": {
+        "name": "Udyog Bhawan Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.211495,
+          28.598033
+        ]
+      },
+      "properties": {
+        "name": "Lok Kalyan Marg Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.212248,
+          28.586209
+        ]
+      },
+      "properties": {
+        "name": "Jor Bagh Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "INA Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.230046,
+          28.54198
+        ]
+      },
+      "properties": {
+        "name": "Dilli Haat INA Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.206718,
+          28.558581
+        ]
+      },
+      "properties": {
+        "name": "Green Park Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.212447,
+          28.53392
+        ]
+      },
+      "properties": {
+        "name": "Malviya Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.186174,
+          28.514105
+        ]
+      },
+      "properties": {
+        "name": "Qutub Minar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.175417,
+          28.507007
+        ]
+      },
+      "properties": {
+        "name": "Chhatarpur Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.16112,
+          28.49881
+        ]
+      },
+      "properties": {
+        "name": "Sultanpur Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.148971,
+          28.494016
+        ]
+      },
+      "properties": {
+        "name": "Ghitorni Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.125655,
+          28.481001
+        ]
+      },
+      "properties": {
+        "name": "Arjan Garh Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.10258,
+          28.48235
+        ]
+      },
+      "properties": {
+        "name": "Guru Dronacharya Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.073794,
+          28.459761
+        ]
+      },
+      "properties": {
+        "name": "Sikandarpur Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.070989,
+          28.458859
+        ]
+      },
+      "properties": {
+        "name": "MG Road Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.073794,
+          28.459761
+        ]
+      },
+      "properties": {
+        "name": "IFFCO Chowk Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.073794,
+          28.459761
+        ]
+      },
+      "properties": {
+        "name": "HUDA City Centre Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.066714,
+          28.561536
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 21 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.030719,
+          28.600027
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 8 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.030828,
+          28.600157
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 9 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.049434,
+          28.58646
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 11 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.045189,
+          28.592313
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 12 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.033541,
+          28.597009
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 13 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.11193,
+          28.576804
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Mor Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.065459,
+          28.625175
+        ]
+      },
+      "properties": {
+        "name": "Nawada Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.065459,
+          28.625175
+        ]
+      },
+      "properties": {
+        "name": "Uttam Nagar West Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.065459,
+          28.625175
+        ]
+      },
+      "properties": {
+        "name": "Uttam Nagar East Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.091109,
+          28.621082
+        ]
+      },
+      "properties": {
+        "name": "Janakpuri West Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.23648,
+          28.570577
+        ]
+      },
+      "properties": {
+        "name": "Janakpuri East Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.23648,
+          28.570577
+        ]
+      },
+      "properties": {
+        "name": "Subhash Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.312505,
+          28.675703
+        ]
+      },
+      "properties": {
+        "name": "Tagore Garden Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.23648,
+          28.570577
+        ]
+      },
+      "properties": {
+        "name": "Ramesh Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.23648,
+          28.570577
+        ]
+      },
+      "properties": {
+        "name": "Kirti Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Shadipur Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.177761,
+          28.643384
+        ]
+      },
+      "properties": {
+        "name": "Rajendra Place Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.200154,
+          28.643997
+        ]
+      },
+      "properties": {
+        "name": "Jhandewalan Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.20841,
+          28.638857
+        ]
+      },
+      "properties": {
+        "name": "RK Ashram Marg Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.225255,
+          28.629809
+        ]
+      },
+      "properties": {
+        "name": "Barakhamba Road Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.233769,
+          28.62533
+        ]
+      },
+      "properties": {
+        "name": "Mandi House Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.24059,
+          28.614631
+        ]
+      },
+      "properties": {
+        "name": "Pragati Maidan Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.250321,
+          28.618786
+        ]
+      },
+      "properties": {
+        "name": "Indraprastha Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.207529,
+          28.666375
+        ]
+      },
+      "properties": {
+        "name": "Yamuna Bank Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Akshardham Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.290193,
+          28.603406
+        ]
+      },
+      "properties": {
+        "name": "Mayur Vihar Phase 1 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.276814,
+          28.672436
+        ]
+      },
+      "properties": {
+        "name": "Mayur Vihar Extension Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.301508,
+          28.589088
+        ]
+      },
+      "properties": {
+        "name": "New Ashok Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.31076,
+          28.58531
+        ]
+      },
+      "properties": {
+        "name": "Noida Sector 15 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.375003,
+          28.628263
+        ]
+      },
+      "properties": {
+        "name": "Noida Sector 16 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.325988,
+          28.570383
+        ]
+      },
+      "properties": {
+        "name": "Noida Sector 18 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.093713,
+          28.472049
+        ]
+      },
+      "properties": {
+        "name": "Noida Golf Course Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.333378,
+          28.564034
+        ]
+      },
+      "properties": {
+        "name": "Botanical Garden Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.356149,
+          28.575272
+        ]
+      },
+      "properties": {
+        "name": "Noida City Centre Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.375003,
+          28.628263
+        ]
+      },
+      "properties": {
+        "name": "Noida Sector 34 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.375003,
+          28.628263
+        ]
+      },
+      "properties": {
+        "name": "Noida Sector 52 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.375003,
+          28.628263
+        ]
+      },
+      "properties": {
+        "name": "Noida Sector 59 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.375003,
+          28.628263
+        ]
+      },
+      "properties": {
+        "name": "Noida Sector 61 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.375003,
+          28.628263
+        ]
+      },
+      "properties": {
+        "name": "Noida Sector 62 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.375003,
+          28.628263
+        ]
+      },
+      "properties": {
+        "name": "Noida Electronic City Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.340987,
+          28.650569
+        ]
+      },
+      "properties": {
+        "name": "Vaishali Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.322593,
+          28.645275
+        ]
+      },
+      "properties": {
+        "name": "Kaushambi Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.295874,
+          28.653586
+        ]
+      },
+      "properties": {
+        "name": "Karkardooma Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.107763,
+          28.719867
+        ]
+      },
+      "properties": {
+        "name": "Rithala Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.115446,
+          28.714868
+        ]
+      },
+      "properties": {
+        "name": "Rohini West Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.126205,
+          28.707787
+        ]
+      },
+      "properties": {
+        "name": "Rohini East Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.176837,
+          28.578058
+        ]
+      },
+      "properties": {
+        "name": "Pitam Pura Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.205418,
+          28.528144
+        ]
+      },
+      "properties": {
+        "name": "Kohat Enclave Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.148534,
+          28.693735
+        ]
+      },
+      "properties": {
+        "name": "Netaji Subhash Place Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.159551,
+          28.683854
+        ]
+      },
+      "properties": {
+        "name": "Keshav Puram Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.23648,
+          28.570577
+        ]
+      },
+      "properties": {
+        "name": "Kanhaiya Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.170242,
+          28.673589
+        ]
+      },
+      "properties": {
+        "name": "Inderlok Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.250309,
+          28.668394
+        ]
+      },
+      "properties": {
+        "name": "Shastri Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.199336,
+          28.66649
+        ]
+      },
+      "properties": {
+        "name": "Pratap Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.207529,
+          28.666375
+        ]
+      },
+      "properties": {
+        "name": "Pul Bangash Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.216628,
+          28.667132
+        ]
+      },
+      "properties": {
+        "name": "Tis Hazari Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.250309,
+          28.668394
+        ]
+      },
+      "properties": {
+        "name": "Shastri Park Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.266703,
+          28.66987
+        ]
+      },
+      "properties": {
+        "name": "Seelampur Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.276814,
+          28.672436
+        ]
+      },
+      "properties": {
+        "name": "Welcome Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.312505,
+          28.675703
+        ]
+      },
+      "properties": {
+        "name": "Dilshad Garden Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.312505,
+          28.675703
+        ]
+      },
+      "properties": {
+        "name": "Jhilmil Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.300107,
+          28.675582
+        ]
+      },
+      "properties": {
+        "name": "Mansarovar Park Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.340139,
+          28.649748
+        ]
+      },
+      "properties": {
+        "name": "Mohan Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.322593,
+          28.645275
+        ]
+      },
+      "properties": {
+        "name": "Arthala Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.322593,
+          28.645275
+        ]
+      },
+      "properties": {
+        "name": "Hindon Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.277688,
+          28.671816
+        ]
+      },
+      "properties": {
+        "name": "Lal Qila Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.237106,
+          28.650616
+        ]
+      },
+      "properties": {
+        "name": "Jama Masjid Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Delhi Gate Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.219515,
+          28.625729
+        ]
+      },
+      "properties": {
+        "name": "Janpath Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.226491,
+          28.600135
+        ]
+      },
+      "properties": {
+        "name": "Khan Market",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.223408,
+          28.644678
+        ]
+      },
+      "properties": {
+        "name": "Jawaharlal Nehru Stadium Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Jangpura Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Moolchand Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.24209,
+          28.555441
+        ]
+      },
+      "properties": {
+        "name": "Kailash Colony Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.256021,
+          28.550216
+        ]
+      },
+      "properties": {
+        "name": "Kalkaji Mandir Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.199336,
+          28.66649
+        ]
+      },
+      "properties": {
+        "name": "Govind Puri Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.274509,
+          28.542788
+        ]
+      },
+      "properties": {
+        "name": "Okhla Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.296446,
+          28.546557
+        ]
+      },
+      "properties": {
+        "name": "Jasola Vihar Shaheen Bagh Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.296446,
+          28.546557
+        ]
+      },
+      "properties": {
+        "name": "Jasola Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.296446,
+          28.546557
+        ]
+      },
+      "properties": {
+        "name": "Sarita Vihar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.293985,
+          28.519359
+        ]
+      },
+      "properties": {
+        "name": "Mohan Estate Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Tughlakabad Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.302347,
+          28.495812
+        ]
+      },
+      "properties": {
+        "name": "Badarpur Border Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.304817,
+          28.478195
+        ]
+      },
+      "properties": {
+        "name": "Sector 28 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.304817,
+          28.478195
+        ]
+      },
+      "properties": {
+        "name": "Old Faridabad Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.309668,
+          28.399521
+        ]
+      },
+      "properties": {
+        "name": "Neelam Chowk Ajronda Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.157703,
+          28.662053
+        ]
+      },
+      "properties": {
+        "name": "Satguru Ram Singh Marg Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.138843,
+          28.672696
+        ]
+      },
+      "properties": {
+        "name": "Punjabi Bagh West Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.250309,
+          28.668394
+        ]
+      },
+      "properties": {
+        "name": "Shivaji Park Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Madipur Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.286801,
+          28.636598
+        ]
+      },
+      "properties": {
+        "name": "Paschim Vihar East Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.170242,
+          28.673589
+        ]
+      },
+      "properties": {
+        "name": "Paschim Vihar West Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.112282,
+          28.677356
+        ]
+      },
+      "properties": {
+        "name": "Paschim Vihar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.23648,
+          28.570577
+        ]
+      },
+      "properties": {
+        "name": "Udyog Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.295874,
+          28.653586
+        ]
+      },
+      "properties": {
+        "name": "Surajmal Stadium Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Nangloi Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.056246,
+          28.682201
+        ]
+      },
+      "properties": {
+        "name": "Nangloi Railway Station Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.250309,
+          28.668394
+        ]
+      },
+      "properties": {
+        "name": "Rajdhani Park Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Mundka Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Ghevra Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.302347,
+          28.495812
+        ]
+      },
+      "properties": {
+        "name": "Tikri Border Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.205418,
+          28.528144
+        ]
+      },
+      "properties": {
+        "name": "Pandit Shree Ram Sharma Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.204689,
+          28.698215
+        ]
+      },
+      "properties": {
+        "name": "Dabri Mor Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Dashrathpuri Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.111777,
+          28.576839
+        ]
+      },
+      "properties": {
+        "name": "Palam Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.111564,
+          28.576876
+        ]
+      },
+      "properties": {
+        "name": "Sadar Bazar Cantonment Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.122657,
+          28.564835
+        ]
+      },
+      "properties": {
+        "name": "Terminal 1 IGI Airport Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.286801,
+          28.636598
+        ]
+      },
+      "properties": {
+        "name": "Shankar Vihar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Munirka Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "IIT Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.220135,
+          28.542311
+        ]
+      },
+      "properties": {
+        "name": "Panchsheel Park Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.230046,
+          28.54198
+        ]
+      },
+      "properties": {
+        "name": "Chirag Delhi Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.243126,
+          28.546209
+        ]
+      },
+      "properties": {
+        "name": "Greater Kailash Enclave Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.223408,
+          28.644678
+        ]
+      },
+      "properties": {
+        "name": "Nehru Enclave Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.250309,
+          28.668394
+        ]
+      },
+      "properties": {
+        "name": "Majlis Park Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.207529,
+          28.666375
+        ]
+      },
+      "properties": {
+        "name": "Shalimar Bagh Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Shakurpur Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.139198,
+          28.672767
+        ]
+      },
+      "properties": {
+        "name": "Punjabi Bagh",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.127125,
+          28.65759
+        ]
+      },
+      "properties": {
+        "name": "ESI Hospital Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.169453,
+          28.589372
+        ]
+      },
+      "properties": {
+        "name": "Durgabai Deshmukh South Campus Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.23648,
+          28.570577
+        ]
+      },
+      "properties": {
+        "name": "South Campus Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.248552,
+          28.56586
+        ]
+      },
+      "properties": {
+        "name": "Vinobapuri Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.208242,
+          28.639113
+        ]
+      },
+      "properties": {
+        "name": "Ashram Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.243744,
+          28.592269
+        ]
+      },
+      "properties": {
+        "name": "Hazrat Nizamuddin Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.25352,
+          28.588965
+        ]
+      },
+      "properties": {
+        "name": "Hazrat Nizamuddin",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.290193,
+          28.603406
+        ]
+      },
+      "properties": {
+        "name": "Mayur Vihar Pocket 1 Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.23648,
+          28.570577
+        ]
+      },
+      "properties": {
+        "name": "East Vinod Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.304452,
+          28.624979
+        ]
+      },
+      "properties": {
+        "name": "Mandawali West Vinod Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.276814,
+          28.672436
+        ]
+      },
+      "properties": {
+        "name": "IP Extension Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.295874,
+          28.653586
+        ]
+      },
+      "properties": {
+        "name": "Karkardooma Court Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.289855,
+          28.658435
+        ]
+      },
+      "properties": {
+        "name": "Krishna Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.23648,
+          28.570577
+        ]
+      },
+      "properties": {
+        "name": "East Azad Nagar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Jaffrabad Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.279453,
+          28.691855
+        ]
+      },
+      "properties": {
+        "name": "Maujpur Babarpur Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.286801,
+          28.636598
+        ]
+      },
+      "properties": {
+        "name": "Shiv Vihar Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Gokulpuri Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.205418,
+          28.528144
+        ]
+      },
+      "properties": {
+        "name": "Johri Enclave Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Nangli Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240782,
+          28.639204
+        ]
+      },
+      "properties": {
+        "name": "Najafgarh Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.200929,
+          28.624262
+        ]
+      },
+      "properties": {
+        "name": "Airport Express Line Delhi Metro",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.157562,
+          28.590142
+        ]
+      },
+      "properties": {
+        "name": "Dhaula Kuan Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.094248,
+          28.471694
+        ]
+      },
+      "properties": {
+        "name": "DLF Phase 1 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.093632,
+          28.471657
+        ]
+      },
+      "properties": {
+        "name": "DLF Phase 2 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.275451,
+          28.542915
+        ]
+      },
+      "properties": {
+        "name": "DLF Phase 3 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.095473,
+          28.45138
+        ]
+      },
+      "properties": {
+        "name": "DLF Cyber Hub",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.094007,
+          28.501029
+        ]
+      },
+      "properties": {
+        "name": "Moulsari Avenue Metro Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.096452,
+          28.458049
+        ]
+      },
+      "properties": {
+        "name": "Sector 42-43 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.070989,
+          28.458859
+        ]
+      },
+      "properties": {
+        "name": "Sector 54 Chowk Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.10499,
+          28.42401
+        ]
+      },
+      "properties": {
+        "name": "Sector 55-56 Metro Station",
+        "tier": 3,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.192558,
+          28.56502
+        ]
+      },
+      "properties": {
+        "name": "Safdarjung Enclave",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.210903,
+          28.592966
+        ]
+      },
+      "properties": {
+        "name": "Safdarjung",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.213005,
+          28.557101
+        ]
+      },
+      "properties": {
+        "name": "Gulmohar Park",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.163865,
+          28.578546
+        ]
+      },
+      "properties": {
+        "name": "Anand Niketan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.241119,
+          28.601897
+        ]
+      },
+      "properties": {
+        "name": "Sunder Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.243442,
+          28.582129
+        ]
+      },
+      "properties": {
+        "name": "Jangpura Extension",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.25352,
+          28.588965
+        ]
+      },
+      "properties": {
+        "name": "Nizamuddin East",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.244955,
+          28.588365
+        ]
+      },
+      "properties": {
+        "name": "Nizamuddin West",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.269764,
+          28.567101
+        ]
+      },
+      "properties": {
+        "name": "Friends Colony",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.269764,
+          28.567101
+        ]
+      },
+      "properties": {
+        "name": "Friends Colony East",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.269764,
+          28.567101
+        ]
+      },
+      "properties": {
+        "name": "Friends Colony West",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.229141,
+          28.544052
+        ]
+      },
+      "properties": {
+        "name": "Panchsheel Enclave",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.260667,
+          28.549775
+        ]
+      },
+      "properties": {
+        "name": "Kalkaji",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.251632,
+          28.529336
+        ]
+      },
+      "properties": {
+        "name": "Alaknanda",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.244614,
+          28.557032
+        ]
+      },
+      "properties": {
+        "name": "East of Kailash",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.269764,
+          28.567101
+        ]
+      },
+      "properties": {
+        "name": "New Friends Colony",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2749,
+          28.559748
+        ]
+      },
+      "properties": {
+        "name": "Sukhdev Vihar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.145983,
+          28.644371
+        ]
+      },
+      "properties": {
+        "name": "Okhla Industrial Area",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.275041,
+          28.542934
+        ]
+      },
+      "properties": {
+        "name": "Okhla Phase 1",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.276,
+          28.538803
+        ]
+      },
+      "properties": {
+        "name": "Okhla Phase 2",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.296658,
+          28.545828
+        ]
+      },
+      "properties": {
+        "name": "Shaheen Bagh",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.248467,
+          28.505713
+        ]
+      },
+      "properties": {
+        "name": "Sangam Vihar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.303366,
+          28.493283
+        ]
+      },
+      "properties": {
+        "name": "Badarpur Border",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.226858,
+          28.586203
+        ]
+      },
+      "properties": {
+        "name": "Lodhi Colony",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.231163,
+          28.59597
+        ]
+      },
+      "properties": {
+        "name": "Golf Links",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.247019,
+          28.59691
+        ]
+      },
+      "properties": {
+        "name": "Sundar Nagri",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.236401,
+          28.570597
+        ]
+      },
+      "properties": {
+        "name": "Gandhi Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.275,
+          28.651089
+        ]
+      },
+      "properties": {
+        "name": "Geeta Colony",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.288447,
+          28.667727
+        ]
+      },
+      "properties": {
+        "name": "Vivek Vihar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.287449,
+          28.620331
+        ]
+      },
+      "properties": {
+        "name": "Patparganj",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.283035,
+          28.619553
+        ]
+      },
+      "properties": {
+        "name": "Pandav Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.300695,
+          28.610197
+        ]
+      },
+      "properties": {
+        "name": "Mayur Vihar Phase 2",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.298718,
+          28.60503
+        ]
+      },
+      "properties": {
+        "name": "Mayur Vihar Phase 3",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.321106,
+          28.601731
+        ]
+      },
+      "properties": {
+        "name": "Vasundhara Enclave",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.308855,
+          28.613453
+        ]
+      },
+      "properties": {
+        "name": "Trilokpuri",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.317958,
+          28.619491
+        ]
+      },
+      "properties": {
+        "name": "Kalyanpuri",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.324332,
+          28.607082
+        ]
+      },
+      "properties": {
+        "name": "Kondli",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.20395,
+          28.680675
+        ]
+      },
+      "properties": {
+        "name": "Kamla Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.19448,
+          28.679305
+        ]
+      },
+      "properties": {
+        "name": "Shakti Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.200725,
+          28.685221
+        ]
+      },
+      "properties": {
+        "name": "Roop Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.201691,
+          28.691556
+        ]
+      },
+      "properties": {
+        "name": "Vijay Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.214404,
+          28.712557
+        ]
+      },
+      "properties": {
+        "name": "Mukherjee Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.218679,
+          28.701263
+        ]
+      },
+      "properties": {
+        "name": "Timarpur",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.116276,
+          28.750815
+        ]
+      },
+      "properties": {
+        "name": "Alipur",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.041237,
+          28.80513
+        ]
+      },
+      "properties": {
+        "name": "Narela",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.116276,
+          28.750815
+        ]
+      },
+      "properties": {
+        "name": "Bawana",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.054467,
+          28.66699
+        ]
+      },
+      "properties": {
+        "name": "Kirari",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.066284,
+          28.699655
+        ]
+      },
+      "properties": {
+        "name": "Sultanpuri",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.089619,
+          28.694826
+        ]
+      },
+      "properties": {
+        "name": "Mangolpuri",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.170935,
+          28.551259
+        ]
+      },
+      "properties": {
+        "name": "Budh Vihar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.139853,
+          28.73838
+        ]
+      },
+      "properties": {
+        "name": "Rohini Sector 1",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.102542,
+          28.703724
+        ]
+      },
+      "properties": {
+        "name": "Rohini Sector 3",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.139853,
+          28.73838
+        ]
+      },
+      "properties": {
+        "name": "Rohini Sector 7",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.125997,
+          28.707577
+        ]
+      },
+      "properties": {
+        "name": "Rohini Sector 9",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.139853,
+          28.73838
+        ]
+      },
+      "properties": {
+        "name": "Rohini Sector 11",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.128544,
+          28.719774
+        ]
+      },
+      "properties": {
+        "name": "Rohini Sector 13",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.119934,
+          28.710802
+        ]
+      },
+      "properties": {
+        "name": "Rohini Sector 14",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.130616,
+          28.739231
+        ]
+      },
+      "properties": {
+        "name": "Rohini Sector 16",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.132676,
+          28.714899
+        ]
+      },
+      "properties": {
+        "name": "Prashant Vihar Rohini",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.173934,
+          28.688517
+        ]
+      },
+      "properties": {
+        "name": "Ashok Vihar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.170221,
+          28.680084
+        ]
+      },
+      "properties": {
+        "name": "Wazirpur",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.205418,
+          28.528144
+        ]
+      },
+      "properties": {
+        "name": "Tri Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.175741,
+          28.578533
+        ]
+      },
+      "properties": {
+        "name": "Moti Bagh",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.198079,
+          28.575817
+        ]
+      },
+      "properties": {
+        "name": "Sarojini Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.207859,
+          28.572424
+        ]
+      },
+      "properties": {
+        "name": "Kidwai Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.184821,
+          28.574028
+        ]
+      },
+      "properties": {
+        "name": "Netaji Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.136444,
+          28.624385
+        ]
+      },
+      "properties": {
+        "name": "Naraina",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.136444,
+          28.624385
+        ]
+      },
+      "properties": {
+        "name": "Naraina Vihar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.125763,
+          28.628582
+        ]
+      },
+      "properties": {
+        "name": "Mayapuri Industrial Area",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.183412,
+          28.639732
+        ]
+      },
+      "properties": {
+        "name": "Rajendra Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.183412,
+          28.639732
+        ]
+      },
+      "properties": {
+        "name": "Old Rajendra Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.181033,
+          28.63574
+        ]
+      },
+      "properties": {
+        "name": "New Rajendra Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.19257,
+          28.644642
+        ]
+      },
+      "properties": {
+        "name": "Pusa Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.111934,
+          28.629649
+        ]
+      },
+      "properties": {
+        "name": "Hari Nagar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.068268,
+          28.630144
+        ]
+      },
+      "properties": {
+        "name": "Vikas Puri",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.065332,
+          28.574272
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 1",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.065332,
+          28.574272
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 2",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.069068,
+          28.579409
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 3",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.04872,
+          28.597254
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 4",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.04872,
+          28.597254
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 5",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.064805,
+          28.597345
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 6",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.040732,
+          28.592236
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 7",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.066941,
+          28.593253
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 16",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.067474,
+          28.592897
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 17",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.035828,
+          28.587093
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 18",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.043185,
+          28.572044
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 19",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0575,
+          28.581058
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 22",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.0652,
+          28.5925
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Sector 23",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.188521,
+          28.594677
+        ]
+      },
+      "properties": {
+        "name": "Chanakyapuri",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.22231,
+          28.636558
+        ]
+      },
+      "properties": {
+        "name": "Minto Bridge",
+        "tier": 2,
+        "category": "infrastructure"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.227184,
+          28.638824
+        ]
+      },
+      "properties": {
+        "name": "Minto Road Underpass",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.290709,
+          28.501911
+        ]
+      },
+      "properties": {
+        "name": "Pul Prahladpur Underpass",
+        "tier": 2,
+        "category": "infrastructure"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.166672,
+          28.668394
+        ]
+      },
+      "properties": {
+        "name": "Zakhira Flyover",
+        "tier": 2,
+        "category": "infrastructure"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240111,
+          28.605023
+        ]
+      },
+      "properties": {
+        "name": "Zakhira Underpass",
+        "tier": 2,
+        "category": "infrastructure"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.241044,
+          28.628191
+        ]
+      },
+      "properties": {
+        "name": "ITO Underpass",
+        "tier": 2,
+        "category": "infrastructure"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.288651,
+          28.701262
+        ]
+      },
+      "properties": {
+        "name": "Loni Road Roundabout",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.048912,
+          28.591093
+        ]
+      },
+      "properties": {
+        "name": "Najafgarh Drain",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.264567,
+          28.593274
+        ]
+      },
+      "properties": {
+        "name": "Yamuna Floodplain",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.22128,
+          28.729761
+        ]
+      },
+      "properties": {
+        "name": "Wazirabad Barrage",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.310999,
+          28.545662
+        ]
+      },
+      "properties": {
+        "name": "Okhla Barrage",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.268013,
+          28.623312
+        ]
+      },
+      "properties": {
+        "name": "Yamuna Bazaar",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.234091,
+          28.565475
+        ]
+      },
+      "properties": {
+        "name": "Moolchand Underpass",
+        "tier": 2,
+        "category": "infrastructure"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.243462,
+          28.617238
+        ]
+      },
+      "properties": {
+        "name": "Pragati Maidan Underpass",
+        "tier": 2,
+        "category": "infrastructure"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.196257,
+          28.576916
+        ]
+      },
+      "properties": {
+        "name": "Sarojini Nagar Market",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.218557,
+          28.629064
+        ]
+      },
+      "properties": {
+        "name": "Janpath Market",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.218899,
+          28.630585
+        ]
+      },
+      "properties": {
+        "name": "Palika Bazaar Connaught Place",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.207257,
+          28.678668
+        ]
+      },
+      "properties": {
+        "name": "Kamla Nagar Market",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.209302,
+          28.574177
+        ]
+      },
+      "properties": {
+        "name": "Dilli Haat INA",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.321124,
+          28.567444
+        ]
+      },
+      "properties": {
+        "name": "DLF Mall of India",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.154738,
+          28.541383
+        ]
+      },
+      "properties": {
+        "name": "Ambience Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.155108,
+          28.541245
+        ]
+      },
+      "properties": {
+        "name": "Ambience Mall Vasant Kunj",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.154261,
+          28.694715
+        ]
+      },
+      "properties": {
+        "name": "Pacific Mall Subhash Nagar",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.240827,
+          28.568987
+        ]
+      },
+      "properties": {
+        "name": "Lajpat Nagar Central Market",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.210186,
+          28.575649
+        ]
+      },
+      "properties": {
+        "name": "South Extension Market",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.235743,
+          28.651069
+        ]
+      },
+      "properties": {
+        "name": "Meena Bazaar",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.231853,
+          28.655152
+        ]
+      },
+      "properties": {
+        "name": "Kinari Bazaar Chandni Chowk",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.233402,
+          28.654555
+        ]
+      },
+      "properties": {
+        "name": "Dariba Kalan Chandni Chowk",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.230327,
+          28.65051
+        ]
+      },
+      "properties": {
+        "name": "Nai Sarak Chandni Chowk",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.222852,
+          28.657204
+        ]
+      },
+      "properties": {
+        "name": "Khari Baoli Spice Market",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.229788,
+          28.649927
+        ]
+      },
+      "properties": {
+        "name": "Chawri Bazar Market",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.127007,
+          28.645644
+        ]
+      },
+      "properties": {
+        "name": "Rajouri Garden Market",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.191756,
+          28.649499
+        ]
+      },
+      "properties": {
+        "name": "Karol Bagh Market",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.188179,
+          28.644369
+        ]
+      },
+      "properties": {
+        "name": "Ajmal Khan Road Karol Bagh",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.191756,
+          28.649499
+        ]
+      },
+      "properties": {
+        "name": "Gaffar Market Karol Bagh",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.326425,
+          28.570172
+        ]
+      },
+      "properties": {
+        "name": "Sector 18 Market",
+        "tier": 3,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.325898,
+          28.567523
+        ]
+      },
+      "properties": {
+        "name": "Great India Place Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.155806,
+          28.542473
+        ]
+      },
+      "properties": {
+        "name": "DLF Promenade Vasant Kunj",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.156771,
+          28.543551
+        ]
+      },
+      "properties": {
+        "name": "DLF Emporio Vasant Kunj",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.029601,
+          28.601084
+        ]
+      },
+      "properties": {
+        "name": "Vegas Mall Dwarka",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.248272,
+          28.593014
+        ]
+      },
+      "properties": {
+        "name": "Humayuns Tomb",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.277318,
+          28.612517
+        ]
+      },
+      "properties": {
+        "name": "Akshardham Temple",
+        "tier": 2,
+        "category": "religious"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.232961,
+          28.650682
+        ]
+      },
+      "properties": {
+        "name": "Jama Masjid Old",
+        "tier": 1,
+        "category": "religious"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.199589,
+          28.614359
+        ]
+      },
+      "properties": {
+        "name": "Rashtrapati Bhavan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.207808,
+          28.617188
+        ]
+      },
+      "properties": {
+        "name": "Parliament House",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.216617,
+          28.627179
+        ]
+      },
+      "properties": {
+        "name": "Jantar Mantar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.234176,
+          28.609633
+        ]
+      },
+      "properties": {
+        "name": "National Gallery of Modern Art",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.18101,
+          28.58511
+        ]
+      },
+      "properties": {
+        "name": "National Rail Museum",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.198769,
+          28.602786
+        ]
+      },
+      "properties": {
+        "name": "Teen Murti Bhavan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.21081,
+          28.59003
+        ]
+      },
+      "properties": {
+        "name": "Safdarjung Tomb",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.126755,
+          28.655309
+        ]
+      },
+      "properties": {
+        "name": "Rajghat Mahatma Gandhi Memorial",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.208875,
+          28.626481
+        ]
+      },
+      "properties": {
+        "name": "Gurudwara Bangla Sahib",
+        "tier": 2,
+        "category": "religious"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.198971,
+          28.632751
+        ]
+      },
+      "properties": {
+        "name": "Birla Mandir Laxmi Narayan Temple",
+        "tier": 2,
+        "category": "religious"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.198971,
+          28.632751
+        ]
+      },
+      "properties": {
+        "name": "Laxmi Narayan Temple",
+        "tier": 2,
+        "category": "religious"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.036156,
+          28.600728
+        ]
+      },
+      "properties": {
+        "name": "ISKCON Temple",
+        "tier": 2,
+        "category": "religious"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.198971,
+          28.632751
+        ]
+      },
+      "properties": {
+        "name": "Chhatarpur Temple",
+        "tier": 2,
+        "category": "religious"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.247176,
+          28.602695
+        ]
+      },
+      "properties": {
+        "name": "National Zoological Park",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.14988,
+          28.695833
+        ]
+      },
+      "properties": {
+        "name": "Dilli Haat Pitampura",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.225011,
+          28.626068
+        ]
+      },
+      "properties": {
+        "name": "Agrasen Ki Baoli",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.224698,
+          28.552146
+        ]
+      },
+      "properties": {
+        "name": "Hauz Khas Fort",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.24448,
+          28.635307
+        ]
+      },
+      "properties": {
+        "name": "Feroz Shah Kotla",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.193831,
+          28.620953
+        ]
+      },
+      "properties": {
+        "name": "Talkatora Garden",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.187821,
+          28.557585
+        ]
+      },
+      "properties": {
+        "name": "Deer Park Hauz Khas",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.224698,
+          28.552146
+        ]
+      },
+      "properties": {
+        "name": "Siri Fort",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.198345,
+          28.513772
+        ]
+      },
+      "properties": {
+        "name": "Garden of Five Senses Said Ul Ajaib",
+        "tier": 2,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.194555,
+          28.547012
+        ]
+      },
+      "properties": {
+        "name": "Ring Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.194555,
+          28.547012
+        ]
+      },
+      "properties": {
+        "name": "Inner Ring Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.194555,
+          28.547012
+        ]
+      },
+      "properties": {
+        "name": "Outer Ring Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.247392,
+          28.628117
+        ]
+      },
+      "properties": {
+        "name": "Vikas Marg",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.242643,
+          28.596951
+        ]
+      },
+      "properties": {
+        "name": "Mathura Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.218023,
+          28.663674
+        ]
+      },
+      "properties": {
+        "name": "Grand Trunk Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.181923,
+          28.700578
+        ]
+      },
+      "properties": {
+        "name": "GT Karnal Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.185256,
+          28.662751
+        ]
+      },
+      "properties": {
+        "name": "Rohtak Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.20003,
+          28.539629
+        ]
+      },
+      "properties": {
+        "name": "Sri Aurobindo Marg",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.189835,
+          28.574497
+        ]
+      },
+      "properties": {
+        "name": "Africa Avenue",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.208579,
+          28.639244
+        ]
+      },
+      "properties": {
+        "name": "Ashram Chowk",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.277576,
+          28.577998
+        ]
+      },
+      "properties": {
+        "name": "DND Flyway Delhi",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.225051,
+          28.579826
+        ]
+      },
+      "properties": {
+        "name": "Barapullah Elevated Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.257249,
+          28.588749
+        ]
+      },
+      "properties": {
+        "name": "Sarai Kale Khan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.230423,
+          28.668696
+        ]
+      },
+      "properties": {
+        "name": "ISBT Kashmere Gate",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.318004,
+          28.646753
+        ]
+      },
+      "properties": {
+        "name": "ISBT Anand Vihar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.257884,
+          28.590599
+        ]
+      },
+      "properties": {
+        "name": "ISBT Sarai Kale Khan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.204239,
+          28.520116
+        ]
+      },
+      "properties": {
+        "name": "Mehrauli Badarpur Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.043198,
+          28.452743
+        ]
+      },
+      "properties": {
+        "name": "NH 48 Delhi Gurugram Expressway",
+        "tier": 2,
+        "category": "expressway"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.145671,
+          28.582307
+        ]
+      },
+      "properties": {
+        "name": "Delhi Gurugram Expressway",
+        "tier": 2,
+        "category": "expressway"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.987213,
+          28.483337
+        ]
+      },
+      "properties": {
+        "name": "Dwarka Expressway Delhi",
+        "tier": 2,
+        "category": "expressway"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.256503,
+          28.598278
+        ]
+      },
+      "properties": {
+        "name": "Delhi Meerut Expressway",
+        "tier": 2,
+        "category": "expressway"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.33864,
+          28.544656
+        ]
+      },
+      "properties": {
+        "name": "Noida Sector 12",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.335246,
+          28.551276
+        ]
+      },
+      "properties": {
+        "name": "Noida Sector 44",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.379994,
+          28.608947
+        ]
+      },
+      "properties": {
+        "name": "Noida Sector 63",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.332009,
+          28.5456
+        ]
+      },
+      "properties": {
+        "name": "Noida Sector 125",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.403607,
+          28.510769
+        ]
+      },
+      "properties": {
+        "name": "Noida Sector 137",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.422377,
+          28.494256
+        ]
+      },
+      "properties": {
+        "name": "Noida Sector 143",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.376566,
+          28.625927
+        ]
+      },
+      "properties": {
+        "name": "Noida Sector 150",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.31509,
+          28.569199
+        ]
+      },
+      "properties": {
+        "name": "Film City Noida Sector 16A",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.326425,
+          28.570172
+        ]
+      },
+      "properties": {
+        "name": "Atta Market Noida Sector 18",
+        "tier": 3,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.353592,
+          28.574403
+        ]
+      },
+      "properties": {
+        "name": "Logix City Centre Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.325965,
+          28.564933
+        ]
+      },
+      "properties": {
+        "name": "Worlds of Wonder",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.029158,
+          28.43885
+        ]
+      },
+      "properties": {
+        "name": "Sohna Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.106453,
+          28.455747
+        ]
+      },
+      "properties": {
+        "name": "Golf Course Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.039298,
+          28.402224
+        ]
+      },
+      "properties": {
+        "name": "Golf Course Extension Road",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.072657,
+          28.459343
+        ]
+      },
+      "properties": {
+        "name": "Sector 29",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.081673,
+          28.467313
+        ]
+      },
+      "properties": {
+        "name": "Sector 14 Market",
+        "tier": 3,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.072657,
+          28.459343
+        ]
+      },
+      "properties": {
+        "name": "Sector 43",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.072657,
+          28.459343
+        ]
+      },
+      "properties": {
+        "name": "Sector 56",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.072657,
+          28.459343
+        ]
+      },
+      "properties": {
+        "name": "Sector 57",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.92364,
+          28.376813
+        ]
+      },
+      "properties": {
+        "name": "Manesar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.112268,
+          28.535919
+        ]
+      },
+      "properties": {
+        "name": "Palam Vihar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.081972,
+          28.491735
+        ]
+      },
+      "properties": {
+        "name": "Udyog Vihar",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.081673,
+          28.467313
+        ]
+      },
+      "properties": {
+        "name": "Galleria Market DLF Phase 4",
+        "tier": 3,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.368489,
+          28.642391
+        ]
+      },
+      "properties": {
+        "name": "Indirapuram",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.400277,
+          28.685628
+        ]
+      },
+      "properties": {
+        "name": "Raj Nagar Extension",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.434157,
+          28.628469
+        ]
+      },
+      "properties": {
+        "name": "Crossings Republik",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.373297,
+          28.661973
+        ]
+      },
+      "properties": {
+        "name": "Vasundhara",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.369658,
+          28.633824
+        ]
+      },
+      "properties": {
+        "name": "Shipra Mall Indirapuram",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.283006,
+          28.48367
+        ]
+      },
+      "properties": {
+        "name": "Surajkund",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.305588,
+          28.390054
+        ]
+      },
+      "properties": {
+        "name": "NIT",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.308751,
+          28.444895
+        ]
+      },
+      "properties": {
+        "name": "Sector 15",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.314781,
+          28.409615
+        ]
+      },
+      "properties": {
+        "name": "Sector 16",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.295606,
+          28.430157
+        ]
+      },
+      "properties": {
+        "name": "Sector 21C",
+        "tier": 3,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.204973,
+          28.567338
+        ]
+      },
+      "properties": {
+        "name": "Safdarjung Hospital",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.201331,
+          28.624501
+        ]
+      },
+      "properties": {
+        "name": "Ram Manohar Lohia Hospital",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.307459,
+          28.685694
+        ]
+      },
+      "properties": {
+        "name": "GTB Hospital Dilshad Garden",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.235049,
+          28.64014
+        ]
+      },
+      "properties": {
+        "name": "LNJP Hospital Delhi Gate",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.283379,
+          28.540667
+        ]
+      },
+      "properties": {
+        "name": "Apollo Hospital Sarita Vihar",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.211926,
+          28.527454
+        ]
+      },
+      "properties": {
+        "name": "Max Hospital Saket",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.142559,
+          28.534045
+        ]
+      },
+      "properties": {
+        "name": "Fortis Hospital Vasant Kunj",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.189693,
+          28.638528
+        ]
+      },
+      "properties": {
+        "name": "Sir Ganga Ram Hospital",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.253287,
+          28.588589
+        ]
+      },
+      "properties": {
+        "name": "Hazrat Nizamuddin Railway Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.318783,
+          28.649496
+        ]
+      },
+      "properties": {
+        "name": "Anand Vihar Terminal Railway Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.123469,
+          28.59829
+        ]
+      },
+      "properties": {
+        "name": "Delhi Cantonment",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.199336,
+          28.66649
+        ]
+      },
+      "properties": {
+        "name": "Delhi Sarai Rohilla Railway Station",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    }
+  ]
+}

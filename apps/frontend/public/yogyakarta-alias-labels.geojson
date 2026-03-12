@@ -1,0 +1,3125 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.364735,
+          -7.801349
+        ]
+      },
+      "properties": {
+        "name": "Yogyakarta Indonesia",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.366873,
+          -7.790843
+        ]
+      },
+      "properties": {
+        "name": "Malioboro",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.366873,
+          -7.790843
+        ]
+      },
+      "properties": {
+        "name": "Jalan Malioboro",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.36387,
+          -7.807597
+        ]
+      },
+      "properties": {
+        "name": "Kraton",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.367071,
+          -7.78291
+        ]
+      },
+      "properties": {
+        "name": "Tugu",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.366793,
+          -7.824649
+        ]
+      },
+      "properties": {
+        "name": "Prawirotaman",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.378561,
+          -7.765838
+        ]
+      },
+      "properties": {
+        "name": "Kaliurang Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.337008,
+          -8.027283
+        ]
+      },
+      "properties": {
+        "name": "Parangtritis Beach Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.497094,
+          -7.775576
+        ]
+      },
+      "properties": {
+        "name": "Prambanan Temple",
+        "tier": 2,
+        "category": "religious"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.380424,
+          -7.769397
+        ]
+      },
+      "properties": {
+        "name": "Universitas Gadjah Mada",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.383815,
+          -7.773034
+        ]
+      },
+      "properties": {
+        "name": "Universitas Negeri",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.401344,
+          -7.782165
+        ]
+      },
+      "properties": {
+        "name": "Ambarukmo Plaza",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.403424,
+          -7.760804
+        ]
+      },
+      "properties": {
+        "name": "Hartono Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.360255,
+          -7.768649
+        ]
+      },
+      "properties": {
+        "name": "Jogja City Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.387998,
+          -7.780231
+        ]
+      },
+      "properties": {
+        "name": "Jalan Gejayan",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.410001,
+          -7.769048
+        ]
+      },
+      "properties": {
+        "name": "Seturan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.409067,
+          -7.773642
+        ]
+      },
+      "properties": {
+        "name": "Babarsari",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.40956,
+          -7.760791
+        ]
+      },
+      "properties": {
+        "name": "Condong Catur Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.29605,
+          -7.767467
+        ]
+      },
+      "properties": {
+        "name": "Godean Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.33221,
+          -7.784314
+        ]
+      },
+      "properties": {
+        "name": "Gamping Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.385553,
+          -7.898254
+        ]
+      },
+      "properties": {
+        "name": "Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.383815,
+          -7.773034
+        ]
+      },
+      "properties": {
+        "name": "Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.221719,
+          -7.717771
+        ]
+      },
+      "properties": {
+        "name": "Kulon Progo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.479335,
+          -7.847168
+        ]
+      },
+      "properties": {
+        "name": "Gunung Kidul",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.480022,
+          -7.845515
+        ]
+      },
+      "properties": {
+        "name": "Wonosari Gunung Kidul",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.385924,
+          -7.936179
+        ]
+      },
+      "properties": {
+        "name": "Imogiri Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.397941,
+          -7.81831
+        ]
+      },
+      "properties": {
+        "name": "Kotagede",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.42681,
+          -7.793306
+        ]
+      },
+      "properties": {
+        "name": "Adisucipto Airport",
+        "tier": 1,
+        "category": "airport"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.381,
+          -7.786744
+        ]
+      },
+      "properties": {
+        "name": "Gondokusuman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.364669,
+          -7.781514
+        ]
+      },
+      "properties": {
+        "name": "Jetis",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.363465,
+          -7.789239
+        ]
+      },
+      "properties": {
+        "name": "Gedongtengen",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.355073,
+          -7.780455
+        ]
+      },
+      "properties": {
+        "name": "Tegalrejo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.357602,
+          -7.802183
+        ]
+      },
+      "properties": {
+        "name": "Ngampilan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.359723,
+          -7.818068
+        ]
+      },
+      "properties": {
+        "name": "Mantrijeron",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.387374,
+          -7.814378
+        ]
+      },
+      "properties": {
+        "name": "Umbulharjo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.383415,
+          -7.783817
+        ]
+      },
+      "properties": {
+        "name": "Klitren",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.382432,
+          -7.78245
+        ]
+      },
+      "properties": {
+        "name": "Iromejan Klitren",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.37124,
+          -7.80156
+        ]
+      },
+      "properties": {
+        "name": "Sayidan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.374683,
+          -7.809703
+        ]
+      },
+      "properties": {
+        "name": "Sungai Code",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.352236,
+          -7.809755
+        ]
+      },
+      "properties": {
+        "name": "Sungai Winongo",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.397092,
+          -7.788265
+        ]
+      },
+      "properties": {
+        "name": "Sungai Gajah Wong",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.376227,
+          -7.800434
+        ]
+      },
+      "properties": {
+        "name": "Pakualaman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.372558,
+          -7.814734
+        ]
+      },
+      "properties": {
+        "name": "Mergangsan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.350447,
+          -7.802624
+        ]
+      },
+      "properties": {
+        "name": "Wirobrajan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.405079,
+          -7.779414
+        ]
+      },
+      "properties": {
+        "name": "Caturtunggal Depok Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.403607,
+          -7.798441
+        ]
+      },
+      "properties": {
+        "name": "Underpass Janti",
+        "tier": 2,
+        "category": "infrastructure"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.362902,
+          -7.786475
+        ]
+      },
+      "properties": {
+        "name": "Underpass Monjali",
+        "tier": 2,
+        "category": "infrastructure"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.383815,
+          -7.773034
+        ]
+      },
+      "properties": {
+        "name": "Depok Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.329032,
+          -7.733925
+        ]
+      },
+      "properties": {
+        "name": "Mlati Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.402579,
+          -7.722021
+        ]
+      },
+      "properties": {
+        "name": "Ngaglik Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.444954,
+          -7.698087
+        ]
+      },
+      "properties": {
+        "name": "Ngemplak Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.467053,
+          -7.769829
+        ]
+      },
+      "properties": {
+        "name": "Kalasan Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.442825,
+          -7.805369
+        ]
+      },
+      "properties": {
+        "name": "Berbah Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.419819,
+          -7.667256
+        ]
+      },
+      "properties": {
+        "name": "Pakem Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.377325,
+          -7.651817
+        ]
+      },
+      "properties": {
+        "name": "Turi Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.406847,
+          -7.778732
+        ]
+      },
+      "properties": {
+        "name": "Tempel Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.298438,
+          -7.731004
+        ]
+      },
+      "properties": {
+        "name": "Seyegan Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.250711,
+          -7.731891
+        ]
+      },
+      "properties": {
+        "name": "Minggir Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.253744,
+          -7.772495
+        ]
+      },
+      "properties": {
+        "name": "Moyudan Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.456381,
+          -7.658668
+        ]
+      },
+      "properties": {
+        "name": "Cangkringan Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.415824,
+          -7.824367
+        ]
+      },
+      "properties": {
+        "name": "Banguntapan Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.359294,
+          -7.849268
+        ]
+      },
+      "properties": {
+        "name": "Sewon Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.333586,
+          -7.81472
+        ]
+      },
+      "properties": {
+        "name": "Kasihan Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.405298,
+          -7.868526
+        ]
+      },
+      "properties": {
+        "name": "Pleret Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.476642,
+          -7.838316
+        ]
+      },
+      "properties": {
+        "name": "Piyungan Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.29746,
+          -7.909576
+        ]
+      },
+      "properties": {
+        "name": "Pandak Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.258391,
+          -7.813737
+        ]
+      },
+      "properties": {
+        "name": "Sedayu Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.318691,
+          -7.972126
+        ]
+      },
+      "properties": {
+        "name": "Kretek Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.311608,
+          -7.923179
+        ]
+      },
+      "properties": {
+        "name": "Bambanglipuro Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.346257,
+          -7.972169
+        ]
+      },
+      "properties": {
+        "name": "Pundong Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.461062,
+          -7.919154
+        ]
+      },
+      "properties": {
+        "name": "Dlingo Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.362067,
+          -7.90953
+        ]
+      },
+      "properties": {
+        "name": "Jetis Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.246307,
+          -7.864458
+        ]
+      },
+      "properties": {
+        "name": "Sentolo Kulon Progo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.232877,
+          -7.931967
+        ]
+      },
+      "properties": {
+        "name": "Lendah Kulon Progo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.221719,
+          -7.717771
+        ]
+      },
+      "properties": {
+        "name": "Galur Kulon Progo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.221719,
+          -7.717771
+        ]
+      },
+      "properties": {
+        "name": "Panjatan Kulon Progo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.221719,
+          -7.717771
+        ]
+      },
+      "properties": {
+        "name": "Kokap Kulon Progo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.205779,
+          -7.779699
+        ]
+      },
+      "properties": {
+        "name": "Nanggulan Kulon Progo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.535746,
+          -7.939654
+        ]
+      },
+      "properties": {
+        "name": "Playen Gunungkidul",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.518405,
+          -7.863034
+        ]
+      },
+      "properties": {
+        "name": "Patuk Gunungkidul",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.593428,
+          -7.841776
+        ]
+      },
+      "properties": {
+        "name": "Gedangsari Gunungkidul",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.390031,
+          -7.784871
+        ]
+      },
+      "properties": {
+        "name": "Demangan Gondokusuman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.373201,
+          -7.779115
+        ]
+      },
+      "properties": {
+        "name": "Terban Gondokusuman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.373275,
+          -7.786272
+        ]
+      },
+      "properties": {
+        "name": "Kotabaru Gondokusuman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.382982,
+          -7.79347
+        ]
+      },
+      "properties": {
+        "name": "Baciro Gondokusuman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.370465,
+          -7.793667
+        ]
+      },
+      "properties": {
+        "name": "Tegalpanggung Danurejan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.375835,
+          -7.795618
+        ]
+      },
+      "properties": {
+        "name": "Bausasran Danurejan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.371248,
+          -7.804683
+        ]
+      },
+      "properties": {
+        "name": "Ngupasan Gondomanan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.363465,
+          -7.789239
+        ]
+      },
+      "properties": {
+        "name": "Sosromenduran Gedongtengen",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.358865,
+          -7.791405
+        ]
+      },
+      "properties": {
+        "name": "Pringgokusuman Gedongtengen",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.357454,
+          -7.786883
+        ]
+      },
+      "properties": {
+        "name": "Bumijo Jetis",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.365783,
+          -7.786171
+        ]
+      },
+      "properties": {
+        "name": "Gowongan Jetis",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.366182,
+          -7.808629
+        ]
+      },
+      "properties": {
+        "name": "Panembahan Kraton",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.36387,
+          -7.807597
+        ]
+      },
+      "properties": {
+        "name": "Kadipaten Kraton",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.359922,
+          -7.81243
+        ]
+      },
+      "properties": {
+        "name": "Patehan Kraton",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.353144,
+          -7.821173
+        ]
+      },
+      "properties": {
+        "name": "Gedongkiwo Mantrijeron",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.371193,
+          -7.817374
+        ]
+      },
+      "properties": {
+        "name": "Brontokusuman Mergangsan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.371832,
+          -7.816471
+        ]
+      },
+      "properties": {
+        "name": "Keparakan Mergangsan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.376402,
+          -7.807654
+        ]
+      },
+      "properties": {
+        "name": "Wirogunan Mergangsan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.354997,
+          -7.804768
+        ]
+      },
+      "properties": {
+        "name": "Notoprajan Ngampilan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.376227,
+          -7.800434
+        ]
+      },
+      "properties": {
+        "name": "Purwokinanti Pakualaman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.378637,
+          -7.799259
+        ]
+      },
+      "properties": {
+        "name": "Gunungketur Pakualaman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.360251,
+          -7.773956
+        ]
+      },
+      "properties": {
+        "name": "Kricak Tegalrejo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.365495,
+          -7.771472
+        ]
+      },
+      "properties": {
+        "name": "Karangwaru Tegalrejo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.355394,
+          -7.780747
+        ]
+      },
+      "properties": {
+        "name": "Bener Tegalrejo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.392711,
+          -7.798672
+        ]
+      },
+      "properties": {
+        "name": "Muja Muju Umbulharjo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.383754,
+          -7.797834
+        ]
+      },
+      "properties": {
+        "name": "Semaki Umbulharjo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.393114,
+          -7.809813
+        ]
+      },
+      "properties": {
+        "name": "Warungboto Umbulharjo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.386199,
+          -7.81428
+        ]
+      },
+      "properties": {
+        "name": "Pandeyan Umbulharjo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.382353,
+          -7.826162
+        ]
+      },
+      "properties": {
+        "name": "Sorosutan Umbulharjo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.389451,
+          -7.830999
+        ]
+      },
+      "properties": {
+        "name": "Giwangan Umbulharjo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.350504,
+          -7.808621
+        ]
+      },
+      "properties": {
+        "name": "Patangpuluhan Wirobrajan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.43205,
+          -7.781025
+        ]
+      },
+      "properties": {
+        "name": "Maguwoharjo Depok Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.372737,
+          -7.758232
+        ]
+      },
+      "properties": {
+        "name": "Sinduadi Mlati Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.406477,
+          -7.735614
+        ]
+      },
+      "properties": {
+        "name": "Minomartani Ngaglik Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.432833,
+          -7.729166
+        ]
+      },
+      "properties": {
+        "name": "Wedomartani Ngemplak Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.399001,
+          -7.76
+        ]
+      },
+      "properties": {
+        "name": "Condongcatur Depok Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.323247,
+          -7.802852
+        ]
+      },
+      "properties": {
+        "name": "Ambarketawang Gamping Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.359581,
+          -7.83801
+        ]
+      },
+      "properties": {
+        "name": "Panggungharjo Sewon Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.326166,
+          -7.823291
+        ]
+      },
+      "properties": {
+        "name": "Tamantirto Kasihan Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.318427,
+          -7.889175
+        ]
+      },
+      "properties": {
+        "name": "Ringinharjo Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.363465,
+          -7.789239
+        ]
+      },
+      "properties": {
+        "name": "Sosrowijayan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.363493,
+          -7.793767
+        ]
+      },
+      "properties": {
+        "name": "Dagen",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.359576,
+          -7.796633
+        ]
+      },
+      "properties": {
+        "name": "Pathuk Ngampilan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.362392,
+          -7.80382
+        ]
+      },
+      "properties": {
+        "name": "Kauman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.37046,
+          -7.810798
+        ]
+      },
+      "properties": {
+        "name": "Dipowinatan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.368561,
+          -7.785166
+        ]
+      },
+      "properties": {
+        "name": "Jogoyudan Jetis",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.383419,
+          -7.806508
+        ]
+      },
+      "properties": {
+        "name": "Celeban Umbulharjo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.375521,
+          -7.790292
+        ]
+      },
+      "properties": {
+        "name": "Lempuyangan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3575,
+          -7.789389
+        ]
+      },
+      "properties": {
+        "name": "Badran",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.355809,
+          -7.795186
+        ]
+      },
+      "properties": {
+        "name": "Notoyudan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.371787,
+          -7.793144
+        ]
+      },
+      "properties": {
+        "name": "Danurejan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.366112,
+          -7.802433
+        ]
+      },
+      "properties": {
+        "name": "Gondomanan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.41383,
+          -7.688065
+        ]
+      },
+      "properties": {
+        "name": "Universitas Islam Indonesia",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.382976,
+          -7.798727
+        ]
+      },
+      "properties": {
+        "name": "Universitas Ahmad Dahlan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.322055,
+          -7.806504
+        ]
+      },
+      "properties": {
+        "name": "Universitas Muhammadiyah",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.391262,
+          -7.774774
+        ]
+      },
+      "properties": {
+        "name": "Universitas Sanata Dharma",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.408722,
+          -7.7596
+        ]
+      },
+      "properties": {
+        "name": "Universitas AMIKOM",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.392651,
+          -7.776396
+        ]
+      },
+      "properties": {
+        "name": "Universitas Atma Jaya",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.378404,
+          -7.786098
+        ]
+      },
+      "properties": {
+        "name": "Universitas Kristen Duta Wacana",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.394434,
+          -7.786234
+        ]
+      },
+      "properties": {
+        "name": "UIN Sunan Kalijaga",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.356065,
+          -7.851928
+        ]
+      },
+      "properties": {
+        "name": "Institut Seni Indonesia",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.41519,
+          -7.782097
+        ]
+      },
+      "properties": {
+        "name": "UPN Veteran",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.410974,
+          -7.769372
+        ]
+      },
+      "properties": {
+        "name": "STIE YKPN",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.322472,
+          -7.80874
+        ]
+      },
+      "properties": {
+        "name": "Universitas Teknologi Muhammadiyah",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.382491,
+          -7.786086
+        ]
+      },
+      "properties": {
+        "name": "Jalan Solo",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.378561,
+          -7.765838
+        ]
+      },
+      "properties": {
+        "name": "Jalan Kaliurang Sleman",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.350063,
+          -7.781148
+        ]
+      },
+      "properties": {
+        "name": "Jalan Godean",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.360849,
+          -7.782427
+        ]
+      },
+      "properties": {
+        "name": "Jalan Magelang",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.360126,
+          -7.789081
+        ]
+      },
+      "properties": {
+        "name": "Jalan Bantul",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.368397,
+          -7.814798
+        ]
+      },
+      "properties": {
+        "name": "Jalan Parangtritis",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.389974,
+          -7.82767
+        ]
+      },
+      "properties": {
+        "name": "Jalan Imogiri",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.396332,
+          -7.782754
+        ]
+      },
+      "properties": {
+        "name": "Jalan Affandi",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.405388,
+          -7.810802
+        ]
+      },
+      "properties": {
+        "name": "Jalan Wonosari",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.347229,
+          -7.800886
+        ]
+      },
+      "properties": {
+        "name": "Jalan Wates",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.381259,
+          -7.801813
+        ]
+      },
+      "properties": {
+        "name": "Jalan Kusumanegara",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.368395,
+          -7.782903
+        ]
+      },
+      "properties": {
+        "name": "Jalan Jenderal Sudirman",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.367071,
+          -7.78291
+        ]
+      },
+      "properties": {
+        "name": "Jalan Mangkubumi",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.377794,
+          -7.776156
+        ]
+      },
+      "properties": {
+        "name": "Jalan Colombo",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.372435,
+          -7.776534
+        ]
+      },
+      "properties": {
+        "name": "Jalan C Simanjuntak",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.383477,
+          -7.783048
+        ]
+      },
+      "properties": {
+        "name": "Jalan Urip Sumoharjo",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.358973,
+          -7.787478
+        ]
+      },
+      "properties": {
+        "name": "Jalan Tentara Pelajar",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.37737,
+          -7.808697
+        ]
+      },
+      "properties": {
+        "name": "Jalan Taman Siswa",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.399001,
+          -7.76
+        ]
+      },
+      "properties": {
+        "name": "Ring Road Utara",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.392513,
+          -7.836494
+        ]
+      },
+      "properties": {
+        "name": "Ring Road Selatan",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.378561,
+          -7.765838
+        ]
+      },
+      "properties": {
+        "name": "Jalan Kaliurang",
+        "tier": 1,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.383755,
+          -7.903852
+        ]
+      },
+      "properties": {
+        "name": "Kali Opak",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.328586,
+          -7.855971
+        ]
+      },
+      "properties": {
+        "name": "Kali Bedog Sleman",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.395971,
+          -7.703377
+        ]
+      },
+      "properties": {
+        "name": "Kali Boyong Sleman",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.439963,
+          -7.814758
+        ]
+      },
+      "properties": {
+        "name": "Kali Kuning Sleman",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.221719,
+          -7.717771
+        ]
+      },
+      "properties": {
+        "name": "Kali Progo",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.380654,
+          -7.788249
+        ]
+      },
+      "properties": {
+        "name": "Kali Belik",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.400382,
+          -7.762904
+        ]
+      },
+      "properties": {
+        "name": "Kali Gajah Wong",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.352118,
+          -7.826565
+        ]
+      },
+      "properties": {
+        "name": "Kali Winongo",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.221719,
+          -7.717771
+        ]
+      },
+      "properties": {
+        "name": "Kali Serang Kulon Progo",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.364528,
+          -7.769905
+        ]
+      },
+      "properties": {
+        "name": "Kali Gendol Sleman",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.374683,
+          -7.809703
+        ]
+      },
+      "properties": {
+        "name": "Bantaran Sungai Code",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.352236,
+          -7.809755
+        ]
+      },
+      "properties": {
+        "name": "Bantaran Sungai Winongo",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.359153,
+          -7.810032
+        ]
+      },
+      "properties": {
+        "name": "Taman Sari Kraton",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.366336,
+          -7.800154
+        ]
+      },
+      "properties": {
+        "name": "Benteng Vredeburg",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.363465,
+          -7.789239
+        ]
+      },
+      "properties": {
+        "name": "Pasar Beringharjo",
+        "tier": 1,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.399001,
+          -7.76
+        ]
+      },
+      "properties": {
+        "name": "Pakuwon Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.377939,
+          -7.781468
+        ]
+      },
+      "properties": {
+        "name": "Galeria Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.361913,
+          -7.72018
+        ]
+      },
+      "properties": {
+        "name": "Sleman City Hall Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.390651,
+          -7.784028
+        ]
+      },
+      "properties": {
+        "name": "Lippo Plaza",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.413595,
+          -7.779375
+        ]
+      },
+      "properties": {
+        "name": "Sahid J-Walk Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.366653,
+          -7.793343
+        ]
+      },
+      "properties": {
+        "name": "Malioboro Mall",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.364362,
+          -7.804471
+        ]
+      },
+      "properties": {
+        "name": "Alun Alun Utara",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.364362,
+          -7.804471
+        ]
+      },
+      "properties": {
+        "name": "Alun Alun Selatan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.363781,
+          -7.802137
+        ]
+      },
+      "properties": {
+        "name": "Museum Sonobudoyo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.397018,
+          -7.805517
+        ]
+      },
+      "properties": {
+        "name": "Gembira Loka Zoo",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.369634,
+          -7.749624
+        ]
+      },
+      "properties": {
+        "name": "Monumen Jogja Kembali",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.363199,
+          -7.789657
+        ]
+      },
+      "properties": {
+        "name": "Stasiun Tugu",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.375413,
+          -7.790277
+        ]
+      },
+      "properties": {
+        "name": "Stasiun Lempuyangan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.392696,
+          -7.835286
+        ]
+      },
+      "properties": {
+        "name": "Terminal Giwangan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.362145,
+          -7.748267
+        ]
+      },
+      "properties": {
+        "name": "Terminal Jombor Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.395692,
+          -7.757095
+        ]
+      },
+      "properties": {
+        "name": "Terminal Condongcatur Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.368002,
+          -7.790353
+        ]
+      },
+      "properties": {
+        "name": "Simpang Empat Jombor",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.489464,
+          -7.770512
+        ]
+      },
+      "properties": {
+        "name": "Candi Ratu Boko Prambanan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.497094,
+          -7.775576
+        ]
+      },
+      "properties": {
+        "name": "Candi Prambanan",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.446949,
+          -7.762367
+        ]
+      },
+      "properties": {
+        "name": "Candi Sambisari Kalasan Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.430278,
+          -7.559905
+        ]
+      },
+      "properties": {
+        "name": "Gunung Merapi Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.337008,
+          -8.027283
+        ]
+      },
+      "properties": {
+        "name": "Pantai Parangtritis Bantul",
+        "tier": 1,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.504983,
+          -7.781429
+        ]
+      },
+      "properties": {
+        "name": "Tebing Breksi Prambanan Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.434108,
+          -7.922866
+        ]
+      },
+      "properties": {
+        "name": "Hutan Pinus Mangunan Bantul",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.364735,
+          -7.801349
+        ]
+      },
+      "properties": {
+        "name": "Daerah Istimewa",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.557931,
+          -7.993038
+        ]
+      },
+      "properties": {
+        "name": "Gunungkidul",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.399001,
+          -7.76
+        ]
+      },
+      "properties": {
+        "name": "Condongcatur Sleman",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    }
+  ]
+}

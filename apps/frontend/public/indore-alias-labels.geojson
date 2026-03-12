@@ -1,0 +1,3665 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.84685,
+          22.705366
+        ]
+      },
+      "properties": {
+        "name": "Lalbagh Palace,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.856948,
+          22.743577
+        ]
+      },
+      "properties": {
+        "name": "Laxmibai Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.870922,
+          22.722838
+        ]
+      },
+      "properties": {
+        "name": "Nehru Park,",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.854776,
+          22.718434
+        ]
+      },
+      "properties": {
+        "name": "Rajwada Palace,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.853995,
+          22.694838
+        ]
+      },
+      "properties": {
+        "name": "Vijay Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.894587,
+          22.723141
+        ]
+      },
+      "properties": {
+        "name": "Palasia,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.869003,
+          22.700802
+        ]
+      },
+      "properties": {
+        "name": "Sapna Sangeeta Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.867659,
+          22.692654
+        ]
+      },
+      "properties": {
+        "name": "Bhawarkuan Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.851858,
+          22.717895
+        ]
+      },
+      "properties": {
+        "name": "Sarafa Bazaar,",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.903539,
+          22.733183
+        ]
+      },
+      "properties": {
+        "name": "Khajrana,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.907335,
+          22.708555
+        ]
+      },
+      "properties": {
+        "name": "Pipliyahana,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.805105,
+          22.633651
+        ]
+      },
+      "properties": {
+        "name": "Rau,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.795187,
+          22.608855
+        ]
+      },
+      "properties": {
+        "name": "Mhow (Dr. Ambedkar Nagar),",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.805105,
+          22.633651
+        ]
+      },
+      "properties": {
+        "name": "IIM Indore, Rau",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.911564,
+          22.539445
+        ]
+      },
+      "properties": {
+        "name": "IIT Indore, Simrol",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.808894,
+          22.759939
+        ]
+      },
+      "properties": {
+        "name": "Super Corridor,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.854406,
+          22.681497
+        ]
+      },
+      "properties": {
+        "name": "Agra Bombay Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.881737,
+          22.720317
+        ]
+      },
+      "properties": {
+        "name": "Mahatma Gandhi Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.890641,
+          22.756218
+        ]
+      },
+      "properties": {
+        "name": "Scheme No. 54,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.898107,
+          22.761685
+        ]
+      },
+      "properties": {
+        "name": "Scheme No. 78,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.87967,
+          22.724251
+        ]
+      },
+      "properties": {
+        "name": "Holkar Cricket Stadium,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.878623,
+          22.721572
+        ]
+      },
+      "properties": {
+        "name": "Treasure Island Mall,",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.840975,
+          22.712885
+        ]
+      },
+      "properties": {
+        "name": "Gangwal Bus Stand,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.799555,
+          22.505236
+        ]
+      },
+      "properties": {
+        "name": "Patalpani Waterfall,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.849989,
+          22.740853
+        ]
+      },
+      "properties": {
+        "name": "Banganga,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.9284,
+          22.755733
+        ]
+      },
+      "properties": {
+        "name": "Nipania,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.884995,
+          22.708721
+        ]
+      },
+      "properties": {
+        "name": "Musakhedi,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.876653,
+          22.704542
+        ]
+      },
+      "properties": {
+        "name": "Juni Indore (Old Indore)",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.867214,
+          22.712877
+        ]
+      },
+      "properties": {
+        "name": "Chhawani,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.827697,
+          22.645823
+        ]
+      },
+      "properties": {
+        "name": "Silicon City,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.860207,
+          22.723894
+        ]
+      },
+      "properties": {
+        "name": "Annapurna Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.829223,
+          22.670019
+        ]
+      },
+      "properties": {
+        "name": "Rajendra Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.854318,
+          22.713805
+        ]
+      },
+      "properties": {
+        "name": "Sadar Bazar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.868472,
+          22.717006
+        ]
+      },
+      "properties": {
+        "name": "Juna Risala,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.855383,
+          22.710947
+        ]
+      },
+      "properties": {
+        "name": "Moti Tabela,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.857431,
+          22.712366
+        ]
+      },
+      "properties": {
+        "name": "Harsiddhi,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.862203,
+          22.71737
+        ]
+      },
+      "properties": {
+        "name": "Siyaganj,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.884306,
+          22.718361
+        ]
+      },
+      "properties": {
+        "name": "Geeta Bhawan,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.8779,
+          22.698716
+        ]
+      },
+      "properties": {
+        "name": "Navlakha,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.841872,
+          22.720535
+        ]
+      },
+      "properties": {
+        "name": "Bada Ganpati,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.843651,
+          22.705438
+        ]
+      },
+      "properties": {
+        "name": "Dewas Naka,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.855453,
+          22.703593
+        ]
+      },
+      "properties": {
+        "name": "Manik Bagh Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.881269,
+          22.700992
+        ]
+      },
+      "properties": {
+        "name": "Aerodrome Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.905112,
+          22.72034
+        ]
+      },
+      "properties": {
+        "name": "Chappan Dukan,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.836988,
+          22.692206
+        ]
+      },
+      "properties": {
+        "name": "Sudama Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.878105,
+          22.748104
+        ]
+      },
+      "properties": {
+        "name": "Nanda Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.857626,
+          22.721009
+        ]
+      },
+      "properties": {
+        "name": "Tilak Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.893334,
+          22.728654
+        ]
+      },
+      "properties": {
+        "name": "Gandhi Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.824407,
+          22.707277
+        ]
+      },
+      "properties": {
+        "name": "Chandan Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.838311,
+          22.697038
+        ]
+      },
+      "properties": {
+        "name": "Mahalaxmi Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.928562,
+          22.6962
+        ]
+      },
+      "properties": {
+        "name": "Bicholi Mardana,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.928562,
+          22.6962
+        ]
+      },
+      "properties": {
+        "name": "Bicholi Hapsi,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.888302,
+          22.638524
+        ]
+      },
+      "properties": {
+        "name": "Tejaji Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.84145,
+          22.702966
+        ]
+      },
+      "properties": {
+        "name": "Usha Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.839976,
+          22.717038
+        ]
+      },
+      "properties": {
+        "name": "Mahesh Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.857626,
+          22.721009
+        ]
+      },
+      "properties": {
+        "name": "Panchsheel Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.883077,
+          22.710735
+        ]
+      },
+      "properties": {
+        "name": "Azad Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.872049,
+          22.736552
+        ]
+      },
+      "properties": {
+        "name": "Shivaji Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.833664,
+          22.697639
+        ]
+      },
+      "properties": {
+        "name": "Ravindra Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.826908,
+          22.724251
+        ]
+      },
+      "properties": {
+        "name": "Agrawal Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.907266,
+          22.758679
+        ]
+      },
+      "properties": {
+        "name": "Veena Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.847021,
+          22.763669
+        ]
+      },
+      "properties": {
+        "name": "Bhagirathpura,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.875622,
+          22.73353
+        ]
+      },
+      "properties": {
+        "name": "Chhoti Gwaltoli,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.842723,
+          22.700821
+        ]
+      },
+      "properties": {
+        "name": "Badi Gwaltoli,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.796657,
+          22.66569
+        ]
+      },
+      "properties": {
+        "name": "Sukhliya,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.88385,
+          22.682751
+        ]
+      },
+      "properties": {
+        "name": "Palda,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.908056,
+          22.778203
+        ]
+      },
+      "properties": {
+        "name": "Lasudia Mori,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.833322,
+          22.668648
+        ]
+      },
+      "properties": {
+        "name": "Bijalpur,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.919709,
+          22.789551
+        ]
+      },
+      "properties": {
+        "name": "Talawali Chanda,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.873979,
+          22.716717
+        ]
+      },
+      "properties": {
+        "name": "Tukoganj,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.873979,
+          22.716717
+        ]
+      },
+      "properties": {
+        "name": "South Tukoganj,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.888196,
+          22.725305
+        ]
+      },
+      "properties": {
+        "name": "Old Palasia,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.886975,
+          22.724917
+        ]
+      },
+      "properties": {
+        "name": "New Palasia,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.866621,
+          22.701896
+        ]
+      },
+      "properties": {
+        "name": "Sindhi Colony,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.857626,
+          22.721009
+        ]
+      },
+      "properties": {
+        "name": "Vallabh Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.835669,
+          22.700054
+        ]
+      },
+      "properties": {
+        "name": "Ranjeet Hanuman Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.832774,
+          22.722615
+        ]
+      },
+      "properties": {
+        "name": "Chandra Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.892087,
+          22.720881
+        ]
+      },
+      "properties": {
+        "name": "Vinoba Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.902533,
+          22.719425
+        ]
+      },
+      "properties": {
+        "name": "Mahaveer Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.849184,
+          22.715423
+        ]
+      },
+      "properties": {
+        "name": "Jawahar Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.857626,
+          22.721009
+        ]
+      },
+      "properties": {
+        "name": "Gumasta Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.845154,
+          22.722866
+        ]
+      },
+      "properties": {
+        "name": "Manorama Ganj,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.88078,
+          22.706763
+        ]
+      },
+      "properties": {
+        "name": "Residency Area,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.873315,
+          22.744056
+        ]
+      },
+      "properties": {
+        "name": "Sneh Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.811784,
+          22.760641
+        ]
+      },
+      "properties": {
+        "name": "Malharganj,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.844083,
+          22.715428
+        ]
+      },
+      "properties": {
+        "name": "Rajmohalla,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.865961,
+          22.724542
+        ]
+      },
+      "properties": {
+        "name": "Nayapura,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.849197,
+          22.712406
+        ]
+      },
+      "properties": {
+        "name": "Chhatribagh,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.862071,
+          22.692305
+        ]
+      },
+      "properties": {
+        "name": "Vishnupuri,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.868478,
+          22.714456
+        ]
+      },
+      "properties": {
+        "name": "Sarvate Bus Stand,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.867683,
+          22.719867
+        ]
+      },
+      "properties": {
+        "name": "Indore Junction Railway Station,",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.828694,
+          22.704359
+        ]
+      },
+      "properties": {
+        "name": "Scheme No. 71,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.83322,
+          22.697979
+        ]
+      },
+      "properties": {
+        "name": "Scheme No. 94,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.900694,
+          22.766544
+        ]
+      },
+      "properties": {
+        "name": "Scheme No. 114,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.83322,
+          22.697979
+        ]
+      },
+      "properties": {
+        "name": "Scheme No. 140,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.83322,
+          22.697979
+        ]
+      },
+      "properties": {
+        "name": "Scheme No. 136,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.894781,
+          22.765773
+        ]
+      },
+      "properties": {
+        "name": "Scheme No. 103,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.849551,
+          22.679838
+        ]
+      },
+      "properties": {
+        "name": "Scheme No. 155,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.922092,
+          22.748337
+        ]
+      },
+      "properties": {
+        "name": "Scheme No. 134,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.900107,
+          22.766165
+        ]
+      },
+      "properties": {
+        "name": "Scheme No. 74,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.906165,
+          22.719832
+        ]
+      },
+      "properties": {
+        "name": "Bengali Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.87092,
+          22.764032
+        ]
+      },
+      "properties": {
+        "name": "Bapat Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.843651,
+          22.705438
+        ]
+      },
+      "properties": {
+        "name": "Mhow Naka,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.88385,
+          22.682751
+        ]
+      },
+      "properties": {
+        "name": "Palda Naka,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.82823,
+          22.694013
+        ]
+      },
+      "properties": {
+        "name": "Footi Kothi Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.829412,
+          22.683765
+        ]
+      },
+      "properties": {
+        "name": "Gopur Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.875072,
+          22.734099
+        ]
+      },
+      "properties": {
+        "name": "Malwa Mill Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.868115,
+          22.72833
+        ]
+      },
+      "properties": {
+        "name": "Rajkumar Bridge,",
+        "tier": 2,
+        "category": "infrastructure"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.902285,
+          22.731707
+        ]
+      },
+      "properties": {
+        "name": "Khajrana Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.895489,
+          22.751092
+        ]
+      },
+      "properties": {
+        "name": "Vijay Nagar Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.905865,
+          22.705993
+        ]
+      },
+      "properties": {
+        "name": "Pipliyahana Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.89974,
+          22.692835
+        ]
+      },
+      "properties": {
+        "name": "Musakhedi Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.88618,
+          22.690165
+        ]
+      },
+      "properties": {
+        "name": "Teen Imli Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.833405,
+          22.693107
+        ]
+      },
+      "properties": {
+        "name": "Dussehra Maidan,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.85734,
+          22.6829
+        ]
+      },
+      "properties": {
+        "name": "Rajiv Gandhi Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.84941,
+          22.734062
+        ]
+      },
+      "properties": {
+        "name": "Marimata Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.878175,
+          22.755372
+        ]
+      },
+      "properties": {
+        "name": "MR-10 Square,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.855443,
+          22.716399
+        ]
+      },
+      "properties": {
+        "name": "Bhawrasala Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.825655,
+          22.675835
+        ]
+      },
+      "properties": {
+        "name": "Narmada Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.922072,
+          22.746341
+        ]
+      },
+      "properties": {
+        "name": "Star Square, Nipania,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.86988,
+          22.764756
+        ]
+      },
+      "properties": {
+        "name": "Chandragupta Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.897322,
+          22.729602
+        ]
+      },
+      "properties": {
+        "name": "Gorakund Chauraha,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.875672,
+          22.759702
+        ]
+      },
+      "properties": {
+        "name": "Hira Nagar Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.884467,
+          22.72339
+        ]
+      },
+      "properties": {
+        "name": "Palasia Square,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.826506,
+          22.701947
+        ]
+      },
+      "properties": {
+        "name": "Ring Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.881269,
+          22.700992
+        ]
+      },
+      "properties": {
+        "name": "Bypass Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.881041,
+          22.670201
+        ]
+      },
+      "properties": {
+        "name": "Khandwa Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.85441,
+          22.782762
+        ]
+      },
+      "properties": {
+        "name": "MR-10 Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.893069,
+          22.743239
+        ]
+      },
+      "properties": {
+        "name": "MR-9 Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.872261,
+          22.717808
+        ]
+      },
+      "properties": {
+        "name": "RNT Marg,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.859653,
+          22.716445
+        ]
+      },
+      "properties": {
+        "name": "Jawahar Marg,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.846327,
+          22.718562
+        ]
+      },
+      "properties": {
+        "name": "Maulana Azad Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.854406,
+          22.681497
+        ]
+      },
+      "properties": {
+        "name": "Agra Bombay Road (AB Road),",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.83469,
+          22.711411
+        ]
+      },
+      "properties": {
+        "name": "Dhar Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.790534,
+          22.627274
+        ]
+      },
+      "properties": {
+        "name": "Rau Pithampur Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.894867,
+          22.721887
+        ]
+      },
+      "properties": {
+        "name": "Kanadia Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.89329,
+          22.727522
+        ]
+      },
+      "properties": {
+        "name": "Khajrana Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.903557,
+          22.754691
+        ]
+      },
+      "properties": {
+        "name": "Bombay Hospital Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.825967,
+          22.654822
+        ]
+      },
+      "properties": {
+        "name": "IPS Academy,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.872598,
+          22.717466
+        ]
+      },
+      "properties": {
+        "name": "Medicaps University,",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.902393,
+          22.754324
+        ]
+      },
+      "properties": {
+        "name": "Prestige Institute of Management,",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.86993,
+          22.695065
+        ]
+      },
+      "properties": {
+        "name": "Holkar Science College,",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.943259,
+          22.821542
+        ]
+      },
+      "properties": {
+        "name": "Acropolis Institute of Technology,",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.911564,
+          22.539445
+        ]
+      },
+      "properties": {
+        "name": "Simrol,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.875142,
+          22.694863
+        ]
+      },
+      "properties": {
+        "name": "RGPV Indore Campus",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.855708,
+          22.703622
+        ]
+      },
+      "properties": {
+        "name": "Choithram College,",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.855708,
+          22.703622
+        ]
+      },
+      "properties": {
+        "name": "Choithram School,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.869863,
+          22.712734
+        ]
+      },
+      "properties": {
+        "name": "Indore Christian College,",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.885581,
+          22.760639
+        ]
+      },
+      "properties": {
+        "name": "Indore Institute of Science and Technology,",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.852347,
+          22.636588
+        ]
+      },
+      "properties": {
+        "name": "SAGE University,",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.872598,
+          22.717466
+        ]
+      },
+      "properties": {
+        "name": "Renaissance University,",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.842552,
+          22.713499
+        ]
+      },
+      "properties": {
+        "name": "Shri Cloth Market Higher Secondary School,",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.834703,
+          22.739071
+        ]
+      },
+      "properties": {
+        "name": "St. Raphael's School,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.857626,
+          22.721009
+        ]
+      },
+      "properties": {
+        "name": "Campion School,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.895544,
+          22.702992
+        ]
+      },
+      "properties": {
+        "name": "Daly College,",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.81938,
+          22.650293
+        ]
+      },
+      "properties": {
+        "name": "Emerald Heights School,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.845192,
+          22.797218
+        ]
+      },
+      "properties": {
+        "name": "Sri Aurobindo Institute of Medical Sciences,",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.825763,
+          22.730408
+        ]
+      },
+      "properties": {
+        "name": "Sitlamata Bazaar,",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.851858,
+          22.717895
+        ]
+      },
+      "properties": {
+        "name": "Topkhana Bazaar,",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.856605,
+          22.71828
+        ]
+      },
+      "properties": {
+        "name": "Khau Gali,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.851858,
+          22.717895
+        ]
+      },
+      "properties": {
+        "name": "Itwaria Bazaar,",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.852418,
+          22.716669
+        ]
+      },
+      "properties": {
+        "name": "Bartan Bazaar,",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.852418,
+          22.716669
+        ]
+      },
+      "properties": {
+        "name": "Kasera Bazaar (Bartan Bazaar),",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.839915,
+          22.711903
+        ]
+      },
+      "properties": {
+        "name": "Moolchand Market,",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.851858,
+          22.717895
+        ]
+      },
+      "properties": {
+        "name": "Heritage Bazaar,",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.854776,
+          22.718434
+        ]
+      },
+      "properties": {
+        "name": "Rajwada Market,",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.846493,
+          22.712801
+        ]
+      },
+      "properties": {
+        "name": "Kothari Market,",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.882271,
+          22.73869
+        ]
+      },
+      "properties": {
+        "name": "Johri Bazaar,",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.851858,
+          22.717895
+        ]
+      },
+      "properties": {
+        "name": "Chota Sarafa Bazaar,",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.851858,
+          22.717895
+        ]
+      },
+      "properties": {
+        "name": "Bara Sarafa Bazaar,",
+        "tier": 2,
+        "category": "market"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.860207,
+          22.723894
+        ]
+      },
+      "properties": {
+        "name": "Annapurna Temple,",
+        "tier": 2,
+        "category": "religious"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.908126,
+          22.731226
+        ]
+      },
+      "properties": {
+        "name": "Khajrana Ganesh Temple,",
+        "tier": 2,
+        "category": "religious"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.841872,
+          22.720535
+        ]
+      },
+      "properties": {
+        "name": "Bada Ganpati Temple,",
+        "tier": 2,
+        "category": "religious"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.931427,
+          22.756436
+        ]
+      },
+      "properties": {
+        "name": "ISKCON Temple,",
+        "tier": 2,
+        "category": "religious"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.857431,
+          22.712366
+        ]
+      },
+      "properties": {
+        "name": "Harsiddhi Temple,",
+        "tier": 2,
+        "category": "religious"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.881295,
+          22.70921
+        ]
+      },
+      "properties": {
+        "name": "Nehru Stadium,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.92233,
+          22.64335
+        ]
+      },
+      "properties": {
+        "name": "Ralamandal Wildlife Sanctuary,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.979017,
+          22.572618
+        ]
+      },
+      "properties": {
+        "name": "Tincha Falls,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.857292,
+          22.678345
+        ]
+      },
+      "properties": {
+        "name": "Pipliyapala Regional Park,",
+        "tier": 1,
+        "category": "park"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.820088,
+          22.700619
+        ]
+      },
+      "properties": {
+        "name": "Sirpur Lake,",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.820088,
+          22.700619
+        ]
+      },
+      "properties": {
+        "name": "Sirpur,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.879308,
+          22.705232
+        ]
+      },
+      "properties": {
+        "name": "Central Museum,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.866906,
+          22.720195
+        ]
+      },
+      "properties": {
+        "name": "Gandhi Hall (Town Hall),",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.936084,
+          22.746812
+        ]
+      },
+      "properties": {
+        "name": "Phoenix Citadel Mall,",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.871438,
+          22.718293
+        ]
+      },
+      "properties": {
+        "name": "Nexus Indore Central, RNT Marg,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.896486,
+          22.75232
+        ]
+      },
+      "properties": {
+        "name": "Mangal City Mall,",
+        "tier": 2,
+        "category": "mall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.881461,
+          22.711651
+        ]
+      },
+      "properties": {
+        "name": "MY Hospital (Maharaja Yashwantrao),",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.903557,
+          22.754691
+        ]
+      },
+      "properties": {
+        "name": "Bombay Hospital,",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.882093,
+          22.696983
+        ]
+      },
+      "properties": {
+        "name": "Medanta Super Specialty Hospital,",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.889209,
+          22.73175
+        ]
+      },
+      "properties": {
+        "name": "CHL Apollo Hospital,",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.885175,
+          22.757616
+        ]
+      },
+      "properties": {
+        "name": "Apollo Hospital, Vijay Nagar,",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.855708,
+          22.703622
+        ]
+      },
+      "properties": {
+        "name": "Choithram Hospital,",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.875773,
+          22.718425
+        ]
+      },
+      "properties": {
+        "name": "Sri Aurobindo Hospital,",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.848745,
+          22.72033
+        ]
+      },
+      "properties": {
+        "name": "Arihant Hospital,",
+        "tier": 2,
+        "category": "hospital"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.8917,
+          22.677222
+        ]
+      },
+      "properties": {
+        "name": "Khan River,",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.877071,
+          22.70466
+        ]
+      },
+      "properties": {
+        "name": "Khan (Kanh) River,",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.857831,
+          22.716392
+        ]
+      },
+      "properties": {
+        "name": "Saraswati River,",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.86608,
+          22.69899
+        ]
+      },
+      "properties": {
+        "name": "Saraswati River Nala,",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.881269,
+          22.700992
+        ]
+      },
+      "properties": {
+        "name": "Nala Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.907335,
+          22.708555
+        ]
+      },
+      "properties": {
+        "name": "Pipliyahana Lake,",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.872165,
+          22.654927
+        ]
+      },
+      "properties": {
+        "name": "Bilawali,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.872165,
+          22.654927
+        ]
+      },
+      "properties": {
+        "name": "Bilawali Lake,",
+        "tier": 2,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.894976,
+          22.728187
+        ]
+      },
+      "properties": {
+        "name": "Gambhir River,",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.85853,
+          22.718144
+        ]
+      },
+      "properties": {
+        "name": "Kshipra River,",
+        "tier": 1,
+        "category": "water_body"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.855332,
+          22.739148
+        ]
+      },
+      "properties": {
+        "name": "Pithampur Industrial Area,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.937057,
+          22.804501
+        ]
+      },
+      "properties": {
+        "name": "Sanwer,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.772601,
+          22.752283
+        ]
+      },
+      "properties": {
+        "name": "Hatod,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.652789,
+          22.670612
+        ]
+      },
+      "properties": {
+        "name": "Betma,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.795491,
+          22.735391
+        ]
+      },
+      "properties": {
+        "name": "Depalpur,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.938367,
+          22.660502
+        ]
+      },
+      "properties": {
+        "name": "Kampel,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.848495,
+          22.638319
+        ]
+      },
+      "properties": {
+        "name": "Rau Bypass Road,",
+        "tier": 2,
+        "category": "road"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.790534,
+          22.627274
+        ]
+      },
+      "properties": {
+        "name": "IIM Indore Campus, Rau",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.912683,
+          22.529538
+        ]
+      },
+      "properties": {
+        "name": "IIT Indore Campus, Simrol",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.825967,
+          22.654822
+        ]
+      },
+      "properties": {
+        "name": "IPS Academy Campus,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.852347,
+          22.636588
+        ]
+      },
+      "properties": {
+        "name": "Medicaps University Campus,",
+        "tier": 2,
+        "category": "institution"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.864157,
+          22.769547
+        ]
+      },
+      "properties": {
+        "name": "ISBT (MR-10),",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.803254,
+          22.720374
+        ]
+      },
+      "properties": {
+        "name": "Devi Ahilya Bai Holkar Airport,",
+        "tier": 2,
+        "category": "airport"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.867683,
+          22.719867
+        ]
+      },
+      "properties": {
+        "name": "Indore Metro Rail,",
+        "tier": 2,
+        "category": "metro_station"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.855332,
+          22.739148
+        ]
+      },
+      "properties": {
+        "name": "Sanwer Industrial Area,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.855332,
+          22.739148
+        ]
+      },
+      "properties": {
+        "name": "Rau Industrial Area,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.855332,
+          22.739148
+        ]
+      },
+      "properties": {
+        "name": "Laxmibainagar Industrial Area,",
+        "tier": 2,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.86169,
+          22.72596
+        ]
+      },
+      "properties": {
+        "name": "Polo Ground,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.901117,
+          22.728973
+        ]
+      },
+      "properties": {
+        "name": "Sheetal Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.85389,
+          22.720447
+        ]
+      },
+      "properties": {
+        "name": "Suman Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.857626,
+          22.721009
+        ]
+      },
+      "properties": {
+        "name": "Mangal Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.892617,
+          22.723141
+        ]
+      },
+      "properties": {
+        "name": "Gayatri Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.867543,
+          22.757918
+        ]
+      },
+      "properties": {
+        "name": "Shyam Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.836048,
+          22.698175
+        ]
+      },
+      "properties": {
+        "name": "Ganesh Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.857626,
+          22.721009
+        ]
+      },
+      "properties": {
+        "name": "Anandi Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.857626,
+          22.721009
+        ]
+      },
+      "properties": {
+        "name": "Mumtaz Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.857626,
+          22.721009
+        ]
+      },
+      "properties": {
+        "name": "Vakratund Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.895343,
+          22.720547
+        ]
+      },
+      "properties": {
+        "name": "Sanjeevani Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.867683,
+          22.689338
+        ]
+      },
+      "properties": {
+        "name": "Indrapuri Colony,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.835487,
+          22.741544
+        ]
+      },
+      "properties": {
+        "name": "Sangam Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.86169,
+          22.72596
+        ]
+      },
+      "properties": {
+        "name": "Ram Bagh,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.867091,
+          22.699639
+        ]
+      },
+      "properties": {
+        "name": "Raj Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.857626,
+          22.721009
+        ]
+      },
+      "properties": {
+        "name": "Nyay Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.857626,
+          22.721009
+        ]
+      },
+      "properties": {
+        "name": "Prabhu Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.893259,
+          22.731192
+        ]
+      },
+      "properties": {
+        "name": "Anoop Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.832148,
+          22.688322
+        ]
+      },
+      "properties": {
+        "name": "Sudama Puri,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.869003,
+          22.700802
+        ]
+      },
+      "properties": {
+        "name": "Sapna Nagar,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.886163,
+          22.73781
+        ]
+      },
+      "properties": {
+        "name": "MIG Colony,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.886724,
+          22.737737
+        ]
+      },
+      "properties": {
+        "name": "LIG Colony,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.864138,
+          22.702599
+        ]
+      },
+      "properties": {
+        "name": "HIG Colony,",
+        "tier": 1,
+        "category": "neighborhood"
+      }
+    }
+  ]
+}

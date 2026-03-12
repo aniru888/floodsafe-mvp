@@ -4,7 +4,7 @@ import { useSensors, useReports, useHistoricalFloods, useHotspots, useFloodHubGa
 // usePredictionGrid removed - ensemble models not trained (see line 95-105)
 import maplibregl from 'maplibre-gl';
 import { Button } from './ui/button';
-import { Plus, Minus, Navigation, Layers, Train, AlertCircle, MapPin, History, Droplets, Waves, Camera } from 'lucide-react';
+import { Plus, Minus, Navigation, Layers, Train, AlertCircle, MapPin, History, Droplets, Waves, Camera, Type } from 'lucide-react';
 import MapLegend from './MapLegend';
 import SearchBar from './SearchBar';
 import HistoricalFloodsPanel from './HistoricalFloodsPanel';
@@ -44,6 +44,7 @@ interface LayersVisibility {
     hotspots: boolean;     // 90 Delhi waterlogging hotspots (62 MCD + 28 OSM)
     floodhub: boolean;     // Google Flood Forecasting inundation extent
     pubCCTVs: boolean;     // PUB flood monitoring CCTVs (Singapore only)
+    aliasLabels: boolean;  // Area/neighborhood name labels on map
 }
 
 interface MapBounds {
@@ -87,6 +88,7 @@ export default function MapComponent({
         hotspots: true,     // Waterlogging hotspots ON by default
         floodhub: true,     // Google Flood Forecasting inundation ON by default
         pubCCTVs: false,    // PUB CCTVs OFF by default
+        aliasLabels: true,  // Area labels ON by default (subtle, like Google Maps)
     });
     const [_mapBounds, setMapBounds] = useState<MapBounds | null>(null);
     const [showHistoricalPanel, setShowHistoricalPanel] = useState(false);
@@ -1662,6 +1664,14 @@ export default function MapComponent({
         if (map.getLayer('pub-cctv-layer')) {
             map.setLayoutProperty('pub-cctv-layer', 'visibility', layersVisible.pubCCTVs ? 'visible' : 'none');
         }
+
+        // Toggle alias label layers (area/neighborhood names)
+        for (const tier of ['alias-labels-tier1', 'alias-labels-tier2', 'alias-labels-tier3']) {
+            if (map.getLayer(tier)) {
+                map.setLayoutProperty(tier, 'visibility',
+                    layersVisible.aliasLabels ? 'visible' : 'none');
+            }
+        }
         } catch (error) {
             console.error('Error toggling layer visibility:', error);
         }
@@ -2021,6 +2031,14 @@ export default function MapComponent({
                                 <Camera className="h-4 w-4" />
                             </Button>
                         )}
+                        <Button
+                            size="icon"
+                            onClick={() => setLayersVisible(prev => ({ ...prev, aliasLabels: !prev.aliasLabels }))}
+                            className={`${layersVisible.aliasLabels ? '!bg-amber-500 hover:!bg-amber-600 !text-white' : '!bg-card/90 backdrop-blur-sm !text-foreground border border-border hover:!bg-secondary'} shadow-lg rounded-full w-9 h-9 md:w-10 md:h-10 !opacity-100`}
+                            title="Toggle area labels"
+                        >
+                            <Type className="h-4 w-4" />
+                        </Button>
                     </div>
 
                     {/* Map Legend - Bottom Right (shifts up when live navigation is active) */}
