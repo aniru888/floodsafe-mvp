@@ -45,6 +45,7 @@ class GaugeStatus(BaseModel):
     quality_verified: bool = False
     forecast_trend: Optional[str] = None  # RISE, FALL, NO_CHANGE
     inundation_map_set: Optional[dict] = None  # {level: polygon_id}
+    notification_polygon_id: Optional[str] = None  # Evacuation/notification zone polygon
 
 
 class ForecastPoint(BaseModel):
@@ -379,6 +380,9 @@ class FloodHubService:
                     for imap in imap_set["inundationMaps"]:
                         inundation[imap.get("level", "UNKNOWN")] = imap.get("serializedPolygonId", "")
 
+                # Extract notification/evacuation polygon (separate from inundation maps)
+                notification_polygon_id = status.get("serializedNotificationPolygonId")
+
                 issued_str = status.get("issuedTime", "")
                 if issued_str:
                     issued_time = datetime.fromisoformat(issued_str.replace("Z", "+00:00"))
@@ -398,6 +402,7 @@ class FloodHubService:
                     quality_verified=gauge.get("qualityVerified", False),
                     forecast_trend=status.get("forecastTrend"),
                     inundation_map_set=inundation,
+                    notification_polygon_id=notification_polygon_id,
                 ))
 
             self._set_cached(cache_key, result)
@@ -515,13 +520,19 @@ class FloodHubService:
             # Fetch gauge model for thresholds
             model = await self._get_single_gauge_model(gauge_id)
 
-            # Find gauge site name from cached gauges
+            # Find gauge site name from cached gauges (search all regions, not just India)
             site_name = "Unknown Station"
-            all_gauges = await self.get_region_gauges("IN")
-            for g in all_gauges:
-                if g.get("gaugeId") == gauge_id:
-                    site_name = g.get("siteName", "") or "Unknown Station"
-                    break
+            for region_code in ["IN", "ID", "SG"]:
+                try:
+                    region_gauges = await self.get_region_gauges(region_code)
+                    for g in region_gauges:
+                        if g.get("gaugeId") == gauge_id:
+                            site_name = g.get("siteName", "") or "Unknown Station"
+                            break
+                    if site_name != "Unknown Station":
+                        break
+                except Exception:
+                    continue  # Skip regions that fail
 
             result = GaugeForecast(
                 gauge_id=gauge_id,

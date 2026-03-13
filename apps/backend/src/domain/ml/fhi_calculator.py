@@ -666,10 +666,11 @@ class FHICalculator:
                 0.2 * (precip_72h_corrected / precip_threshold)
         )
 
-        # I: Intensity (hourly max) with probability correction
+        # I: Intensity (hourly max from forecast, NO correction factor)
+        # Correction only applies to P (cumulative forecast uncertainty).
+        # Intensity is a point-in-time maximum — boosting it inflates flash flood signal.
         hourly_max = max(precip_hourly[:24]) if precip_hourly else 0
-        hourly_max_corrected = hourly_max * correction_factor
-        I = min(1.0, hourly_max_corrected / intensity_threshold)
+        I = min(1.0, hourly_max / intensity_threshold)
 
         # S: Saturation Component — Antecedent Precipitation Index (API) + ERA5 soil moisture
         # API captures 14-day exponential decay: recent rain weighted more than old rain
@@ -698,10 +699,19 @@ class FHICalculator:
             else:
                 S = 0.3 * antecedent_proxy + 0.7 * soil_norm
 
-        # A: Antecedent conditions (total 3-day precipitation) with probability correction
+        # A: Antecedent conditions — OBSERVED past 3-day rainfall (no correction!)
         # Distinct from S: A measures short-term 3-day burst, S measures 14-day long-term wetness
-        precip_3d_corrected = precip_3d * correction_factor
-        A = min(1.0, precip_3d_corrected / antecedent_threshold)
+        # Uses PAST data because antecedent = what already fell, not forecast uncertainty
+        if historical_daily_precip and len(historical_daily_precip) >= 3:
+            past_3d_total = sum(
+                p if p is not None else 0.0
+                for p in historical_daily_precip[-3:]  # Last 3 days of observed data
+            )
+        else:
+            # Fallback: use forecast 3-day total (original behavior)
+            past_3d_total = precip_3d
+            logger.debug("A component: no past data, falling back to forecast 3d total")
+        A = min(1.0, past_3d_total / antecedent_threshold)
 
         # R: Runoff Potential (pressure-based)
         avg_pressure = sum(surface_pressure[:24]) / 24 if surface_pressure else 1013
