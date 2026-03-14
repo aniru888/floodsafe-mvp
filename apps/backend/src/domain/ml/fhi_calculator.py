@@ -372,13 +372,24 @@ class FHICalculator:
         fhi_weather_breaker.record_failure()
         raise FHICalculationError(f"Failed after {max_attempts} attempts: {last_error}")
 
-    async def calculate_fhi(self, lat: float, lng: float) -> FHIResult:
+    async def calculate_fhi(
+        self,
+        lat: float,
+        lng: float,
+        override_precip: Optional[float] = None,
+        force_open_meteo: bool = False,
+    ) -> FHIResult:
         """
         Calculate FHI for a location with probability-based correction and rain-gate.
 
         Args:
             lat: Latitude
             lng: Longitude
+            override_precip: If provided, skip weather API and use this value as the
+                uniform hourly precipitation rate (mm/h) for all 72 forecast hours.
+                Useful for weight optimization scripts and unit tests.
+            force_open_meteo: If True, always use Open-Meteo regardless of city
+                (skips NEA for Singapore and OWM for Yogyakarta).
 
         Returns:
             FHIResult with score, level, color, components, and calibration metadata
@@ -386,69 +397,91 @@ class FHICalculator:
         Raises:
             FHICalculationError: If calculation fails
         """
-        # Check cache
+        # Check cache (only when not using overrides, to avoid poisoning cache)
         cache_key = f"{lat:.4f},{lng:.4f}"
-        cached_result = self._get_from_cache(cache_key)
-        if cached_result is not None:
-            logger.info(f"FHI cache hit for ({lat:.4f}, {lng:.4f})")
-            return cached_result
+        if override_precip is None and not force_open_meteo:
+            cached_result = self._get_from_cache(cache_key)
+            if cached_result is not None:
+                logger.info(f"FHI cache hit for ({lat:.4f}, {lng:.4f})")
+                return cached_result
 
         try:
             # Detect city EARLY for per-city calibration (before correction factor)
             detected_city = self._detect_city(lat, lng)
             calibration = self._get_calibration(detected_city)
 
-            # Fetch data in parallel
-            elevation, weather = await asyncio.gather(
-                self._fetch_elevation(lat, lng),
-                self._fetch_weather(lat, lng),
-            )
+            # --- PRECIPITATION OVERRIDE PATH ---
+            # When override_precip is provided, skip the weather API entirely and
+            # synthesise a uniform hourly precipitation array from the given value.
+            if override_precip is not None:
+                elevation = await self._fetch_elevation(lat, lng)
+                # Distribute override_precip (total mm over 24h) as uniform hourly rate
+                hourly_rate = override_precip / 24.0
+                precip_hourly_clean = [hourly_rate] * 72
+                soil_moisture = [0.2] * 72          # neutral soil moisture
+                surface_pressure = [1013.0] * 72    # standard pressure
+                historical_daily_precip = [override_precip / 3.0] * 14  # uniform 14-day history
+                precip_prob_max = 75.0  # assume high probability when override is active
+                data_source = "override"
+                logger.info(
+                    f"FHI override_precip={override_precip:.1f}mm for ({lat:.4f}, {lng:.4f}), "
+                    f"city={detected_city}"
+                )
+            else:
+                # --- NORMAL PATH: fetch from weather APIs ---
 
-            # Extract weather components with past_days offset
-            # With past_days=14: hourly arrays have 336 past + 72 forecast = 408 values
-            # Daily arrays have 14 past + 3 forecast = 17 values
-            hourly = weather.get("hourly", {})
-            daily = weather.get("daily", {})
+                # Fetch data in parallel
+                elevation, weather = await asyncio.gather(
+                    self._fetch_elevation(lat, lng),
+                    self._fetch_weather(lat, lng),
+                )
 
-            past_hours = self.PAST_DAYS * 24  # 336
-            past_daily_count = self.PAST_DAYS  # 14
+                # Extract weather components with past_days offset
+                # With past_days=14: hourly arrays have 336 past + 72 forecast = 408 values
+                # Daily arrays have 14 past + 3 forecast = 17 values
+                hourly = weather.get("hourly", {})
+                daily = weather.get("daily", {})
 
-            # Full arrays (past + forecast)
-            precip_hourly_full = hourly.get("precipitation", [0] * (past_hours + 72))
-            soil_moisture_full = hourly.get("soil_moisture_0_to_7cm", [0.2] * (past_hours + 72))
-            surface_pressure_full = hourly.get("surface_pressure", [1013] * (past_hours + 72))
+                past_hours = self.PAST_DAYS * 24  # 336
+                past_daily_count = self.PAST_DAYS  # 14
 
-            # Extract FORECAST-ONLY portion (offset past historical hours)
-            precip_hourly = precip_hourly_full[past_hours:]
-            soil_moisture = soil_moisture_full[past_hours:]
-            surface_pressure = surface_pressure_full[past_hours:]
+                # Full arrays (past + forecast)
+                precip_hourly_full = hourly.get("precipitation", [0] * (past_hours + 72))
+                soil_moisture_full = hourly.get("soil_moisture_0_to_7cm", [0.2] * (past_hours + 72))
+                surface_pressure_full = hourly.get("surface_pressure", [1013] * (past_hours + 72))
 
-            # Extract historical daily precipitation for API calculation
-            daily_precip_all = daily.get("precipitation_sum", [])
-            historical_daily_precip = daily_precip_all[:past_daily_count]
+                # Extract FORECAST-ONLY portion (offset past historical hours)
+                precip_hourly = precip_hourly_full[past_hours:]
+                soil_moisture = soil_moisture_full[past_hours:]
+                surface_pressure = surface_pressure_full[past_hours:]
 
-            # Fallback: if daily precipitation_sum unavailable, compute from hourly
-            if not historical_daily_precip and len(precip_hourly_full) >= past_hours:
-                logger.warning("daily precipitation_sum missing — computing from hourly data")
-                historical_daily_precip = []
-                for day_idx in range(self.PAST_DAYS):
-                    start = day_idx * 24
-                    end = start + 24
-                    day_vals = precip_hourly_full[start:end]
-                    day_sum = sum(v if v is not None else 0.0 for v in day_vals)
-                    historical_daily_precip.append(day_sum)
+                # Extract historical daily precipitation for API calculation
+                daily_precip_all = daily.get("precipitation_sum", [])
+                historical_daily_precip = daily_precip_all[:past_daily_count]
 
-            # Extract precipitation probability from FORECAST-ONLY daily data
-            daily_prob_all = daily.get("precipitation_probability_max", [])
-            forecast_prob = daily_prob_all[past_daily_count:]  # Skip past days
-            precip_prob_max = max([p for p in forecast_prob if p is not None], default=50)
+                # Fallback: if daily precipitation_sum unavailable, compute from hourly
+                if not historical_daily_precip and len(precip_hourly_full) >= past_hours:
+                    logger.warning("daily precipitation_sum missing — computing from hourly data")
+                    historical_daily_precip = []
+                    for day_idx in range(self.PAST_DAYS):
+                        start = day_idx * 24
+                        end = start + 24
+                        day_vals = precip_hourly_full[start:end]
+                        day_sum = sum(v if v is not None else 0.0 for v in day_vals)
+                        historical_daily_precip.append(day_sum)
 
-            # Clean forecast precipitation data (None → 0.0)
-            precip_hourly_clean = [p if p is not None else 0.0 for p in precip_hourly]
+                # Extract precipitation probability from FORECAST-ONLY daily data
+                daily_prob_all = daily.get("precipitation_probability_max", [])
+                forecast_prob = daily_prob_all[past_daily_count:]  # Skip past days
+                precip_prob_max = max([p for p in forecast_prob if p is not None], default=50)
 
-            # For Singapore: try NEA real-time rainfall (5-min resolution, 60x better)
-            data_source = "open-meteo"
-            if detected_city == "singapore":
+                # Clean forecast precipitation data (None → 0.0)
+                precip_hourly_clean = [p if p is not None else 0.0 for p in precip_hourly]
+
+                # For Singapore: try NEA real-time rainfall (5-min resolution, 60x better)
+                data_source = "open-meteo"
+
+            if override_precip is None and not force_open_meteo and detected_city == "singapore":
                 try:
                     from src.domain.services.nea_weather_service import get_nea_weather_service
                     nea_service = get_nea_weather_service()
@@ -471,7 +504,8 @@ class FHICalculator:
                     data_source = "open-meteo-fallback"
 
             # For Yogyakarta: try OpenWeatherMap (minutely precip, better tropical resolution)
-            elif detected_city == "yogyakarta" and calibration.get("weather_source") == "owm":
+            elif (override_precip is None and not force_open_meteo
+                  and detected_city == "yogyakarta" and calibration.get("weather_source") == "owm"):
                 try:
                     from src.domain.services.owm_weather_service import get_owm_weather_service
                     owm_service = get_owm_weather_service()
@@ -569,8 +603,9 @@ class FHICalculator:
                 hourly_max_mm=hourly_max_mm,
             )
 
-            # Cache result
-            self._save_to_cache(cache_key, result)
+            # Cache result (skip when override params are active to avoid poisoning cache)
+            if override_precip is None and not force_open_meteo:
+                self._save_to_cache(cache_key, result)
 
             logger.info(
                 f"FHI calculated for ({lat:.4f}, {lng:.4f}): "

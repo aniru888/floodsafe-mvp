@@ -15,7 +15,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from src.infrastructure.database import get_db
-from src.infrastructure.models import User, Badge, AdminInvite, GroundsourceCluster, CandidateHotspot
+from src.infrastructure.models import User, Badge, AdminInvite, GroundsourceCluster, CandidateHotspot, WatchArea
 from src.api.deps import get_current_admin_user
 from src.core.config import settings
 from src.domain.services.security import (
@@ -145,6 +145,13 @@ class ClusterReviewRequest(BaseModel):
     """Request to promote or dismiss a Groundsource cluster."""
     action: str = Field(..., pattern="^(promote|dismiss)$", description="'promote' or 'dismiss'")
     dismiss_reason: Optional[str] = Field(None, max_length=500)
+
+
+class PinRelocateRequest(BaseModel):
+    """Request to relocate a personal pin to corrected coordinates."""
+    latitude: float = Field(..., ge=-90, le=90)
+    longitude: float = Field(..., ge=-180, le=180)
+    reason: str = Field(..., min_length=5, max_length=500)
 
 
 # =============================================================================
@@ -797,3 +804,127 @@ async def review_cluster(
             "status": "dismissed",
             "cluster_id": str(cluster_id),
         }
+
+
+# =============================================================================
+# PERSONAL PIN MANAGEMENT
+# =============================================================================
+
+@router.get("/pins")
+async def list_personal_pins(
+    city: Optional[str] = Query(None, description="Filter by city"),
+    sort_by: Optional[str] = Query(
+        None,
+        description="Sort field: 'fhi' | 'date' | 'city'",
+        pattern="^(fhi|date|city)$",
+    ),
+    page: int = Query(1, ge=1),
+    per_page: int = Query(20, ge=1, le=100),
+    admin: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db),
+):
+    """
+    List all personal pins (is_personal_hotspot=TRUE watch areas) for admin review.
+    Returns pin data enriched with owner username and email.
+    """
+    from sqlalchemy import func as sa_func
+
+    query = (
+        db.query(WatchArea, User)
+        .join(User, WatchArea.user_id == User.id, isouter=True)
+        .filter(WatchArea.is_personal_hotspot == True)  # noqa: E712
+    )
+
+    if city:
+        query = query.filter(WatchArea.city == city)
+
+    # Sorting
+    if sort_by == "fhi":
+        query = query.order_by(WatchArea.fhi_score.desc().nullslast())
+    elif sort_by == "city":
+        query = query.order_by(WatchArea.city.asc(), WatchArea.created_at.desc())
+    else:  # default: date (most recent first)
+        query = query.order_by(WatchArea.created_at.desc())
+
+    total = query.count()
+    rows = query.offset((page - 1) * per_page).limit(per_page).all()
+
+    items = []
+    for wa, owner in rows:
+        lat = db.scalar(sa_func.ST_Y(wa.location)) if wa.location is not None else None
+        lng = db.scalar(sa_func.ST_X(wa.location)) if wa.location is not None else None
+        items.append({
+            "id": str(wa.id),
+            "name": wa.name,
+            "city": wa.city,
+            "latitude": lat,
+            "longitude": lng,
+            "fhi_score": wa.fhi_score,
+            "fhi_level": wa.fhi_level,
+            "historical_episode_count": wa.historical_episode_count,
+            "alert_radius": wa.alert_radius,
+            "visibility": wa.visibility,
+            "source": wa.source,
+            "created_at": wa.created_at.isoformat() if wa.created_at else None,
+            "fhi_updated_at": wa.fhi_updated_at.isoformat() if wa.fhi_updated_at else None,
+            "owner": {
+                "id": str(owner.id) if owner else None,
+                "username": owner.username if owner else None,
+                "email": owner.email if owner else None,
+            },
+        })
+
+    return {"total": total, "page": page, "per_page": per_page, "items": items}
+
+
+@router.patch("/pins/{pin_id}/relocate")
+async def relocate_pin(
+    pin_id: UUID,
+    req: PinRelocateRequest,
+    request: Request,
+    admin: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db),
+):
+    """
+    Admin correction: move a personal pin to new coordinates.
+    Useful when a user's pin is placed on the wrong street or offset by GPS error.
+    Writes an audit log entry for accountability.
+    """
+    from geoalchemy2.shape import from_shape
+    from shapely.geometry import Point
+
+    pin = db.query(WatchArea).filter(
+        WatchArea.id == pin_id,
+        WatchArea.is_personal_hotspot == True,  # noqa: E712
+    ).first()
+    if not pin:
+        raise HTTPException(status_code=404, detail="Personal pin not found")
+
+    old_location = {
+        "latitude": db.scalar(__import__("sqlalchemy").func.ST_Y(pin.location)) if pin.location else None,
+        "longitude": db.scalar(__import__("sqlalchemy").func.ST_X(pin.location)) if pin.location else None,
+    }
+
+    pin.location = from_shape(Point(req.longitude, req.latitude), srid=4326)
+    # Reset snapped_location so the ML pipeline can re-snap on next update
+    pin.snapped_location = None
+
+    admin_service.log_admin_action(
+        db, admin.id, "relocate_pin",
+        target_type="watch_area", target_id=str(pin_id),
+        details=json.dumps({
+            "old_location": old_location,
+            "new_latitude": req.latitude,
+            "new_longitude": req.longitude,
+            "reason": req.reason,
+        }),
+        ip_address=request.client.host if request.client else None,
+    )
+    db.commit()
+
+    return {
+        "status": "relocated",
+        "pin_id": str(pin_id),
+        "new_latitude": req.latitude,
+        "new_longitude": req.longitude,
+    }
