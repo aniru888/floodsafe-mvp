@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useMap } from '../lib/map/useMap';
-import { useSensors, useReports, useHistoricalFloods, useHotspots, useFloodHubGauges, useFloodHubInundation, Sensor, Report } from '../lib/api/hooks';
+import { useSensors, useReports, useHistoricalFloods, useHotspots, useFloodHubGauges, useFloodHubInundation, useGroundsourceClusters, useCreatePin, Sensor, Report } from '../lib/api/hooks';
 // usePredictionGrid removed - ensemble models not trained (see line 95-105)
 import maplibregl from 'maplibre-gl';
 import { Button } from './ui/button';
-import { Plus, Minus, Navigation, Layers, Train, AlertCircle, MapPin, History, Droplets, Waves, Camera, Type } from 'lucide-react';
+import { Plus, Minus, Navigation, Layers, Train, AlertCircle, MapPin, History, Droplets, Waves, Camera, Type, X } from 'lucide-react';
 import MapLegend from './MapLegend';
 import SearchBar from './SearchBar';
 import HistoricalFloodsPanel from './HistoricalFloodsPanel';
@@ -32,6 +32,9 @@ interface MapComponentProps {
     nearbyMetros?: MetroStation[];
     floodZones?: GeoJSON.FeatureCollection;
     onMetroClick?: (station: MetroStation) => void;
+    // Pin-drop mode — caller can activate via prop
+    pinDropActive?: boolean;
+    onPinDropChange?: (active: boolean) => void;
 }
 
 interface LayersVisibility {
@@ -67,7 +70,9 @@ export default function MapComponent({
     navigationDestination,
     nearbyMetros,
     floodZones,
-    onMetroClick
+    onMetroClick,
+    pinDropActive,
+    onPinDropChange,
 }: MapComponentProps) {
     const mapContainer = useRef<HTMLDivElement>(null);
     const city = useCurrentCity();
@@ -93,6 +98,25 @@ export default function MapComponent({
     const [_mapBounds, setMapBounds] = useState<MapBounds | null>(null);
     const [showHistoricalPanel, setShowHistoricalPanel] = useState(false);
     const [showMethodology, setShowMethodology] = useState(false);
+
+    // ── Pin-drop mode ──────────────────────────────────────────────────────
+    // Internal state mirrors pinDropActive prop when provided
+    const [isPinDropMode, setIsPinDropModeInternal] = useState(false);
+    const setIsPinDropMode = (active: boolean) => {
+        setIsPinDropModeInternal(active);
+        onPinDropChange?.(active);
+    };
+    // Keep internal state in sync with controlled prop
+    useEffect(() => {
+        if (pinDropActive !== undefined) {
+            setIsPinDropModeInternal(pinDropActive);
+        }
+    }, [pinDropActive]);
+    const [pinConfirm, setPinConfirm] = useState<{ lat: number; lng: number } | null>(null);
+    const [pinName, setPinName] = useState('');
+    const createPinMutation = useCreatePin();
+    // ── Groundsource clusters ──────────────────────────────────────────────
+    const { data: clustersData } = useGroundsourceClusters(city);
 
     // User location tracking state
     const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
@@ -1520,11 +1544,124 @@ export default function MapComponent({
             map.on('mouseleave', 'pub-cctv-layer', () => { map.getCanvas().style.cursor = ''; });
         }
 
+        // ── 8. Groundsource Cluster Layer ────────────────────────────────────
+        if (clustersData && clustersData.length > 0) {
+            const clustersGeoJSON: GeoJSON.FeatureCollection = {
+                type: 'FeatureCollection',
+                features: clustersData.map(cluster => ({
+                    type: 'Feature' as const,
+                    geometry: {
+                        type: 'Point' as const,
+                        coordinates: [cluster.longitude, cluster.latitude],
+                    },
+                    properties: {
+                        id: cluster.id,
+                        city: cluster.city,
+                        episode_count: cluster.episode_count,
+                        overlap_status: cluster.overlap_status,
+                        nearest_hotspot_name: cluster.nearest_hotspot_name ?? '',
+                        confidence: cluster.confidence,
+                        label: cluster.label ?? '',
+                        // radius clamped 8-20 proportional to episode count (1-20+)
+                        radius: Math.min(20, Math.max(8, 8 + (cluster.episode_count - 1) * 0.6)),
+                    },
+                })),
+            };
+
+            const existingSource = map.getSource('groundsource-clusters') as maplibregl.GeoJSONSource;
+            if (existingSource) {
+                existingSource.setData(clustersGeoJSON);
+            } else {
+                map.addSource('groundsource-clusters', {
+                    type: 'geojson',
+                    data: clustersGeoJSON,
+                });
+
+                // Halo
+                map.addLayer({
+                    id: 'groundsource-clusters-halo',
+                    type: 'circle',
+                    source: 'groundsource-clusters',
+                    paint: {
+                        'circle-radius': ['get', 'radius'],
+                        'circle-color': [
+                            'match', ['get', 'overlap_status'],
+                            'CONFIRMED', '#3b82f6',
+                            'PERIPHERAL', '#f59e0b',
+                            'MISSED', '#ef4444',
+                            '#9ca3af',
+                        ],
+                        'circle-opacity': 0.2,
+                        'circle-blur': 0.6,
+                    },
+                });
+
+                // Main dot
+                map.addLayer({
+                    id: 'groundsource-clusters-layer',
+                    type: 'circle',
+                    source: 'groundsource-clusters',
+                    paint: {
+                        'circle-radius': ['get', 'radius'],
+                        'circle-color': [
+                            'match', ['get', 'overlap_status'],
+                            'CONFIRMED', '#3b82f6',
+                            'PERIPHERAL', '#f59e0b',
+                            'MISSED', '#ef4444',
+                            '#9ca3af',
+                        ],
+                        'circle-stroke-width': 2,
+                        'circle-stroke-color': '#ffffff',
+                        'circle-opacity': 0.85,
+                    },
+                });
+
+                // Click popup
+                map.on('click', 'groundsource-clusters-layer', (e: maplibregl.MapMouseEvent) => {
+                    const features = map.queryRenderedFeatures(e.point, { layers: ['groundsource-clusters-layer'] });
+                    if (!features || features.length === 0) return;
+                    const feature = features[0];
+                    if (!feature.geometry || feature.geometry.type !== 'Point') return;
+                    const coords = (feature.geometry as GeoJSON.Point).coordinates.slice() as [number, number];
+                    const props = feature.properties;
+                    const statusColors: Record<string, string> = {
+                        CONFIRMED: '#3b82f6', PERIPHERAL: '#f59e0b', MISSED: '#ef4444',
+                    };
+                    const color = statusColors[props.overlap_status as string] || '#9ca3af';
+                    new maplibregl.Popup({ offset: 12, maxWidth: 'min(320px, calc(100vw - 32px))' })
+                        .setLngLat(coords)
+                        .setHTML(`
+                            <div class="p-3 min-w-[180px]">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <div class="w-3 h-3 rounded-full" style="background-color:${color}"></div>
+                                    <h3 class="font-bold text-sm">Flood Cluster</h3>
+                                </div>
+                                <p class="text-sm font-medium mb-1">${props.label || 'Unnamed cluster'}</p>
+                                <div class="text-xs space-y-1 text-muted-foreground">
+                                    <div><strong>Episodes:</strong> ${props.episode_count}</div>
+                                    <div><strong>Overlap:</strong> ${props.overlap_status}</div>
+                                    <div><strong>Confidence:</strong> ${props.confidence}</div>
+                                    ${props.nearest_hotspot_name ? `<div><strong>Nearest hotspot:</strong> ${props.nearest_hotspot_name}</div>` : ''}
+                                </div>
+                            </div>
+                        `)
+                        .addTo(map);
+                });
+
+                map.on('mouseenter', 'groundsource-clusters-layer', () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+                map.on('mouseleave', 'groundsource-clusters-layer', () => {
+                    map.getCanvas().style.cursor = isPinDropMode ? 'crosshair' : '';
+                });
+            }
+        }
+
         } catch (error) {
             console.error('Error updating map layers:', error);
         }
 
-    }, [map, isLoaded, mapStyleReady, sensors, reports, hotspotsData, hasHotspots, navigationRoutes, selectedRouteId, navigationOrigin, navigationDestination, nearbyMetros, floodZones, onMetroClick, inundationGeoJSON, activeInundationGauge]);
+    }, [map, isLoaded, mapStyleReady, sensors, reports, hotspotsData, hasHotspots, navigationRoutes, selectedRouteId, navigationOrigin, navigationDestination, nearbyMetros, floodZones, onMetroClick, inundationGeoJSON, activeInundationGauge, clustersData, isPinDropMode]);
 
     // Auto-zoom map to fit routes when calculated
     useEffect(() => {
@@ -1676,6 +1813,50 @@ export default function MapComponent({
             console.error('Error toggling layer visibility:', error);
         }
     }, [map, isLoaded, layersVisible]);
+
+    // ── Pin-drop mode: cursor + click handler ─────────────────────────────
+    useEffect(() => {
+        if (!map || !isLoaded) return;
+
+        // Apply crosshair cursor when pin-drop mode is active
+        map.getCanvas().style.cursor = isPinDropMode ? 'crosshair' : '';
+
+        if (!isPinDropMode) return;
+
+        const handlePinClick = (e: maplibregl.MapMouseEvent) => {
+            const { lat, lng } = e.lngLat;
+            setPinConfirm({ lat, lng });
+            setPinName('');
+        };
+
+        map.on('click', handlePinClick);
+        return () => {
+            map.off('click', handlePinClick);
+            map.getCanvas().style.cursor = '';
+        };
+    }, [map, isLoaded, isPinDropMode]);
+
+    const handleConfirmPin = () => {
+        if (!pinConfirm || !pinName.trim()) return;
+        createPinMutation.mutate(
+            { latitude: pinConfirm.lat, longitude: pinConfirm.lng, name: pinName.trim(), city },
+            {
+                onSuccess: () => {
+                    toast.success('Pin created', { description: pinName.trim(), duration: 3000 });
+                    setPinConfirm(null);
+                    setPinName('');
+                    setIsPinDropMode(false);
+                },
+                onError: (err: Error) => toast.error('Failed to create pin', { description: err.message }),
+            }
+        );
+    };
+
+    const handleCancelPin = () => {
+        setPinConfirm(null);
+        setPinName('');
+        setIsPinDropMode(false);
+    };
 
     const handleZoomIn = () => {
         if (map) map.zoomIn();
@@ -1943,6 +2124,65 @@ export default function MapComponent({
                 </div>
             )}
             <div ref={mapContainer} className={`${className} relative`} style={{ width: '100%', height: '100%', minHeight: '300px' }} />
+
+            {/* Pin-drop mode instruction banner */}
+            {isPinDropMode && !pinConfirm && (
+                <div
+                    className="absolute left-1/2 pointer-events-auto flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2.5 rounded-xl shadow-xl text-sm font-medium"
+                    style={{ top: '72px', transform: 'translateX(-50%)', zIndex: 110, whiteSpace: 'nowrap' }}
+                >
+                    <MapPin className="h-4 w-4 shrink-0" />
+                    <span>Tap the map to place your flood watch pin</span>
+                    <button
+                        onClick={handleCancelPin}
+                        className="ml-2 rounded-full bg-primary-foreground/20 hover:bg-primary-foreground/30 p-0.5 transition-colors"
+                        title="Cancel pin drop"
+                    >
+                        <X className="h-3.5 w-3.5" />
+                    </button>
+                </div>
+            )}
+
+            {/* Pin-drop confirmation dialog */}
+            {pinConfirm && (
+                <div
+                    className="absolute left-1/2 pointer-events-auto bg-card border border-border rounded-xl shadow-2xl p-4 w-72 max-w-[calc(100vw-32px)]"
+                    style={{ top: '72px', transform: 'translateX(-50%)', zIndex: 120 }}
+                >
+                    <h3 className="font-semibold text-sm text-foreground mb-1">Place pin here?</h3>
+                    <p className="text-xs text-muted-foreground mb-3">
+                        {pinConfirm.lat.toFixed(5)}, {pinConfirm.lng.toFixed(5)}
+                    </p>
+                    <input
+                        type="text"
+                        placeholder="Pin name (e.g. Home, Office)"
+                        value={pinName}
+                        onChange={e => setPinName(e.target.value)}
+                        onKeyDown={e => e.key === 'Enter' && handleConfirmPin()}
+                        className="w-full border border-border rounded-lg px-3 py-1.5 text-sm bg-background text-foreground mb-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                        autoFocus
+                        maxLength={60}
+                    />
+                    <div className="flex gap-2">
+                        <Button
+                            size="sm"
+                            onClick={handleConfirmPin}
+                            disabled={!pinName.trim() || createPinMutation.isPending}
+                            className="flex-1"
+                        >
+                            {createPinMutation.isPending ? 'Saving...' : 'Save pin'}
+                        </Button>
+                        <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => setPinConfirm(null)}
+                            className="flex-1"
+                        >
+                            Cancel
+                        </Button>
+                    </div>
+                </div>
+            )}
 
             {/* Map Controls Overlay */}
             {showControls && isLoaded && (

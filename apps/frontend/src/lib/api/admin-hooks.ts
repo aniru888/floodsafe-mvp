@@ -623,3 +623,88 @@ export function useAdminRegister() {
         },
     });
 }
+
+// ============================================================================
+// DISCOVERY — Groundsource clusters + personal pins (admin view)
+// ============================================================================
+
+export interface AdminCluster {
+    id: string;
+    city: string;
+    latitude: number;
+    longitude: number;
+    episode_count: number;
+    radius_m?: number;
+    date_first?: string;
+    date_last?: string;
+    overlap_status: string;   // CONFIRMED | PERIPHERAL | MISSED
+    nearest_hotspot_name?: string;
+    confidence: string;       // high | medium | low
+    label?: string;
+    status?: string;          // pending | promoted | dismissed
+}
+
+export interface AdminPin {
+    id: string;
+    user_id: string;
+    username?: string;
+    name: string;
+    latitude: number;
+    longitude: number;
+    city?: string;
+    fhi_score?: number;
+    fhi_level?: string;
+    historical_episode_count: number;
+    visibility: string;
+    created_at: string;
+}
+
+export function useAdminClusters(params: { status?: string; city?: string } = {}) {
+    const query = new URLSearchParams();
+    if (params.status) query.set('status', params.status);
+    if (params.city) query.set('city', params.city);
+    const qs = query.toString() ? `?${query.toString()}` : '';
+    return useQuery({
+        queryKey: ['admin-clusters', params],
+        queryFn: () => adminFetch<AdminCluster[]>(`/clusters${qs}`),
+        staleTime: 60 * 1000,
+    });
+}
+
+export function useAdminPromoteCluster() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (clusterId: string) =>
+            adminFetch<{ success: boolean }>(`/clusters/${clusterId}/promote`, { method: 'POST' }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['admin-clusters'] });
+            toast.success('Cluster promoted to hotspot');
+        },
+        onError: (err: Error) => toast.error(err.message),
+    });
+}
+
+export function useAdminDismissCluster() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (clusterId: string) =>
+            adminFetch<{ success: boolean }>(`/clusters/${clusterId}/dismiss`, { method: 'POST' }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['admin-clusters'] });
+            toast.success('Cluster dismissed');
+        },
+        onError: (err: Error) => toast.error(err.message),
+    });
+}
+
+export function useAdminPins(params: { city?: string; sort?: string } = {}) {
+    const query = new URLSearchParams();
+    if (params.city) query.set('city', params.city);
+    if (params.sort) query.set('sort', params.sort);
+    const qs = query.toString() ? `?${query.toString()}` : '';
+    return useQuery({
+        queryKey: ['admin-pins', params],
+        queryFn: () => adminFetch<AdminPin[]>(`/pins${qs}`),
+        staleTime: 60 * 1000,
+    });
+}

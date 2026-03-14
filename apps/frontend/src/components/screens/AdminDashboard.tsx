@@ -26,11 +26,13 @@ import {
     useAdminDeleteReport, useAdminCreateReport, useAdminCreateBadge,
     useAdminAwardBadge, useAdminPromoteAmbassador,
     useAdminInvites, useAdminCreateInvite, useAdminRevokeInvite,
+    useAdminClusters, useAdminPromoteCluster, useAdminDismissCluster, useAdminPins,
     type AdminUser, type AdminReport, type AdminBadge,
     type AdminCreateReportRequest, type AdminInvite as AdminInviteType,
+    type AdminCluster, type AdminPin,
 } from '../../lib/api/admin-hooks';
 
-type AdminTab = 'overview' | 'users' | 'reports' | 'badges' | 'analytics' | 'system';
+type AdminTab = 'overview' | 'users' | 'reports' | 'badges' | 'analytics' | 'system' | 'discovery' | 'pins';
 
 export function AdminDashboard() {
     const navigate = useNavigate();
@@ -54,6 +56,8 @@ export function AdminDashboard() {
         { key: 'badges', label: 'Badges', icon: <Award size={18} /> },
         { key: 'analytics', label: 'Analytics', icon: <BarChart3 size={18} /> },
         { key: 'system', label: 'System', icon: <Settings size={18} /> },
+        { key: 'discovery', label: 'Discovery', icon: <Globe size={18} /> },
+        { key: 'pins', label: 'Pins', icon: <Eye size={18} /> },
     ];
 
     return (
@@ -100,6 +104,8 @@ export function AdminDashboard() {
                     {activeTab === 'badges' && <BadgesPanel />}
                     {activeTab === 'analytics' && <AnalyticsPanel />}
                     {activeTab === 'system' && <SystemPanel />}
+                    {activeTab === 'discovery' && <DiscoveryPanel />}
+                    {activeTab === 'pins' && <PinsPanel />}
                 </div>
             </main>
         </div>
@@ -1052,6 +1058,257 @@ function SystemPanel() {
     );
 }
 
+
+// =============================================================================
+// DISCOVERY PANEL — Groundsource clusters pending review
+// =============================================================================
+
+function DiscoveryPanel() {
+    const [cityFilter, setCityFilter] = useState('');
+    const [statusFilter, setStatusFilter] = useState('pending');
+
+    const { data: clusters, isLoading } = useAdminClusters({
+        status: statusFilter || undefined,
+        city: cityFilter || undefined,
+    });
+    const promoteMutation = useAdminPromoteCluster();
+    const dismissMutation = useAdminDismissCluster();
+
+    const CITIES = ['delhi', 'bangalore', 'yogyakarta', 'singapore', 'indore'];
+
+    const overlapColor = (status: string) => {
+        if (status === 'CONFIRMED') return '#3b82f6';
+        if (status === 'PERIPHERAL') return '#f59e0b';
+        if (status === 'MISSED') return '#ef4444';
+        return '#9ca3af';
+    };
+
+    const confidenceBadge = (confidence: string) => {
+        if (confidence === 'high') return 'admin-status-verified';
+        if (confidence === 'medium') return 'admin-status-pending';
+        return 'admin-status-archived';
+    };
+
+    const clusterList = clusters ?? [];
+
+    return (
+        <div className="admin-panel">
+            <div className="admin-panel-header">
+                <h3 style={{ margin: 0, fontWeight: 600 }}>Groundsource Cluster Review</h3>
+                <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                    <select
+                        className="admin-filter-select"
+                        value={cityFilter}
+                        onChange={e => setCityFilter(e.target.value)}
+                    >
+                        <option value="">All Cities</option>
+                        {CITIES.map(c => (
+                            <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
+                        ))}
+                    </select>
+                    <select
+                        className="admin-filter-select"
+                        value={statusFilter}
+                        onChange={e => setStatusFilter(e.target.value)}
+                    >
+                        <option value="pending">Pending</option>
+                        <option value="promoted">Promoted</option>
+                        <option value="dismissed">Dismissed</option>
+                        <option value="">All</option>
+                    </select>
+                </div>
+            </div>
+
+            {isLoading ? <LoadingSpinner /> : (
+                <>
+                    {clusterList.length === 0 ? (
+                        <div className="admin-card">
+                            <p className="admin-empty-text">No clusters match the current filters.</p>
+                        </div>
+                    ) : (
+                        <div style={{ display: 'grid', gap: '0.75rem' }}>
+                            {clusterList.map((cluster: AdminCluster) => (
+                                <div key={cluster.id} className="admin-card" style={{ padding: '1rem' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem', flexWrap: 'wrap' }}>
+                                        <div style={{ flex: 1, minWidth: '200px' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                                                <div style={{
+                                                    width: '10px', height: '10px', borderRadius: '50%',
+                                                    backgroundColor: overlapColor(cluster.overlap_status),
+                                                    flexShrink: 0,
+                                                }} />
+                                                <span style={{ fontWeight: 600, fontSize: '0.875rem' }}>
+                                                    {cluster.label || `Cluster ${cluster.id.slice(0, 8)}`}
+                                                </span>
+                                                <span className={`admin-status-badge ${confidenceBadge(cluster.confidence)}`}>
+                                                    {cluster.confidence}
+                                                </span>
+                                            </div>
+                                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '0.25rem 1rem', fontSize: '0.8rem', color: '#6b7280' }}>
+                                                <span><strong>City:</strong> {cluster.city}</span>
+                                                <span><strong>Episodes:</strong> {cluster.episode_count}</span>
+                                                <span><strong>Overlap:</strong> {cluster.overlap_status}</span>
+                                                <span><strong>Nearest:</strong> {cluster.nearest_hotspot_name || '—'}</span>
+                                                {cluster.date_first && (
+                                                    <span><strong>First:</strong> {parseUTC(cluster.date_first)?.toLocaleDateString() ?? '—'}</span>
+                                                )}
+                                                {cluster.date_last && (
+                                                    <span><strong>Last:</strong> {parseUTC(cluster.date_last)?.toLocaleDateString() ?? '—'}</span>
+                                                )}
+                                                <span><strong>Coords:</strong> {cluster.latitude.toFixed(4)}, {cluster.longitude.toFixed(4)}</span>
+                                            </div>
+                                        </div>
+                                        {(!cluster.status || cluster.status === 'pending') && (
+                                            <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
+                                                <button
+                                                    className="admin-btn admin-btn-primary admin-btn-sm"
+                                                    disabled={promoteMutation.isPending}
+                                                    onClick={() => promoteMutation.mutate(cluster.id)}
+                                                    title="Promote to hotspot"
+                                                >
+                                                    <CheckCircle size={14} /> Promote
+                                                </button>
+                                                <button
+                                                    className="admin-btn admin-btn-sm"
+                                                    disabled={dismissMutation.isPending}
+                                                    onClick={() => dismissMutation.mutate(cluster.id)}
+                                                    title="Dismiss cluster"
+                                                >
+                                                    <XCircle size={14} /> Dismiss
+                                                </button>
+                                            </div>
+                                        )}
+                                        {cluster.status && cluster.status !== 'pending' && (
+                                            <span className={`admin-status-badge ${cluster.status === 'promoted' ? 'admin-status-verified' : 'admin-status-archived'}`}>
+                                                {cluster.status}
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </>
+            )}
+        </div>
+    );
+}
+
+// =============================================================================
+// PINS PANEL — All user personal watch-area pins (admin view)
+// =============================================================================
+
+function PinsPanel() {
+    const [cityFilter, setCityFilter] = useState('');
+    const [sortBy, setSortBy] = useState('created_at');
+
+    const { data: pins, isLoading } = useAdminPins({
+        city: cityFilter || undefined,
+        sort: sortBy,
+    });
+
+    const CITIES = ['delhi', 'bangalore', 'yogyakarta', 'singapore', 'indore'];
+    const SORT_OPTIONS = [
+        { value: 'created_at', label: 'Creation Date' },
+        { value: 'fhi_score', label: 'FHI Score' },
+        { value: 'city', label: 'City' },
+    ];
+
+    const fhiColor = (level?: string) => {
+        if (!level) return '#9ca3af';
+        if (level === 'extreme') return '#ef4444';
+        if (level === 'high') return '#f97316';
+        if (level === 'moderate') return '#f59e0b';
+        if (level === 'low') return '#22c55e';
+        return '#9ca3af';
+    };
+
+    const pinList = pins ?? [];
+
+    return (
+        <div className="admin-panel">
+            <div className="admin-panel-header">
+                <h3 style={{ margin: 0, fontWeight: 600 }}>Personal Watch-Area Pins</h3>
+                <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                    <select
+                        className="admin-filter-select"
+                        value={cityFilter}
+                        onChange={e => setCityFilter(e.target.value)}
+                    >
+                        <option value="">All Cities</option>
+                        {CITIES.map(c => (
+                            <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
+                        ))}
+                    </select>
+                    <select
+                        className="admin-filter-select"
+                        value={sortBy}
+                        onChange={e => setSortBy(e.target.value)}
+                    >
+                        {SORT_OPTIONS.map(o => (
+                            <option key={o.value} value={o.value}>{o.label}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+
+            {isLoading ? <LoadingSpinner /> : (
+                <>
+                    <p style={{ fontSize: '0.85rem', color: '#6b7280', marginBottom: '1rem' }}>
+                        {pinList.length} pin{pinList.length !== 1 ? 's' : ''} total
+                    </p>
+                    <div className="admin-table-container">
+                        <table className="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>User</th>
+                                    <th>City</th>
+                                    <th>FHI</th>
+                                    <th>Episodes</th>
+                                    <th>Visibility</th>
+                                    <th>Created</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {pinList.map((pin: AdminPin) => (
+                                    <tr key={pin.id}>
+                                        <td>
+                                            <div style={{ fontWeight: 500, fontSize: '0.85rem' }}>{pin.name}</div>
+                                            <div style={{ fontSize: '0.75rem', color: '#9ca3af' }}>
+                                                {pin.latitude.toFixed(4)}, {pin.longitude.toFixed(4)}
+                                            </div>
+                                        </td>
+                                        <td>{pin.username || pin.user_id.slice(0, 8)}</td>
+                                        <td>{pin.city || '—'}</td>
+                                        <td>
+                                            {pin.fhi_score != null ? (
+                                                <span style={{ color: fhiColor(pin.fhi_level), fontWeight: 600 }}>
+                                                    {Math.round(pin.fhi_score * 100)}%
+                                                    {pin.fhi_level ? ` (${pin.fhi_level})` : ''}
+                                                </span>
+                                            ) : '—'}
+                                        </td>
+                                        <td>{pin.historical_episode_count}</td>
+                                        <td>
+                                            <span className={`admin-status-badge ${pin.visibility === 'public' ? 'admin-status-verified' : 'admin-status-pending'}`}>
+                                                {pin.visibility}
+                                            </span>
+                                        </td>
+                                        <td>{parseUTC(pin.created_at)?.toLocaleDateString() ?? '—'}</td>
+                                    </tr>
+                                ))}
+                                {pinList.length === 0 && (
+                                    <tr><td colSpan={7} className="admin-empty-row">No pins found</td></tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </>
+            )}
+        </div>
+    );
+}
 
 // =============================================================================
 // SHARED COMPONENTS
