@@ -69,6 +69,9 @@ def main():
     conn = psycopg2.connect(db_url)
     cursor = conn.cursor(cursor_factory=RealDictCursor)
 
+    # Supabase has PostGIS in tiger schema
+    cursor.execute("SET search_path TO public, tiger")
+
     # Load episodes
     cursor.execute("""
         SELECT id, city, ST_Y(centroid) as lat, ST_X(centroid) as lng,

@@ -83,6 +83,9 @@ def main():
     conn = psycopg2.connect(db_url)
     cursor = conn.cursor(cursor_factory=RealDictCursor)
 
+    # Supabase has PostGIS in tiger schema
+    cursor.execute("SET search_path TO public, tiger")
+
     print("=== CROSS-VALIDATION GATE ===\n")
 
     all_pass = True
