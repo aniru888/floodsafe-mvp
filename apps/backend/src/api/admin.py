@@ -15,7 +15,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from src.infrastructure.database import get_db
-from src.infrastructure.models import User, Badge, AdminInvite
+from src.infrastructure.models import User, Badge, AdminInvite, GroundsourceCluster, CandidateHotspot
 from src.api.deps import get_current_admin_user
 from src.core.config import settings
 from src.domain.services.security import (
@@ -139,6 +139,12 @@ class AdminRegisterRequest(BaseModel):
     code: str = Field(..., min_length=10)
     email: str = Field(..., description="Must match existing FloodSafe account")
     password: str = Field(..., min_length=8, max_length=128)
+
+
+class ClusterReviewRequest(BaseModel):
+    """Request to promote or dismiss a Groundsource cluster."""
+    action: str = Field(..., pattern="^(promote|dismiss)$", description="'promote' or 'dismiss'")
+    dismiss_reason: Optional[str] = Field(None, max_length=500)
 
 
 # =============================================================================
@@ -637,3 +643,157 @@ async def register_admin(
     db.commit()
 
     return {"status": "ok", "message": "Admin access granted. You can now log in at /admin/login."}
+
+
+# =============================================================================
+# GROUNDSOURCE CLUSTER MANAGEMENT
+# =============================================================================
+
+@router.get("/clusters")
+async def list_clusters(
+    city: Optional[str] = Query(None, description="Filter by city"),
+    cluster_status: str = Query("pending", description="Filter by admin_status"),
+    page: int = Query(1, ge=1),
+    per_page: int = Query(20, ge=1, le=100),
+    admin: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db),
+):
+    """List Groundsource clusters for admin review."""
+    from sqlalchemy import func as sa_func
+
+    query = db.query(GroundsourceCluster).filter(
+        GroundsourceCluster.admin_status == cluster_status
+    )
+    if city:
+        query = query.filter(GroundsourceCluster.city == city)
+
+    total = query.count()
+    clusters = (
+        query.order_by(GroundsourceCluster.created_at.desc())
+        .offset((page - 1) * per_page)
+        .limit(per_page)
+        .all()
+    )
+
+    items = []
+    for c in clusters:
+        # Extract lat/lng from PostGIS geometry safely
+        lat = db.scalar(sa_func.ST_Y(c.centroid)) if c.centroid is not None else None
+        lng = db.scalar(sa_func.ST_X(c.centroid)) if c.centroid is not None else None
+        items.append({
+            "id": str(c.id),
+            "city": c.city,
+            "latitude": lat,
+            "longitude": lng,
+            "episode_count": c.episode_count,
+            "total_article_count": c.total_article_count,
+            "first_episode": c.first_episode.isoformat() if c.first_episode else None,
+            "last_episode": c.last_episode.isoformat() if c.last_episode else None,
+            "recency_score": c.recency_score,
+            "avg_area_km2": c.avg_area_km2,
+            "nearest_hotspot_name": c.nearest_hotspot_name,
+            "nearest_hotspot_distance_m": c.nearest_hotspot_distance_m,
+            "overlap_status": c.overlap_status,
+            "confidence": c.confidence,
+            "infra_signal": c.infra_signal,
+            "admin_status": c.admin_status,
+            "admin_notes": c.admin_notes,
+            "created_at": c.created_at.isoformat() if c.created_at else None,
+        })
+
+    return {"total": total, "page": page, "per_page": per_page, "items": items}
+
+
+@router.patch("/clusters/{cluster_id}/review")
+async def review_cluster(
+    cluster_id: UUID,
+    req: ClusterReviewRequest,
+    request: Request,
+    admin: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db),
+):
+    """
+    Promote or dismiss a Groundsource cluster.
+
+    - promote: creates a CandidateHotspot from cluster data, sets admin_status='promoted'
+    - dismiss: sets admin_status='dismissed', records reason in admin_notes
+    """
+    from geoalchemy2.shape import from_shape
+    from shapely.geometry import Point
+
+    cluster = db.query(GroundsourceCluster).filter(GroundsourceCluster.id == cluster_id).first()
+    if not cluster:
+        raise HTTPException(status_code=404, detail="Cluster not found")
+
+    if cluster.admin_status not in ("pending",):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Cluster has already been reviewed (status: {cluster.admin_status})",
+        )
+
+    if req.action == "promote":
+        # Extract coordinates from PostGIS geometry
+        from sqlalchemy import func as sa_func
+        lat = db.scalar(sa_func.ST_Y(cluster.centroid))
+        lng = db.scalar(sa_func.ST_X(cluster.centroid))
+
+        if lat is None or lng is None:
+            raise HTTPException(status_code=422, detail="Cluster centroid geometry is invalid")
+
+        centroid_geom = from_shape(Point(lng, lat), srid=4326)
+
+        candidate = CandidateHotspot(
+            city=cluster.city,
+            centroid=centroid_geom,
+            report_count=cluster.total_article_count,
+            date_first_report=datetime.combine(cluster.first_episode, datetime.min.time()) if cluster.first_episode else None,
+            date_last_report=datetime.combine(cluster.last_episode, datetime.min.time()) if cluster.last_episode else None,
+            status="candidate",
+            reviewed_by=admin.id,
+            reviewed_at=datetime.utcnow(),
+            notes=(
+                f"Promoted from Groundsource cluster {cluster_id}. "
+                f"Episodes: {cluster.episode_count}, "
+                f"Confidence: {cluster.confidence}, "
+                f"Infra signal: {cluster.infra_signal}"
+            ),
+        )
+        db.add(candidate)
+
+        cluster.admin_status = "promoted"
+        cluster.admin_notes = f"Promoted to CandidateHotspot by admin {admin.id}"
+
+        admin_service.log_admin_action(
+            db, admin.id, "promote_cluster",
+            target_type="groundsource_cluster", target_id=str(cluster_id),
+            details=json.dumps({"city": cluster.city, "confidence": cluster.confidence}),
+            ip_address=request.client.host if request.client else None,
+        )
+        db.commit()
+        db.refresh(candidate)
+
+        return {
+            "status": "promoted",
+            "cluster_id": str(cluster_id),
+            "candidate_hotspot_id": str(candidate.id),
+        }
+
+    else:  # dismiss
+        cluster.admin_status = "dismissed"
+        cluster.admin_notes = req.dismiss_reason or "Dismissed by admin"
+
+        admin_service.log_admin_action(
+            db, admin.id, "dismiss_cluster",
+            target_type="groundsource_cluster", target_id=str(cluster_id),
+            details=json.dumps({
+                "city": cluster.city,
+                "reason": req.dismiss_reason,
+            }),
+            ip_address=request.client.host if request.client else None,
+        )
+        db.commit()
+
+        return {
+            "status": "dismissed",
+            "cluster_id": str(cluster_id),
+        }
