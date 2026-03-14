@@ -1,6 +1,7 @@
 import { createPortal } from 'react-dom';
 import { useOnboardingBot } from '../../contexts/OnboardingBotContext';
 import { X } from 'lucide-react';
+import { Z } from '../../constants/z-index';
 
 /**
  * BotCompanion — Floating 48px mascot avatar for the app tour phase.
@@ -19,7 +20,7 @@ export function BotCompanion({ onClick }: { onClick: () => void }) {
     return createPortal(
         <div
             className="fixed bottom-24 right-4 animate-in fade-in-0 zoom-in-75 duration-300"
-            style={{ zIndex: 115 }}
+            style={{ zIndex: Z.botCompanion }}
         >
             {/* Dismiss X button */}
             <button
@@ -28,7 +29,7 @@ export function BotCompanion({ onClick }: { onClick: () => void }) {
                     skipTour();
                 }}
                 className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition-colors"
-                style={{ zIndex: 116 }}
+                style={{ zIndex: Z.botCompanion + 1 }}
                 title="Dismiss tour"
             >
                 <X className="w-3 h-3 text-gray-500" />

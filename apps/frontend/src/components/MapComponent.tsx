@@ -827,7 +827,7 @@ export default function MapComponent({
                     </div>
                 `;
 
-                new maplibregl.Popup({ offset: 15 })
+                new maplibregl.Popup({ offset: 15, maxWidth: 'min(340px, calc(100vw - 32px))' })
                     .setLngLat(coordinates)
                     .setHTML(popupHTML)
                     .addTo(map);
@@ -1031,7 +1031,7 @@ export default function MapComponent({
                         </div>
                     `;
 
-                    new maplibregl.Popup({ offset: 15 })
+                    new maplibregl.Popup({ offset: 15, maxWidth: 'min(340px, calc(100vw - 32px))' })
                         .setLngLat(coordinates)
                         .setHTML(popupHTML)
                         .addTo(map);
@@ -1491,7 +1491,7 @@ export default function MapComponent({
                 if (!features || features.length === 0) return;
                 const props = features[0].properties;
                 const coords = (features[0].geometry as GeoJSON.Point).coordinates.slice() as [number, number];
-                new maplibregl.Popup({ offset: 10, maxWidth: '260px' })
+                new maplibregl.Popup({ offset: 10, maxWidth: 'min(340px, calc(100vw - 32px))' })
                     .setLngLat(coords)
                     .setHTML(`
                         <div class="p-2">

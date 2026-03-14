@@ -168,7 +168,7 @@ export function AlertCard({ alert }: AlertCardProps) {
                 {shouldTruncate && (
                     <Button
                         variant="ghost"
-                        size="sm"
+                        size="default"
                         className="w-fit text-xs -mt-2"
                         onClick={() => setIsExpanded(!isExpanded)}
                     >

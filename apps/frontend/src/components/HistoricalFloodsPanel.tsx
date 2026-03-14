@@ -1,4 +1,5 @@
 import { X, Calendar, AlertTriangle, Users, Clock, MapPin, ExternalLink, Newspaper, Droplets } from 'lucide-react';
+import { Z } from '../constants/z-index';
 
 // Custom scrollbar styles - FORCED visible
 const scrollbarStyles = `
@@ -128,7 +129,7 @@ export default function HistoricalFloodsPanel({
     return (
         <div
             className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm"
-            style={{ zIndex: 9999 }}
+            style={{ zIndex: Z.fullscreenPanel }}
             onClick={onClose}
         >
             {/* Inject scrollbar styles */}

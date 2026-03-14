@@ -35,7 +35,7 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
                                     isActive ? "text-primary" : "text-primary"
                                 )}
                             >
-                                <div className="w-10 h-10 bg-primary rounded-full shadow-md flex items-center justify-center text-primary-foreground hover:bg-primary/90 transition-colors">
+                                <div className="w-11 h-11 bg-primary rounded-full shadow-md flex items-center justify-center text-primary-foreground hover:bg-primary/90 transition-colors">
                                     <Icon className="w-5 h-5" />
                                 </div>
                                 <span className="text-[10px] mt-1 font-bold">{tab.label}</span>

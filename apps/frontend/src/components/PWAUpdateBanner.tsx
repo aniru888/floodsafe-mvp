@@ -51,7 +51,7 @@ export function PWAUpdateBanner() {
     // Show offline ready toast
     if (offlineReady) {
         return (
-            <div className="fixed top-4 left-4 right-4 md:left-auto md:right-4 md:w-80 bg-green-600 text-white p-3 rounded-lg shadow-lg z-50 flex items-center justify-between animate-in slide-in-from-top-4">
+            <div className="fixed top-16 md:top-4 left-4 right-4 md:left-auto md:right-4 md:w-80 bg-green-600 text-white p-3 rounded-lg shadow-lg z-50 flex items-center justify-between animate-in slide-in-from-top-4">
                 <div className="flex items-center gap-3">
                     <Download className="w-5 h-5" />
                     <div>
