@@ -2,16 +2,24 @@
 Historical floods API endpoint.
 
 Serves GeoJSON data from IFI-Impacts dataset for FloodAtlas visualization.
+Also exposes Groundsource episode and cluster data from the database.
 """
 import json
 import os
 import re
 from pathlib import Path
-from typing import Optional
-from fastapi import APIRouter, HTTPException, Query
+from typing import Optional, List
+from fastapi import APIRouter, HTTPException, Query, Depends
 from pydantic import BaseModel, ConfigDict
+from sqlalchemy.orm import Session
+from sqlalchemy import func, cast, String
+from geoalchemy2 import WKTElement
+from geoalchemy2.types import Geography
 from datetime import datetime
 import logging
+
+from ..infrastructure.database import get_db
+from ..infrastructure import models
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -318,3 +326,296 @@ async def historical_floods_health():
         "supported_cities": ["delhi", "delhi ncr", "new delhi", "singapore", "indore"],
         "data_path": str(floods_file)
     }
+
+
+# ============================================================================
+# Groundsource response models
+# ============================================================================
+
+class GroundsourceEpisodeResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: str
+    city: str
+    latitude: float
+    longitude: float
+    area_km2: Optional[float] = None
+    date_start: str
+    date_end: Optional[str] = None
+    article_count: int = 1
+
+
+class GroundsourceClusterResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: str
+    city: str
+    latitude: float
+    longitude: float
+    episode_count: int
+    overlap_status: str = "UNKNOWN"
+    nearest_hotspot_name: Optional[str] = None
+    nearest_hotspot_distance_m: Optional[float] = None
+    confidence: str = "medium"
+    infra_signal: Optional[str] = None
+
+
+class HistoricalStatsResponse(BaseModel):
+    city: str
+    total_episodes: int
+    total_clusters: int
+    date_range_start: Optional[str] = None
+    date_range_end: Optional[str] = None
+    confirmed_clusters: int = 0
+    missed_clusters: int = 0
+
+
+# ============================================================================
+# Helper: extract lat/lng from a HistoricalFloodEpisode or GroundsourceCluster
+# without triggering hybrid_property session lookups on detached objects.
+# We use ST_X / ST_Y directly in the query instead.
+# ============================================================================
+
+def _episode_to_response(row) -> GroundsourceEpisodeResponse:
+    """Convert a (HistoricalFloodEpisode, lat, lng) tuple to response model."""
+    episode, lat, lng = row
+    return GroundsourceEpisodeResponse(
+        id=str(episode.id),
+        city=episode.city,
+        latitude=float(lat) if lat is not None else 0.0,
+        longitude=float(lng) if lng is not None else 0.0,
+        area_km2=episode.avg_area_km2,
+        date_start=episode.start_date.isoformat(),
+        date_end=episode.end_date.isoformat() if episode.end_date else None,
+        article_count=episode.article_count or 1,
+    )
+
+
+def _cluster_to_response(row) -> GroundsourceClusterResponse:
+    """Convert a (GroundsourceCluster, lat, lng) tuple to response model."""
+    cluster, lat, lng = row
+    return GroundsourceClusterResponse(
+        id=str(cluster.id),
+        city=cluster.city,
+        latitude=float(lat) if lat is not None else 0.0,
+        longitude=float(lng) if lng is not None else 0.0,
+        episode_count=cluster.episode_count,
+        overlap_status=cluster.overlap_status or "UNKNOWN",
+        nearest_hotspot_name=cluster.nearest_hotspot_name,
+        nearest_hotspot_distance_m=cluster.nearest_hotspot_distance_m,
+        confidence=cluster.confidence or "medium",
+        infra_signal=cluster.infra_signal,
+    )
+
+
+# ============================================================================
+# Groundsource endpoints
+# ============================================================================
+
+@router.get("/groundsource/episodes", response_model=List[GroundsourceEpisodeResponse])
+def list_groundsource_episodes(
+    city: str = Query(..., description="City slug, e.g. 'delhi'"),
+    year: Optional[int] = Query(None, description="Filter to episodes whose start_date falls in this year"),
+    offset: int = Query(0, ge=0, description="Pagination offset"),
+    limit: int = Query(50, ge=1, le=500, description="Pagination limit"),
+    db: Session = Depends(get_db),
+):
+    """
+    List Groundsource flood episodes for a city with optional year filter and pagination.
+
+    Returns episodes ordered by start_date descending.
+    """
+    city = city.lower().strip()
+
+    # Pull coordinates in the same query to avoid hybrid_property session issues
+    lat_col = func.ST_Y(models.HistoricalFloodEpisode.centroid).label("lat")
+    lng_col = func.ST_X(models.HistoricalFloodEpisode.centroid).label("lng")
+
+    q = db.query(models.HistoricalFloodEpisode, lat_col, lng_col).filter(
+        models.HistoricalFloodEpisode.city == city
+    )
+
+    if year is not None:
+        q = q.filter(
+            func.extract("year", models.HistoricalFloodEpisode.start_date) == year
+        )
+
+    rows = (
+        q.order_by(models.HistoricalFloodEpisode.start_date.desc())
+        .offset(offset)
+        .limit(limit)
+        .all()
+    )
+
+    return [_episode_to_response(row) for row in rows]
+
+
+@router.get("/groundsource/stats", response_model=HistoricalStatsResponse)
+def get_groundsource_stats(
+    city: str = Query(..., description="City slug, e.g. 'delhi'"),
+    db: Session = Depends(get_db),
+):
+    """
+    Aggregated Groundsource statistics for a city.
+
+    Returns total episode count, cluster count, date range, and cluster overlap breakdown.
+    """
+    city = city.lower().strip()
+
+    total_episodes = (
+        db.query(func.count(models.HistoricalFloodEpisode.id))
+        .filter(models.HistoricalFloodEpisode.city == city)
+        .scalar()
+        or 0
+    )
+
+    date_range = (
+        db.query(
+            func.min(models.HistoricalFloodEpisode.start_date),
+            func.max(models.HistoricalFloodEpisode.end_date),
+        )
+        .filter(models.HistoricalFloodEpisode.city == city)
+        .one_or_none()
+    )
+
+    total_clusters = (
+        db.query(func.count(models.GroundsourceCluster.id))
+        .filter(models.GroundsourceCluster.city == city)
+        .scalar()
+        or 0
+    )
+
+    confirmed_clusters = (
+        db.query(func.count(models.GroundsourceCluster.id))
+        .filter(
+            models.GroundsourceCluster.city == city,
+            models.GroundsourceCluster.overlap_status == "CONFIRMED",
+        )
+        .scalar()
+        or 0
+    )
+
+    missed_clusters = (
+        db.query(func.count(models.GroundsourceCluster.id))
+        .filter(
+            models.GroundsourceCluster.city == city,
+            models.GroundsourceCluster.overlap_status == "MISSED",
+        )
+        .scalar()
+        or 0
+    )
+
+    date_range_start = date_range[0].isoformat() if date_range and date_range[0] else None
+    date_range_end = date_range[1].isoformat() if date_range and date_range[1] else None
+
+    return HistoricalStatsResponse(
+        city=city,
+        total_episodes=total_episodes,
+        total_clusters=total_clusters,
+        date_range_start=date_range_start,
+        date_range_end=date_range_end,
+        confirmed_clusters=confirmed_clusters,
+        missed_clusters=missed_clusters,
+    )
+
+
+@router.get("/groundsource/nearby", response_model=List[GroundsourceEpisodeResponse])
+def get_groundsource_nearby(
+    lat: float = Query(..., description="Latitude of the query point"),
+    lng: float = Query(..., description="Longitude of the query point"),
+    radius_km: float = Query(5.0, gt=0, le=100, description="Search radius in kilometres"),
+    limit: int = Query(20, ge=1, le=200, description="Maximum number of results"),
+    db: Session = Depends(get_db),
+):
+    """
+    Return Groundsource episodes within radius_km of the given lat/lng.
+
+    Uses ST_DWithin on geography type for accurate metre-based distance.
+    """
+    radius_m = radius_km * 1000.0
+    point = WKTElement(f"POINT({lng} {lat})", srid=4326)
+
+    lat_col = func.ST_Y(models.HistoricalFloodEpisode.centroid).label("lat")
+    lng_col = func.ST_X(models.HistoricalFloodEpisode.centroid).label("lng")
+
+    centroid_geo = cast(models.HistoricalFloodEpisode.centroid, Geography)
+    point_geo = cast(point, Geography)
+
+    rows = (
+        db.query(models.HistoricalFloodEpisode, lat_col, lng_col)
+        .filter(func.ST_DWithin(centroid_geo, point_geo, radius_m))
+        .order_by(func.ST_Distance(centroid_geo, point_geo))
+        .limit(limit)
+        .all()
+    )
+
+    return [_episode_to_response(row) for row in rows]
+
+
+@router.get("/groundsource/clusters", response_model=List[GroundsourceClusterResponse])
+def list_groundsource_clusters(
+    city: str = Query(..., description="City slug, e.g. 'delhi'"),
+    min_confidence: Optional[str] = Query(
+        None, description="Minimum confidence level: low, medium, high"
+    ),
+    db: Session = Depends(get_db),
+):
+    """
+    List Groundsource clusters for a city with optional confidence filter.
+
+    Results are ordered by episode_count descending.
+    """
+    city = city.lower().strip()
+
+    _CONFIDENCE_ORDER = {"low": 0, "medium": 1, "high": 2}
+
+    lat_col = func.ST_Y(models.GroundsourceCluster.centroid).label("lat")
+    lng_col = func.ST_X(models.GroundsourceCluster.centroid).label("lng")
+
+    q = db.query(models.GroundsourceCluster, lat_col, lng_col).filter(
+        models.GroundsourceCluster.city == city
+    )
+
+    if min_confidence is not None:
+        min_confidence = min_confidence.lower().strip()
+        if min_confidence not in _CONFIDENCE_ORDER:
+            raise HTTPException(
+                status_code=400,
+                detail="min_confidence must be one of: low, medium, high",
+            )
+        min_rank = _CONFIDENCE_ORDER[min_confidence]
+        # Include rows whose confidence level is >= min_confidence rank
+        allowed = [k for k, v in _CONFIDENCE_ORDER.items() if v >= min_rank]
+        q = q.filter(models.GroundsourceCluster.confidence.in_(allowed))
+
+    rows = (
+        q.order_by(models.GroundsourceCluster.episode_count.desc())
+        .all()
+    )
+
+    return [_cluster_to_response(row) for row in rows]
+
+
+@router.get("/groundsource/episodes/{episode_id}", response_model=GroundsourceEpisodeResponse)
+def get_groundsource_episode(
+    episode_id: str,
+    db: Session = Depends(get_db),
+):
+    """
+    Retrieve a single Groundsource episode by its UUID.
+
+    Returns 404 if the episode does not exist.
+    """
+    lat_col = func.ST_Y(models.HistoricalFloodEpisode.centroid).label("lat")
+    lng_col = func.ST_X(models.HistoricalFloodEpisode.centroid).label("lng")
+
+    row = (
+        db.query(models.HistoricalFloodEpisode, lat_col, lng_col)
+        .filter(cast(models.HistoricalFloodEpisode.id, String) == episode_id)
+        .one_or_none()
+    )
+
+    if row is None:
+        raise HTTPException(status_code=404, detail=f"Episode {episode_id!r} not found")
+
+    return _episode_to_response(row)
