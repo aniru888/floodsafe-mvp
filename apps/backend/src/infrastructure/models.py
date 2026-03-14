@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Float, DateTime, Boolean, ForeignKey, Integer, Text, Index, text, BigInteger, ARRAY
+from sqlalchemy import Column, String, Float, DateTime, Boolean, ForeignKey, Integer, Text, Index, text, BigInteger, ARRAY, Date, func
 from sqlalchemy.dialects.postgresql import UUID, JSON, JSONB
 from sqlalchemy.orm import relationship, object_session
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -6,7 +6,7 @@ from geoalchemy2 import Geometry
 from geoalchemy2.functions import ST_X, ST_Y
 from .database import Base
 import uuid
-from datetime import datetime
+from datetime import date, datetime
 
 class User(Base):
     __tablename__ = "users"
@@ -179,6 +179,14 @@ class Report(Base):
     road_name = Column(String, nullable=True)
     road_type = Column(String, nullable=True)
 
+    # FHI enrichment columns
+    fhi_score = Column(Float, nullable=True)
+    fhi_level = Column(String, nullable=True)
+    fhi_components = Column(JSONB, nullable=True)
+    nearest_hotspot_id = Column(String, nullable=True)
+    nearest_hotspot_distance = Column(Float, nullable=True)
+    historical_episode_count = Column(Integer, default=0)
+
     @hybrid_property
     def latitude(self):
         """Extract latitude from PostGIS POINT geometry"""
@@ -214,6 +222,25 @@ class WatchArea(Base):
     location = Column(Geometry('POINT', srid=4326))
     radius = Column(Float, default=1000.0) # meters
     created_at = Column(DateTime, default=datetime.utcnow)
+
+    # Community intelligence columns
+    road_segment_id = Column(UUID(as_uuid=True), nullable=True)
+    road_name = Column(String, nullable=True)
+    snapped_location = Column(Geometry('POINT', srid=4326), nullable=True)
+    fhi_score = Column(Float, nullable=True)
+    fhi_level = Column(String, nullable=True)
+    fhi_components = Column(JSONB, nullable=True)
+    fhi_updated_at = Column(DateTime, nullable=True)
+    weather_snapshot = Column(JSONB, nullable=True)
+    is_personal_hotspot = Column(Boolean, default=False)
+    hotspot_ref = Column(UUID(as_uuid=True), nullable=True)
+    city = Column(String, nullable=True)
+    visibility = Column(String, default='circles')
+    source = Column(String, default='map')
+    updated_at = Column(DateTime, server_default=func.now())
+    alert_radius = Column(Float, default=300.0)
+    historical_episode_count = Column(Integer, default=0)
+    nearest_cluster_id = Column(UUID(as_uuid=True), nullable=True)
 
     @hybrid_property
     def latitude(self):
@@ -681,4 +708,77 @@ class CandidateHotspot(Base):
     promoted_to_hotspot_name = Column(String, nullable=True)
     notes = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+    # Community intelligence columns
+    submitted_by = Column(UUID(as_uuid=True), nullable=True)
+    submission_type = Column(String, default='automated')
+    pin_ids = Column(ARRAY(UUID(as_uuid=True)), nullable=True)
+    pin_count = Column(Integer, default=0)
+    avg_fhi = Column(Float, nullable=True)
+    fhi_history_summary = Column(JSONB, nullable=True)
+    groundsource_cluster_id = Column(UUID(as_uuid=True), nullable=True)
+    historical_episode_count = Column(Integer, default=0)
+
+
+class HistoricalFloodEpisode(Base):
+    __tablename__ = "historical_flood_episodes"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    city = Column(String(50), nullable=False, index=True)
+    centroid = Column(Geometry('POINT', srid=4326), nullable=False)
+    avg_area_km2 = Column(Float, nullable=True)
+    start_date = Column(Date, nullable=False)
+    end_date = Column(Date, nullable=False)
+    article_count = Column(Integer, default=1)
+    source_event_ids = Column(ARRAY(String), nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    @hybrid_property
+    def latitude(self):
+        if self.centroid is not None:
+            session = object_session(self)
+            if session:
+                return session.scalar(self.centroid.ST_Y())
+        return None
+
+    @hybrid_property
+    def longitude(self):
+        if self.centroid is not None:
+            session = object_session(self)
+            if session:
+                return session.scalar(self.centroid.ST_X())
+        return None
+
+
+class GroundsourceCluster(Base):
+    __tablename__ = "groundsource_clusters"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    city = Column(String(50), nullable=False)
+    centroid = Column(Geometry('POINT', srid=4326), nullable=False)
+    episode_count = Column(Integer, nullable=False)
+    total_article_count = Column(Integer, nullable=False)
+    first_episode = Column(Date, nullable=False)
+    last_episode = Column(Date, nullable=False)
+    recency_score = Column(Float, nullable=True)
+    avg_area_km2 = Column(Float, nullable=True)
+    nearest_hotspot_name = Column(String, nullable=True)
+    nearest_hotspot_distance_m = Column(Float, nullable=True)
+    overlap_status = Column(String(20), nullable=False)
+    confidence = Column(String(10), nullable=True)
+    infra_signal = Column(String(20), nullable=True)
+    admin_status = Column(String(20), default='pending')
+    admin_notes = Column(Text, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class WatchAreaFhiHistory(Base):
+    __tablename__ = "watch_area_fhi_history"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    watch_area_id = Column(UUID(as_uuid=True), ForeignKey("watch_areas.id", ondelete="CASCADE"), nullable=False)
+    fhi_score = Column(Float, nullable=False)
+    fhi_level = Column(String(20), nullable=False)
+    fhi_components = Column(JSONB, nullable=True)
+    recorded_at = Column(DateTime, default=datetime.utcnow)
 
