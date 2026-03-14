@@ -248,7 +248,7 @@ async def _get_fhi_for_point(
     """
     from ..core.config import settings
 
-    if not settings.ML_SERVICE_ENABLED:
+    if not getattr(settings, "ML_SERVICE_URL", ""):
         return None, None
 
     try:
