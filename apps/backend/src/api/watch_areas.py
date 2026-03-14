@@ -156,6 +156,26 @@ def get_user_watch_areas(user_id: UUID, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail="Failed to fetch watch areas")
 
 
+@router.get("/my-pins", response_model=List[PinResponse])
+def list_my_pins(
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
+    """
+    Return all personal pins for the authenticated user, newest first.
+    """
+    pins = (
+        db.query(models.WatchArea)
+        .filter(
+            models.WatchArea.user_id == current_user.id,
+            models.WatchArea.is_personal_hotspot == True,  # noqa: E712
+        )
+        .order_by(models.WatchArea.created_at.desc())
+        .all()
+    )
+    return [_pin_to_response(p) for p in pins]
+
+
 @router.get("/{watch_area_id}", response_model=WatchAreaResponse)
 def get_watch_area(watch_area_id: UUID, db: Session = Depends(get_db)):
     """
@@ -375,26 +395,6 @@ async def create_personal_pin(
         )
 
     return _pin_to_response(pin)
-
-
-@router.get("/my-pins", response_model=List[PinResponse])
-def list_my_pins(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(get_current_user),
-):
-    """
-    Return all personal pins for the authenticated user, newest first.
-    """
-    pins = (
-        db.query(models.WatchArea)
-        .filter(
-            models.WatchArea.user_id == current_user.id,
-            models.WatchArea.is_personal_hotspot == True,  # noqa: E712
-        )
-        .order_by(models.WatchArea.created_at.desc())
-        .all()
-    )
-    return [_pin_to_response(p) for p in pins]
 
 
 @router.post("/{watch_area_id}/refresh-fhi", response_model=PinResponse)
