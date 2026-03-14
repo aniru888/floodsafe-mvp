@@ -893,3 +893,83 @@ export interface RiskSummaryResponse {
     language: string;
     weather_unavailable?: boolean;
 }
+
+// ─── Community Intelligence Types ───────────────
+
+export interface GroundsourceEpisode {
+  id: string;
+  city: string;
+  latitude: number;
+  longitude: number;
+  area_km2?: number;
+  date_start: string;
+  date_end?: string;
+  article_count: number;
+}
+
+export interface GroundsourceCluster {
+  id: string;
+  city: string;
+  latitude: number;
+  longitude: number;
+  episode_count: number;
+  radius_m?: number;
+  date_first?: string;
+  date_last?: string;
+  overlap_status: string;
+  nearest_hotspot_name?: string;
+  confidence: string;
+  label?: string;
+}
+
+export interface HistoricalStats {
+  city: string;
+  total_episodes: number;
+  total_clusters: number;
+  date_range_start?: string;
+  date_range_end?: string;
+  confirmed_clusters: number;
+  missed_clusters: number;
+}
+
+export interface PersonalPin {
+  id: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+  city?: string;
+  fhi_score?: number;
+  fhi_level?: string;
+  historical_episode_count: number;
+  visibility: string;
+  alert_radius_label?: string;
+  snap_distance_m?: number;
+  created_at: string;
+}
+
+export interface FhiHistoryEntry {
+  fhi_score: number;
+  fhi_level: string;
+  recorded_at: string;
+}
+
+export interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: number;
+}
+
+export interface ChatResponse {
+  reply: string;
+  conversation_id: string;
+  rate_limited: boolean;
+}
+
+export interface AddressRiskResult {
+  address: string;
+  latitude: number;
+  longitude: number;
+  fhi: Record<string, unknown>;
+  historical_episodes: number;
+  summary?: string;
+}

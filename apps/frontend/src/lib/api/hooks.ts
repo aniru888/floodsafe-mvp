@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query';
 import { fetchJson, uploadFile } from './client';
 import { API_BASE_URL } from './config';
-import { User, GeocodingResult, DailyRoute, DailyRouteCreate, WatchArea, WatchAreaCreate, RouteCalculationRequest, RouteCalculationResponse, MetroStation, RouteOption, RouteComparisonRequest, RouteComparisonResponse, EnhancedRouteComparisonResponse, FastestRouteOption, SafestRouteOption, WatchAreaRiskAssessment, FloodHubStatus, FloodHubGauge, FloodHubForecast, FloodHubSignificantEvent, SafetyCircle, SafetyCircleDetail, SafetyCircleCreate, SafetyCircleUpdate, CircleMemberAdd, CircleMemberUpdate, CircleAlert, CircleAlertsResponse, CircleUnreadCount, JoinCircleRequest, BulkAddResult, RiskSummaryResponse } from '../../types';
+import { User, GeocodingResult, DailyRoute, DailyRouteCreate, WatchArea, WatchAreaCreate, RouteCalculationRequest, RouteCalculationResponse, MetroStation, RouteOption, RouteComparisonRequest, RouteComparisonResponse, EnhancedRouteComparisonResponse, FastestRouteOption, SafestRouteOption, WatchAreaRiskAssessment, FloodHubStatus, FloodHubGauge, FloodHubForecast, FloodHubSignificantEvent, SafetyCircle, SafetyCircleDetail, SafetyCircleCreate, SafetyCircleUpdate, CircleMemberAdd, CircleMemberUpdate, CircleAlert, CircleAlertsResponse, CircleUnreadCount, JoinCircleRequest, BulkAddResult, RiskSummaryResponse, GroundsourceCluster, GroundsourceEpisode, HistoricalStats, PersonalPin, FhiHistoryEntry, ChatResponse, AddressRiskResult } from '../../types';
 import { validateUsers, validateSensors, validateReports } from './validators';
 import { getCityCode } from '../cityUtils';
 
@@ -2067,4 +2067,89 @@ export function useYKForecast(enabled = true) {
         refetchOnWindowFocus: false,
         retry: 1,
     });
+}
+
+// ─── Community Intelligence Hooks ───────────────
+
+export function useGroundsourceClusters(city: string) {
+  return useQuery({
+    queryKey: ['groundsource-clusters', city],
+    queryFn: () => fetchJson<GroundsourceCluster[]>(
+      `/historical-floods/groundsource/clusters?city=${city}`
+    ),
+    staleTime: 5 * 60 * 1000,
+    enabled: !!city,
+  });
+}
+
+export function useGroundsourceStats(city: string) {
+  return useQuery({
+    queryKey: ['groundsource-stats', city],
+    queryFn: () => fetchJson<HistoricalStats>(
+      `/historical-floods/groundsource/stats?city=${city}`
+    ),
+    staleTime: 10 * 60 * 1000,
+    enabled: !!city,
+  });
+}
+
+export function useNearbyEpisodes(lat: number, lng: number, radiusKm = 2) {
+  return useQuery({
+    queryKey: ['nearby-episodes', lat, lng, radiusKm],
+    queryFn: () => fetchJson<GroundsourceEpisode[]>(
+      `/historical-floods/groundsource/nearby?lat=${lat}&lng=${lng}&radius_km=${radiusKm}`
+    ),
+    staleTime: 5 * 60 * 1000,
+    enabled: !!lat && !!lng,
+  });
+}
+
+export function useMyPins() {
+  return useQuery({
+    queryKey: ['my-pins'],
+    queryFn: () => fetchJson<PersonalPin[]>('/watch-areas/my-pins'),
+    staleTime: 30 * 1000,
+  });
+}
+
+export function useCreatePin() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (pin: { latitude: number; longitude: number; name: string; city: string; visibility?: string; alert_radius_label?: string }) =>
+      fetchJson<PersonalPin>('/watch-areas/pin', { method: 'POST', body: JSON.stringify(pin) }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['my-pins'] });
+    },
+  });
+}
+
+export function usePinFhiHistory(pinId: string) {
+  return useQuery({
+    queryKey: ['pin-fhi-history', pinId],
+    queryFn: () => fetchJson<FhiHistoryEntry[]>(`/watch-areas/${pinId}/fhi-history`),
+    enabled: !!pinId,
+  });
+}
+
+export function useAiChat() {
+  return useMutation({
+    mutationFn: (params: { message: string; city: string; conversation_id?: string; latitude?: number; longitude?: number }) =>
+      fetchJson<ChatResponse>('/ai/chat', { method: 'POST', body: JSON.stringify(params) }),
+  });
+}
+
+export function useAddressRisk() {
+  return useMutation({
+    mutationFn: (params: { address: string; city: string }) =>
+      fetchJson<AddressRiskResult>(`/ai/address-risk?address=${encodeURIComponent(params.address)}&city=${params.city}`),
+  });
+}
+
+export function useAlertSummary(alertId: string) {
+  return useQuery({
+    queryKey: ['alert-summary', alertId],
+    queryFn: () => fetchJson<{ alert_id: string; summary: string }>(`/ai/alert-summary/${alertId}`),
+    staleTime: 60 * 60 * 1000,
+    enabled: !!alertId,
+  });
 }
