@@ -124,6 +124,13 @@ function FloodSafeApp() {
         }
     }, [user?.profile_complete, startTour]);
 
+    // Deep link: handle /privacy and /terms paths
+    useEffect(() => {
+        const path = window.location.pathname;
+        if (path === '/privacy') setActiveTab('privacy');
+        else if (path === '/terms') setActiveTab('terms');
+    }, []);
+
     // Deep link: check URL for ?join=CODE on mount
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);

@@ -172,6 +172,22 @@ def _detect_city_from_coords(lat: float, lng: float) -> Optional[str]:
     return None
 
 
+def _resolve_city(session: Optional[WhatsAppSession], user: Optional[User]) -> str:
+    """Resolve city from session data, user preference, or coords. Falls back to 'delhi'."""
+    if session and session.data:
+        city = session.data.get("onboarding_city") or session.data.get("detected_city")
+        if city:
+            return city
+    if user and hasattr(user, "city_preference") and user.city_preference:
+        return user.city_preference
+    if session and session.data and session.data.get("last_lat"):
+        detected = _detect_city_from_coords(session.data["last_lat"], session.data["last_lng"])
+        if detected:
+            session.data["detected_city"] = detected
+            return detected
+    return "delhi"
+
+
 def _get_session_data(session: WhatsAppSession, key: str, default=None):
     """
     Safely get a value from session.data with validation.
@@ -495,6 +511,9 @@ async def _handle_text(
         await _handle_join_circle_code(db, session, phone, user, text, language)
         return
 
+    # Resolve city for command handlers
+    city = _resolve_city(session, user)
+
     # Wit.ai NLU (for natural language — skip for known keywords)
     if is_wit_enabled() and not text_lower.startswith(("risk", "warnings", "alerts", "help", "menu", "status")):
         wit_result = await classify_message(text)
@@ -505,23 +524,23 @@ async def _handle_text(
                 last_loc = None
                 if not place_name and session.data and "last_lat" in session.data:
                     last_loc = (session.data["last_lat"], session.data["last_lng"])
-                response = await handle_risk_command(db, user, place_name, last_loc)
+                response = await handle_risk_command(db, user, place_name, last_loc, city=city)
                 await meta_send_text(phone, response)
                 return
             elif mapped == "warnings":
-                response = await handle_warnings_command(db, user)
+                response = await handle_warnings_command(db, user, city=city)
                 await meta_send_text(phone, response)
                 return
             elif mapped == "my_areas":
-                response = await handle_my_areas_command(db, user)
+                response = await handle_my_areas_command(db, user, city=city)
                 await meta_send_text(phone, response)
                 return
             elif mapped == "help":
-                response = await handle_help_command(user)
+                response = await handle_help_command(user, city=city)
                 await meta_send_text(phone, response)
                 return
             elif mapped == "status":
-                response = await handle_status_command(db, user, phone)
+                response = await handle_status_command(db, user, phone, city=city)
                 await meta_send_text(phone, response)
                 return
 
@@ -531,29 +550,29 @@ async def _handle_text(
         last_loc = None
         if session.data and "last_lat" in session.data:
             last_loc = (session.data["last_lat"], session.data["last_lng"])
-        response = await handle_risk_command(db, user, place_name, last_loc)
+        response = await handle_risk_command(db, user, place_name, last_loc, city=city)
         if not await meta_send_text(phone, response):
             logger.error(f"SEND FAILED risk result to ***{phone[-4:]}")
         return
 
     if text_lower in ("warnings", "alerts", "alert", "warning"):
-        response = await handle_warnings_command(db, user)
+        response = await handle_warnings_command(db, user, city=city)
         if not await meta_send_text(phone, response):
             logger.error(f"SEND FAILED warnings to ***{phone[-4:]}")
         return
 
     if text_lower in ("my areas", "myareas", "areas", "my area", "watch areas"):
-        response = await handle_my_areas_command(db, user)
+        response = await handle_my_areas_command(db, user, city=city)
         await meta_send_text(phone, response)
         return
 
     if text_lower in ("help", "?", "commands", "menu"):
-        response = await handle_help_command(user)
+        response = await handle_help_command(user, city=city)
         await meta_send_text(phone, response)
         return
 
     if text_lower in ("status", "info", "account"):
-        response = await handle_status_command(db, user, phone)
+        response = await handle_status_command(db, user, phone, city=city)
         await meta_send_text(phone, response)
         return
 
@@ -1689,6 +1708,8 @@ async def _handle_button(
     language: str,
 ):
     """Handle interactive button reply."""
+    city = _resolve_city(session, user)
+
     if button_id == "report_flood":
         await meta_send_text(
             phone,
@@ -1712,7 +1733,7 @@ async def _handle_button(
         last_lat = session.data.get("last_lat") if session.data else None
         last_lng = session.data.get("last_lng") if session.data else None
         if last_lat and last_lng:
-            response = await handle_risk_command(db, user, None, (last_lat, last_lng))
+            response = await handle_risk_command(db, user, None, (last_lat, last_lng), city=city)
             await meta_send_text(phone, response)
         else:
             await meta_send_text(
@@ -1722,7 +1743,7 @@ async def _handle_button(
                 "Example: RISK Connaught Place"
             )
     elif button_id == "view_alerts":
-        response = await handle_warnings_command(db, user)
+        response = await handle_warnings_command(db, user, city=city)
         await meta_send_text(phone, response)
     elif button_id == "add_photo":
         if session.data and "pending_lat" in session.data:
@@ -1787,7 +1808,7 @@ async def _handle_button(
         if not user:
             await meta_send_text(phone, "Link your account to manage watch spots. Reply LINK.")
             return
-        response = await handle_my_areas_command(db, user)
+        response = await handle_my_areas_command(db, user, city=city)
         await meta_send_text(phone, response)
     elif button_id == "my_reports":
         if not user:
