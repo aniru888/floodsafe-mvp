@@ -22,6 +22,8 @@ import { getCityCenterOrDefault } from '../../lib/cityCoordinates';
 import { CITIES } from '../../lib/map/cityConfigs';
 import { VerificationReminderBanner } from '../VerificationReminderBanner';
 import { AiRiskInsightsCard } from '../AiRiskInsightsCard';
+import { ScenarioSimulationCard } from '../ScenarioSimulationCard';
+import { AiChatFab, AiChatPanel } from '../ai-chat';
 import {
     Select,
     SelectContent,
@@ -75,6 +77,7 @@ export function HomeScreen({
     const [mapTargetLocation, setMapTargetLocation] = useState<{ lat: number; lng: number } | null>(null);
     const [selectedReport, setSelectedReport] = useState<Report | null>(null);
     const [emergencyModalOpen, setEmergencyModalOpen] = useState(false);
+    const [aiChatOpen, setAiChatOpen] = useState(false);
 
     // Update city filter when CityContext city changes
     useEffect(() => {
@@ -881,6 +884,13 @@ export function HomeScreen({
                     />
                 </div>
 
+                {/* Scenario Simulation Card — "What If?" rainfall impact */}
+                <ScenarioSimulationCard
+                    city={CITIES[currentCity]?.displayName || currentCity}
+                    latitude={userLocation?.latitude}
+                    longitude={userLocation?.longitude}
+                />
+
                 {/* Live Updates Feed with Auto-Refresh Settings */}
                 <div className="bg-card text-card-foreground rounded-xl border shadow-sm flex flex-col overflow-hidden" data-tour-id="recent-reports">
                     <div className="px-4 py-3 border-b flex-shrink-0">
@@ -1214,6 +1224,18 @@ export function HomeScreen({
             <EmergencyContactsModal
                 isOpen={emergencyModalOpen}
                 onClose={() => setEmergencyModalOpen(false)}
+            />
+
+            {/* AI Chat — FAB + Panel */}
+            <AiChatFab
+                isOpen={aiChatOpen}
+                onToggle={() => setAiChatOpen(prev => !prev)}
+                hasAlerts={filteredAlerts.length > 0}
+            />
+            <AiChatPanel
+                isOpen={aiChatOpen}
+                onClose={() => setAiChatOpen(false)}
+                city={currentCity}
             />
 
         </div>
