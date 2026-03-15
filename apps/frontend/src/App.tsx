@@ -124,13 +124,6 @@ function FloodSafeApp() {
         }
     }, [user?.profile_complete, startTour]);
 
-    // Deep link: handle /privacy and /terms paths
-    useEffect(() => {
-        const path = window.location.pathname;
-        if (path === '/privacy') setActiveTab('privacy');
-        else if (path === '/terms') setActiveTab('terms');
-    }, []);
-
     // Deep link: check URL for ?join=CODE on mount
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
@@ -410,6 +403,10 @@ export default function App() {
                                                                 <AdminDashboard />
                                                             </Suspense>
                                                         } />
+
+                                                        {/* Public legal pages (accessible without auth for Meta App Review) */}
+                                                        <Route path="/privacy" element={<PrivacyPolicyScreen />} />
+                                                        <Route path="/terms" element={<TermsScreen />} />
 
                                                         {/* Catch-all redirect */}
                                                         <Route path="*" element={<Navigate to="/" replace />} />
