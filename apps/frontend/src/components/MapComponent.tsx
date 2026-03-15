@@ -136,6 +136,13 @@ export default function MapComponent({
         return () => window.removeEventListener('open-methodology', handler);
     }, []);
 
+    // Listen for historical floods check from hotspot popup
+    useEffect(() => {
+        const handler = () => setShowHistoricalPanel(true);
+        window.addEventListener('check-historical-floods', handler as EventListener);
+        return () => window.removeEventListener('check-historical-floods', handler as EventListener);
+    }, []);
+
     // ML predictions (ensemble) are Delhi-only and currently disabled
     const isDelhiCity = city === 'delhi';
 
@@ -1044,6 +1051,15 @@ export default function MapComponent({
                                 <a href="#" onclick="window.dispatchEvent(new Event('open-methodology')); return false;"
                                    class="ml-auto text-blue-500 hover:underline text-[10px] whitespace-nowrap">
                                    How we predict risk &rarr;
+                                </a>
+                            </div>
+
+                            <!-- Historical Evidence -->
+                            <div class="text-xs text-muted-foreground mt-2 pt-2 border-t">
+                                <a href="#" onclick="window.dispatchEvent(new CustomEvent('check-historical-floods', { detail: { lat: ${coordinates[1]}, lng: ${coordinates[0]}, name: '${(props.name || '').replace(/'/g, "\\'")}' } })); return false;"
+                                   class="text-blue-500 hover:underline flex items-center gap-1">
+                                   <span>Check historical flood records nearby</span>
+                                   <span>&rarr;</span>
                                 </a>
                             </div>
 

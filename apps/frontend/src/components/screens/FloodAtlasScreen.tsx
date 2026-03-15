@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import MapComponent from '../MapComponent';
 import { Button } from '../ui/button';
-import { Navigation } from 'lucide-react';
+import { Navigation, MapPin } from 'lucide-react';
 import { NavigationPanel } from '../NavigationPanel';
 import { LiveNavigationPanel } from '../LiveNavigationPanel';
 import { useCurrentCity } from '../../contexts/CityContext';
@@ -32,6 +32,9 @@ function FloodAtlasContent({
     const city = useCurrentCity();
     const { user: _user } = useAuth();
     const { state: navState } = useNavigation();
+
+    // Pin-drop mode
+    const [pinDropActive, setPinDropActive] = useState(false);
 
     // Navigation state
     const [showNavigationPanel, setShowNavigationPanel] = useState(!!initialDestination);
@@ -163,6 +166,8 @@ function FloodAtlasContent({
                 title="Flood Atlas"
                 showControls={true}
                 showCitySelector={true}
+                pinDropActive={pinDropActive}
+                onPinDropChange={setPinDropActive}
                 // During navigation, show live remaining route; otherwise show calculated routes
                 navigationRoutes={
                     navState.isNavigating && navState.activeRoute && navState.remainingRouteCoordinates.length > 0
@@ -192,12 +197,21 @@ function FloodAtlasContent({
                 onMetroClick={handleMetroSelected}
             />
 
-            {/* Floating Route Button - Only show when panel is closed AND not navigating */}
+            {/* Floating Action Buttons - Only show when panel is closed AND not navigating */}
             {!showNavigationPanel && !navState.isNavigating && (
                 <div
-                    className="fixed right-4 md:right-auto md:left-1/2 md:ml-32 md:-translate-x-1/2 pointer-events-auto"
+                    className="fixed right-4 md:right-auto md:left-1/2 md:ml-32 md:-translate-x-1/2 pointer-events-auto flex gap-2"
                     style={{ bottom: 'calc(80px + env(safe-area-inset-bottom, 0px))', zIndex: 60 }}
                 >
+                    <Button
+                        onClick={() => setPinDropActive(prev => !prev)}
+                        className={`shadow-xl rounded-xl ${pinDropActive ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-card hover:bg-secondary'}`}
+                        variant={pinDropActive ? 'default' : 'outline'}
+                        size="lg"
+                    >
+                        <MapPin className="mr-2 h-5 w-5" />
+                        {pinDropActive ? 'Cancel Pin' : 'Add Watch Point'}
+                    </Button>
                     <Button
                         onClick={() => setShowNavigationPanel(true)}
                         className="shadow-xl bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl"
