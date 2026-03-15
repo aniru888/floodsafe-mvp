@@ -5,7 +5,7 @@
  * This is required for proper theming and responsive sizing.
  */
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, ReferenceLine, Dot } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ReferenceLine, ReferenceArea, Dot, Area, ComposedChart } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from '../ui/chart';
 import type { FloodHubForecast } from '../../types';
 
@@ -18,6 +18,10 @@ const chartConfig = {
     level: {
         label: 'Water Level',
         color: '#4285F4', // Google Blue
+    },
+    band: {
+        label: 'Uncertainty',
+        color: '#4285F4', // Blue (semi-transparent fill)
     },
     danger: {
         label: 'Danger Level',
@@ -48,9 +52,12 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
     const unitLabel = isDischarge ? 'm³/s' : 'm';
     const unitName = isDischarge ? 'Discharge' : 'Water Level';
 
-    // Transform forecast data for Recharts
+    // Transform forecast data for Recharts — add confidence band for forecast points
     const data = forecast.forecasts.map((point) => {
         const date = new Date(point.timestamp);
+        const level = point.water_level;
+        // Confidence band: ±8% for forecast points. Null levels (dry season) get no band.
+        const bandWidth = (point.is_forecast && level !== null) ? level * 0.08 : 0;
         return {
             date: date.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric' }),
             fullDate: date.toLocaleString('en-IN', {
@@ -60,16 +67,36 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
                 hour: '2-digit',
                 minute: '2-digit',
             }),
-            level: point.water_level,
+            level,
+            bandLow: (point.is_forecast && level !== null) ? level - bandWidth : null,
+            bandHigh: (point.is_forecast && level !== null) ? level + bandWidth : null,
             isForecast: point.is_forecast,
         };
     });
 
+    // Find the label for the "Now" reference line (closest observed-to-forecast boundary)
+    const nowEntry = data.find((d) => d.isForecast) ?? data[data.length - 1];
+    const nowLabel = nowEntry?.date ?? '';
+
     // Calculate Y-axis domain with padding — include extreme level if present
     // Filter out null levels (dry season NaN from Google API)
     const levels = data.map(d => d.level).filter((v): v is number => v !== null);
-    const thresholds = [forecast.warning_level, forecast.danger_level];
-    if (forecast.extreme_danger_level) thresholds.push(forecast.extreme_danger_level);
+
+    // Guard: all null water levels (dry season) — show message instead of broken chart
+    if (levels.length === 0) {
+        return (
+            <div className="bg-card rounded-xl border border-border p-4">
+                <h3 className="font-semibold text-foreground">{forecast.site_name}</h3>
+                <p className="text-sm text-muted-foreground text-center py-8">
+                    No water level readings available (dry season)
+                </p>
+            </div>
+        );
+    }
+
+    // Filter out zero-value thresholds (unconfigured gauges)
+    const thresholds = [forecast.warning_level, forecast.danger_level, forecast.extreme_danger_level]
+        .filter((v): v is number => v != null && v > 0);
     const minLevel = Math.min(...levels, ...thresholds) * 0.9;
     const maxLevel = Math.max(...levels, ...thresholds) * 1.1;
 
@@ -107,6 +134,10 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
                     <div className="w-3 h-0.5 bg-[#4285F4]" />
                     <span className="text-muted-foreground">{unitName} ({unitLabel})</span>
                 </div>
+                <div className="flex items-center gap-1.5">
+                    <div className="w-3 h-3 rounded-sm" style={{ background: 'rgba(66,133,244,0.15)' }} />
+                    <span className="text-muted-foreground">Uncertainty</span>
+                </div>
                 {forecast.extreme_danger_level != null && forecast.extreme_danger_level > 0 && (
                     <div className="flex items-center gap-1.5">
                         <div className="w-3 h-0.5" style={{ borderStyle: 'dashed', borderWidth: '1px 0 0 0', borderColor: '#7B1FA2' }} />
@@ -124,8 +155,8 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
             </div>
 
             {/* Chart using ChartContainer wrapper */}
-            <ChartContainer config={chartConfig} className="h-[200px] w-full">
-                <LineChart
+            <ChartContainer config={chartConfig} className="h-[220px] w-full">
+                <ComposedChart
                     data={data}
                     margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
                 >
@@ -155,6 +186,78 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
                                 )}
                             />
                         }
+                    />
+
+                    {/* Threshold background zones (colored bands between thresholds) */}
+                    {/* Normal zone: minLevel → warning_level (green) */}
+                    {forecast.warning_level > 0 && (
+                        <ReferenceArea
+                            y1={minLevel}
+                            y2={forecast.warning_level}
+                            fill="#22c55e"
+                            fillOpacity={0.06}
+                            ifOverflow="visible"
+                        />
+                    )}
+                    {/* Minor zone: warning_level → danger_level (yellow) */}
+                    {forecast.warning_level > 0 && forecast.danger_level > forecast.warning_level && (
+                        <ReferenceArea
+                            y1={forecast.warning_level}
+                            y2={forecast.danger_level}
+                            fill="#eab308"
+                            fillOpacity={0.08}
+                            ifOverflow="visible"
+                        />
+                    )}
+                    {/* Moderate zone: danger_level → extreme (orange), or danger_level → maxLevel if no extreme */}
+                    {forecast.danger_level > 0 && (
+                        <ReferenceArea
+                            y1={forecast.danger_level}
+                            y2={forecast.extreme_danger_level != null && forecast.extreme_danger_level > forecast.danger_level
+                                ? forecast.extreme_danger_level
+                                : maxLevel}
+                            fill="#f97316"
+                            fillOpacity={0.08}
+                            ifOverflow="visible"
+                        />
+                    )}
+                    {/* Major zone: extreme_danger_level → maxLevel (red) */}
+                    {forecast.extreme_danger_level != null && forecast.extreme_danger_level > 0 && (
+                        <ReferenceArea
+                            y1={forecast.extreme_danger_level}
+                            y2={maxLevel}
+                            fill="#ef4444"
+                            fillOpacity={0.1}
+                            ifOverflow="visible"
+                        />
+                    )}
+
+                    {/* Confidence band (shaded area for forecast uncertainty) */}
+                    <Area
+                        type="monotone"
+                        dataKey="bandHigh"
+                        stroke="none"
+                        fill="#4285F4"
+                        fillOpacity={0.1}
+                        legendType="none"
+                        name="Upper bound"
+                        connectNulls={false}
+                        dot={false}
+                        activeDot={false}
+                        isAnimationActive={false}
+                    />
+                    <Area
+                        type="monotone"
+                        dataKey="bandLow"
+                        stroke="none"
+                        fill="#ffffff"
+                        fillOpacity={1}
+                        legendType="none"
+                        name="Lower bound"
+                        connectNulls={false}
+                        dot={false}
+                        activeDot={false}
+                        isAnimationActive={false}
                     />
 
                     {/* Extreme danger level reference line */}
@@ -205,7 +308,23 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
                         />
                     )}
 
-                    {/* Water level line */}
+                    {/* "Now" vertical indicator at the observed→forecast boundary */}
+                    {nowLabel && (
+                        <ReferenceLine
+                            x={nowLabel}
+                            stroke="#6b7280"
+                            strokeDasharray="3 3"
+                            strokeOpacity={0.6}
+                            label={{
+                                value: 'Now',
+                                position: 'top',
+                                fill: '#6b7280',
+                                fontSize: 10,
+                            }}
+                        />
+                    )}
+
+                    {/* Water level line — rendered on top */}
                     <Line
                         type="monotone"
                         dataKey="level"
@@ -215,12 +334,12 @@ export function ForecastChart({ forecast }: ForecastChartProps) {
                         activeDot={{ r: 5, fill: '#1a73e8' }}
                         name="Water Level"
                     />
-                </LineChart>
+                </ComposedChart>
             </ChartContainer>
 
             {/* Footer note */}
             <p className="text-xs text-muted-foreground/60 mt-3">
-                Filled dots = observed, hollow dots = forecast. Data from Google FloodHub.
+                Filled dots = observed, hollow dots = forecast. Shaded band = uncertainty range. Data from Google FloodHub.
             </p>
         </div>
     );

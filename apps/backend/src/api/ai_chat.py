@@ -24,7 +24,7 @@ from ..domain.services.llama_service import (
     is_llama_enabled,
 )
 from ..infrastructure.database import get_db
-from ..infrastructure.models import ExternalAlert, User
+from ..infrastructure.models import ExternalAlert, Report, User
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -174,20 +174,36 @@ async def alert_summary(
     client_ip = request.client.host if request.client else "unknown"
     check_rate_limit(f"ai_alert:{client_ip}", max_requests=15, window_seconds=60)
 
+    # Check external_alerts first, then fall back to community reports
     alert = db.query(ExternalAlert).filter(ExternalAlert.id == alert_id).first()
-    if not alert:
+    if alert:
+        ai_summary: Optional[str] = None
+        if is_llama_enabled() and _llm_rate_ok():
+            ai_summary = await _generate_alert_summary(alert)
+
+        return AlertSummaryResponse(
+            alert_id=str(alert.id),
+            title=alert.title,
+            source=alert.source_name or alert.source,
+            severity=alert.severity,
+            ai_summary=ai_summary,
+        )
+
+    # Fall back to community reports table
+    report = db.query(Report).filter(Report.id == alert_id).first()
+    if not report:
         raise HTTPException(status_code=404, detail="Alert not found")
 
-    ai_summary: Optional[str] = None
+    ai_summary_report: Optional[str] = None
     if is_llama_enabled() and _llm_rate_ok():
-        ai_summary = await _generate_alert_summary(alert)
+        ai_summary_report = await _generate_report_summary(report)
 
     return AlertSummaryResponse(
-        alert_id=str(alert.id),
-        title=alert.title,
-        source=alert.source_name or alert.source,
-        severity=alert.severity,
-        ai_summary=ai_summary,
+        alert_id=str(report.id),
+        title=report.description or "Community Flood Report",
+        source="floodsafe",
+        severity="moderate",
+        ai_summary=ai_summary_report,
     )
 
 
@@ -332,6 +348,31 @@ async def _generate_alert_summary(alert: ExternalAlert) -> Optional[str]:
         "You are a practical urban flood advisor for FloodSafe. "
         "In 2-3 sentences, explain what this official alert means for everyday urban commuters. "
         "Translate technical language into plain advice. Never be alarmist."
+    )
+
+    base_url, api_key, model = _get_api_config()
+    return await _simple_llm_call(base_url, api_key, model, system, user_message)
+
+
+async def _generate_report_summary(report: Report) -> Optional[str]:
+    """Generate a plain-language explanation of a community flood report."""
+    lines = [
+        "Alert from: Community Report (FloodSafe user)",
+        f"Description: {report.description or 'No description'}",
+    ]
+    if report.water_depth:
+        lines.append(f"Water depth: {report.water_depth}")
+    if report.vehicle_passability:
+        lines.append(f"Vehicle passability: {report.vehicle_passability}")
+    lines.append(f"Verified: {'Yes' if report.verified else 'Not yet'}")
+    if report.timestamp:
+        lines.append(f"Reported: {report.timestamp.isoformat()}")
+
+    user_message = "\n".join(lines)
+    system = (
+        "You are a practical urban flood advisor for FloodSafe. "
+        "In 2-3 sentences, explain what this community-reported flood means for nearby residents and commuters. "
+        "Be concise and practical. Never be alarmist."
     )
 
     base_url, api_key, model = _get_api_config()

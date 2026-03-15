@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { ExternalLink, MapPin, Cloud, MessageCircle, Radio, Rss, AlertTriangle, ChevronDown, ChevronUp, Globe, Shield } from 'lucide-react';
+import { ExternalLink, MapPin, Cloud, MessageCircle, Radio, Rss, AlertTriangle, ChevronDown, ChevronUp, Globe, Shield, Sparkles, Loader2 } from 'lucide-react';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import type { UnifiedAlert, AlertSource, AlertSeverity } from '../types';
+import { useAlertSummary } from '../lib/api/hooks';
 
 interface AlertCardProps {
     alert: UnifiedAlert;
@@ -122,7 +123,15 @@ function formatTimeAgo(timestamp: string): string {
 
 export function AlertCard({ alert }: AlertCardProps) {
     const [isExpanded, setIsExpanded] = useState(false);
+    const [explainEnabled, setExplainEnabled] = useState(false);
+    const [explainOpen, setExplainOpen] = useState(false);
     const hasUrl = !!alert.url;
+
+    const {
+        data: summaryData,
+        isLoading: summaryLoading,
+        isError: summaryError,
+    } = useAlertSummary(explainEnabled ? alert.id : '');
 
     // Truncate message for collapsed state (150 chars)
     const message = alert.message || '';
@@ -187,8 +196,8 @@ export function AlertCard({ alert }: AlertCardProps) {
                 )}
 
                 {/* Action Buttons */}
-                {hasUrl && (
-                    <div className="flex gap-2 flex-wrap">
+                <div className="flex gap-2 flex-wrap">
+                    {hasUrl && (
                         <Button
                             variant="outline"
                             size="sm"
@@ -197,6 +206,61 @@ export function AlertCard({ alert }: AlertCardProps) {
                             <ExternalLink className="w-3 h-3 mr-1" />
                             View Source
                         </Button>
+                    )}
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                            if (!explainEnabled) {
+                                setExplainEnabled(true);
+                                setExplainOpen(true);
+                            } else {
+                                setExplainOpen((prev) => !prev);
+                            }
+                        }}
+                        disabled={summaryLoading}
+                    >
+                        {summaryLoading ? (
+                            <>
+                                <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                                Explaining...
+                            </>
+                        ) : (
+                            <>
+                                <Sparkles className="w-3 h-3 mr-1" />
+                                Explain
+                                {explainOpen && explainEnabled && !summaryLoading ? (
+                                    <ChevronUp className="w-3 h-3 ml-1" />
+                                ) : (
+                                    <ChevronDown className="w-3 h-3 ml-1" />
+                                )}
+                            </>
+                        )}
+                    </Button>
+                </div>
+
+                {/* AI Explanation Section */}
+                {explainOpen && explainEnabled && (
+                    <div className="rounded-lg bg-muted/50 border border-border p-3">
+                        {summaryLoading && (
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                <Loader2 className="w-3 h-3 animate-spin" />
+                                Getting AI explanation...
+                            </div>
+                        )}
+                        {summaryError && (
+                            <p className="text-xs text-destructive">
+                                Could not load explanation. Please try again.
+                            </p>
+                        )}
+                        {summaryData && (
+                            <div className="flex items-start gap-2">
+                                <Sparkles className="w-3 h-3 text-primary mt-0.5 flex-shrink-0" />
+                                <p className="text-xs text-muted-foreground leading-relaxed">
+                                    {summaryData.ai_summary}
+                                </p>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

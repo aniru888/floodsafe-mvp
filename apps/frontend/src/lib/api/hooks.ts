@@ -2148,7 +2148,7 @@ export function useAddressRisk() {
 export function useAlertSummary(alertId: string) {
   return useQuery({
     queryKey: ['alert-summary', alertId],
-    queryFn: () => fetchJson<{ alert_id: string; summary: string }>(`/ai/alert-summary/${alertId}`),
+    queryFn: () => fetchJson<{ alert_id: string; ai_summary: string | null; title: string; source: string; severity: string | null }>(`/ai/alert-summary/${alertId}`),
     staleTime: 60 * 60 * 1000,
     enabled: !!alertId,
   });
