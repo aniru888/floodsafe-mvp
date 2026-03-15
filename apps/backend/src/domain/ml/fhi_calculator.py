@@ -909,3 +909,129 @@ async def calculate_fhi_for_location(lat: float, lng: float) -> Dict:
             "precip_3d_mm": 0.0,
             "hourly_max_mm": 0.0,
         }
+
+
+def build_scenario_precip(scenario: str) -> List[float]:
+    """Build a realistic 72h hourly precipitation array for a scenario.
+
+    Models burst rainfall patterns typical of Indian monsoon events:
+    - Peak intensity concentrated in 1-2 core hours
+    - Gradual ramp-up and taper
+    - Remaining hours zero
+
+    Returns 72-element list of hourly precipitation (mm/h).
+    """
+    hourly = [0.0] * 72
+
+    if scenario == "light":
+        # 15mm total over 4h — light monsoon shower
+        hourly[6] = 2.0    # ramp
+        hourly[7] = 5.0    # peak
+        hourly[8] = 5.0    # sustained
+        hourly[9] = 3.0    # tail
+        # Total: 15mm, Peak: 5mm/h
+    elif scenario == "heavy":
+        # 50mm total over 5h — heavy monsoon burst
+        hourly[4] = 5.0    # ramp
+        hourly[5] = 20.0   # peak hour
+        hourly[6] = 10.0   # sustained
+        hourly[7] = 10.0   # sustained
+        hourly[8] = 5.0    # tail
+        # Total: 50mm, Peak: 20mm/h
+    elif scenario == "extreme":
+        # 100mm total over 7h — severe deluge
+        hourly[2] = 5.0    # ramp
+        hourly[3] = 35.0   # peak hour
+        hourly[4] = 20.0   # sustained core
+        hourly[5] = 20.0   # sustained core
+        hourly[6] = 10.0   # shoulder
+        hourly[7] = 5.0    # shoulder
+        hourly[8] = 5.0    # tail
+        # Total: 100mm, Peak: 35mm/h
+
+    return hourly
+
+
+async def simulate_fhi_scenario(lat: float, lng: float, scenario: str) -> Dict:
+    """
+    Calculate FHI under a hypothetical rainfall scenario with realistic burst profile.
+
+    HYBRID approach: Fetches REAL current conditions (elevation, soil moisture,
+    antecedent rain, pressure) from weather APIs, then REPLACES only the
+    precipitation forecast with a burst profile. This shows what would happen
+    to the user's location with a specific storm on top of current ground conditions.
+    """
+    calculator = get_fhi_calculator()
+    detected_city = calculator._detect_city(lat, lng)
+    calibration = calculator._get_calibration(detected_city)
+
+    try:
+        # Fetch REAL data — only precip forecast is overridden
+        elevation, weather = await asyncio.gather(
+            calculator._fetch_elevation(lat, lng),
+            calculator._fetch_weather(lat, lng),
+        )
+
+        # Extract REAL conditions from weather API
+        hourly = weather.get("hourly", {})
+        daily = weather.get("daily", {})
+        past_hours = calculator.PAST_DAYS * 24
+
+        soil_moisture_full = hourly.get("soil_moisture_0_to_7cm", [0.2] * (past_hours + 72))
+        surface_pressure_full = hourly.get("surface_pressure", [1013] * (past_hours + 72))
+
+        # Use REAL soil moisture and pressure (forecast portion)
+        soil_moisture = soil_moisture_full[past_hours:]
+        surface_pressure = surface_pressure_full[past_hours:]
+
+        # Use REAL historical precipitation for antecedent (A) and saturation (S)
+        daily_precip_all = daily.get("precipitation_sum", [])
+        historical_daily_precip = daily_precip_all[:calculator.PAST_DAYS]
+
+        # OVERRIDE: Replace forecast precipitation with burst profile
+        precip_hourly = build_scenario_precip(scenario)
+
+        # Compute components — P and I from scenario, S/A/R/E from real conditions
+        components = calculator._calculate_components(
+            elevation=elevation,
+            precip_hourly=precip_hourly,
+            soil_moisture=soil_moisture,
+            surface_pressure=surface_pressure,
+            precip_prob_max=85.0,
+            calibration=calibration,
+            historical_daily_precip=historical_daily_precip,
+            city=detected_city,
+        )
+
+        # Calculate FHI score (no rain-gate — user explicitly asked about rain)
+        month = datetime.now().month
+        T_modifier = calculator.MONSOON_MODIFIER if month in calculator.MONSOON_MONTHS else 1.0
+        fhi_raw = sum(calculator.WEIGHTS[k] * v for k, v in components.items()) * T_modifier
+        fhi_score = min(1.0, max(0.0, fhi_raw))
+
+        # Determine level + color
+        if fhi_score < 0.2:
+            level, color = "low", "#22c55e"
+        elif fhi_score < 0.4:
+            level, color = "moderate", "#eab308"
+        elif fhi_score < 0.7:
+            level, color = "high", "#f97316"
+        else:
+            level, color = "extreme", "#ef4444"
+
+        return {
+            "fhi_score": round(fhi_score, 3),
+            "fhi_level": level,
+            "fhi_color": color,
+            "scenario": scenario,
+            "components": components,
+        }
+    except Exception as e:
+        logger.error(f"Scenario simulation failed: {e}")
+        return {
+            "fhi_score": 0.0,
+            "fhi_level": "unknown",
+            "fhi_color": "#9ca3af",
+            "scenario": scenario,
+            "components": {},
+        }

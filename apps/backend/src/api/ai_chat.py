@@ -273,38 +273,18 @@ async def simulate_scenario(
     client_ip = request.client.host if request.client else "unknown"
     check_rate_limit(f"ai_sim:{client_ip}", max_requests=10, window_seconds=60)
 
-    precip_mm = SCENARIO_PRECIP.get(data.scenario)
-    if precip_mm is None:
+    if data.scenario not in SCENARIO_PRECIP:
         raise HTTPException(
             status_code=422,
             detail=f"Invalid scenario '{data.scenario}'. Valid: light, heavy, extreme",
         )
 
-    from ..core.config import settings
+    from ..domain.ml.fhi_calculator import simulate_fhi_scenario
 
     try:
-        async with httpx.AsyncClient(timeout=12.0) as client:
-            resp = await client.get(
-                f"{settings.ML_SERVICE_URL}/api/v1/hotspots/simulate-fhi",
-                params={
-                    "lat": data.latitude,
-                    "lng": data.longitude,
-                    "city": data.city,
-                    "precip_mm": precip_mm,
-                },
-            )
-
-        if resp.status_code != 200:
-            raise HTTPException(502, "Simulation service unavailable")
-
-        result = resp.json()
+        result = await simulate_fhi_scenario(data.latitude, data.longitude, data.scenario)
         fhi_level = result.get("fhi_level", "unknown")
         fhi_color = result.get("fhi_color", "#9ca3af")
-
-    except httpx.TimeoutException:
-        raise HTTPException(504, "Simulation timed out")
-    except HTTPException:
-        raise
     except Exception as e:
         logger.error("Simulation failed: %s", e)
         raise HTTPException(502, "Simulation service error")
@@ -384,48 +364,20 @@ async def _get_fhi_for_point(
     lat: float, lng: float, city: str
 ) -> tuple[Optional[float], Optional[str]]:
     """
-    Fetch FHI score and risk level for the nearest hotspot to the given point.
+    Calculate FHI score and risk level at a specific point.
 
-    Calls the ML service hotspot endpoint; returns (None, None) gracefully on failure.
+    Uses the backend's own FHI calculator (not the dead ML service).
+    Returns (None, None) gracefully on failure.
     """
-    from ..core.config import settings
-
-    if not getattr(settings, "ML_SERVICE_URL", ""):
-        return None, None
+    from ..domain.ml.fhi_calculator import calculate_fhi_for_location
 
     try:
-        async with httpx.AsyncClient(timeout=8.0) as client:
-            resp = await client.get(
-                f"{settings.ML_SERVICE_URL}/api/v1/hotspots/all",
-                params={"include_rainfall": "true", "city": city.lower()},
-            )
-
-        if resp.status_code != 200:
+        result = await calculate_fhi_for_location(lat, lng)
+        fhi_score = result.get("fhi_score")
+        fhi_level = result.get("fhi_level")
+        if fhi_level == "unknown":
             return None, None
-
-        features = resp.json().get("features", [])
-        if not features:
-            return None, None
-
-        # Find the nearest hotspot
-        best_fhi: Optional[float] = None
-        best_level: Optional[str] = None
-        best_dist = float("inf")
-
-        for feat in features:
-            coords = feat.get("geometry", {}).get("coordinates", [])
-            if len(coords) < 2:
-                continue
-            f_lng, f_lat = coords[0], coords[1]
-            dist = (f_lat - lat) ** 2 + (f_lng - lng) ** 2
-            if dist < best_dist:
-                best_dist = dist
-                props = feat.get("properties", {})
-                best_fhi = props.get("fhi_score")
-                best_level = props.get("fhi_level") or props.get("risk_level")
-
-        return best_fhi, best_level
-
+        return fhi_score, fhi_level
     except Exception as e:
         logger.warning("FHI point lookup failed: %s", e)
         return None, None
