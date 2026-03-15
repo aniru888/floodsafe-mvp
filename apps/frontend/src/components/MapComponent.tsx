@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useMap } from '../lib/map/useMap';
-import { useSensors, useReports, useHistoricalFloods, useHotspots, useFloodHubGauges, useFloodHubInundation, useCreatePin, Sensor, Report } from '../lib/api/hooks';
+import { useSensors, useReports, useHistoricalFloods, useHotspots, useFloodHubGauges, useFloodHubInundation, useCreatePin, useWatchHotspot, Sensor, Report } from '../lib/api/hooks';
 // usePredictionGrid removed - ensemble models not trained (see line 95-105)
 import maplibregl from 'maplibre-gl';
 import { Button } from './ui/button';
@@ -115,6 +115,7 @@ export default function MapComponent({
     const [pinConfirm, setPinConfirm] = useState<{ lat: number; lng: number } | null>(null);
     const [pinName, setPinName] = useState('');
     const createPinMutation = useCreatePin();
+    const watchHotspotMutation = useWatchHotspot();
     // NOTE: Groundsource clusters are admin-only data (overlap_status, confidence, etc.)
     // They belong in AdminDashboard Discovery tab, NOT the public map.
     // Removed from public map — see commit history for the layer code if needed later.
@@ -142,6 +143,22 @@ export default function MapComponent({
         window.addEventListener('check-historical-floods', handler as EventListener);
         return () => window.removeEventListener('check-historical-floods', handler as EventListener);
     }, []);
+
+    // Listen for watch-hotspot from hotspot popup
+    useEffect(() => {
+        const handler = (e: Event) => {
+            const { name, lat, lng } = (e as CustomEvent).detail;
+            watchHotspotMutation.mutate(
+                { hotspot_name: name, latitude: lat, longitude: lng, city },
+                {
+                    onSuccess: () => toast.success('Added to your watch points', { description: name }),
+                    onError: (err: Error) => toast.error('Failed to save', { description: err.message }),
+                },
+            );
+        };
+        window.addEventListener('watch-hotspot', handler);
+        return () => window.removeEventListener('watch-hotspot', handler);
+    }, [city, watchHotspotMutation]);
 
     // ML predictions (ensemble) are Delhi-only and currently disabled
     const isDelhiCity = city === 'delhi';
@@ -1061,6 +1078,15 @@ export default function MapComponent({
                                    <span>Check historical flood records nearby</span>
                                    <span>&rarr;</span>
                                 </a>
+                            </div>
+
+                            <!-- Watch This Hotspot -->
+                            <div class="mt-2 pt-2 border-t border-border">
+                                <button onclick="window.dispatchEvent(new CustomEvent('watch-hotspot', { detail: { name: '${(props.name || 'Hotspot').replace(/'/g, "\\'")}', lat: ${coordinates[1]}, lng: ${coordinates[0]} } })); this.disabled=true; this.textContent='Saving...';"
+                                    class="w-full text-center text-xs font-medium text-white rounded-lg py-1.5 px-3 transition-colors"
+                                    style="background-color: #059669">
+                                    Save to Watch List
+                                </button>
                             </div>
 
                             <!-- Zone Info -->

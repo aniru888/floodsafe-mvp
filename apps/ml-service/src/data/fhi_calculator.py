@@ -122,7 +122,8 @@ class FHICalculator:
         self._cache: Dict[str, tuple] = {}  # (FHIResult, timestamp)
 
     async def calculate_fhi(
-        self, lat: float, lng: float, city: str = "delhi"
+        self, lat: float, lng: float, city: str = "delhi",
+        override_precip_mm: float | None = None,
     ) -> FHIResult:
         """
         Calculate FHI for a location with probability-based correction and rain-gate.
@@ -142,12 +143,13 @@ class FHICalculator:
         Raises:
             FHICalculationError: If calculation fails
         """
-        # Check cache
+        # Check cache (skip for overrides — scenario simulations are one-off)
         cache_key = f"{lat:.4f},{lng:.4f}"
-        cached_result = self._get_from_cache(cache_key)
-        if cached_result is not None:
-            logger.info(f"FHI cache hit for ({lat:.4f}, {lng:.4f})")
-            return cached_result
+        if override_precip_mm is None:
+            cached_result = self._get_from_cache(cache_key)
+            if cached_result is not None:
+                logger.info(f"FHI cache hit for ({lat:.4f}, {lng:.4f})")
+                return cached_result
 
         try:
             # Fetch data in parallel
@@ -179,6 +181,13 @@ class FHICalculator:
             forecast_probs = precip_prob_values[3:] if len(precip_prob_values) > 3 else precip_prob_values
             precip_prob_max = max([p for p in forecast_probs if p is not None], default=50)
 
+            # Override forecast precipitation for scenario simulation
+            if override_precip_mm is not None:
+                hourly_rate = override_precip_mm / 24.0
+                precip_forecast = [hourly_rate] * 72
+                precip_prob_max = 90  # High probability for override scenarios
+                logger.info(f"FHI override: {override_precip_mm}mm total, {hourly_rate:.2f}mm/h")
+
             # Calculate probability-based correction factor
             # Range: 1.5x (0% prob) to 2.25x (100% prob)
             prob_boost = 1 + (precip_prob_max / 100) * self.PROB_BOOST_MULTIPLIER
@@ -190,7 +199,10 @@ class FHICalculator:
             past_3d_total = sum(precip_past_clean)
             forecast_3d_total = sum(precip_forecast_clean)
             # Rain-gate: check if there's meaningful rain in either past or forecast
+            # Override scenarios always bypass rain-gate (user explicitly set rainfall)
             rain_total_for_gate = max(past_3d_total, forecast_3d_total)
+            if override_precip_mm is not None:
+                rain_total_for_gate = max(rain_total_for_gate, override_precip_mm)
 
             # Calculate components with split past/forecast data
             components = self._calculate_components(
@@ -248,8 +260,9 @@ class FHICalculator:
                 precip_prob_max=precip_prob_max,
             )
 
-            # Cache result
-            self._save_to_cache(cache_key, result)
+            # Cache result (skip for override scenarios — they're one-off)
+            if override_precip_mm is None:
+                self._save_to_cache(cache_key, result)
 
             logger.info(
                 f"FHI calculated for ({lat:.4f}, {lng:.4f}, city={city}): "
@@ -477,7 +490,8 @@ def get_fhi_calculator() -> FHICalculator:
 
 
 async def calculate_fhi_for_location(
-    lat: float, lng: float, city: str = "delhi"
+    lat: float, lng: float, city: str = "delhi",
+    override_precip_mm: float | None = None,
 ) -> Dict:
     """
     Calculate FHI for a location (convenience function).
@@ -486,6 +500,7 @@ async def calculate_fhi_for_location(
         lat: Latitude
         lng: Longitude
         city: City name for per-city calibration
+        override_precip_mm: Optional override for forecast precipitation (scenario simulation)
 
     Returns:
         Dictionary with FHI result, or default values if calculation fails
@@ -493,7 +508,9 @@ async def calculate_fhi_for_location(
     calculator = get_fhi_calculator()
 
     try:
-        result = await calculator.calculate_fhi(lat, lng, city=city)
+        result = await calculator.calculate_fhi(
+            lat, lng, city=city, override_precip_mm=override_precip_mm,
+        )
         return result.to_dict()
     except Exception as e:
         logger.warning(f"FHI calculation failed, returning defaults: {e}")

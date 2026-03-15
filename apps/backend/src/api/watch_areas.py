@@ -397,6 +397,49 @@ async def create_personal_pin(
     return _pin_to_response(pin)
 
 
+class WatchHotspotRequest(BaseModel):
+    """Request body for watching an official hotspot."""
+    hotspot_name: str = Field(..., min_length=1, max_length=100)
+    latitude: float = Field(..., ge=-90.0, le=90.0)
+    longitude: float = Field(..., ge=-180.0, le=180.0)
+    city: Optional[str] = None
+
+
+@router.post("/watch-hotspot", response_model=PinResponse, status_code=status.HTTP_201_CREATED)
+async def watch_hotspot(
+    data: WatchHotspotRequest,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
+    """
+    Save an official hotspot to the user's personal watch list.
+
+    Reuses the personal pin creation flow (FHI compute, historical lookup,
+    road snap, 25-pin limit) but marks it as watching an official hotspot.
+    """
+    service = WatchAreaService(db)
+    try:
+        pin = await service.create_personal_pin(
+            user_id=current_user.id,
+            latitude=data.latitude,
+            longitude=data.longitude,
+            name=data.hotspot_name,
+            city=data.city,
+            alert_radius_label="my_neighborhood",
+            visibility="private",
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc))
+    except Exception as exc:
+        logger.error("Error watching hotspot for user %s: %s", current_user.id, exc)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to save hotspot to watch list",
+        )
+
+    return _pin_to_response(pin)
+
+
 @router.post("/{watch_area_id}/refresh-fhi", response_model=PinResponse)
 async def refresh_pin_fhi(
     watch_area_id: UUID,

@@ -12,7 +12,7 @@ interface QuickActionsProps {
 const SUGGESTIONS = [
   'Is my area safe?',
   'Current flood risk',
-  'Evacuation routes',
+  'What if it rains heavily?',
   'Weather forecast',
 ];
 

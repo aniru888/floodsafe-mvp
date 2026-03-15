@@ -2123,6 +2123,17 @@ export function useCreatePin() {
   });
 }
 
+export function useWatchHotspot() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: { hotspot_name: string; latitude: number; longitude: number; city?: string }) =>
+      fetchJson<PersonalPin>('/watch-areas/watch-hotspot', { method: 'POST', body: JSON.stringify(data) }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['my-pins'] });
+    },
+  });
+}
+
 export function usePinFhiHistory(pinId: string) {
   return useQuery({
     queryKey: ['pin-fhi-history', pinId],
@@ -2151,5 +2162,20 @@ export function useAlertSummary(alertId: string) {
     queryFn: () => fetchJson<{ alert_id: string; ai_summary: string | null; title: string; source: string; severity: string | null }>(`/ai/alert-summary/${alertId}`),
     staleTime: 60 * 60 * 1000,
     enabled: !!alertId,
+  });
+}
+
+interface SimulationResponse {
+  scenario: string;
+  risk_level: string;
+  risk_color: string;
+  description: string;
+  disclaimer: string;
+}
+
+export function useSimulateFhi() {
+  return useMutation({
+    mutationFn: (params: { latitude: number; longitude: number; city: string; scenario: string }) =>
+      fetchJson<SimulationResponse>('/ai/simulate', { method: 'POST', body: JSON.stringify(params) }),
   });
 }

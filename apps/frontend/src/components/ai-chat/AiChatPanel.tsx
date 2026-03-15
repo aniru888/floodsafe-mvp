@@ -6,13 +6,14 @@
  *
  * Manages local message list and conversationId state.
  * Uses useAiChat() mutation from TanStack Query.
+ * Detects "what if" scenario queries and offers inline simulation.
  */
 
 import { useState, useRef, useEffect, type KeyboardEvent } from 'react';
-import { X, Send, Loader2, Bot } from 'lucide-react';
+import { X, Send, Loader2, Bot, CloudRain } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { Z } from '../../constants/z-index';
-import { useAiChat } from '../../lib/api/hooks';
+import { useAiChat, useSimulateFhi } from '../../lib/api/hooks';
 import type { ChatMessage as ChatMessageType } from '../../types';
 import { ChatMessage } from './ChatMessage';
 import { QuickActions } from './QuickActions';
@@ -32,13 +33,24 @@ const WELCOME_MESSAGE: ChatMessageType = {
   timestamp: Date.now(),
 };
 
+const SCENARIOS = [
+  { key: 'light', label: 'Light Rain', sublabel: '15mm' },
+  { key: 'heavy', label: 'Heavy Monsoon', sublabel: '50mm' },
+  { key: 'extreme', label: 'Extreme Storm', sublabel: '100mm' },
+] as const;
+
+const isScenarioQuery = (text: string) =>
+  /what.?if|scenario|simulate|hypothetical|rain.*heavy|heavy.*rain/i.test(text);
+
 export function AiChatPanel({ isOpen, onClose, city, latitude, longitude }: AiChatPanelProps) {
   const [messages, setMessages] = useState<ChatMessageType[]>([WELCOME_MESSAGE]);
   const [conversationId, setConversationId] = useState<string | undefined>();
   const [inputValue, setInputValue] = useState('');
+  const [showScenarioPicker, setShowScenarioPicker] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { mutate: sendMessage, isPending } = useAiChat();
+  const { mutate: simulateFhi, isPending: isSimulating } = useSimulateFhi();
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
@@ -54,9 +66,46 @@ export function AiChatPanel({ isOpen, onClose, city, latitude, longitude }: AiCh
     }
   }, [isOpen]);
 
+  const handleScenarioSelect = (scenario: string) => {
+    if (!latitude || !longitude) {
+      const msg: ChatMessageType = {
+        role: 'assistant',
+        content: 'I need your location to simulate flood risk. Please allow location access and try again.',
+        timestamp: Date.now(),
+      };
+      setMessages((prev) => [...prev, msg]);
+      setShowScenarioPicker(false);
+      return;
+    }
+
+    simulateFhi(
+      { latitude, longitude, city, scenario },
+      {
+        onSuccess: (data) => {
+          const resultMsg: ChatMessageType = {
+            role: 'assistant',
+            content: `${data.description}\n\n⚠️ ${data.disclaimer}`,
+            timestamp: Date.now(),
+          };
+          setMessages((prev) => [...prev, resultMsg]);
+          setShowScenarioPicker(false);
+        },
+        onError: () => {
+          const errorMsg: ChatMessageType = {
+            role: 'assistant',
+            content: 'Simulation unavailable — weather data could not be fetched. Please try again later.',
+            timestamp: Date.now(),
+          };
+          setMessages((prev) => [...prev, errorMsg]);
+          setShowScenarioPicker(false);
+        },
+      },
+    );
+  };
+
   const handleSend = (text: string) => {
     const trimmed = text.trim();
-    if (!trimmed || isPending) return;
+    if (!trimmed || isPending || isSimulating) return;
 
     const userMessage: ChatMessageType = {
       role: 'user',
@@ -66,6 +115,18 @@ export function AiChatPanel({ isOpen, onClose, city, latitude, longitude }: AiCh
 
     setMessages((prev) => [...prev, userMessage]);
     setInputValue('');
+
+    // Detect scenario queries → show inline picker
+    if (isScenarioQuery(trimmed)) {
+      const promptMsg: ChatMessageType = {
+        role: 'assistant',
+        content: 'Choose a rainfall scenario to see how it would affect your area:',
+        timestamp: Date.now(),
+      };
+      setMessages((prev) => [...prev, promptMsg]);
+      setShowScenarioPicker(true);
+      return;
+    }
 
     sendMessage(
       { message: trimmed, city, conversation_id: conversationId, latitude, longitude },
@@ -99,6 +160,8 @@ export function AiChatPanel({ isOpen, onClose, city, latitude, longitude }: AiCh
       handleSend(inputValue);
     }
   };
+
+  const isBusy = isPending || isSimulating;
 
   return (
     <>
@@ -156,12 +219,36 @@ export function AiChatPanel({ isOpen, onClose, city, latitude, longitude }: AiCh
             <ChatMessage key={idx} message={msg} />
           ))}
 
+          {/* Scenario picker — inline after "what if" query */}
+          {showScenarioPicker && (
+            <div className="flex items-start mb-3">
+              <div className="max-w-[85%] space-y-2">
+                {SCENARIOS.map((s) => (
+                  <button
+                    key={s.key}
+                    onClick={() => handleScenarioSelect(s.key)}
+                    disabled={isSimulating}
+                    className="w-full flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-left hover:bg-muted transition-colors disabled:opacity-50"
+                  >
+                    <CloudRain className="w-4 h-4 text-blue-500 shrink-0" />
+                    <div>
+                      <span className="text-xs font-medium text-foreground">{s.label}</span>
+                      <span className="text-[10px] text-muted-foreground ml-1">({s.sublabel})</span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Typing indicator while waiting */}
-          {isPending && (
+          {isBusy && (
             <div className="flex items-start mb-3">
               <div className="max-w-[85%] rounded-2xl rounded-bl-sm px-3 py-2 bg-muted flex items-center gap-2">
                 <Loader2 className="w-3 h-3 animate-spin text-muted-foreground" />
-                <span className="text-xs text-muted-foreground">Thinking...</span>
+                <span className="text-xs text-muted-foreground">
+                  {isSimulating ? 'Simulating...' : 'Thinking...'}
+                </span>
               </div>
             </div>
           )}
@@ -183,7 +270,7 @@ export function AiChatPanel({ isOpen, onClose, city, latitude, longitude }: AiCh
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Ask about flood conditions..."
-            disabled={isPending}
+            disabled={isBusy}
             className={cn(
               'flex-1 h-10 rounded-full border px-4 text-sm',
               'bg-background text-foreground',
@@ -195,7 +282,7 @@ export function AiChatPanel({ isOpen, onClose, city, latitude, longitude }: AiCh
           />
           <button
             onClick={() => handleSend(inputValue)}
-            disabled={isPending || !inputValue.trim()}
+            disabled={isBusy || !inputValue.trim()}
             aria-label="Send message"
             className={cn(
               'w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0',
@@ -206,7 +293,7 @@ export function AiChatPanel({ isOpen, onClose, city, latitude, longitude }: AiCh
             )}
             style={{ backgroundColor: '#10b981' }}
           >
-            {isPending ? (
+            {isBusy ? (
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
               <Send className="w-4 h-4" />

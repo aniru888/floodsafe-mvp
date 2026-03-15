@@ -232,6 +232,95 @@ async def alert_summary(
 
 
 # ---------------------------------------------------------------------------
+# Endpoint: POST /simulate
+# ---------------------------------------------------------------------------
+
+SCENARIO_PRECIP = {"light": 15.0, "heavy": 50.0, "extreme": 100.0}
+SCENARIO_LABELS = {
+    "light": "Light Rain (15mm)",
+    "heavy": "Heavy Monsoon (50mm)",
+    "extreme": "Extreme Storm (100mm)",
+}
+
+
+class SimulationRequest(BaseModel):
+    latitude: float
+    longitude: float
+    city: str
+    scenario: str = Field(..., description="light | heavy | extreme")
+
+
+class SimulationResponse(BaseModel):
+    scenario: str
+    risk_level: str
+    risk_color: str
+    description: str
+    disclaimer: str
+
+
+@router.post("/simulate", response_model=SimulationResponse)
+async def simulate_scenario(
+    data: SimulationRequest,
+    request: Request,
+) -> SimulationResponse:
+    """
+    Simulate FHI under hypothetical rainfall scenarios.
+
+    Calls ML service with overridden precipitation to show what
+    flood risk would look like under different weather conditions.
+    No numerical FHI displayed — only risk level and color.
+    """
+    client_ip = request.client.host if request.client else "unknown"
+    check_rate_limit(f"ai_sim:{client_ip}", max_requests=10, window_seconds=60)
+
+    precip_mm = SCENARIO_PRECIP.get(data.scenario)
+    if precip_mm is None:
+        raise HTTPException(
+            status_code=422,
+            detail=f"Invalid scenario '{data.scenario}'. Valid: light, heavy, extreme",
+        )
+
+    from ..core.config import settings
+
+    try:
+        async with httpx.AsyncClient(timeout=12.0) as client:
+            resp = await client.get(
+                f"{settings.ML_SERVICE_URL}/api/v1/hotspots/simulate-fhi",
+                params={
+                    "lat": data.latitude,
+                    "lng": data.longitude,
+                    "city": data.city,
+                    "precip_mm": precip_mm,
+                },
+            )
+
+        if resp.status_code != 200:
+            raise HTTPException(502, "Simulation service unavailable")
+
+        result = resp.json()
+        fhi_level = result.get("fhi_level", "unknown")
+        fhi_color = result.get("fhi_color", "#9ca3af")
+
+    except httpx.TimeoutException:
+        raise HTTPException(504, "Simulation timed out")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error("Simulation failed: %s", e)
+        raise HTTPException(502, "Simulation service error")
+
+    label = SCENARIO_LABELS.get(data.scenario, data.scenario)
+
+    return SimulationResponse(
+        scenario=data.scenario,
+        risk_level=fhi_level.upper(),
+        risk_color=fhi_color,
+        description=f"Under {label} conditions, your area would be at {fhi_level.upper()} flood risk.",
+        disclaimer="This is a hypothetical estimate, not a prediction. Always check official advisories.",
+    )
+
+
+# ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
 

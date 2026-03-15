@@ -583,6 +583,22 @@ async def get_risk_at_point(request: RiskAtPointRequest):
     )
 
 
+@router.get("/simulate-fhi")
+async def simulate_fhi(
+    lat: float, lng: float, city: str = "delhi", precip_mm: float = 50.0,
+):
+    """
+    Calculate FHI with overridden precipitation for scenario simulation.
+
+    Returns the same FHI result structure but with forecast precipitation
+    replaced by the specified precip_mm value.
+    """
+    result = await calculate_fhi_for_location(
+        lat, lng, city=city, override_precip_mm=precip_mm,
+    )
+    return result
+
+
 @router.get("/health")
 async def health_check():
     """Check hotspots service health."""
