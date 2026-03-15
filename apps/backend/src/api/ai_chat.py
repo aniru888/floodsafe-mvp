@@ -7,6 +7,7 @@ Endpoints:
   GET  /api/ai/alert-summary/{alert_id} — plain-language explanation of an external alert
 """
 import logging
+from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 from uuid import UUID
 
@@ -39,9 +40,11 @@ class ChatRequest(BaseModel):
     message: str = Field(..., min_length=1, max_length=2000, description="User message")
     city: str = Field(..., description="City key: delhi | bangalore | indore | yogyakarta | singapore")
     conversation_id: Optional[str] = Field(None, description="Continue existing conversation")
+    latitude: Optional[float] = Field(None, description="User latitude for FHI lookup")
+    longitude: Optional[float] = Field(None, description="User longitude for FHI lookup")
     context: Optional[Dict[str, Any]] = Field(
         None,
-        description="Optional live context: fhi_score, risk_level, precipitation_mm, active_alerts, location_name",
+        description="Optional live context override: fhi_score, risk_level, precipitation_mm, active_alerts, location_name",
     )
 
 
@@ -78,6 +81,7 @@ class AlertSummaryResponse(BaseModel):
 async def ai_chat(
     data: ChatRequest,
     request: Request,
+    db: Session = Depends(get_db),
     current_user: Optional[User] = Depends(get_current_user_optional),
 ) -> ChatResponse:
     """
@@ -85,15 +89,35 @@ async def ai_chat(
 
     Rate-limited to 20 requests per minute per IP.
     Conversation memory is maintained server-side for 30 minutes.
+    Automatically enriches context with real FHI data if location provided.
     """
     client_ip = request.client.host if request.client else "unknown"
     check_rate_limit(f"ai_chat:{client_ip}", max_requests=20, window_seconds=60)
+
+    # Build context from real data — server-side FHI enrichment
+    context: Dict[str, Any] = data.context or {}
+    if data.latitude is not None and data.longitude is not None:
+        try:
+            fhi_score, risk_level = await _get_fhi_for_point(
+                data.latitude, data.longitude, data.city
+            )
+            if fhi_score is not None:
+                context["fhi_score"] = fhi_score
+            if risk_level:
+                context["risk_level"] = risk_level
+        except Exception as e:
+            logger.warning("FHI enrichment failed for chat: %s", e)
+
+    # Count active alerts for the city
+    alert_count = _count_active_alerts(db, data.city)
+    if alert_count > 0:
+        context["active_alerts"] = alert_count
 
     result = await ai_chat_service.chat(
         message=data.message,
         city=data.city,
         conversation_id=data.conversation_id,
-        context=data.context,
+        context=context or None,
     )
 
     return ChatResponse(
@@ -210,6 +234,19 @@ async def alert_summary(
 # ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
+
+
+def _count_active_alerts(db: Session, city: str) -> int:
+    """Count active (non-expired) external alerts for a city."""
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+    return (
+        db.query(ExternalAlert)
+        .filter(
+            ExternalAlert.city == city,
+            ExternalAlert.expires_at > now,
+        )
+        .count()
+    )
 
 
 async def _geocode_address(

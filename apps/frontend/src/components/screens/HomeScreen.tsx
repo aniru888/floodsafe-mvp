@@ -1236,6 +1236,8 @@ export function HomeScreen({
                 isOpen={aiChatOpen}
                 onClose={() => setAiChatOpen(false)}
                 city={currentCity}
+                latitude={userLocation?.latitude}
+                longitude={userLocation?.longitude}
             />
 
         </div>

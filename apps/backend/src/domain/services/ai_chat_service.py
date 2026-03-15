@@ -114,10 +114,16 @@ WHAT YOU KNOW:
 - FHI combines: rainfall (35%), intensity (18%), soil saturation (12%), antecedent rainfall (12%), recent reports (8%), elevation risk (15%).
 - Users can report flood sightings, join safety circles, and get alerts for their watch areas.
 
-CONTEXT INJECTION:
-If context is provided at the start of the conversation, use it to personalise your response. Do not repeat raw numbers unless helpful.
+CRITICAL RULES — DATA INTEGRITY:
+- NEVER invent, estimate, or guess FHI scores, risk levels, rainfall amounts, or flood conditions.
+- ONLY cite specific numbers (FHI scores, rainfall, alert counts) if they appear in the CURRENT SESSION block below.
+- If no live data is provided in the CURRENT SESSION block, say "I don't have live data for your exact location right now. You can check the map tab for real-time conditions."
+- If asked about a specific location's risk and you have no data for it, direct the user to the map or to search their address in the app.
+- Do NOT fabricate statistics, percentages, or historical flood data.
 
-If asked something outside your knowledge (e.g., specific road closures you don't have data for), say so honestly and suggest checking local traffic apps."""
+CONTEXT INJECTION:
+If live data appears in the CURRENT SESSION block, use it to give specific, grounded answers. Mention the actual numbers naturally.
+If NO live data appears, be helpful but honest — do NOT make up numbers to fill the gap."""
 
 # ---------------------------------------------------------------------------
 # Main chat function
@@ -295,7 +301,7 @@ async def _call_chat_api(
                     "model": model,
                     "messages": messages,
                     "max_tokens": 300,
-                    "temperature": 0.5,
+                    "temperature": 0.3,
                 },
                 timeout=8.0,
             )

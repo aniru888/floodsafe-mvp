@@ -21,6 +21,8 @@ interface AiChatPanelProps {
   isOpen: boolean;
   onClose: () => void;
   city: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 const WELCOME_MESSAGE: ChatMessageType = {
@@ -30,7 +32,7 @@ const WELCOME_MESSAGE: ChatMessageType = {
   timestamp: Date.now(),
 };
 
-export function AiChatPanel({ isOpen, onClose, city }: AiChatPanelProps) {
+export function AiChatPanel({ isOpen, onClose, city, latitude, longitude }: AiChatPanelProps) {
   const [messages, setMessages] = useState<ChatMessageType[]>([WELCOME_MESSAGE]);
   const [conversationId, setConversationId] = useState<string | undefined>();
   const [inputValue, setInputValue] = useState('');
@@ -66,7 +68,7 @@ export function AiChatPanel({ isOpen, onClose, city }: AiChatPanelProps) {
     setInputValue('');
 
     sendMessage(
-      { message: trimmed, city, conversation_id: conversationId },
+      { message: trimmed, city, conversation_id: conversationId, latitude, longitude },
       {
         onSuccess: (data) => {
           setConversationId(data.conversation_id);
