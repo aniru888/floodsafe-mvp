@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useMap } from '../lib/map/useMap';
-import { useSensors, useReports, useHistoricalFloods, useHotspots, useFloodHubGauges, useFloodHubInundation, useGroundsourceClusters, useCreatePin, Sensor, Report } from '../lib/api/hooks';
+import { useSensors, useReports, useHistoricalFloods, useHotspots, useFloodHubGauges, useFloodHubInundation, useCreatePin, Sensor, Report } from '../lib/api/hooks';
 // usePredictionGrid removed - ensemble models not trained (see line 95-105)
 import maplibregl from 'maplibre-gl';
 import { Button } from './ui/button';
@@ -115,8 +115,9 @@ export default function MapComponent({
     const [pinConfirm, setPinConfirm] = useState<{ lat: number; lng: number } | null>(null);
     const [pinName, setPinName] = useState('');
     const createPinMutation = useCreatePin();
-    // ── Groundsource clusters ──────────────────────────────────────────────
-    const { data: clustersData } = useGroundsourceClusters(city);
+    // NOTE: Groundsource clusters are admin-only data (overlap_status, confidence, etc.)
+    // They belong in AdminDashboard Discovery tab, NOT the public map.
+    // Removed from public map — see commit history for the layer code if needed later.
 
     // User location tracking state
     const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
@@ -1544,124 +1545,17 @@ export default function MapComponent({
             map.on('mouseleave', 'pub-cctv-layer', () => { map.getCanvas().style.cursor = ''; });
         }
 
-        // ── 8. Groundsource Cluster Layer ────────────────────────────────────
-        if (clustersData && clustersData.length > 0) {
-            const clustersGeoJSON: GeoJSON.FeatureCollection = {
-                type: 'FeatureCollection',
-                features: clustersData.map(cluster => ({
-                    type: 'Feature' as const,
-                    geometry: {
-                        type: 'Point' as const,
-                        coordinates: [cluster.longitude, cluster.latitude],
-                    },
-                    properties: {
-                        id: cluster.id,
-                        city: cluster.city,
-                        episode_count: cluster.episode_count,
-                        overlap_status: cluster.overlap_status,
-                        nearest_hotspot_name: cluster.nearest_hotspot_name ?? '',
-                        confidence: cluster.confidence,
-                        label: cluster.label ?? '',
-                        // radius clamped 8-20 proportional to episode count (1-20+)
-                        radius: Math.min(20, Math.max(8, 8 + (cluster.episode_count - 1) * 0.6)),
-                    },
-                })),
-            };
-
-            const existingSource = map.getSource('groundsource-clusters') as maplibregl.GeoJSONSource;
-            if (existingSource) {
-                existingSource.setData(clustersGeoJSON);
-            } else {
-                map.addSource('groundsource-clusters', {
-                    type: 'geojson',
-                    data: clustersGeoJSON,
-                });
-
-                // Halo
-                map.addLayer({
-                    id: 'groundsource-clusters-halo',
-                    type: 'circle',
-                    source: 'groundsource-clusters',
-                    paint: {
-                        'circle-radius': ['get', 'radius'],
-                        'circle-color': [
-                            'match', ['get', 'overlap_status'],
-                            'CONFIRMED', '#3b82f6',
-                            'PERIPHERAL', '#f59e0b',
-                            'MISSED', '#ef4444',
-                            '#9ca3af',
-                        ],
-                        'circle-opacity': 0.2,
-                        'circle-blur': 0.6,
-                    },
-                });
-
-                // Main dot
-                map.addLayer({
-                    id: 'groundsource-clusters-layer',
-                    type: 'circle',
-                    source: 'groundsource-clusters',
-                    paint: {
-                        'circle-radius': ['get', 'radius'],
-                        'circle-color': [
-                            'match', ['get', 'overlap_status'],
-                            'CONFIRMED', '#3b82f6',
-                            'PERIPHERAL', '#f59e0b',
-                            'MISSED', '#ef4444',
-                            '#9ca3af',
-                        ],
-                        'circle-stroke-width': 2,
-                        'circle-stroke-color': '#ffffff',
-                        'circle-opacity': 0.85,
-                    },
-                });
-
-                // Click popup
-                map.on('click', 'groundsource-clusters-layer', (e: maplibregl.MapMouseEvent) => {
-                    const features = map.queryRenderedFeatures(e.point, { layers: ['groundsource-clusters-layer'] });
-                    if (!features || features.length === 0) return;
-                    const feature = features[0];
-                    if (!feature.geometry || feature.geometry.type !== 'Point') return;
-                    const coords = (feature.geometry as GeoJSON.Point).coordinates.slice() as [number, number];
-                    const props = feature.properties;
-                    const statusColors: Record<string, string> = {
-                        CONFIRMED: '#3b82f6', PERIPHERAL: '#f59e0b', MISSED: '#ef4444',
-                    };
-                    const color = statusColors[props.overlap_status as string] || '#9ca3af';
-                    new maplibregl.Popup({ offset: 12, maxWidth: 'min(320px, calc(100vw - 32px))' })
-                        .setLngLat(coords)
-                        .setHTML(`
-                            <div class="p-3 min-w-[180px]">
-                                <div class="flex items-center gap-2 mb-2">
-                                    <div class="w-3 h-3 rounded-full" style="background-color:${color}"></div>
-                                    <h3 class="font-bold text-sm">Flood Cluster</h3>
-                                </div>
-                                <p class="text-sm font-medium mb-1">${props.label || 'Unnamed cluster'}</p>
-                                <div class="text-xs space-y-1 text-muted-foreground">
-                                    <div><strong>Episodes:</strong> ${props.episode_count}</div>
-                                    <div><strong>Overlap:</strong> ${props.overlap_status}</div>
-                                    <div><strong>Confidence:</strong> ${props.confidence}</div>
-                                    ${props.nearest_hotspot_name ? `<div><strong>Nearest hotspot:</strong> ${props.nearest_hotspot_name}</div>` : ''}
-                                </div>
-                            </div>
-                        `)
-                        .addTo(map);
-                });
-
-                map.on('mouseenter', 'groundsource-clusters-layer', () => {
-                    map.getCanvas().style.cursor = 'pointer';
-                });
-                map.on('mouseleave', 'groundsource-clusters-layer', () => {
-                    map.getCanvas().style.cursor = isPinDropMode ? 'crosshair' : '';
-                });
-            }
-        }
+        // ── 8. Groundsource Cluster Layer — REMOVED from public map ─────────
+        // Clusters contain admin-only data (overlap_status, confidence, infra_signal).
+        // Showing "Unnamed cluster" with "MISSED" / "LOW confidence" confuses users.
+        // This data surfaces in AdminDashboard > Discovery tab only.
+        // See: docs/superpowers/specs/2026-03-15-groundsource-spatial-validation-design.md
 
         } catch (error) {
             console.error('Error updating map layers:', error);
         }
 
-    }, [map, isLoaded, mapStyleReady, sensors, reports, hotspotsData, hasHotspots, navigationRoutes, selectedRouteId, navigationOrigin, navigationDestination, nearbyMetros, floodZones, onMetroClick, inundationGeoJSON, activeInundationGauge, clustersData, isPinDropMode]);
+    }, [map, isLoaded, mapStyleReady, sensors, reports, hotspotsData, hasHotspots, navigationRoutes, selectedRouteId, navigationOrigin, navigationDestination, nearbyMetros, floodZones, onMetroClick, inundationGeoJSON, activeInundationGauge, isPinDropMode]);
 
     // Auto-zoom map to fit routes when calculated
     useEffect(() => {
