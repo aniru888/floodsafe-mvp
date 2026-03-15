@@ -23,14 +23,17 @@ export function AiChatFab({ isOpen, onToggle, hasAlerts = false }: AiChatFabProp
       onClick={onToggle}
       aria-label={isOpen ? 'Close AI chat' : 'Open AI chat'}
       className={cn(
-        'fixed bottom-24 right-4 w-14 h-14 rounded-full shadow-lg',
+        'fixed bottom-24 right-4 w-14 h-14 rounded-full',
         'flex items-center justify-center',
         'transition-all duration-200 active:scale-95',
-        'bg-primary text-primary-foreground hover:bg-primary/90',
-        // Pulse ring when there are active alerts and panel is closed
-        hasAlerts && !isOpen && 'ring-4 ring-primary/30 animate-pulse',
+        'text-white shadow-lg',
+        hasAlerts && !isOpen && 'ring-4 ring-emerald-300 animate-pulse',
       )}
-      style={{ zIndex: Z.aiFab }}
+      style={{
+        zIndex: Z.aiFab,
+        backgroundColor: '#10b981',
+        boxShadow: '0 10px 15px -3px rgba(16, 185, 129, 0.4)',
+      }}
     >
       {isOpen ? (
         <X className="w-6 h-6" />

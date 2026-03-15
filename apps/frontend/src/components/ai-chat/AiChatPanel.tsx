@@ -129,15 +129,15 @@ export function AiChatPanel({ isOpen, onClose, city }: AiChatPanelProps) {
       >
         {/* Header */}
         <div
-          className="flex items-center gap-3 px-4 py-3 border-b rounded-t-2xl flex-shrink-0"
-          style={{ background: 'linear-gradient(to right, #7c3aed, #4f46e5)' }}
+          className="flex items-center gap-3 px-4 py-3 border-b rounded-t-2xl md:rounded-t-2xl flex-shrink-0"
+          style={{ background: 'linear-gradient(to right, #10b981, #059669)' }}
         >
           <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
             <Bot className="w-4 h-4 text-white" />
           </div>
           <div className="flex-1 min-w-0">
             <h2 className="text-sm font-bold text-white leading-none">FloodSafe AI</h2>
-            <p className="text-[10px] text-white/70 mt-0.5">{city} — flood intelligence</p>
+            <p className="text-[10px] text-white/70 mt-0.5">{city.charAt(0).toUpperCase() + city.slice(1)} — flood intelligence</p>
           </div>
           <button
             onClick={onClose}
@@ -197,11 +197,12 @@ export function AiChatPanel({ isOpen, onClose, city }: AiChatPanelProps) {
             aria-label="Send message"
             className={cn(
               'w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0',
-              'bg-primary text-primary-foreground',
-              'hover:bg-primary/90 active:bg-primary/80',
+              'text-white',
+              'hover:opacity-90 active:opacity-80',
               'disabled:opacity-50 disabled:cursor-not-allowed',
               'transition-colors',
             )}
+            style={{ backgroundColor: '#10b981' }}
           >
             {isPending ? (
               <Loader2 className="w-4 h-4 animate-spin" />

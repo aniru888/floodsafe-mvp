@@ -23,7 +23,7 @@ export function QuickActions({ onSelect }: QuickActionsProps) {
         <button
           key={text}
           onClick={() => onSelect(text)}
-          className="flex-shrink-0 text-xs px-3 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 active:bg-primary/20 transition-colors whitespace-nowrap"
+          className="flex-shrink-0 text-xs px-3 py-1.5 rounded-full border border-emerald-300 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 active:bg-emerald-200 transition-colors whitespace-nowrap"
         >
           {text}
         </button>
